@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" fill="none">
+  <rect x="60" y="48" width="400" height="220" rx="12" fill="#F5F8FB" stroke="#E2E8EF" stroke-width="1.5" />
+  <rect x="88" y="80" width="200" height="10" rx="5" fill="#E2E8EF" />
+  <rect x="88" y="104" width="160" height="10" rx="5" fill="#E2E8EF" />
+  <rect x="88" y="128" width="180" height="10" rx="5" fill="#E2E8EF" />
+  <rect x="88" y="152" width="140" height="10" rx="5" fill="#E2E8EF" />
+  <rect x="88" y="176" width="170" height="10" rx="5" fill="#E2E8EF" />
+
+  <rect x="320" y="80" width="108" height="132" rx="8" fill="#fff" stroke="#D4DCE6" stroke-width="1.5" />
+  <text x="374" y="110" text-anchor="middle" fill="#024385" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700">HPO</text>
+  <rect x="336" y="124" width="76" height="22" rx="11" fill="#E8F6FF" stroke="#B8D9F0" stroke-width="1" />
+  <text x="374" y="139" text-anchor="middle" fill="#5FD7CB" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="600">HP:0001250</text>
+  <rect x="336" y="156" width="76" height="22" rx="11" fill="#E8F6FF" stroke="#B8D9F0" stroke-width="1" />
+  <text x="374" y="171" text-anchor="middle" fill="#5FD7CB" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="600">HP:0001263</text>
+  <rect x="336" y="188" width="76" height="22" rx="11" fill="#E8F6FF" stroke="#B8D9F0" stroke-width="1" />
+  <text x="374" y="203" text-anchor="middle" fill="#5FD7CB" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="600">HP:0002360</text>
+
+  <path d="M300 146 L320 146" stroke="#5FD7CB" stroke-width="2" stroke-linecap="round" />
+  <polygon points="320,146 312,142 312,150" fill="#5FD7CB" />
+
+  <rect x="148" y="300" width="224" height="36" rx="18" fill="#024385" />
+  <text x="260" y="323" text-anchor="middle" fill="#fff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="600">Structured phenotype output</text>
+</svg>

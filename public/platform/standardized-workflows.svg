@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" fill="none">
+  <rect x="80" y="64" width="360" height="56" rx="8" fill="#024385" />
+  <text x="120" y="98" fill="#fff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="600">Intake</text>
+  <circle cx="400" cy="92" r="14" fill="#5FD7CB" />
+  <text x="400" y="97" text-anchor="middle" fill="#024385" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700">1</text>
+
+  <line x1="260" y1="120" x2="260" y2="148" stroke="#D4DCE6" stroke-width="1.5" />
+
+  <rect x="80" y="148" width="360" height="56" rx="8" fill="#F5F8FB" stroke="#D4DCE6" stroke-width="1.5" />
+  <text x="120" y="182" fill="#024385" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="600">Assessment</text>
+  <circle cx="400" cy="176" r="14" fill="#E8F6FF" stroke="#7EB8E8" stroke-width="1.5" />
+  <text x="400" y="181" text-anchor="middle" fill="#024385" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700">2</text>
+
+  <line x1="260" y1="204" x2="260" y2="232" stroke="#D4DCE6" stroke-width="1.5" />
+
+  <rect x="80" y="232" width="360" height="56" rx="8" fill="#F5F8FB" stroke="#D4DCE6" stroke-width="1.5" />
+  <text x="120" y="266" fill="#024385" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="600">Diagnosis</text>
+  <circle cx="400" cy="260" r="14" fill="#E8F6FF" stroke="#7EB8E8" stroke-width="1.5" />
+  <text x="400" y="265" text-anchor="middle" fill="#024385" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700">3</text>
+
+  <line x1="260" y1="288" x2="260" y2="316" stroke="#D4DCE6" stroke-width="1.5" />
+
+  <rect x="80" y="316" width="360" height="56" rx="8" fill="#F5F8FB" stroke="#D4DCE6" stroke-width="1.5" />
+  <text x="120" y="350" fill="#024385" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="600">Follow-up</text>
+  <circle cx="400" cy="344" r="14" fill="#E8F6FF" stroke="#7EB8E8" stroke-width="1.5" />
+  <text x="400" y="349" text-anchor="middle" fill="#024385" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700">4</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" fill="none">
+  <rect width="480" height="320" rx="16" fill="#EEF3F8" />
+  <text x="32" y="44" fill="#7EB8E8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="0.14em">PATIENT TIMELINE</text>
+
+  <line x1="56" y1="72" x2="56" y2="276" stroke="#D4DCE6" stroke-width="1.5" />
+
+  <!-- Jan 2024 -->
+  <circle cx="56" cy="88" r="6" fill="#fff" stroke="#C5D0DC" stroke-width="1.5" />
+  <text x="80" y="84" fill="#8B8F97" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="600">Jan 2024</text>
+  <text x="80" y="102" fill="#6E6E73" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Initial Referral</text>
+
+  <!-- Mar 2024 -->
+  <circle cx="56" cy="138" r="6" fill="#fff" stroke="#C5D0DC" stroke-width="1.5" />
+  <text x="80" y="134" fill="#8B8F97" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="600">Mar 2024</text>
+  <text x="80" y="152" fill="#6E6E73" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Genomic Workup Ordered</text>
+
+  <!-- Jun 2024 - active -->
+  <circle cx="56" cy="188" r="8" fill="#5FD7CB" stroke="#5FD7CB" stroke-width="2" />
+  <circle cx="56" cy="188" r="4" fill="#fff" />
+  <text x="80" y="182" fill="#024385" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700">Jun 2024</text>
+  <text x="80" y="200" fill="#111111" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="600">Diagnosis Confirmed</text>
+  <rect x="360" y="172" width="72" height="22" rx="11" fill="#E8F6FF" stroke="#B8D9F0" stroke-width="1" />
+  <text x="396" y="187" text-anchor="middle" fill="#5FD7CB" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="700" letter-spacing="0.08em">ACTIVE</text>
+
+  <!-- Sep 2024 -->
+  <circle cx="56" cy="238" r="6" fill="#fff" stroke="#C5D0DC" stroke-width="1.5" />
+  <text x="80" y="234" fill="#8B8F97" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="600">Sep 2024</text>
+  <text x="80" y="252" fill="#6E6E73" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Follow-up Review</text>
+
+  <!-- Jan 2025 -->
+  <circle cx="56" cy="276" r="6" fill="#fff" stroke="#C5D0DC" stroke-width="1.5" />
+  <text x="80" y="272" fill="#8B8F97" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="600">Jan 2025</text>
+  <text x="80" y="290" fill="#6E6E73" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">Treatment Update</text>
+</svg>

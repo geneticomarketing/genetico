@@ -1,0 +1,288 @@
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
+
+import { EASE } from "@/components/motion/reveal";
+
+type Feature = {
+  id: string;
+  number: string;
+  tabTitle: string;
+  category: string;
+  subheading: string;
+  title: string;
+  description: string;
+  bullets: string[];
+  illustration: string;
+};
+
+const FEATURES: Feature[] = [
+  {
+    id: "pedigree",
+    number: "01",
+    tabTitle: "Pedigree Editor",
+    category: "GENETICS",
+    subheading: "Map inheritance patterns without manual diagramming",
+    title: "Pedigree Editor",
+    description:
+      "Create detailed family trees with an intuitive interface designed for clinical use. Easily map relationships, inheritance patterns, and patient history across generations.",
+    bullets: [
+      "Drag-and-drop relationship builder",
+      "Inheritance pattern visualization",
+      "Direct integration with patient records",
+    ],
+    illustration: "/thing.png",
+  },
+  {
+    id: "hpo",
+    number: "02",
+    tabTitle: "Automated HPO Extraction",
+    category: "PHENOTYPING",
+    subheading: "Extract phenotype terms from clinical notes automatically",
+    title: "Automated HPO Extraction",
+    description:
+      "Convert free-text clinical notes into standardized Human Phenotype Ontology terms, enabling consistent phenotyping across consultations and institutions.",
+    bullets: [
+      "NLP-powered term extraction",
+      "HPO code mapping and validation",
+      "Structured phenotype records for analysis",
+    ],
+    illustration: "/platform/hpo-extraction.svg",
+  },
+  {
+    id: "ocr",
+    number: "03",
+    tabTitle: "OCR & Report Digitization",
+    category: "DIGITIZATION",
+    subheading: "Transform physical reports into searchable digital data",
+    title: "OCR & Report Digitization",
+    description:
+      "Digitize paper-based clinical reports and lab results with high-accuracy OCR, automatically extracting structured data fields into patient records.",
+    bullets: [
+      "High-accuracy medical document OCR",
+      "Automated data field extraction",
+      "Integration with patient health records",
+    ],
+    illustration: "/platform/ocr-digitization.svg",
+  },
+  {
+    id: "workflows",
+    number: "04",
+    tabTitle: "Standardized Workflows",
+    category: "WORKFLOWS",
+    subheading: "Structured pathways for consistent clinical care",
+    title: "Standardized Workflows",
+    description:
+      "Deploy configurable clinical care pathways that guide clinicians through standardized steps, reducing variability and ensuring complete data capture.",
+    bullets: [
+      "Configurable clinical care pathways",
+      "Role-based task assignment",
+      "End-to-end audit trails",
+    ],
+    illustration: "/platform/standardized-workflows.svg",
+  },
+];
+
+function FeatureIllustration({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="relative flex h-full min-h-[320px] w-full items-center justify-center sm:min-h-[380px]">
+      <Image
+        src={src}
+        alt={alt}
+        width={520}
+        height={400}
+        unoptimized
+        className="h-auto w-full max-w-[520px] object-contain"
+      />
+    </div>
+  );
+}
+
+export function PlatformFeatures() {
+  const [active, setActive] = useState(0);
+  const reduce = useReducedMotion();
+  const switchTransition = reduce ? { duration: 0 } : { duration: 0.45, ease: EASE };
+
+  return (
+    <section
+      id="platform-features"
+      className="bg-white px-6 py-20 text-black sm:px-10 sm:py-24 lg:py-28"
+    >
+      <div className="mx-auto w-full max-w-7xl">
+        {/* Header */}
+        <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16">
+          <div>
+            <div className="flex items-center gap-3">
+              <p className="t-eyebrow text-[0.7rem] tracking-[0.32em] text-[#7a8fa8]">
+                The Platform
+              </p>
+              <span aria-hidden className="bg-accent h-0.5 w-10 sm:w-14" />
+            </div>
+            <h2 className="t-heading mt-5 max-w-none text-black">
+              How IndiGeneUs.AI Reduces Clinical Effort
+            </h2>
+          </div>
+          <p className="text-ink-muted max-w-md text-[15px] leading-relaxed sm:text-base lg:justify-self-end lg:pb-1">
+            Designed to reduce manual effort across key clinical tasks, enabling faster and more
+            structured workflows.
+          </p>
+        </div>
+
+        {/* Tab bar */}
+        <div className="border-line mt-14 border-y">
+          <div className="flex flex-col lg:flex-row lg:divide-x lg:divide-[#e2e5e9]">
+            {FEATURES.map((feature, index) => {
+              const isActive = index === active;
+              return (
+                <button
+                  key={feature.id}
+                  type="button"
+                  onClick={() => setActive(index)}
+                  aria-pressed={isActive}
+                  className={`relative flex flex-1 flex-col items-start px-4 py-5 text-left transition-colors sm:px-6 sm:py-6 ${
+                    index < FEATURES.length - 1 ? "border-line border-b lg:border-b-0" : ""
+                  } ${isActive ? "bg-white" : "bg-white hover:bg-[#fafbfc]"}`}
+                >
+                  {isActive && (
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-0 top-0 h-[3px] bg-[linear-gradient(90deg,#5fd7cb_0%,#024385_100%)]"
+                    />
+                  )}
+                  <span
+                    className={`text-[13px] font-semibold tracking-wide ${
+                      isActive ? "text-brand" : "text-[#b8c4d4]"
+                    }`}
+                  >
+                    {feature.number}
+                  </span>
+                  <span
+                    className={`mt-1.5 text-[15px] leading-snug sm:text-base ${
+                      isActive ? "font-medium text-black" : "text-[#b8c4d4]"
+                    }`}
+                    style={
+                      isActive
+                        ? {
+                            fontFamily: "var(--font-display)",
+                            fontVariationSettings: '"SERF" 100',
+                          }
+                        : undefined
+                    }
+                  >
+                    {feature.tabTitle}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Feature detail */}
+        <div className="mt-12 grid gap-12 lg:mt-16 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+          <div className="relative min-h-[420px]">
+            {FEATURES.map((feature, index) => {
+              const isActive = index === active;
+              return (
+                <motion.div
+                  key={feature.id}
+                  aria-hidden={!isActive}
+                  className="absolute inset-0 flex flex-col"
+                  initial={false}
+                  animate={{
+                    opacity: isActive ? 1 : 0,
+                    y: isActive ? 0 : 16,
+                  }}
+                  transition={switchTransition}
+                  style={{
+                    pointerEvents: isActive ? "auto" : "none",
+                    zIndex: isActive ? 1 : 0,
+                  }}
+                >
+                  <span className="text-accent inline-flex w-fit items-center gap-2 rounded-full bg-[#e8f4fc] px-3 py-1.5 text-[11px] font-semibold tracking-[0.14em] uppercase">
+                    <span aria-hidden className="bg-accent size-1.5 rounded-full" />
+                    {feature.category}
+                  </span>
+
+                  <p className="text-ink-faint mt-5 text-[11px] font-semibold tracking-[0.18em] uppercase">
+                    {feature.subheading}
+                  </p>
+
+                  <h3
+                    className="t-card-title mt-4 max-w-none text-black"
+                    style={{ fontVariationSettings: '"SERF" 100' }}
+                  >
+                    {feature.title}
+                  </h3>
+
+                  <p className="text-ink-muted mt-5 max-w-lg text-[15px] leading-relaxed sm:text-base">
+                    {feature.description}
+                  </p>
+
+                  <ul className="mt-8 space-y-3.5">
+                    {feature.bullets.map((bullet) => (
+                      <li
+                        key={bullet}
+                        className="text-ink-muted flex items-start gap-3 text-[15px] leading-relaxed"
+                      >
+                        <span
+                          aria-hidden
+                          className="bg-accent mt-2 size-1.5 shrink-0 rounded-full"
+                        />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-auto flex items-center gap-2.5 pt-10">
+                    {FEATURES.map((_, dotIndex) => {
+                      const isDotActive = dotIndex === active;
+                      return (
+                        <button
+                          key={dotIndex}
+                          type="button"
+                          onClick={() => setActive(dotIndex)}
+                          aria-label={`Go to feature ${dotIndex + 1}`}
+                          aria-current={isDotActive}
+                          className={`throbbing-bg h-1.5 rounded-full transition-all duration-300 ${
+                            isDotActive ? "bg-accent w-8" : "w-1.5 bg-[#d4dce6] hover:bg-[#b8c4d4]"
+                          }`}
+                        />
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <div className="relative min-h-[320px] sm:min-h-[380px]">
+            {FEATURES.map((feature, index) => {
+              const isActive = index === active;
+              return (
+                <motion.div
+                  key={feature.id}
+                  aria-hidden={!isActive}
+                  className="absolute inset-0"
+                  initial={false}
+                  animate={{
+                    opacity: isActive ? 1 : 0,
+                    y: isActive ? 0 : 16,
+                  }}
+                  transition={switchTransition}
+                  style={{
+                    pointerEvents: isActive ? "auto" : "none",
+                    zIndex: isActive ? 1 : 0,
+                  }}
+                >
+                  <FeatureIllustration src={feature.illustration} alt={feature.title} />
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

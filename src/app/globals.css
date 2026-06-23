@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+/* Display/heading face from the Figma — "Season VF-Trial", a serif variable font.
+   Drop the file at public/fonts/season-vf.woff2 (a .ttf/.otf also works if you
+   update the url + format). Until then, headings fall back to a serif stack. */
+@font-face {
+  font-family: "Season VF";
+  src: url("/fonts/season-vf.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  /* Brand palette — sourced from Figma "Genetico internal design file" */
+  --color-brand: #024385;
+  --color-navy: #00101f;
+  --color-tint: #ddeeff;
+  --color-accent: #5fd7cb;
+  --color-paper: #e8e6e6;
+  --color-danger: #b01616;
+  --color-success: #2b7623;
+
+  /* Neutral palette for light sections (cards, borders, muted text) */
+  --color-surface: #f5f7fa;
+  --color-line: #e2e5e9;
+  --color-ink-muted: #6e6e73;
+  --color-ink-faint: #8b8f97;
+
+  /* Season VF is the site-wide face (per Figma). Albert Sans is the graceful
+     fallback that renders until the Season file is dropped at public/fonts/. */
+  --font-sans: "Season VF", var(--font-albert-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Season VF", ui-serif, Georgia, Cambria, "Times New Roman", serif;
+}
+
+:root {
+  --background: #00101f;
+  --foreground: #ffffff;
+  --linear-gradient-top: linear-gradient(
+    0deg,
+    var(--color-brand),
+    var(--color-navy),
+    var(--color-accent)
+  );
+}
+
+html {
+  /* scroll-behavior: smooth; */
+}
+/*  */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  /* Season VF: SERF 0 = sans for body copy (headings opt into the serif end below). */
+  font-variation-settings: "SERF" 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Continuous logo marquee used in the Customers & Advisors strip */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ── Typography scale ──────────────────────────────────────────────────────
+   Reusable heading styles so font, size, tracking, line-height and max-width
+   live in one place and stay consistent across every section. Sizes are fluid
+   (clamp) so they scale smoothly without per-breakpoint overrides. Colour and
+   alignment stay on the element (they differ between light/dark sections). */
+
+.mainFont {
+  font-family: var(--font-serif);
+}
+.secondaryFont {
+  font-family: var(--font-sans);
+}
+
+/*  */
+@layer components {
+  .t-display {
+    font-family: var(--font-display);
+    font-variation-settings: "SERF" 100;
+    font-weight: 500;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    max-width: 52rem;
+  }
+  /*  */
+  .t-heading {
+    font-family: var(--font-display);
+    font-variation-settings: "SERF" 100;
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    max-width: 53rem;
+  }
+
+  .t-card-title {
+    font-family: var(--font-display);
+    font-variation-settings: "SERF" 100;
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+  }
+
+  .t-eyebrow {
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.8125rem;
+  }
+}
+
+.throbbing-bg {
+  background: var(--linear-gradient-top);
+  background-size: 200% 200%;
+  -webkit-animation: textGradientTop 5s ease infinite;
+  -moz-animation: textGradientTop 5s ease infinite;
+  animation: textGradientTop 5s ease infinite;
+}
+.throbbing-bg2 {
+  background: linear-gradient(0deg, var(--color-brand), var(--color-accent));
+  background-size: 200% 200%;
+  -webkit-animation: textGradientTop 5s ease infinite;
+  -moz-animation: textGradientTop 5s ease infinite;
+  animation: textGradientTop 5s ease infinite;
+}
+/*  */
+.throbbing-bgBW {
+  background: linear-gradient(150deg, #ffffff20, #ffffff30, #ffffff10);
+  background-size: 200% 200%;
+  -webkit-animation: textGradientTop 5s ease infinite;
+  -moz-animation: textGradientTop 5s ease infinite;
+  animation: textGradientTop 5s ease infinite;
+}
+
+@keyframes textGradientTop {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 00%;
+  }
+}
+
+.blurig {
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.64);
+}
+/*  */
+
+.rotate {
+  animation: rotate 30s infinite linear;
+}
+@keyframes rotate {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
