@@ -15,7 +15,7 @@ type NavLink = {
 const NAV_LINKS: NavLink[] = [
   { label: "About", href: "/about-us", isDark: true },
   { label: "Platform", href: "/platform", isDark: false },
-  { label: "Solutions", href: "/solutions", isDark: false },
+  { label: "Solutions", href: "COMING_SOON_PATH", isDark: false },
   { label: "Public Health", href: COMING_SOON_PATH, isDark: false },
   { label: "Resources", href: "/resources", isDark: false },
 ];
@@ -73,7 +73,7 @@ export function Navbar() {
         </a>
 
         {/* Desktop links */}
-        <ul className="hidden items-center gap-7 lg:flex">
+        <ul className="--lg:flex hidden items-center gap-7">
           {NAV_LINKS.map((link) => {
             const active = false;
             return (
