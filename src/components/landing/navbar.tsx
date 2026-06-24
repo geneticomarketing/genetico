@@ -13,11 +13,11 @@ type NavLink = {
 };
 
 const NAV_LINKS: NavLink[] = [
-  { label: "About", href: COMING_SOON_PATH, isDark: true },
-  { label: "Platform", href: COMING_SOON_PATH, isDark: false },
-  { label: "Solutions", href: COMING_SOON_PATH, isDark: false },
+  { label: "About", href: "/about-us", isDark: true },
+  { label: "Platform", href: "/platform", isDark: false },
+  { label: "Solutions", href: "/solutions", isDark: false },
   { label: "Public Health", href: COMING_SOON_PATH, isDark: false },
-  { label: "Resources", href: COMING_SOON_PATH, isDark: false },
+  { label: "Resources", href: "/resources", isDark: false },
 ];
 
 function navLinkClass(active: boolean, isDark: boolean) {
@@ -42,7 +42,7 @@ export function Navbar() {
 
   const path = usePathname();
 
-  const isDark = path.startsWith("/about-us");
+  const isDark = path.startsWith("/about-us") || path.startsWith("/solutions");
 
   const solid = scrolled || open;
 
@@ -73,7 +73,7 @@ export function Navbar() {
         </a>
 
         {/* Desktop links */}
-        <ul className="--lg:flex hidden items-center gap-7">
+        <ul className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((link) => {
             const active = false;
             return (
