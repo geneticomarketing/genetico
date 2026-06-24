@@ -10,6 +10,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import Link from "next/link";
+import { CALENDLY_URL } from "@/lib/contact";
 
 export default function PlatformPage() {
   const pageRef = useRef(null);
@@ -63,7 +64,7 @@ export default function PlatformPage() {
               Take the stress out of UI design with ready-to-use content.
             </p>
             <Link
-              href="https://calendly.com/genetico"
+              href={CALENDLY_URL}
               className="bg-brand mt-8 inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b] sm:mt-10"
             >
               Book a Demo

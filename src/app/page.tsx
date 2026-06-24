@@ -1,17 +1,12 @@
 "use client";
 import { motion, useScroll, useTransform } from "motion/react";
-import { Navbar } from "@/components/landing/navbar";
 import { Hero } from "@/components/landing/hero";
 import { SystemBreaks } from "@/components/landing/system-breaks";
 import { FoundationalPlatform } from "@/components/landing/foundational-platform";
 import { EcosystemProblems } from "@/components/landing/ecosystem-problems";
 import { PartnersSecurity } from "@/components/landing/partners-security";
-import { NewsUpdates } from "@/components/landing/news-updates";
-import { GetInTouch } from "@/components/landing/get-in-touch";
-import { Footer } from "@/components/landing/footer";
-import LS from "@/components/LS";
+import { HomeCta } from "@/components/landing/home-cta";
 import { useRef } from "react";
-
 export default function Home() {
   const pageRef = useRef(null);
 
@@ -41,8 +36,7 @@ export default function Home() {
           <SystemBreaks />
           <EcosystemProblems />
           <PartnersSecurity />
-          <NewsUpdates />
-          <GetInTouch />
+          <HomeCta />
         </div>
       </main>
     </>

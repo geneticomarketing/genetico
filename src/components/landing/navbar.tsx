@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { COMING_SOON_PATH } from "@/lib/routes";
+import { CALENDLY_URL } from "@/lib/contact";
 
 type NavLink = {
   label: string;
@@ -15,7 +16,7 @@ type NavLink = {
 const NAV_LINKS: NavLink[] = [
   { label: "About", href: "/about-us", isDark: true },
   { label: "Platform", href: "/platform", isDark: false },
-  { label: "Solutions", href: "COMING_SOON_PATH", isDark: false },
+  { label: "Solutions", href: "/solutions", isDark: false },
   { label: "Public Health", href: COMING_SOON_PATH, isDark: false },
   { label: "Resources", href: "/resources", isDark: false },
 ];
@@ -57,7 +58,7 @@ export function Navbar() {
       className={`fixed inset-x-0 top-0 z-999999999999999 transition duration-300 ${headerClass}`}
     >
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 sm:px-8">
-        <a href="/" className="flex items-center" onClick={() => setOpen(false)}>
+        <a href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <Image
             src="/logo-small.svg"
             alt="Genetico"
@@ -65,9 +66,11 @@ export function Navbar() {
             height={39}
             priority
             unoptimized
-            className="h-8 w-auto sm:h-9"
+            className={`h-8 w-auto sm:h-9 ${isDark ? "" : "brightness-0 invert"}`}
           />
-          <div className={`font-bold opacity-70 ${isDark ? "text-brand" : "text-accent"}`}>
+          <div
+            className={`font-bold ${isDark ? "text-brand" : "text-white"}`}
+          >
             GENETICO
           </div>
         </a>
@@ -91,7 +94,7 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <a
-          href={COMING_SOON_PATH}
+          href={CALENDLY_URL}
           className={`hidden rounded-lg border px-5 py-2 text-sm font-medium transition-colors lg:inline-flex ${
             isDark
               ? "bg-brand hover:bg-brand/90 border-black/20 text-white"
@@ -137,7 +140,7 @@ export function Navbar() {
             })}
             <li className="py-3">
               <a
-                href={COMING_SOON_PATH}
+                href={CALENDLY_URL}
                 onClick={() => setOpen(false)}
                 className={`inline-flex rounded-full border px-5 py-2 text-sm font-medium ${
                   isDark

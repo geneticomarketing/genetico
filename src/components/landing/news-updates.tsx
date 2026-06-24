@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
 import { EASE, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { FEATURED_VIDEO_URL } from "@/lib/contact";
 import { COMING_SOON_PATH } from "@/lib/routes";
 
 type Article = {
@@ -17,13 +18,10 @@ type Article = {
 };
 
 const FEATURED: Article = {
-  tag: "News",
-  title: "How AIIMS Delhi reduced rare disease diagnosis time from 3 weeks to 4 days",
-  excerpt:
-    "An inside look at the first year of Genetico's deployment at India's premier rare disease center — the workflow changes, the outcomes, and what other centers can learn.",
-  author: "Genetico Team",
-  date: "May 2025",
-  readTime: "6 mins read",
+  tag: "Featured",
+  title: "Genetico — Rare Disease Intelligence Platform",
+  excerpt: "Watch our featured overview of how Genetico is building the digital backbone for rare and genetic disease care.",
+  href: FEATURED_VIDEO_URL,
   image: "/images/news-aiims.jpg",
 };
 
@@ -86,7 +84,12 @@ export function NewsUpdates() {
           stagger={0.15}
         >
           <StaggerItem>
-            <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.08] bg-white p-4 shadow-[0_4px_24px_rgba(0,0,0,0.05)]">
+            <a
+              href={FEATURED.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.08] bg-white p-4 shadow-[0_4px_24px_rgba(0,0,0,0.05)] transition-shadow hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)]"
+            >
               <StaggerGroup className="flex h-full flex-col" stagger={0.08} delayChildren={0.05}>
                 <StaggerItem>
                   <div
@@ -100,30 +103,36 @@ export function NewsUpdates() {
                       <Tag>{FEATURED.tag}</Tag>
                     </StaggerItem>
                     <StaggerItem>
-                      <h3 className="text-xl leading-snug font-semibold text-black sm:text-2xl">
+                      <h3 className="text-xl leading-snug font-semibold text-black group-hover:text-brand sm:text-2xl">
                         {FEATURED.title}
                       </h3>
                     </StaggerItem>
                     <StaggerItem>
                       <p className="text-sm leading-relaxed text-black/55">{FEATURED.excerpt}</p>
                     </StaggerItem>
-                    <StaggerItem>
-                      <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-3 text-[13px] text-black/45">
-                        <span>{FEATURED.author}</span>
-                        <span aria-hidden className="text-black/20">
-                          |
-                        </span>
-                        <span>{FEATURED.date}</span>
-                        <span aria-hidden className="text-black/20">
-                          |
-                        </span>
-                        <span>{FEATURED.readTime}</span>
-                      </div>
-                    </StaggerItem>
+                    {FEATURED.readTime && (
+                      <StaggerItem>
+                        <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-3 text-[13px] text-black/45">
+                          {FEATURED.author && <span>{FEATURED.author}</span>}
+                          {FEATURED.author && FEATURED.date && (
+                            <span aria-hidden className="text-black/20">
+                              |
+                            </span>
+                          )}
+                          {FEATURED.date && <span>{FEATURED.date}</span>}
+                          {(FEATURED.author || FEATURED.date) && FEATURED.readTime && (
+                            <span aria-hidden className="text-black/20">
+                              |
+                            </span>
+                          )}
+                          <span>{FEATURED.readTime}</span>
+                        </div>
+                      </StaggerItem>
+                    )}
                   </StaggerGroup>
                 </StaggerItem>
               </StaggerGroup>
-            </article>
+            </a>
           </StaggerItem>
 
           <StaggerItem className="hidden self-stretch lg:block">

@@ -9,18 +9,36 @@ import { Reveal } from "@/components/motion/reveal";
 // Each segment is split into words so they can light up one-by-one on scroll.
 const PARAGRAPHS: { text: string; hl?: boolean }[][] = [
   [
-    { text: "Genetico is an" },
-    { text: "AI-powered clinical genetics platform", hl: true },
-    { text: "built to address the complexity of rare disease care. It acts as the" },
-    { text: "missing digital infrastructure", hl: true },
-    { text: "that connects clinical workflows, patient data, and decision-making systems." },
+    { text: "Genetico is building the" },
+    { text: "Digital Backbone", hl: true },
+    { text: "for the" },
+    { text: "Rare and Genetic Disease Ecosystem", hl: true },
+    { text: "." },
   ],
   [
-    { text: "By structuring fragmented data and enabling" },
-    { text: "longitudinal patient tracking", hl: true },
     {
-      text: ", Genetico supports clinicians, institutions, and public health systems in delivering more informed, efficient, and scalable care.",
+      text: "For over seven years, we have worked alongside clinicians, institutions, government programs, researchers, and ecosystem stakeholders to address one of healthcare's most complex challenges: the lack of",
     },
+    { text: "structured, connected, and actionable rare disease data", hl: true },
+    { text: "." },
+  ],
+  [
+    { text: "Our" },
+    { text: "AI-enabled platform", hl: true },
+    {
+      text: "combines clinical workflows, registries, decision-support tools, analytics, and research infrastructure into a",
+    },
+    { text: "unified ecosystem", hl: true },
+    { text: "designed specifically for rare and genetic diseases." },
+  ],
+  [
+    { text: "By transforming fragmented information into" },
+    { text: "meaningful intelligence", hl: true },
+    {
+      text: ", Genetico helps improve patient care, accelerate research, strengthen public health initiatives, and support",
+    },
+    { text: "data-driven decision making", hl: true },
+    { text: "across the ecosystem." },
   ],
 ];
 

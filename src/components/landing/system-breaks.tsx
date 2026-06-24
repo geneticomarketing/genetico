@@ -12,38 +12,38 @@ const MODULES = [
   {
     icon: "module-clinicians",
     title: "Clinicians",
-    desc: "Data Capture Problem — clinical data captured manually across paper, reports, and registries.",
+    desc: "Managing complex genetic cases with fragmented records, extensive documentation, and limited clinical support.",
     problem:
-      "Clinical data is captured manually across multiple formats such as paper records, reports, and registries. There is no standardized digital workflow, leading to incomplete and inconsistent data.",
+      "Managing complex genetic cases with fragmented records, extensive documentation, and limited clinical support.",
     solution:
-      "IndiGeneUs.AI enables structured, standardized clinical workflows and simplifies detailed data capture across consultations.",
+      "AI-assisted workflows, structured clinical data capture, and integrated decision support designed specifically for rare disease care.",
   },
   {
     icon: "module-clinicians",
-    title: "Missing Digital Layer",
-    desc: "No Data for Research — no unified system to capture and organize rare disease data.",
+    title: "Government & Public Health",
+    desc: "Limited visibility into patient journeys, outcomes, disease burden, and program performance.",
     problem:
-      "There is no unified system to capture and organize rare disease data, resulting in limited datasets for research and clinical insights.",
+      "Limited visibility into patient journeys, outcomes, disease burden, and program performance.",
     solution:
-      "IndiGeneUs.AI creates structured datasets from clinical workflows, enabling meaningful data generation for research and analysis.",
+      "National-scale registries, screening programs, patient tracking, and real-time analytics for data-driven decision making.",
   },
   {
     icon: "module-clinicians",
-    title: "Government",
-    desc: "No Early Detection Framework for identifying cases at the population level.",
+    title: "Research & Biotech",
+    desc: "Difficulty generating high-quality, longitudinal datasets for research and innovation.",
     problem:
-      "Lack of structured data and screening systems prevents early identification of rare disease cases at the population level.",
+      "Difficulty generating high-quality, longitudinal datasets for research and innovation.",
     solution:
-      "AI-based screening and triaging algorithms can be deployed across primary care systems to enable early detection and referral pathways.",
+      "Research-ready structured data, advanced analytics, cohort identification, and real-world evidence generation.",
   },
   {
     icon: "module-clinicians",
-    title: "Pharma",
-    desc: "Execution Challenges reaching relevant patient populations without infrastructure.",
+    title: "Centres of Excellence",
+    desc: "Complex workflows, multidisciplinary care coordination, and increasing patient volumes.",
     problem:
-      "Pharma organizations require clinical partners and infrastructure to execute diagnosis programs and reach relevant patient populations.",
+      "Complex workflows, multidisciplinary care coordination, and increasing patient volumes.",
     solution:
-      "Genetico enables partnerships through deployable triaging systems, structured datasets, and program execution frameworks.",
+      "Unified workflows, centralized data management, AI-assisted documentation, and operational insights.",
   },
 ];
 
@@ -93,13 +93,13 @@ export function SystemBreaks() {
       <StaggerGroup className="mx-auto w-full max-w-7xl">
         <StaggerItem>
           <h2 className="t-heading mx-auto text-center text-black capitalize">
-            Reality of Rare Disease Care Where the System Breaks healthcare system
+            One Ecosystem. Multiple Challenges. Shared Impact.
           </h2>
         </StaggerItem>
         <StaggerItem>
           <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-lg">
-            Rare disease care is complex, fragmented, and largely unstructured across every level of
-            the healthcare system.
+            Purpose-built solutions that help clinicians, institutions, researchers, and public
+            health programs overcome the unique challenges of rare and genetic diseases.
           </p>
         </StaggerItem>
 

@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { CalendarCheck, Mail, Phone } from "lucide-react";
+import { CalendarCheck, Mail } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { CALENDLY_URL, CONTACT_EMAIL, CONTACT_MAILTO } from "@/lib/contact";
 
 const ROLES = [
   {
@@ -29,14 +30,13 @@ const ROLES = [
 ];
 
 const CONTACTS = [
-  { label: "Email", value: "hello@genetico.in", href: "mailto:hello@genetico.in", Icon: Mail },
+  { label: "Email", value: CONTACT_EMAIL, href: CONTACT_MAILTO, Icon: Mail },
   {
     label: "Book a meeting",
-    value: "calendly.com/genetico",
-    href: "https://calendly.com/genetico",
+    value: "calendly.com/priyanshu-vats-genetico",
+    href: CALENDLY_URL,
     Icon: CalendarCheck,
   },
-  { label: "Phone", value: "+91 11 45678900", href: "tel:+911145678900", Icon: Phone },
 ] as const;
 
 const INPUT_CLASS =

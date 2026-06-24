@@ -13,27 +13,24 @@ import { useRef } from "react";
 import { EASE, Reveal } from "@/components/motion/reveal";
 
 const PARTNERS = [
-  { name: "AIIMS Delhi", logo: "aiims" },
-  { name: "CDFD", logo: "cdfc" },
-  { name: "Gangaram Hospital", logo: "gangaram" },
-  { name: "Purple Gene Clinic", logo: "purplegene" },
-  { name: "Birac", logo: "birac-7e83b4" },
-  { name: "BGCI", logo: "bgci" },
-  { name: "JKEDI", logo: "jkedi" },
+  { name: "AIIMS Delhi", logo: "/logos/customers/AIIMS Delhi.png" },
+  { name: "CDFD", logo: "/logos/customers/CDFC.png" },
+  { name: "Gangaram Hospital", logo: "/logos/customers/Gangaram Hospital.png" },
+  { name: "Purple Gene Clinic", logo: "/logos/customers/Purple Gene Clinic.png" },
+  { name: "Birac", logo: "/logos/customers/Birac.png" },
+  { name: "BGCI", logo: "/logos/customers/BGCI.png" },
+  { name: "JKEDI", logo: "/logos/customers/JKEDI.png" },
 ];
 
 const FEATURES = [
-  "End-to-end encryption for data in transit and at rest",
-  "Role-based access control ensuring restricted and secure usage",
-  "Tamper-proof audit logs for every data interaction",
-  "Secure cloud and on-premise deployment environments",
-  "Compliance with global healthcare data standards",
-];
-
-const CERTS = [
-  { year: "2025", label: "HIPAA Certified" },
-  { year: "2026", label: "HIPAA Certified" },
-  { year: "2027", label: "HIPAA Certified" },
+  "Your institution retains full ownership and control of its data.",
+  "Access is restricted based on user roles and responsibilities.",
+  "Every action is securely logged for complete traceability.",
+  "Data is protected through encryption in transit and at rest.",
+  "Hosted on enterprise-grade infrastructure with continuous monitoring.",
+  "Security and privacy are built into every workflow.",
+  "Institutions define how and when data can be shared.",
+  "Purpose-built to securely manage sensitive clinical and genetic information.",
 ];
 
 const featureItemVariants: Variants = {
@@ -44,10 +41,7 @@ const featureItemVariants: Variants = {
 function PartnerCard({ name, logo }: { name: string; logo: string }) {
   return (
     <div className="flex w-40 shrink-0 flex-col items-center gap-3">
-      <span
-        className="h-20 w-full bg-contain bg-center bg-no-repeat"
-        style={{ backgroundImage: `url('/partners/${logo}.png')` }}
-      />
+      <img src={logo} alt={name} className="h-20 w-full object-contain object-center" />
       <span className="text-center text-xs leading-tight font-light text-black/60">{name}</span>
     </div>
   );
@@ -180,10 +174,10 @@ export function PartnersSecurity() {
       <section className="bg-white px-6 py-24 sm:px-10 sm:py-28">
         <Reveal className="mx-auto w-full max-w-7xl">
           <div className="flex flex-col items-center gap-4 text-center">
-            <h2 className="t-heading text-black">Customers & Advisors</h2>
+            <h2 className="t-heading text-black">Trusted Across the Rare Disease Ecosystem</h2>
             <p className="max-w-xl text-base text-black/55 sm:text-lg sm:leading-normal">
-              Genetico works with leading clinical institutions, Centres of Excellence, and
-              ecosystem partners across rare disease care, research, and public health initiatives.
+              Working alongside leading institutions, Centres of Excellence, government initiatives,
+              research programs, and ecosystem partners.
             </p>
           </div>
 
@@ -200,30 +194,14 @@ export function PartnersSecurity() {
           <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
             {/* Heading */}
             <div className="flex flex-col gap-3">
-              <h2 className="t-heading text-white">Data Security &amp; Compliance</h2>
+              <h2 className="t-heading text-white">Data Security</h2>
               <p className="text-base text-white/70 sm:text-lg">
-                Built for Clinical-Grade Security
+                Built for clinical-grade security and privacy
               </p>
             </div>
 
             {/* Numbered assurances */}
             <SecurityFeatures />
-          </div>
-
-          {/* HIPAA certification cards */}
-          <div className="mt-16 flex flex-col divide-y divide-white/15 rounded-sm border border-white/15 bg-white/5 backdrop-blur-sm sm:flex-row sm:divide-x sm:divide-y-0">
-            {CERTS.map((cert) => (
-              <div key={cert.year} className="flex flex-1 items-center gap-4 px-8 py-6">
-                <span
-                  className="h-16 w-12 shrink-0 bg-contain bg-center bg-no-repeat"
-                  style={{ backgroundImage: "url('/partners/hipaa-badge-2f576b.png')" }}
-                />
-                <div className="flex flex-col gap-1">
-                  <span className="text-sm text-white/55">{cert.year}</span>
-                  <span className="text-lg text-white">{cert.label}</span>
-                </div>
-              </div>
-            ))}
           </div>
         </Reveal>
       </section>

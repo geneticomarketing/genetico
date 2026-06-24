@@ -12,6 +12,8 @@ type Slide = {
   id: string;
   title: string;
   body: string;
+  cta: string;
+  href: string;
   image: string;
 };
 
@@ -46,27 +48,35 @@ const POINTER_ENTRANCE_DELAY = BG_DURATION + (4 - 0.1) * STAGGER_S;
 
 const SLIDES: Slide[] = [
   {
-    id: "indigeneus",
-    title: "The Missing Digital Layer in Rare Disease Care",
-    body: "IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format, and enables AI-assisted clinical decision-making for rare and genetic disorders.",
+    id: "clinicians",
+    title: "Designed for the Complexity of Rare and Genetic Disease Care",
+    body: "Streamline clinical workflows, capture structured patient data, leverage AI-assisted documentation, and access decision-support tools built specifically for genetics and rare diseases.",
+    cta: "Explore Clinical Solutions",
+    href: "/solutions",
     image: "/hero/hero-bg.webp",
   },
   {
-    id: "nprd",
-    title: "Enabling National Rare Disease Programs",
-    body: "Supporting government bodies with structured data, real-time reporting, and digital infrastructure to enable early detection, policy planning, and effective implementation of national rare disease programs.",
+    id: "public-health",
+    title: "Powering Rare Disease Programs at Population Scale",
+    body: "Enable registries, screening initiatives, patient tracking, analytics, and outcome monitoring through a unified digital infrastructure designed for national and state-level programs.",
+    cta: "Explore Public Health Solutions",
+    href: COMING_SOON_PATH,
     image: "/hero/hero-dna.jpg",
   },
   {
-    id: "pharma",
-    title: "Enabling Access to Diagnosis and Therapies",
-    body: "Partnering with pharma and biotech organizations to design and deploy diagnosis programs, triaging systems, and disease-specific solutions to improve patient access to therapies.",
+    id: "research",
+    title: "Transforming Clinical Data into Research-Ready Intelligence",
+    body: "Generate structured datasets, accelerate cohort identification, support longitudinal studies, and unlock AI-driven insights from real-world rare disease data.",
+    cta: "Explore Research Solutions",
+    href: "/solutions",
     image: "/hero/hero-molecule.jpg",
   },
   {
-    id: "collaborations",
-    title: "Building the Rare Disease Ecosystem",
-    body: "Collaborating across clinical research, awareness programs, registries, capacity building, and market research to strengthen the rare disease ecosystem.",
+    id: "ecosystem",
+    title: "Connecting Stakeholders Across the Rare Disease Ecosystem",
+    body: "Bring together clinicians, institutions, researchers, patient groups, and policymakers through a shared platform that enables collaboration, visibility, and evidence-based decision making.",
+    cta: "Discover the Ecosystem",
+    href: "/about-us",
     image: "/hero/hero-antibody.jpg",
   },
 ];
@@ -173,10 +183,10 @@ export function Hero() {
                 </motion.h1>
                 <motion.div {...heroEntrance(2, reduce)} className="mt-6 sm:mt-8">
                   <a
-                    href={COMING_SOON_PATH}
+                    href={slide.href}
                     className="--backdrop-blur-md inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/50 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/15"
                   >
-                    Explore services
+                    {slide.cta}
                     <ArrowRight size={16} strokeWidth={2} />
                   </a>
                 </motion.div>

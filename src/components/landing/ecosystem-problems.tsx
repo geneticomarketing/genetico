@@ -15,47 +15,48 @@ type Gap = {
 const GAPS: Gap[] = [
   {
     tab: "Diagnosis & Access",
-    problemTitle: "High Diagnostic Burden",
+    problemTitle: "Years of Diagnostic Delay",
     problemDesc:
-      "Time to diagnosis is significantly high. Access to therapies is limited. Epidemiological data is scarce. Most rare diseases are chronic, and a large percentage affect children with low survival rates.",
-    solutionTitle: "Structured, Earlier Diagnosis",
+      "Patients often experience years of diagnostic delays due to limited awareness, fragmented information, and complex referral pathways.",
+    solutionTitle: "Structured, Connected Pathways",
     solutionDesc:
-      "Accessible screening and structured diagnostic pathways shorten the road to an accurate, earlier diagnosis and improved access to therapies.",
+      "Structured patient journeys, AI-assisted clinical workflows, and connected referral pathways that support earlier diagnosis and access to care.",
   },
   {
     tab: "Primary Care Gap",
-    problemTitle: "Delayed Identification",
-    problemDesc: "Lack of screening and triaging at the primary care level delays identification.",
-    solutionTitle: "AI-Based Triaging",
+    problemTitle: "Missed Early Signs",
+    problemDesc:
+      "Early signs are frequently missed due to limited rare disease awareness and lack of standardized screening approaches.",
+    solutionTitle: "Digital Screening Workflows",
     solutionDesc:
-      "AI-based triaging systems integrated into primary healthcare infrastructure enable early identification and referral.",
+      "Digital screening workflows, referral support systems, and analytics that help identify patients sooner.",
   },
   {
     tab: "Secondary Care Gap",
-    problemTitle: "Limited Referral Frameworks",
+    problemTitle: "Fragmented Clinical Information",
     problemDesc:
-      "District hospitals lack tools and frameworks to identify and refer rare disease patients effectively.",
-    solutionTitle: "Integrated Referral Models",
+      "Clinical information becomes fragmented as patients move across providers, departments, and institutions.",
+    solutionTitle: "Longitudinal Patient Records",
     solutionDesc:
-      "Structured referral systems, awareness programs, and hub-and-spoke models enable seamless patient movement to specialized centers.",
+      "Longitudinal patient records and connected care workflows that ensure critical information remains accessible throughout the care journey.",
   },
   {
     tab: "Tertiary Care Overload",
-    problemTitle: "Operational Overload",
+    problemTitle: "Specialist Centre Overload",
     problemDesc:
-      "Centres of Excellence face operational overload due to fragmented workflows and redundant data entry across multiple systems.",
-    solutionTitle: "Centralized Workflows",
+      "Specialist centres face increasing patient volumes, extensive documentation requirements, and complex genetic workflows.",
+    solutionTitle: "AI-Assisted Rare Disease Workflows",
     solutionDesc:
-      "IndiGeneUs.AI centralizes workflows, eliminates redundancy, and enables structured care delivery across the patient lifecycle.",
+      "AI-assisted documentation, clinical decision support, structured data capture, and workflow automation designed for rare disease programs.",
   },
   {
     tab: "Policy & Planning Gap",
-    problemTitle: "No Evidence Base for Policy",
+    problemTitle: "Limited Real-World Data",
     problemDesc:
-      "Lack of reliable data prevents effective policy-making and long-term care planning.",
-    solutionTitle: "Data-Driven Planning",
+      "Limited access to reliable, real-world data makes it difficult to assess disease burden, monitor outcomes, and plan interventions effectively.",
+    solutionTitle: "Population-Level Evidence",
     solutionDesc:
-      "Structured data and analytics from IndiGeneUs.AI support government decision-making and program design.",
+      "Population-level registries, program analytics, and evidence generation that support informed policy and resource allocation decisions.",
   },
 ];
 
@@ -115,8 +116,12 @@ export function EcosystemProblems() {
         <div className="mx-auto max-w-[1280px]">
           {/* Heading */}
           <h2 className="t-heading mx-auto text-center text-black">
-            Ecosystem challenges within services <br /> and the healthcare system
+            The Rare Disease Journey Remains Fragmented
           </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-lg">
+            From diagnosis to long-term care and policy planning, critical gaps continue to impact
+            patients, clinicians, and healthcare systems.
+          </p>
 
           {/* Tabs */}
           <div className="mt-16 flex justify-center">
@@ -138,7 +143,7 @@ export function EcosystemProblems() {
           </div>
 
           {/* Cards */}
-          <div className="bg-surface mt-14 grid gap-8 rounded-r-lg lg:grid-cols-2">
+          <div className="bg-surface mt-14 grid gap-8 rounded-r-lg max-md:px-4 lg:grid-cols-2">
             {/* PROBLEM */}
             <div className={`${PANEL_MIN_H} px-0 py-14 sm:px-14`}>
               {GAPS.map((gap, index) => (
