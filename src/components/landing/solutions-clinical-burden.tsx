@@ -14,6 +14,7 @@ type BurdenCard = {
   badgeBg: string;
   badgeText: string;
   title: string;
+  collapsedTitle: readonly [string, string];
   description: string;
 };
 
@@ -27,6 +28,7 @@ const CARDS: BurdenCard[] = [
     badgeBg: "#fce8ea",
     badgeText: "#b01616",
     title: "Patient arrives with unstructured notes",
+    collapsedTitle: ["Patient arrives with", "unstructured notes"],
     description:
       "Clinician manually reads, interprets, and re-types data from paper records. No standard format exists across referrals.",
   },
@@ -39,6 +41,7 @@ const CARDS: BurdenCard[] = [
     badgeBg: "#e8f4fc",
     badgeText: "#024385",
     title: "Phenotype data captured inconsistently",
+    collapsedTitle: ["Phenotype data captured", "inconsistently"],
     description:
       "Free-text notes must be translated into standardized HPO terms by hand. Terminology varies across clinicians and visits.",
   },
@@ -51,6 +54,7 @@ const CARDS: BurdenCard[] = [
     badgeBg: "#e6faf8",
     badgeText: "#0a6b62",
     title: "Differential diagnosis built from memory",
+    collapsedTitle: ["Differential diagnosis built", "from memory"],
     description:
       "Clinicians cross-reference literature, databases, and prior cases manually — a slow, error-prone process with no structured support.",
   },
@@ -63,12 +67,13 @@ const CARDS: BurdenCard[] = [
     badgeBg: "#eef2f7",
     badgeText: "#4a5f78",
     title: "Registry data entered twice",
+    collapsedTitle: ["Registry data", "entered twice"],
     description:
       "Patient data is re-keyed into national registries and reporting systems. Duplicate effort with no single source of truth.",
   },
 ];
 
-const AUTOPLAY_MS = 300000;
+const AUTOPLAY_MS = 4000;
 const COLLAPSED_W = 240;
 const CARD_GAP = 12;
 const MIN_EXPANDED_W = 320;
@@ -200,28 +205,32 @@ function BurdenCardItem({
               </motion.div>
             )}
           </AnimatePresence>
-          <AnimatePresence>
-            {!isActive && (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                }}
-                exit={{
-                  opacity: 0,
-                }}
-                className="relative z-10 flex h-full flex-col justify-center"
-              >
-                <h3 className="text-center text-sm text-white">{card.title}</h3>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </>
 
         {/* <ActiveCardContent card={card} /> */}
       </div>
+
+      <AnimatePresence>
+        {!isActive && (
+          <motion.div
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            className="absolute inset-0 z-10 flex items-center justify-center px-4"
+          >
+            <h3 className="max-w-full text-center text-sm leading-snug text-white">
+              <span className="block">{card.collapsedTitle[0]}</span>
+              <span className="block">{card.collapsedTitle[1]}</span>
+            </h3>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* <div
         className={`absolute inset-0 bg-[#f4f6f9] ${

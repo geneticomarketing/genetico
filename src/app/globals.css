@@ -75,6 +75,34 @@ body {
   animation-play-state: paused;
 }
 
+@keyframes ph-tier-dash-march {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.ph-tier-dash {
+  animation: ph-tier-dash-march 12s linear infinite;
+}
+
+@keyframes ph-hub-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.88;
+    transform: scale(1.06);
+  }
+}
+
+.ph-hub-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ph-hub-pulse 2.8s ease-in-out infinite;
+}
+
 /* ── Typography scale ──────────────────────────────────────────────────────
    Reusable heading styles so font, size, tracking, line-height and max-width
    live in one place and stay consistent across every section. Sizes are fluid

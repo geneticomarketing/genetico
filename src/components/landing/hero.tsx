@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { EASE } from "@/components/motion/reveal";
-import { COMING_SOON_PATH } from "@/lib/routes";
+import { PUBLIC_HEALTH_PATH } from "@/lib/routes";
 
 type Slide = {
   id: string;
@@ -60,7 +60,7 @@ const SLIDES: Slide[] = [
     title: "Powering Rare Disease Programs at Population Scale",
     body: "Enable registries, screening initiatives, patient tracking, analytics, and outcome monitoring through a unified digital infrastructure designed for national and state-level programs.",
     cta: "Explore Public Health Solutions",
-    href: COMING_SOON_PATH,
+    href: PUBLIC_HEALTH_PATH,
     image: "/hero/hero-dna.jpg",
   },
   {

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { COMING_SOON_PATH } from "@/lib/routes";
+import { PUBLIC_HEALTH_PATH } from "@/lib/routes";
 import { CALENDLY_URL } from "@/lib/contact";
 
 type NavLink = {
@@ -17,7 +17,7 @@ const NAV_LINKS: NavLink[] = [
   { label: "About", href: "/about-us", isDark: true },
   { label: "Platform", href: "/platform", isDark: false },
   { label: "Solutions", href: "/solutions", isDark: false },
-  { label: "Public Health", href: COMING_SOON_PATH, isDark: false },
+  { label: "Public Health", href: PUBLIC_HEALTH_PATH, isDark: false },
   { label: "Resources", href: "/resources", isDark: false },
 ];
 

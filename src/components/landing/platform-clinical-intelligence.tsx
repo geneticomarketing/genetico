@@ -1,5 +1,8 @@
 "use client";
 
+import { useRef, type ReactElement } from "react";
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+
 import { Reveal } from "@/components/motion/reveal";
 
 type Capability = {
@@ -7,6 +10,11 @@ type Capability = {
   title: string;
   description: string;
   badge: string;
+};
+
+type WidgetProps = {
+  progress: MotionValue<number>;
+  reduce: boolean | null;
 };
 
 const CAPABILITIES: Capability[] = [
@@ -47,6 +55,18 @@ const EVIDENCE_ROWS = [
   { label: "OMIM Classification", value: "Confirmed pathogenic" },
 ];
 
+function barRange(index: number, count: number): [number, number] {
+  const span = 0.72 / count;
+  const start = 0.08 + index * span * 0.55;
+  return [start, start + span];
+}
+
+function rowRange(index: number, count: number): [number, number] {
+  const span = 0.75 / count;
+  const start = 0.1 + index * span;
+  return [start, start + span * 0.85];
+}
+
 function CapabilityBadge({ label }: { label: string }) {
   return (
     <span className="border-accent/45 text-accent inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold tracking-[0.14em] uppercase">
@@ -56,62 +76,136 @@ function CapabilityBadge({ label }: { label: string }) {
   );
 }
 
-function RapidScoreWidget() {
+function RapidScoreBar({
+  item,
+  index,
+  progress,
+  reduce,
+}: {
+  item: (typeof RAPID_SCORES)[number];
+  index: number;
+  progress: MotionValue<number>;
+  reduce: boolean | null;
+}) {
+  const [from, to] = barRange(index, RAPID_SCORES.length);
+  const width = useTransform(progress, [from, to], ["0%", `${item.value}%`]);
+  const labelOpacity = useTransform(
+    progress,
+    [from, to],
+    reduce ? [1, 1] : [0.45, item.active ? 1 : 0.65],
+  );
+  const widthStyle = reduce ? { width: `${item.value}%` } : { width };
+
+  return (
+    <li>
+      <div className="flex items-baseline justify-between gap-4">
+        <motion.div className="min-w-0" style={reduce ? undefined : { opacity: labelOpacity }}>
+          <p className={`truncate text-[15px] ${item.active ? "text-white" : "text-white/55"}`}>
+            {item.name}
+          </p>
+          <p className="mt-0.5 text-[12px] text-white/30">{item.code}</p>
+        </motion.div>
+        <motion.span
+          className={`shrink-0 text-[15px] font-medium tabular-nums ${
+            item.active ? "text-accent" : "text-white/35"
+          }`}
+          style={reduce ? undefined : { opacity: labelOpacity }}
+        >
+          {item.value}%
+        </motion.span>
+      </div>
+      <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-white/10">
+        <motion.div
+          className={`h-full rounded-full ${
+            item.active ? "bg-accent shadow-[0_0_16px_rgba(95,215,203,0.55)]" : "bg-accent/25"
+          }`}
+          style={widthStyle}
+        />
+      </div>
+    </li>
+  );
+}
+
+function RapidScoreWidget({ progress, reduce }: WidgetProps) {
   return (
     <div className="w-full max-w-md justify-self-end lg:max-w-lg">
       <ul className="space-y-5">
-        {RAPID_SCORES.map((item) => (
-          <li key={item.name}>
-            <div className="flex items-baseline justify-between gap-4">
-              <div className="min-w-0">
-                <p
-                  className={`truncate text-[15px] ${item.active ? "text-white" : "text-white/55"}`}
-                >
-                  {item.name}
-                </p>
-                <p className="mt-0.5 text-[12px] text-white/30">{item.code}</p>
-              </div>
-              <span
-                className={`shrink-0 text-[15px] font-medium tabular-nums ${
-                  item.active ? "text-accent" : "text-white/35"
-                }`}
-              >
-                {item.value}%
-              </span>
-            </div>
-            <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-white/10">
-              <div
-                className={`h-full rounded-full transition-all ${
-                  item.active ? "bg-accent shadow-[0_0_16px_rgba(95,215,203,0.55)]" : "bg-accent/25"
-                }`}
-                style={{ width: `${item.value}%` }}
-              />
-            </div>
-          </li>
+        {RAPID_SCORES.map((item, index) => (
+          <RapidScoreBar
+            key={item.name}
+            item={item}
+            index={index}
+            progress={progress}
+            reduce={reduce}
+          />
         ))}
       </ul>
     </div>
   );
 }
 
-function EvidenceWidget() {
+function EvidenceRow({
+  row,
+  index,
+  progress,
+  reduce,
+}: {
+  row: (typeof EVIDENCE_ROWS)[number];
+  index: number;
+  progress: MotionValue<number>;
+  reduce: boolean | null;
+}) {
+  const [from, to] = rowRange(index, EVIDENCE_ROWS.length);
+  const rowOpacity = useTransform(progress, [from, to], reduce ? [1, 1] : [0.35, 1]);
+  const lineScale = useTransform(progress, [from, to], reduce ? [1, 1] : [0, 1]);
+  const dotScale = useTransform(progress, [from, to + 0.04], reduce ? [1, 1] : [0, 1]);
+
   return (
-    <div className="w-full max-w-md divide-y divide-white/10 justify-self-end rounded-xl border border-white/10 bg-white/3 lg:max-w-lg">
-      {EVIDENCE_ROWS.map((row) => (
-        <div key={row.label} className="flex items-center gap-3 px-5 py-4">
-          <span aria-hidden className="bg-accent size-1.5 shrink-0 rounded-full" />
-          <span className="flex-1 text-[14px] text-white/45">{row.label}</span>
-          <span className="text-right font-mono text-[13px] text-white/80">{row.value}</span>
-        </div>
+    <div>
+      {index > 0 && (
+        <motion.div
+          aria-hidden
+          className="h-px origin-left bg-white/10"
+          style={reduce ? undefined : { scaleX: lineScale }}
+        />
+      )}
+      <motion.div
+        className="flex items-center gap-3 px-5 py-4"
+        style={reduce ? undefined : { opacity: rowOpacity }}
+      >
+        <motion.span
+          aria-hidden
+          className="bg-accent size-1.5 shrink-0 rounded-full"
+          style={reduce ? undefined : { scale: dotScale }}
+        />
+        <span className="flex-1 text-[14px] text-white/45">{row.label}</span>
+        <span className="text-right font-mono text-[13px] text-white/80">{row.value}</span>
+      </motion.div>
+    </div>
+  );
+}
+
+function EvidenceWidget({ progress, reduce }: WidgetProps) {
+  return (
+    <div className="w-full max-w-md justify-self-end overflow-hidden rounded-xl border border-white/10 bg-white/3 lg:max-w-lg">
+      {EVIDENCE_ROWS.map((row, index) => (
+        <EvidenceRow key={row.label} row={row} index={index} progress={progress} reduce={reduce} />
       ))}
     </div>
   );
 }
 
-function ComparisonWidget() {
+function ComparisonWidget({ progress, reduce }: WidgetProps) {
+  const divider1 = useTransform(progress, [0.12, 0.55], reduce ? [1, 1] : [0, 1]);
+  const divider2 = useTransform(progress, [0.2, 0.62], reduce ? [1, 1] : [0, 1]);
+  const panelOpacity = useTransform(progress, [0.08, 0.45], reduce ? [1, 1] : [0.4, 1]);
+
   return (
-    <div className="w-full max-w-md justify-self-end overflow-hidden rounded-xl border border-white/10 bg-white/3 lg:max-w-lg">
-      <div className="grid grid-cols-3 divide-x divide-white/10">
+    <motion.div
+      className="w-full max-w-md justify-self-end overflow-hidden rounded-xl border border-white/10 bg-white/3 lg:max-w-lg"
+      style={reduce ? undefined : { opacity: panelOpacity }}
+    >
+      <div className="relative grid grid-cols-3">
         <div className="px-4 py-5 sm:px-5">
           <p className="text-[10px] font-semibold tracking-[0.16em] text-white/30 uppercase">
             Disease A
@@ -125,7 +219,12 @@ function ComparisonWidget() {
           </ul>
         </div>
 
-        <div className="bg-[#0a2744]/80 px-4 py-5 sm:px-5">
+        <div className="relative bg-[#0a2744]/80 px-4 py-5 sm:px-5">
+          <motion.div
+            aria-hidden
+            className="absolute top-0 bottom-0 left-0 w-px origin-top bg-white/10"
+            style={reduce ? undefined : { scaleY: divider1 }}
+          />
           <p className="text-accent text-[10px] font-semibold tracking-[0.16em] uppercase">
             Shared
           </p>
@@ -134,6 +233,11 @@ function ComparisonWidget() {
             <li>Dev. delay</li>
             <li>EEG changes</li>
           </ul>
+          <motion.div
+            aria-hidden
+            className="absolute top-0 right-0 bottom-0 w-px origin-top bg-white/10"
+            style={reduce ? undefined : { scaleY: divider2 }}
+          />
         </div>
 
         <div className="px-4 py-5 sm:px-5">
@@ -149,11 +253,59 @@ function ComparisonWidget() {
           </ul>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-const WIDGETS = [RapidScoreWidget, EvidenceWidget, ComparisonWidget];
+const WIDGETS: ((props: WidgetProps) => ReactElement)[] = [
+  RapidScoreWidget,
+  EvidenceWidget,
+  ComparisonWidget,
+];
+
+function CapabilityRow({ capability, index }: { capability: Capability; index: number }) {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const Widget = WIDGETS[index];
+
+  const { scrollYProgress } = useScroll({
+    target: rowRef,
+    offset: ["start center", "end center"],
+  });
+
+  return (
+    <div
+      ref={rowRef}
+      className={`grid gap-10 py-12 sm:py-14 lg:grid-cols-2 lg:items-center lg:gap-16 ${
+        index < CAPABILITIES.length - 1 ? "border-b border-white/10" : ""
+      }`}
+    >
+      <Reveal delay={index * 0.04}>
+        <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-4 sm:gap-x-8">
+          <span className="text-[13px] font-semibold tracking-wide text-white/30">
+            {capability.number}
+          </span>
+          <div>
+            <h3
+              className="t-card-title max-w-none text-white"
+              style={{ fontVariationSettings: '"SERF" 100' }}
+            >
+              {capability.title}
+            </h3>
+            <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-white/45 sm:text-base">
+              {capability.description}
+            </p>
+            <div className="mt-6">
+              <CapabilityBadge label={capability.badge} />
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      <Widget progress={scrollYProgress} reduce={reduce} />
+    </div>
+  );
+}
 
 export function PlatformClinicalIntelligence() {
   return (
@@ -189,40 +341,9 @@ export function PlatformClinicalIntelligence() {
         </Reveal>
 
         <div className="mt-16 border-t border-white/10 sm:mt-20">
-          {CAPABILITIES.map((capability, index) => {
-            const Widget = WIDGETS[index];
-            return (
-              <Reveal key={capability.number} delay={index * 0.06}>
-                <div
-                  className={`grid gap-10 py-12 sm:py-14 lg:grid-cols-2 lg:items-center lg:gap-16 ${
-                    index < CAPABILITIES.length - 1 ? "border-b border-white/10" : ""
-                  }`}
-                >
-                  <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-4 sm:gap-x-8">
-                    <span className="text-[13px] font-semibold tracking-wide text-white/30">
-                      {capability.number}
-                    </span>
-                    <div>
-                      <h3
-                        className="t-card-title max-w-none text-white"
-                        style={{ fontVariationSettings: '"SERF" 100' }}
-                      >
-                        {capability.title}
-                      </h3>
-                      <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-white/45 sm:text-base">
-                        {capability.description}
-                      </p>
-                      <div className="mt-6">
-                        <CapabilityBadge label={capability.badge} />
-                      </div>
-                    </div>
-                  </div>
-
-                  <Widget />
-                </div>
-              </Reveal>
-            );
-          })}
+          {CAPABILITIES.map((capability, index) => (
+            <CapabilityRow key={capability.number} capability={capability} index={index} />
+          ))}
         </div>
       </div>
     </section>

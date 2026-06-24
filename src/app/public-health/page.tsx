@@ -1,16 +1,16 @@
 "use client";
 
-import { SolutionsClinicalBurden } from "@/components/landing/solutions-clinical-burden";
-import { SolutionsHero } from "@/components/landing/solutions-hero";
-import { SolutionsHowItWorks } from "@/components/landing/solutions-how-it-works";
-import { SolutionsMeasurableOutcomes } from "@/components/landing/solutions-measurable-outcomes";
-import { Reveal } from "@/components/motion/reveal";
-import { CALENDLY_URL } from "@/lib/contact";
+import { PublicHealthHero } from "@/components/landing/public-health-hero";
+import { PublicHealthDataSecurity } from "@/components/landing/public-health-data-security";
+import { PublicHealthThreeTierModel } from "@/components/landing/public-health-three-tier-model";
+import { PublicHealthTierArchitecture } from "@/components/landing/public-health-tier-architecture";
 import { motion, useScroll, useTransform } from "motion/react";
-import Link from "next/link";
 import { useRef } from "react";
+import { Reveal } from "@/components/motion/reveal";
+import Link from "next/link";
+import { CALENDLY_URL } from "@/lib/contact";
 
-export default function Solutions() {
+export default function PublicHealthPage() {
   const pageRef = useRef(null);
 
   const { scrollYProgress: pageScroll } = useScroll({
@@ -19,10 +19,10 @@ export default function Solutions() {
   });
 
   const heroScale = useTransform(pageScroll, [0, 0.4], [1, 0.55]);
-  const heroY = useTransform(pageScroll, [0, 0.4], ["0%", "20%"]);
+  const heroY = useTransform(pageScroll, [0, 0.4], ["0%", "50%"]);
 
   return (
-    <main ref={pageRef} className="flex flex-1 flex-col bg-white">
+    <main ref={pageRef} className="flex flex-1 flex-col">
       <motion.div
         className="fixed w-full"
         style={{
@@ -30,13 +30,13 @@ export default function Solutions() {
           y: heroY,
         }}
       >
-        <SolutionsHero />
+        <PublicHealthHero />
       </motion.div>
       <div className="min-h-screen" />
-      <div className="relative z-999999999 bg-white">
-        <SolutionsClinicalBurden />
-        <SolutionsHowItWorks />
-        <SolutionsMeasurableOutcomes />
+      <div className="relative z-999999999">
+        <PublicHealthDataSecurity />
+        <PublicHealthThreeTierModel />
+        <PublicHealthTierArchitecture />
         <section
           id="get-in-touch"
           className="relative overflow-hidden bg-[#F4F6F9] px-5 py-20 sm:px-10 sm:py-24 lg:py-32"
