@@ -15,7 +15,6 @@ Production web application built with **Next.js 16** (App Router), **React 19**,
 | CI         | GitHub Actions (lint, typecheck, format, build) |
 
 ## Getting started
-
 Requires Node.js `>= 20.11` (the repo pins **22** in `.nvmrc`).
 
 ```bash
