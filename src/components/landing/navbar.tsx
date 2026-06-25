@@ -68,15 +68,11 @@ export function Navbar() {
             unoptimized
             className={`h-8 w-auto sm:h-9 ${isDark ? "" : "brightness-0 invert"}`}
           />
-          <div
-            className={`font-bold ${isDark ? "text-brand" : "text-white"}`}
-          >
-            GENETICO
-          </div>
+          <div className={`font-bold ${isDark ? "text-brand" : "text-white"}`}>GENETICO</div>
         </a>
 
         {/* Desktop links */}
-        <ul className="--lg:flex hidden items-center gap-7">
+        <ul className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((link) => {
             const active = false;
             return (
