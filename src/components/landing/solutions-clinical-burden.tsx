@@ -75,32 +75,46 @@ const CARDS: BurdenCard[] = [
 
 const AUTOPLAY_MS = 4000;
 const COLLAPSED_W = 240;
+const COLLAPSED_W_COMPACT = 100;
 const CARD_GAP = 12;
 const MIN_EXPANDED_W = 320;
 const WIDTH_MS = 520;
 
-function ActiveCardContent({ card }: { card: BurdenCard }) {
+const CARD_GRADIENT =
+  "radial-gradient(110% 85% at 78% 18%, rgba(95,215,203,0.16) 0%, transparent 52%), radial-gradient(85% 75% at 18% 82%, rgba(2,67,133,0.4) 0%, transparent 58%), linear-gradient(145deg, #024385 0%, #00101f 58%, #000810 100%)";
+
+function BurdenActiveCardPanel({
+  card,
+  showLabel = false,
+  className = "",
+}: {
+  card: BurdenCard;
+  showLabel?: boolean;
+  className?: string;
+}) {
   return (
-    <>
+    <div className={`relative overflow-hidden rounded-2xl ${className}`}>
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 rounded-2xl"
-        style={{
-          background:
-            "radial-gradient(110% 85% at 78% 18%, rgba(95,215,203,0.16) 0%, transparent 52%), radial-gradient(85% 75% at 18% 82%, rgba(2,67,133,0.4) 0%, transparent 58%), linear-gradient(145deg, #024385 0%, #00101f 58%, #000810 100%)",
-        }}
+        style={{ background: CARD_GRADIENT }}
       />
-
       <div className="relative z-10 flex h-full flex-col p-6 sm:p-8">
-        <h3 className="mt-auto max-w-md text-left text-[clamp(1.35rem,2.4vw,1.85rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white">
+        {showLabel && (
+          <span className="secondaryFont text-[0.68rem] font-medium tracking-[0.22em] text-white/45 uppercase">
+            {card.label}
+          </span>
+        )}
+        <h3
+          className={`max-w-md text-left text-[clamp(1.25rem,4vw,1.85rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white ${showLabel ? "mt-4" : "mt-auto"}`}
+        >
           {card.title}
         </h3>
-
         <p className="secondaryFont mt-4 max-w-md text-left text-sm leading-relaxed text-white/55 sm:text-[0.9375rem]">
           {card.description}
         </p>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -133,26 +147,119 @@ function CollapsedCardContent({ card }: { card: BurdenCard }) {
   );
 }
 
+function BurdenCardDots({
+  active,
+  reduce,
+  onSelect,
+}: {
+  active: number;
+  reduce: boolean | null;
+  onSelect: (index: number) => void;
+}) {
+  return (
+    <div className="mt-6 flex items-center justify-center gap-2.5 sm:mt-8">
+      {CARDS.map((card, index) => {
+        const isDotActive = index === active;
+        return (
+          <motion.button
+            key={card.id}
+            type="button"
+            onClick={() => onSelect(index)}
+            aria-label={`Go to ${card.label}`}
+            aria-current={isDotActive}
+            className="h-1.5 rounded-full"
+            initial={false}
+            animate={{
+              width: isDotActive ? 32 : 6,
+              backgroundColor: isDotActive ? "#121212" : "#d4dce6",
+            }}
+            whileHover={reduce || isDotActive ? undefined : { backgroundColor: "#b8c4d4" }}
+            transition={
+              reduce
+                ? { duration: 0 }
+                : {
+                    width: { duration: 0.4, ease: EASE },
+                    backgroundColor: { duration: 0.3, ease: EASE },
+                  }
+            }
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function BurdenMobileCarousel({
+  active,
+  reduce,
+  onSelect,
+}: {
+  active: number;
+  reduce: boolean | null;
+  onSelect: (index: number) => void;
+}) {
+  const card = CARDS[active];
+
+  return (
+    <div className="lg:hidden">
+      <div className="mb-4 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {CARDS.map((item, index) => {
+          const isActive = index === active;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => onSelect(index)}
+              aria-pressed={isActive}
+              className={`secondaryFont shrink-0 rounded-full border px-3.5 py-1.5 text-[0.65rem] font-medium tracking-[0.16em] uppercase transition-colors sm:px-4 sm:text-[0.68rem] ${
+                isActive
+                  ? "border-brand bg-brand text-white"
+                  : "border-[#d4dce6] bg-white text-[#6e6e73] hover:border-[#b8c4d4]"
+              }`}
+            >
+              {item.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={card.id}
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduce ? undefined : { opacity: 0, y: -16 }}
+          transition={{ duration: 0.35, ease: EASE }}
+        >
+          <BurdenActiveCardPanel
+            card={card}
+            showLabel
+            className="min-h-[280px] sm:min-h-[320px]"
+          />
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function BurdenCardItem({
   card,
   index,
   active,
   expandedWidth,
-  transitioning,
-  reduce,
+  collapsedWidth,
   onSelect,
 }: {
   card: BurdenCard;
   index: number;
   active: number;
   expandedWidth: number;
-  transitioning: boolean;
-  reduce: boolean | null;
+  collapsedWidth: number;
   onSelect: (index: number) => void;
 }) {
   const isActive = index === active;
-  const width = isActive ? expandedWidth : COLLAPSED_W;
-  const animateWidth = transitioning && !reduce;
+  const width = isActive ? expandedWidth : collapsedWidth;
+  const useCompactCollapsed = collapsedWidth < 160;
 
   return (
     <button
@@ -161,85 +268,59 @@ function BurdenCardItem({
       aria-pressed={isActive}
       aria-label={`${card.label}: ${card.title}`}
       style={{ width }}
-      className={`relative h-full shrink-0 cursor-pointer overflow-hidden rounded-2xl text-left transition-all duration-500 ${
-        animateWidth ? "" : ""
-      } ${!isActive ? "bg-[#f4f6f9] hover:bg-[#eef1f5]" : ""}`}
+      className={`relative h-full shrink-0 cursor-pointer overflow-hidden rounded-2xl text-left transition-[width] duration-500 ease-out ${
+        !isActive ? "bg-[#f4f6f9] hover:bg-[#eef1f5]" : ""
+      }`}
     >
       <div
         className="absolute inset-y-0 left-0"
         style={{ width: expandedWidth }}
         aria-hidden={!isActive}
       >
-        <>
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-2xl"
-            style={{
-              background:
-                "radial-gradient(110% 85% at 78% 18%, rgba(95,215,203,0.16) 0%, transparent 52%), radial-gradient(85% 75% at 18% 82%, rgba(2,67,133,0.4) 0%, transparent 58%), linear-gradient(145deg, #024385 0%, #00101f 58%, #000810 100%)",
-              // opacity: isActive ? 1 : 0.5,
-            }}
-          />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-2xl"
+          style={{ background: CARD_GRADIENT }}
+        />
 
-          <AnimatePresence>
-            {isActive && (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                }}
-                exit={{
-                  opacity: 0,
-                }}
-                className="relative z-10 flex h-full flex-col p-6 sm:p-8"
-              >
-                <h3 className="mt-auto max-w-md text-left text-[clamp(1.35rem,2.4vw,1.85rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white">
-                  {card.title}
-                </h3>
-
-                <p className="secondaryFont mt-4 max-w-md text-left text-sm leading-relaxed text-white/55 sm:text-[0.9375rem]">
-                  {card.description}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </>
-
-        {/* <ActiveCardContent card={card} /> */}
+        <AnimatePresence>
+          {isActive && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="relative z-10 flex h-full flex-col p-6 sm:p-8"
+            >
+              <h3 className="mt-auto max-w-md text-left text-[clamp(1.35rem,2.4vw,1.85rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white">
+                {card.title}
+              </h3>
+              <p className="secondaryFont mt-4 max-w-md text-left text-sm leading-relaxed text-white/55 sm:text-[0.9375rem]">
+                {card.description}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <AnimatePresence>
         {!isActive && (
           <motion.div
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            className="absolute inset-0 z-10 flex items-center justify-center px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={`absolute inset-0 z-10 ${useCompactCollapsed ? "" : "flex items-center justify-center px-4"}`}
           >
-            <h3 className="max-w-full text-center text-sm leading-snug text-white">
-              <span className="block">{card.collapsedTitle[0]}</span>
-              <span className="block">{card.collapsedTitle[1]}</span>
-            </h3>
+            {useCompactCollapsed ? (
+              <CollapsedCardContent card={card} />
+            ) : (
+              <h3 className="max-w-full text-center text-sm leading-snug text-white">
+                <span className="block">{card.collapsedTitle[0]}</span>
+                <span className="block">{card.collapsedTitle[1]}</span>
+              </h3>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* <div
-        className={`absolute inset-0 bg-[#f4f6f9] ${
-          animateWidth ? "transition-opacity duration-200 ease-out" : ""
-        } ${isActive ? "pointer-events-none opacity-0" : "opacity-100"}`}
-        aria-hidden={isActive}
-      >
-        <CollapsedCardContent card={card} />
-      </div> */}
     </button>
   );
 }
@@ -302,9 +383,13 @@ export function SolutionsClinicalBurden() {
   }, [advance]);
 
   const gapTotal = (CARDS.length - 1) * CARD_GAP;
+  const collapsedWidth = rowWidth >= 1280 ? COLLAPSED_W : COLLAPSED_W_COMPACT;
   const expandedWidth =
     rowWidth > 0
-      ? Math.max(MIN_EXPANDED_W, rowWidth - gapTotal - (CARDS.length - 1) * COLLAPSED_W)
+      ? Math.max(
+          MIN_EXPANDED_W,
+          rowWidth - gapTotal - (CARDS.length - 1) * collapsedWidth,
+        )
       : MIN_EXPANDED_W;
 
   return (
@@ -333,7 +418,12 @@ export function SolutionsClinicalBurden() {
         </Reveal>
 
         <Reveal className="mt-14 sm:mt-16" delay={0.08}>
-          <div ref={rowRef} className="flex h-[min(420px,58vw)] min-h-[320px] gap-2.5 sm:gap-3">
+          <BurdenMobileCarousel active={active} reduce={reduce} onSelect={goTo} />
+
+          <div
+            ref={rowRef}
+            className="hidden h-[min(420px,58vw)] min-h-[320px] gap-2.5 lg:flex sm:gap-3"
+          >
             {CARDS.map((card, index) => (
               <BurdenCardItem
                 key={card.id}
@@ -341,42 +431,13 @@ export function SolutionsClinicalBurden() {
                 index={index}
                 active={active}
                 expandedWidth={expandedWidth}
-                transitioning={transitioning}
-                reduce={reduce}
+                collapsedWidth={collapsedWidth}
                 onSelect={goTo}
               />
             ))}
           </div>
 
-          <div className="mt-8 flex items-center justify-center gap-2.5">
-            {CARDS.map((card, index) => {
-              const isDotActive = index === active;
-              return (
-                <motion.button
-                  key={card.id}
-                  type="button"
-                  onClick={() => goTo(index)}
-                  aria-label={`Go to ${card.label}`}
-                  aria-current={isDotActive}
-                  className="h-1.5 rounded-full"
-                  initial={false}
-                  animate={{
-                    width: isDotActive ? 32 : 6,
-                    backgroundColor: isDotActive ? "#121212" : "#d4dce6",
-                  }}
-                  whileHover={reduce || isDotActive ? undefined : { backgroundColor: "#b8c4d4" }}
-                  transition={
-                    reduce
-                      ? { duration: 0 }
-                      : {
-                          width: { duration: 0.4, ease: EASE },
-                          backgroundColor: { duration: 0.3, ease: EASE },
-                        }
-                  }
-                />
-              );
-            })}
-          </div>
+          <BurdenCardDots active={active} reduce={reduce} onSelect={goTo} />
         </Reveal>
       </div>
     </section>

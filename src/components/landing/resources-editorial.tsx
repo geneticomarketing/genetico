@@ -64,17 +64,17 @@ function EditorialRow({ item, index }: { item: EditorialItem; index: number }) {
     <li className="border-line border-b last:border-b-0">
       <a
         href={item.href}
-        className="group flex items-center gap-4 px-5 py-6 sm:gap-6 sm:px-6 sm:py-7 lg:gap-8 lg:px-8"
+        className="group flex flex-wrap items-center gap-x-3 gap-y-2.5 px-4 py-5 sm:flex-nowrap sm:gap-6 sm:px-6 sm:py-7 lg:gap-8 lg:px-8"
       >
         <span
           aria-hidden
-          className="secondaryFont w-10 shrink-0 text-[1.75rem] leading-none font-light text-[#d1d5db] sm:w-12 sm:text-[2rem]"
+          className="secondaryFont w-8 shrink-0 text-[1.5rem] leading-none font-light text-[#d1d5db] sm:w-12 sm:text-[2rem]"
         >
           {String(index + 1).padStart(2, "0")}
         </span>
 
         <span
-          className="secondaryFont flex w-24 shrink-0 items-center gap-2 text-[11px] font-semibold tracking-[0.14em] sm:w-28"
+          className="secondaryFont flex shrink-0 items-center gap-2 text-[11px] font-semibold tracking-[0.14em] sm:w-28"
           style={{ color: item.categoryColor }}
         >
           <span
@@ -85,12 +85,12 @@ function EditorialRow({ item, index }: { item: EditorialItem; index: number }) {
           {item.category}
         </span>
 
-        <span className="secondaryFont group-hover:text-brand min-w-0 flex-1 text-[15px] leading-snug font-medium text-[#121212] transition-colors sm:text-base">
-          {item.title}
+        <span className="secondaryFont order-2 ml-auto shrink-0 text-xs text-[#b8bcc4] sm:order-4 sm:ml-0 sm:text-sm">
+          {item.readTime}
         </span>
 
-        <span className="secondaryFont shrink-0 text-xs text-[#b8bcc4] sm:text-sm">
-          {item.readTime}
+        <span className="secondaryFont group-hover:text-brand order-3 min-w-0 basis-full text-[15px] leading-snug font-medium text-[#121212] transition-colors sm:basis-auto sm:flex-1 sm:text-base">
+          {item.title}
         </span>
       </a>
     </li>
@@ -103,9 +103,9 @@ export function ResourcesEditorial() {
   const hasMore = visibleCount < EDITORIAL_ITEMS.length;
 
   return (
-    <section id="editorial" className="bg-white px-6 py-16 sm:px-10 sm:py-20 lg:py-24">
+    <section id="editorial" className="bg-white px-5 py-16 sm:px-10 sm:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-7xl">
-        <Reveal className="flex items-end justify-between gap-6">
+        <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <div className="flex min-w-0 items-center gap-4">
             <span aria-hidden className="bg-brand h-10 w-1 shrink-0 rounded-full sm:h-11" />
             <h2
@@ -118,7 +118,7 @@ export function ResourcesEditorial() {
 
           <a
             href="#editorial"
-            className="text-brand inline-flex shrink-0 items-center gap-1 text-sm font-medium transition-colors hover:text-[#01356b]"
+            className="text-brand inline-flex shrink-0 items-center gap-1 self-start text-sm font-medium transition-colors hover:text-[#01356b] sm:self-auto"
           >
             Browse all
             <ArrowRight className="size-4" strokeWidth={2} />

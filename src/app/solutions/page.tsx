@@ -8,10 +8,19 @@ import { Reveal } from "@/components/motion/reveal";
 import { CALENDLY_URL } from "@/lib/contact";
 import { motion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
-import { useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 export default function Solutions() {
   const pageRef = useRef(null);
+  const [scrollFx, setScrollFx] = useState<boolean | null>(null);
+
+  useLayoutEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setScrollFx(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const { scrollYProgress: pageScroll } = useScroll({
     target: pageRef,
@@ -20,19 +29,17 @@ export default function Solutions() {
 
   const heroScale = useTransform(pageScroll, [0, 0.4], [1, 0.55]);
   const heroY = useTransform(pageScroll, [0, 0.4], ["0%", "20%"]);
+  const useFixedHero = scrollFx === true;
 
   return (
-    <main ref={pageRef} className="flex flex-1 flex-col bg-white">
+    <main ref={pageRef} className="flex flex-1 flex-col bg-white max-md:overflow-x-hidden">
       <motion.div
-        className="fixed w-full"
-        style={{
-          scale: heroScale,
-          y: heroY,
-        }}
+        className={useFixedHero ? "fixed w-full" : "relative w-full"}
+        style={useFixedHero ? { scale: heroScale, y: heroY } : undefined}
       >
         <SolutionsHero />
       </motion.div>
-      <div className="min-h-screen" />
+      {useFixedHero ? <div className="min-h-screen" aria-hidden /> : null}
       <div className="relative z-999999999 bg-white">
         <SolutionsClinicalBurden />
         <SolutionsHowItWorks />

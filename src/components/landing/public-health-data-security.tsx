@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  FileCheck,
-  Lock,
-  Server,
-  Shield,
-  type LucideIcon,
-} from "lucide-react";
+import { FileCheck, Lock, Server, Shield, type LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE, Reveal, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
@@ -52,10 +46,10 @@ function AnimatedDivider() {
     <div className="relative mt-10 h-px w-full sm:mt-12" aria-hidden>
       <div className="absolute inset-0 bg-[#e8ebf0]" />
       {reduce ? (
-        <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-accent via-brand/40 to-transparent" />
+        <div className="from-accent via-brand/40 absolute inset-y-0 left-0 w-full bg-gradient-to-r to-transparent" />
       ) : (
         <motion.div
-          className="absolute inset-y-0 left-0 w-full origin-left bg-gradient-to-r from-accent via-brand/35 to-transparent"
+          className="from-accent via-brand/35 absolute inset-y-0 left-0 w-full origin-left bg-gradient-to-r to-transparent"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true, amount: 0.4 }}
@@ -106,7 +100,7 @@ function SecurityRow({ feature }: { feature: SecurityFeature }) {
                 }
           }
         >
-          <Icon className="size-5 text-brand" strokeWidth={1.6} aria-hidden />
+          <Icon className="text-brand size-5" strokeWidth={1.6} aria-hidden />
         </motion.div>
 
         <p className="secondaryFont text-[0.62rem] font-semibold tracking-[0.22em] text-[#a3afc4] uppercase sm:col-auto">
@@ -114,7 +108,7 @@ function SecurityRow({ feature }: { feature: SecurityFeature }) {
         </p>
 
         <p
-          className="col-span-2 text-[clamp(1.05rem,1.8vw,1.35rem)] font-medium leading-snug text-[#4a5f78] sm:col-span-1"
+          className="col-span-2 text-[clamp(1.05rem,1.8vw,1.35rem)] leading-snug font-medium text-[#4a5f78] max-md:col-span-4 sm:col-span-1"
           style={{ fontVariationSettings: '"SERF" 100' }}
         >
           {feature.title}
@@ -132,8 +126,7 @@ export function PublicHealthDataSecurity() {
       id="data-security"
       className="relative overflow-hidden px-6 py-20 text-[#121212] sm:px-10 sm:py-24 lg:py-28"
       style={{
-        background:
-          "linear-gradient(155deg, #f2f7fc 0%, #f8fafc 38%, #ffffff 62%, #ffffff 100%)",
+        background: "linear-gradient(155deg, #f2f7fc 0%, #f8fafc 38%, #ffffff 62%, #ffffff 100%)",
       }}
     >
       <div
@@ -142,10 +135,13 @@ export function PublicHealthDataSecurity() {
       />
 
       <div className="relative mx-auto w-full max-w-7xl">
-        <StaggerGroup className="grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-start lg:gap-14" stagger={0.1}>
+        <StaggerGroup
+          className="grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-start lg:gap-14"
+          stagger={0.1}
+        >
           <div>
             <StaggerItem>
-              <p className="t-eyebrow secondaryFont text-[0.65rem] tracking-[0.28em] text-brand">
+              <p className="t-eyebrow secondaryFont text-brand text-[0.65rem] tracking-[0.28em]">
                 — DATA SECURITY —
               </p>
             </StaggerItem>
@@ -159,7 +155,7 @@ export function PublicHealthDataSecurity() {
           </div>
 
           <StaggerItem className="lg:pt-8">
-            <p className="secondaryFont max-w-md text-[15px] leading-relaxed text-[#8f8f8f] lg:ml-auto lg:text-right sm:text-base">
+            <p className="secondaryFont max-w-md text-[15px] leading-relaxed text-[#8f8f8f] sm:text-base lg:ml-auto lg:text-right">
               Security, compliance, and auditability baked in from day one — because national health
               data demands nothing less.
             </p>

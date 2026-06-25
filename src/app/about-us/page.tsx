@@ -21,6 +21,8 @@ export default function AboutUs() {
   const heroY = useTransform(pageScroll, [0, 0.4], ["0%", "50%"]);
 
   const reduce = useReducedMotion();
+  const heroLabels = ["Clinical Workflows", "Patient tracking", "AI Decision Support"] as const;
+
   const foundations = [
     {
       index: "01",
@@ -81,33 +83,44 @@ export default function AboutUs() {
               </div>
             </StaggerItem>
             <StaggerItem>
-              <div className="pointer-events-none relative">
-                <StaggerItem>
-                  <img src="/race.svg" className="rotate w-196" alt="" />
-                </StaggerItem>
-                {["Clinical Workflows", "Patient tracking", "AI Decision Support"].map((x, i) => {
-                  return (
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                      }}
-                      animate={{
-                        opacity: 1,
-                      }}
-                      transition={{
-                        delay: 1.8 + (i + 1) / 10,
-                      }}
-                      key={i.toString()}
+              <div className="relative mx-auto mt-10 w-full max-w-[49rem]">
+                <img src="/race.svg" className="rotate mx-auto h-auto w-full lg:w-196" alt="" />
+                {heroLabels.map((label, i) => (
+                  <motion.div
+                    key={label}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.8 + (i + 1) / 10 }}
+                    className="hidden lg:block"
+                  >
+                    <div
+                      className={`text-brand pointer-events-none absolute flex w-fit items-center justify-center gap-3 border border-zinc-400 bg-white p-3 px-2 text-sm whitespace-nowrap opacity-75 shadow-lg ${
+                        i === 0
+                          ? "top-48 left-36"
+                          : i === 1
+                            ? "top-10 left-1/2 -translate-x-1/2"
+                            : "top-48 right-0"
+                      }`}
                     >
-                      <div
-                        key={i.toString()}
-                        className={`absolute ${i === 0 ? "top-48 left-36" : i === 1 ? "top-10 left-1/2" : "top-48 right-0"} text-brand flex w-fit -translate-x-1/2 items-center justify-center gap-3 border border-zinc-400 bg-white p-3 px-2 text-sm whitespace-nowrap opacity-75 shadow-lg`}
-                      >
-                        <p>0{i + 1}</p> <div className="text-black">{x}</div>
-                      </div>
+                      <p>0{i + 1}</p>
+                      <div className="text-black">{label}</div>
+                    </div>
+                  </motion.div>
+                ))}
+                <div className="mt-5 flex flex-col items-center gap-2 sm:mt-6 lg:hidden">
+                  {heroLabels.map((label, i) => (
+                    <motion.div
+                      key={label}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 1.8 + (i + 1) / 10 }}
+                      className="text-brand flex w-fit max-w-full items-center justify-center gap-2.5 border border-zinc-400 bg-white p-2.5 px-3 text-xs opacity-75 shadow-lg sm:gap-3 sm:text-sm"
+                    >
+                      <p className="shrink-0">0{i + 1}</p>
+                      <div className="text-center text-black">{label}</div>
                     </motion.div>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
             </StaggerItem>
           </StaggerGroup>
