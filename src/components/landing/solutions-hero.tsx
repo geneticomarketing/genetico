@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE } from "@/components/motion/reveal";
+import { getSolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
 
 const STAGGER_S = 0.3;
 const ENTRANCE_DURATION = 1.5;
@@ -56,23 +57,31 @@ function HexGridBackground() {
   );
 }
 
-function HeroHeading({ reduce }: { reduce: boolean | null }) {
+function HeroHeading({
+  reduce,
+  variant,
+}: {
+  reduce: boolean | null;
+  variant: SolutionsVariant;
+}) {
+  const content = getSolutionsContent(variant).hero;
+
   return (
     <>
       <motion.h1
         {...heroEntrance(1, reduce)}
         className="t-display mx-auto text-balance text-[#121212]"
       >
-        For Centers of
+        {content.titleLine1}
         <br />
-        <span className="text-brand">Excellence</span>
+        <span className="text-brand">{content.titleHighlight}</span>
       </motion.h1>
 
       <motion.p
         {...heroEntrance(2, reduce)}
         className="secondaryFont mx-auto mt-4 max-w-xl text-sm leading-relaxed text-[#8f8f8f] md:mt-7 md:text-base"
       >
-        Genetico helps clinicians spend less time on data and more time on patients
+        {content.subtitle}
       </motion.p>
     </>
   );
@@ -167,10 +176,16 @@ function RapidScoreCard({
   );
 }
 
-function SolutionsHeroMobile({ reduce }: { reduce: boolean | null }) {
+function SolutionsHeroMobile({
+  reduce,
+  variant,
+}: {
+  reduce: boolean | null;
+  variant: SolutionsVariant;
+}) {
   return (
     <div className="relative mx-auto w-full max-w-lg px-5 pt-24 pb-12 text-center md:hidden">
-      <HeroHeading reduce={reduce} />
+      <HeroHeading reduce={reduce} variant={variant} />
 
       <motion.div {...heroBgEntrance(reduce)} className="relative mt-8 w-full">
         <Image
@@ -196,10 +211,16 @@ function SolutionsHeroMobile({ reduce }: { reduce: boolean | null }) {
   );
 }
 
-function SolutionsHeroDesktop({ reduce }: { reduce: boolean | null }) {
+function SolutionsHeroDesktop({
+  reduce,
+  variant,
+}: {
+  reduce: boolean | null;
+  variant: SolutionsVariant;
+}) {
   return (
     <div className="relative mx-auto hidden h-full min-h-0 w-full max-w-6xl flex-col px-8 pt-28 pb-6 text-center md:flex">
-      <HeroHeading reduce={reduce} />
+      <HeroHeading reduce={reduce} variant={variant} />
 
       <motion.div
         {...heroBgEntrance(reduce)}
@@ -238,7 +259,7 @@ function SolutionsHeroDesktop({ reduce }: { reduce: boolean | null }) {
   );
 }
 
-export function SolutionsHero() {
+export function SolutionsHero({ variant = "hospital" }: { variant?: SolutionsVariant }) {
   const reduce = useReducedMotion();
 
   return (
@@ -247,8 +268,8 @@ export function SolutionsHero() {
       className="relative bg-white md:h-dvh md:overflow-hidden"
     >
       <HexGridBackground />
-      <SolutionsHeroMobile reduce={reduce} />
-      <SolutionsHeroDesktop reduce={reduce} />
+      <SolutionsHeroMobile reduce={reduce} variant={variant} />
+      <SolutionsHeroDesktop reduce={reduce} variant={variant} />
     </section>
   );
 }

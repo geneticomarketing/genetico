@@ -4,6 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import { EASE, Reveal } from "@/components/motion/reveal";
+import { getSolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
 
 type BurdenCard = {
   id: string;
@@ -17,61 +18,6 @@ type BurdenCard = {
   collapsedTitle: readonly [string, string];
   description: string;
 };
-
-const CARDS: BurdenCard[] = [
-  {
-    id: "intake",
-    number: "01",
-    label: "INTAKE",
-    badge: "INTAKE",
-    badgeDot: "#c0392b",
-    badgeBg: "#fce8ea",
-    badgeText: "#b01616",
-    title: "Patient arrives with unstructured notes",
-    collapsedTitle: ["Patient arrives with", "unstructured notes"],
-    description:
-      "Clinician manually reads, interprets, and re-types data from paper records. No standard format exists across referrals.",
-  },
-  {
-    id: "phenotyping",
-    number: "02",
-    label: "PHENOTYPING",
-    badge: "PHENOTYPING",
-    badgeDot: "#024385",
-    badgeBg: "#e8f4fc",
-    badgeText: "#024385",
-    title: "Phenotype data captured inconsistently",
-    collapsedTitle: ["Phenotype data captured", "inconsistently"],
-    description:
-      "Free-text notes must be translated into standardized HPO terms by hand. Terminology varies across clinicians and visits.",
-  },
-  {
-    id: "diagnosis",
-    number: "03",
-    label: "DIAGNOSIS",
-    badge: "DIAGNOSIS",
-    badgeDot: "#5fd7cb",
-    badgeBg: "#e6faf8",
-    badgeText: "#0a6b62",
-    title: "Differential diagnosis built from memory",
-    collapsedTitle: ["Differential diagnosis built", "from memory"],
-    description:
-      "Clinicians cross-reference literature, databases, and prior cases manually — a slow, error-prone process with no structured support.",
-  },
-  {
-    id: "registry",
-    number: "04",
-    label: "REGISTRY",
-    badge: "REGISTRY",
-    badgeDot: "#7a8fa8",
-    badgeBg: "#eef2f7",
-    badgeText: "#4a5f78",
-    title: "Registry data entered twice",
-    collapsedTitle: ["Registry data", "entered twice"],
-    description:
-      "Patient data is re-keyed into national registries and reporting systems. Duplicate effort with no single source of truth.",
-  },
-];
 
 const AUTOPLAY_MS = 4000;
 const COLLAPSED_W = 240;
@@ -148,17 +94,19 @@ function CollapsedCardContent({ card }: { card: BurdenCard }) {
 }
 
 function BurdenCardDots({
+  cards,
   active,
   reduce,
   onSelect,
 }: {
+  cards: BurdenCard[];
   active: number;
   reduce: boolean | null;
   onSelect: (index: number) => void;
 }) {
   return (
     <div className="mt-6 flex items-center justify-center gap-2.5 sm:mt-8">
-      {CARDS.map((card, index) => {
+      {cards.map((card, index) => {
         const isDotActive = index === active;
         return (
           <motion.button
@@ -190,20 +138,22 @@ function BurdenCardDots({
 }
 
 function BurdenMobileCarousel({
+  cards,
   active,
   reduce,
   onSelect,
 }: {
+  cards: BurdenCard[];
   active: number;
   reduce: boolean | null;
   onSelect: (index: number) => void;
 }) {
-  const card = CARDS[active];
+  const card = cards[active];
 
   return (
     <div className="lg:hidden">
       <div className="mb-4 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {CARDS.map((item, index) => {
+        {cards.map((item, index) => {
           const isActive = index === active;
           return (
             <button
@@ -325,7 +275,9 @@ function BurdenCardItem({
   );
 }
 
-export function SolutionsClinicalBurden() {
+export function SolutionsClinicalBurden({ variant = "hospital" }: { variant?: SolutionsVariant }) {
+  const content = getSolutionsContent(variant);
+  const cards = content.clinicalBurden.cards;
   const [active, setActive] = useState(0);
   const [rowWidth, setRowWidth] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
@@ -374,21 +326,21 @@ export function SolutionsClinicalBurden() {
 
   const advance = useCallback(() => {
     setTransitioning(true);
-    setActive((i) => (i + 1) % CARDS.length);
-  }, []);
+    setActive((i) => (i + 1) % cards.length);
+  }, [cards.length]);
 
   useEffect(() => {
     const id = setInterval(advance, AUTOPLAY_MS);
     return () => clearInterval(id);
   }, [advance]);
 
-  const gapTotal = (CARDS.length - 1) * CARD_GAP;
+  const gapTotal = (cards.length - 1) * CARD_GAP;
   const collapsedWidth = rowWidth >= 1280 ? COLLAPSED_W : COLLAPSED_W_COMPACT;
   const expandedWidth =
     rowWidth > 0
       ? Math.max(
           MIN_EXPANDED_W,
-          rowWidth - gapTotal - (CARDS.length - 1) * collapsedWidth,
+          rowWidth - gapTotal - (cards.length - 1) * collapsedWidth,
         )
       : MIN_EXPANDED_W;
 
@@ -408,23 +360,27 @@ export function SolutionsClinicalBurden() {
           </div>
 
           <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">
-            The Clinical Burden
+            {content.clinicalBurden.heading}
           </h2>
 
           <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
-            Clinicians at COEs spend a disproportionate amount of time on documentation, data
-            re-entry, and manual reasoning — time that should go to patient care.
+            {content.clinicalBurden.description}
           </p>
         </Reveal>
 
         <Reveal className="mt-14 sm:mt-16" delay={0.08}>
-          <BurdenMobileCarousel active={active} reduce={reduce} onSelect={goTo} />
+          <BurdenMobileCarousel
+            cards={cards}
+            active={active}
+            reduce={reduce}
+            onSelect={goTo}
+          />
 
           <div
             ref={rowRef}
             className="hidden h-[min(420px,58vw)] min-h-[320px] gap-2.5 lg:flex sm:gap-3"
           >
-            {CARDS.map((card, index) => (
+            {cards.map((card, index) => (
               <BurdenCardItem
                 key={card.id}
                 card={card}
@@ -437,7 +393,7 @@ export function SolutionsClinicalBurden() {
             ))}
           </div>
 
-          <BurdenCardDots active={active} reduce={reduce} onSelect={goTo} />
+          <BurdenCardDots cards={cards} active={active} reduce={reduce} onSelect={goTo} />
         </Reveal>
       </div>
     </section>

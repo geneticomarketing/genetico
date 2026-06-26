@@ -13,6 +13,7 @@ import {
 } from "motion/react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { getSolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
 
 const RING_RADIUS = 54;
 const RING_STROKE = 7;
@@ -33,50 +34,11 @@ type OutcomeMetric = {
   positiveIconBg: string;
 };
 
-const METRICS: OutcomeMetric[] = [
-  {
-    id: "time",
-    maxPercent: 97,
-    icon: Clock,
-    label: "TIME SAVED",
-    ringTrack: "#fce8ea",
-    ringFill: "#c0392b",
-    accent: "#c0392b",
-    fromText: "2-3 hrs",
-    toText: "Minutes",
-    negative: "Manual re-entry & HPO searches",
-    positive: "AI-driven automated extraction",
-    positiveIconBg: "#c0392b",
-  },
-  {
-    id: "diagnosis",
-    maxPercent: 84,
-    icon: FlaskConical,
-    label: "DIAGNOSIS QUALITY",
-    ringTrack: "#e6faf8",
-    ringFill: "#2b7623",
-    accent: "#2b7623",
-    fromText: "Memory",
-    toText: "RAPID Score",
-    negative: "Inconsistent, recall-based",
-    positive: "Evidence-ranked, reproducible",
-    positiveIconBg: "#2b7623",
-  },
-  {
-    id: "data",
-    maxPercent: 100,
-    icon: Database,
-    label: "DATA AVAILABILITY",
-    ringTrack: "#eef4f9",
-    ringFill: "#024385",
-    accent: "#024385",
-    fromText: "Siloed",
-    toText: "Registry-Ready",
-    negative: "Zero research output",
-    positive: "Structured cohort dataset",
-    positiveIconBg: "#024385",
-  },
-];
+const METRIC_ICONS: Record<string, LucideIcon> = {
+  time: Clock,
+  diagnosis: FlaskConical,
+  data: Database,
+};
 
 function ProgressRing({
   metric,
@@ -285,9 +247,18 @@ function OutcomeColumn({
   );
 }
 
-export function SolutionsMeasurableOutcomes() {
+export function SolutionsMeasurableOutcomes({
+  variant = "hospital",
+}: {
+  variant?: SolutionsVariant;
+}) {
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
+  const content = getSolutionsContent(variant);
+  const metrics: OutcomeMetric[] = content.measurableOutcomes.metrics.map((metric) => ({
+    ...metric,
+    icon: METRIC_ICONS[metric.id],
+  }));
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -310,17 +281,16 @@ export function SolutionsMeasurableOutcomes() {
           </div>
 
           <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">
-            Measurable Outcomes
+            {content.measurableOutcomes.heading}
           </h2>
 
           <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
-            Concrete, quantifiable impact across the areas that matter most for Centers of
-            Excellence.
+            {content.measurableOutcomes.description}
           </p>
         </Reveal>
 
         <div className="mt-14 grid gap-12 sm:mt-20 sm:gap-14 md:grid-cols-3 md:gap-8 lg:gap-10">
-          {METRICS.map((metric, index) => (
+          {metrics.map((metric, index) => (
             <OutcomeColumn
               key={metric.id}
               metric={metric}

@@ -5,6 +5,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE, Reveal } from "@/components/motion/reveal";
+import { getSolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
 
 const FLOAT = { duration: 5, repeat: Infinity, ease: "easeInOut" as const };
 const SHIMMER = { duration: 2.2, repeat: Infinity, ease: "linear" as const };
@@ -527,7 +528,9 @@ function SolutionRow({
   );
 }
 
-export function SolutionsHowItWorks() {
+export function SolutionsHowItWorks({ variant = "hospital" }: { variant?: SolutionsVariant }) {
+  const content = getSolutionsContent(variant);
+
   return (
     <section
       id="how-it-works"
@@ -544,43 +547,42 @@ export function SolutionsHowItWorks() {
           </div>
 
           <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">
-            How Genetico Solves It
+            {content.howItWorks.heading}
           </h2>
 
           <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
-            Clinicians currently use disconnected paper forms, unstructured notes, and ad-hoc
-            reporting. Every consultation starts from scratch. No consistency across the team.
+            {content.howItWorks.description}
           </p>
         </Reveal>
 
         <div className="mt-14 sm:mt-20">
           <SolutionRow
-            number="01"
-            category="CLINICAL STANDARDIZATION"
-            title="Customizable Clinical Workflow"
-            description="Structured, guided data capture across the entire consultation — demographics, symptoms, family history, investigations. Consistent across all clinicians in the COE."
-            callout="40% reduction in consultation documentation time"
+            number={content.howItWorks.rows[0].number}
+            category={content.howItWorks.rows[0].category}
+            title={content.howItWorks.rows[0].title}
+            description={content.howItWorks.rows[0].description}
+            callout={content.howItWorks.rows[0].callout}
             dashboard={<PatientIntakeDashboard />}
           />
 
           <SolutionRow
-            number="02"
-            category="DATA CAPTURE"
-            title="OCR & Report Digitisation"
-            description="Extract structured clinical and genetic data from scanned lab reports, PDFs, and physical documents. Eliminates manual re-entry and dramatically cuts processing time."
-            callout="Eliminates time taken for manual transcription"
+            number={content.howItWorks.rows[1].number}
+            category={content.howItWorks.rows[1].category}
+            title={content.howItWorks.rows[1].title}
+            description={content.howItWorks.rows[1].description}
+            callout={content.howItWorks.rows[1].callout}
             dashboard={<DocumentImportDashboard />}
-            reverse
+            reverse={content.howItWorks.rows[1].reverse}
           />
 
           <SolutionRow
-            number="03"
-            category="LONGITUDINAL CARE"
-            title="Long-term Follow-up Tracking"
-            description="Structured patient records persist across all visits. Alerts for overdue follow-ups. Longitudinal view of disease progression per patient, automatically updated each visit."
-            callout="No rebuilding of patient history at each visit"
+            number={content.howItWorks.rows[2].number}
+            category={content.howItWorks.rows[2].category}
+            title={content.howItWorks.rows[2].title}
+            description={content.howItWorks.rows[2].description}
+            callout={content.howItWorks.rows[2].callout}
             dashboard={<PatientTimelineDashboard />}
-            tinted
+            tinted={content.howItWorks.rows[2].tinted}
           />
         </div>
       </div>
