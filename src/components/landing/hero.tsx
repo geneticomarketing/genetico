@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { EASE } from "@/components/motion/reveal";
-import { PUBLIC_HEALTH_PATH } from "@/lib/routes";
+import { HOSPITAL_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
 
 type Slide = {
   id: string;
@@ -52,7 +52,7 @@ const SLIDES: Slide[] = [
     title: "Designed for the Complexity of Rare and Genetic Disease Care",
     body: "Streamline clinical workflows, capture structured patient data, leverage AI-assisted documentation, and access decision-support tools built specifically for genetics and rare diseases.",
     cta: "Explore Clinical Solutions",
-    href: "/solutions",
+    href: HOSPITAL_PATH,
     image: "/hero/hero-bg.webp",
   },
   {
@@ -68,7 +68,7 @@ const SLIDES: Slide[] = [
     title: "Transforming Clinical Data into Research-Ready Intelligence",
     body: "Generate structured datasets, accelerate cohort identification, support longitudinal studies, and unlock AI-driven insights from real-world rare disease data.",
     cta: "Explore Research Solutions",
-    href: "/solutions",
+    href: HOSPITAL_PATH,
     image: "/hero/hero-molecule.jpg",
   },
   {
