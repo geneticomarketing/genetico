@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
 import { EASE, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { HOSPITAL_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
 
 // Each module is a "where the system breaks" entry. The left rail lists every module
 // by audience (the active one expands with its summary + Learn more); the right blue
@@ -12,6 +13,7 @@ const MODULES = [
   {
     icon: "module-clinicians",
     title: "Clinicians",
+    href: HOSPITAL_PATH,
     desc: "Managing complex genetic cases with fragmented records, extensive documentation, and limited clinical support.",
     problem:
       "Managing complex genetic cases with fragmented records, extensive documentation, and limited clinical support.",
@@ -21,6 +23,7 @@ const MODULES = [
   {
     icon: "module-clinicians",
     title: "Government & Public Health",
+    href: PUBLIC_HEALTH_PATH,
     desc: "Limited visibility into patient journeys, outcomes, disease burden, and program performance.",
     problem:
       "Limited visibility into patient journeys, outcomes, disease burden, and program performance.",
@@ -30,6 +33,7 @@ const MODULES = [
   {
     icon: "module-clinicians",
     title: "Research & Biotech",
+    href: "/resources",
     desc: "Difficulty generating high-quality, longitudinal datasets for research and innovation.",
     problem:
       "Difficulty generating high-quality, longitudinal datasets for research and innovation.",
@@ -168,9 +172,18 @@ export function SystemBreaks() {
                           }}
                         >
                           <span className="text-sm leading-relaxed text-black/55">{m.desc}</span>
-                          <span className="text-brand w-fit rounded-lg border border-black/15 bg-white px-4 py-2 text-xs font-medium transition-colors hover:bg-black/3">
-                            Learn more
-                          </span>
+                          {"href" in m && m.href ? (
+                            <a
+                              href={m.href}
+                              className="text-brand w-fit rounded-lg border border-black/15 bg-white px-4 py-2 text-xs font-medium transition-colors hover:bg-black/3"
+                            >
+                              Learn more
+                            </a>
+                          ) : (
+                            <span className="text-brand w-fit rounded-lg border border-black/15 bg-white px-4 py-2 text-xs font-medium">
+                              Learn more
+                            </span>
+                          )}
                         </motion.div>
                       </div>
                     </motion.div>

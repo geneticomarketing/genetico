@@ -56,9 +56,9 @@ const EVIDENCE_ROWS = [
 ];
 
 function barRange(index: number, count: number): [number, number] {
-  const span = 0.72 / count;
-  const start = 0.08 + index * span * 0.55;
-  return [start, start + span];
+  const span = 0.75 / count;
+  const start = 0.08 + index * span;
+  return [start, start + span * 0.85];
 }
 
 function rowRange(index: number, count: number): [number, number] {
@@ -89,25 +89,21 @@ function RapidScoreBar({
 }) {
   const [from, to] = barRange(index, RAPID_SCORES.length);
   const width = useTransform(progress, [from, to], ["0%", `${item.value}%`]);
-  const labelOpacity = useTransform(
-    progress,
-    [from, to],
-    reduce ? [1, 1] : [0.45, item.active ? 1 : 0.65],
-  );
-  const widthStyle = reduce ? { width: `${item.value}%` } : { width };
+  const labelOpacity = useTransform(progress, [from, to], reduce ? [1, 1] : [0.45, 1]);
+  const barOpacity = useTransform(progress, [from, to], reduce ? [1, 1] : [0.45, 1]);
 
   return (
     <li>
       <div className="flex items-baseline justify-between gap-4">
         <motion.div className="min-w-0" style={reduce ? undefined : { opacity: labelOpacity }}>
-          <p className={`truncate text-[15px] ${item.active ? "text-white" : "text-white/55"}`}>
+          <p className={`truncate text-[15px] ${item.active ? "text-white" : "text-white"}`}>
             {item.name}
           </p>
           <p className="mt-0.5 text-[12px] text-white/30">{item.code}</p>
         </motion.div>
         <motion.span
           className={`shrink-0 text-[15px] font-medium tabular-nums ${
-            item.active ? "text-accent" : "text-white/35"
+            item.active ? "text-accent" : "text-accent"
           }`}
           style={reduce ? undefined : { opacity: labelOpacity }}
         >
@@ -117,9 +113,9 @@ function RapidScoreBar({
       <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-white/10">
         <motion.div
           className={`h-full rounded-full ${
-            item.active ? "bg-accent shadow-[0_0_16px_rgba(95,215,203,0.55)]" : "bg-accent/25"
+            item.active ? "bg-accent shadow-[0_0_16px_rgba(95,215,203,0.55)]" : "bg-accent"
           }`}
-          style={widthStyle}
+          style={reduce ? { width: `${item.value}%` } : { width, opacity: barOpacity }}
         />
       </div>
     </li>

@@ -1,17 +1,24 @@
 import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
-import { COMING_SOON_PATH } from "@/lib/routes";
+import { CALENDLY_URL } from "@/lib/contact";
+import {
+  COMING_SOON_PATH,
+  HOSPITAL_PATH,
+  PHARMA_PATH,
+  PUBLIC_HEALTH_PATH,
+} from "@/lib/routes";
 
 const MENU = [
-  { label: "Home", href: COMING_SOON_PATH },
-  { label: "About", href: COMING_SOON_PATH },
-  { label: "How it Works", href: COMING_SOON_PATH },
-  { label: "For Business", href: COMING_SOON_PATH },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about-us" },
+  { label: "How it Works", href: "/platform" },
+  { label: "For Business", href: HOSPITAL_PATH },
   { label: "FAQs", href: COMING_SOON_PATH },
 ];
 
-const FOR_BUSINESS = [
-  { label: "Corporate Plans", href: COMING_SOON_PATH },
-  { label: "Contact Us", href: COMING_SOON_PATH },
+const SOLUTIONS = [
+  { label: "Hospital / Clinician / CoE", href: HOSPITAL_PATH },
+  { label: "Pharma / Biotech organisation", href: PHARMA_PATH },
+  { label: "Public health", href: PUBLIC_HEALTH_PATH },
 ];
 
 const SOCIALS = [
@@ -49,7 +56,7 @@ export function Footer() {
           </div>
 
           {/* Link columns — right half */}
-          <div className="grid hidden grid-cols-2 gap-8 sm:gap-12">
+          <div className="grid grid-cols-2 gap-8 sm:gap-12">
             <nav className="flex flex-col gap-4">
               <p className="text-lg font-medium text-white">Menu</p>
               {MENU.map((item) => (
@@ -64,8 +71,8 @@ export function Footer() {
             </nav>
 
             <nav className="flex flex-col gap-4">
-              <p className="text-lg font-medium text-white">For Businesses</p>
-              {FOR_BUSINESS.map((item) => (
+              <p className="text-lg font-medium text-white">Solutions</p>
+              {SOLUTIONS.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
@@ -74,6 +81,12 @@ export function Footer() {
                   {item.label}
                 </a>
               ))}
+              <a
+                href={CALENDLY_URL}
+                className="text-sm text-white/55 transition-colors hover:text-white"
+              >
+                Contact Us
+              </a>
             </nav>
           </div>
         </div>

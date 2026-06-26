@@ -4,8 +4,11 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { EASE } from "@/components/motion/reveal";
 import { HOSPITAL_PATH, PHARMA_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
 import { CALENDLY_URL } from "@/lib/contact";
+import Link from "next/link";
 
 type NavLink = {
   type: "link";
@@ -18,15 +21,15 @@ type NavDropdown = {
   type: "dropdown";
   label: string;
   isDark: boolean;
-  links: { label: string; href: string }[];
+  links: { label: string; href: string; icon: string }[];
 };
 
 type NavItem = NavLink | NavDropdown;
 
 const SOLUTIONS_LINKS = [
-  { label: "Hospital", href: HOSPITAL_PATH },
-  { label: "Pharma", href: PHARMA_PATH },
-  { label: "Public Health", href: PUBLIC_HEALTH_PATH },
+  { label: "Hospital / Clinician / CoE", href: HOSPITAL_PATH, icon: "🏥" },
+  { label: "Pharma / Biotech organisation", href: PHARMA_PATH, icon: "💊" },
+  { label: "Public health", href: PUBLIC_HEALTH_PATH, icon: "💊" },
 ];
 
 const NAV_ITEMS: NavItem[] = [
@@ -56,6 +59,33 @@ function isSolutionsPath(path: string) {
   );
 }
 
+function SolutionsDropdownLink({
+  link,
+  isDark,
+  active = false,
+  onClick,
+}: {
+  link: NavDropdown["links"][number];
+  isDark: boolean;
+  active?: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <Link
+      href={link.href}
+      onClick={onClick}
+      className={`flex items-center gap-2.5 px-4 py-2 text-sm transition-colors ${navLinkClass(active, isDark)} ${
+        isDark ? "hover:bg-black/5" : "hover:bg-white/10"
+      }`}
+    >
+      {/* <span aria-hidden className="text-base leading-none">
+        {link.icon}
+      </span> */}
+      {link.label}
+    </Link>
+  );
+}
+
 function SolutionsDropdown({
   item,
   isDark,
@@ -68,6 +98,7 @@ function SolutionsDropdown({
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
   const path = usePathname();
+  const reduce = useReducedMotion();
   const active = item.links.some((link) => path.startsWith(link.href));
 
   useEffect(() => {
@@ -81,6 +112,8 @@ function SolutionsDropdown({
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, [open]);
 
+  const panelTransition = reduce ? { duration: 0 } : { duration: 0.22, ease: EASE };
+
   return (
     <li ref={ref} className="relative">
       <button
@@ -91,39 +124,119 @@ function SolutionsDropdown({
         className={`inline-flex items-center gap-1 text-sm transition-colors ${navLinkClass(active, isDark)}`}
       >
         {item.label}
-        <ChevronDown
-          size={14}
-          className={`transition-transform ${open ? "rotate-180" : ""}`}
-        />
-      </button>
-      {open ? (
-        <ul
-          className={`absolute top-full left-1/2 z-50 mt-3 min-w-[11rem] -translate-x-1/2 rounded-lg border py-1.5 shadow-lg ${
-            isDark
-              ? "border-black/10 bg-white text-black"
-              : "border-white/10 bg-[#06131f] text-white"
-          }`}
+        <motion.span
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={panelTransition}
+          className="inline-flex"
         >
-          {item.links.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                onClick={() => {
-                  setOpen(false);
-                  onNavigate?.();
-                }}
-                className={`block px-4 py-2 text-sm transition-colors ${
-                  isDark
-                    ? "text-black/70 hover:bg-black/5 hover:text-black"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
-                }`}
+          <ChevronDown size={14} />
+        </motion.span>
+      </button>
+      <AnimatePresence>
+        {open ? (
+          <motion.ul
+            initial={reduce ? false : { opacity: 0, y: -10, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={reduce ? undefined : { opacity: 0, y: -8, scale: 0.98 }}
+            transition={panelTransition}
+            className={`absolute top-full left-1/2 z-50 mt-3 min-w-[15.5rem] origin-top -translate-x-1/2 rounded-lg border py-1.5 shadow-lg ${
+              isDark
+                ? "border-black/10 bg-white text-black"
+                : "border-white/10 bg-[#06131f] text-white"
+            }`}
+          >
+            {item.links.map((link, index) => (
+              <motion.li
+                key={link.href}
+                initial={reduce ? false : { opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={reduce ? undefined : { opacity: 0, x: -6 }}
+                transition={
+                  reduce ? { duration: 0 } : { duration: 0.2, ease: EASE, delay: index * 0.05 }
+                }
               >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+                <SolutionsDropdownLink
+                  link={link}
+                  isDark={isDark}
+                  onClick={() => {
+                    setOpen(false);
+                    onNavigate?.();
+                  }}
+                />
+              </motion.li>
+            ))}
+          </motion.ul>
+        ) : null}
+      </AnimatePresence>
+    </li>
+  );
+}
+
+function MobileSolutionsDropdown({
+  item,
+  isDark,
+  path,
+  open,
+  onToggle,
+  onNavigate,
+}: {
+  item: NavDropdown;
+  isDark: boolean;
+  path: string;
+  open: boolean;
+  onToggle: () => void;
+  onNavigate: () => void;
+}) {
+  const reduce = useReducedMotion();
+  const panelTransition = reduce ? { duration: 0 } : { duration: 0.25, ease: EASE };
+
+  return (
+    <li>
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={onToggle}
+        className={`flex w-full items-center justify-between py-3 text-base transition-colors ${navLinkClass(isSolutionsPath(path), isDark)}`}
+      >
+        {item.label}
+        <motion.span
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={panelTransition}
+          className="inline-flex"
+        >
+          <ChevronDown size={18} />
+        </motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open ? (
+          <motion.ul
+            initial={reduce ? false : { height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={reduce ? undefined : { height: 0, opacity: 0 }}
+            transition={panelTransition}
+            className="overflow-hidden pl-4"
+          >
+            {item.links.map((link, index) => (
+              <motion.li
+                key={link.href}
+                initial={reduce ? false : { opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={reduce ? undefined : { opacity: 0, x: -4 }}
+                transition={
+                  reduce ? { duration: 0 } : { duration: 0.2, ease: EASE, delay: index * 0.04 }
+                }
+              >
+                <SolutionsDropdownLink
+                  link={link}
+                  isDark={isDark}
+                  active={path.startsWith(link.href)}
+                  onClick={onNavigate}
+                />
+              </motion.li>
+            ))}
+          </motion.ul>
+        ) : null}
+      </AnimatePresence>
     </li>
   );
 }
@@ -145,9 +258,7 @@ export function Navbar() {
   const path = usePathname();
 
   const isDark =
-    path.startsWith("/about-us") ||
-    path.startsWith(HOSPITAL_PATH) ||
-    path.startsWith(PHARMA_PATH);
+    path.startsWith("/about-us") || path.startsWith(HOSPITAL_PATH) || path.startsWith(PHARMA_PATH);
 
   const solid = scrolled || open;
 
@@ -164,7 +275,7 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-999999999999999 transition duration-300 ${headerClass}`}
+      className={`fixed inset-x-0 top-0 z-999999999999999 w-full transition duration-300 ${headerClass}`}
     >
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 sm:px-8">
         <a href="/" className="flex items-center gap-2.5" onClick={closeMobileMenu}>
@@ -190,12 +301,12 @@ export function Navbar() {
             const active = path.startsWith(item.href);
             return (
               <li key={item.label}>
-                <a
+                <Link
                   href={item.href}
                   className={`text-sm transition-colors ${navLinkClass(active, isDark)}`}
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             );
           })}
@@ -236,35 +347,15 @@ export function Navbar() {
             {NAV_ITEMS.map((item) => {
               if (item.type === "dropdown") {
                 return (
-                  <li key={item.label}>
-                    <button
-                      type="button"
-                      aria-expanded={mobileSolutionsOpen}
-                      onClick={() => setMobileSolutionsOpen((value) => !value)}
-                      className={`flex w-full items-center justify-between py-3 text-base transition-colors ${navLinkClass(isSolutionsPath(path), isDark)}`}
-                    >
-                      {item.label}
-                      <ChevronDown
-                        size={18}
-                        className={`transition-transform ${mobileSolutionsOpen ? "rotate-180" : ""}`}
-                      />
-                    </button>
-                    {mobileSolutionsOpen ? (
-                      <ul className="pb-2 pl-4">
-                        {item.links.map((link) => (
-                          <li key={link.href}>
-                            <a
-                              href={link.href}
-                              onClick={closeMobileMenu}
-                              className={`block py-2.5 text-sm transition-colors ${navLinkClass(path.startsWith(link.href), isDark)}`}
-                            >
-                              {link.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </li>
+                  <MobileSolutionsDropdown
+                    key={item.label}
+                    item={item}
+                    isDark={isDark}
+                    path={path}
+                    open={mobileSolutionsOpen}
+                    onToggle={() => setMobileSolutionsOpen((value) => !value)}
+                    onNavigate={closeMobileMenu}
+                  />
                 );
               }
 
