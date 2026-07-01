@@ -366,6 +366,97 @@ function DocumentImportDashboard() {
   );
 }
 
+const RAPID_SCORES = [
+  { name: "Dravet Syndrome", code: "G40.82", value: 74, active: true },
+  { name: "GEFS+", code: "G40.30", value: 48, active: false },
+  { name: "Lennox-Gastaut", code: "G40.812", value: 23, active: false },
+  { name: "Angelman Syndrome", code: "Q93.51", value: 15, active: false },
+];
+
+function RapidScoreDashboard() {
+  const reduce = useReducedMotion();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (reduce) return;
+    const id = setInterval(() => setActiveIndex((i) => (i + 1) % RAPID_SCORES.length), CYCLE_MS);
+    return () => clearInterval(id);
+  }, [reduce]);
+
+  return (
+    <MacWindow title="RAPID Score™ — Differential Diagnosis">
+      <div className="secondaryFont p-4 sm:p-5">
+        <p className="text-[0.62rem] font-semibold tracking-[0.14em] text-[#a3afc4] uppercase">
+          Ranked candidates
+        </p>
+        <ul className="mt-3 space-y-3">
+          {RAPID_SCORES.map((item, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <li key={item.name}>
+                <div className="flex items-baseline justify-between gap-3">
+                  <div className="min-w-0">
+                    <p
+                      className={`truncate text-[0.78rem] font-semibold sm:text-[0.82rem] ${
+                        isActive ? "text-brand" : "text-[#121212]"
+                      }`}
+                    >
+                      {item.name}
+                    </p>
+                    <p className="text-[0.62rem] text-[#a3afc4]">{item.code}</p>
+                  </div>
+                  <motion.span
+                    className={`shrink-0 text-[0.78rem] font-semibold tabular-nums sm:text-[0.82rem] ${
+                      isActive ? "text-brand" : "text-[#6e6e73]"
+                    }`}
+                    animate={reduce || !isActive ? undefined : { scale: [1, 1.06, 1] }}
+                    transition={PULSE}
+                  >
+                    {item.value}%
+                  </motion.span>
+                </div>
+                <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#e8ebf0]">
+                  <motion.div
+                    className={`h-full rounded-full ${
+                      isActive
+                        ? "bg-gradient-to-r from-[#0d9488] to-accent shadow-[0_0_12px_rgba(95,215,203,0.45)]"
+                        : "bg-gradient-to-r from-[#0d9488] to-[#22d3ee]"
+                    }`}
+                    initial={false}
+                    animate={{ width: `${item.value}%` }}
+                    transition={{ duration: 0.5, ease: EASE }}
+                  />
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="mt-4 overflow-hidden rounded-xl border border-[#eef1f5]">
+          <p className="bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] text-brand uppercase">
+            Evidence summary
+          </p>
+          <ul className="divide-y divide-[#eef1f5]">
+            {[
+              { label: "Phenotypic Features", value: "12 matched" },
+              { label: "Genomic Variants", value: "SCN1A detected" },
+              { label: "Literature Evidence", value: "47 publications" },
+            ].map((row) => (
+              <li
+                key={row.label}
+                className="flex items-center justify-between gap-3 px-3 py-2 text-[0.72rem]"
+              >
+                <span className="text-[#a3afc4]">{row.label}</span>
+                <span className="font-medium text-[#121212]">{row.value}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </MacWindow>
+  );
+}
+
 const TIMELINE_EVENTS = [
   { date: "Jan 2023", label: "Initial Visit", done: true },
   { date: "Jun 2023", label: "Follow-up Consult", done: true },
@@ -475,6 +566,78 @@ function PatientTimelineDashboard() {
   );
 }
 
+function CohortAnalyticsDashboard() {
+  const reduce = useReducedMotion();
+  const filters = ["Age 2–18", "HPO: Seizures", "Confirmed diagnosis", "Follow-up ≥ 2 yrs"];
+  const [activeFilter, setActiveFilter] = useState(1);
+
+  useEffect(() => {
+    if (reduce) return;
+    const id = setInterval(() => setActiveFilter((i) => (i + 1) % filters.length), CYCLE_MS);
+    return () => clearInterval(id);
+  }, [reduce, filters.length]);
+
+  return (
+    <MacWindow title="Cohort Discovery">
+      <div className="secondaryFont p-4 sm:p-5">
+        <div className="flex flex-wrap gap-2">
+          {filters.map((filter, index) => {
+            const isActive = index === activeFilter;
+            return (
+              <motion.span
+                key={filter}
+                className={`rounded-full px-2.5 py-1 text-[0.62rem] font-medium ${
+                  isActive
+                    ? "bg-brand text-white"
+                    : "border border-[#eef1f5] bg-white text-[#6e6e73]"
+                }`}
+                animate={reduce || !isActive ? undefined : { scale: [1, 1.04, 1] }}
+                transition={PULSE}
+              >
+                {filter}
+              </motion.span>
+            );
+          })}
+        </div>
+
+        <div className="mt-4 grid grid-cols-3 gap-3 rounded-xl border border-[#eef1f5] p-3">
+          {[
+            { label: "Eligible", value: "84" },
+            { label: "Enrolled", value: "61" },
+            { label: "Sites", value: "9" },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="text-brand text-xl font-semibold tabular-nums">{stat.value}</p>
+              <p className="text-[0.62rem] text-[#a3afc4]">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4 overflow-hidden rounded-xl border border-[#eef1f5]">
+          <p className="bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] text-brand uppercase">
+            Longitudinal coverage
+          </p>
+          <ul>
+            {[
+              { label: "Baseline visits", value: "100%" },
+              { label: "12-month follow-up", value: "78%" },
+              { label: "Registry export", value: "Ready" },
+            ].map((row) => (
+              <li
+                key={row.label}
+                className="flex items-center justify-between gap-3 border-t border-[#eef1f5] px-3 py-2.5 text-[0.72rem] first:border-t-0"
+              >
+                <span className="text-[#a3afc4]">{row.label}</span>
+                <span className="font-medium text-[#121212]">{row.value}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </MacWindow>
+  );
+}
+
 function SolutionRow({
   number,
   category,
@@ -528,6 +691,26 @@ function SolutionRow({
   );
 }
 
+function dashboardForRow(row: { category: string; title: string }) {
+  if (row.category.includes("DECISION") || row.title.includes("Diagnosis")) {
+    return RapidScoreDashboard;
+  }
+  if (
+    row.category.includes("RESEARCH ANALYTICS") ||
+    row.category.includes("COHORT") ||
+    row.title.includes("Cohort Discovery")
+  ) {
+    return CohortAnalyticsDashboard;
+  }
+  if (row.category.includes("LONGITUDINAL") || row.category.includes("REAL-WORLD")) {
+    return PatientTimelineDashboard;
+  }
+  if (row.category.includes("DATA CAPTURE") || row.category.includes("STRUCTURING")) {
+    return DocumentImportDashboard;
+  }
+  return PatientIntakeDashboard;
+}
+
 export function SolutionsHowItWorks({ variant = "hospital" }: { variant?: SolutionsVariant }) {
   const content = getSolutionsContent(variant);
 
@@ -541,7 +724,7 @@ export function SolutionsHowItWorks({ variant = "hospital" }: { variant?: Soluti
           <div className="flex items-center justify-center gap-4 sm:gap-6">
             <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
-              How It Works
+              {content.howItWorks.label}
             </p>
             <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
           </div>
@@ -556,34 +739,22 @@ export function SolutionsHowItWorks({ variant = "hospital" }: { variant?: Soluti
         </Reveal>
 
         <div className="mt-14 sm:mt-20">
-          <SolutionRow
-            number={content.howItWorks.rows[0].number}
-            category={content.howItWorks.rows[0].category}
-            title={content.howItWorks.rows[0].title}
-            description={content.howItWorks.rows[0].description}
-            callout={content.howItWorks.rows[0].callout}
-            dashboard={<PatientIntakeDashboard />}
-          />
-
-          <SolutionRow
-            number={content.howItWorks.rows[1].number}
-            category={content.howItWorks.rows[1].category}
-            title={content.howItWorks.rows[1].title}
-            description={content.howItWorks.rows[1].description}
-            callout={content.howItWorks.rows[1].callout}
-            dashboard={<DocumentImportDashboard />}
-            reverse={content.howItWorks.rows[1].reverse}
-          />
-
-          <SolutionRow
-            number={content.howItWorks.rows[2].number}
-            category={content.howItWorks.rows[2].category}
-            title={content.howItWorks.rows[2].title}
-            description={content.howItWorks.rows[2].description}
-            callout={content.howItWorks.rows[2].callout}
-            dashboard={<PatientTimelineDashboard />}
-            tinted={content.howItWorks.rows[2].tinted}
-          />
+          {content.howItWorks.rows.map((row) => {
+            const Dashboard = dashboardForRow(row);
+            return (
+              <SolutionRow
+                key={row.number}
+                number={row.number}
+                category={row.category}
+                title={row.title}
+                description={row.description}
+                callout={row.callout}
+                dashboard={<Dashboard />}
+                reverse={row.reverse}
+                tinted={row.tinted}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

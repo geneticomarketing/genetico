@@ -14,25 +14,25 @@ type CareColumn = {
 
 const COLUMNS: CareColumn[] = [
   {
-    id: "follow-ups",
-    title: "Long-term Follow-ups",
+    id: "journey",
+    title: "Longitudinal Patient Journey",
     description:
-      "Maintain structured patient records across multiple visits, enabling continuity in care and better outcome tracking.",
+      "Capture every milestone in a patient's rare disease journey, from referral and diagnosis to treatment and follow-up, through structured longitudinal records that support continuity of care and informed clinical decisions.",
     bullets: [
-      "Continuity in care across consultations",
-      "Outcome tracking over time",
-      "Structured visit summaries",
+      "Unified patient timeline across every clinical encounter",
+      "AI-assisted visit summaries and clinical documentation",
+      "Track disease progression, treatment response, and outcomes over time",
     ],
   },
   {
-    id: "dashboard",
-    title: "Analytical Dashboard",
+    id: "analytics",
+    title: "Advanced Clinical Analytics",
     description:
-      "Visualize patient data, identify trends, and analyze cohorts to support clinical and research use cases.",
+      "Transform structured clinical data into real-time dashboards that reveal patient trends, cohort insights, disease progression, and operational performance across institutions.",
     bullets: [
-      "Live cohort visualizations across disease categories",
-      "Exportable reports for research and grant submissions",
-      "Institutional benchmarking on anonymized data",
+      "Interactive cohort analysis and disease trend visualization",
+      "AI-assisted analytics for clinical and research insights",
+      "Export research-ready reports and population-level evidence",
     ],
   },
 ];
@@ -366,11 +366,12 @@ export function PlatformLongitudinalCare() {
                 className="t-heading mt-5 max-w-none text-black"
                 style={{ fontVariationSettings: '"SERF" 100' }}
               >
-                Track, Monitor, and Learn Over Time
+                From Patient Journeys to Longitudinal Intelligence
               </h2>
             </div>
             <p className="text-ink-muted max-w-md text-[15px] leading-relaxed sm:text-base lg:justify-self-end lg:pb-1">
-              Enable continuous care through longitudinal tracking and data-driven insights.
+              Build lifelong patient records that evolve with every consultation, enabling continuous
+              care, AI-assisted insights, outcome tracking, and research-ready longitudinal data.
             </p>
           </div>
         </Reveal>

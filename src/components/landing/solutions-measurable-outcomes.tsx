@@ -29,15 +29,20 @@ type OutcomeMetric = {
   accent: string;
   fromText: string;
   toText: string;
-  negative: string;
+  negative?: string;
   positive: string;
   positiveIconBg: string;
+  centerValue?: string;
+  hideCenterSubLabel?: boolean;
 };
 
 const METRIC_ICONS: Record<string, LucideIcon> = {
   time: Clock,
   diagnosis: FlaskConical,
   data: Database,
+  preparation: Clock,
+  consistency: FlaskConical,
+  evidence: Database,
 };
 
 function ProgressRing({
@@ -105,7 +110,14 @@ function ProgressRing({
           strokeWidth={1.75}
           aria-hidden
         />
-        {reduce ? (
+        {metric.centerValue ? (
+          <span
+            className="mainFont px-2 text-center text-[clamp(1rem,2.2vw,1.35rem)] leading-tight font-medium text-[#121212]"
+            style={{ fontVariationSettings: '"SERF" 100' }}
+          >
+            {metric.centerValue}
+          </span>
+        ) : reduce ? (
           <span
             className="mainFont text-[clamp(1.75rem,3vw,2.25rem)] font-medium leading-none text-[#121212]"
             style={{ fontVariationSettings: '"SERF" 100' }}
@@ -120,9 +132,11 @@ function ProgressRing({
             {percentLabel}
           </motion.span>
         )}
-        <span className="secondaryFont mt-1 text-[0.62rem] font-semibold tracking-[0.22em] text-[#a3afc4] uppercase">
-          BETTER
-        </span>
+        {!metric.hideCenterSubLabel && (
+          <span className="secondaryFont mt-1 text-[0.62rem] font-semibold tracking-[0.22em] text-[#a3afc4] uppercase">
+            BETTER
+          </span>
+        )}
       </div>
     </div>
   );
@@ -176,7 +190,7 @@ function OutcomeColumn({
       <ProgressRing metric={metric} progress={progress} reduce={reduce} />
 
       <p
-        className="secondaryFont mt-6 text-[0.65rem] font-semibold tracking-[0.24em] uppercase"
+        className="secondaryFont mt-6 text-[0.65rem] font-semibold tracking-[0.12em]"
         style={{ color: metric.accent }}
       >
         {metric.label}
@@ -211,18 +225,20 @@ function OutcomeColumn({
         />
 
         <ul className="secondaryFont mt-5 space-y-3 text-left text-[0.85rem] sm:text-[0.9rem]">
-          <motion.li
-            style={reduce ? undefined : { opacity: negativeOpacity }}
-            className="flex items-start gap-2.5 text-[#a3afc4]"
-          >
-            <span
-              aria-hidden
-              className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[#fce8ea]"
+          {metric.negative ? (
+            <motion.li
+              style={reduce ? undefined : { opacity: negativeOpacity }}
+              className="flex items-start gap-2.5 text-[#a3afc4]"
             >
-              <Minus className="size-3 text-[#c0392b]" strokeWidth={2.5} />
-            </span>
-            {metric.negative}
-          </motion.li>
+              <span
+                aria-hidden
+                className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[#fce8ea]"
+              >
+                <Minus className="size-3 text-[#c0392b]" strokeWidth={2.5} />
+              </span>
+              {metric.negative}
+            </motion.li>
+          ) : null}
 
           <motion.li
             style={
@@ -257,7 +273,7 @@ export function SolutionsMeasurableOutcomes({
   const content = getSolutionsContent(variant);
   const metrics: OutcomeMetric[] = content.measurableOutcomes.metrics.map((metric) => ({
     ...metric,
-    icon: METRIC_ICONS[metric.id],
+    icon: METRIC_ICONS[metric.id] ?? Database,
   }));
 
   const { scrollYProgress } = useScroll({
@@ -275,7 +291,7 @@ export function SolutionsMeasurableOutcomes({
           <div className="flex items-center justify-center gap-3 sm:gap-4">
             <span aria-hidden className="h-px w-6 shrink-0 bg-[#b8cce0] sm:w-10" />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
-              Results
+              {content.measurableOutcomes.label}
             </p>
             <span aria-hidden className="h-px w-6 shrink-0 bg-[#b8cce0] sm:w-10" />
           </div>

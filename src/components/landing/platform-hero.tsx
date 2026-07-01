@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE } from "@/components/motion/reveal";
+import Link from "next/link";
 
 const STAGGER_S = 0.3;
 const ENTRANCE_DURATION = 1.5;
@@ -73,13 +74,22 @@ export function PlatformHero() {
           IndiGeneUs.AI
         </motion.h1>
         <motion.p
-          {...heroEntrance(3, reduce)}
-          className="mt-6 max-w-xl text-sm leading-relaxed text-white/55 sm:text-base"
+          {...heroEntrance(2, reduce)}
+          className="mt-6 max-w-2xl text-sm leading-relaxed text-white/55 sm:text-base"
         >
-          Rare disease care involves complex datasets, fragmented workflows, and limited
-          interoperability. IndiGeneUs.AI addresses this by creating a structured, unified system for
-          clinical data and decision support.
+          An AI-enabled digital infrastructure purpose-built for rare and genetic diseases, bringing
+          together clinical workflows, decision support, structured data, analytics, and research
+          into one intelligent ecosystem.
         </motion.p>
+        <motion.div {...heroEntrance(3, reduce)} className="mt-8">
+          <Link
+            href="#get-in-touch"
+            className="--backdrop-blur-md inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/50 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/15"
+          >
+            Schedule a Walkthrough
+            <span aria-hidden>→</span>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

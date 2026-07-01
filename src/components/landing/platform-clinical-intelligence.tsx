@@ -20,24 +20,24 @@ type WidgetProps = {
 const CAPABILITIES: Capability[] = [
   {
     number: "01",
-    title: "RAPID Score",
+    title: "RAPID Score™",
     description:
-      "Differential diagnosis ranked by probability, updated in real time as new clinical data is entered.",
-    badge: "Differential Diagnosis",
+      "Prioritizes likely differential diagnoses by continuously analyzing structured phenotypic, genomic, and clinical data as new information becomes available.",
+    badge: "AI-Assisted Differential Diagnosis",
   },
   {
     number: "02",
-    title: "Data-Driven Reasoning",
+    title: "Evidence-Based Clinical Reasoning",
     description:
-      "Every recommendation is traceable to specific evidence paths — phenotypic, genomic, and literature-based.",
-    badge: "Evidence-Backed",
+      "Every recommendation is fully traceable to structured phenotypic data, genomic findings, clinical guidelines, and published literature, ensuring AI remains transparent, explainable, and clinician-controlled.",
+    badge: "Transparent & Explainable AI",
   },
   {
     number: "03",
-    title: "Compare Overlapping Diseases",
+    title: "Disease Comparison & Clinical Disambiguation",
     description:
-      "Side-by-side comparison of phenotypically similar conditions to support clinical disambiguation.",
-    badge: "Disease Disambiguation",
+      "Compare clinically similar rare diseases side by side using phenotypic overlap, genomic findings, inheritance patterns, and supporting evidence to improve diagnostic confidence.",
+    badge: "AI-Assisted Disease Comparison",
   },
 ];
 
@@ -330,8 +330,8 @@ export function PlatformClinicalIntelligence() {
               </h2>
             </div>
             <p className="max-w-md text-[15px] leading-relaxed text-white/45 sm:text-base lg:justify-self-end lg:pb-1">
-              Not another feature list — a fundamentally different approach to how AI supports rare
-              disease diagnosis.
+              AI-assisted clinical decision support that combines phenotypic, genomic, and clinical
+              evidence to help clinicians evaluate complex rare disease cases with greater confidence.
             </p>
           </div>
         </Reveal>

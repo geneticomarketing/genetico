@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE } from "@/components/motion/reveal";
@@ -56,16 +55,18 @@ export function PublicHealthHero() {
           {...heroEntrance(1, reduce)}
           className="t-display mx-auto text-balance text-white"
         >
-          The Digital Backbone For
+          Digital Backbone for
           <br />
-          India&apos;s Rare Disease Ecosystem
+          India&apos;s rare disease ecosystem
         </motion.h1>
 
         <motion.p
           {...heroEntrance(2, reduce)}
-          className="secondaryFont mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/55 sm:mt-7 sm:text-base"
+          className="secondaryFont mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-white/55 sm:mt-7 sm:text-base"
         >
-          Genetico helps clinicians spend less time on data and more time on patients
+          IndiGeneUs.AI connects India&apos;s rare disease ecosystem in a Hub &amp; Spoke model
+          from PHC-level referral to CoE-level diagnosis, giving government health institutions
+          the clinical and reporting tools they need for NPRD implementation.
         </motion.p>
       </div>
     </section>

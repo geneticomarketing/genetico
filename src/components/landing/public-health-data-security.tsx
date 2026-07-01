@@ -1,6 +1,6 @@
 "use client";
 
-import { FileCheck, Lock, Server, Shield, type LucideIcon } from "lucide-react";
+import { Database, LayoutDashboard, Network, Shield, type LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE, Reveal, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
@@ -15,27 +15,27 @@ type SecurityFeature = {
 const FEATURES: SecurityFeature[] = [
   {
     number: "01",
-    icon: Lock,
-    category: "DATA PROTECTION",
-    title: "End-to-End Encryption",
+    icon: Network,
+    category: "HEALTH NETWORK",
+    title: "Three-Tier Health System Connected",
   },
   {
     number: "02",
-    icon: Shield,
-    category: "ACCESS CONTROL",
-    title: "Role-Based Permissions",
+    icon: LayoutDashboard,
+    category: "MINISTRY OVERSIGHT",
+    title: "Real-Time National Dashboards",
   },
   {
     number: "03",
-    icon: FileCheck,
-    category: "AUDITABILITY",
-    title: "Tamper-Proof Audit Logs",
+    icon: Database,
+    category: "DATA INTEGRATION",
+    title: "No Duplicate Entry Across ICMR & Crowdfunding Portals",
   },
   {
     number: "04",
-    icon: Server,
-    category: "DEPLOYMENT",
-    title: "Flexible & Secure Environments",
+    icon: Shield,
+    category: "COMPLIANCE",
+    title: "Built for India's DPDP Act",
   },
 ];
 
@@ -123,7 +123,7 @@ export function PublicHealthDataSecurity() {
 
   return (
     <section
-      id="data-security"
+      id="impact"
       className="relative overflow-hidden px-6 py-20 text-[#121212] sm:px-10 sm:py-24 lg:py-28"
       style={{
         background: "linear-gradient(155deg, #f2f7fc 0%, #f8fafc 38%, #ffffff 62%, #ffffff 100%)",
@@ -142,22 +142,21 @@ export function PublicHealthDataSecurity() {
           <div>
             <StaggerItem>
               <p className="t-eyebrow secondaryFont text-brand text-[0.65rem] tracking-[0.28em]">
-                — DATA SECURITY —
+                — IMPACT —
               </p>
             </StaggerItem>
 
             <StaggerItem>
-              <h2 className="t-heading mt-5 max-w-none text-balance">
-                <span className="text-[#121212]">Built for Trust</span>
-                <span className="text-[#c5cdd8]"> at Scale</span>
+              <h2 className="t-heading mt-5 max-w-none text-balance text-[#121212]">
+                Impact at a Glance
               </h2>
             </StaggerItem>
           </div>
 
           <StaggerItem className="lg:pt-8">
             <p className="secondaryFont max-w-md text-[15px] leading-relaxed text-[#8f8f8f] sm:text-base lg:ml-auto lg:text-right">
-              Security, compliance, and auditability baked in from day one — because national health
-              data demands nothing less.
+              A unified digital infrastructure enabling connected care, better governance, and
+              seamless compliance across India&apos;s rare disease ecosystem.
             </p>
           </StaggerItem>
         </StaggerGroup>

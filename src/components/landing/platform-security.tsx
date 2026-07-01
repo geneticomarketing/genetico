@@ -14,21 +14,21 @@ type SecurityCard = {
 const CARDS: SecurityCard[] = [
   {
     icon: ShieldCheck,
-    title: "Clinical-grade Security",
+    title: "Enterprise-grade Data Protection",
     description:
-      "End-to-end encryption and secure infrastructure for sensitive patient data. SOC 2 Type II certified with zero-trust architecture.",
+      "Clinical and genomic data is encrypted during transmission and storage using industry-standard security protocols.",
   },
   {
     icon: UserCog,
     title: "Role-based Access Control",
     description:
-      "Granular access permissions to ensure appropriate data usage across roles — clinicians, admins, researchers, and institutional leads.",
+      "Granular permissions ensure every user accesses only the information relevant to their clinical or operational responsibilities.",
   },
   {
     icon: FileText,
-    title: "Audit & Compliance",
+    title: "Complete Audit Trails",
     description:
-      "Maintain complete audit trails and adhere to global healthcare data regulations including HIPAA, DPDP, and NHS standards.",
+      "Every action is securely logged, providing full traceability, accountability, and compliance across clinical workflows.",
   },
 ];
 
@@ -51,14 +51,6 @@ function SecurityFeatureCard({ card }: { card: SecurityCard }) {
       <p className="mt-4 flex-1 text-[15px] leading-relaxed text-white/55 sm:text-base">
         {card.description}
       </p>
-
-      <a
-        href="/#get-in-touch"
-        className="mt-8 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-white/75 transition-colors hover:text-white"
-      >
-        Learn more
-        <span aria-hidden>→</span>
-      </a>
     </article>
   );
 }
@@ -77,7 +69,7 @@ export function PlatformSecurity() {
           <div className="flex items-center justify-center gap-4 sm:gap-6">
             <span aria-hidden className="h-px w-10 bg-white/20 sm:w-16" />
             <p className="t-eyebrow shrink-0 text-[0.7rem] tracking-[0.32em] text-white/50">
-              Trust &amp; Safety
+              Security &amp; Compliance
             </p>
             <span aria-hidden className="h-px w-10 bg-white/20 sm:w-16" />
           </div>
@@ -86,12 +78,13 @@ export function PlatformSecurity() {
             className="t-heading mx-auto mt-6 max-w-none text-white"
             style={{ fontVariationSettings: '"SERF" 100' }}
           >
-            Security &amp; Compliance
+            Built for Trust. Designed for Healthcare.
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-white/55 sm:text-base">
-            Ensure data protection, privacy, and compliance with healthcare standards at every
-            layer.
+            Every layer of IndiGeneUs.AI is designed to protect sensitive clinical and genetic
+            information through enterprise-grade security, transparent governance, and
+            institution-controlled data ownership.
           </p>
         </Reveal>
 

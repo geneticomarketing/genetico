@@ -4,11 +4,12 @@ import { PublicHealthHero } from "@/components/landing/public-health-hero";
 import { PublicHealthDataSecurity } from "@/components/landing/public-health-data-security";
 import { PublicHealthThreeTierModel } from "@/components/landing/public-health-three-tier-model";
 import { PublicHealthTierArchitecture } from "@/components/landing/public-health-tier-architecture";
+import { GetInTouch } from "@/components/landing/get-in-touch";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import Link from "next/link";
-import { CALENDLY_URL } from "@/lib/contact";
+import { NEWSLETTER_URL } from "@/lib/contact";
 
 export default function PublicHealthPage() {
   const pageRef = useRef(null);
@@ -39,7 +40,7 @@ export default function PublicHealthPage() {
         <PublicHealthTierArchitecture />
         <section
           id="get-in-touch"
-          className="relative overflow-hidden bg-[#F4F6F9] px-5 py-20 sm:px-10 sm:py-24 lg:py-32"
+          className="relative overflow-hidden bg-[#F4F6F9] px-5 pt-20 sm:px-10 sm:pt-24 lg:pt-32"
         >
           <div aria-hidden className="pointer-events-none absolute inset-0">
             <img
@@ -52,20 +53,30 @@ export default function PublicHealthPage() {
 
           <Reveal className="relative z-10 mx-auto max-w-3xl text-center">
             <h2 className="t-heading mx-auto text-balance text-[#121212]">
-              Different conversation,
-              <br />
-              depending on who you are
+              Are you interested in bringing IndiGeneUs.AI to your institution?
             </h2>
             <p className="secondaryFont mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#8f8f8f] sm:mt-6">
-              Take the stress out of UI design with ready-to-use content.
+              Talk to our team for a pilot deployment
             </p>
-            <Link
-              href={CALENDLY_URL}
-              className="bg-brand mt-8 inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b] sm:mt-10"
-            >
-              Book a Demo
-            </Link>
+            <div className="mt-8 mb-10 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4">
+              <Link
+                href="#lead-form"
+                className="bg-brand inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b]"
+              >
+                Request pilot
+              </Link>
+              <a
+                href={NEWSLETTER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-lg border border-black/15 bg-white px-7 py-3 text-sm font-medium text-black transition-colors hover:bg-black/[0.03]"
+              >
+                Subscribe for Updates
+              </a>
+            </div>
           </Reveal>
+
+          <GetInTouch embedded />
         </section>
       </div>
     </main>

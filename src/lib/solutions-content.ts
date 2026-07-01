@@ -32,199 +32,217 @@ type OutcomeMetricContent = {
   accent: string;
   fromText: string;
   toText: string;
-  negative: string;
+  negative?: string;
   positive: string;
   positiveIconBg: string;
+  centerValue?: string;
+  hideCenterSubLabel?: boolean;
 };
 
 export type SolutionsContent = {
   hero: {
+    eyebrow?: string;
     titleLine1: string;
     titleHighlight: string;
     subtitle: string;
   };
   clinicalBurden: {
+    label: string;
     heading: string;
     description: string;
     cards: BurdenCardContent[];
   };
   howItWorks: {
+    label: string;
     heading: string;
     description: string;
     rows: HowItWorksRow[];
   };
   measurableOutcomes: {
+    label: string;
     heading: string;
     description: string;
     metrics: OutcomeMetricContent[];
   };
   cta: {
-    headingLine1: string;
-    headingLine2: string;
+    heading: string;
     description: string;
   };
 };
 
 const HOSPITAL_BURDEN_CARDS: BurdenCardContent[] = [
   {
-    id: "intake",
+    id: "records",
     number: "01",
-    label: "INTAKE",
-    badge: "INTAKE",
+    label: "RECORDS",
+    badge: "RECORDS",
     badgeDot: "#c0392b",
     badgeBg: "#fce8ea",
     badgeText: "#b01616",
-    title: "Patient arrives with unstructured notes",
-    collapsedTitle: ["Patient arrives with", "unstructured notes"],
+    title: "Unstructured Clinical Records",
+    collapsedTitle: ["Unstructured Clinical", "Records"],
     description:
-      "Clinician manually reads, interprets, and re-types data from paper records. No standard format exists across referrals.",
+      "Clinical histories, laboratory reports, and genetic findings arrive in multiple formats, making structured analysis difficult.",
   },
   {
     id: "phenotyping",
     number: "02",
-    label: "PHENOTYPING",
-    badge: "PHENOTYPING",
+    label: "PHENOTYPES",
+    badge: "PHENOTYPES",
     badgeDot: "#024385",
     badgeBg: "#e8f4fc",
     badgeText: "#024385",
-    title: "Phenotype data captured inconsistently",
-    collapsedTitle: ["Phenotype data captured", "inconsistently"],
+    title: "Manual Phenotype Capture",
+    collapsedTitle: ["Manual Phenotype", "Capture"],
     description:
-      "Free-text notes must be translated into standardized HPO terms by hand. Terminology varies across clinicians and visits.",
+      "Important phenotypic information is manually extracted and standardized, consuming valuable clinical time and introducing inconsistencies.",
   },
   {
-    id: "diagnosis",
+    id: "reasoning",
     number: "03",
-    label: "DIAGNOSIS",
-    badge: "DIAGNOSIS",
+    label: "REASONING",
+    badge: "REASONING",
     badgeDot: "#5fd7cb",
     badgeBg: "#e6faf8",
     badgeText: "#0a6b62",
-    title: "Differential diagnosis built from memory",
-    collapsedTitle: ["Differential diagnosis built", "from memory"],
+    title: "Complex Clinical Reasoning",
+    collapsedTitle: ["Complex Clinical", "Reasoning"],
     description:
-      "Clinicians cross-reference literature, databases, and prior cases manually — a slow, error-prone process with no structured support.",
+      "Differential diagnosis requires clinicians to manually correlate phenotypes, genomics, inheritance patterns, and published evidence across multiple resources.",
   },
   {
-    id: "registry",
+    id: "longitudinal",
     number: "04",
-    label: "REGISTRY",
-    badge: "REGISTRY",
+    label: "LONGITUDINAL",
+    badge: "LONGITUDINAL",
     badgeDot: "#7a8fa8",
     badgeBg: "#eef2f7",
     badgeText: "#4a5f78",
-    title: "Registry data entered twice",
-    collapsedTitle: ["Registry data", "entered twice"],
+    title: "Fragmented Longitudinal Data",
+    collapsedTitle: ["Fragmented Longitudinal", "Data"],
     description:
-      "Patient data is re-keyed into national registries and reporting systems. Duplicate effort with no single source of truth.",
+      "Patient follow-ups, outcomes, and registry information are often maintained across disconnected systems, limiting continuity of care and research readiness.",
   },
 ];
 
 const PHARMA_BURDEN_CARDS: BurdenCardContent[] = [
   {
-    id: "intake",
+    id: "formats",
     number: "01",
-    label: "INTAKE",
-    badge: "INTAKE",
+    label: "FORMATS",
+    badge: "FORMATS",
     badgeDot: "#c0392b",
     badgeBg: "#fce8ea",
     badgeText: "#b01616",
-    title: "Site data arrives in inconsistent formats",
-    collapsedTitle: ["Site data arrives in", "inconsistent formats"],
+    title: "Clinical data arrives in different formats",
+    collapsedTitle: ["Clinical data arrives", "in different formats"],
     description:
-      "Program teams manually reconcile referrals, lab reports, and site submissions. Formats vary across centers and geographies.",
+      "Clinical documentation varies across institutions, making cross-site research difficult.",
   },
   {
     id: "phenotyping",
     number: "02",
-    label: "PHENOTYPING",
-    badge: "PHENOTYPING",
+    label: "PHENOTYPES",
+    badge: "PHENOTYPES",
     badgeDot: "#024385",
     badgeBg: "#e8f4fc",
     badgeText: "#024385",
     title: "Phenotype data lacks standardization",
     collapsedTitle: ["Phenotype data lacks", "standardization"],
     description:
-      "Unstructured clinical notes must be mapped to HPO terms by hand before cohort analysis. Terminology drifts across sites and studies.",
+      "Clinical observations must be manually translated into standardized terminology before they can support cohort analysis or research.",
   },
   {
-    id: "diagnosis",
+    id: "cohorts",
     number: "03",
     label: "COHORTS",
     badge: "COHORTS",
     badgeDot: "#5fd7cb",
     badgeBg: "#e6faf8",
     badgeText: "#0a6b62",
-    title: "Cohort identification built from fragments",
-    collapsedTitle: ["Cohort identification built", "from fragments"],
+    title: "Research cohorts are built manually",
+    collapsedTitle: ["Research cohorts are", "built manually"],
     description:
-      "Teams cross-reference registries, EMR exports, and prior studies manually — a slow process with no unified view of eligible patients.",
+      "Finding eligible patients often requires reviewing fragmented records across multiple systems and institutions.",
   },
   {
     id: "registry",
     number: "04",
-    label: "REGISTRY",
-    badge: "REGISTRY",
+    label: "DUPLICATION",
+    badge: "DUPLICATION",
     badgeDot: "#7a8fa8",
     badgeBg: "#eef2f7",
     badgeText: "#4a5f78",
-    title: "Trial and registry data entered twice",
-    collapsedTitle: ["Trial and registry data", "entered twice"],
+    title: "The same information is entered repeatedly",
+    collapsedTitle: ["The same information is", "entered repeatedly"],
     description:
-      "Patient records are re-keyed into trial systems and national registries. Duplicate effort with no single source of truth.",
+      "Clinical and research teams duplicate data across registries, databases, and study platforms.",
   },
 ];
 
 export const SOLUTIONS_CONTENT: Record<SolutionsVariant, SolutionsContent> = {
   hospital: {
     hero: {
-      titleLine1: "For Centers of",
-      titleHighlight: "Excellence",
-      subtitle: "Genetico helps clinicians spend less time on data and more time on patients",
+      titleLine1: "Purpose-Built for",
+      titleHighlight: "Centers of Excellence",
+      subtitle:
+        "Empower clinical genetics teams with AI-assisted workflows, clinical decision support, longitudinal patient management, and research-ready data, all within a single intelligent platform.",
     },
     clinicalBurden: {
-      heading: "The Clinical Burden",
+      label: "THE CHALLENGE",
+      heading: "The Challenges Facing Rare Disease Centers",
       description:
-        "Clinicians at COEs spend a disproportionate amount of time on documentation, data re-entry, and manual reasoning — time that should go to patient care.",
+        "Centers of Excellence manage some of the most complex patient journeys in healthcare, yet clinicians still rely on fragmented workflows, manual documentation, and disconnected systems.",
       cards: HOSPITAL_BURDEN_CARDS,
     },
     howItWorks: {
-      heading: "How Genetico Solves It",
+      label: "THE SOLUTION",
+      heading: "How IndiGeneUs.AI Transforms Rare Disease Care",
       description:
-        "Clinicians currently use disconnected paper forms, unstructured notes, and ad-hoc reporting. Every consultation starts from scratch. No consistency across the team.",
+        "From intelligent data capture to AI-assisted clinical reasoning, IndiGeneUs.AI supports clinicians throughout the entire rare disease journey.",
       rows: [
         {
           number: "01",
-          category: "CLINICAL STANDARDIZATION",
-          title: "Customizable Clinical Workflow",
+          category: "CLINICAL WORKFLOWS",
+          title: "AI-Assisted Clinical Workflows",
           description:
-            "Structured, guided data capture across the entire consultation — demographics, symptoms, family history, investigations. Consistent across all clinicians in the COE.",
-          callout: "40% reduction in consultation documentation time",
+            "Standardize complex clinical pathways with configurable workflows purpose-built for genetic and rare disease programs.",
+          callout: "Consistent documentation across every consultation",
         },
         {
           number: "02",
-          category: "DATA CAPTURE",
-          title: "OCR & Report Digitisation",
+          category: "INTELLIGENT DATA CAPTURE",
+          title: "AI-Powered Data Capture",
           description:
-            "Extract structured clinical and genetic data from scanned lab reports, PDFs, and physical documents. Eliminates manual re-entry and dramatically cuts processing time.",
-          callout: "Eliminates time taken for manual transcription",
+            "Automatically digitize reports, extract HPO terms, and structure clinical information through AI-assisted OCR and phenotype extraction.",
+          callout: "Eliminate manual data entry from clinical reports",
           reverse: true,
         },
         {
           number: "03",
-          category: "LONGITUDINAL CARE",
-          title: "Long-term Follow-up Tracking",
+          category: "CLINICAL DECISION SUPPORT",
+          title: "Evidence-Driven Diagnosis",
           description:
-            "Structured patient records persist across all visits. Alerts for overdue follow-ups. Longitudinal view of disease progression per patient, automatically updated each visit.",
-          callout: "No rebuilding of patient history at each visit",
+            "Generate evidence-backed differential diagnoses by combining phenotypic, genomic, and clinical evidence through RAPID Score™.",
+          callout: "Faster, more confident diagnostic decisions",
           tinted: true,
+        },
+        {
+          number: "04",
+          category: "LONGITUDINAL INTELLIGENCE",
+          title: "Longitudinal Patient Intelligence",
+          description:
+            "Track patient journeys, monitor outcomes, and continuously enrich structured datasets for care, analytics, and research.",
+          callout: "Every follow-up strengthens clinical intelligence",
+          reverse: true,
         },
       ],
     },
     measurableOutcomes: {
-      heading: "Measurable Outcomes",
+      label: "MEASURABLE OUTCOMES",
+      heading: "Transforming Clinical Care into Measurable Impact",
       description:
-        "Concrete, quantifiable impact across the areas that matter most for Centers of Excellence.",
+        "Deliver meaningful improvements in clinical efficiency, diagnostic confidence, and institutional intelligence.",
       metrics: [
         {
           id: "time",
@@ -268,107 +286,115 @@ export const SOLUTIONS_CONTENT: Record<SolutionsVariant, SolutionsContent> = {
       ],
     },
     cta: {
-      headingLine1: "Different conversation,",
-      headingLine2: "depending on who you are",
-      description: "Take the stress out of UI design with ready-to-use content.",
+      heading: "Enable Smarter Rare Disease Care at Your Center",
+      description:
+        "See how IndiGeneUs.AI helps Centers of Excellence streamline clinical workflows, support faster diagnosis, improve longitudinal care, and generate research-ready data through AI-assisted clinical intelligence.",
     },
   },
   pharma: {
     hero: {
-      titleLine1: "For Life Sciences &",
-      titleHighlight: "Pharma",
+      eyebrow: "FOR LIFE SCIENCES & RESEARCH",
+      titleLine1: "Accelerate Rare Disease Research",
+      titleHighlight: "with Structured Clinical Data",
       subtitle:
-        "Genetico helps program teams spend less time wrangling site data and more time advancing rare disease programs",
+        "Transform fragmented clinical information into standardized, research-ready datasets that support registries, natural history studies, and evidence generation.",
     },
     clinicalBurden: {
-      heading: "The Program Burden",
+      label: "THE CHALLENGE",
+      heading: "Clinical Data Exists. Research-Ready Data Doesn't.",
       description:
-        "Pharma and medical affairs teams spend disproportionate time on data reconciliation, cohort building, and manual reporting — time that should go to program delivery.",
+        "Rare disease research depends on high-quality clinical data, yet every institution captures information differently. Researchers spend months standardizing records before meaningful analysis can begin.",
       cards: PHARMA_BURDEN_CARDS,
     },
     howItWorks: {
-      heading: "How Genetico Solves It",
+      label: "HOW GENETICO SOLVES IT",
+      heading: "Building Research-Ready Data at the Point of Care",
       description:
-        "Program teams currently rely on disconnected site exports, unstructured notes, and ad-hoc spreadsheets. Every study starts from scratch. No consistency across sites.",
+        "Genetico structures clinical information during routine care, creating standardized datasets that can seamlessly support research, registries, and longitudinal studies.",
       rows: [
         {
           number: "01",
-          category: "PROGRAM STANDARDIZATION",
-          title: "Standardized Site Data Capture",
+          category: "RESEARCH STANDARDIZATION",
+          title: "Standardized Clinical Data Capture",
           description:
-            "Structured, guided data capture across participating sites — demographics, phenotypes, family history, and investigations. Consistent across every center in the network.",
-          callout: "Faster site onboarding with shared clinical workflows",
+            "Structured clinical workflows ensure consistent data collection across institutions while remaining adaptable to different research programs.",
+          callout: "Consistent datasets across participating centers",
         },
         {
           number: "02",
-          category: "DATA CAPTURE",
-          title: "OCR & Report Digitisation",
+          category: "AI STRUCTURING",
+          title: "Automated Phenotype Extraction",
           description:
-            "Extract structured clinical and genetic data from lab reports, PDFs, and site documents. Eliminates manual re-entry and accelerates cohort readiness.",
-          callout: "Eliminates time spent on manual transcription",
+            "AI converts unstructured clinical notes into standardized HPO terminology, reducing manual effort while improving data consistency.",
+          callout: "Research-ready phenotype data from routine clinical records",
           reverse: true,
         },
         {
           number: "03",
-          category: "REAL-WORLD EVIDENCE",
-          title: "Longitudinal Patient Tracking",
+          category: "RESEARCH ANALYTICS",
+          title: "Cohort Discovery & Longitudinal Insights",
           description:
-            "Structured patient records persist across visits and studies. Alerts for follow-up gaps. Longitudinal views of disease progression, automatically updated from site data.",
-          callout: "No rebuilding of patient history for each analysis",
+            "Identify patient cohorts, monitor disease progression, and generate longitudinal datasets for natural history studies and evidence generation.",
+          callout: "From clinical care to research insights",
           tinted: true,
         },
       ],
     },
     measurableOutcomes: {
-      heading: "Measurable Outcomes",
+      label: "MEASURABLE OUTCOMES",
+      heading: "Enabling Better Rare Disease Research",
       description:
-        "Concrete, quantifiable impact across the areas that matter most for rare disease program teams.",
+        "Structured clinical data improves research quality, accelerates study execution, and enables reproducible evidence across institutions.",
       metrics: [
         {
-          id: "time",
-          maxPercent: 97,
-          label: "TIME SAVED",
+          id: "preparation",
+          maxPercent: 90,
+          centerValue: "90%+",
+          hideCenterSubLabel: true,
+          label: "Less Manual Data Preparation",
           ringTrack: "#fce8ea",
           ringFill: "#c0392b",
           accent: "#c0392b",
-          fromText: "Weeks",
-          toText: "Days",
-          negative: "Manual site data reconciliation",
-          positive: "Automated structured extraction",
+          fromText: "Manual abstraction",
+          toText: "AI-assisted structuring",
+          positive: "Faster preparation of research datasets",
           positiveIconBg: "#c0392b",
         },
         {
-          id: "diagnosis",
-          maxPercent: 84,
-          label: "COHORT QUALITY",
+          id: "consistency",
+          maxPercent: 100,
+          centerValue: "Standardized",
+          hideCenterSubLabel: true,
+          label: "Higher Data Consistency",
           ringTrack: "#e6faf8",
           ringFill: "#2b7623",
           accent: "#2b7623",
-          fromText: "Ad hoc",
-          toText: "RAPID Score",
-          negative: "Fragmented, inconsistent criteria",
-          positive: "Evidence-ranked, reproducible",
+          fromText: "Variable clinical records",
+          toText: "Structured phenotype datasets",
+          positive: "Comparable data across institutions",
           positiveIconBg: "#2b7623",
         },
         {
-          id: "data",
+          id: "evidence",
           maxPercent: 100,
-          label: "DATA AVAILABILITY",
+          centerValue: "Research-Ready",
+          hideCenterSubLabel: true,
+          label: "Accelerated Evidence Generation",
           ringTrack: "#eef4f9",
           ringFill: "#024385",
           accent: "#024385",
-          fromText: "Siloed",
-          toText: "Trial-Ready",
-          negative: "Limited real-world output",
-          positive: "Structured program dataset",
+          fromText: "Fragmented records",
+          toText: "Longitudinal, analysis-ready cohorts",
+          positive:
+            "Support registries, natural history studies, and collaborative research",
           positiveIconBg: "#024385",
         },
       ],
     },
     cta: {
-      headingLine1: "Built for rare disease",
-      headingLine2: "program teams",
-      description: "Connect with us to explore how Genetico supports pharma workflows.",
+      heading: "Building the Future of Rare Disease Research Starts with Better Data",
+      description:
+        "Discover how Genetico helps research organizations transform fragmented clinical information into structured, research-ready datasets for registries, longitudinal studies, and evidence generation.",
     },
   },
 };

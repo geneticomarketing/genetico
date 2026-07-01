@@ -64,8 +64,81 @@ function Field({
   );
 }
 
-export function GetInTouch() {
+export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
   const [active, setActive] = useState(0);
+
+  const form = (
+    <form
+      id={embedded ? "lead-form" : undefined}
+      onSubmit={(e) => e.preventDefault()}
+      className="flex min-w-0 flex-col rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_15px_60px_rgba(0,0,0,0.07)] sm:p-6 md:p-8"
+    >
+            {/* Audience tabs — horizontal scroll on narrow screens, equal-width row on md+ */}
+            <div className="-mx-5 flex [scrollbar-width:none] items-center gap-2 overflow-x-auto border-b border-black/10 px-5 pb-4 [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:mx-0 md:justify-between md:gap-2 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
+              {ROLES.map((role, i) => (
+                <button
+                  key={role.label}
+                  type="button"
+                  onClick={() => setActive(i)}
+                  className={`shrink-0 cursor-pointer rounded-lg px-3 py-2.5 text-center text-xs leading-tight whitespace-nowrap transition-colors md:px-2.5 lg:text-[13px] ${
+                    active === i
+                      ? "text-brand bg-[#EEF2F8] font-semibold"
+                      : "font-medium text-black/40 hover:text-black/60"
+                  }`}
+                >
+                  {role.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Contextual blurb */}
+            <p className="text-brand pt-4 text-sm leading-snug font-medium sm:pt-5 sm:text-[15px]">
+              {ROLES[active]?.blurb}
+            </p>
+
+            {/* Fields */}
+            <div className="mt-5 flex flex-col gap-4 sm:mt-6 sm:gap-5">
+              <div className="flex flex-col gap-4 sm:flex-row sm:gap-5 md:gap-6">
+                <Field label="First Name" placeholder="First Name" required />
+                <Field label="Last Name" placeholder="Last Name" required />
+              </div>
+              <Field label="Work Email" placeholder="janedoe@email.com" type="email" required />
+
+              <label className="flex flex-col gap-1.5">
+                <span className="text-sm font-medium text-black/70">Organisation</span>
+                <input placeholder="Name of Organisation" className={INPUT_CLASS} />
+              </label>
+
+              <label className="flex flex-col gap-1.5">
+                <span className="text-sm font-medium text-black/70">How Can We Help?</span>
+                <textarea
+                  rows={4}
+                  placeholder="Tell us a little about what you're looking for."
+                  className={`${INPUT_CLASS} resize-none`}
+                />
+              </label>
+            </div>
+
+            {/* Disclaimer + submit */}
+            <p className="mt-5 text-center text-xs leading-normal text-black/45 sm:mt-6 sm:text-[13px]">
+              By submitting, you agree to be contacted by Genetico. We never share your information.
+            </p>
+            <button
+              type="submit"
+              className="bg-brand mt-4 w-full rounded-lg py-3.5 text-[15px] font-medium text-white transition-colors hover:bg-[#01356b]"
+            >
+              Talk to Our Team
+            </button>
+          </form>
+  );
+
+  if (embedded) {
+    return (
+      <Reveal className="relative z-10 mx-auto w-full max-w-3xl px-5 pb-16 sm:px-10 sm:pb-20 lg:pb-24">
+        {form}
+      </Reveal>
+    );
+  }
 
   return (
     <section
@@ -74,7 +147,6 @@ export function GetInTouch() {
     >
       <Reveal className="relative z-10 mx-auto w-full max-w-7xl">
         <div className="grid gap-8 sm:gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-20">
-          {/* Left — heading, intro + contact details */}
           <div className="flex flex-col gap-5 sm:gap-7">
             <h2 className="t-heading text-black">
               Different conversation, depending on who you are
@@ -107,71 +179,7 @@ export function GetInTouch() {
             </div>
           </div>
 
-          {/* Right — form card */}
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex min-w-0 flex-col rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_15px_60px_rgba(0,0,0,0.07)] sm:p-6 md:p-8"
-          >
-            {/* Audience tabs — horizontal scroll on narrow screens, equal-width row on md+ */}
-            <div className="-mx-5 flex [scrollbar-width:none] items-center gap-2 overflow-x-auto border-b border-black/10 px-5 pb-4 [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:mx-0 md:justify-between md:gap-2 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
-              {ROLES.map((role, i) => (
-                <button
-                  key={role.label}
-                  type="button"
-                  onClick={() => setActive(i)}
-                  className={`shrink-0 cursor-pointer rounded-lg px-3 py-2.5 text-center text-xs leading-tight whitespace-nowrap transition-colors md:px-2.5 lg:text-[13px] ${
-                    active === i
-                      ? "text-brand bg-[#EEF2F8] font-semibold"
-                      : "font-medium text-black/40 hover:text-black/60"
-                  }`}
-                >
-                  {role.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Contextual blurb */}
-            <p className="text-brand pt-4 text-sm leading-snug font-medium sm:pt-5 sm:text-[15px]">
-              {ROLES[active]?.blurb}
-            </p>
-
-            {/* Fields */}
-            <div className="mt-5 flex flex-col gap-4 sm:mt-6 sm:gap-5">
-              <div className="flex flex-col gap-4 sm:flex-row sm:gap-5 md:gap-6">
-                <Field label="First Name" placeholder="First Name" required />
-                <Field label="Last Name" placeholder="Last Name" required />
-              </div>
-              <div className="flex flex-col gap-4 sm:flex-row sm:gap-5 md:gap-6">
-                <Field label="Work Email" placeholder="janedoe@email.com" type="email" required />
-                <Field label="Phone Number" placeholder="+0 123 456 7890" type="tel" />
-              </div>
-
-              <label className="flex flex-col gap-1.5">
-                <span className="text-sm font-medium text-black/70">Organisation</span>
-                <input placeholder="Name of Organisation" className={INPUT_CLASS} />
-              </label>
-
-              <label className="flex flex-col gap-1.5">
-                <span className="text-sm font-medium text-black/70">How Can We Help?</span>
-                <textarea
-                  rows={4}
-                  placeholder="Tell us a little about what you're looking for."
-                  className={`${INPUT_CLASS} resize-none`}
-                />
-              </label>
-            </div>
-
-            {/* Disclaimer + submit */}
-            <p className="mt-5 text-center text-xs leading-normal text-black/45 sm:mt-6 sm:text-[13px]">
-              By submitting, you agree to be contacted by Genetico. We never share your information.
-            </p>
-            <button
-              type="submit"
-              className="bg-brand mt-4 w-full rounded-lg py-3.5 text-[15px] font-medium text-white transition-colors hover:bg-[#01356b]"
-            >
-              Talk to Our Team
-            </button>
-          </form>
+          {form}
         </div>
       </Reveal>
     </section>

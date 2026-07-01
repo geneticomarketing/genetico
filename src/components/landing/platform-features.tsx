@@ -22,32 +22,32 @@ const FEATURES: Feature[] = [
   {
     id: "pedigree",
     number: "01",
-    tabTitle: "Pedigree Editor",
-    category: "GENETICS",
-    subheading: "Map inheritance patterns without manual diagramming",
-    title: "Pedigree Editor",
+    tabTitle: "Pedigree Intelligence",
+    category: "GENETIC DATA CAPTURE",
+    subheading: "VISUALIZE FAMILY HISTORY WITH STRUCTURED GENETIC INTELLIGENCE",
+    title: "Pedigree Intelligence",
     description:
-      "Create detailed family trees with an intuitive interface designed for clinical use. Easily map relationships, inheritance patterns, and patient history across generations.",
+      "Create detailed family pedigrees through an intuitive visual interface designed for clinical genetics. Capture inheritance patterns, phenotype relationships, and family history as structured data that supports diagnosis, clinical decision support, and future analysis.",
     bullets: [
-      "Drag-and-drop relationship builder",
-      "Inheritance pattern visualization",
-      "Direct integration with patient records",
+      "Interactive pedigree builder with automated relationship mapping",
+      "Visualize inheritance patterns and genetic relationships",
+      "Integrated with longitudinal patient records and clinical workflows",
     ],
     illustration: "/thing.png",
   },
   {
     id: "hpo",
     number: "02",
-    tabTitle: "Automated HPO Extraction",
+    tabTitle: "AI-powered Phenotyping",
     category: "PHENOTYPING",
-    subheading: "Extract phenotype terms from clinical notes automatically",
-    title: "Automated HPO Extraction",
+    subheading: "STANDARDIZED PHENOTYPE DOCUMENTATION AT SCALE",
+    title: "AI-powered Phenotyping",
     description:
-      "Convert free-text clinical notes into standardized Human Phenotype Ontology terms, enabling consistent phenotyping across consultations and institutions.",
+      "Automatically extract Human Phenotype Ontology (HPO) terms from clinical notes and reports using AI, reducing manual effort while improving the consistency and completeness of phenotype documentation.",
     bullets: [
-      "NLP-powered term extraction",
-      "HPO code mapping and validation",
-      "Structured phenotype records for analysis",
+      "AI-assisted HPO extraction",
+      "Standardized phenotype documentation",
+      "Improved clinical decision support",
     ],
     illustration: "/platform/hpo-extraction.svg",
   },
@@ -56,30 +56,30 @@ const FEATURES: Feature[] = [
     number: "03",
     tabTitle: "OCR & Report Digitization",
     category: "DIGITIZATION",
-    subheading: "Transform physical reports into searchable digital data",
+    subheading: "STRUCTURED DATA FROM CLINICAL DOCUMENTS",
     title: "OCR & Report Digitization",
     description:
-      "Digitize paper-based clinical reports and lab results with high-accuracy OCR, automatically extracting structured data fields into patient records.",
+      "Digitize laboratory reports, genetic test results, and clinical documents using AI-powered OCR and intelligent data extraction to create structured, searchable clinical records.",
     bullets: [
-      "High-accuracy medical document OCR",
-      "Automated data field extraction",
-      "Integration with patient health records",
+      "AI-powered OCR",
+      "Intelligent report parsing",
+      "Structured clinical data generation",
     ],
     illustration: "/platform/ocr-digitization.svg",
   },
   {
     id: "workflows",
     number: "04",
-    tabTitle: "Standardized Workflows",
+    tabTitle: "Structured Clinical Workflows",
     category: "WORKFLOWS",
-    subheading: "Structured pathways for consistent clinical care",
-    title: "Standardized Workflows",
+    subheading: "CONSISTENT DOCUMENTATION ACROSS PROGRAMS",
+    title: "Structured Clinical Workflows",
     description:
-      "Deploy configurable clinical care pathways that guide clinicians through standardized steps, reducing variability and ensuring complete data capture.",
+      "Purpose-built workflows standardize data capture across rare disease programs, enabling consistent documentation, interoperability, analytics, and research-ready datasets.",
     bullets: [
-      "Configurable clinical care pathways",
-      "Role-based task assignment",
-      "End-to-end audit trails",
+      "Standardized clinical templates",
+      "AI-assisted documentation",
+      "Research-ready structured data",
     ],
     illustration: "/platform/standardized-workflows.svg",
   },
@@ -121,12 +121,13 @@ export function PlatformFeatures() {
               <span aria-hidden className="bg-accent h-0.5 w-10 sm:w-14" />
             </div>
             <h2 className="t-heading mt-5 max-w-none text-black">
-              How IndiGeneUs.AI Reduces Clinical Effort
+              Intelligent Data Capture for Rare Disease Care
             </h2>
           </div>
           <p className="text-ink-muted max-w-md text-[15px] leading-relaxed sm:text-base lg:justify-self-end lg:pb-1">
-            Designed to reduce manual effort across key clinical tasks, enabling faster and more
-            structured workflows.
+            AI-assisted data capture, structured clinical workflows, and intelligent automation reduce
+            manual effort while improving the quality, consistency, and usability of rare disease
+            data.
           </p>
         </div>
 

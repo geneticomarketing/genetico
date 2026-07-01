@@ -425,7 +425,7 @@ export function PublicHealthTierArchitecture() {
           <StaggerItem>
             <div className="flex items-center justify-center gap-4 sm:gap-6">
               <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
-              <span aria-hidden className="h-10 w-px shrink-0 bg-[#b8cce0] sm:w-16" />
+              {/* <span aria-hidden className="h-px w-px shrink-0 bg-[#b8cce0] sm:w-16" /> */}
               <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
                 Architecture
               </p>

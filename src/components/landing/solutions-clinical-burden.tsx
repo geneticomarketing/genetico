@@ -184,7 +184,7 @@ function BurdenMobileCarousel({
           <BurdenActiveCardPanel
             card={card}
             showLabel
-            className="min-h-[280px] sm:min-h-[320px]"
+            className="min-h-[220px] sm:min-h-[260px]"
           />
         </motion.div>
       </AnimatePresence>
@@ -239,7 +239,7 @@ function BurdenCardItem({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="relative z-10 flex h-full flex-col p-6 sm:p-8"
+              className="relative z-10 flex h-full flex-col p-5 sm:p-6"
             >
               <h3 className="mt-auto max-w-md text-left text-[clamp(1.35rem,2.4vw,1.85rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white">
                 {card.title}
@@ -354,7 +354,7 @@ export function SolutionsClinicalBurden({ variant = "hospital" }: { variant?: So
           <div className="flex items-center justify-center gap-4 sm:gap-6">
             <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
-              The Problem
+              {content.clinicalBurden.label}
             </p>
             <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
           </div>
@@ -378,7 +378,7 @@ export function SolutionsClinicalBurden({ variant = "hospital" }: { variant?: So
 
           <div
             ref={rowRef}
-            className="hidden h-[min(420px,58vw)] min-h-[320px] gap-2.5 lg:flex sm:gap-3"
+            className="hidden h-[min(320px,42vw)] min-h-[240px] gap-2.5 lg:flex sm:gap-3"
           >
             {cards.map((card, index) => (
               <BurdenCardItem

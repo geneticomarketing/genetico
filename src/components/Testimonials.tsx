@@ -11,13 +11,13 @@ interface TeamMember {
   id: number;
   name: string;
   title: string;
-  quote: string;
+  quote?: string;
   about: string;
+  image: string;
   linkedinUrl?: string;
   color: string;
   initials: string;
   bg: string;
-  image: string;
 }
 
 interface AvatarProps {
@@ -27,123 +27,113 @@ interface AvatarProps {
   onClick?: () => void;
 }
 
-// Unsplash stock portraits — each a different professional headshot
+// Leadership team — photos in /public/team, named after each person.
 const team: TeamMember[] = [
   {
     id: 0,
-    name: "Craig Vaccaro",
-    title: "Co-Founder & CEO",
-    quote:
-      "Rare disease care has been an afterthought for too long. We built Genetico to change that — permanently.",
+    name: "Arjun Gupta",
+    title: "Founder & CEO",
+    image: "/team/Arjun Gupta.png",
     about:
-      "With over 15 years in clinical informatics and population health, Craig founded Genetico to bridge the gap between genetic discovery and real-world patient care across India and South Asia.",
-    linkedinUrl: "https://www.linkedin.com/",
+      "Masters, Ross School of Business, University of Michigan. B. Tech-Biotech with exposure to drug discovery. 17+ Years across genetics, bioinformatics, testing labs and venture capital.",
+    linkedinUrl: "https://www.linkedin.com/in/arjungupta25/",
     color: "#2563eb",
-    initials: "CV",
+    initials: "AG",
     bg: "from-blue-400 to-blue-600",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 1,
-    name: "Dr. Priya Nair",
-    title: "Chief Scientific Officer",
-    quote:
-      "Every data point we analyze is a patient waiting for an answer. That's why we move fast without cutting corners.",
+    name: "Saurabh Verma",
+    title: "Co-founder & CTO",
+    image: "/team/Saurabh Verma.png",
     about:
-      "Dr. Nair leads Genetico's scientific strategy, translating complex genomic signals into clinical workflows that hospitals can trust and scale.",
-    linkedinUrl: "https://www.linkedin.com/",
+      "14+ Years of experience Building Software products, M.Tech (Computer Science), Serial Entrepreneur.",
     color: "#7c3aed",
-    initials: "PN",
+    initials: "SV",
     bg: "from-violet-400 to-violet-600",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 2,
-    name: "James Okafor",
-    title: "Head of Engineering",
-    quote:
-      "We're building infrastructure that will outlast any single therapy — a platform for the next century of medicine.",
-    about:
-      "James architects the platform layer that connects labs, clinicians, and researchers — ensuring reliability, security, and speed at every touchpoint.",
-    linkedinUrl: "https://www.linkedin.com/",
+    name: "Dr. Rohit Sadanand",
+    title: "Product Lead",
+    image: "/team/Dr Rohit Sadanand.png",
+    about: "DM Medical Genetics, AIIMS Delhi, MD Paediatrics, MBBS.",
+    linkedinUrl: "https://www.linkedin.com/in/rohit-sadanand-2413b213b/",
     color: "#0891b2",
-    initials: "JO",
+    initials: "RS",
     bg: "from-cyan-400 to-cyan-600",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 3,
-    name: "Dr. Sofia Reyes",
-    title: "Chief Medical Officer",
-    quote:
-      "The moment a diagnosis shifts from 'unknown' to 'understood' — that's what we're here for.",
+    name: "Vikram Kumar",
+    title: "Data Scientist",
+    image: "/team/Vikram Kumar.png",
     about:
-      "Dr. Reyes ensures every product decision reflects real clinical needs, grounding Genetico's technology in evidence-based medicine and patient safety.",
-    linkedinUrl: "https://www.linkedin.com/",
+      "Data science, Bioinformatics, Artificial intelligence, Masters in Technology, Computational Biology, IIIT Delhi.",
+    linkedinUrl: "https://www.linkedin.com/in/vikram-kumar-233a10193/",
     color: "#0d9488",
-    initials: "SR",
+    initials: "VK",
     bg: "from-teal-400 to-teal-600",
-    image:
-      "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 4,
-    name: "Marcus Leung",
-    title: "VP of Partnerships",
-    quote: "Rare disease is a global problem. Our network ensures no hospital faces it alone.",
+    name: "Dr. Shubha Phadke",
+    title: "Clinical Advisor",
+    image: "/team/Dr Shubha Phadke.png",
     about:
-      "Marcus builds partnerships with hospitals, research institutes, and public health systems to expand access to structured rare disease care.",
-    linkedinUrl: "https://www.linkedin.com/",
+      "Rt. Prof. & HOD - Dept. of Medical Genetics at SGPGI, Lucknow (35+yrs exp). 300+ Publications. Founder President - Society Indian Academy of Medical Genetics. Launched the first DM Medical Genetics program in India.",
+    linkedinUrl: "https://www.linkedin.com/in/shubha-phadke-87691960/",
     color: "#1d4ed8",
-    initials: "ML",
+    initials: "SP",
     bg: "from-blue-500 to-indigo-600",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 5,
-    name: "Amara Diallo",
-    title: "Director of Clinical Affairs",
-    quote: "Patients give us their trust. We give them our everything.",
+    name: "Dr. Kameshwar Rao",
+    title: "Public Sector Advisor",
+    image: "/team/Dr kameshwar Rao.png",
     about:
-      "Amara oversees clinical operations and trial design, making sure every patient pathway on Genetico is rigorous, compassionate, and actionable.",
-    linkedinUrl: "https://www.linkedin.com/",
+      "Rt. Executive Director - National Health Authority. 25 yrs+ of exp. in National Health Systems & Digital Health Transformation. Significant contributions in Ayushman Bharat Mission, AB PM-JAY.",
+    linkedinUrl: "https://www.linkedin.com/in/kameshwar-rao-punyamurtula-58751b14/",
     color: "#9333ea",
-    initials: "AD",
+    initials: "KR",
     bg: "from-purple-400 to-fuchsia-500",
-    image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 6,
-    name: "Tom Eriksen",
-    title: "Chief Data Officer",
-    quote: "The patterns are already in the data. We just built the engine to find them.",
+    name: "Anil Raina",
+    title: "Strategy Advisor",
+    image: "/team/Anil Raina.png",
     about:
-      "Tom leads data science and analytics at Genetico, turning fragmented clinical records into decision-ready insights for care teams.",
-    linkedinUrl: "https://www.linkedin.com/",
+      "Ex-GM, SEA-Sanofi Genzyme. MBA (IB). Senior Biopharma Executive. Strategic Leadership in Speciality Care & Rare Diseases. P&L Management & Launch Expertise.",
+    linkedinUrl: "https://www.linkedin.com/in/anilashokraina-consultant-biopharma/",
     color: "#0369a1",
-    initials: "TE",
+    initials: "AR",
     bg: "from-sky-400 to-blue-500",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 7,
-    name: "Dr. Leila Ahmadi",
-    title: "Head of Research",
-    quote: "Curiosity isn't optional here. It's the prerequisite.",
+    name: "Amit Mookim",
+    title: "Mentor",
+    image: "/team/Amit Mookim.png",
     about:
-      "Dr. Ahmadi directs research initiatives that connect emerging genetic findings with validated tools clinicians can use from day one.",
-    linkedinUrl: "https://www.linkedin.com/",
+      "CEO - Immuneel Therapeutics (Cell & Gene Therapy). MD of IQVIA South Asia. Partner - Healthcare KPMG. 20 yrs+ of healthcare leadership.",
+    linkedinUrl: "https://www.linkedin.com/in/amitmookim/",
     color: "#4f46e5",
-    initials: "LA",
+    initials: "AM",
     bg: "from-indigo-400 to-indigo-600",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face",
+  },
+  {
+    id: 8,
+    name: "Dr. Annie Hasan",
+    title: "Mentor",
+    image: "/team/Dr Annie hassan.png",
+    about:
+      "Head - Genetics & Molecular Medicine at Kamineni Hospitals with 35+ yrs of exp. President - Board of Genetic Counselling India.",
+    linkedinUrl: "https://www.linkedin.com/in/q-annie-hasan-467b811b4/",
+    color: "#b45309",
+    initials: "AH",
+    bg: "from-amber-400 to-orange-500",
   },
 ];
 
@@ -151,8 +141,41 @@ const ORBIT_COUNT = 7;
 const ORBIT_RADIUS = 280;
 const AUTO_INTERVAL = 5000;
 
-function heroImageUrl(image: string) {
-  return image.replace("w=200&h=200", "w=800&h=1000");
+function InitialsAvatar({ person, className }: { person: TeamMember; className?: string }) {
+  return (
+    <div
+      className={`flex items-center justify-center bg-gradient-to-br ${person.bg} ${className ?? ""}`}
+    >
+      <span className="font-semibold text-white">{person.initials}</span>
+    </div>
+  );
+}
+
+function TeamPhoto({
+  person,
+  className,
+  imgClassName = "size-full object-cover object-top",
+}: {
+  person: TeamMember;
+  className?: string;
+  imgClassName?: string;
+}) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return <InitialsAvatar person={person} className={className} />;
+  }
+
+  return (
+    <div className={`overflow-hidden ${className ?? ""}`}>
+      <img
+        src={encodeURI(person.image)}
+        alt={person.name}
+        className={imgClassName}
+        onError={() => setFailed(true)}
+      />
+    </div>
+  );
 }
 
 function MemberDrawer({ person, onClose }: { person: TeamMember; onClose: () => void }) {
@@ -206,10 +229,10 @@ function MemberDrawer({ person, onClose }: { person: TeamMember; onClose: () => 
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative shrink-0">
-              <img
-                src={heroImageUrl(person.image)}
-                alt=""
-                className="h-[min(42vh,320px)] w-full object-cover object-top"
+              <TeamPhoto
+                person={person}
+                className="h-[min(42vh,320px)] w-full"
+                imgClassName="size-full object-cover object-top"
               />
               <div
                 className="absolute inset-0"
@@ -240,13 +263,15 @@ function MemberDrawer({ person, onClose }: { person: TeamMember; onClose: () => 
             </div>
 
             <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-7 py-8">
-              <blockquote className="border-accent border-l-[3px] pl-5">
-                <p className="mainFont text-[1.05rem] leading-relaxed text-[#1a1a1a] italic">
-                  &ldquo;{person.quote}&rdquo;
-                </p>
-              </blockquote>
+              {person.quote ? (
+                <blockquote className="border-accent border-l-[3px] pl-5">
+                  <p className="mainFont text-[1.05rem] leading-relaxed text-[#1a1a1a] italic">
+                    &ldquo;{person.quote}&rdquo;
+                  </p>
+                </blockquote>
+              ) : null}
 
-              <div className="mt-8">
+              <div className={person.quote ? "mt-8" : ""}>
                 <p className="secondaryFont text-brand text-[0.68rem] font-semibold tracking-[0.22em] uppercase">
                   About
                 </p>
@@ -276,35 +301,23 @@ function MemberDrawer({ person, onClose }: { person: TeamMember; onClose: () => 
 }
 
 function Avatar({ person, size = "md", active = false, onClick }: AvatarProps) {
-  const sizes: Record<"sm" | "md" | "lg", string> = {
-    sm: "w-14 h-14",
-    md: "w-16 h-16",
-    lg: "w-36 h-36",
-  };
+  const sizeClass = {
+    sm: "size-14 text-sm",
+    md: "size-16 text-base",
+    lg: "size-36 text-3xl",
+  }[size];
 
   return (
     <button
       onClick={onClick}
-      className={`overflow-hidden rounded-full shadow-lg transition-all duration-300 ${sizes[size]} ${
+      className={`overflow-hidden rounded-full shadow-lg transition-all duration-300 ${sizeClass} ${
         active
           ? "scale-110 ring-2 ring-offset-2 ring-offset-[#eef2f8]"
           : "opacity-70 hover:scale-105 hover:opacity-100"
       }`}
+      style={active ? { boxShadow: `0 0 0 2px ${person.color}` } : undefined}
     >
-      <img
-        src={person.image}
-        alt={person.name}
-        className="h-full w-full object-cover"
-        onError={(e) => {
-          const target = e.currentTarget as HTMLImageElement;
-          target.style.display = "none";
-          const parent = target.parentElement;
-          if (parent) {
-            parent.classList.add(`bg-gradient-to-br`, ...person.bg.split(" "));
-            parent.innerHTML = `<span class="w-full h-full flex items-center justify-center text-white font-semibold text-sm">${person.initials}</span>`;
-          }
-        }}
-      />
+      <TeamPhoto person={person} className="size-full" />
     </button>
   );
 }
@@ -384,7 +397,7 @@ function LeadershipCarouselComponent() {
         </Reveal>
         <Reveal delay={0.4}>
           <p className="text-sm tracking-wide text-slate-400">
-            Scientists, engineers, and clinicians united by one mission.
+            Clinicians, engineers, and advisors united by one mission.
           </p>
         </Reveal>
       </div>
@@ -429,11 +442,7 @@ function LeadershipCarouselComponent() {
                   }}
                 >
                   <div className="h-28 w-28 overflow-hidden rounded-full sm:h-36 sm:w-36">
-                    <img
-                      src={centerPerson.image}
-                      alt={centerPerson.name}
-                      className="h-full w-full object-cover"
-                    />
+                    <TeamPhoto person={centerPerson} className="size-full" />
                   </div>
                 </div>
                 <p
@@ -448,8 +457,8 @@ function LeadershipCarouselComponent() {
                 >
                   {centerPerson.name}
                 </h2>
-                <p className="text-sm leading-relaxed text-slate-500 italic sm:text-[15px]">
-                  &ldquo;{centerPerson.quote}&rdquo;
+                <p className="line-clamp-4 text-sm leading-relaxed text-slate-500 sm:text-[15px]">
+                  {centerPerson.about}
                 </p>
               </motion.button>
             </AnimatePresence>
@@ -467,7 +476,7 @@ function LeadershipCarouselComponent() {
                   }}
                   aria-label={`View ${person.name}`}
                 >
-                  <img src={person.image} alt="" className="h-full w-full object-cover" />
+                  <TeamPhoto person={person} className="size-full" />
                 </button>
               ))}
             </div>
@@ -532,11 +541,7 @@ function LeadershipCarouselComponent() {
               }}
             >
               <div className="h-36 w-36 overflow-hidden rounded-full">
-                <img
-                  src={centerPerson.image}
-                  alt={centerPerson.name}
-                  className="h-full w-full object-cover"
-                />
+                <TeamPhoto person={centerPerson} className="size-full" />
               </div>
             </div>
             <p
@@ -551,8 +556,8 @@ function LeadershipCarouselComponent() {
             >
               {centerPerson.name}
             </h2>
-            <p className="text-sm leading-relaxed text-slate-400 italic">
-              &ldquo;{centerPerson.quote}&rdquo;
+            <p className="line-clamp-4 text-sm leading-relaxed text-slate-400">
+              {centerPerson.about}
             </p>
           </motion.button>
         </AnimatePresence>

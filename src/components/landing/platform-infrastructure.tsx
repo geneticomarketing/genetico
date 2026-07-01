@@ -87,8 +87,9 @@ function IntegrationsCard() {
           Integrations
         </h3>
         <p className="text-ink-muted mt-3 text-[15px] leading-relaxed sm:text-base">
-          Connect with hospital systems, labs, and external platforms to ensure smooth data exchange
-          and workflow continuity.
+          IndiGeneUs.AI is designed to work alongside your existing digital ecosystem. Connect with
+          hospital information systems, laboratory platforms, genetic testing workflows, and external
+          knowledge resources to create a unified clinical experience.
         </p>
       </div>
     </article>
@@ -160,8 +161,8 @@ function DeploymentCard() {
           Deployment Flexibility
         </h3>
         <p className="text-ink-muted mt-3 text-[15px] leading-relaxed sm:text-base">
-          Support both cloud-based and on-premise deployments based on institutional requirements
-          and data policies.
+          Whether deployed on-premise or in the cloud, IndiGeneUs.AI adapts to institutional security,
+          compliance, and operational requirements while ensuring scalability and performance.
         </p>
       </div>
     </article>
@@ -185,12 +186,13 @@ export function PlatformInfrastructure() {
                 className="t-heading mt-5 max-w-none text-black"
                 style={{ fontVariationSettings: '"SERF" 100' }}
               >
-                Built for Real-World Deployment
+                Built for Enterprise Healthcare Environments
               </h2>
             </div>
             <p className="text-ink-muted max-w-md text-[15px] leading-relaxed sm:text-base lg:justify-self-end lg:pb-1">
-              Designed to integrate seamlessly into existing clinical and institutional
-              environments.
+              Designed to integrate with existing healthcare ecosystems while providing the flexibility
+              to deploy across hospitals, research institutions, and public health programs without
+              disrupting existing workflows.
             </p>
           </div>
         </Reveal>

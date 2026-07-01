@@ -1,15 +1,13 @@
 "use client";
 
-import { ResourcesDeepDives } from "@/components/landing/resources-deep-dives";
 import { ResourcesEditorial } from "@/components/landing/resources-editorial";
 import { ResourcesHero } from "@/components/landing/resources-hero";
 import { ResourcesLibrary } from "@/components/landing/resources-library";
 import { ResourcesShortVideos } from "@/components/landing/resources-short-videos";
 import { Reveal } from "@/components/motion/reveal";
 import { motion, useScroll, useTransform } from "motion/react";
-import Link from "next/link";
 import { useRef } from "react";
-import { CALENDLY_URL } from "@/lib/contact";
+import { NEWSLETTER_URL } from "@/lib/contact";
 
 export default function ResourcesPage() {
   const pageRef = useRef(null);
@@ -37,7 +35,6 @@ export default function ResourcesPage() {
       <div className="relative z-999999999">
         <ResourcesLibrary />
         <ResourcesShortVideos />
-        <ResourcesDeepDives />
         <ResourcesEditorial />
         <section
           id="get-in-touch"
@@ -54,19 +51,20 @@ export default function ResourcesPage() {
 
           <Reveal className="relative z-10 mx-auto max-w-3xl text-center">
             <h2 className="t-heading mx-auto text-balance text-[#121212]">
-              Different conversation,
-              <br />
-              depending on who you are
+              Stay Updated with Genetico
             </h2>
-            <p className="secondaryFont mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#8f8f8f] sm:mt-6">
-              Take the stress out of UI design with ready-to-use content.
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-black/55 sm:mt-6 sm:text-lg">
+              Get the latest clinical insights, research updates, and product developments in
+              genetic and rare disease diagnosis.
             </p>
-            <Link
-              href={CALENDLY_URL}
+            <a
+              href={NEWSLETTER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-brand mt-8 inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b] sm:mt-10"
             >
-              Book a Demo
-            </Link>
+              Subscribe to Updates
+            </a>
           </Reveal>
         </section>
       </div>

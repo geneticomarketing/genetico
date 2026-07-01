@@ -4,8 +4,9 @@ import { SolutionsClinicalBurden } from "@/components/landing/solutions-clinical
 import { SolutionsHero } from "@/components/landing/solutions-hero";
 import { SolutionsHowItWorks } from "@/components/landing/solutions-how-it-works";
 import { SolutionsMeasurableOutcomes } from "@/components/landing/solutions-measurable-outcomes";
+import { GetInTouch } from "@/components/landing/get-in-touch";
 import { Reveal } from "@/components/motion/reveal";
-import { CALENDLY_URL } from "@/lib/contact";
+import { NEWSLETTER_URL } from "@/lib/contact";
 import { getSolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
 import { motion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
@@ -48,7 +49,7 @@ export function SolutionsPage({ variant }: { variant: SolutionsVariant }) {
         <SolutionsMeasurableOutcomes variant={variant} />
         <section
           id="get-in-touch"
-          className="relative overflow-hidden bg-[#F4F6F9] px-5 py-20 sm:px-10 sm:py-24 lg:py-32"
+          className="relative overflow-hidden bg-[#F4F6F9] px-5 pt-20 sm:px-10 sm:pt-24 lg:pt-32"
         >
           <div aria-hidden className="pointer-events-none absolute inset-0">
             <img
@@ -61,20 +62,30 @@ export function SolutionsPage({ variant }: { variant: SolutionsVariant }) {
 
           <Reveal className="relative z-10 mx-auto max-w-3xl text-center">
             <h2 className="t-heading mx-auto text-balance text-[#121212]">
-              {content.cta.headingLine1}
-              <br />
-              {content.cta.headingLine2}
+              {content.cta.heading}
             </h2>
             <p className="secondaryFont mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#8f8f8f] sm:mt-6">
               {content.cta.description}
             </p>
-            <Link
-              href={CALENDLY_URL}
-              className="bg-brand mt-8 inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b] sm:mt-10"
-            >
-              Book a Demo
-            </Link>
+            <div className="mt-8 mb-10 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4">
+              <Link
+                href="#lead-form"
+                className="bg-brand inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b]"
+              >
+                Book a Demo
+              </Link>
+              <a
+                href={NEWSLETTER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-lg border border-black/15 bg-white px-7 py-3 text-sm font-medium text-black transition-colors hover:bg-black/[0.03]"
+              >
+                Subscribe for Updates
+              </a>
+            </div>
           </Reveal>
+
+          <GetInTouch embedded />
         </section>
       </div>
     </main>

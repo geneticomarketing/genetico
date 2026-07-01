@@ -26,27 +26,13 @@ export function ResourcesHero() {
   const reduce = useReducedMotion();
 
   return (
-    <section
-      id="hero"
-      className="relative h-dvh overflow-hidden"
-      style={
-        {
-          // background: "linear-gradient(280deg, #12325a 0%, #024385 46%, #00101f 78%, #00101f 100%)",
-        }
-      }
-    >
+    <section id="hero" className="relative h-dvh overflow-hidden">
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0"
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: 1,
-        }}
-        transition={{
-          duration: 0.8,
-        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
       >
         <Image
           src="/rhero.png"
@@ -74,13 +60,20 @@ export function ResourcesHero() {
 
       <div className="relative mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col items-center justify-center px-6 pt-24 pb-8 text-center sm:pt-28">
         <motion.h1 {...heroEntrance(1, reduce)} className="t-display mx-auto text-white">
-          Insights From <br /> The Rare Disease Ecosystem
+          Resources
         </motion.h1>
         <motion.p
-          {...heroEntrance(3, reduce)}
-          className="secondaryFont mx-auto mt-7 max-w-xl text-sm leading-relaxed text-white/80 sm:mt-8 sm:text-base"
+          {...heroEntrance(2, reduce)}
+          className="secondaryFont mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:mt-7 sm:text-lg"
         >
-          Genetico helps clinicians spend less time on data and more time on patients
+          Clinical insights, updates, and learning from Genetico
+        </motion.p>
+        <motion.p
+          {...heroEntrance(3, reduce)}
+          className="secondaryFont mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/65 sm:text-base"
+        >
+          A curated collection of videos, articles, and clinical updates from Genetico&apos;s work in
+          rare and genetic diseases. Built for clinicians, researchers, and healthcare teams.
         </motion.p>
       </div>
     </section>

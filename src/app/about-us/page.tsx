@@ -1,13 +1,20 @@
 "use client";
 
-import CustomersCarousel from "@/components/Customers";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
 import { GrantsTimeline } from "@/components/ScrollSection";
 import { LeadershipCarousel } from "@/components/Testimonials";
+import { GetInTouch } from "@/components/landing/get-in-touch";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
 import { useRef } from "react";
-import { CALENDLY_URL } from "@/lib/contact";
+import { NEWSLETTER_URL } from "@/lib/contact";
+
+const heroLabels = [
+  { label: "Clinical Workflows", position: "top-[5%] left-[2%] sm:left-[6%]" },
+  { label: "AI Decision Support", position: "top-[5%] right-[2%] sm:right-[6%]" },
+  { label: "Research Analytics", position: "bottom-[8%] left-[0%] sm:left-[4%]" },
+  { label: "Longitudinal Care", position: "bottom-[8%] right-[0%] sm:right-[4%]" },
+] as const;
 
 export default function AboutUs() {
   const pageRef = useRef(null);
@@ -21,23 +28,22 @@ export default function AboutUs() {
   const heroY = useTransform(pageScroll, [0, 0.4], ["0%", "50%"]);
 
   const reduce = useReducedMotion();
-  const heroLabels = ["Clinical Workflows", "Patient tracking", "AI Decision Support"] as const;
 
   const foundations = [
     {
       index: "01",
       title: "The Core Challenge",
-      body: "The absence of structured, usable clinical data is the core challenge that holds back diagnosis, treatment, and policy-level action.",
+      body: "Rare disease care is limited by fragmented clinical data, disconnected workflows, and a lack of structured information needed to support diagnosis, research, and public health.",
     },
     {
       index: "02",
       title: "The Mission",
-      body: "Its mission is to enable clinicians and institutions with the tools required to capture, analyze, and act on complex genetic information.",
+      body: "To empower clinicians, institutions, and researchers with AI-enabled workflows, clinical decision support, and structured data that improve care and accelerate discovery.",
     },
     {
       index: "03",
       title: "The Vision",
-      body: "Its vision is to build a unified digital infrastructure that supports patient care, research, and public health systems at scale.",
+      body: "To build the digital backbone for the rare disease ecosystem, connecting patient care, research, and public health through intelligent infrastructure at scale.",
     },
   ];
 
@@ -58,24 +64,26 @@ export default function AboutUs() {
           >
             <StaggerItem>
               <h1 className="t-display max-w-4xl text-balance text-black sm:max-w-5xl">
-                Building Infrastructure For <span className="text-brand">Clinical Genetics</span>
+                Building Infrastructure
+                <br />
+                For <span className="text-brand">Rare Disease Care</span>
               </h1>
             </StaggerItem>
 
             <StaggerItem>
               <p className="mt-6 max-w-3xl text-sm leading-relaxed text-pretty text-black/70 sm:text-base">
-                A platform designed to bring structure, intelligence, and continuity to rare disease
-                care.
+                An AI-enabled digital infrastructure connecting clinical care, research, and public
+                health to transform rare disease diagnosis, management, and outcomes.
               </p>
             </StaggerItem>
 
             <StaggerItem>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                 <Link
-                  href="/#platform"
+                  href="#get-in-touch"
                   className="bg-brand hover:bg-brand/70 inline-flex items-center gap-2 rounded-lg border border-white/20 px-6 py-3 text-sm font-medium text-white backdrop-blur-md transition-colors"
                 >
-                  Explore services
+                  Get In Touch
                   <span aria-hidden className="text-lg leading-none">
                     →
                   </span>
@@ -85,50 +93,39 @@ export default function AboutUs() {
             <StaggerItem>
               <div className="relative mx-auto mt-10 w-full max-w-[49rem]">
                 <img src="/race.svg" className="rotate mx-auto h-auto w-full lg:w-196" alt="" />
-                {heroLabels.map((label, i) => (
+                {heroLabels.map((item, i) => (
                   <motion.div
-                    key={label}
+                    key={item.label}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.8 + (i + 1) / 10 }}
                     className="hidden lg:block"
                   >
                     <div
-                      className={`text-brand pointer-events-none absolute flex w-fit items-center justify-center gap-3 border border-zinc-400 bg-white p-3 px-2 text-sm whitespace-nowrap opacity-75 shadow-lg ${
-                        i === 0
-                          ? "top-48 left-36"
-                          : i === 1
-                            ? "top-10 left-1/2 -translate-x-1/2"
-                            : "top-48 right-0"
-                      }`}
+                      className={`text-brand pointer-events-none absolute flex w-fit max-w-[11rem] items-center justify-center gap-2.5 border border-zinc-400 bg-white p-3 px-3 text-sm shadow-lg ${item.position}`}
                     >
-                      <p>0{i + 1}</p>
-                      <div className="text-black">{label}</div>
+                      <p className="shrink-0 font-medium">0{i + 1}</p>
+                      <div className="text-left text-black">{item.label}</div>
                     </div>
                   </motion.div>
                 ))}
-                <div className="mt-5 flex flex-col items-center gap-2 sm:mt-6 lg:hidden">
-                  {heroLabels.map((label, i) => (
+                <div className="mt-5 grid grid-cols-2 gap-2 sm:mt-6 lg:hidden">
+                  {heroLabels.map((item, i) => (
                     <motion.div
-                      key={label}
+                      key={item.label}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1.8 + (i + 1) / 10 }}
-                      className="text-brand flex w-fit max-w-full items-center justify-center gap-2.5 border border-zinc-400 bg-white p-2.5 px-3 text-xs opacity-75 shadow-lg sm:gap-3 sm:text-sm"
+                      className="text-brand flex w-full items-center justify-center gap-2 border border-zinc-400 bg-white p-2.5 px-3 text-xs opacity-90 shadow-lg sm:text-sm"
                     >
-                      <p className="shrink-0">0{i + 1}</p>
-                      <div className="text-center text-black">{label}</div>
+                      <p className="shrink-0 font-medium">0{i + 1}</p>
+                      <div className="text-center text-black">{item.label}</div>
                     </motion.div>
                   ))}
                 </div>
               </div>
             </StaggerItem>
           </StaggerGroup>
-
-          {/* <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-[linear-gradient(to_bottom,transparent,rgba(1,4,10,0.95))]"
-          /> */}
         </section>
       </motion.div>
 
@@ -195,18 +192,18 @@ export default function AboutUs() {
             </motion.ul>
           </div>
         </section>
+
         <section>
-          <LeadershipCarousel></LeadershipCarousel>
+          <LeadershipCarousel />
         </section>
+
         <section>
-          <GrantsTimeline></GrantsTimeline>
+          <GrantsTimeline />
         </section>
-        <section className="">
-          <CustomersCarousel></CustomersCarousel>
-        </section>
+
         <section
           id="get-in-touch"
-          className="relative overflow-hidden bg-[#F4F6F9] px-5 py-20 sm:px-10 sm:py-24 lg:py-32"
+          className="relative overflow-hidden bg-[#F4F6F9] px-5 pt-20 sm:px-10 sm:pt-24 lg:pt-32"
         >
           <div aria-hidden className="pointer-events-none absolute inset-0">
             <img
@@ -219,20 +216,32 @@ export default function AboutUs() {
 
           <Reveal className="relative z-10 mx-auto max-w-3xl text-center">
             <h2 className="t-heading mx-auto text-balance text-[#121212]">
-              Different conversation,
-              <br />
-              depending on who you are
+              Advancing the Rare Disease Ecosystem Starts with Collaboration
             </h2>
-            <p className="secondaryFont mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#8f8f8f] sm:mt-6">
-              Take the stress out of UI design with ready-to-use content.
+            <p className="secondaryFont mx-auto mt-5 max-w-2xl text-base leading-relaxed text-[#8f8f8f] sm:mt-6">
+              We work alongside clinicians, institutions, researchers, and public health programs to
+              build intelligent infrastructure that transforms fragmented data into better decisions
+              and better outcomes.
             </p>
-            <Link
-              href={CALENDLY_URL}
-              className="bg-brand mt-8 inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b] sm:mt-10"
-            >
-              Book a Demo
-            </Link>
+            <div className="mt-8 mb-10 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4">
+              <Link
+                href="#lead-form"
+                className="bg-brand inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b]"
+              >
+                Book a Demo
+              </Link>
+              <a
+                href={NEWSLETTER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-lg border border-black/15 bg-white px-7 py-3 text-sm font-medium text-black transition-colors hover:bg-black/[0.03]"
+              >
+                Subscribe to Updates
+              </a>
+            </div>
           </Reveal>
+
+          <GetInTouch embedded />
         </section>
       </div>
     </main>
