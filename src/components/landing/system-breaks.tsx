@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
-import { EASE, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { EASE, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
 import { HOSPITAL_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
 
 // Each module is a "where the system breaks" entry. The left rail lists every module
@@ -88,6 +88,8 @@ function ModuleGlyph({ icon, tone }: { icon: string; tone: string }) {
 export function SystemBreaks() {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
+  const { ref: listRef, visible: listVisible } = useInViewAnimation<HTMLUListElement>();
+  const { ref: lineRef, visible: lineVisible } = useInViewAnimation<HTMLDivElement>();
 
   const layoutTransition = reduce ? { duration: 0 } : { duration: 0.45, ease: EASE };
   const switchTransition = reduce ? { duration: 0 } : { duration: 0.5, ease: EASE };
@@ -110,10 +112,10 @@ export function SystemBreaks() {
         <div className="mt-14 grid gap-10 rounded-md border border-gray-200 p-8 max-md:px-0 lg:grid-cols-[5fr_1px_7fr] lg:items-stretch">
           {/* LEFT — module rail: active expands into a card, the rest are plain rows */}
           <motion.ul
+            ref={listRef}
             className="flex flex-col gap-1.5"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
+            initial={reduce ? false : "hidden"}
+            animate={listVisible ? "show" : "hidden"}
             variants={{
               hidden: {},
               show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
@@ -195,11 +197,11 @@ export function SystemBreaks() {
 
           <StaggerItem className="hidden self-stretch lg:block">
             <motion.span
+              ref={lineRef}
               aria-hidden
               className="block h-full w-[3px] origin-top bg-gray-200"
               initial={reduce ? false : { scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
+              animate={lineVisible ? { scaleY: 1 } : { scaleY: 0 }}
               transition={{ duration: 0.6, ease: EASE, delay: 0.35 }}
             />
           </StaggerItem>

@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
-import { EASE, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { EASE, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
 
 type Classification = {
   id: string;
@@ -119,13 +119,12 @@ function ClassificationBlock({ item, index }: { item: Classification; index: num
 
 function HubSpokeDiagram() {
   const reduce = useReducedMotion();
-  const inViewProps = {
-    viewport: { once: true, amount: 0.35 } as const,
-  };
+  const { ref, visible } = useInViewAnimation();
+  const show = Boolean(reduce) || visible;
 
   return (
     <StaggerItem className="flex items-center justify-center lg:justify-end">
-      <div className="relative w-full max-w-[min(100%,480px)]">
+      <div ref={ref} className="relative w-full max-w-[min(100%,480px)]">
         <svg viewBox="0 0 520 380" className="h-auto w-full" aria-hidden>
           <defs>
             <radialGradient id="ph-hub-glow" cx="50%" cy="50%" r="50%">
@@ -147,8 +146,7 @@ function HubSpokeDiagram() {
             strokeOpacity="0.14"
             strokeLinecap="round"
             initial={reduce ? false : { pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            {...inViewProps}
+            animate={show ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
             transition={{ duration: 1.4, ease: EASE, delay: 0.15 }}
           />
 
@@ -161,8 +159,7 @@ function HubSpokeDiagram() {
             strokeDasharray="5 7"
             className={reduce ? undefined : "ph-tier-dash"}
             initial={reduce ? false : { pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            {...inViewProps}
+            animate={show ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
             transition={{ duration: 1.2, ease: EASE, delay: 0.35 }}
           />
 
@@ -175,8 +172,7 @@ function HubSpokeDiagram() {
             strokeDasharray="5 7"
             className={reduce ? undefined : "ph-tier-dash"}
             initial={reduce ? false : { pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            {...inViewProps}
+            animate={show ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
             transition={{ duration: 1, ease: EASE, delay: 0.28 }}
           />
 
@@ -191,8 +187,7 @@ function HubSpokeDiagram() {
               stroke="#b8d9f0"
               strokeWidth="1.25"
               initial={reduce ? false : { pathLength: 0, opacity: 0 }}
-              whileInView={{ pathLength: 1, opacity: 1 }}
-              {...inViewProps}
+              animate={show ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
               transition={{ duration: 0.65, ease: EASE, delay: 0.2 + i * 0.07 }}
             />
           ))}
@@ -211,8 +206,7 @@ function HubSpokeDiagram() {
                 strokeWidth="1.25"
                 strokeDasharray="4 6"
                 initial={reduce ? false : { pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 0.85 }}
-                {...inViewProps}
+                animate={show ? { pathLength: 1, opacity: 0.85 } : { pathLength: 0, opacity: 0 }}
                 transition={{ duration: 0.6, ease: EASE, delay: 0.55 + i * 0.1 }}
               />
             );
@@ -225,8 +219,7 @@ function HubSpokeDiagram() {
               <motion.g
                 key={`plus-${i}`}
                 initial={reduce ? false : { opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                {...inViewProps}
+                animate={show ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
                 transition={{ duration: 0.4, ease: EASE, delay: 0.45 + i * 0.08 }}
                 style={{ transformOrigin: `${x}px ${y}px` }}
               >
@@ -274,8 +267,7 @@ function HubSpokeDiagram() {
               filter="url(#ph-hub-blur)"
               className="ph-hub-pulse"
               initial={{ opacity: 0, scale: 0.7 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              {...inViewProps}
+              animate={show ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.7 }}
               transition={{ duration: 0.75, ease: EASE }}
             />
           )}
@@ -283,8 +275,7 @@ function HubSpokeDiagram() {
           {/* Hub core */}
           <motion.g
             initial={reduce ? false : { scale: 0 }}
-            whileInView={{ scale: 1 }}
-            {...inViewProps}
+            animate={show ? { scale: 1 } : { scale: 0 }}
             transition={{ duration: 0.65, ease: EASE, delay: 0.05 }}
             style={{ transformOrigin: `${HUB.x}px ${HUB.y}px` }}
           >
@@ -330,8 +321,7 @@ function HubSpokeDiagram() {
             <motion.g
               key={`c-${i}`}
               initial={reduce ? false : { opacity: 0, scale: 0.65 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              {...inViewProps}
+              animate={show ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.65 }}
               transition={{ duration: 0.5, ease: EASE, delay: 0.38 + i * 0.07 }}
               style={{ transformOrigin: `${node.x}px ${node.y}px` }}
             >
@@ -372,8 +362,7 @@ function HubSpokeDiagram() {
             <motion.g
               key={`d-${i}`}
               initial={reduce ? false : { opacity: 0, scale: 0.65 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              {...inViewProps}
+              animate={show ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.65 }}
               transition={{ duration: 0.5, ease: EASE, delay: 0.62 + i * 0.1 }}
               style={{ transformOrigin: `${node.x}px ${node.y}px` }}
             >

@@ -11,7 +11,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import Link from "next/link";
-import { NEWSLETTER_URL } from "@/lib/contact";
+import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
 
 export default function PlatformPage() {
   const pageRef = useRef(null);
@@ -66,7 +66,7 @@ export default function PlatformPage() {
             </p>
             <div className="mt-8 mb-10 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4">
               <Link
-                href="#lead-form"
+                href={CALENDLY_URL}
                 className="bg-brand inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b]"
               >
                 Book a Demo

@@ -13,6 +13,7 @@ import {
 } from "motion/react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { useScrollMappedValue } from "@/lib/motion/scroll-value";
 import { getSolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
 
 const RING_RADIUS = 54;
@@ -154,30 +155,34 @@ function OutcomeColumn({
   reduce: boolean | null;
 }) {
   const stagger = index * 0.06;
-  const toOpacity = useTransform(
+  const toOpacity = useScrollMappedValue(
     progress,
     [stagger + 0.08, stagger + 0.32],
     reduce ? [1, 1] : [0.2, 1],
+    !reduce,
   );
-  const fromOpacity = useTransform(
+  const fromOpacity = useScrollMappedValue(
     progress,
     [stagger, stagger + 0.2],
     reduce ? [0.55, 0.55] : [0.15, 0.55],
+    !reduce,
   );
   const dividerScale = useTransform(
     progress,
     [stagger + 0.28, stagger + 0.48],
     reduce ? [1, 1] : [0, 1],
   );
-  const negativeOpacity = useTransform(
+  const negativeOpacity = useScrollMappedValue(
     progress,
     [stagger + 0.38, stagger + 0.58],
     reduce ? [1, 1] : [0.2, 1],
+    !reduce,
   );
-  const positiveOpacity = useTransform(
+  const positiveOpacity = useScrollMappedValue(
     progress,
     [stagger + 0.52, stagger + 0.78],
     reduce ? [1, 1] : [0.2, 1],
+    !reduce,
   );
   const positiveWeight = useTransform(
     progress,

@@ -10,7 +10,8 @@ import {
 } from "motion/react";
 import { useRef } from "react";
 
-import { EASE, Reveal } from "@/components/motion/reveal";
+import { EASE, Reveal, useInViewAnimation } from "@/components/motion/reveal";
+import { useScrollMappedValue } from "@/lib/motion/scroll-value";
 
 const PARTNERS = [
   { name: "AIIMS Delhi", logo: "/logos/customers/AIIMS Delhi.png" },
@@ -83,15 +84,17 @@ function FeatureItem({
   reduce: boolean | null;
 }) {
   const activateAt = count <= 1 ? 0 : index / (count - 1);
-  const badgeOpacity = useTransform(
+  const badgeOpacity = useScrollMappedValue(
     progress,
     [Math.max(0, activateAt - 0.14), activateAt + 0.02],
     reduce ? [1, 1] : [0.45, 1],
+    !reduce,
   );
-  const textOpacity = useTransform(
+  const textOpacity = useScrollMappedValue(
     progress,
     [Math.max(0, activateAt - 0.1), activateAt + 0.08],
     reduce ? [0.8, 0.8] : [0.55, 1],
+    !reduce,
   );
 
   return (
@@ -119,20 +122,19 @@ function FeatureItem({
 
 function SecurityFeatures() {
   const reduce = useReducedMotion();
-  const listRef = useRef<HTMLOListElement>(null);
+  const { ref, visible } = useInViewAnimation<HTMLOListElement>();
   const { scrollYProgress } = useScroll({
-    target: listRef,
+    target: ref,
     offset: ["start 0.88", "end 0.42"],
   });
   const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <motion.ol
-      ref={listRef}
+      ref={ref}
       className="relative flex flex-col gap-5 lg:ml-auto lg:w-fit"
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.2 }}
+      initial={reduce ? false : "hidden"}
+      animate={visible ? "show" : "hidden"}
       variants={{
         hidden: {},
         show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },

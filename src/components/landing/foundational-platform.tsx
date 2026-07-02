@@ -4,6 +4,7 @@ import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } f
 import { useRef } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { useScrollMappedValue } from "@/lib/motion/scroll-value";
 
 // Body copy as segments; `hl` marks the teal keyword phrases from the design mock.
 // Each segment is split into words so they can light up one-by-one on scroll.
@@ -73,7 +74,7 @@ function ScrollWord({
   range: [number, number];
   progress: MotionValue<number>;
 }) {
-  const opacity = useTransform(progress, range, [0.15, 1]);
+  const opacity = useScrollMappedValue(progress, range, [0.15, 1]);
   return (
     <>
       {word.leadingSpace ? " " : ""}

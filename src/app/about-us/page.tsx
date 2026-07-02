@@ -1,13 +1,13 @@
 "use client";
 
-import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { Reveal, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
 import { GrantsTimeline } from "@/components/ScrollSection";
 import { LeadershipCarousel } from "@/components/Testimonials";
 import { GetInTouch } from "@/components/landing/get-in-touch";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
 import { useRef } from "react";
-import { NEWSLETTER_URL } from "@/lib/contact";
+import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
 
 const heroLabels = [
   { label: "Clinical Workflows", position: "top-[5%] left-[2%] sm:left-[6%]" },
@@ -28,6 +28,7 @@ export default function AboutUs() {
   const heroY = useTransform(pageScroll, [0, 0.4], ["0%", "50%"]);
 
   const reduce = useReducedMotion();
+  const { ref: foundationsRef, visible: foundationsVisible } = useInViewAnimation<HTMLUListElement>();
 
   const foundations = [
     {
@@ -149,10 +150,10 @@ export default function AboutUs() {
             </Reveal>
 
             <motion.ul
+              ref={foundationsRef}
               className="mt-16 grid gap-10 md:mt-20 md:grid-cols-3 md:gap-8 lg:gap-12"
               initial={reduce ? false : "hidden"}
-              whileInView="show"
-              viewport={{ once: false, amount: 0.2 }}
+              animate={foundationsVisible ? "show" : "hidden"}
               variants={{
                 hidden: {},
                 show: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
@@ -225,7 +226,7 @@ export default function AboutUs() {
             </p>
             <div className="mt-8 mb-10 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4">
               <Link
-                href="#lead-form"
+                href={CALENDLY_URL}
                 className="bg-brand inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b]"
               >
                 Book a Demo

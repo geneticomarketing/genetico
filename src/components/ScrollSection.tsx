@@ -1,8 +1,8 @@
 "use client";
 
 import { memo, useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { Reveal } from "./motion/reveal";
+import { motion, useScroll, useTransform, useInView } from "motion/react";
+import { Reveal, VIEWPORT } from "./motion/reveal";
 
 interface TimelineItem {
   year: string;
@@ -142,7 +142,7 @@ function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   // No `once` — stays hidden until scroll reaches it, re-hides if scrolled back
   // margin: top offset pushes trigger point to ~40% down the viewport
-  const isInView = useInView(ref, { once: false, margin: "0px 0px -200px 0px" });
+  const isInView = useInView(ref, VIEWPORT);
   const isLeft = item.category === "left";
 
   return (

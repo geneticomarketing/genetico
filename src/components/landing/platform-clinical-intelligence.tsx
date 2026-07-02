@@ -4,6 +4,7 @@ import { useRef, type ReactElement } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { useScrollMappedValue } from "@/lib/motion/scroll-value";
 
 type Capability = {
   number: string;
@@ -89,8 +90,8 @@ function RapidScoreBar({
 }) {
   const [from, to] = barRange(index, RAPID_SCORES.length);
   const width = useTransform(progress, [from, to], ["0%", `${item.value}%`]);
-  const labelOpacity = useTransform(progress, [from, to], reduce ? [1, 1] : [0.45, 1]);
-  const barOpacity = useTransform(progress, [from, to], reduce ? [1, 1] : [0.45, 1]);
+  const labelOpacity = useScrollMappedValue(progress, [from, to], reduce ? [1, 1] : [0.45, 1], !reduce);
+  const barOpacity = useScrollMappedValue(progress, [from, to], reduce ? [1, 1] : [0.45, 1], !reduce);
 
   return (
     <li>
@@ -152,7 +153,7 @@ function EvidenceRow({
   reduce: boolean | null;
 }) {
   const [from, to] = rowRange(index, EVIDENCE_ROWS.length);
-  const rowOpacity = useTransform(progress, [from, to], reduce ? [1, 1] : [0.35, 1]);
+  const rowOpacity = useScrollMappedValue(progress, [from, to], reduce ? [1, 1] : [0.35, 1], !reduce);
   const lineScale = useTransform(progress, [from, to], reduce ? [1, 1] : [0, 1]);
   const dotScale = useTransform(progress, [from, to + 0.04], reduce ? [1, 1] : [0, 1]);
 
@@ -194,7 +195,7 @@ function EvidenceWidget({ progress, reduce }: WidgetProps) {
 function ComparisonWidget({ progress, reduce }: WidgetProps) {
   const divider1 = useTransform(progress, [0.12, 0.55], reduce ? [1, 1] : [0, 1]);
   const divider2 = useTransform(progress, [0.2, 0.62], reduce ? [1, 1] : [0, 1]);
-  const panelOpacity = useTransform(progress, [0.08, 0.45], reduce ? [1, 1] : [0.4, 1]);
+  const panelOpacity = useScrollMappedValue(progress, [0.08, 0.45], reduce ? [1, 1] : [0.4, 1], !reduce);
 
   return (
     <motion.div

@@ -3,7 +3,7 @@
 import { Database, LayoutDashboard, Network, Shield, type LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 
-import { EASE, Reveal, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { EASE, Reveal, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
 
 type SecurityFeature = {
   number: string;
@@ -41,6 +41,7 @@ const FEATURES: SecurityFeature[] = [
 
 function AnimatedDivider() {
   const reduce = useReducedMotion();
+  const { ref, visible } = useInViewAnimation();
 
   return (
     <div className="relative mt-10 h-px w-full sm:mt-12" aria-hidden>
@@ -49,10 +50,10 @@ function AnimatedDivider() {
         <div className="from-accent via-brand/40 absolute inset-y-0 left-0 w-full bg-gradient-to-r to-transparent" />
       ) : (
         <motion.div
+          ref={ref}
           className="from-accent via-brand/35 absolute inset-y-0 left-0 w-full origin-left bg-gradient-to-r to-transparent"
           initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true, amount: 0.4 }}
+          animate={visible ? { scaleX: 1 } : { scaleX: 0 }}
           transition={{ duration: 1.1, ease: EASE }}
         />
       )}
@@ -120,6 +121,7 @@ function SecurityRow({ feature }: { feature: SecurityFeature }) {
 
 export function PublicHealthDataSecurity() {
   const reduce = useReducedMotion();
+  const { ref: featuresRef, visible: featuresVisible } = useInViewAnimation<HTMLUListElement>();
 
   return (
     <section
@@ -166,10 +168,10 @@ export function PublicHealthDataSecurity() {
         </Reveal>
 
         <motion.ul
+          ref={featuresRef}
           className="mt-2"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
+          initial={reduce ? false : "hidden"}
+          animate={featuresVisible ? "show" : "hidden"}
           variants={
             reduce
               ? undefined

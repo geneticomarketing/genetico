@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Albert_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/landing/navbar";
-import LS from "@/components/LS";
 import { Footer } from "@/components/landing/footer";
 
 const albertSans = Albert_Sans({
@@ -24,7 +23,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${albertSans.variable} h-full`}>
       <body className="bg-navy flex min-h-full flex-col">
-        <LS></LS>
         <Navbar />
         {children}
         <Footer />

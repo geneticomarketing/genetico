@@ -1,10 +1,29 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
-import type { ReactNode } from "react";
+import { motion, useInView, useReducedMotion, type Variants } from "motion/react";
+import { useRef, type ReactNode } from "react";
+import type { UseInViewOptions } from "motion/react";
 
 // Shared "expo out" curve — a confident, pronounced settle.
 export const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+/** Viewport settings tuned for mobile Safari (URL bar + IntersectionObserver quirks). */
+export const VIEWPORT: UseInViewOptions = {
+  once: true,
+  amount: 0.15,
+  margin: "0px 0px -8% 0px",
+};
+
+export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
+  viewport: UseInViewOptions = VIEWPORT,
+) {
+  const reduce = useReducedMotion();
+  const ref = useRef<T>(null);
+  const inView = useInView(ref, viewport);
+  const visible = Boolean(reduce) || inView;
+
+  return { ref, visible, reduce };
+}
 
 /**
  * Fades + slides its children up as they scroll into view (once).
@@ -22,13 +41,14 @@ export function Reveal({
   delay?: number;
   y?: number;
 }) {
-  const reduce = useReducedMotion();
+  const { ref, visible, reduce } = useInViewAnimation();
+
   return (
     <motion.div
+      ref={ref}
       className={className}
       initial={reduce ? false : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false }}
+      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y }}
       transition={{ duration: 0.8, ease: EASE, delay }}
     >
       {children}
@@ -51,12 +71,14 @@ export function StaggerGroup({
   stagger?: number;
   delayChildren?: number;
 }) {
+  const { ref, visible, reduce } = useInViewAnimation();
+
   return (
     <motion.div
+      ref={ref}
       className={className}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.2 }}
+      initial={reduce ? false : "hidden"}
+      animate={visible ? "show" : "hidden"}
       variants={{
         hidden: {},
         show: { transition: { staggerChildren: stagger, delayChildren } },

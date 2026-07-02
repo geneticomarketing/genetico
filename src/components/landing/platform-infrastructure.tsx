@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
-import { EASE, Reveal, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { EASE, Reveal, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
 
 const INTEGRATION_TAGS = [
   "HL7 / FHIR",
@@ -44,8 +44,10 @@ function SectionBadge({ label, dotClassName }: { label: string; dotClassName?: s
 }
 
 function IntegrationsCard() {
+  const { ref, visible, reduce } = useInViewAnimation();
+
   return (
-    <article className="flex h-full flex-col rounded-2xl bg-[#f4f6f8] p-6 sm:p-8">
+    <article ref={ref} className="flex h-full flex-col rounded-2xl bg-[#f4f6f8] p-6 sm:p-8">
       <SectionBadge label="Integrations" />
 
       <div className="mt-8 flex flex-1 flex-col justify-center gap-3 sm:mt-10">
@@ -53,9 +55,8 @@ function IntegrationsCard() {
           {INTEGRATION_TAGS.slice(0, 4).map((tag, index) => (
             <motion.span
               key={tag}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
+              initial={reduce ? false : { opacity: 0, y: 10 }}
+              animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ duration: 0.45, ease: EASE, delay: index * 0.05 }}
               className="rounded-lg border border-[#dfe6ee] bg-white px-4 py-2.5 text-[13px] text-black/70"
             >
@@ -67,9 +68,8 @@ function IntegrationsCard() {
           {INTEGRATION_TAGS.slice(4).map((tag, index) => (
             <motion.span
               key={tag}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
+              initial={reduce ? false : { opacity: 0, y: 10 }}
+              animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ duration: 0.45, ease: EASE, delay: 0.2 + index * 0.05 }}
               className="rounded-lg border border-[#dfe6ee] bg-white px-4 py-2.5 text-[13px] text-black/70"
             >

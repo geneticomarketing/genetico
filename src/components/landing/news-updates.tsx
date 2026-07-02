@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
-import { EASE, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { EASE, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
 import { FEATURED_VIDEO_URL } from "@/lib/contact";
 import { COMING_SOON_PATH } from "@/lib/routes";
 
@@ -63,6 +63,8 @@ function Tag({ children }: { children: string }) {
 
 export function NewsUpdates() {
   const reduce = useReducedMotion();
+  const { ref: articlesRef, visible: articlesVisible } = useInViewAnimation<HTMLUListElement>();
+  const { ref: ctaRef, visible: ctaVisible } = useInViewAnimation<HTMLAnchorElement>();
 
   return (
     <section id="resources" className="bg-[#f6f8fb] px-6 py-24 sm:px-10 sm:py-32">
@@ -141,10 +143,10 @@ export function NewsUpdates() {
 
           <StaggerItem className="flex h-full flex-col">
             <motion.ul
+              ref={articlesRef}
               className="flex flex-1 flex-col justify-between divide-y divide-black/10 border-y border-black/10 lg:border-t-0 lg:pt-0"
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
+              initial={reduce ? false : "hidden"}
+              animate={articlesVisible ? "show" : "hidden"}
               variants={{
                 hidden: {},
                 show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
@@ -166,11 +168,11 @@ export function NewsUpdates() {
               ))}
             </motion.ul>
             <motion.a
+              ref={ctaRef}
               href={COMING_SOON_PATH}
               className="text-brand mt-6 inline-block text-sm font-semibold transition-opacity hover:opacity-70"
               initial={reduce ? false : { opacity: 0, y: 40, scale: 0.96 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
+              animate={ctaVisible ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.96 }}
               transition={{
                 duration: 0.7,
                 ease: EASE,
