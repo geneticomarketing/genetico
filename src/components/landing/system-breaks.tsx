@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
 import { EASE, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
-import { HOSPITAL_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
+import { HOSPITAL_PATH, PHARMA_PATH, PLATFORM_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
 
 // Each module is a "where the system breaks" entry. The left rail lists every module
 // by audience (the active one expands with its summary + Learn more); the right blue
@@ -13,7 +13,7 @@ const MODULES = [
   {
     icon: "module-clinicians",
     title: "Clinicians",
-    href: HOSPITAL_PATH,
+    href: PLATFORM_PATH,
     desc: "Managing complex genetic cases with fragmented records, extensive documentation, and limited clinical support.",
     problem:
       "Managing complex genetic cases with fragmented records, extensive documentation, and limited clinical support.",
@@ -33,7 +33,7 @@ const MODULES = [
   {
     icon: "module-clinicians",
     title: "Research & Biotech",
-    href: "/resources",
+    href: PHARMA_PATH,
     desc: "Difficulty generating high-quality, longitudinal datasets for research and innovation.",
     problem:
       "Difficulty generating high-quality, longitudinal datasets for research and innovation.",
@@ -43,6 +43,7 @@ const MODULES = [
   {
     icon: "module-clinicians",
     title: "Centres of Excellence",
+    href: HOSPITAL_PATH,
     desc: "Complex workflows, multidisciplinary care coordination, and increasing patient volumes.",
     problem:
       "Complex workflows, multidisciplinary care coordination, and increasing patient volumes.",

@@ -28,7 +28,7 @@ type NavItem = NavLink | NavDropdown;
 
 const SOLUTIONS_LINKS = [
   { label: "Hospital / Clinician / CoE", href: HOSPITAL_PATH, icon: "🏥" },
-  { label: "Pharma / Biotech organisation", href: PHARMA_PATH, icon: "💊" },
+  { label: "Life Science / Biotech organisation", href: PHARMA_PATH, icon: "💊" },
   { label: "Public health", href: PUBLIC_HEALTH_PATH, icon: "💊" },
 ];
 

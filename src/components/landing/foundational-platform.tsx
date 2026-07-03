@@ -6,40 +6,37 @@ import { useRef } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import { useScrollMappedValue } from "@/lib/motion/scroll-value";
 
-// Body copy as segments; `hl` marks the teal keyword phrases from the design mock.
+// Body copy as segments; `hl` marks keyword phrases highlighted in light blue (footer gradient tone).
 // Each segment is split into words so they can light up one-by-one on scroll.
 const PARAGRAPHS: { text: string; hl?: boolean }[][] = [
   [
     { text: "Genetico is building the" },
-    { text: "Digital Backbone", hl: true },
+    { text: "digital backbone", hl: true },
     { text: "for the" },
-    { text: "Rare and Genetic Disease Ecosystem", hl: true },
+    { text: "rare and genetic disease ecosystem", hl: true },
     { text: "." },
   ],
   [
     {
-      text: "For over seven years, we have worked alongside clinicians, institutions, government programs, researchers, and ecosystem stakeholders to address one of healthcare's most complex challenges: the lack of",
+      text: "For over seven years, we have worked with clinicians, institutions, government programs, and researchers to solve",
     },
-    { text: "structured, connected, and actionable rare disease data", hl: true },
+    { text: "fragmented rare disease data", hl: true },
     { text: "." },
   ],
   [
     { text: "Our" },
-    { text: "AI-enabled platform", hl: true },
+    { text: "AI platform", hl: true },
     {
-      text: "combines clinical workflows, registries, decision-support tools, analytics, and research infrastructure into a",
+      text: "unifies workflows, registries, decision support, analytics, and research into",
     },
-    { text: "unified ecosystem", hl: true },
-    { text: "designed specifically for rare and genetic diseases." },
-  ],
-  [
-    { text: "By transforming fragmented information into" },
-    { text: "meaningful intelligence", hl: true },
+    { text: "one ecosystem", hl: true },
     {
-      text: ", Genetico helps improve patient care, accelerate research, strengthen public health initiatives, and support",
+      text: ", turning fragmented data into",
     },
-    { text: "data-driven decision making", hl: true },
-    { text: "across the ecosystem." },
+    { text: "actionable intelligence", hl: true },
+    {
+      text: "that improves care, accelerates research, strengthens public health, and supports better decisions.",
+    },
   ],
 ];
 
@@ -78,7 +75,10 @@ function ScrollWord({
   return (
     <>
       {word.leadingSpace ? " " : ""}
-      <motion.span style={{ opacity }} className={word.hl ? "text-accent font-semibold" : ""}>
+      <motion.span
+        style={{ opacity }}
+        className={word.hl ? "font-semibold text-[#DDEEFF]" : "text-[#ffffff90]"}
+      >
         {word.text}
       </motion.span>
     </>
@@ -117,7 +117,7 @@ export function FoundationalPlatform() {
             <p key={pIndex}>
               {WORDS.map((word, i) =>
                 word.pIndex !== pIndex ? null : reduce ? (
-                  <span key={i} className={word.hl ? "text-accent font-semibold" : ""}>
+                  <span key={i} className={word.hl ? "font-semibold text-[#DDEEFF]" : ""}>
                     {word.leadingSpace ? " " : ""}
                     {word.text}
                   </span>

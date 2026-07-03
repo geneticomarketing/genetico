@@ -1,7 +1,8 @@
 import Link from "next/link";
 
+import { GetInTouch } from "@/components/landing/get-in-touch";
 import { Reveal } from "@/components/motion/reveal";
-import { CALENDLY_URL } from "@/lib/contact";
+import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
 
 export function HomeCta() {
   return (
@@ -27,13 +28,25 @@ export function HomeCta() {
           infrastructure can help advance rare disease care, research, and public health
           initiatives.
         </p>
-        <Link
-          href={CALENDLY_URL}
-          className="bg-brand mt-8 inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b] sm:mt-10"
-        >
-          Schedule a Demo
-        </Link>
+        <div className="mt-8 mb-10 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4">
+          <Link
+            href={CALENDLY_URL}
+            className="bg-brand inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b]"
+          >
+            Schedule a Demo
+          </Link>
+          <a
+            href={NEWSLETTER_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex rounded-lg border border-black/15 bg-white px-7 py-3 text-sm font-medium text-black transition-colors hover:bg-black/[0.03]"
+          >
+            Subscribe to Newsletter
+          </a>
+        </div>
       </Reveal>
+
+      <GetInTouch embedded />
     </section>
   );
 }

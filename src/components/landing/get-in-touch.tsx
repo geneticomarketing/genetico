@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { CalendarCheck, Mail } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
+import type { ContactFormPayload } from "@/lib/contact-form";
 import { CALENDLY_URL, CONTACT_EMAIL, CONTACT_MAILTO } from "@/lib/contact";
 
 const ROLES = [
@@ -18,7 +19,7 @@ const ROLES = [
       "We'll route you to our public health team to discuss screening frameworks, registries and population-scale deployment.",
   },
   {
-    label: "Pharma or Industry",
+    label: "Life Science or Industry",
     blurb:
       "We'll connect you with partnerships to explore cohort access, real-world evidence and research collaboration.",
   },
@@ -27,7 +28,7 @@ const ROLES = [
     blurb:
       "We'll set up time with the founding team to walk through the platform, traction and roadmap.",
   },
-];
+] as const;
 
 const CONTACTS = [
   { label: "Email", value: CONTACT_EMAIL, href: CONTACT_MAILTO, Icon: Mail },
@@ -40,18 +41,34 @@ const CONTACTS = [
 ] as const;
 
 const INPUT_CLASS =
-  "focus:border-brand rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-black/35";
+  "focus:border-brand rounded-lg border border-black/15 bg-white px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-black/35 disabled:cursor-not-allowed disabled:bg-black/[0.03]";
+
+const INITIAL_FORM: Omit<ContactFormPayload, "role"> = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  organisation: "",
+  message: "",
+};
 
 function Field({
   label,
+  name,
+  value,
+  onChange,
   placeholder,
   type = "text",
   required,
+  disabled,
 }: {
   label: string;
+  name: keyof typeof INITIAL_FORM;
+  value: string;
+  onChange: (name: keyof typeof INITIAL_FORM, value: string) => void;
   placeholder: string;
   type?: string;
   required?: boolean;
+  disabled?: boolean;
 }) {
   return (
     <label className="flex flex-1 flex-col gap-1.5">
@@ -59,77 +76,173 @@ function Field({
         {label}
         {required && <span className="text-danger">*</span>}
       </span>
-      <input type={type} placeholder={placeholder} className={INPUT_CLASS} />
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={(e) => onChange(name, e.target.value)}
+        placeholder={placeholder}
+        className={INPUT_CLASS}
+        required={required}
+        disabled={disabled}
+      />
     </label>
   );
 }
 
 export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
   const [active, setActive] = useState(0);
+  const [formData, setFormData] = useState(INITIAL_FORM);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const updateField = (name: keyof typeof INITIAL_FORM, value: string) => {
+    setFormData((current) => ({ ...current, [name]: value }));
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("submitting");
+    setErrorMessage("");
+
+    const payload: ContactFormPayload = {
+      ...formData,
+      role: ROLES[active]?.label ?? ROLES[0].label,
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = (await response.json().catch(() => null)) as { error?: string } | null;
+
+      if (!response.ok) {
+        throw new Error(data?.error || "Unable to send your message right now.");
+      }
+
+      setStatus("success");
+      setFormData(INITIAL_FORM);
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(
+        error instanceof Error ? error.message : "Unable to send your message right now.",
+      );
+    }
+  };
 
   const form = (
     <form
       id={embedded ? "lead-form" : undefined}
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={handleSubmit}
       className="flex min-w-0 flex-col rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_15px_60px_rgba(0,0,0,0.07)] sm:p-6 md:p-8"
     >
-            {/* Audience tabs — horizontal scroll on narrow screens, equal-width row on md+ */}
-            <div className="-mx-5 flex [scrollbar-width:none] items-center gap-2 overflow-x-auto border-b border-black/10 px-5 pb-4 [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:mx-0 md:justify-between md:gap-2 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
-              {ROLES.map((role, i) => (
-                <button
-                  key={role.label}
-                  type="button"
-                  onClick={() => setActive(i)}
-                  className={`shrink-0 cursor-pointer rounded-lg px-3 py-2.5 text-center text-xs leading-tight whitespace-nowrap transition-colors md:px-2.5 lg:text-[13px] ${
-                    active === i
-                      ? "text-brand bg-[#EEF2F8] font-semibold"
-                      : "font-medium text-black/40 hover:text-black/60"
-                  }`}
-                >
-                  {role.label}
-                </button>
-              ))}
-            </div>
+      <div className="-mx-5 flex [scrollbar-width:none] items-center gap-2 overflow-x-auto border-b border-black/10 px-5 pb-4 [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:mx-0 md:justify-between md:gap-2 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
+        {ROLES.map((role, i) => (
+          <button
+            key={role.label}
+            type="button"
+            onClick={() => setActive(i)}
+            disabled={status === "submitting"}
+            className={`shrink-0 cursor-pointer rounded-lg px-3 py-2.5 text-center text-xs leading-tight whitespace-nowrap transition-colors disabled:cursor-not-allowed disabled:opacity-60 md:px-2.5 lg:text-[13px] ${
+              active === i
+                ? "text-brand bg-[#EEF2F8] font-semibold"
+                : "font-medium text-black/40 hover:text-black/60"
+            }`}
+          >
+            {role.label}
+          </button>
+        ))}
+      </div>
 
-            {/* Contextual blurb */}
-            <p className="text-brand pt-4 text-sm leading-snug font-medium sm:pt-5 sm:text-[15px]">
-              {ROLES[active]?.blurb}
-            </p>
+      <p className="text-brand pt-4 text-sm leading-snug font-medium sm:pt-5 sm:text-[15px]">
+        {ROLES[active]?.blurb}
+      </p>
 
-            {/* Fields */}
-            <div className="mt-5 flex flex-col gap-4 sm:mt-6 sm:gap-5">
-              <div className="flex flex-col gap-4 sm:flex-row sm:gap-5 md:gap-6">
-                <Field label="First Name" placeholder="First Name" required />
-                <Field label="Last Name" placeholder="Last Name" required />
-              </div>
-              <Field label="Work Email" placeholder="janedoe@email.com" type="email" required />
+      <div className="mt-5 flex flex-col gap-4 sm:mt-6 sm:gap-5">
+        <div className="flex flex-col gap-4 sm:flex-row sm:gap-5 md:gap-6">
+          <Field
+            label="First Name"
+            name="firstName"
+            value={formData.firstName}
+            onChange={updateField}
+            placeholder="First Name"
+            required
+            disabled={status === "submitting"}
+          />
+          <Field
+            label="Last Name"
+            name="lastName"
+            value={formData.lastName}
+            onChange={updateField}
+            placeholder="Last Name"
+            required
+            disabled={status === "submitting"}
+          />
+        </div>
+        <Field
+          label="Work Email"
+          name="email"
+          value={formData.email}
+          onChange={updateField}
+          placeholder="janedoe@email.com"
+          type="email"
+          required
+          disabled={status === "submitting"}
+        />
 
-              <label className="flex flex-col gap-1.5">
-                <span className="text-sm font-medium text-black/70">Organisation</span>
-                <input placeholder="Name of Organisation" className={INPUT_CLASS} />
-              </label>
+        <label className="flex flex-col gap-1.5">
+          <span className="text-sm font-medium text-black/70">Organisation</span>
+          <input
+            name="organisation"
+            value={formData.organisation}
+            onChange={(e) => updateField("organisation", e.target.value)}
+            placeholder="Name of Organisation"
+            className={INPUT_CLASS}
+            disabled={status === "submitting"}
+          />
+        </label>
 
-              <label className="flex flex-col gap-1.5">
-                <span className="text-sm font-medium text-black/70">How Can We Help?</span>
-                <textarea
-                  rows={4}
-                  placeholder="Tell us a little about what you're looking for."
-                  className={`${INPUT_CLASS} resize-none`}
-                />
-              </label>
-            </div>
+        <label className="flex flex-col gap-1.5">
+          <span className="text-sm font-medium text-black/70">How Can We Help?</span>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={(e) => updateField("message", e.target.value)}
+            rows={4}
+            placeholder="Tell us a little about what you're looking for."
+            className={`${INPUT_CLASS} resize-none`}
+            disabled={status === "submitting"}
+          />
+        </label>
+      </div>
 
-            {/* Disclaimer + submit */}
-            <p className="mt-5 text-center text-xs leading-normal text-black/45 sm:mt-6 sm:text-[13px]">
-              By submitting, you agree to be contacted by Genetico. We never share your information.
-            </p>
-            <button
-              type="submit"
-              className="bg-brand mt-4 w-full rounded-lg py-3.5 text-[15px] font-medium text-white transition-colors hover:bg-[#01356b]"
-            >
-              Talk to Our Team
-            </button>
-          </form>
+      <p className="mt-5 text-center text-xs leading-normal text-black/45 sm:mt-6 sm:text-[13px]">
+        By submitting, you agree to be contacted by Genetico. We never share your information.
+      </p>
+
+      {status === "success" && (
+        <p className="text-brand mt-4 text-center text-sm font-medium" role="status">
+          Thanks — your message was sent. Our team will be in touch soon.
+        </p>
+      )}
+
+      {status === "error" && (
+        <p className="text-danger mt-4 text-center text-sm" role="alert">
+          {errorMessage}
+        </p>
+      )}
+
+      <button
+        type="submit"
+        disabled={status === "submitting" || status === "success"}
+        className="bg-brand mt-4 w-full rounded-lg py-3.5 text-[15px] font-medium text-white transition-colors hover:bg-[#01356b] disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {status === "submitting" ? "Sending..." : "Talk to Our Team"}
+      </button>
+    </form>
   );
 
   if (embedded) {

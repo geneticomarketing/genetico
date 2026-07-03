@@ -4,6 +4,7 @@ import {
   COMING_SOON_PATH,
   HOSPITAL_PATH,
   PHARMA_PATH,
+  PRIVACY_POLICY_PATH,
   PUBLIC_HEALTH_PATH,
 } from "@/lib/routes";
 
@@ -17,7 +18,7 @@ const MENU = [
 
 const SOLUTIONS = [
   { label: "Hospital / Clinician / CoE", href: HOSPITAL_PATH },
-  { label: "Pharma / Biotech organisation", href: PHARMA_PATH },
+  { label: "Life Science / Biotech organisation", href: PHARMA_PATH },
   { label: "Public health", href: PUBLIC_HEALTH_PATH },
 ];
 
@@ -89,6 +90,18 @@ export function Footer() {
               </a>
             </nav>
           </div>
+        </div>
+
+        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8">
+          <p className="text-xs text-white/40">
+            &copy; {new Date().getFullYear()} Genetico. All rights reserved.
+          </p>
+          <a
+            href={PRIVACY_POLICY_PATH}
+            className="text-xs text-white/55 transition-colors hover:text-white"
+          >
+            Privacy Policy
+          </a>
         </div>
       </div>
 

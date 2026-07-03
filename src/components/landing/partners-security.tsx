@@ -14,13 +14,19 @@ import { EASE, Reveal, useInViewAnimation } from "@/components/motion/reveal";
 import { useScrollMappedValue } from "@/lib/motion/scroll-value";
 
 const PARTNERS = [
-  { name: "AIIMS Delhi", logo: "/logos/customers/AIIMS Delhi.png" },
-  { name: "CDFD", logo: "/logos/customers/CDFC.png" },
-  { name: "Gangaram Hospital", logo: "/logos/customers/Gangaram Hospital.png" },
-  { name: "Purple Gene Clinic", logo: "/logos/customers/Purple Gene Clinic.png" },
-  { name: "Birac", logo: "/logos/customers/Birac.png" },
-  { name: "BGCI", logo: "/logos/customers/BGCI.png" },
-  { name: "JKEDI", logo: "/logos/customers/JKEDI.png" },
+  { name: "10,000 Startups", logo: "/new/10000startups.png" },
+  { name: "Amity University", logo: "/new/amity-logo.png" },
+  { name: "BIRAC", logo: "/new/BIRAC Logo.jpg" },
+  { name: "Catalyst", logo: "/new/Catalyst logo Black final.png" },
+  {
+    name: "HDFC Startup Buildup Parivartan",
+    logo: "/new/HDFC-Startup-Buildup-Parivartan-Logo-Approved.jpg",
+  },
+  { name: "Indo-Sweden Innovation Centre", logo: "/new/indo-sweden.png" },
+  { name: "JKEDI", logo: "/new/JKEDI.png" },
+  { name: "MeitY Startup Hub", logo: "/new/meity.jpg" },
+  { name: "Runway", logo: "/new/runway.jpg" },
+  { name: "UPES", logo: "/new/upes.jpg" },
 ];
 
 const FEATURES = [
@@ -29,9 +35,6 @@ const FEATURES = [
   "Every action is securely logged for complete traceability.",
   "Data is protected through encryption in transit and at rest.",
   "Hosted on enterprise-grade infrastructure with continuous monitoring.",
-  "Security and privacy are built into every workflow.",
-  "Institutions define how and when data can be shared.",
-  "Purpose-built to securely manage sensitive clinical and genetic information.",
 ];
 
 const featureItemVariants: Variants = {
@@ -41,9 +44,11 @@ const featureItemVariants: Variants = {
 
 function PartnerCard({ name, logo }: { name: string; logo: string }) {
   return (
-    <div className="flex w-40 shrink-0 flex-col items-center gap-3">
-      <img src={logo} alt={name} className="h-20 w-full object-contain object-center" />
-      <span className="text-center text-xs leading-tight font-light text-black/60">{name}</span>
+    <div className="flex w-40 shrink-0 flex-col items-center justify-center gap-3">
+      <div className="grid place-items-center">
+        <img src={logo} alt={name} className="max-h-full max-w-full object-contain" />
+      </div>
+      {/* <span className="text-center leading-tight font-light text-black/60">{name}</span> */}
     </div>
   );
 }
@@ -125,7 +130,7 @@ function SecurityFeatures() {
   const { ref, visible } = useInViewAnimation<HTMLOListElement>();
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 0.88", "end 0.42"],
+    offset: ["start 0.88", "end 0.75"],
   });
   const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
@@ -193,16 +198,20 @@ export function PartnersSecurity() {
       {/* ───────── Data Security & Compliance — blue band ───────── */}
       <section className="relative overflow-hidden bg-[linear-gradient(160deg,#00060C_0%,#024385_50%,#0A4989_78%,#DDEEFF_145%)] px-6 py-24 sm:px-10 sm:py-32">
         <Reveal className="relative z-10 mx-auto w-full max-w-7xl">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
-            {/* Heading */}
-            <div className="flex flex-col gap-3">
-              <h2 className="t-heading text-white">Data Security</h2>
-              <p className="text-base text-white/70 sm:text-lg">
-                Built for clinical-grade security and privacy
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+            <div className="flex flex-col gap-5 text-left lg:max-w-md">
+              <h2
+                className="t-heading max-w-none text-balance text-white"
+                style={{ fontVariationSettings: '"SERF" 100' }}
+              >
+                Built for Trust. Designed for Healthcare.
+              </h2>
+              <p className="text-base leading-relaxed text-white/70 sm:text-lg">
+                Ensure data protection, privacy, and compliance with healthcare standards at every
+                layer.
               </p>
             </div>
 
-            {/* Numbered assurances */}
             <SecurityFeatures />
           </div>
         </Reveal>

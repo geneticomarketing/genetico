@@ -28,7 +28,8 @@ export default function AboutUs() {
   const heroY = useTransform(pageScroll, [0, 0.4], ["0%", "50%"]);
 
   const reduce = useReducedMotion();
-  const { ref: foundationsRef, visible: foundationsVisible } = useInViewAnimation<HTMLUListElement>();
+  const { ref: foundationsRef, visible: foundationsVisible } =
+    useInViewAnimation<HTMLUListElement>();
 
   const foundations = [
     {

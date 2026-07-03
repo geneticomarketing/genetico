@@ -1,0 +1,22 @@
+export type ContactFormPayload = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  organisation?: string;
+  message?: string;
+  role: string;
+};
+
+export function formatContactEmail(payload: ContactFormPayload) {
+  const lines = [
+    `Role: ${payload.role}`,
+    `Name: ${payload.firstName} ${payload.lastName}`,
+    `Email: ${payload.email}`,
+    `Organisation: ${payload.organisation?.trim() || "—"}`,
+    "",
+    "Message:",
+    payload.message?.trim() || "—",
+  ];
+
+  return lines.join("\n");
+}
