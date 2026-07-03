@@ -5,8 +5,14 @@ import "@/lib/motion/apply-safari-scroll-fix";
 import { cancelFrame, frame } from "motion/react";
 import { useEffect } from "react";
 
+import { isIOS } from "@/lib/motion/platform";
+
 export default function LS() {
   useEffect(() => {
+    // Lenis smooth-scroll conflicts with Motion scroll tracking on iOS WebKit.
+    // Locomotive stays enabled on desktop; touch devices use native scrolling.
+    if (isIOS()) return;
+
     let instance: {
       destroy: () => void;
       start: () => void;

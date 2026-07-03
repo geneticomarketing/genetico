@@ -1,14 +1,13 @@
-import { isSafari } from "./safari";
+import { needsScrollTimelineFallback } from "./platform";
 
 let applied = false;
 
 /**
- * Motion v12.30+ uses ScrollTimeline / ViewTimeline when available. Safari exposes
- * these APIs but scroll-linked opacity (and often other properties) stay stuck.
- * Hide the broken native APIs before Motion reads them.
+ * Motion v12.30+ uses ScrollTimeline / ViewTimeline when available. WebKit exposes
+ * these APIs but scroll-linked values (especially opacity) stay stuck on iOS.
  */
 export function applySafariScrollFix(): void {
-  if (applied || typeof window === "undefined" || !isSafari()) return;
+  if (applied || typeof window === "undefined" || !needsScrollTimelineFallback()) return;
   applied = true;
 
   try {
