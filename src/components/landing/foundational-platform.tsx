@@ -77,7 +77,7 @@ function ScrollWord({
       {word.leadingSpace ? " " : ""}
       <motion.span
         style={{ opacity }}
-        className={word.hl ? "font-semibold text-[#DDEEFF]" : "text-[#ffffff90]"}
+        className={word.hl ? "font-semibold text-[#38BDF8]" : "text-[#ffffff90]"}
       >
         {word.text}
       </motion.span>
