@@ -45,18 +45,18 @@ function BurdenActiveCardPanel({
         className="pointer-events-none absolute inset-0 rounded-2xl"
         style={{ background: CARD_GRADIENT }}
       />
-      <div className="relative z-10 flex h-full flex-col p-6 sm:p-8">
+      <div className="relative z-10 flex h-full flex-col p-5 sm:p-6">
         {showLabel && (
           <span className="secondaryFont text-[0.68rem] font-medium tracking-[0.22em] text-white/45 uppercase">
             {card.label}
           </span>
         )}
         <h3
-          className={`max-w-md text-left text-[clamp(1.25rem,4vw,1.85rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white ${showLabel ? "mt-4" : "mt-auto"}`}
+          className={`max-w-md text-left text-[clamp(1.25rem,4vw,1.85rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white ${showLabel ? "mt-3" : "mt-auto"}`}
         >
           {card.title}
         </h3>
-        <p className="secondaryFont mt-4 max-w-md text-left text-sm leading-relaxed text-white/55 sm:text-[0.9375rem]">
+        <p className="secondaryFont mt-3 max-w-md text-left text-sm leading-relaxed text-white/55 sm:text-[0.9375rem]">
           {card.description}
         </p>
       </div>
@@ -66,7 +66,7 @@ function BurdenActiveCardPanel({
 
 function CollapsedCardContent({ card }: { card: BurdenCard }) {
   return (
-    <div className="flex h-full flex-col items-center justify-between py-6">
+    <div className="flex h-full flex-col items-center justify-between py-4">
       <span
         className="inline-flex size-7 items-center justify-center rounded-full"
         style={{ backgroundColor: card.badgeBg }}
@@ -184,7 +184,7 @@ function BurdenMobileCarousel({
           <BurdenActiveCardPanel
             card={card}
             showLabel
-            className="min-h-[220px] sm:min-h-[260px]"
+            className="min-h-[180px] sm:min-h-[210px]"
           />
         </motion.div>
       </AnimatePresence>
@@ -239,12 +239,12 @@ function BurdenCardItem({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="relative z-10 flex h-full flex-col p-5 sm:p-6"
+              className="relative z-10 flex h-full flex-col p-4 sm:p-5"
             >
               <h3 className="mt-auto max-w-md text-left text-[clamp(1.35rem,2.4vw,1.85rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white">
                 {card.title}
               </h3>
-              <p className="secondaryFont mt-4 max-w-md text-left text-sm leading-relaxed text-white/55 sm:text-[0.9375rem]">
+              <p className="secondaryFont mt-3 max-w-md text-left text-sm leading-relaxed text-white/55 sm:text-[0.9375rem]">
                 {card.description}
               </p>
             </motion.div>
@@ -378,7 +378,7 @@ export function SolutionsClinicalBurden({ variant = "hospital" }: { variant?: So
 
           <div
             ref={rowRef}
-            className="hidden h-[min(320px,42vw)] min-h-[240px] gap-2.5 lg:flex sm:gap-3"
+            className="hidden h-[min(260px,34vw)] min-h-[200px] gap-2.5 lg:flex sm:gap-3"
           >
             {cards.map((card, index) => (
               <BurdenCardItem

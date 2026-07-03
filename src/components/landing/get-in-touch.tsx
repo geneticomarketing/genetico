@@ -137,7 +137,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
     <form
       id={embedded ? "lead-form" : undefined}
       onSubmit={handleSubmit}
-      className="flex min-w-0 flex-col rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_15px_60px_rgba(0,0,0,0.07)] sm:p-6 md:p-8"
+      className="flex min-w-0 flex-col rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_15px_60px_rgba(0,0,0,0.07)] max-md:w-full sm:p-6 md:p-8"
     >
       <div className="-mx-5 flex [scrollbar-width:none] items-center gap-2 overflow-x-auto border-b border-black/10 px-5 pb-4 [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:mx-0 md:justify-between md:gap-2 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
         {ROLES.map((role, i) => (
@@ -247,7 +247,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
 
   if (embedded) {
     return (
-      <Reveal className="relative z-10 mx-auto w-full max-w-3xl px-5 pb-16 sm:px-10 sm:pb-20 lg:pb-24">
+      <Reveal className="relative z-10 mx-auto w-full max-w-3xl pb-16 max-md:w-full sm:px-10 sm:pb-20 lg:pb-24">
         {form}
       </Reveal>
     );

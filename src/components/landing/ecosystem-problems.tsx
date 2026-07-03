@@ -62,7 +62,7 @@ const GAPS: Gap[] = [
 
 // Single source of truth for the shared type scale, so it isn't repeated inline
 // across the Problem / Solution panels. Colours come from theme tokens (globals.css).
-const PANEL_MIN_H = "min-h-[460px]";
+const PANEL_MIN_H = "min-h-[460px] max-md:min-h-[400px]";
 const LABEL_CLASS = "text-[14px] font-semibold tracking-[0.18em] uppercase";
 const TITLE_CLASS = "t-card-title mt-4 max-w-[460px] text-black";
 const DESC_CLASS = "text-ink-muted max-w-[440px] text-[16px] leading-[1.6]";
@@ -125,12 +125,12 @@ export function EcosystemProblems() {
 
           {/* Tabs */}
           <div className="mt-16 flex justify-center">
-            <div className="border-line flex flex-wrap items-center gap-1.5 rounded-[16px] border bg-white p-2 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+            <div className="border-line flex flex-wrap items-center gap-1.5 rounded-[16px] border bg-white p-2 shadow-[0_4px_20px_rgba(0,0,0,0.04)] max-md:flex-nowrap max-md:overflow-x-scroll max-md:overflow-y-hidden">
               {GAPS.map((gap, index) => (
                 <button
                   key={gap.tab}
                   onClick={() => setActive(index)}
-                  className={`h-[44px] rounded-[10px] px-5 text-[15px] font-medium transition-all duration-300 ${
+                  className={`h-[44px] rounded-[10px] px-5 text-[15px] font-medium transition-all duration-300 max-md:whitespace-nowrap ${
                     active === index
                       ? "bg-brand --shadow-[0_8px_24px_rgba(2,67,133,0.25)] text-white"
                       : "text-ink-muted hover:text-black"
@@ -145,7 +145,7 @@ export function EcosystemProblems() {
           {/* Cards */}
           <div className="bg-surface mt-14 grid gap-8 rounded-r-lg max-md:px-4 lg:grid-cols-2">
             {/* PROBLEM */}
-            <div className={`${PANEL_MIN_H} px-0 py-14 sm:px-14`}>
+            <div className={`${PANEL_MIN_H} px-0 py-0 sm:px-14`}>
               {GAPS.map((gap, index) => (
                 <div key={gap.tab} className={`h-full ${active === index ? "block" : "hidden"}`}>
                   <PanelBody

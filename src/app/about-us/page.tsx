@@ -12,8 +12,8 @@ import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
 const heroLabels = [
   { label: "Clinical Workflows", position: "top-[5%] left-[2%] sm:left-[6%]" },
   { label: "AI Decision Support", position: "top-[5%] right-[2%] sm:right-[6%]" },
-  { label: "Research Analytics", position: "bottom-[8%] left-[0%] sm:left-[4%]" },
-  { label: "Longitudinal Care", position: "bottom-[8%] right-[0%] sm:right-[4%]" },
+  { label: "Research Analytics", position: "bottom-[50%] left-[0%] sm:left-[4%]" },
+  { label: "Longitudinal Care", position: "bottom-[50%] right-[0%] sm:right-[4%]" },
 ] as const;
 
 export default function AboutUs() {
@@ -80,7 +80,7 @@ export default function AboutUs() {
             </StaggerItem>
 
             <StaggerItem>
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <div className="relative z-9999999999 mt-10 flex flex-wrap items-center justify-center gap-4">
                 <Link
                   href="#get-in-touch"
                   className="bg-brand hover:bg-brand/70 inline-flex items-center gap-2 rounded-lg border border-white/20 px-6 py-3 text-sm font-medium text-white backdrop-blur-md transition-colors"

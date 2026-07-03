@@ -109,7 +109,7 @@ function MultiSiteSyncPill({
       className={`inline-flex items-center gap-2 rounded-full border border-[#e8ebf0] bg-white px-3.5 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)] ${className}`}
     >
       <span className="size-2 shrink-0 rounded-full bg-[#2b7623]" />
-      <span className="secondaryFont text-xs text-[#6e6e73]">12 sites synchronized</span>
+      <span className="secondaryFont text-xs text-[#6e6e73]">12 research sites synchronized</span>
     </motion.div>
   );
 }
@@ -186,32 +186,49 @@ function NaturalHistoryCard({
   );
 }
 
-function ResearchNetworkVisual({ className = "" }: { className?: string }) {
+function LifeScienceHeroVisual({ className = "" }: { className?: string }) {
   return (
-    <div
-      className={`relative mx-auto aspect-[4/3] w-full max-w-md ${className}`}
-      aria-hidden
-    >
-      <div className="absolute inset-[12%] rounded-3xl border border-[#e8ebf0] bg-gradient-to-br from-[#eef4f9] to-white shadow-[0_20px_60px_rgba(2,67,133,0.08)]" />
-      <div className="absolute top-[22%] left-[18%] size-14 rounded-2xl border border-[#d4dce6] bg-white shadow-sm" />
-      <div className="absolute top-[18%] right-[16%] size-14 rounded-2xl border border-[#d4dce6] bg-white shadow-sm" />
-      <div className="absolute bottom-[24%] left-[14%] size-14 rounded-2xl border border-[#d4dce6] bg-white shadow-sm" />
-      <div className="absolute right-[12%] bottom-[20%] size-14 rounded-2xl border border-[#d4dce6] bg-white shadow-sm" />
-      <div className="absolute top-1/2 left-1/2 flex size-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-brand/20 bg-white shadow-[0_12px_40px_rgba(2,67,133,0.12)]">
-        <Image
-          src="/icons/module-pharma.svg"
-          alt=""
-          width={51}
-          height={51}
-          className="size-10"
-        />
+    <div className={`relative mx-auto aspect-[5/3] w-full max-w-md ${className}`} aria-hidden>
+      <div className="absolute inset-0 overflow-hidden rounded-[1.75rem] border border-[#e8ebf0] bg-gradient-to-br from-[#eef4f9] via-white to-[#f8fafc] shadow-[0_24px_70px_rgba(2,67,133,0.1)]">
+        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 480 288" fill="none">
+          <circle cx="360" cy="72" r="44" fill="#ddeaf5" opacity="0.55" />
+          <circle cx="96" cy="210" r="56" fill="#e8f4fc" opacity="0.65" />
+          <path
+            d="M120 88h48M144 64v48M248 196h40M268 176v40"
+            stroke="#c5d4e8"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+          />
+          <circle cx="144" cy="88" r="10" fill="#fff" stroke="#b8cce0" strokeWidth="1.5" />
+          <circle cx="268" cy="216" r="10" fill="#fff" stroke="#b8cce0" strokeWidth="1.5" />
+          <circle cx="332" cy="128" r="14" fill="#fff" stroke="#7eb8e8" strokeWidth="1.5" />
+          <line x1="154" y1="88" x2="318" y2="128" stroke="#d4dce6" strokeWidth="1.25" />
+          <line x1="268" y1="206" x2="332" y2="142" stroke="#d4dce6" strokeWidth="1.25" />
+          <path
+            d="M372 52l8 8-8 8M372 60h24"
+            stroke="#024385"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity="0.35"
+          />
+        </svg>
       </div>
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 400 300">
-        <line x1="110" y1="95" x2="200" y2="150" stroke="#c5d4e8" strokeWidth="1.5" />
-        <line x1="310" y1="85" x2="200" y2="150" stroke="#c5d4e8" strokeWidth="1.5" />
-        <line x1="90" y1="210" x2="200" y2="150" stroke="#c5d4e8" strokeWidth="1.5" />
-        <line x1="320" y1="220" x2="200" y2="150" stroke="#c5d4e8" strokeWidth="1.5" />
-      </svg>
+
+      <div className="absolute top-[8%] left-[5%] w-[min(58%,13.5rem)] overflow-hidden rounded-xl border border-[#e8ebf0] bg-white shadow-[0_12px_36px_rgba(2,67,133,0.1)] sm:w-[min(54%,15rem)]">
+        <img src="/platform/patient-timeline.svg" alt="" className="block h-auto w-full" />
+      </div>
+
+      <div className="absolute right-[5%] bottom-[8%] w-[min(52%,12.5rem)] overflow-hidden rounded-xl border border-[#e8ebf0] bg-white shadow-[0_12px_36px_rgba(2,67,133,0.1)] sm:w-[min(48%,14rem)]">
+        <img src="/platform/hpo-extraction.svg" alt="" className="block h-auto w-full" />
+      </div>
+
+      <div className="absolute top-[8%] right-[6%] inline-flex items-center gap-2 rounded-full border border-[#e8ebf0] bg-white px-3 py-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
+        <span className="size-2 shrink-0 rounded-full bg-[#2b7623]" />
+        <span className="secondaryFont text-[0.65rem] font-medium tracking-[0.12em] text-[#6e6e73] uppercase">
+          Research-ready datasets
+        </span>
+      </div>
     </div>
   );
 }
@@ -321,7 +338,7 @@ function SolutionsHeroMobile({
       <motion.div {...heroBgEntrance(reduce)} className="relative mt-8 w-full">
         {isPharma ? (
           <>
-            <ResearchNetworkVisual className="max-w-[18rem]" />
+            <LifeScienceHeroVisual className="max-w-[20rem]" />
             <div className="mt-5 flex justify-center">
               <MultiSiteSyncPill reduce={reduce} />
             </div>
@@ -375,7 +392,7 @@ function SolutionsHeroDesktop({
         {isPharma ? (
           <div className="relative mx-auto h-full w-full max-w-3xl">
             <div className="absolute inset-x-0 -bottom-1/2 flex justify-center">
-              <ResearchNetworkVisual className="max-w-2xl" />
+              <LifeScienceHeroVisual className="max-w-2xl" />
             </div>
             <MultiSiteSyncPill reduce={reduce} className="absolute top-[8%] left-[2%]" />
             <CohortDatasetCard
