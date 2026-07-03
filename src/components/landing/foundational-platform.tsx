@@ -1,10 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useReducedMotion, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { useScrollMappedValue } from "@/lib/motion/scroll-value";
+import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 
 // Body copy as segments; `hl` marks keyword phrases highlighted in light blue (footer gradient tone).
 // Each segment is split into words so they can light up one-by-one on scroll.
@@ -90,7 +91,7 @@ export function FoundationalPlatform() {
   const ref = useRef<HTMLDivElement>(null);
   // Drive the word reveal off this block's position: empty when it enters from the
   // bottom, fully lit once it reaches the upper-middle of the viewport.
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress } = useProjectScroll({
     target: ref,
     offset: ["start 0.85", "end 0.75"],
   });

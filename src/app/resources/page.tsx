@@ -5,14 +5,15 @@ import { ResourcesHero } from "@/components/landing/resources-hero";
 import { ResourcesLibrary } from "@/components/landing/resources-library";
 import { ResourcesShortVideos } from "@/components/landing/resources-short-videos";
 import { Reveal } from "@/components/motion/reveal";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useTransform } from "motion/react";
 import { useRef } from "react";
+import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 import { NEWSLETTER_URL } from "@/lib/contact";
 
 export default function ResourcesPage() {
   const pageRef = useRef(null);
 
-  const { scrollYProgress: pageScroll } = useScroll({
+  const { scrollYProgress: pageScroll } = useProjectScroll({
     target: pageRef,
     offset: ["start start", "end end"],
   });

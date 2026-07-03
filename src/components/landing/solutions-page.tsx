@@ -8,9 +8,10 @@ import { GetInTouch } from "@/components/landing/get-in-touch";
 import { Reveal } from "@/components/motion/reveal";
 import { NEWSLETTER_URL } from "@/lib/contact";
 import { getSolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useTransform } from "motion/react";
 import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
+import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 
 export function SolutionsPage({ variant }: { variant: SolutionsVariant }) {
   const content = getSolutionsContent(variant);
@@ -25,7 +26,7 @@ export function SolutionsPage({ variant }: { variant: SolutionsVariant }) {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  const { scrollYProgress: pageScroll } = useScroll({
+  const { scrollYProgress: pageScroll } = useProjectScroll({
     target: pageRef,
     offset: ["start start", "end end"],
   });

@@ -4,9 +4,10 @@ import { Reveal, StaggerGroup, StaggerItem, useInViewAnimation } from "@/compone
 import { GrantsTimeline } from "@/components/ScrollSection";
 import { LeadershipCarousel } from "@/components/Testimonials";
 import { GetInTouch } from "@/components/landing/get-in-touch";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion, useTransform } from "motion/react";
 import Link from "next/link";
 import { useRef } from "react";
+import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
 
 const heroLabels = [
@@ -19,7 +20,7 @@ const heroLabels = [
 export default function AboutUs() {
   const pageRef = useRef(null);
 
-  const { scrollYProgress: pageScroll } = useScroll({
+  const { scrollYProgress: pageScroll } = useProjectScroll({
     target: pageRef,
     offset: ["start start", "end end"],
   });

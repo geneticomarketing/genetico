@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Albert_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/landing/navbar";
+import { MotionSafariFix } from "@/components/MotionSafariFix";
 import LS from "@/components/LS";
 import { Footer } from "@/components/landing/footer";
 
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${albertSans.variable} h-full`}>
       <body className="bg-navy flex min-h-full flex-col">
+        <MotionSafariFix />
         <LS />
         <Navbar />
         {children}

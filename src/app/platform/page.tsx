@@ -7,8 +7,9 @@ import { PlatformFeatures } from "@/components/landing/platform-features";
 import { PlatformLongitudinalCare } from "@/components/landing/platform-longitudinal-care";
 import { PlatformHero } from "@/components/landing/platform-hero";
 import { GetInTouch } from "@/components/landing/get-in-touch";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useTransform } from "motion/react";
 import { useRef } from "react";
+import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 import { Reveal } from "@/components/motion/reveal";
 import Link from "next/link";
 import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
@@ -16,7 +17,7 @@ import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
 export default function PlatformPage() {
   const pageRef = useRef(null);
 
-  const { scrollYProgress: pageScroll } = useScroll({
+  const { scrollYProgress: pageScroll } = useProjectScroll({
     target: pageRef,
     offset: ["start start", "end end"],
   });

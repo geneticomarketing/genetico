@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef, type ReactElement } from "react";
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useReducedMotion, useTransform, type MotionValue } from "motion/react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { useScrollMappedValue } from "@/lib/motion/scroll-value";
+import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 
 type Capability = {
   number: string;
@@ -265,7 +266,7 @@ function CapabilityRow({ capability, index }: { capability: Capability; index: n
   const reduce = useReducedMotion();
   const Widget = WIDGETS[index];
 
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress } = useProjectScroll({
     target: rowRef,
     offset: ["start center", "end center"],
   });

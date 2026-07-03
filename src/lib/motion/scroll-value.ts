@@ -1,7 +1,7 @@
 "use client";
 
 import { useMotionValueEvent, type MotionValue } from "motion/react";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export function mapProgress(
   progress: number,
@@ -31,6 +31,11 @@ export function useScrollMappedValue(
     if (!enabled) return;
     setValue(mapProgress(v, inputRange, outputRange));
   });
+
+  useLayoutEffect(() => {
+    if (!enabled) return;
+    setValue(mapProgress(progress.get(), inputRange, outputRange));
+  }, [enabled, progress, inputRange, outputRange]);
 
   return enabled ? value : outputRange[1];
 }

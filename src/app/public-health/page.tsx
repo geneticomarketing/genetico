@@ -5,8 +5,9 @@ import { PublicHealthDataSecurity } from "@/components/landing/public-health-dat
 import { PublicHealthThreeTierModel } from "@/components/landing/public-health-three-tier-model";
 import { PublicHealthTierArchitecture } from "@/components/landing/public-health-tier-architecture";
 import { GetInTouch } from "@/components/landing/get-in-touch";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useTransform } from "motion/react";
 import { useRef } from "react";
+import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 import { Reveal } from "@/components/motion/reveal";
 import Link from "next/link";
 import { NEWSLETTER_URL } from "@/lib/contact";
@@ -14,7 +15,7 @@ import { NEWSLETTER_URL } from "@/lib/contact";
 export default function PublicHealthPage() {
   const pageRef = useRef(null);
 
-  const { scrollYProgress: pageScroll } = useScroll({
+  const { scrollYProgress: pageScroll } = useProjectScroll({
     target: pageRef,
     offset: ["start start", "end end"],
   });

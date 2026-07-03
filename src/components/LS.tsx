@@ -1,23 +1,55 @@
 "use client";
+
+import "@/lib/motion/apply-safari-scroll-fix";
+
+import { cancelFrame, frame } from "motion/react";
 import { useEffect } from "react";
+
 export default function LS() {
   useEffect(() => {
-    let instance: { destroy: () => void } | null = null;
+    let instance: {
+      destroy: () => void;
+      start: () => void;
+      resize: () => void;
+    } | null = null;
     let cancelled = false;
+    let cancelMotionFrame: (() => void) | undefined;
+
     (async function () {
       try {
-        const L = (await import("locomotive-scroll")).default;
+        const LocomotiveScroll = (await import("locomotive-scroll")).default;
         if (cancelled) return;
-        instance = new L();
+
+        instance = new LocomotiveScroll({
+          autoStart: false,
+          initCustomTicker: (render) => {
+            function update() {
+              render();
+            }
+            frame.update(update, true);
+            cancelMotionFrame = () => cancelFrame(update);
+          },
+          destroyCustomTicker: () => {
+            cancelMotionFrame?.();
+          },
+        });
+
+        instance.start();
       } catch (err) {
         console.error(err);
       }
     })();
+
+    const onLoad = () => instance?.resize();
+    window.addEventListener("load", onLoad);
+
     return () => {
       cancelled = true;
+      window.removeEventListener("load", onLoad);
+      cancelMotionFrame?.();
       instance?.destroy();
     };
   }, []);
 
-  return <></>;
+  return null;
 }

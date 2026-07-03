@@ -7,13 +7,13 @@ import {
   motion,
   useMotionTemplate,
   useReducedMotion,
-  useScroll,
   useTransform,
   type MotionValue,
 } from "motion/react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { useScrollMappedValue } from "@/lib/motion/scroll-value";
+import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 import { getSolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
 
 const RING_RADIUS = 54;
@@ -281,7 +281,7 @@ export function SolutionsMeasurableOutcomes({
     icon: METRIC_ICONS[metric.id] ?? Database,
   }));
 
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress } = useProjectScroll({
     target: sectionRef,
     offset: ["start end", "center center"],
   });

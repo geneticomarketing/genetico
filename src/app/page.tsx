@@ -1,5 +1,5 @@
 "use client";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useTransform } from "motion/react";
 import { Hero } from "@/components/landing/hero";
 import { SystemBreaks } from "@/components/landing/system-breaks";
 import { FoundationalPlatform } from "@/components/landing/foundational-platform";
@@ -7,10 +7,11 @@ import { EcosystemProblems } from "@/components/landing/ecosystem-problems";
 import { PartnersSecurity } from "@/components/landing/partners-security";
 import { HomeCta } from "@/components/landing/home-cta";
 import { useRef } from "react";
+import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 export default function Home() {
   const pageRef = useRef(null);
 
-  const { scrollYProgress: pageScroll } = useScroll({
+  const { scrollYProgress: pageScroll } = useProjectScroll({
     target: pageRef,
     offset: ["start start", "end end"],
   });

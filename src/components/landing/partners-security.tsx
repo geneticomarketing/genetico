@@ -3,7 +3,6 @@
 import {
   motion,
   useReducedMotion,
-  useScroll,
   useTransform,
   type MotionValue,
   type Variants,
@@ -12,6 +11,7 @@ import { useRef } from "react";
 
 import { EASE, Reveal, useInViewAnimation } from "@/components/motion/reveal";
 import { useScrollMappedValue } from "@/lib/motion/scroll-value";
+import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 
 const PARTNERS = [
   { name: "10,000 Startups", logo: "/new/10000startups.png" },
@@ -128,7 +128,7 @@ function FeatureItem({
 function SecurityFeatures() {
   const reduce = useReducedMotion();
   const { ref, visible } = useInViewAnimation<HTMLOListElement>();
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress } = useProjectScroll({
     target: ref,
     offset: ["start 0.88", "end 0.75"],
   });

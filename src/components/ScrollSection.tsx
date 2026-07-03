@@ -1,7 +1,8 @@
 "use client";
 
 import { memo, useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "motion/react";
+import { motion, useTransform, useInView } from "motion/react";
+import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 import { Reveal, VIEWPORT } from "./motion/reveal";
 
 interface TimelineItem {
@@ -223,7 +224,7 @@ function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
 
 function ProgressLine() {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress } = useProjectScroll({
     target: ref,
     offset: ["start center", "end center"],
   });
