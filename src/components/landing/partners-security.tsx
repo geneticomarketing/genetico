@@ -44,7 +44,7 @@ const featureItemVariants: Variants = {
 
 function PartnerCard({ name, logo }: { name: string; logo: string }) {
   return (
-    <div className="flex w-40 shrink-0 flex-col items-center justify-center gap-3">
+    <div className="flex w-40 shrink-0 scale-80 flex-col items-center justify-center gap-3">
       <div className="grid place-items-center">
         <img src={logo} alt={name} className="max-h-full max-w-full object-contain" />
       </div>
