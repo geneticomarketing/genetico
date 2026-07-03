@@ -17,11 +17,11 @@ function CheckCallout({ children }: { children: string }) {
     <div className="mt-6 flex items-center gap-3 rounded-xl bg-[#eef4f9] px-4 py-3.5 sm:px-5 sm:py-4">
       <span
         aria-hidden
-        className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand"
+        className="bg-brand flex size-8 shrink-0 items-center justify-center rounded-full"
       >
         <Check className="size-4 text-white" strokeWidth={2.5} />
       </span>
-      <p className="secondaryFont text-sm font-semibold leading-snug text-brand sm:text-[0.9375rem]">
+      <p className="secondaryFont text-brand text-sm leading-snug font-semibold sm:text-[0.9375rem]">
         {children}
       </p>
     </div>
@@ -46,12 +46,12 @@ function FeatureText({
       <span className="secondaryFont text-[0.85rem] font-medium text-[#c5cdd8]">{number}</span>
       <div
         aria-hidden
-        className="mt-2 h-1 w-12 rounded-full bg-gradient-to-r from-[#0d9488] to-accent"
+        className="to-accent mt-2 h-1 w-12 rounded-full bg-gradient-to-r from-[#0d9488]"
       />
-      <p className="t-eyebrow secondaryFont mt-5 text-[0.65rem] tracking-[0.28em] text-brand">
+      <p className="t-eyebrow secondaryFont text-brand mt-5 text-[0.65rem] tracking-[0.28em]">
         {category}
       </p>
-      <h3 className="t-card-title mt-4 max-w-none text-brand">{title}</h3>
+      <h3 className="t-card-title text-brand mt-4 max-w-none">{title}</h3>
       <p className="secondaryFont mt-4 text-[15px] leading-relaxed text-[#8f8f8f] sm:text-base">
         {description}
       </p>
@@ -132,14 +132,18 @@ function ShimmerBar({
   );
 }
 
-function DashboardBackdrop({ number, align = "right" }: { number: string; align?: "left" | "right" }) {
+function DashboardBackdrop({
+  number,
+  align = "right",
+}: {
+  number: string;
+  align?: "left" | "right";
+}) {
   return (
     <span
       aria-hidden
-      className={`pointer-events-none absolute top-1/2 z-0 -translate-y-1/2 select-none text-[clamp(10rem,22vw,16rem)] font-medium leading-none text-[#eef1f5] ${
-        align === "left"
-          ? "left-0 -translate-x-[18%]"
-          : "right-0 translate-x-[18%]"
+      className={`pointer-events-none absolute top-1/2 z-0 -translate-y-1/2 text-[clamp(10rem,22vw,16rem)] leading-none font-medium text-[#eef1f5] select-none ${
+        align === "left" ? "left-0 -translate-x-[18%]" : "right-0 translate-x-[18%]"
       }`}
       style={{ fontVariationSettings: '"SERF" 0' }}
     >
@@ -171,14 +175,14 @@ function PatientIntakeDashboard() {
                 type="button"
                 aria-hidden
                 className={`relative shrink-0 px-2 pb-2.5 transition-colors sm:px-2.5 ${
-                  isActive ? "font-semibold text-brand" : "text-[#a3afc4]"
+                  isActive ? "text-brand font-semibold" : "text-[#a3afc4]"
                 }`}
               >
                 {tab}
                 {isActive && (
                   <motion.span
                     layoutId="intake-tab"
-                    className="absolute inset-x-1 bottom-0 h-0.5 rounded-full bg-brand"
+                    className="bg-brand absolute inset-x-1 bottom-0 h-0.5 rounded-full"
                     transition={{ duration: 0.35, ease: EASE }}
                   />
                 )}
@@ -193,28 +197,26 @@ function PatientIntakeDashboard() {
               HPO TERMS
             </p>
             <div className="mt-2 flex flex-wrap gap-2 rounded-lg border border-[#eef1f5] p-3">
-              {[
-                "Seizures HP:0001250",
-                "Hypotonia HP:0001290",
-                "Ataxia HP:0001251",
-              ].map((tag, index) => (
-                <motion.span
-                  key={tag}
-                  className="inline-flex items-center gap-1 rounded-md bg-[#eef4f9] px-2 py-1 text-[0.68rem] font-medium text-brand"
-                  animate={
-                    reduce
-                      ? undefined
-                      : {
-                          scale: activeTab === 2 ? [1, 1.04, 1] : 1,
-                        }
-                  }
-                  transition={{ ...PULSE, delay: index * 0.15 }}
-                >
-                  {tag}
-                  <span className="text-[#a3afc4]">×</span>
-                </motion.span>
-              ))}
-              <span className="inline-flex items-center rounded-md bg-[#e6faf8] px-2.5 py-1 text-[0.68rem] font-medium text-brand">
+              {["Seizures HP:0001250", "Hypotonia HP:0001290", "Ataxia HP:0001251"].map(
+                (tag, index) => (
+                  <motion.span
+                    key={tag}
+                    className="text-brand inline-flex items-center gap-1 rounded-md bg-[#eef4f9] px-2 py-1 text-[0.68rem] font-medium"
+                    animate={
+                      reduce
+                        ? undefined
+                        : {
+                            scale: activeTab === 2 ? [1, 1.04, 1] : 1,
+                          }
+                    }
+                    transition={{ ...PULSE, delay: index * 0.15 }}
+                  >
+                    {tag}
+                    <span className="text-[#a3afc4]">×</span>
+                  </motion.span>
+                ),
+              )}
+              <span className="text-brand inline-flex items-center rounded-md bg-[#e6faf8] px-2.5 py-1 text-[0.68rem] font-medium">
                 + Add term
               </span>
             </div>
@@ -243,7 +245,13 @@ function PatientIntakeDashboard() {
                     animate={
                       reduce || index !== 1
                         ? undefined
-                        : { boxShadow: ["0 0 0 0 rgba(2,67,133,0)", "0 0 0 4px rgba(2,67,133,0.15)", "0 0 0 0 rgba(2,67,133,0)"] }
+                        : {
+                            boxShadow: [
+                              "0 0 0 0 rgba(2,67,133,0)",
+                              "0 0 0 4px rgba(2,67,133,0.15)",
+                              "0 0 0 0 rgba(2,67,133,0)",
+                            ],
+                          }
                     }
                     transition={PULSE}
                   />
@@ -258,7 +266,7 @@ function PatientIntakeDashboard() {
           <div className="flex items-center justify-between text-[0.72rem]">
             <span className="text-[#a3afc4]">Form completion</span>
             <motion.span
-              className="font-semibold text-brand tabular-nums"
+              className="text-brand font-semibold tabular-nums"
               animate={reduce ? undefined : { opacity: [0.7, 1, 0.7] }}
               transition={PULSE}
             >
@@ -305,7 +313,7 @@ function DocumentImportDashboard() {
             <p className="text-[0.68rem] text-[#a3afc4]">2.4 MB · Uploaded just now</p>
           </div>
           <motion.span
-            className="inline-flex shrink-0 items-center gap-1 rounded-full bg-[#e8f5e9] px-2.5 py-1 text-[0.62rem] font-semibold text-success"
+            className="text-success inline-flex shrink-0 items-center gap-1 rounded-full bg-[#e8f5e9] px-2.5 py-1 text-[0.62rem] font-semibold"
             animate={reduce ? undefined : { scale: [1, 1.05, 1] }}
             transition={PULSE}
           >
@@ -317,7 +325,7 @@ function DocumentImportDashboard() {
         <div className="mt-4">
           <div className="flex items-center justify-between text-[0.72rem]">
             <span className="text-[#8f8f8f]">Extracting structured data</span>
-            <span className="font-semibold text-brand">100%</span>
+            <span className="text-brand font-semibold">100%</span>
           </div>
           <div className="mt-2">
             <ShimmerBar value={100} height="h-2.5" />
@@ -325,7 +333,7 @@ function DocumentImportDashboard() {
         </div>
 
         <div className="mt-4 overflow-hidden rounded-xl border border-[#eef1f5]">
-          <p className="bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] text-brand uppercase">
+          <p className="text-brand bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] uppercase">
             IDENTIFIED DATA
           </p>
           <ul>
@@ -352,7 +360,7 @@ function DocumentImportDashboard() {
           {["Structured", "HPO Tagged", "Registry-Ready"].map((tag, index) => (
             <motion.span
               key={tag}
-              className="inline-flex items-center gap-1 rounded-full bg-[#eef4f9] px-2.5 py-1 text-[0.62rem] font-medium text-brand"
+              className="text-brand inline-flex items-center gap-1 rounded-full bg-[#eef4f9] px-2.5 py-1 text-[0.62rem] font-medium"
               animate={reduce ? undefined : { opacity: [0.65, 1, 0.65] }}
               transition={{ ...PULSE, delay: index * 0.25 }}
             >
@@ -419,7 +427,7 @@ function RapidScoreDashboard() {
                   <motion.div
                     className={`h-full rounded-full ${
                       isActive
-                        ? "bg-gradient-to-r from-[#0d9488] to-accent shadow-[0_0_12px_rgba(95,215,203,0.45)]"
+                        ? "to-accent bg-gradient-to-r from-[#0d9488] shadow-[0_0_12px_rgba(95,215,203,0.45)]"
                         : "bg-gradient-to-r from-[#0d9488] to-[#22d3ee]"
                     }`}
                     initial={false}
@@ -433,7 +441,7 @@ function RapidScoreDashboard() {
         </ul>
 
         <div className="mt-4 overflow-hidden rounded-xl border border-[#eef1f5]">
-          <p className="bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] text-brand uppercase">
+          <p className="text-brand bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] uppercase">
             Evidence summary
           </p>
           <ul className="divide-y divide-[#eef1f5]">
@@ -471,7 +479,7 @@ function PatientTimelineDashboard() {
     <MacWindow title="Patient Timeline">
       <div className="secondaryFont p-4 sm:p-5">
         <div className="flex items-center gap-3">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#0d9488] to-accent text-sm font-semibold text-white">
+          <div className="to-accent flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#0d9488] text-sm font-semibold text-white">
             AS
           </div>
           <div className="min-w-0 flex-1">
@@ -480,7 +488,7 @@ function PatientTimelineDashboard() {
               ID: GEN-2024-041 · Rare skeletal dysplasia
             </p>
           </div>
-          <span className="shrink-0 rounded-full bg-[#eef4f9] px-2.5 py-1 text-[0.62rem] font-semibold text-brand">
+          <span className="text-brand shrink-0 rounded-full bg-[#eef4f9] px-2.5 py-1 text-[0.62rem] font-semibold">
             Active
           </span>
         </div>
@@ -489,10 +497,13 @@ function PatientTimelineDashboard() {
           <div className="relative flex items-start justify-between">
             <div
               aria-hidden
-              className="absolute top-3 left-[6%] right-[6%] h-0.5 bg-gradient-to-r from-[#0d9488] via-accent to-[#d4dce6]"
+              className="via-accent absolute top-3 right-[6%] left-[6%] h-0.5 bg-gradient-to-r from-[#0d9488] to-[#d4dce6]"
             />
             {TIMELINE_EVENTS.map((event, index) => (
-              <div key={event.label} className="relative z-10 flex flex-col items-center text-center">
+              <div
+                key={event.label}
+                className="relative z-10 flex flex-col items-center text-center"
+              >
                 {event.pending ? (
                   <motion.span
                     className="size-3 rounded-full border-2 border-dashed border-[#d4dce6] bg-white"
@@ -501,14 +512,8 @@ function PatientTimelineDashboard() {
                   />
                 ) : (
                   <motion.span
-                    className="size-3 rounded-full bg-brand"
-                    animate={
-                      reduce
-                        ? undefined
-                        : index === 2
-                          ? { scale: [1, 1.2, 1] }
-                          : undefined
-                    }
+                    className="bg-brand size-3 rounded-full"
+                    animate={reduce ? undefined : index === 2 ? { scale: [1, 1.2, 1] } : undefined}
                     transition={{ ...PULSE, delay: index * 0.1 }}
                   />
                 )}
@@ -532,7 +537,7 @@ function PatientTimelineDashboard() {
           {!reduce && (
             <motion.div
               aria-hidden
-              className="pointer-events-none absolute inset-x-4 top-[2.75rem] h-8 w-12 rounded-full bg-accent/20 blur-md"
+              className="bg-accent/20 pointer-events-none absolute inset-x-4 top-[2.75rem] h-8 w-12 rounded-full blur-md"
               animate={{ x: ["0%", "280%", "0%"] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -557,7 +562,7 @@ function PatientTimelineDashboard() {
             <AlertTriangle className="size-3.5 shrink-0" strokeWidth={2} />
             Follow-up due Aug 2024
           </motion.div>
-          <span className="rounded-lg bg-brand px-4 py-2 text-[0.72rem] font-semibold text-white">
+          <span className="bg-brand rounded-lg px-4 py-2 text-[0.72rem] font-semibold text-white">
             Schedule
           </span>
         </div>
@@ -614,7 +619,7 @@ function CohortAnalyticsDashboard() {
         </div>
 
         <div className="mt-4 overflow-hidden rounded-xl border border-[#eef1f5]">
-          <p className="bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] text-brand uppercase">
+          <p className="text-brand bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] uppercase">
             Longitudinal coverage
           </p>
           <ul>
@@ -659,17 +664,14 @@ function SolutionRow({
 }) {
   return (
     <div
-      className={`relative py-16 sm:py-20 lg:py-24 ${tinted ? "rounded-3xl bg-[#f6f8fb] px-6 sm:px-10 lg:px-12" : ""}`}
+      className={`relative py-16 sm:py-20 lg:py-24 ${tinted ? "rounded-3xl px-6 sm:px-10 lg:px-12" : ""}`}
     >
       <div
         className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-20 ${
           reverse ? "" : ""
         }`}
       >
-        <Reveal
-          className={`${reverse ? "lg:order-2" : ""}`}
-          delay={reverse ? 0.06 : 0}
-        >
+        <Reveal className={`${reverse ? "lg:order-2" : ""}`} delay={reverse ? 0.06 : 0}>
           <FeatureText
             number={number}
             category={category}
@@ -679,10 +681,7 @@ function SolutionRow({
           />
         </Reveal>
 
-        <Reveal
-          className={`relative ${reverse ? "lg:order-1" : ""}`}
-          delay={reverse ? 0 : 0.06}
-        >
+        <Reveal className={`relative ${reverse ? "lg:order-1" : ""}`} delay={reverse ? 0 : 0.06}>
           <DashboardBackdrop number={number} align={reverse ? "left" : "right"} />
           <div className="relative z-10">{dashboard}</div>
         </Reveal>

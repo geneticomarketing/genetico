@@ -59,19 +59,19 @@ const timelineData: TimelineItem[] = [
 
 function TimelineCard({ item }: { item: TimelineItem }) {
   return (
-    <div className="blurig rounded-3xl">
-      <div className="flex w-full items-center gap-3 rounded-3xl p-4 px-5 sm:px-6">
+    <div className="blurig rounded-2xl">
+      <div className="flex w-full items-center gap-2.5 rounded-2xl p-3 px-4 sm:px-5">
         <img
           src={item.icon}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-[10px] font-bold text-gray-900 sm:h-12 sm:w-12"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-[10px] font-bold text-gray-900 sm:h-9 sm:w-9"
         >
           {/* {item.icon} */}
         </img>
         <div className="min-w-0">
-          <p className="text-base leading-tight font-semibold text-blue-50 sm:text-lg">
+          <p className="text-sm leading-tight font-semibold text-blue-50 sm:text-[0.9375rem]">
             {item.title}
           </p>
-          <p className="mt-1 text-[9px] tracking-widest text-teal-400 uppercase sm:text-[10px]">
+          <p className="mt-0.5 text-[8px] tracking-widest text-teal-400 uppercase sm:text-[9px]">
             {item.subtitle}
           </p>
         </div>

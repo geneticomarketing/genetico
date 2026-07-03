@@ -11,6 +11,10 @@
   font-display: swap;
 }
 
+html {
+  overflow-x: clip;
+}
+
 @theme inline {
   /* Brand palette — sourced from Figma "Genetico internal design file" */
   --color-brand: #024385;
