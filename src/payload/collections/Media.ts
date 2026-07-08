@@ -5,6 +5,9 @@ import { withAdminGroup } from "../with-admin-group";
 export const Media = withAdminGroup(
   {
     slug: "media",
+    access: {
+      read: () => true,
+    },
     upload: {
       staticDir: "media",
       mimeTypes: ["image/*", "video/*", "application/pdf"],

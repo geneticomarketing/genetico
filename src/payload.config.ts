@@ -98,6 +98,7 @@ export default buildConfig({
   plugins: useS3
     ? [
         s3Storage({
+          acl: "public-read",
           collections: {
             media: {
               prefix: "media",
