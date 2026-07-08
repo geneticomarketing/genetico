@@ -5,9 +5,10 @@ import { ArrowRight, Play } from "lucide-react";
 import { useState } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { YoutubeEmbed } from "@/components/youtube-embed";
 import { DEFAULT_RESOURCES_PAGE } from "@/lib/cms/defaults/resources";
 import type { FeaturedVideo } from "@/lib/cms/types";
-import { youtubeEmbedUrl, youtubeIdFromUrl, youtubeThumbnailUrl } from "@/lib/youtube";
+import { youtubeIdFromUrl, youtubeThumbnailUrl } from "@/lib/youtube";
 
 function FeaturedTagLine({ tags }: { tags: string[] }) {
   return (
@@ -133,11 +134,10 @@ export function ResourcesLibrary({
                 </div>
               </>
             ) : (
-              <iframe
-                src={youtubeEmbedUrl(video.id, true)}
+              <YoutubeEmbed
+                id={video.id}
                 title={video.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
+                autoplay
                 className="absolute inset-0 h-full w-full"
               />
             )}

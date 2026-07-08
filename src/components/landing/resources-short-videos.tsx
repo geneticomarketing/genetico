@@ -4,10 +4,11 @@ import { Play } from "lucide-react";
 import { useState } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { YoutubeEmbed } from "@/components/youtube-embed";
 import { DEFAULT_RESOURCES_PAGE } from "@/lib/cms/defaults/resources";
 import type { ShortVideo } from "@/lib/cms/types";
 import type { ExternalArticle } from "@/lib/cms/types";
-import { youtubeEmbedUrl, youtubeIdFromUrl, youtubeThumbnailUrl } from "@/lib/youtube";
+import { youtubeIdFromUrl, youtubeThumbnailUrl } from "@/lib/youtube";
 type ShortVideoCardData = {
   id: string;
   url: string;
@@ -66,11 +67,10 @@ function ShortVideoCard({
             </span>
           </button>
         ) : (
-          <iframe
-            src={youtubeEmbedUrl(video.id, true)}
+          <YoutubeEmbed
+            id={video.id}
             title={video.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
+            autoplay
             className="absolute inset-0 h-full w-full"
           />
         )}
