@@ -6,6 +6,8 @@ import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { s3Storage } from "@payloadcms/storage-s3";
 
+import { buildPublicMediaUrl } from "./lib/cms/storage-url";
+
 import { Users } from "./payload/collections/Users";
 import { Media } from "./payload/collections/Media";
 import { BlogPosts } from "./payload/collections/BlogPosts";
@@ -98,10 +100,12 @@ export default buildConfig({
   plugins: useS3
     ? [
         s3Storage({
-          acl: "public-read",
           collections: {
             media: {
               prefix: "media",
+              generateFileURL: ({ filename, prefix }) =>
+                buildPublicMediaUrl(filename, prefix ?? "media") ??
+                `/api/media/file/${filename}`,
             },
           },
           bucket: process.env.S3_BUCKET!,
