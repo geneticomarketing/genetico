@@ -11,8 +11,12 @@ export const Partners = withAdminGroup(
     },
     fields: [
       { name: "name", type: "text", required: true },
-      { name: "logo", type: "upload", relationTo: "media" },
-      { name: "logoUrl", type: "text", admin: { description: "Fallback static logo path" } },
+      { name: "logo", type: "upload", relationTo: "media", label: "Logo" },
+      {
+        name: "logoUrl",
+        type: "text",
+        admin: { description: "Optional fallback static logo path if no upload is provided" },
+      },
       { name: "sortOrder", type: "number", defaultValue: 0 },
     ],
   } satisfies CollectionConfig,

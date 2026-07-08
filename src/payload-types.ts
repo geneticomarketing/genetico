@@ -67,20 +67,20 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
-    media: Media;
-    'blog-posts': BlogPost;
     'news-articles': NewsArticle;
-    'team-members': TeamMember;
     partners: Partner;
-    'grants-awards': GrantsAward;
     'ecosystem-modules': EcosystemModule;
     'ecosystem-gaps': EcosystemGap;
+    'team-members': TeamMember;
+    'grants-awards': GrantsAward;
+    'solution-pages': SolutionPage;
+    'blog-posts': BlogPost;
     'featured-videos': FeaturedVideo;
     'short-videos': ShortVideo;
     'external-articles': ExternalArticle;
-    'solution-pages': SolutionPage;
     'legal-pages': LegalPage;
+    media: Media;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,20 +88,20 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
-    'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
     'news-articles': NewsArticlesSelect<false> | NewsArticlesSelect<true>;
-    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
-    'grants-awards': GrantsAwardsSelect<false> | GrantsAwardsSelect<true>;
     'ecosystem-modules': EcosystemModulesSelect<false> | EcosystemModulesSelect<true>;
     'ecosystem-gaps': EcosystemGapsSelect<false> | EcosystemGapsSelect<true>;
+    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
+    'grants-awards': GrantsAwardsSelect<false> | GrantsAwardsSelect<true>;
+    'solution-pages': SolutionPagesSelect<false> | SolutionPagesSelect<true>;
+    'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
     'featured-videos': FeaturedVideosSelect<false> | FeaturedVideosSelect<true>;
     'short-videos': ShortVideosSelect<false> | ShortVideosSelect<true>;
     'external-articles': ExternalArticlesSelect<false> | ExternalArticlesSelect<true>;
-    'solution-pages': SolutionPagesSelect<false> | SolutionPagesSelect<true>;
     'legal-pages': LegalPagesSelect<false> | LegalPagesSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -112,26 +112,26 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
-    'site-settings': SiteSetting;
-    navigation: Navigation;
-    footer: Footer;
     'home-page': HomePage;
     'about-page': AboutPage;
     'platform-page': PlatformPage;
     'public-health-page': PublicHealthPage;
     'resources-page': ResourcesPage;
     'utility-pages': UtilityPage;
+    'site-settings': SiteSetting;
+    navigation: Navigation;
+    footer: Footer;
   };
   globalsSelect: {
-    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
-    navigation: NavigationSelect<false> | NavigationSelect<true>;
-    footer: FooterSelect<false> | FooterSelect<true>;
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
     'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
     'platform-page': PlatformPageSelect<false> | PlatformPageSelect<true>;
     'public-health-page': PublicHealthPageSelect<false> | PublicHealthPageSelect<true>;
     'resources-page': ResourcesPageSelect<false> | ResourcesPageSelect<true>;
     'utility-pages': UtilityPagesSelect<false> | UtilityPagesSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    navigation: NavigationSelect<false> | NavigationSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
   widgets: {
@@ -163,29 +163,25 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "news-articles".
  */
-export interface User {
+export interface NewsArticle {
   id: number;
-  name?: string | null;
+  title: string;
+  excerpt?: string | null;
+  tag?: string | null;
+  author?: string | null;
+  publishedAt?: string | null;
+  readTime?: string | null;
+  href?: string | null;
+  featured?: boolean | null;
+  image?: (number | null) | Media;
+  /**
+   * Optional fallback static image path if no upload is provided
+   */
+  imageUrl?: string | null;
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -208,73 +204,6 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blog-posts".
- */
-export interface BlogPost {
-  id: number;
-  slug: string;
-  category: string;
-  categoryColor: string;
-  title: string;
-  excerpt: string;
-  author: string;
-  publishedAt: string;
-  readTime: string;
-  /**
-   * CSS gradient or image URL
-   */
-  thumbnail?: string | null;
-  thumbnailImage?: (number | null) | Media;
-  content: {
-    paragraph: string;
-    id?: string | null;
-  }[];
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "news-articles".
- */
-export interface NewsArticle {
-  id: number;
-  title: string;
-  excerpt?: string | null;
-  tag?: string | null;
-  author?: string | null;
-  publishedAt?: string | null;
-  readTime?: string | null;
-  href?: string | null;
-  featured?: boolean | null;
-  image?: (number | null) | Media;
-  /**
-   * Fallback static image path
-   */
-  imageUrl?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "team-members".
- */
-export interface TeamMember {
-  id: number;
-  name: string;
-  title: string;
-  about: string;
-  linkedinUrl?: string | null;
-  photo?: (number | null) | Media;
-  /**
-   * Fallback static image path
-   */
-  photoUrl?: string | null;
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "partners".
  */
 export interface Partner {
@@ -282,27 +211,9 @@ export interface Partner {
   name: string;
   logo?: (number | null) | Media;
   /**
-   * Fallback static logo path
+   * Optional fallback static logo path if no upload is provided
    */
   logoUrl?: string | null;
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "grants-awards".
- */
-export interface GrantsAward {
-  id: number;
-  year: string;
-  title: string;
-  subtitle?: string | null;
-  icon?: (number | null) | Media;
-  /**
-   * Fallback static icon path
-   */
-  iconUrl?: string | null;
   sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -339,6 +250,160 @@ export interface EcosystemGap {
   solutionTitle: string;
   solutionDescription: string;
   sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members".
+ */
+export interface TeamMember {
+  id: number;
+  name: string;
+  title: string;
+  about: string;
+  linkedinUrl?: string | null;
+  photo?: (number | null) | Media;
+  /**
+   * Optional fallback static photo path if no upload is provided
+   */
+  photoUrl?: string | null;
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "grants-awards".
+ */
+export interface GrantsAward {
+  id: number;
+  year: string;
+  title: string;
+  subtitle?: string | null;
+  icon?: (number | null) | Media;
+  /**
+   * Optional fallback static icon path if no upload is provided
+   */
+  iconUrl?: string | null;
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solution-pages".
+ */
+export interface SolutionPage {
+  id: number;
+  slug: 'hospital' | 'pharma';
+  hero: {
+    eyebrow?: string | null;
+    titleLine1: string;
+    titleHighlight: string;
+    subtitle: string;
+  };
+  clinicalBurden: {
+    label: string;
+    heading: string;
+    description: string;
+    cards?:
+      | {
+          cardId: string;
+          number: string;
+          label: string;
+          badge: string;
+          badgeDot: string;
+          badgeBg: string;
+          badgeText: string;
+          title: string;
+          collapsedTitle: {
+            line: string;
+            id?: string | null;
+          }[];
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  howItWorks: {
+    label: string;
+    heading: string;
+    description: string;
+    rows?:
+      | {
+          number: string;
+          category: string;
+          title: string;
+          description: string;
+          callout: string;
+          reverse?: boolean | null;
+          tinted?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  measurableOutcomes: {
+    label: string;
+    heading: string;
+    description: string;
+    metrics?:
+      | {
+          metricId: string;
+          maxPercent: number;
+          label: string;
+          ringTrack: string;
+          ringFill: string;
+          accent: string;
+          fromText: string;
+          toText: string;
+          negative?: string | null;
+          positive: string;
+          positiveIconBg: string;
+          centerValue?: string | null;
+          hideCenterSubLabel?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  cta: {
+    heading: string;
+    description: string;
+    buttons?:
+      | {
+          label: string;
+          href: string;
+          variant?: ('primary' | 'secondary') | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-posts".
+ */
+export interface BlogPost {
+  id: number;
+  slug: string;
+  category: string;
+  categoryColor: string;
+  title: string;
+  excerpt: string;
+  author: string;
+  publishedAt: string;
+  readTime: string;
+  thumbnailImage?: (number | null) | Media;
+  /**
+   * Optional fallback: CSS gradient or static image path if no upload is provided
+   */
+  thumbnail?: string | null;
+  content: {
+    paragraph: string;
+    id?: string | null;
+  }[];
   updatedAt: string;
   createdAt: string;
 }
@@ -393,95 +458,6 @@ export interface ExternalArticle {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "solution-pages".
- */
-export interface SolutionPage {
-  id: number;
-  slug: 'hospital' | 'pharma';
-  hero: {
-    eyebrow?: string | null;
-    titleLine1: string;
-    titleHighlight: string;
-    subtitle: string;
-  };
-  clinicalBurden: {
-    label: string;
-    heading: string;
-    description: string;
-    cards?:
-      | {
-          id: string;
-          number: string;
-          label: string;
-          badge: string;
-          badgeDot: string;
-          badgeBg: string;
-          badgeText: string;
-          title: string;
-          collapsedTitle: {
-            line: string;
-            id?: string | null;
-          }[];
-          description: string;
-        }[]
-      | null;
-  };
-  howItWorks: {
-    label: string;
-    heading: string;
-    description: string;
-    rows?:
-      | {
-          number: string;
-          category: string;
-          title: string;
-          description: string;
-          callout: string;
-          reverse?: boolean | null;
-          tinted?: boolean | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  measurableOutcomes: {
-    label: string;
-    heading: string;
-    description: string;
-    metrics?:
-      | {
-          id: string;
-          maxPercent: number;
-          label: string;
-          ringTrack: string;
-          ringFill: string;
-          accent: string;
-          fromText: string;
-          toText: string;
-          negative?: string | null;
-          positive: string;
-          positiveIconBg: string;
-          centerValue?: string | null;
-          hideCenterSubLabel?: boolean | null;
-        }[]
-      | null;
-  };
-  cta: {
-    heading: string;
-    description: string;
-    buttons?:
-      | {
-          label: string;
-          href: string;
-          variant?: ('primary' | 'secondary') | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "legal-pages".
  */
 export interface LegalPage {
@@ -522,6 +498,32 @@ export interface LegalPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -545,32 +547,12 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
-      } | null)
-    | ({
-        relationTo: 'media';
-        value: number | Media;
-      } | null)
-    | ({
-        relationTo: 'blog-posts';
-        value: number | BlogPost;
-      } | null)
-    | ({
         relationTo: 'news-articles';
         value: number | NewsArticle;
       } | null)
     | ({
-        relationTo: 'team-members';
-        value: number | TeamMember;
-      } | null)
-    | ({
         relationTo: 'partners';
         value: number | Partner;
-      } | null)
-    | ({
-        relationTo: 'grants-awards';
-        value: number | GrantsAward;
       } | null)
     | ({
         relationTo: 'ecosystem-modules';
@@ -579,6 +561,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'ecosystem-gaps';
         value: number | EcosystemGap;
+      } | null)
+    | ({
+        relationTo: 'team-members';
+        value: number | TeamMember;
+      } | null)
+    | ({
+        relationTo: 'grants-awards';
+        value: number | GrantsAward;
+      } | null)
+    | ({
+        relationTo: 'solution-pages';
+        value: number | SolutionPage;
+      } | null)
+    | ({
+        relationTo: 'blog-posts';
+        value: number | BlogPost;
       } | null)
     | ({
         relationTo: 'featured-videos';
@@ -593,12 +591,16 @@ export interface PayloadLockedDocument {
         value: number | ExternalArticle;
       } | null)
     | ({
-        relationTo: 'solution-pages';
-        value: number | SolutionPage;
-      } | null)
-    | ({
         relationTo: 'legal-pages';
         value: number | LegalPage;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -644,71 +646,6 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
- */
-export interface UsersSelect<T extends boolean = true> {
-  name?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
-    | T
-    | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blog-posts_select".
- */
-export interface BlogPostsSelect<T extends boolean = true> {
-  slug?: T;
-  category?: T;
-  categoryColor?: T;
-  title?: T;
-  excerpt?: T;
-  author?: T;
-  publishedAt?: T;
-  readTime?: T;
-  thumbnail?: T;
-  thumbnailImage?: T;
-  content?:
-    | T
-    | {
-        paragraph?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news-articles_select".
  */
 export interface NewsArticlesSelect<T extends boolean = true> {
@@ -727,41 +664,12 @@ export interface NewsArticlesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "team-members_select".
- */
-export interface TeamMembersSelect<T extends boolean = true> {
-  name?: T;
-  title?: T;
-  about?: T;
-  linkedinUrl?: T;
-  photo?: T;
-  photoUrl?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "partners_select".
  */
 export interface PartnersSelect<T extends boolean = true> {
   name?: T;
   logo?: T;
   logoUrl?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "grants-awards_select".
- */
-export interface GrantsAwardsSelect<T extends boolean = true> {
-  year?: T;
-  title?: T;
-  subtitle?: T;
-  icon?: T;
-  iconUrl?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -793,6 +701,161 @@ export interface EcosystemGapsSelect<T extends boolean = true> {
   solutionTitle?: T;
   solutionDescription?: T;
   sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members_select".
+ */
+export interface TeamMembersSelect<T extends boolean = true> {
+  name?: T;
+  title?: T;
+  about?: T;
+  linkedinUrl?: T;
+  photo?: T;
+  photoUrl?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "grants-awards_select".
+ */
+export interface GrantsAwardsSelect<T extends boolean = true> {
+  year?: T;
+  title?: T;
+  subtitle?: T;
+  icon?: T;
+  iconUrl?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solution-pages_select".
+ */
+export interface SolutionPagesSelect<T extends boolean = true> {
+  slug?: T;
+  hero?:
+    | T
+    | {
+        eyebrow?: T;
+        titleLine1?: T;
+        titleHighlight?: T;
+        subtitle?: T;
+      };
+  clinicalBurden?:
+    | T
+    | {
+        label?: T;
+        heading?: T;
+        description?: T;
+        cards?:
+          | T
+          | {
+              cardId?: T;
+              number?: T;
+              label?: T;
+              badge?: T;
+              badgeDot?: T;
+              badgeBg?: T;
+              badgeText?: T;
+              title?: T;
+              collapsedTitle?:
+                | T
+                | {
+                    line?: T;
+                    id?: T;
+                  };
+              description?: T;
+              id?: T;
+            };
+      };
+  howItWorks?:
+    | T
+    | {
+        label?: T;
+        heading?: T;
+        description?: T;
+        rows?:
+          | T
+          | {
+              number?: T;
+              category?: T;
+              title?: T;
+              description?: T;
+              callout?: T;
+              reverse?: T;
+              tinted?: T;
+              id?: T;
+            };
+      };
+  measurableOutcomes?:
+    | T
+    | {
+        label?: T;
+        heading?: T;
+        description?: T;
+        metrics?:
+          | T
+          | {
+              metricId?: T;
+              maxPercent?: T;
+              label?: T;
+              ringTrack?: T;
+              ringFill?: T;
+              accent?: T;
+              fromText?: T;
+              toText?: T;
+              negative?: T;
+              positive?: T;
+              positiveIconBg?: T;
+              centerValue?: T;
+              hideCenterSubLabel?: T;
+              id?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        heading?: T;
+        description?: T;
+        buttons?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              variant?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-posts_select".
+ */
+export interface BlogPostsSelect<T extends boolean = true> {
+  slug?: T;
+  category?: T;
+  categoryColor?: T;
+  title?: T;
+  excerpt?: T;
+  author?: T;
+  publishedAt?: T;
+  readTime?: T;
+  thumbnailImage?: T;
+  thumbnail?: T;
+  content?:
+    | T
+    | {
+        paragraph?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -844,106 +907,6 @@ export interface ExternalArticlesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "solution-pages_select".
- */
-export interface SolutionPagesSelect<T extends boolean = true> {
-  slug?: T;
-  hero?:
-    | T
-    | {
-        eyebrow?: T;
-        titleLine1?: T;
-        titleHighlight?: T;
-        subtitle?: T;
-      };
-  clinicalBurden?:
-    | T
-    | {
-        label?: T;
-        heading?: T;
-        description?: T;
-        cards?:
-          | T
-          | {
-              id?: T;
-              number?: T;
-              label?: T;
-              badge?: T;
-              badgeDot?: T;
-              badgeBg?: T;
-              badgeText?: T;
-              title?: T;
-              collapsedTitle?:
-                | T
-                | {
-                    line?: T;
-                    id?: T;
-                  };
-              description?: T;
-            };
-      };
-  howItWorks?:
-    | T
-    | {
-        label?: T;
-        heading?: T;
-        description?: T;
-        rows?:
-          | T
-          | {
-              number?: T;
-              category?: T;
-              title?: T;
-              description?: T;
-              callout?: T;
-              reverse?: T;
-              tinted?: T;
-              id?: T;
-            };
-      };
-  measurableOutcomes?:
-    | T
-    | {
-        label?: T;
-        heading?: T;
-        description?: T;
-        metrics?:
-          | T
-          | {
-              id?: T;
-              maxPercent?: T;
-              label?: T;
-              ringTrack?: T;
-              ringFill?: T;
-              accent?: T;
-              fromText?: T;
-              toText?: T;
-              negative?: T;
-              positive?: T;
-              positiveIconBg?: T;
-              centerValue?: T;
-              hideCenterSubLabel?: T;
-            };
-      };
-  cta?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        buttons?:
-          | T
-          | {
-              label?: T;
-              href?: T;
-              variant?: T;
-              id?: T;
-            };
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "legal-pages_select".
  */
 export interface LegalPagesSelect<T extends boolean = true> {
@@ -966,6 +929,47 @@ export interface LegalPagesSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1009,110 +1013,6 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "site-settings".
- */
-export interface SiteSetting {
-  id: number;
-  siteName?: string | null;
-  siteDescription?: string | null;
-  contactEmail: string;
-  contactEmailCc?: string | null;
-  calendlyUrl?: string | null;
-  newsletterUrl?: string | null;
-  featuredVideoUrl?: string | null;
-  contactRoles?:
-    | {
-        id: string;
-        label: string;
-        description?: string | null;
-      }[]
-    | null;
-  contactForm?: {
-    intro?: string | null;
-    submitLabel?: string | null;
-    successMessage?: string | null;
-    errorMessage?: string | null;
-    privacyNote?: string | null;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "navigation".
- */
-export interface Navigation {
-  id: number;
-  mainNav?:
-    | {
-        label: string;
-        href?: string | null;
-        type?: ('link' | 'dropdown') | null;
-        isDark?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
-  solutionsNav?:
-    | {
-        label: string;
-        href: string;
-        icon?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  ctaLabel?: string | null;
-  ctaHref?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "footer".
- */
-export interface Footer {
-  id: number;
-  tagline: string;
-  copyrightText?: string | null;
-  sectionLabels?: {
-    menuHeading?: string | null;
-    solutionsHeading?: string | null;
-  };
-  menuLinks?:
-    | {
-        label: string;
-        href: string;
-        id?: string | null;
-      }[]
-    | null;
-  solutionsLinks?:
-    | {
-        label: string;
-        href: string;
-        id?: string | null;
-      }[]
-    | null;
-  socialLinks?:
-    | {
-        name: string;
-        href: string;
-        platform: 'x' | 'linkedin' | 'youtube';
-        id?: string | null;
-      }[]
-    | null;
-  legalLinks?:
-    | {
-        label: string;
-        href: string;
-        id?: string | null;
-      }[]
-    | null;
-  contactLabel?: string | null;
-  contactHref?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-page".
  */
 export interface HomePage {
@@ -1124,7 +1024,11 @@ export interface HomePage {
         body: string;
         cta: string;
         href: string;
-        image: string;
+        backgroundImage?: (number | null) | Media;
+        /**
+         * Fallback static image path if no upload is provided
+         */
+        image?: string | null;
       }[]
     | null;
   whoWeAre?: {
@@ -1132,7 +1036,15 @@ export interface HomePage {
     paragraphs?:
       | {
           text: string;
-          highlight?: string | null;
+          /**
+           * Add exact phrases from the paragraph above to highlight in blue on the website
+           */
+          highlights?:
+            | {
+                phrase: string;
+                id?: string | null;
+              }[]
+            | null;
           id?: string | null;
         }[]
       | null;
@@ -1244,7 +1156,11 @@ export interface PlatformPage {
     subtitle?: string | null;
     ctaLabel?: string | null;
     ctaHref?: string | null;
-    image?: string | null;
+    image?: (number | null) | Media;
+    /**
+     * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
+     */
+    imageUrl?: string | null;
   };
   featuresSection?: {
     eyebrow?: string | null;
@@ -1262,6 +1178,10 @@ export interface PlatformPage {
                 id?: string | null;
               }[]
             | null;
+          illustrationImage?: (number | null) | Media;
+          /**
+           * Fallback static illustration path if no upload is provided
+           */
           illustration?: string | null;
           id?: string | null;
         }[]
@@ -1356,7 +1276,11 @@ export interface PublicHealthPage {
   hero: {
     title: string;
     subtitle?: string | null;
-    image?: string | null;
+    image?: (number | null) | Media;
+    /**
+     * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
+     */
+    imageUrl?: string | null;
   };
   impact?: {
     heading?: string | null;
@@ -1441,7 +1365,11 @@ export interface ResourcesPage {
   hero: {
     title: string;
     subtitle?: string | null;
-    image?: string | null;
+    image?: (number | null) | Media;
+    /**
+     * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
+     */
+    imageUrl?: string | null;
   };
   filterTabs?:
     | {
@@ -1491,111 +1419,107 @@ export interface UtilityPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "site-settings_select".
+ * via the `definition` "site-settings".
  */
-export interface SiteSettingsSelect<T extends boolean = true> {
-  siteName?: T;
-  siteDescription?: T;
-  contactEmail?: T;
-  contactEmailCc?: T;
-  calendlyUrl?: T;
-  newsletterUrl?: T;
-  featuredVideoUrl?: T;
+export interface SiteSetting {
+  id: number;
+  siteName?: string | null;
+  siteDescription?: string | null;
+  contactEmail: string;
+  contactEmailCc?: string | null;
+  calendlyUrl?: string | null;
+  newsletterUrl?: string | null;
+  featuredVideoUrl?: string | null;
   contactRoles?:
-    | T
     | {
-        id?: T;
-        label?: T;
-        description?: T;
-      };
-  contactForm?:
-    | T
-    | {
-        intro?: T;
-        submitLabel?: T;
-        successMessage?: T;
-        errorMessage?: T;
-        privacyNote?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        id: string;
+        label: string;
+        description?: string | null;
+      }[]
+    | null;
+  contactForm?: {
+    intro?: string | null;
+    submitLabel?: string | null;
+    successMessage?: string | null;
+    errorMessage?: string | null;
+    privacyNote?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "navigation_select".
+ * via the `definition` "navigation".
  */
-export interface NavigationSelect<T extends boolean = true> {
+export interface Navigation {
+  id: number;
   mainNav?:
-    | T
     | {
-        label?: T;
-        href?: T;
-        type?: T;
-        isDark?: T;
-        id?: T;
-      };
+        label: string;
+        href?: string | null;
+        type?: ('link' | 'dropdown') | null;
+        isDark?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
   solutionsNav?:
-    | T
     | {
-        label?: T;
-        href?: T;
-        icon?: T;
-        id?: T;
-      };
-  ctaLabel?: T;
-  ctaHref?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        label: string;
+        href: string;
+        icon?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "footer_select".
+ * via the `definition` "footer".
  */
-export interface FooterSelect<T extends boolean = true> {
-  tagline?: T;
-  copyrightText?: T;
-  sectionLabels?:
-    | T
-    | {
-        menuHeading?: T;
-        solutionsHeading?: T;
-      };
+export interface Footer {
+  id: number;
+  tagline: string;
+  copyrightText?: string | null;
+  sectionLabels?: {
+    menuHeading?: string | null;
+    solutionsHeading?: string | null;
+  };
   menuLinks?:
-    | T
     | {
-        label?: T;
-        href?: T;
-        id?: T;
-      };
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
   solutionsLinks?:
-    | T
     | {
-        label?: T;
-        href?: T;
-        id?: T;
-      };
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
   socialLinks?:
-    | T
     | {
-        name?: T;
-        href?: T;
-        platform?: T;
-        id?: T;
-      };
+        name: string;
+        href: string;
+        platform: 'x' | 'linkedin' | 'youtube';
+        id?: string | null;
+      }[]
+    | null;
   legalLinks?:
-    | T
     | {
-        label?: T;
-        href?: T;
-        id?: T;
-      };
-  contactLabel?: T;
-  contactHref?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  contactLabel?: string | null;
+  contactHref?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1610,6 +1534,7 @@ export interface HomePageSelect<T extends boolean = true> {
         body?: T;
         cta?: T;
         href?: T;
+        backgroundImage?: T;
         image?: T;
       };
   whoWeAre?:
@@ -1620,7 +1545,12 @@ export interface HomePageSelect<T extends boolean = true> {
           | T
           | {
               text?: T;
-              highlight?: T;
+              highlights?:
+                | T
+                | {
+                    phrase?: T;
+                    id?: T;
+                  };
               id?: T;
             };
       };
@@ -1756,6 +1686,7 @@ export interface PlatformPageSelect<T extends boolean = true> {
         ctaLabel?: T;
         ctaHref?: T;
         image?: T;
+        imageUrl?: T;
       };
   featuresSection?:
     | T
@@ -1776,6 +1707,7 @@ export interface PlatformPageSelect<T extends boolean = true> {
                     item?: T;
                     id?: T;
                   };
+              illustrationImage?: T;
               illustration?: T;
               id?: T;
             };
@@ -1882,6 +1814,7 @@ export interface PublicHealthPageSelect<T extends boolean = true> {
         title?: T;
         subtitle?: T;
         image?: T;
+        imageUrl?: T;
       };
   impact?:
     | T
@@ -1977,6 +1910,7 @@ export interface ResourcesPageSelect<T extends boolean = true> {
         title?: T;
         subtitle?: T;
         image?: T;
+        imageUrl?: T;
       };
   filterTabs?:
     | T
@@ -2029,6 +1963,114 @@ export interface UtilityPagesSelect<T extends boolean = true> {
         backLabel?: T;
         backHref?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  siteDescription?: T;
+  contactEmail?: T;
+  contactEmailCc?: T;
+  calendlyUrl?: T;
+  newsletterUrl?: T;
+  featuredVideoUrl?: T;
+  contactRoles?:
+    | T
+    | {
+        id?: T;
+        label?: T;
+        description?: T;
+      };
+  contactForm?:
+    | T
+    | {
+        intro?: T;
+        submitLabel?: T;
+        successMessage?: T;
+        errorMessage?: T;
+        privacyNote?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation_select".
+ */
+export interface NavigationSelect<T extends boolean = true> {
+  mainNav?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        type?: T;
+        isDark?: T;
+        id?: T;
+      };
+  solutionsNav?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        icon?: T;
+        id?: T;
+      };
+  ctaLabel?: T;
+  ctaHref?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  tagline?: T;
+  copyrightText?: T;
+  sectionLabels?:
+    | T
+    | {
+        menuHeading?: T;
+        solutionsHeading?: T;
+      };
+  menuLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  solutionsLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        name?: T;
+        href?: T;
+        platform?: T;
+        id?: T;
+      };
+  legalLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  contactLabel?: T;
+  contactHref?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

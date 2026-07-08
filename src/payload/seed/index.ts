@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { getPayload } from "payload";
+import type { Config } from "@/payload-types";
 import config from "../../payload.config";
 import { BLOG_POSTS } from "../../lib/blogs";
 import { SOLUTIONS_CONTENT } from "../../lib/solutions-content";
@@ -11,6 +12,38 @@ import {
   NEWSLETTER_URL,
 } from "../../lib/contact";
 import { HOSPITAL_PATH, PHARMA_PATH, PUBLIC_HEALTH_PATH, leadFormHref } from "../../lib/routes";
+import { DEFAULT_ABOUT_PAGE, DEFAULT_GRANTS, DEFAULT_TEAM } from "../../lib/cms/defaults/about";
+import { DEFAULT_HOME_PAGE, DEFAULT_ECOSYSTEM_GAPS, DEFAULT_ECOSYSTEM_MODULES, DEFAULT_NEWS_ARTICLES, DEFAULT_NEWS_FEATURED, DEFAULT_PARTNERS } from "../../lib/cms/defaults/home";
+import { DEFAULT_PLATFORM_PAGE } from "../../lib/cms/defaults/platform";
+import { DEFAULT_PUBLIC_HEALTH_PAGE } from "../../lib/cms/defaults/public-health";
+import { DEFAULT_RESOURCES_PAGE, DEFAULT_UTILITY_PAGES } from "../../lib/cms/defaults/resources";
+import { DEFAULT_PRIVACY_POLICY } from "../../lib/cms/defaults/legal";
+import { paragraphsToLexical } from "./helpers";
+import { cleanupSolutionPagesForSchemaPush } from "./cleanup-solution-pages";
+
+type CollectionSlug = keyof Config["collections"];
+
+async function upsertByField<T extends Record<string, unknown>>(
+  payload: Awaited<ReturnType<typeof getPayload>>,
+  collection: CollectionSlug,
+  field: string,
+  value: string,
+  data: T,
+) {
+  const existing = await payload.find({
+    collection,
+    where: { [field]: { equals: value } },
+    limit: 1,
+  });
+
+  if (existing.docs[0]) {
+    await payload.update({ collection, id: existing.docs[0].id, data });
+    return existing.docs[0].id;
+  }
+
+  const created = await payload.create({ collection, data });
+  return created.id;
+}
 
 async function seed() {
   if (!process.env.DATABASE_URI && !process.env.DATABASE_URL) {
@@ -18,7 +51,15 @@ async function seed() {
     process.exit(1);
   }
 
+  const connectionString = process.env.DATABASE_URI || process.env.DATABASE_URL!;
+  await cleanupSolutionPagesForSchemaPush(connectionString);
+
   const payload = await getPayload({ config });
+  const home = DEFAULT_HOME_PAGE;
+  const about = DEFAULT_ABOUT_PAGE;
+  const platform = DEFAULT_PLATFORM_PAGE;
+  const publicHealth = DEFAULT_PUBLIC_HEALTH_PAGE;
+  const resources = DEFAULT_RESOURCES_PAGE;
 
   console.log("Seeding site settings...");
   await payload.updateGlobal({
@@ -32,6 +73,41 @@ async function seed() {
       calendlyUrl: CALENDLY_URL,
       newsletterUrl: NEWSLETTER_URL,
       featuredVideoUrl: FEATURED_VIDEO_URL,
+      contactRoles: [
+        {
+          id: "clinician",
+          label: "Clinician or Hospital",
+          description:
+            "We'll connect you to our medical team to walk through workflows, integration and a 2-week pilot at your center.",
+        },
+        {
+          id: "public-health",
+          label: "Government or Public Health",
+          description:
+            "We'll route you to our public health team to discuss screening frameworks, registries and population-scale deployment.",
+        },
+        {
+          id: "industry",
+          label: "Life Science or Industry",
+          description:
+            "We'll connect you with partnerships to explore cohort access, real-world evidence and research collaboration.",
+        },
+        {
+          id: "investor",
+          label: "Investor",
+          description:
+            "We'll set up time with the founding team to walk through the platform, traction and roadmap.",
+        },
+      ],
+      contactForm: {
+        intro:
+          "Different conversation, depending on who you are. Tell us who you are and we'll route you to the right person.",
+        submitLabel: "Talk to Our Team",
+        successMessage: "Thanks — your message was sent. Our team will be in touch soon.",
+        errorMessage: "Unable to send your message right now. Please try again or email us directly.",
+        privacyNote:
+          "By submitting, you agree to be contacted by Genetico. We never share your information with third parties.",
+      },
     },
   });
 
@@ -64,6 +140,10 @@ async function seed() {
       copyrightText: "Genetico. All rights reserved.",
       contactLabel: "Contact Us",
       contactHref: CALENDLY_URL,
+      sectionLabels: {
+        menuHeading: "Menu",
+        solutionsHeading: "Solutions",
+      },
       menuLinks: [
         { label: "Home", href: "/" },
         { label: "About", href: "/about-us" },
@@ -97,94 +177,257 @@ async function seed() {
   await payload.updateGlobal({
     slug: "home-page",
     data: {
-      heroSlides: [
-        {
-          id: "clinicians",
-          title: "Designed for the Complexity of Rare and Genetic Disease Care",
-          body: "Streamline clinical workflows, capture structured patient data, leverage AI-assisted documentation, and access decision-support tools built specifically for genetics and rare diseases.",
-          cta: "Explore Clinical Solutions",
-          href: "/platform",
-          image: "/hero/hero-bg.webp",
-        },
-        {
-          id: "public-health",
-          title: "Powering Rare Disease Programs at Population Scale",
-          body: "Enable registries, screening initiatives, patient tracking, analytics, and outcome monitoring through a unified digital infrastructure designed for national and state-level programs.",
-          cta: "Explore Public Health Solutions",
-          href: PUBLIC_HEALTH_PATH,
-          image: "/hero/hero-dna.jpg",
-        },
-        {
-          id: "research",
-          title: "Transforming Clinical Data into Research-Ready Intelligence",
-          body: "Generate structured datasets, accelerate cohort identification, support longitudinal studies, and unlock AI-driven insights from real-world rare disease data.",
-          cta: "Explore Research Solutions",
-          href: PHARMA_PATH,
-          image: "/hero/hero-molecule.jpg",
-        },
-        {
-          id: "ecosystem",
-          title: "Connecting Stakeholders Across the Rare Disease Ecosystem",
-          body: "Bring together clinicians, institutions, researchers, patient groups, and policymakers through a shared platform that enables collaboration, visibility, and evidence-based decision making.",
-          cta: "Discover the Ecosystem",
-          href: HOSPITAL_PATH,
-          image: "/hero/hero-antibody.jpg",
-        },
-      ],
-      ecosystemChallenges: {
-        heading: "Where the System Breaks",
-        description:
-          "Rare disease care spans clinicians, public health, research, and centers of excellence — yet each operates with fragmented tools and disconnected data.",
+      heroSlides: home.heroSlides,
+      whoWeAre: {
+        eyebrow: home.whoWeAre.eyebrow,
+        paragraphs: home.whoWeAre.paragraphs.map((paragraph) => ({
+          text: paragraph.text,
+          highlights: paragraph.highlights.map((phrase) => ({ phrase })),
+        })),
       },
-      ecosystemGaps: {
-        heading: "Closing Critical Gaps in the Ecosystem",
-        description:
-          "From diagnosis to policy, structural gaps prevent rare disease programs from scaling with the speed and precision patients deserve.",
-      },
-      partners: {
-        heading: "Trusted by Leading Institutions & Programs",
-        description:
-          "Genetico collaborates with healthcare institutions, research organizations, and public health programs building the future of rare disease care.",
-      },
+      ecosystemChallenges: home.ecosystemChallenges,
+      ecosystemGaps: home.ecosystemGapsSection,
+      partners: home.partnersSection,
       security: {
-        heading: "Enterprise-Grade Security & Compliance",
-        description:
-          "Built for healthcare environments with rigorous data protection, access control, and auditability.",
-        features: [
-          { text: "Your institution retains full ownership and control of its data." },
-          { text: "Access is restricted based on user roles and responsibilities." },
-          { text: "Every action is securely logged for complete traceability." },
-          { text: "Data is protected through encryption in transit and at rest." },
-          { text: "Hosted on enterprise-grade infrastructure with continuous monitoring." },
-        ],
+        heading: home.securitySection.heading,
+        description: home.securitySection.description,
+        features: home.securitySection.features.map((text) => ({ text })),
       },
-      news: {
-        heading: "Explore Our News & Articles",
-        description: "Stay updated with the latest from Genetico and the rare disease ecosystem.",
-        ctaLabel: "See all >>",
-        ctaHref: "/resources",
-      },
-      cta: {
-        heading: "Building the Future of Rare Disease Intelligence Together",
-        description:
-          "Partner with Genetico to transform clinical workflows, accelerate diagnosis, and generate research-ready data at scale.",
-        buttons: [
-          { label: "Schedule a Demo", href: CALENDLY_URL, variant: "primary" },
-          { label: "Subscribe to Newsletter", href: NEWSLETTER_URL, variant: "secondary" },
-        ],
-      },
+      news: home.newsSection,
+      cta: home.cta,
     },
   });
 
+  console.log("Seeding about page...");
+  await payload.updateGlobal({
+    slug: "about-page",
+    data: {
+      hero: {
+        title: `${about.hero.titleLine1} ${about.hero.titleHighlight}`,
+        subtitle: about.hero.subtitle,
+        ctaLabel: about.hero.ctaLabel,
+        ctaHref: about.hero.ctaHref,
+        labels: about.hero.labels.map((label) => ({ label })),
+      },
+      vision: about.vision,
+      foundations: about.foundations.map(({ title, body }) => ({ title, body })),
+      leadership: about.leadership,
+      grants: about.grants,
+      cta: about.cta,
+    },
+  });
+
+  console.log("Seeding platform page...");
+  await payload.updateGlobal({
+    slug: "platform-page",
+    data: {
+      hero: {
+        title: platform.hero.title,
+        subtitle: platform.hero.subtitle,
+        ctaLabel: platform.hero.ctaLabel,
+        ctaHref: platform.hero.ctaHref,
+        imageUrl: platform.hero.image,
+      },
+      featuresSection: {
+        eyebrow: platform.featuresSection.eyebrow,
+        heading: platform.featuresSection.heading,
+        description: platform.featuresSection.description,
+        features: platform.featuresSection.features.map((f) => ({
+          category: f.category,
+          subheading: f.subheading,
+          title: f.title,
+          description: f.description,
+          bullets: f.bullets.map((item) => ({ item })),
+          illustration: f.illustration,
+        })),
+      },
+      clinicalIntelligence: {
+        eyebrow: platform.clinicalIntelligence.eyebrow,
+        heading: platform.clinicalIntelligence.heading,
+        description: platform.clinicalIntelligence.description,
+        capabilities: platform.clinicalIntelligence.capabilities.map((c) => ({
+          title: c.title,
+          description: c.description,
+          badge: c.badge,
+        })),
+      },
+      longitudinalCare: {
+        eyebrow: platform.longitudinalCare.eyebrow,
+        heading: platform.longitudinalCare.heading,
+        description: platform.longitudinalCare.description,
+        columns: platform.longitudinalCare.columns.map((c) => ({
+          title: c.title,
+          description: c.description,
+          bullets: c.bullets.map((item) => ({ item })),
+        })),
+      },
+      infrastructure: {
+        eyebrow: platform.infrastructure.eyebrow,
+        heading: platform.infrastructure.heading,
+        description: platform.infrastructure.description,
+        integrationTags: platform.infrastructure.integrationTags.map((tag) => ({ tag })),
+        integrationsTitle: platform.infrastructure.integrationsTitle,
+        integrationsDescription: platform.infrastructure.integrationsDescription,
+        deploymentTitle: platform.infrastructure.deploymentTitle,
+        deploymentDescription: platform.infrastructure.deploymentDescription,
+        deploymentOptions: platform.infrastructure.deploymentOptions,
+      },
+      security: platform.security,
+      cta: platform.cta,
+    },
+  });
+
+  console.log("Seeding public health page...");
+  await payload.updateGlobal({
+    slug: "public-health-page",
+    data: {
+      hero: {
+        title: `${publicHealth.hero.titleLine1} for ${publicHealth.hero.titleLine2}`,
+        subtitle: publicHealth.hero.subtitle,
+        imageUrl: publicHealth.hero.image,
+      },
+      impact: {
+        heading: publicHealth.impact.heading,
+        description: publicHealth.impact.description,
+        features: publicHealth.impact.features.map((f) => ({
+          title: f.title,
+          description: f.category,
+        })),
+      },
+      threeTier: {
+        heading: publicHealth.threeTier.heading,
+        description: publicHealth.threeTier.description,
+        tiers: publicHealth.threeTier.tiers.map((tier) => ({
+          bannerLabel: tier.bannerLabel,
+          happens: tier.happens.map((item) => ({ item })),
+          dataFlows: tier.dataFlows.map((item) => ({ item })),
+          users: tier.users.map((user) => ({
+            role: user.role,
+            description: user.description,
+          })),
+        })),
+      },
+      architecture: {
+        heading: publicHealth.architecture.heading,
+        description: publicHealth.architecture.description,
+        classifications: publicHealth.architecture.classifications.map((c) => ({
+          level: c.level,
+          timeBadge: c.timeBadge,
+          title: c.title,
+          description: c.description,
+          tags: c.tags.map((tag) => ({ tag })),
+        })),
+      },
+      cta: publicHealth.cta,
+    },
+  });
+
+  console.log("Seeding resources page...");
+  await payload.updateGlobal({
+    slug: "resources-page",
+    data: {
+      hero: {
+        title: resources.hero.title,
+        subtitle: `${resources.hero.subtitle}\n\n${resources.hero.description}`,
+        imageUrl: resources.hero.image,
+      },
+      filterTabs: resources.filterTabs.map((label) => ({ label })),
+      blogsSection: resources.blogsSection,
+      blogListing: resources.blogListing,
+      newsletterCta: resources.newsletterCta,
+    },
+  });
+
+  console.log("Seeding utility pages...");
+  await payload.updateGlobal({
+    slug: "utility-pages",
+    data: DEFAULT_UTILITY_PAGES,
+  });
+
+  console.log("Seeding ecosystem modules...");
+  for (const [index, module] of DEFAULT_ECOSYSTEM_MODULES.entries()) {
+    await upsertByField(payload, "ecosystem-modules", "title", module.title, {
+      title: module.title,
+      description: module.desc,
+      problem: module.problem,
+      solution: module.solution,
+      href: module.href,
+      iconUrl: module.icon ? `/icons/${module.icon}-glyph.svg` : undefined,
+      sortOrder: index,
+    });
+  }
+
+  console.log("Seeding ecosystem gaps...");
+  for (const [index, gap] of DEFAULT_ECOSYSTEM_GAPS.entries()) {
+    await upsertByField(payload, "ecosystem-gaps", "tabLabel", gap.tab, {
+      tabLabel: gap.tab,
+      problemTitle: gap.problemTitle,
+      problemDescription: gap.problemDesc,
+      solutionTitle: gap.solutionTitle,
+      solutionDescription: gap.solutionDesc,
+      sortOrder: index,
+    });
+  }
+
+  console.log("Seeding partners...");
+  for (const [index, partner] of DEFAULT_PARTNERS.entries()) {
+    await upsertByField(payload, "partners", "name", partner.name, {
+      name: partner.name,
+      logoUrl: partner.logo,
+      sortOrder: index,
+    });
+  }
+
+  console.log("Seeding news articles...");
+  const featured = DEFAULT_NEWS_FEATURED;
+  await upsertByField(payload, "news-articles", "title", featured.title, {
+    title: featured.title,
+    excerpt: featured.excerpt,
+    tag: featured.tag,
+    author: featured.author,
+    publishedAt: featured.date ? new Date(featured.date).toISOString() : new Date().toISOString(),
+    readTime: featured.readTime,
+    href: featured.href,
+    imageUrl: featured.image,
+    featured: true,
+  });
+
+  for (const [index, article] of DEFAULT_NEWS_ARTICLES.entries()) {
+    await upsertByField(payload, "news-articles", "title", `${article.title} (${index + 1})`, {
+      title: article.title,
+      tag: article.tag,
+      readTime: article.readTime,
+      featured: false,
+      sortOrder: index + 1,
+    });
+  }
+
+  console.log("Seeding team members...");
+  for (const [index, member] of DEFAULT_TEAM.entries()) {
+    await upsertByField(payload, "team-members", "name", member.name, {
+      name: member.name,
+      title: member.title,
+      about: member.about,
+      linkedinUrl: member.linkedinUrl,
+      photoUrl: member.image,
+      sortOrder: index,
+    });
+  }
+
+  console.log("Seeding grants & awards...");
+  for (const [index, grant] of DEFAULT_GRANTS.entries()) {
+    await upsertByField(payload, "grants-awards", "title", grant.title, {
+      year: grant.year,
+      title: grant.title,
+      subtitle: grant.subtitle,
+      iconUrl: grant.icon,
+      sortOrder: index,
+    });
+  }
+
   console.log("Seeding blog posts...");
   for (const post of BLOG_POSTS) {
-    const existing = await payload.find({
-      collection: "blog-posts",
-      where: { slug: { equals: post.slug } },
-      limit: 1,
-    });
-
-    const data = {
+    await upsertByField(payload, "blog-posts", "slug", post.slug, {
       slug: post.slug,
       category: post.category,
       categoryColor: post.categoryColor,
@@ -195,76 +438,99 @@ async function seed() {
       readTime: post.readTime,
       thumbnail: post.thumbnail,
       content: post.content.map((paragraph) => ({ paragraph })),
-    };
-
-    if (existing.docs[0]) {
-      await payload.update({ collection: "blog-posts", id: existing.docs[0].id, data });
-    } else {
-      await payload.create({ collection: "blog-posts", data });
-    }
+    });
   }
 
   console.log("Seeding solution pages...");
   for (const variant of ["hospital", "pharma"] as const) {
     const content = SOLUTIONS_CONTENT[variant];
-    const existing = await payload.find({
-      collection: "solution-pages",
-      where: { slug: { equals: variant } },
-      limit: 1,
-    });
-
-    const data = {
+    await upsertByField(payload, "solution-pages", "slug", variant, {
       slug: variant,
       hero: content.hero,
       clinicalBurden: {
         ...content.clinicalBurden,
         cards: content.clinicalBurden.cards.map((card) => ({
-          ...card,
+          cardId: card.id,
+          number: card.number,
+          label: card.label,
+          badge: card.badge,
+          badgeDot: card.badgeDot,
+          badgeBg: card.badgeBg,
+          badgeText: card.badgeText,
+          title: card.title,
           collapsedTitle: card.collapsedTitle.map((line) => ({ line })),
+          description: card.description,
         })),
       },
       howItWorks: content.howItWorks,
-      measurableOutcomes: content.measurableOutcomes,
+      measurableOutcomes: {
+        ...content.measurableOutcomes,
+        metrics: content.measurableOutcomes.metrics.map((metric) => ({
+          metricId: metric.id,
+          maxPercent: metric.maxPercent,
+          label: metric.label,
+          ringTrack: metric.ringTrack,
+          ringFill: metric.ringFill,
+          accent: metric.accent,
+          fromText: metric.fromText,
+          toText: metric.toText,
+          negative: metric.negative,
+          positive: metric.positive,
+          positiveIconBg: metric.positiveIconBg,
+          centerValue: metric.centerValue,
+          hideCenterSubLabel: metric.hideCenterSubLabel,
+        })),
+      },
       cta: content.cta,
-    };
-
-    if (existing.docs[0]) {
-      await payload.update({ collection: "solution-pages", id: existing.docs[0].id, data });
-    } else {
-      await payload.create({ collection: "solution-pages", data });
-    }
-  }
-
-  console.log("Seeding partners...");
-  const partners = [
-    { name: "10,000 Startups", logoUrl: "/new/10000startups.png", sortOrder: 0 },
-    { name: "Amity University", logoUrl: "/new/amity-logo.png", sortOrder: 1 },
-    { name: "BIRAC", logoUrl: "/new/BIRAC Logo.jpg", sortOrder: 2 },
-    { name: "Catalyst", logoUrl: "/new/Catalyst logo Black final.png", sortOrder: 3 },
-    {
-      name: "HDFC Startup Buildup Parivartan",
-      logoUrl: "/new/HDFC-Startup-Buildup-Parivartan-Logo-Approved.jpg",
-      sortOrder: 4,
-    },
-    { name: "Indo-Sweden Innovation Centre", logoUrl: "/new/indo-sweden.png", sortOrder: 5 },
-    { name: "JKEDI", logoUrl: "/new/JKEDI.png", sortOrder: 6 },
-    { name: "MeitY Startup Hub", logoUrl: "/new/meity.jpg", sortOrder: 7 },
-    { name: "Runway", logoUrl: "/new/runway.jpg", sortOrder: 8 },
-    { name: "UPES", logoUrl: "/new/upes.jpg", sortOrder: 9 },
-  ];
-
-  for (const partner of partners) {
-    const existing = await payload.find({
-      collection: "partners",
-      where: { name: { equals: partner.name } },
-      limit: 1,
     });
-    if (existing.docs[0]) {
-      await payload.update({ collection: "partners", id: existing.docs[0].id, data: partner });
-    } else {
-      await payload.create({ collection: "partners", data: partner });
-    }
   }
+
+  console.log("Seeding featured videos...");
+  const featuredVideo = resources.featuredVideo;
+  await upsertByField(payload, "featured-videos", "title", featuredVideo.title, {
+    title: featuredVideo.title,
+    description: featuredVideo.description,
+    youtubeUrl: featuredVideo.youtubeUrl,
+    duration: featuredVideo.duration,
+    articleLink: featuredVideo.articleLink,
+    tags: featuredVideo.tags.map((tag) => ({ tag })),
+    featured: true,
+    sortOrder: 0,
+  });
+
+  console.log("Seeding short videos...");
+  for (const [index, video] of resources.shortVideos.entries()) {
+    await upsertByField(payload, "short-videos", "title", video.title, {
+      title: video.title,
+      description: video.description,
+      category: video.category,
+      youtubeUrl: video.youtubeUrl,
+      duration: video.duration,
+      sortOrder: index,
+    });
+  }
+
+  console.log("Seeding external articles...");
+  for (const [index, article] of resources.externalArticles.entries()) {
+    await upsertByField(payload, "external-articles", "title", article.title, {
+      title: article.title,
+      url: article.url,
+      sortOrder: index,
+    });
+  }
+
+  console.log("Seeding legal pages...");
+  await upsertByField(payload, "legal-pages", "slug", DEFAULT_PRIVACY_POLICY.slug, {
+    slug: DEFAULT_PRIVACY_POLICY.slug,
+    title: DEFAULT_PRIVACY_POLICY.title,
+    metaDescription: DEFAULT_PRIVACY_POLICY.metaDescription,
+    lastUpdated: new Date(DEFAULT_PRIVACY_POLICY.lastUpdated).toISOString(),
+    sections: DEFAULT_PRIVACY_POLICY.sections.map((section) => ({
+      title: section.title,
+      body: paragraphsToLexical(section.body),
+      bullets: section.bullets?.map((item) => ({ item })),
+    })),
+  });
 
   console.log("Seed complete! Visit http://localhost:3000/admin to manage content.");
   process.exit(0);

@@ -110,7 +110,7 @@ function BurdenCardDots({
         const isDotActive = index === active;
         return (
           <motion.button
-            key={card.id}
+            key={card?.id}
             type="button"
             onClick={() => onSelect(index)}
             aria-label={`Go to ${card.label}`}
@@ -152,7 +152,7 @@ function BurdenMobileCarousel({
 
   return (
     <div className="lg:hidden">
-      <div className="mb-4 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="mb-4 flex [scrollbar-width:none] gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {cards.map((item, index) => {
           const isActive = index === active;
           return (
@@ -175,17 +175,13 @@ function BurdenMobileCarousel({
 
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          key={card.id}
+          key={card?.id}
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           exit={reduce ? undefined : { opacity: 0, y: -16 }}
           transition={{ duration: 0.35, ease: EASE }}
         >
-          <BurdenActiveCardPanel
-            card={card}
-            showLabel
-            className="min-h-[180px] sm:min-h-[210px]"
-          />
+          <BurdenActiveCardPanel card={card} showLabel className="min-h-[180px] sm:min-h-[210px]" />
         </motion.div>
       </AnimatePresence>
     </div>
@@ -341,10 +337,7 @@ export function SolutionsClinicalBurden({
   const collapsedWidth = rowWidth >= 1280 ? COLLAPSED_W : COLLAPSED_W_COMPACT;
   const expandedWidth =
     rowWidth > 0
-      ? Math.max(
-          MIN_EXPANDED_W,
-          rowWidth - gapTotal - (cards.length - 1) * collapsedWidth,
-        )
+      ? Math.max(MIN_EXPANDED_W, rowWidth - gapTotal - (cards.length - 1) * collapsedWidth)
       : MIN_EXPANDED_W;
 
   return (
@@ -362,9 +355,7 @@ export function SolutionsClinicalBurden({
             <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
           </div>
 
-          <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">
-            {content.heading}
-          </h2>
+          <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">{content.heading}</h2>
 
           <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
             {content.description}
@@ -372,16 +363,11 @@ export function SolutionsClinicalBurden({
         </Reveal>
 
         <Reveal className="mt-14 sm:mt-16" delay={0.08}>
-          <BurdenMobileCarousel
-            cards={cards}
-            active={active}
-            reduce={reduce}
-            onSelect={goTo}
-          />
+          <BurdenMobileCarousel cards={cards} active={active} reduce={reduce} onSelect={goTo} />
 
           <div
             ref={rowRef}
-            className="hidden h-[min(260px,34vw)] min-h-[200px] gap-2.5 lg:flex sm:gap-3"
+            className="hidden h-[min(260px,34vw)] min-h-[200px] gap-2.5 sm:gap-3 lg:flex"
           >
             {cards.map((card, index) => (
               <BurdenCardItem

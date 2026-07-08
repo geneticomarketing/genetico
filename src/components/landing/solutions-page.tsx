@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import { SolutionsClinicalBurden } from "@/components/landing/solutions-clinical-burden";
 
 import { SolutionsHero } from "@/components/landing/solutions-hero";
@@ -16,7 +14,11 @@ import { GetInTouch } from "@/components/landing/get-in-touch";
 
 import { Reveal } from "@/components/motion/reveal";
 
-import { SOLUTIONS_CONTENT, type SolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
+import {
+  SOLUTIONS_CONTENT,
+  type SolutionsContent,
+  type SolutionsVariant,
+} from "@/lib/solutions-content";
 
 import { motion, useTransform } from "motion/react";
 
@@ -24,32 +26,22 @@ import { useLayoutEffect, useRef, useState } from "react";
 
 import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 
-
-
 export function SolutionsPage({
-
   variant,
 
   content: contentProp,
-
 }: {
-
   variant: SolutionsVariant;
 
   content: SolutionsContent;
-
 }) {
-
   const content = contentProp ?? SOLUTIONS_CONTENT[variant];
 
   const pageRef = useRef(null);
 
   const [scrollFx, setScrollFx] = useState<boolean | null>(null);
 
-
-
   useLayoutEffect(() => {
-
     const mq = window.matchMedia("(min-width: 768px)");
 
     const update = () => setScrollFx(mq.matches);
@@ -59,20 +51,13 @@ export function SolutionsPage({
     mq.addEventListener("change", update);
 
     return () => mq.removeEventListener("change", update);
-
   }, []);
 
-
-
   const { scrollYProgress: pageScroll } = useProjectScroll({
-
     target: pageRef,
 
     offset: ["start start", "end end"],
-
   });
-
-
 
   const heroScale = useTransform(pageScroll, [0, 0.4], [1, 0.55]);
 
@@ -80,28 +65,18 @@ export function SolutionsPage({
 
   const useFixedHero = scrollFx === true;
 
-
-
   return (
-
     <main ref={pageRef} className="flex flex-1 flex-col bg-white max-md:overflow-x-hidden">
-
       <motion.div
-
-        className={useFixedHero ? "fixed w-full" : "relative w-full"}
-
+        className={useFixedHero ? "fixed w-full overflow-hidden" : "relative w-full"}
         style={useFixedHero ? { scale: heroScale, y: heroY } : undefined}
-
       >
-
         <SolutionsHero content={content.hero} variant={variant} />
-
       </motion.div>
 
       {useFixedHero ? <div className="min-h-screen" aria-hidden /> : null}
 
       <div className="relative z-999999999 bg-white">
-
         <SolutionsClinicalBurden content={content.clinicalBurden} />
 
         <SolutionsHowItWorks content={content.howItWorks} />
@@ -109,66 +84,32 @@ export function SolutionsPage({
         <SolutionsMeasurableOutcomes content={content.measurableOutcomes} />
 
         <section
-
           id="get-in-touch"
-
           className="relative overflow-hidden bg-[#F4F6F9] px-5 pt-20 sm:px-10 sm:pt-24 lg:pt-32"
-
         >
-
           <div aria-hidden className="pointer-events-none absolute inset-0">
-
             <img
-
               src="/dna.svg"
-
               alt=""
-
               className="absolute top-1/2 right-[-18%] h-[140%] w-auto max-w-none -translate-y-1/2 scale-x-[-1] opacity-90"
-
             />
 
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_50%_50%,#F4F6F9_35%,transparent_100%)]" />
-
           </div>
 
-
-
           <Reveal className="relative z-10 mx-auto max-w-3xl text-center">
-
-            <h2 className="t-heading mx-auto text-balance text-[#121212]">
-
-              {content.cta.heading}
-
-            </h2>
+            <h2 className="t-heading mx-auto text-balance text-[#121212]">{content.cta.heading}</h2>
 
             <p className="secondaryFont mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#8f8f8f] sm:mt-6">
-
               {content.cta.description}
-
             </p>
 
-            <CtaButtons
-
-              buttons={content.cta.buttons ?? []}
-
-              className="mt-8 mb-10 sm:mt-10"
-
-            />
-
+            <CtaButtons buttons={content.cta.buttons ?? []} className="mt-8 mb-10 sm:mt-10" />
           </Reveal>
 
-
-
           <GetInTouch embedded />
-
         </section>
-
       </div>
-
     </main>
-
   );
-
 }
-

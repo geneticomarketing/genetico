@@ -9,6 +9,11 @@ import { getSolutionsContent, type SolutionsVariant } from "@/lib/solutions-cont
 const STAGGER_S = 0.3;
 const ENTRANCE_DURATION = 1.5;
 const BG_DURATION = 1;
+const FLOAT = { duration: 5, repeat: Infinity, ease: "easeInOut" as const };
+
+function entranceDelay(contentIndex: number) {
+  return BG_DURATION + (contentIndex - 0.1) * STAGGER_S;
+}
 
 function heroEntrance(contentIndex: number, reduce: boolean | null) {
   if (reduce) return { initial: false as const };
@@ -18,8 +23,23 @@ function heroEntrance(contentIndex: number, reduce: boolean | null) {
     transition: {
       duration: ENTRANCE_DURATION,
       ease: EASE,
-      delay: BG_DURATION + (contentIndex - 0.1) * STAGGER_S,
+      delay: entranceDelay(contentIndex),
     },
+  };
+}
+
+function heroFloat(
+  reduce: boolean | null,
+  {
+    delay,
+    amplitude = 8,
+    duration = FLOAT.duration,
+  }: { delay: number; amplitude?: number; duration?: number },
+) {
+  if (reduce) return {};
+  return {
+    animate: { y: [0, -amplitude, 0] },
+    transition: { duration, repeat: Infinity, ease: FLOAT.ease, delay },
   };
 }
 
@@ -104,12 +124,18 @@ function MultiSiteSyncPill({
   className?: string;
 }) {
   return (
-    <motion.div
-      {...heroEntrance(3, reduce)}
-      className={`inline-flex items-center gap-2 rounded-full border border-[#e8ebf0] bg-white px-3.5 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)] ${className}`}
-    >
-      <span className="size-2 shrink-0 rounded-full bg-[#2b7623]" />
-      <span className="secondaryFont text-xs text-[#6e6e73]">12 research sites synchronized</span>
+    <motion.div {...heroEntrance(3, reduce)} className={className}>
+      <motion.div
+        {...heroFloat(reduce, {
+          delay: entranceDelay(3) + ENTRANCE_DURATION,
+          amplitude: 6,
+          duration: 4.8,
+        })}
+        className="inline-flex items-center gap-2 rounded-full border border-[#e8ebf0] bg-white px-3.5 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
+      >
+        <span className="size-2 shrink-0 rounded-full bg-[#2b7623]" />
+        <span className="secondaryFont text-xs text-[#6e6e73]">12 research sites synchronized</span>
+      </motion.div>
     </motion.div>
   );
 }
@@ -122,32 +148,38 @@ function CohortDatasetCard({
   className?: string;
 }) {
   return (
-    <motion.div
-      {...heroEntrance(3.5, reduce)}
-      className={`rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${className}`}
-    >
-      <div className="flex items-center justify-between gap-2">
-        <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
-          Research Cohort
-        </span>
-        <span className="rounded-full bg-[#eef4f9] px-2 py-0.5 text-[0.6rem] font-semibold tracking-wide text-brand uppercase">
-          Live
-        </span>
-      </div>
-      <div className="secondaryFont mt-3 grid grid-cols-3 gap-2 border-t border-[#eef1f5] pt-3 text-center">
-        <div>
-          <p className="text-brand text-lg font-semibold tabular-nums">247</p>
-          <p className="text-[0.62rem] text-[#a3afc4]">Patients</p>
+    <motion.div {...heroEntrance(3.5, reduce)} className={className}>
+      <motion.div
+        {...heroFloat(reduce, {
+          delay: entranceDelay(3.5) + ENTRANCE_DURATION,
+          amplitude: 9,
+          duration: 5.2,
+        })}
+        className="rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+      >
+        <div className="flex items-center justify-between gap-2">
+          <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
+            Research Cohort
+          </span>
+          <span className="rounded-full bg-[#eef4f9] px-2 py-0.5 text-[0.6rem] font-semibold tracking-wide text-brand uppercase">
+            Live
+          </span>
         </div>
-        <div>
-          <p className="text-brand text-lg font-semibold tabular-nums">12</p>
-          <p className="text-[0.62rem] text-[#a3afc4]">Centers</p>
+        <div className="secondaryFont mt-3 grid grid-cols-3 gap-2 border-t border-[#eef1f5] pt-3 text-center">
+          <div>
+            <p className="text-brand text-lg font-semibold tabular-nums">247</p>
+            <p className="text-[0.62rem] text-[#a3afc4]">Patients</p>
+          </div>
+          <div>
+            <p className="text-brand text-lg font-semibold tabular-nums">12</p>
+            <p className="text-[0.62rem] text-[#a3afc4]">Centers</p>
+          </div>
+          <div>
+            <p className="text-brand text-lg font-semibold tabular-nums">98%</p>
+            <p className="text-[0.62rem] text-[#a3afc4]">HPO coded</p>
+          </div>
         </div>
-        <div>
-          <p className="text-brand text-lg font-semibold tabular-nums">98%</p>
-          <p className="text-[0.62rem] text-[#a3afc4]">HPO coded</p>
-        </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
@@ -160,33 +192,45 @@ function NaturalHistoryCard({
   className?: string;
 }) {
   return (
-    <motion.div
-      {...heroEntrance(4, reduce)}
-      className={`rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${className}`}
-    >
-      <div className="flex items-baseline justify-between gap-2">
-        <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
-          Natural History Study
-        </span>
-        <span className="secondaryFont text-[0.62rem] text-[#a3afc4]">Longitudinal</span>
-      </div>
-      <div className="secondaryFont mt-3 space-y-2.5 border-t border-[#eef1f5] pt-3">
-        {[
-          { label: "Baseline capture", value: "Complete" },
-          { label: "Follow-up visits", value: "186 tracked" },
-          { label: "Registry export", value: "Ready" },
-        ].map((row) => (
-          <div key={row.label} className="flex items-center justify-between text-[0.72rem]">
-            <span className="text-[#6e6e73]">{row.label}</span>
-            <span className="font-semibold text-[#121212]">{row.value}</span>
-          </div>
-        ))}
-      </div>
+    <motion.div {...heroEntrance(4, reduce)} className={className}>
+      <motion.div
+        {...heroFloat(reduce, {
+          delay: entranceDelay(4) + ENTRANCE_DURATION,
+          amplitude: 7,
+          duration: 5.6,
+        })}
+        className="rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+      >
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
+            Natural History Study
+          </span>
+          <span className="secondaryFont text-[0.62rem] text-[#a3afc4]">Longitudinal</span>
+        </div>
+        <div className="secondaryFont mt-3 space-y-2.5 border-t border-[#eef1f5] pt-3">
+          {[
+            { label: "Baseline capture", value: "Complete" },
+            { label: "Follow-up visits", value: "186 tracked" },
+            { label: "Registry export", value: "Ready" },
+          ].map((row) => (
+            <div key={row.label} className="flex items-center justify-between text-[0.72rem]">
+              <span className="text-[#6e6e73]">{row.label}</span>
+              <span className="font-semibold text-[#121212]">{row.value}</span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </motion.div>
   );
 }
 
-function LifeScienceHeroVisual({ className = "" }: { className?: string }) {
+function LifeScienceHeroVisual({
+  className = "",
+  overlays = true,
+}: {
+  className?: string;
+  overlays?: boolean;
+}) {
   return (
     <div className={`relative mx-auto aspect-[5/3] w-full ${className}`} aria-hidden>
       <div className="absolute inset-0 overflow-hidden rounded-[1.75rem] border border-[#e8ebf0] bg-gradient-to-br from-[#eef4f9] via-white to-[#f8fafc] shadow-[0_24px_70px_rgba(2,67,133,0.1)]">
@@ -215,20 +259,24 @@ function LifeScienceHeroVisual({ className = "" }: { className?: string }) {
         </svg>
       </div>
 
-      <div className="absolute top-[8%] left-[5%] w-[min(58%,13.5rem)] overflow-hidden rounded-xl border border-[#e8ebf0] bg-white shadow-[0_12px_36px_rgba(2,67,133,0.1)] sm:w-[min(54%,15rem)]">
-        <img src="/platform/patient-timeline.svg" alt="" className="block h-auto w-full" />
-      </div>
+      {overlays ? (
+        <>
+          <div className="absolute top-[8%] left-[5%] w-[min(58%,13.5rem)] overflow-hidden rounded-xl border border-[#e8ebf0] bg-white shadow-[0_12px_36px_rgba(2,67,133,0.1)] sm:w-[min(54%,15rem)]">
+            <img src="/platform/patient-timeline.svg" alt="" className="block h-auto w-full" />
+          </div>
 
-      <div className="absolute right-[5%] bottom-[8%] w-[min(52%,12.5rem)] overflow-hidden rounded-xl border border-[#e8ebf0] bg-white shadow-[0_12px_36px_rgba(2,67,133,0.1)] sm:w-[min(48%,14rem)]">
-        <img src="/platform/hpo-extraction.svg" alt="" className="block h-auto w-full" />
-      </div>
+          <div className="absolute right-[5%] bottom-[8%] w-[min(52%,12.5rem)] overflow-hidden rounded-xl border border-[#e8ebf0] bg-white shadow-[0_12px_36px_rgba(2,67,133,0.1)] sm:w-[min(48%,14rem)]">
+            <img src="/platform/hpo-extraction.svg" alt="" className="block h-auto w-full" />
+          </div>
 
-      <div className="absolute top-[8%] right-[6%] inline-flex items-center gap-2 rounded-full border border-[#e8ebf0] bg-white px-3 py-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
-        <span className="size-2 shrink-0 rounded-full bg-[#2b7623]" />
-        <span className="secondaryFont text-[0.65rem] font-medium tracking-[0.12em] text-[#6e6e73] uppercase">
-          Research-ready datasets
-        </span>
-      </div>
+          <div className="absolute top-[8%] right-[6%] inline-flex items-center gap-2 rounded-full border border-[#e8ebf0] bg-white px-3 py-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
+            <span className="size-2 shrink-0 rounded-full bg-[#2b7623]" />
+            <span className="secondaryFont text-[0.65rem] font-medium tracking-[0.12em] text-[#6e6e73] uppercase">
+              Research-ready datasets
+            </span>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
@@ -241,12 +289,18 @@ function DocumentProcessedPill({
   className?: string;
 }) {
   return (
-    <motion.div
-      {...heroEntrance(3, reduce)}
-      className={`inline-flex items-center gap-2 rounded-full border border-[#e8ebf0] bg-white px-3.5 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)] ${className}`}
-    >
-      <span className="size-2 shrink-0 rounded-full bg-[#2b7623]" />
-      <span className="secondaryFont text-xs text-[#6e6e73]">Document processed</span>
+    <motion.div {...heroEntrance(3, reduce)} className={className}>
+      <motion.div
+        {...heroFloat(reduce, {
+          delay: entranceDelay(3) + ENTRANCE_DURATION,
+          amplitude: 6,
+          duration: 4.8,
+        })}
+        className="inline-flex items-center gap-2 rounded-full border border-[#e8ebf0] bg-white px-3.5 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
+      >
+        <span className="size-2 shrink-0 rounded-full bg-[#2b7623]" />
+        <span className="secondaryFont text-xs text-[#6e6e73]">Document processed</span>
+      </motion.div>
     </motion.div>
   );
 }
@@ -259,23 +313,29 @@ function HpoExtractionCard({
   className?: string;
 }) {
   return (
-    <motion.div
-      {...heroEntrance(3.5, reduce)}
-      className={`rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${className}`}
-    >
-      <div className="flex items-center justify-between gap-2">
-        <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
-          HPO Extraction
-        </span>
-        <span className="rounded-full bg-[#2b7623] px-2 py-0.5 text-[0.6rem] font-semibold tracking-wide text-white uppercase">
-          Auto
-        </span>
-      </div>
-      <ul className="secondaryFont mt-3 space-y-2 border-t border-[#eef1f5] pt-3 text-[0.72rem] text-[#6e6e73]">
-        <li>HP:0001250 · Seizures</li>
-        <li>HP:0000924 · Skeletal anomaly</li>
-        <li>HP:0004322 · Short stature</li>
-      </ul>
+    <motion.div {...heroEntrance(3.5, reduce)} className={className}>
+      <motion.div
+        {...heroFloat(reduce, {
+          delay: entranceDelay(3.5) + ENTRANCE_DURATION,
+          amplitude: 9,
+          duration: 5.2,
+        })}
+        className="rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+      >
+        <div className="flex items-center justify-between gap-2">
+          <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
+            HPO Extraction
+          </span>
+          <span className="rounded-full bg-[#2b7623] px-2 py-0.5 text-[0.6rem] font-semibold tracking-wide text-white uppercase">
+            Auto
+          </span>
+        </div>
+        <ul className="secondaryFont mt-3 space-y-2 border-t border-[#eef1f5] pt-3 text-[0.72rem] text-[#6e6e73]">
+          <li>HP:0001250 · Seizures</li>
+          <li>HP:0000924 · Skeletal anomaly</li>
+          <li>HP:0004322 · Short stature</li>
+        </ul>
+      </motion.div>
     </motion.div>
   );
 }
@@ -288,36 +348,42 @@ function RapidScoreCard({
   className?: string;
 }) {
   return (
-    <motion.div
-      {...heroEntrance(4, reduce)}
-      className={`rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${className}`}
-    >
-      <div className="flex items-baseline justify-between gap-2">
-        <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
-          Rapid Score
-        </span>
-        <span className="secondaryFont text-[0.62rem] text-[#a3afc4]">AI · Ranked</span>
-      </div>
-      <div className="secondaryFont mt-3 space-y-3 border-t border-[#eef1f5] pt-3">
-        <div>
-          <div className="flex items-center justify-between text-[0.72rem] text-[#121212]">
-            <span>Marfan Syndrome</span>
-            <span className="text-brand font-semibold">94%</span>
+    <motion.div {...heroEntrance(4, reduce)} className={className}>
+      <motion.div
+        {...heroFloat(reduce, {
+          delay: entranceDelay(4) + ENTRANCE_DURATION,
+          amplitude: 7,
+          duration: 5.6,
+        })}
+        className="rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+      >
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
+            Rapid Score
+          </span>
+          <span className="secondaryFont text-[0.62rem] text-[#a3afc4]">AI · Ranked</span>
+        </div>
+        <div className="secondaryFont mt-3 space-y-3 border-t border-[#eef1f5] pt-3">
+          <div>
+            <div className="flex items-center justify-between text-[0.72rem] text-[#121212]">
+              <span>Marfan Syndrome</span>
+              <span className="text-brand font-semibold">94%</span>
+            </div>
+            <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#e8ebf0]">
+              <div className="bg-brand h-full w-[94%] rounded-full" />
+            </div>
           </div>
-          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#e8ebf0]">
-            <div className="bg-brand h-full w-[94%] rounded-full" />
+          <div>
+            <div className="flex items-center justify-between text-[0.72rem] text-[#121212]">
+              <span>Ehlers-Danlos Synd.</span>
+              <span className="text-brand font-semibold">67%</span>
+            </div>
+            <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#e8ebf0]">
+              <div className="bg-brand h-full w-[67%] rounded-full" />
+            </div>
           </div>
         </div>
-        <div>
-          <div className="flex items-center justify-between text-[0.72rem] text-[#121212]">
-            <span>Ehlers-Danlos Synd.</span>
-            <span className="text-brand font-semibold">67%</span>
-          </div>
-          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#e8ebf0]">
-            <div className="bg-brand h-full w-[67%] rounded-full" />
-          </div>
-        </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
@@ -340,7 +406,16 @@ function SolutionsHeroMobile({
       <motion.div {...heroBgEntrance(reduce)} className="relative mt-8 w-full">
         {isPharma ? (
           <>
-            <LifeScienceHeroVisual className="max-w-[20rem]" />
+            <motion.div
+              className="aspect-[5/3] w-full max-w-[20rem]"
+              {...heroFloat(reduce, {
+                delay: entranceDelay(2.5) + ENTRANCE_DURATION,
+                amplitude: 8,
+                duration: 6,
+              })}
+            >
+              <LifeScienceHeroVisual className="h-full max-h-full max-w-full" />
+            </motion.div>
             <div className="mt-5 flex justify-center">
               <MultiSiteSyncPill reduce={reduce} />
             </div>
@@ -351,15 +426,24 @@ function SolutionsHeroMobile({
           </>
         ) : (
           <>
-            <Image
-              src="/solhero.png"
-              alt=""
-              width={960}
-              height={720}
-              priority
-              unoptimized
-              className="mx-auto h-auto w-full max-w-[15rem]"
-            />
+            <motion.div
+              className="mx-auto w-full max-w-[15rem]"
+              {...heroFloat(reduce, {
+                delay: entranceDelay(2.5) + ENTRANCE_DURATION,
+                amplitude: 10,
+                duration: 6,
+              })}
+            >
+              <Image
+                src="/solhero.png"
+                alt=""
+                width={960}
+                height={720}
+                priority
+                unoptimized
+                className="h-auto w-full"
+              />
+            </motion.div>
             <div className="mt-5 flex justify-center">
               <DocumentProcessedPill reduce={reduce} />
             </div>
@@ -384,45 +468,67 @@ function HeroInfographicStage({
   const isPharma = variant === "pharma";
 
   return (
-    <div className="relative mx-auto aspect-[16/10] w-full max-w-3xl xl:max-w-[42rem]">
-      <div className="absolute inset-[14%_10%_6%_10%] flex items-center justify-center">
+    <div className="relative aspect-[16/10] w-full max-h-full max-w-3xl xl:max-w-[42rem] 2xl:max-w-4xl">
+      <div
+        className={`absolute flex items-center justify-center ${
+          isPharma ? "inset-[20%_14%_8%_14%]" : "inset-[10%_6%_2%_6%]"
+        }`}
+      >
         {isPharma ? (
-          <LifeScienceHeroVisual className="h-full max-h-full w-full max-w-full" />
+          <motion.div
+            className="size-full"
+            {...heroFloat(reduce, {
+              delay: entranceDelay(2.5) + ENTRANCE_DURATION,
+              amplitude: 8,
+              duration: 6,
+            })}
+          >
+            <LifeScienceHeroVisual className="h-full max-h-full max-w-full" />
+          </motion.div>
         ) : (
-          <Image
-            src="/solhero.png"
-            alt=""
-            width={960}
-            height={720}
-            priority
-            unoptimized
-            className="h-full w-full object-contain"
-          />
+          <motion.div
+            className="h-full w-full"
+            {...heroFloat(reduce, {
+              delay: entranceDelay(2.5) + ENTRANCE_DURATION,
+              amplitude: 12,
+              duration: 6,
+            })}
+          >
+            <Image
+              src="/solhero.png"
+              alt=""
+              width={960}
+              height={720}
+              priority
+              unoptimized
+              className="h-full w-full object-contain"
+            />
+          </motion.div>
         )}
       </div>
 
       {isPharma ? (
         <>
-          <MultiSiteSyncPill reduce={reduce} className="absolute top-[2%] left-0 sm:left-[1%]" />
+          <MultiSiteSyncPill reduce={reduce} className="absolute top-[3%] left-[1%] max-w-[42%]" />
           <CohortDatasetCard
             reduce={reduce}
-            className="absolute top-0 right-0 w-[min(100%,15.5rem)]"
+            className="absolute top-[1%] right-[1%] w-[38%] max-w-[15.5rem] min-w-[11.5rem]"
           />
           <NaturalHistoryCard
             reduce={reduce}
-            className="absolute bottom-[4%] left-0 w-[min(100%,16rem)]"
+            className="absolute bottom-[3%] left-[1%] w-[40%] max-w-[16rem] min-w-[12rem]"
           />
         </>
       ) : (
         <>
-          <DocumentProcessedPill reduce={reduce} className="absolute top-[2%] left-0 sm:left-[1%]" />
+          <DocumentProcessedPill reduce={reduce} className="absolute top-[3%] left-[1%] max-w-[42%]" />
           <HpoExtractionCard
             reduce={reduce}
-            className="absolute top-0 right-0 w-[min(100%,15.5rem)]"
+            className="absolute top-[1%] right-[1%] w-[38%] max-w-[15.5rem] min-w-[11.5rem]"
           />
           <RapidScoreCard
             reduce={reduce}
-            className="absolute bottom-[4%] left-0 w-[min(100%,16rem)]"
+            className="absolute bottom-[3%] left-[1%] w-[40%] max-w-[16rem] min-w-[12rem]"
           />
         </>
       )}
@@ -440,12 +546,14 @@ function SolutionsHeroDesktop({
   hero: import("@/lib/solutions-content").SolutionsContent["hero"];
 }) {
   return (
-    <div className="relative mx-auto hidden h-full min-h-0 w-full max-w-6xl flex-col px-8 pt-28 pb-8 text-center md:flex">
-      <HeroHeading reduce={reduce} hero={hero} />
+    <div className="relative mx-auto hidden h-full min-h-0 w-full max-w-6xl grid grid-rows-[auto_minmax(0,1fr)] px-8 pt-24 pb-6 text-center md:grid lg:pt-28 lg:pb-8">
+      <div className="shrink-0">
+        <HeroHeading reduce={reduce} hero={hero} />
+      </div>
 
       <motion.div
         {...heroBgEntrance(reduce)}
-        className="relative mt-8 flex min-h-0 flex-1 items-center justify-center"
+        className="relative mt-6 flex h-full min-h-0 items-start justify-center overflow-hidden lg:mt-8"
       >
         <HeroInfographicStage reduce={reduce} variant={variant} />
       </motion.div>
@@ -465,7 +573,7 @@ export function SolutionsHero({
   return (
     <section
       id="hero"
-      className="relative bg-white md:h-dvh md:min-h-[720px] md:overflow-x-hidden"
+      className="relative bg-white md:h-dvh md:overflow-hidden"
     >
       <HexGridBackground />
       <SolutionsHeroMobile reduce={reduce} variant={variant} hero={content} />

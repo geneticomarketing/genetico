@@ -1,4 +1,5 @@
 import type { GlobalConfig } from "payload";
+import { imageUploadFields } from "../fields/image";
 import { ctaButtonsField } from "../fields/link";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
@@ -6,7 +7,7 @@ import { withAdminGroup } from "../with-admin-group";
 export const AboutPage = withAdminGroup(
   {
     slug: "about-page",
-    label: "Page Content",
+    label: "About Page",
     fields: [
       {
         name: "hero",
@@ -71,7 +72,7 @@ export const AboutPage = withAdminGroup(
 export const PlatformPage = withAdminGroup(
   {
     slug: "platform-page",
-    label: "Page Content",
+    label: "Platform Page",
     fields: [
       {
         name: "hero",
@@ -81,7 +82,7 @@ export const PlatformPage = withAdminGroup(
           { name: "subtitle", type: "textarea" },
           { name: "ctaLabel", type: "text" },
           { name: "ctaHref", type: "text" },
-          { name: "image", type: "text" },
+          ...imageUploadFields({ uploadLabel: "Hero image" }),
         ],
       },
       {
@@ -104,7 +105,12 @@ export const PlatformPage = withAdminGroup(
                 type: "array",
                 fields: [{ name: "item", type: "text", required: true }],
               },
-              { name: "illustration", type: "text" },
+              ...imageUploadFields({
+                uploadName: "illustrationImage",
+                pathName: "illustration",
+                uploadLabel: "Illustration",
+                pathDescription: "Fallback static illustration path if no upload is provided",
+              }),
             ],
           },
         ],
@@ -209,7 +215,7 @@ export const PlatformPage = withAdminGroup(
 export const PublicHealthPage = withAdminGroup(
   {
     slug: "public-health-page",
-    label: "Page Content",
+    label: "Public Health Page",
     fields: [
       {
         name: "hero",
@@ -217,7 +223,7 @@ export const PublicHealthPage = withAdminGroup(
         fields: [
           { name: "title", type: "text", required: true },
           { name: "subtitle", type: "textarea" },
-          { name: "image", type: "text" },
+          ...imageUploadFields({ uploadLabel: "Hero image" }),
         ],
       },
       {
@@ -309,7 +315,7 @@ export const PublicHealthPage = withAdminGroup(
 export const ResourcesPage = withAdminGroup(
   {
     slug: "resources-page",
-    label: "Page Content",
+    label: "Resources Page",
     fields: [
       {
         name: "hero",
@@ -317,7 +323,7 @@ export const ResourcesPage = withAdminGroup(
         fields: [
           { name: "title", type: "text", required: true },
           { name: "subtitle", type: "textarea" },
-          { name: "image", type: "text" },
+          ...imageUploadFields({ uploadLabel: "Hero image" }),
         ],
       },
       {

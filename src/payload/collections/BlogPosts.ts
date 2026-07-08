@@ -19,14 +19,17 @@ export const BlogPosts = withAdminGroup(
       { name: "publishedAt", type: "date", required: true },
       { name: "readTime", type: "text", required: true },
       {
-        name: "thumbnail",
-        type: "text",
-        admin: { description: "CSS gradient or image URL" },
-      },
-      {
         name: "thumbnailImage",
         type: "upload",
         relationTo: "media",
+        label: "Thumbnail image",
+      },
+      {
+        name: "thumbnail",
+        type: "text",
+        admin: {
+          description: "Optional fallback: CSS gradient or static image path if no upload is provided",
+        },
       },
       {
         name: "content",

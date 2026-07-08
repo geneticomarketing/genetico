@@ -1,5 +1,22 @@
+import type { Metadata } from "next";
+
 import { PublicHealthClient } from "@/app/public-health/public-health-client";
 import { getPublicHealthPageData } from "@/lib/cms/page-data";
+import { createPageMetadata } from "@/lib/seo";
+import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getPublicHealthPageData();
+  const seo = STATIC_PAGE_SEO.publicHealth;
+  const title = `${data.hero.titleLine1} ${data.hero.titleLine2}`.trim();
+
+  return createPageMetadata({
+    title: title || seo.title,
+    description: data.hero.subtitle || seo.description,
+    path: seo.path,
+    ogImage: data.hero.image || undefined,
+  });
+}
 
 export default async function PublicHealthPage() {
   const data = await getPublicHealthPageData();

@@ -155,9 +155,18 @@ export const DEFAULT_HOME_PAGE: HomePageData = {
   whoWeAre: {
     eyebrow: "Who We Are",
     paragraphs: [
-      "Genetico is building the digital backbone for the rare and genetic disease ecosystem.",
-      "For over seven years, we have worked with clinicians, institutions, government programs, and researchers to solve fragmented rare disease data.",
-      "Our AI platform unifies workflows, registries, decision support, analytics, and research into one ecosystem, turning fragmented data into actionable intelligence that improves care, accelerates research, strengthens public health, and supports better decisions.",
+      {
+        text: "Genetico is building the digital backbone for the rare and genetic disease ecosystem.",
+        highlights: ["digital backbone", "rare and genetic disease ecosystem"],
+      },
+      {
+        text: "For over seven years, we have worked with clinicians, institutions, government programs, and researchers to solve fragmented rare disease data.",
+        highlights: ["fragmented rare disease data"],
+      },
+      {
+        text: "Our AI platform unifies workflows, registries, decision support, analytics, and research into one ecosystem, turning fragmented data into actionable intelligence that improves care, accelerates research, strengthens public health, and supports better decisions.",
+        highlights: ["AI platform", "one ecosystem", "actionable intelligence"],
+      },
     ],
   },
   ecosystemChallenges: {

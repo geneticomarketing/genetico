@@ -4,7 +4,7 @@ import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
 
 const burdenCardFields = [
-  { name: "id", type: "text" as const, required: true },
+  { name: "cardId", type: "text" as const, required: true },
   { name: "number", type: "text" as const, required: true },
   { name: "label", type: "text" as const, required: true },
   { name: "badge", type: "text" as const, required: true },
@@ -32,7 +32,7 @@ const howItWorksRowFields = [
 ];
 
 const outcomeMetricFields = [
-  { name: "id", type: "text" as const, required: true },
+  { name: "metricId", type: "text" as const, required: true },
   { name: "maxPercent", type: "number" as const, required: true },
   { name: "label", type: "text" as const, required: true },
   { name: "ringTrack", type: "text" as const, required: true },

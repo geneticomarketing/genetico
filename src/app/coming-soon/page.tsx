@@ -3,15 +3,18 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { getUtilityPagesData } from "@/lib/cms/page-data";
+import { createPageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const utility = await getUtilityPagesData();
   const comingSoon = utility.comingSoon;
 
-  return {
-    title: comingSoon?.metaTitle ?? "Coming Soon | Genetico",
+  return createPageMetadata({
+    title: comingSoon?.metaTitle?.replace(` | Genetico`, "") ?? "Coming Soon",
     description: comingSoon?.metaDescription ?? "This section of Genetico is coming soon.",
-  };
+    path: "/coming-soon",
+    noIndex: true,
+  });
 }
 
 export default async function ComingSoonPage() {

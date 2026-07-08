@@ -44,33 +44,44 @@ export default buildConfig({
     meta: {
       titleSuffix: " — Genetico CMS",
     },
+    components: {
+      Nav: "@/payload/admin/Nav#GeneticoNav",
+    },
   },
   collections: [
-    Users,
-    Media,
-    BlogPosts,
+    // Home
     NewsArticles,
-    TeamMembers,
     Partners,
-    GrantsAwards,
     EcosystemModules,
     EcosystemGaps,
+    // About
+    TeamMembers,
+    GrantsAwards,
+    // Solutions
+    SolutionPages,
+    // Resources
+    BlogPosts,
     FeaturedVideos,
     ShortVideos,
     ExternalArticles,
-    SolutionPages,
+    // Legal
     LegalPages,
+    // Site utilities
+    Media,
+    Users,
   ],
   globals: [
-    SiteSettings,
-    Navigation,
-    Footer,
+    // Page content globals (ordered by site navigation)
     HomePage,
     AboutPage,
     PlatformPage,
     PublicHealthPage,
     ResourcesPage,
     UtilityPages,
+    // Site-wide
+    SiteSettings,
+    Navigation,
+    Footer,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "dev-secret-change-me",

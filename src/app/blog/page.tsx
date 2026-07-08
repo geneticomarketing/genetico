@@ -10,14 +10,18 @@ import { Reveal } from "@/components/motion/reveal";
 
 import { getBlogPosts } from "@/lib/cms/queries";
 import { getResourcesPageData } from "@/lib/cms/page-data";
+import { createPageMetadata } from "@/lib/seo";
+import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getResourcesPageData();
+  const seo = STATIC_PAGE_SEO.blog;
 
-  return {
-    title: data.blogListing.title,
-    description: data.blogListing.metaDescription,
-  };
+  return createPageMetadata({
+    title: data.blogListing.title.replace(` | Genetico`, "") || seo.title,
+    description: data.blogListing.metaDescription || seo.description,
+    path: seo.path,
+  });
 }
 
 export default async function BlogPage() {

@@ -4,6 +4,8 @@ import { ArrowLeft } from "lucide-react";
 
 import { CONTACT_EMAIL, CONTACT_MAILTO } from "@/lib/contact";
 import { getLegalPageBySlug } from "@/lib/cms/page-data";
+import { createPageMetadata } from "@/lib/seo";
+import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
 
 type PolicySection = {
   title: string;
@@ -50,13 +52,13 @@ function richTextToParagraphs(body: unknown): string[] {
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getLegalPageBySlug("privacy-policy");
+  const seo = STATIC_PAGE_SEO.privacyPolicy;
 
-  return {
-    title: page?.title ? `${page.title} | Genetico` : "Privacy Policy | Genetico",
-    description:
-      page?.metaDescription ??
-      "How Genetico and IndiGeneUs.AI collect, use, and protect personal and clinical information.",
-  };
+  return createPageMetadata({
+    title: page?.title ?? seo.title,
+    description: page?.metaDescription ?? seo.description,
+    path: seo.path,
+  });
 }
 
 export default async function PrivacyPolicyPage() {

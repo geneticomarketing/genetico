@@ -1,5 +1,7 @@
+import { resolveMediaUrl } from "./resolve-media-url";
 import { BLOG_POSTS, type BlogPost } from "@/lib/blogs";
 import { SOLUTIONS_CONTENT, type SolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
+import type { SolutionPage } from "@/payload-types";
 import type {
   AboutPage,
   BlogPost as CmsBlogPost,
@@ -56,7 +58,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       author: doc.author,
       date: formatBlogDate(doc.publishedAt),
       readTime: doc.readTime,
-      thumbnail: doc.thumbnail || "",
+      thumbnail: resolveMediaUrl(doc.thumbnailImage, doc.thumbnail) || "",
       content: (doc.content ?? []).map((c: { paragraph: string }) => c.paragraph),
     }));
   } catch {
@@ -72,6 +74,108 @@ export async function getBlogBySlug(slug: string): Promise<BlogPost | undefined>
 export async function getAllBlogSlugs(): Promise<string[]> {
   const posts = await getBlogPosts();
   return posts.map((p) => p.slug);
+}
+
+function mapBurdenCards(
+  cards: NonNullable<SolutionPage["clinicalBurden"]>["cards"] | null | undefined,
+): SolutionsContent["clinicalBurden"]["cards"] {
+  return (cards ?? [])
+    .map((card) => {
+      const collapsedTitle = (card.collapsedTitle ?? [])
+        .map((line) => line.line)
+        .filter(Boolean);
+
+      if (!card.label || !card.title || collapsedTitle.length < 2) return null;
+
+      return {
+        id: card.cardId ?? "",
+        number: card.number,
+        label: card.label,
+        badge: card.badge,
+        badgeDot: card.badgeDot,
+        badgeBg: card.badgeBg,
+        badgeText: card.badgeText,
+        title: card.title,
+        collapsedTitle: [collapsedTitle[0], collapsedTitle[1]] as [string, string],
+        description: card.description,
+      };
+    })
+    .filter((card): card is NonNullable<typeof card> => card !== null);
+}
+
+function mapOutcomeMetrics(
+  metrics: NonNullable<SolutionPage["measurableOutcomes"]>["metrics"] | null | undefined,
+): SolutionsContent["measurableOutcomes"]["metrics"] {
+  return (metrics ?? [])
+    .map((metric) => {
+      if (!metric.label) return null;
+
+      return {
+        id: metric.metricId ?? "",
+        maxPercent: metric.maxPercent,
+        label: metric.label,
+        ringTrack: metric.ringTrack,
+        ringFill: metric.ringFill,
+        accent: metric.accent,
+        fromText: metric.fromText,
+        toText: metric.toText,
+        negative: metric.negative ?? undefined,
+        positive: metric.positive,
+        positiveIconBg: metric.positiveIconBg,
+        centerValue: metric.centerValue ?? undefined,
+        hideCenterSubLabel: metric.hideCenterSubLabel ?? undefined,
+      };
+    })
+    .filter((metric): metric is NonNullable<typeof metric> => metric !== null);
+}
+
+function mergeSolutionsContent(doc: SolutionPage, fallback: SolutionsContent): SolutionsContent {
+  const cmsCards = mapBurdenCards(doc.clinicalBurden?.cards ?? []);
+  const cmsRows = (doc.howItWorks?.rows ?? [])
+    .filter((row) => row?.category && row?.title && row?.number)
+    .map((row) => ({
+      number: row.number,
+      category: row.category,
+      title: row.title,
+      description: row.description,
+      callout: row.callout,
+      reverse: row.reverse ?? undefined,
+      tinted: row.tinted ?? undefined,
+    }));
+  const cmsMetrics = mapOutcomeMetrics(doc.measurableOutcomes?.metrics ?? []);
+  const cmsButtons = (doc.cta?.buttons ?? []).filter((button) => button?.label && button?.href);
+
+  return {
+    hero: {
+      eyebrow: doc.hero?.eyebrow ?? fallback.hero.eyebrow,
+      titleLine1: doc.hero?.titleLine1 ?? fallback.hero.titleLine1,
+      titleHighlight: doc.hero?.titleHighlight ?? fallback.hero.titleHighlight,
+      subtitle: doc.hero?.subtitle ?? fallback.hero.subtitle,
+    },
+    clinicalBurden: {
+      label: doc.clinicalBurden?.label ?? fallback.clinicalBurden.label,
+      heading: doc.clinicalBurden?.heading ?? fallback.clinicalBurden.heading,
+      description: doc.clinicalBurden?.description ?? fallback.clinicalBurden.description,
+      cards: cmsCards.length ? cmsCards : fallback.clinicalBurden.cards,
+    },
+    howItWorks: {
+      label: doc.howItWorks?.label ?? fallback.howItWorks.label,
+      heading: doc.howItWorks?.heading ?? fallback.howItWorks.heading,
+      description: doc.howItWorks?.description ?? fallback.howItWorks.description,
+      rows: cmsRows.length ? cmsRows : fallback.howItWorks.rows,
+    },
+    measurableOutcomes: {
+      label: doc.measurableOutcomes?.label ?? fallback.measurableOutcomes.label,
+      heading: doc.measurableOutcomes?.heading ?? fallback.measurableOutcomes.heading,
+      description: doc.measurableOutcomes?.description ?? fallback.measurableOutcomes.description,
+      metrics: cmsMetrics.length ? cmsMetrics : fallback.measurableOutcomes.metrics,
+    },
+    cta: {
+      heading: doc.cta?.heading ?? fallback.cta.heading,
+      description: doc.cta?.description ?? fallback.cta.description,
+      buttons: cmsButtons.length ? cmsButtons : fallback.cta.buttons,
+    },
+  };
 }
 
 export async function getSolutionsContent(variant: SolutionsVariant = "hospital"): Promise<SolutionsContent> {
@@ -92,28 +196,7 @@ export async function getSolutionsContent(variant: SolutionsVariant = "hospital"
     const doc = docs[0];
     if (!doc) return fallback;
 
-    return {
-      hero: doc.hero,
-      clinicalBurden: {
-        ...doc.clinicalBurden,
-        cards: (doc.clinicalBurden?.cards ?? []).map(
-          (card: {
-            collapsedTitle?: { line: string }[];
-            [key: string]: unknown;
-          }) => ({
-            ...card,
-            collapsedTitle: (card.collapsedTitle ?? []).map((l) => l.line) as [string, string],
-          }),
-        ),
-      },
-      howItWorks: doc.howItWorks,
-      measurableOutcomes: doc.measurableOutcomes,
-      cta: {
-        heading: doc.cta?.heading ?? fallback.cta.heading,
-        description: doc.cta?.description ?? fallback.cta.description,
-        buttons: doc.cta?.buttons?.length ? doc.cta.buttons : fallback.cta.buttons,
-      },
-    } as unknown as SolutionsContent;
+    return mergeSolutionsContent(doc, fallback);
   } catch {
     return fallback;
   }
@@ -162,6 +245,8 @@ export async function getCollection<T>(
 export async function getSiteSettings() {
   return getGlobal("site-settings", {
     siteName: "Genetico",
+    siteDescription:
+      "IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format, and enables AI-assisted clinical decision-making for rare and genetic disorders.",
     contactEmail: "hello@genetico.in",
     contactEmailCc: "priyanshu.vats@genetico.in",
     calendlyUrl: "https://calendly.com/priyanshu-vats-genetico/30min",

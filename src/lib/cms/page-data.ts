@@ -8,6 +8,7 @@ import {
   getResourcesPageContent,
   getBlogPosts,
 } from "./queries";
+import { resolveMediaUrl } from "./resolve-media-url";
 import { DEFAULT_HOME_PAGE } from "./defaults/home";
 import { DEFAULT_ABOUT_PAGE, DEFAULT_TEAM } from "./defaults/about";
 import { DEFAULT_PLATFORM_PAGE } from "./defaults/platform";
@@ -71,7 +72,7 @@ function mapTeamMembers(docs: CmsTeamMember[]): TeamMember[] {
       name: doc.name,
       title: doc.title,
       about: doc.about,
-      image: String(doc.photoUrl ?? (typeof doc.photo === "object" && doc.photo?.url) ?? fallback.image),
+      image: String(resolveMediaUrl(doc.photo, doc.photoUrl) || fallback.image),
       linkedinUrl: doc.linkedinUrl ? String(doc.linkedinUrl) : undefined,
       color: fallback.color,
       initials: initialsFromName(String(doc.name ?? "")),
@@ -85,7 +86,7 @@ function mapGrants(docs: CmsGrantAward[]): GrantAward[] {
     year: doc.year,
     title: doc.title,
     subtitle: doc.subtitle ?? "",
-    icon: String(doc.iconUrl ?? (typeof doc.icon === "object" && doc.icon?.url) ?? ""),
+    icon: resolveMediaUrl(doc.icon, doc.iconUrl),
     category: index % 2 === 0 ? "left" : "right",
   }));
 }
@@ -109,7 +110,7 @@ export async function getHomePageData(): Promise<HomePageData> {
         body: s.body,
         cta: s.cta,
         href: s.href,
-        image: s.image,
+        image: resolveMediaUrl(s.backgroundImage, s.image),
       }))
     : defaults.heroSlides;
 
@@ -132,7 +133,7 @@ export async function getHomePageData(): Promise<HomePageData> {
 
   const cmsPartners: Partner[] = partners.map((p) => ({
     name: p.name,
-    logo: p.logoUrl || (typeof p.logo === "object" && p.logo?.url) || "",
+    logo: resolveMediaUrl(p.logo, p.logoUrl),
   }));
 
   const cmsNews: NewsArticle[] = newsArticles.map((n) => ({
@@ -140,7 +141,7 @@ export async function getHomePageData(): Promise<HomePageData> {
     title: n.title,
     excerpt: n.excerpt || undefined,
     readTime: n.readTime || undefined,
-    image: n.imageUrl || undefined,
+    image: resolveMediaUrl(n.image, n.imageUrl) || undefined,
     author: n.author || undefined,
     date: n.publishedAt ? new Date(n.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : undefined,
     href: n.href || undefined,
@@ -155,8 +156,14 @@ export async function getHomePageData(): Promise<HomePageData> {
     whoWeAre: {
       eyebrow: page?.whoWeAre?.eyebrow || defaults.whoWeAre.eyebrow,
       paragraphs:
-        page?.whoWeAre?.paragraphs?.map((p) => p.text).filter(Boolean) ||
-        defaults.whoWeAre.paragraphs,
+        page?.whoWeAre?.paragraphs?.length ?
+          page.whoWeAre.paragraphs
+            .filter((p) => p.text)
+            .map((p) => ({
+              text: p.text,
+              highlights: (p.highlights ?? []).map((h) => h.phrase).filter(Boolean),
+            }))
+        : defaults.whoWeAre.paragraphs,
     },
     ecosystemChallenges: {
       heading: page?.ecosystemChallenges?.heading || defaults.ecosystemChallenges.heading,
@@ -260,7 +267,7 @@ export async function getPlatformPageData(): Promise<PlatformPageData> {
         title: f.title,
         description: f.description,
         bullets: f.bullets?.map((b) => b.item).filter(Boolean) || [],
-        illustration: f.illustration || "",
+        illustration: resolveMediaUrl(f.illustrationImage, f.illustration),
       }))
     : defaults.featuresSection.features;
 
@@ -270,7 +277,7 @@ export async function getPlatformPageData(): Promise<PlatformPageData> {
       subtitle: page?.hero?.subtitle || defaults.hero.subtitle,
       ctaLabel: page?.hero?.ctaLabel || defaults.hero.ctaLabel,
       ctaHref: page?.hero?.ctaHref || defaults.hero.ctaHref,
-      image: page?.hero?.image || defaults.hero.image,
+      image: resolveMediaUrl(page?.hero?.image, page?.hero?.imageUrl) || defaults.hero.image,
     },
     featuresSection: {
       eyebrow: page?.featuresSection?.eyebrow || defaults.featuresSection.eyebrow,
@@ -352,7 +359,7 @@ export async function getPublicHealthPageData(): Promise<PublicHealthPageData> {
       titleLine1: titleLines[0]?.trim() || defaults.hero.titleLine1,
       titleLine2: titleLines[1]?.trim() || defaults.hero.titleLine2,
       subtitle: page?.hero?.subtitle || defaults.hero.subtitle,
-      image: page?.hero?.image || defaults.hero.image,
+      image: resolveMediaUrl(page?.hero?.image, page?.hero?.imageUrl) || defaults.hero.image,
     },
     impact: {
       eyebrow: defaults.impact.eyebrow,
@@ -428,7 +435,7 @@ export async function getResourcesPageData(): Promise<ResourcesPageData & { blog
       title: page?.hero?.title || defaults.hero.title,
       subtitle: page?.hero?.subtitle || defaults.hero.subtitle,
       description: defaults.hero.description,
-      image: page?.hero?.image || defaults.hero.image,
+      image: resolveMediaUrl(page?.hero?.image, page?.hero?.imageUrl) || defaults.hero.image,
     },
     filterTabs:
       page?.filterTabs?.map((t) => t.label).filter(Boolean) || defaults.filterTabs,

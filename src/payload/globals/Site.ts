@@ -1,4 +1,5 @@
 import type { GlobalConfig } from "payload";
+import { imageUploadFields } from "../fields/image";
 import { ctaButtonsField } from "../fields/link";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
@@ -136,7 +137,7 @@ export const Footer = withAdminGroup(
 export const HomePage = withAdminGroup(
   {
     slug: "home-page",
-    label: "Page Content",
+    label: "Home Page",
     fields: [
       {
         name: "heroSlides",
@@ -147,7 +148,12 @@ export const HomePage = withAdminGroup(
           { name: "body", type: "textarea", required: true },
           { name: "cta", type: "text", required: true },
           { name: "href", type: "text", required: true },
-          { name: "image", type: "text", required: true },
+          ...imageUploadFields({
+            uploadName: "backgroundImage",
+            pathName: "image",
+            uploadLabel: "Background image",
+            pathDescription: "Fallback static image path if no upload is provided",
+          }),
         ],
       },
       {
@@ -160,7 +166,16 @@ export const HomePage = withAdminGroup(
             type: "array",
             fields: [
               { name: "text", type: "textarea", required: true },
-              { name: "highlight", type: "text" },
+              {
+                name: "highlights",
+                type: "array",
+                label: "Highlighted phrases",
+                admin: {
+                  description:
+                    "Add exact phrases from the paragraph above to highlight in blue on the website",
+                },
+                fields: [{ name: "phrase", type: "text", required: true }],
+              },
             ],
           },
         ],

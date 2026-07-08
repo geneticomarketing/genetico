@@ -298,11 +298,16 @@ export type PageCta = {
   buttons: CtaButton[];
 };
 
+export type WhoWeAreParagraph = {
+  text: string;
+  highlights: string[];
+};
+
 export type HomePageData = {
   heroSlides: HeroSlide[];
   whoWeAre: {
     eyebrow: string;
-    paragraphs: string[];
+    paragraphs: WhoWeAreParagraph[];
   };
   ecosystemChallenges: { heading: string; description: string };
   ecosystemGapsSection: { heading: string; description: string };
