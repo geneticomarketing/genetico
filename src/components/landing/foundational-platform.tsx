@@ -4,6 +4,7 @@ import { motion, useReducedMotion, useTransform, type MotionValue } from "motion
 import { useRef } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { DEFAULT_HOME_PAGE } from "@/lib/cms/defaults/home";
 import { useScrollMappedValue } from "@/lib/motion/scroll-value";
 import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 
@@ -86,9 +87,18 @@ function ScrollWord({
   );
 }
 
-export function FoundationalPlatform() {
+export function FoundationalPlatform({
+  eyebrow = DEFAULT_HOME_PAGE.whoWeAre.eyebrow,
+  paragraphs,
+}: {
+  eyebrow?: string;
+  paragraphs?: string[];
+}) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
+  const usePlainParagraphs = Boolean(paragraphs?.length);
+  const plainParagraphs = paragraphs ?? DEFAULT_HOME_PAGE.whoWeAre.paragraphs;
+
   // Drive the word reveal off this block's position: empty when it enters from the
   // bottom, fully lit once it reaches the upper-middle of the viewport.
   const { scrollYProgress } = useProjectScroll({
@@ -106,7 +116,7 @@ export function FoundationalPlatform() {
   return (
     <section id="platform" className="bg-[#010207] px-6 py-24 sm:px-10 sm:py-32">
       <Reveal className="mx-auto w-full max-w-4xl text-center">
-        <p className="text-sm font-medium tracking-[0.08em] text-white/45">Who We Are</p>
+        <p className="text-sm font-medium tracking-[0.08em] text-white/45">{eyebrow}</p>
       </Reveal>
 
       <Reveal>
@@ -114,25 +124,31 @@ export function FoundationalPlatform() {
           ref={ref}
           className="mx-auto mt-12 w-full max-w-4xl space-y-6 text-center text-xl leading-relaxed text-white/85 sm:text-2xl sm:leading-relaxed"
         >
-          {PARAGRAPHS.map((_, pIndex) => (
-            <p key={pIndex}>
-              {WORDS.map((word, i) =>
-                word.pIndex !== pIndex ? null : reduce ? (
-                  <span key={i} className={word.hl ? "font-semibold text-[#DDEEFF]" : ""}>
-                    {word.leadingSpace ? " " : ""}
-                    {word.text}
-                  </span>
-                ) : (
-                  <ScrollWord
-                    key={i}
-                    word={word}
-                    progress={scrollYProgress}
-                    range={[(i / (WORD_COUNT - 1)) * span, (i / (WORD_COUNT - 1)) * span + window]}
-                  />
-                ),
-              )}
-            </p>
-          ))}
+          {usePlainParagraphs
+            ? plainParagraphs.map((paragraph: string, pIndex: number) => (
+                <p key={pIndex} className="text-[#ffffff90]">
+                  {paragraph}
+                </p>
+              ))
+            : PARAGRAPHS.map((_, pIndex) => (
+                <p key={pIndex}>
+                  {WORDS.map((word, i) =>
+                    word.pIndex !== pIndex ? null : reduce ? (
+                      <span key={i} className={word.hl ? "font-semibold text-[#DDEEFF]" : ""}>
+                        {word.leadingSpace ? " " : ""}
+                        {word.text}
+                      </span>
+                    ) : (
+                      <ScrollWord
+                        key={i}
+                        word={word}
+                        progress={scrollYProgress}
+                        range={[(i / (WORD_COUNT - 1)) * span, (i / (WORD_COUNT - 1)) * span + window]}
+                      />
+                    ),
+                  )}
+                </p>
+              ))}
         </div>
       </Reveal>
     </section>

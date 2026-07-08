@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# payload cms local uploads (when not using S3)
+/media
+
 # vercel
 .vercel
 

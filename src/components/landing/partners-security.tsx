@@ -10,32 +10,13 @@ import {
 import { useRef } from "react";
 
 import { EASE, Reveal, useInViewAnimation } from "@/components/motion/reveal";
+import {
+  DEFAULT_HOME_PAGE,
+  DEFAULT_PARTNERS,
+} from "@/lib/cms/defaults/home";
+import type { Partner } from "@/lib/cms/types";
 import { useScrollMappedValue } from "@/lib/motion/scroll-value";
 import { useProjectScroll } from "@/lib/motion/use-project-scroll";
-
-const PARTNERS = [
-  { name: "10,000 Startups", logo: "/new/10000startups.png" },
-  { name: "Amity University", logo: "/new/amity-logo.png" },
-  { name: "BIRAC", logo: "/new/BIRAC Logo.jpg" },
-  { name: "Catalyst", logo: "/new/Catalyst logo Black final.png" },
-  {
-    name: "HDFC Startup Buildup Parivartan",
-    logo: "/new/HDFC-Startup-Buildup-Parivartan-Logo-Approved.jpg",
-  },
-  { name: "Indo-Sweden Innovation Centre", logo: "/new/indo-sweden.png" },
-  { name: "JKEDI", logo: "/new/JKEDI.png" },
-  { name: "MeitY Startup Hub", logo: "/new/meity.jpg" },
-  { name: "Runway", logo: "/new/runway.jpg" },
-  { name: "UPES", logo: "/new/upes.jpg" },
-];
-
-const FEATURES = [
-  "Your institution retains full ownership and control of its data.",
-  "Access is restricted based on user roles and responsibilities.",
-  "Every action is securely logged for complete traceability.",
-  "Data is protected through encryption in transit and at rest.",
-  "Hosted on enterprise-grade infrastructure with continuous monitoring.",
-];
 
 const featureItemVariants: Variants = {
   hidden: { opacity: 0, x: 32 },
@@ -48,15 +29,14 @@ function PartnerCard({ name, logo }: { name: string; logo: string }) {
       <div className="grid place-items-center">
         <img src={logo} alt={name} className="max-h-full max-w-full object-contain" />
       </div>
-      {/* <span className="text-center leading-tight font-light text-black/60">{name}</span> */}
     </div>
   );
 }
 
-function MarqueeRow({ reverse }: { reverse?: boolean }) {
+function MarqueeRow({ partners, reverse }: { partners: Partner[]; reverse?: boolean }) {
   // Two identical groups sit side-by-side; the track translates by exactly one
   // group's width (the keyframe's -50%) for a seamless, gap-free loop.
-  const group = [...PARTNERS, ...PARTNERS];
+  const group = [...partners, ...partners];
   return (
     <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
       <div
@@ -125,7 +105,7 @@ function FeatureItem({
   );
 }
 
-function SecurityFeatures() {
+function SecurityFeatures({ securityFeatures }: { securityFeatures: string[] }) {
   const reduce = useReducedMotion();
   const { ref, visible } = useInViewAnimation<HTMLOListElement>();
   const { scrollYProgress } = useProjectScroll({
@@ -160,12 +140,12 @@ function SecurityFeatures() {
         )}
       </div>
 
-      {FEATURES.map((feature, i) => (
+      {securityFeatures.map((feature, i) => (
         <FeatureItem
           key={feature}
           feature={feature}
           index={i}
-          count={FEATURES.length}
+          count={securityFeatures.length}
           progress={scrollYProgress}
           reduce={reduce}
         />
@@ -174,23 +154,32 @@ function SecurityFeatures() {
   );
 }
 
-export function PartnersSecurity() {
+export function PartnersSecurity({
+  partnersSection = DEFAULT_HOME_PAGE.partnersSection,
+  securitySection = DEFAULT_HOME_PAGE.securitySection,
+  partners = DEFAULT_PARTNERS,
+  securityFeatures = DEFAULT_HOME_PAGE.securitySection.features,
+}: {
+  partnersSection?: { heading: string; description: string };
+  securitySection?: { heading: string; description: string };
+  partners?: Partner[];
+  securityFeatures?: string[];
+}) {
   return (
     <>
       {/* ───────── Customers & Advisors — light band ───────── */}
       <section className="bg-white px-6 py-24 sm:px-10 sm:py-28">
         <Reveal className="mx-auto w-full max-w-7xl">
           <div className="flex flex-col items-center gap-4 text-center">
-            <h2 className="t-heading text-black">Trusted Across the Rare Disease Ecosystem</h2>
+            <h2 className="t-heading text-black">{partnersSection.heading}</h2>
             <p className="max-w-xl text-base text-black/55 sm:text-lg sm:leading-normal">
-              Working alongside leading institutions, Centres of Excellence, government initiatives,
-              research programs, and ecosystem partners.
+              {partnersSection.description}
             </p>
           </div>
 
           <div className="mt-14 flex flex-col gap-6">
-            <MarqueeRow />
-            <MarqueeRow reverse />
+            <MarqueeRow partners={partners} />
+            <MarqueeRow partners={partners} reverse />
           </div>
         </Reveal>
       </section>
@@ -204,15 +193,14 @@ export function PartnersSecurity() {
                 className="t-heading max-w-none text-balance text-white"
                 style={{ fontVariationSettings: '"SERF" 100' }}
               >
-                Built for Trust. Designed for Healthcare.
+                {securitySection.heading}
               </h2>
               <p className="text-base leading-relaxed text-white/70 sm:text-lg">
-                Ensure data protection, privacy, and compliance with healthcare standards at every
-                layer.
+                {securitySection.description}
               </p>
             </div>
 
-            <SecurityFeatures />
+            <SecurityFeatures securityFeatures={securityFeatures} />
           </div>
         </Reveal>
       </section>

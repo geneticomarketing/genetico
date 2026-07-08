@@ -4,40 +4,16 @@ import { ArrowRight } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
 
-type ArticleItem = {
-  id: string;
-  title: string;
-  href: string;
-};
+import { DEFAULT_RESOURCES_PAGE } from "@/lib/cms/defaults/resources";
+import type { ExternalArticle } from "@/lib/cms/types";
 
-const ARTICLES: ArticleItem[] = [
-  {
-    id: "knife-gun-fight",
-    title: "Don't Bring a Knife to a Gun Fight",
-    href: "https://www.linkedin.com/pulse/dont-bring-knife-gun-fight-arjun-gupta-2hokc",
-  },
-  {
-    id: "india-policy-who",
-    title: "India Had a Policy — The World Just Passed a Resolution. What Now, WHO?",
-    href: "https://www.linkedin.com/pulse/india-had-policy-world-just-passed-resolution-what-who-arjun-gupta-hsqsf",
-  },
-  {
-    id: "rdd-7-reasons",
-    title: "Rare Disease Day India: 7 Reasons to Rejoice",
-    href: "https://www.linkedin.com/pulse/rare-disease-day-india-7-reasons-rejoice-arjun-gupta",
-  },
-  {
-    id: "new-approach",
-    title: "Rare Disease in India: A New Approach to Old Problems",
-    href: "https://www.linkedin.com/pulse/rare-disease-indianew-approach-old-problems-arjun-gupta",
-  },
-];
+type ArticleItem = ExternalArticle & { id?: string };
 
 function ArticleRow({ item, index }: { item: ArticleItem; index: number }) {
   return (
     <li className="border-line border-b last:border-b-0">
       <a
-        href={item.href}
+        href={item.url}
         target="_blank"
         rel="noopener noreferrer"
         className="group flex flex-wrap items-center gap-x-3 gap-y-2.5 px-4 py-5 sm:flex-nowrap sm:gap-6 sm:px-6 sm:py-7 lg:gap-8 lg:px-8"
@@ -66,9 +42,27 @@ function ArticleRow({ item, index }: { item: ArticleItem; index: number }) {
   );
 }
 
-export function ResourcesEditorial() {
+export function ResourcesEditorial({
+  compactTop = false,
+  articles = DEFAULT_RESOURCES_PAGE.externalArticles,
+  heading = DEFAULT_RESOURCES_PAGE.sectionHeadings.articles,
+}: {
+  compactTop?: boolean;
+  articles?: ExternalArticle[];
+  heading?: string;
+}) {
+  const items: ArticleItem[] = articles.map((item, index) => ({
+    ...item,
+    id: item.url || `article-${index}`,
+  }));
+
   return (
-    <section id="editorial" className="bg-white px-5 py-16 sm:px-10 sm:py-20 lg:py-24">
+    <section
+      id="editorial"
+      className={`bg-white px-5 sm:px-10 ${
+        compactTop ? "pb-16 pt-0 sm:pb-20 lg:pb-24" : "py-16 sm:py-20 lg:py-24"
+      }`}
+    >
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <div className="flex min-w-0 items-center gap-4">
@@ -77,14 +71,14 @@ export function ResourcesEditorial() {
               className="text-[clamp(1.5rem,2.4vw,2rem)] leading-[1.08] tracking-[-0.02em] text-[#121212]"
               style={{ fontFamily: "var(--font-display)", fontVariationSettings: '"SERF" 100' }}
             >
-              Articles
+              {heading}
             </h2>
           </div>
         </Reveal>
 
         <Reveal className="mt-8 sm:mt-10" delay={0.06}>
           <ul className="overflow-hidden rounded-md border bg-white">
-            {ARTICLES.map((item, index) => (
+            {items.map((item, index) => (
               <ArticleRow key={item.id} item={item} index={index} />
             ))}
           </ul>

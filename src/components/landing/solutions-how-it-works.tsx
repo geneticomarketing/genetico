@@ -710,8 +710,11 @@ function dashboardForRow(row: { category: string; title: string }) {
   return PatientIntakeDashboard;
 }
 
-export function SolutionsHowItWorks({ variant = "hospital" }: { variant?: SolutionsVariant }) {
-  const content = getSolutionsContent(variant);
+export function SolutionsHowItWorks({
+  content,
+}: {
+  content: import("@/lib/solutions-content").SolutionsContent["howItWorks"];
+}) {
 
   return (
     <section
@@ -723,22 +726,22 @@ export function SolutionsHowItWorks({ variant = "hospital" }: { variant?: Soluti
           <div className="flex items-center justify-center gap-4 sm:gap-6">
             <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
-              {content.howItWorks.label}
+              {content.label}
             </p>
             <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
           </div>
 
           <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">
-            {content.howItWorks.heading}
+            {content.heading}
           </h2>
 
           <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
-            {content.howItWorks.description}
+            {content.description}
           </p>
         </Reveal>
 
         <div className="mt-14 sm:mt-20">
-          {content.howItWorks.rows.map((row) => {
+          {content.rows.map((row) => {
             const Dashboard = dashboardForRow(row);
             return (
               <SolutionRow

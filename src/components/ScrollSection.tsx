@@ -4,59 +4,12 @@ import { memo, useRef } from "react";
 import { motion, useTransform, useInView } from "motion/react";
 import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 import { Reveal, VIEWPORT } from "./motion/reveal";
+import type { GrantAward } from "@/lib/cms/types";
+import { DEFAULT_ABOUT_PAGE, DEFAULT_GRANTS } from "@/lib/cms/defaults/about";
 
-interface TimelineItem {
-  year: string;
-  title: string;
-  subtitle: string;
-  icon: string;
+interface TimelineItem extends GrantAward {
   category: "left" | "right";
 }
-
-const timelineData: TimelineItem[] = [
-  {
-    year: "2019",
-    title: "Biotech Ignition Grant — BIRAC",
-    subtitle: "Department of Biotechnology, Govt. of India",
-    icon: "/logos/grants/1.png",
-    category: "left",
-  },
-  {
-    year: "2020",
-    title: "Seed Investment — IIT Mandi",
-    subtitle: "NIDHI SSS",
-    icon: "/logos/grants/2.png",
-    category: "right",
-  },
-  {
-    year: "2022",
-    title: "India-Sweden Healthcare Innovation Challenge",
-    subtitle: "Winner",
-    icon: "/logos/grants/3.png",
-    category: "left",
-  },
-  {
-    year: "2024",
-    title: "Startup Maharathi Award",
-    subtitle: "Startup Mahakumbh — Hon'ble Minister Piyush Goyal",
-    icon: "/logos/grants/4.png",
-    category: "right",
-  },
-  {
-    year: "2024",
-    title: "HDFC Bank Parivartan CSR Grant",
-    subtitle: "Corporate Social Responsibility",
-    icon: "/logos/grants/5.png",
-    category: "left",
-  },
-  {
-    year: "2025",
-    title: "Scale-up Grant — MeitY",
-    subtitle: "Ministry of Electronics & Information Technology",
-    icon: "/logos/grants/6.png",
-    category: "right",
-  },
-];
 
 function TimelineCard({ item }: { item: TimelineItem }) {
   return (
@@ -244,7 +197,18 @@ function ProgressLine() {
   );
 }
 
-function GrantsTimelineComponent() {
+function GrantsTimelineComponent({
+  section = DEFAULT_ABOUT_PAGE.grants,
+  items = DEFAULT_GRANTS,
+}: {
+  section?: { eyebrow: string; heading: string; description: string };
+  items?: GrantAward[];
+}) {
+  const timelineData: TimelineItem[] = items.map((item, index) => ({
+    ...item,
+    category: item.category ?? (index % 2 === 0 ? "left" : "right"),
+  }));
+
   return (
     <section
       className="min-h-screen px-4 py-16 sm:px-4 sm:py-20"
@@ -260,22 +224,19 @@ function GrantsTimelineComponent() {
         className="mb-12 text-center sm:mb-20"
       >
         <Reveal>
-          <p className="mb-3 text-[10px] tracking-[0.25em] text-blue-400 uppercase">
-            Recognition
-          </p>
+          <p className="mb-3 text-[10px] tracking-[0.25em] text-blue-400 uppercase">{section.eyebrow}</p>
         </Reveal>
         <Reveal delay={0.4}>
           <h1
             className="mb-4 text-3xl leading-tight font-light tracking-tight text-white sm:text-5xl"
             style={{ fontFamily: "Georgia, serif" }}
           >
-            Rewards &amp; Recognition
+            {section.heading}
           </h1>
         </Reveal>
         <Reveal delay={0.6}>
           <p className="mx-auto max-w-md text-sm leading-relaxed text-blue-300/60">
-            Recognized and supported by leading government bodies, incubators, and innovation
-            programs across India.
+            {section.description}
           </p>
         </Reveal>
       </motion.div>

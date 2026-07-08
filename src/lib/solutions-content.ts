@@ -1,3 +1,6 @@
+import type { CtaButton } from "@/lib/cms/types";
+import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
+
 export type SolutionsVariant = "hospital" | "pharma";
 
 type BurdenCardContent = {
@@ -67,6 +70,7 @@ export type SolutionsContent = {
   cta: {
     heading: string;
     description: string;
+    buttons?: CtaButton[];
   };
 };
 
@@ -289,6 +293,10 @@ export const SOLUTIONS_CONTENT: Record<SolutionsVariant, SolutionsContent> = {
       heading: "Enable Smarter Rare Disease Care at Your Center",
       description:
         "See how IndiGeneUs.AI helps Centers of Excellence streamline clinical workflows, support faster diagnosis, improve longitudinal care, and generate research-ready data through AI-assisted clinical intelligence.",
+      buttons: [
+        { label: "Book a Demo", href: "#lead-form", variant: "primary" },
+        { label: "Subscribe for Updates", href: NEWSLETTER_URL, variant: "secondary" },
+      ],
     },
   },
   pharma: {
@@ -395,6 +403,10 @@ export const SOLUTIONS_CONTENT: Record<SolutionsVariant, SolutionsContent> = {
       heading: "Building the Future of Rare Disease Research Starts with Better Data",
       description:
         "Discover how Genetico helps research organizations transform fragmented clinical information into structured, research-ready datasets for registries, longitudinal studies, and evidence generation.",
+      buttons: [
+        { label: "Book a Demo", href: "#lead-form", variant: "primary" },
+        { label: "Subscribe for Updates", href: NEWSLETTER_URL, variant: "secondary" },
+      ],
     },
   },
 };

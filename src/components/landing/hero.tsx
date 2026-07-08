@@ -6,16 +6,8 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { EASE } from "@/components/motion/reveal";
-import { HOSPITAL_PATH, PHARMA_PATH, PLATFORM_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
-
-type Slide = {
-  id: string;
-  title: string;
-  body: string;
-  cta: string;
-  href: string;
-  image: string;
-};
+import { DEFAULT_HERO_SLIDES } from "@/lib/cms/defaults/home";
+import type { HeroSlide } from "@/lib/cms/types";
 
 const STAGGER_S = 0.3;
 const ENTRANCE_DURATION = 1.5;
@@ -46,49 +38,17 @@ function heroBgEntrance(reduce: boolean | null) {
 const POINTER_STAGGER_S = 0.12;
 const POINTER_ENTRANCE_DELAY = BG_DURATION + (4 - 0.1) * STAGGER_S;
 
-const SLIDES: Slide[] = [
-  {
-    id: "clinicians",
-    title: "Designed for the Complexity of Rare and Genetic Disease Care",
-    body: "Streamline clinical workflows, capture structured patient data, leverage AI-assisted documentation, and access decision-support tools built specifically for genetics and rare diseases.",
-    cta: "Explore Clinical Solutions",
-    href: PLATFORM_PATH,
-    image: "/hero/hero-bg.webp",
-  },
-  {
-    id: "public-health",
-    title: "Powering Rare Disease Programs at Population Scale",
-    body: "Enable registries, screening initiatives, patient tracking, analytics, and outcome monitoring through a unified digital infrastructure designed for national and state-level programs.",
-    cta: "Explore Public Health Solutions",
-    href: PUBLIC_HEALTH_PATH,
-    image: "/hero/hero-dna.jpg",
-  },
-  {
-    id: "research",
-    title: "Transforming Clinical Data into Research-Ready Intelligence",
-    body: "Generate structured datasets, accelerate cohort identification, support longitudinal studies, and unlock AI-driven insights from real-world rare disease data.",
-    cta: "Explore Research Solutions",
-    href: PHARMA_PATH,
-    image: "/hero/hero-molecule.jpg",
-  },
-  {
-    id: "ecosystem",
-    title: "Connecting Stakeholders Across the Rare Disease Ecosystem",
-    body: "Bring together clinicians, institutions, researchers, patient groups, and policymakers through a shared platform that enables collaboration, visibility, and evidence-based decision making.",
-    cta: "Discover the Ecosystem",
-    href: "/hospital",
-    image: "/hero/hero-antibody.jpg",
-  },
-];
-
 const AUTOPLAY_MS = 6000;
 
-export function Hero() {
+export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] }) {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
 
-  const next = useCallback(() => setActive((i) => (i + 1) % SLIDES.length), []);
-  const prev = useCallback(() => setActive((i) => (i - 1 + SLIDES.length) % SLIDES.length), []);
+  const next = useCallback(() => setActive((i) => (i + 1) % slides.length), [slides.length]);
+  const prev = useCallback(
+    () => setActive((i) => (i - 1 + slides.length) % slides.length),
+    [slides.length],
+  );
 
   useEffect(() => {
     const id = setInterval(next, AUTOPLAY_MS);
@@ -119,7 +79,7 @@ export function Hero() {
           duration: 0.8,
         }}
       >
-        {SLIDES.map((slide, i) => (
+        {slides.map((slide, i) => (
           <div
             key={slide.id}
             className={`absolute inset-0 transition-opacity duration-700 ease-out ${
@@ -166,7 +126,7 @@ export function Hero() {
       {/* Centered stage — locked to one viewport; slides share one grid cell. */}
       <div className="relative mx-auto flex h-full min-h-0 w-full max-w-4xl flex-col px-6 pt-24 pb-8 text-center sm:pt-28">
         <div className="relative min-h-0 w-full flex-1">
-          {SLIDES.map((slide, i) => (
+          {slides.map((slide, i) => (
             <div
               key={slide.id}
               aria-hidden={i !== active}
@@ -202,7 +162,7 @@ export function Hero() {
           ))}
         </div>
         <div className="mt-6 flex shrink-0 items-center justify-center gap-2.5">
-          {SLIDES.map((slide, i) => {
+          {slides.map((slide, i) => {
             const entranceDelay = reduce ? 0 : POINTER_ENTRANCE_DELAY + i * POINTER_STAGGER_S;
             return (
               <motion.button

@@ -59,12 +59,12 @@ function HexGridBackground() {
 
 function HeroHeading({
   reduce,
-  variant,
+  hero,
 }: {
   reduce: boolean | null;
-  variant: SolutionsVariant;
+  hero: import("@/lib/solutions-content").SolutionsContent["hero"];
 }) {
-  const content = getSolutionsContent(variant).hero;
+  const content = hero;
 
   return (
     <>
@@ -188,7 +188,7 @@ function NaturalHistoryCard({
 
 function LifeScienceHeroVisual({ className = "" }: { className?: string }) {
   return (
-    <div className={`relative mx-auto aspect-[5/3] w-full max-w-md ${className}`} aria-hidden>
+    <div className={`relative mx-auto aspect-[5/3] w-full ${className}`} aria-hidden>
       <div className="absolute inset-0 overflow-hidden rounded-[1.75rem] border border-[#e8ebf0] bg-gradient-to-br from-[#eef4f9] via-white to-[#f8fafc] shadow-[0_24px_70px_rgba(2,67,133,0.1)]">
         <svg className="absolute inset-0 h-full w-full" viewBox="0 0 480 288" fill="none">
           <circle cx="360" cy="72" r="44" fill="#ddeaf5" opacity="0.55" />
@@ -325,15 +325,17 @@ function RapidScoreCard({
 function SolutionsHeroMobile({
   reduce,
   variant,
+  hero,
 }: {
   reduce: boolean | null;
   variant: SolutionsVariant;
+  hero: import("@/lib/solutions-content").SolutionsContent["hero"];
 }) {
   const isPharma = variant === "pharma";
 
   return (
     <div className="relative mx-auto w-full max-w-lg px-5 pt-24 pb-12 text-center md:hidden">
-      <HeroHeading reduce={reduce} variant={variant} />
+      <HeroHeading reduce={reduce} hero={hero} />
 
       <motion.div {...heroBgEntrance(reduce)} className="relative mt-8 w-full">
         {isPharma ? (
@@ -372,7 +374,7 @@ function SolutionsHeroMobile({
   );
 }
 
-function SolutionsHeroDesktop({
+function HeroInfographicStage({
   reduce,
   variant,
 }: {
@@ -382,68 +384,92 @@ function SolutionsHeroDesktop({
   const isPharma = variant === "pharma";
 
   return (
-    <div className="relative mx-auto hidden h-full min-h-0 w-full max-w-6xl flex-col px-8 pt-28 pb-6 text-center md:flex">
-      <HeroHeading reduce={reduce} variant={variant} />
+    <div className="relative mx-auto aspect-[16/10] w-full max-w-3xl xl:max-w-[42rem]">
+      <div className="absolute inset-[14%_10%_6%_10%] flex items-center justify-center">
+        {isPharma ? (
+          <LifeScienceHeroVisual className="h-full max-h-full w-full max-w-full" />
+        ) : (
+          <Image
+            src="/solhero.png"
+            alt=""
+            width={960}
+            height={720}
+            priority
+            unoptimized
+            className="h-full w-full object-contain"
+          />
+        )}
+      </div>
+
+      {isPharma ? (
+        <>
+          <MultiSiteSyncPill reduce={reduce} className="absolute top-[2%] left-0 sm:left-[1%]" />
+          <CohortDatasetCard
+            reduce={reduce}
+            className="absolute top-0 right-0 w-[min(100%,15.5rem)]"
+          />
+          <NaturalHistoryCard
+            reduce={reduce}
+            className="absolute bottom-[4%] left-0 w-[min(100%,16rem)]"
+          />
+        </>
+      ) : (
+        <>
+          <DocumentProcessedPill reduce={reduce} className="absolute top-[2%] left-0 sm:left-[1%]" />
+          <HpoExtractionCard
+            reduce={reduce}
+            className="absolute top-0 right-0 w-[min(100%,15.5rem)]"
+          />
+          <RapidScoreCard
+            reduce={reduce}
+            className="absolute bottom-[4%] left-0 w-[min(100%,16rem)]"
+          />
+        </>
+      )}
+    </div>
+  );
+}
+
+function SolutionsHeroDesktop({
+  reduce,
+  variant,
+  hero,
+}: {
+  reduce: boolean | null;
+  variant: SolutionsVariant;
+  hero: import("@/lib/solutions-content").SolutionsContent["hero"];
+}) {
+  return (
+    <div className="relative mx-auto hidden h-full min-h-0 w-full max-w-6xl flex-col px-8 pt-28 pb-8 text-center md:flex">
+      <HeroHeading reduce={reduce} hero={hero} />
 
       <motion.div
         {...heroBgEntrance(reduce)}
-        className="relative mt-10 min-h-0 w-full flex-1"
+        className="relative mt-8 flex min-h-0 flex-1 items-center justify-center"
       >
-        {isPharma ? (
-          <div className="relative mx-auto h-full w-full max-w-3xl">
-            <div className="absolute inset-x-0 -bottom-1/2 flex justify-center">
-              <LifeScienceHeroVisual className="max-w-2xl" />
-            </div>
-            <MultiSiteSyncPill reduce={reduce} className="absolute top-[8%] left-[2%]" />
-            <CohortDatasetCard
-              reduce={reduce}
-              className="absolute top-[2%] right-0 w-[min(100%,15.5rem)]"
-            />
-            <NaturalHistoryCard
-              reduce={reduce}
-              className="absolute bottom-[12%] left-0 w-[min(100%,16rem)]"
-            />
-          </div>
-        ) : (
-          <div className="relative mx-auto h-full w-full max-w-3xl">
-            <div className="absolute inset-x-0 -bottom-1/2 flex justify-center">
-              <Image
-                src="/solhero.png"
-                alt=""
-                width={960}
-                height={720}
-                priority
-                unoptimized
-                className="h-auto w-[min(100%,42rem)] max-w-none"
-              />
-            </div>
-            <DocumentProcessedPill reduce={reduce} className="absolute top-[8%] left-[2%]" />
-            <HpoExtractionCard
-              reduce={reduce}
-              className="absolute top-[2%] right-0 w-[min(100%,15.5rem)]"
-            />
-            <RapidScoreCard
-              reduce={reduce}
-              className="absolute bottom-[12%] left-0 w-[min(100%,16rem)]"
-            />
-          </div>
-        )}
+        <HeroInfographicStage reduce={reduce} variant={variant} />
       </motion.div>
     </div>
   );
 }
 
-export function SolutionsHero({ variant = "hospital" }: { variant?: SolutionsVariant }) {
+export function SolutionsHero({
+  content,
+  variant = "hospital",
+}: {
+  content: import("@/lib/solutions-content").SolutionsContent["hero"];
+  variant?: SolutionsVariant;
+}) {
   const reduce = useReducedMotion();
 
   return (
     <section
       id="hero"
-      className="relative bg-white md:h-dvh md:overflow-hidden"
+      className="relative bg-white md:h-dvh md:min-h-[720px] md:overflow-x-hidden"
     >
       <HexGridBackground />
-      <SolutionsHeroMobile reduce={reduce} variant={variant} />
-      <SolutionsHeroDesktop reduce={reduce} variant={variant} />
+      <SolutionsHeroMobile reduce={reduce} variant={variant} hero={content} />
+      <SolutionsHeroDesktop reduce={reduce} variant={variant} hero={content} />
     </section>
   );
 }

@@ -4,40 +4,12 @@ import { Database, LayoutDashboard, Network, Shield, type LucideIcon } from "luc
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE, Reveal, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
+import { DEFAULT_PUBLIC_HEALTH_PAGE } from "@/lib/cms/defaults/public-health";
+import type { PublicHealthImpactFeature, PublicHealthPageData } from "@/lib/cms/types";
 
-type SecurityFeature = {
-  number: string;
-  icon: LucideIcon;
-  category: string;
-  title: string;
-};
+const FEATURE_ICONS = [Network, LayoutDashboard, Database, Shield] as const;
 
-const FEATURES: SecurityFeature[] = [
-  {
-    number: "01",
-    icon: Network,
-    category: "HEALTH NETWORK",
-    title: "Three-Tier Health System Connected",
-  },
-  {
-    number: "02",
-    icon: LayoutDashboard,
-    category: "MINISTRY OVERSIGHT",
-    title: "Real-Time National Dashboards",
-  },
-  {
-    number: "03",
-    icon: Database,
-    category: "DATA INTEGRATION",
-    title: "No Duplicate Entry Across ICMR & Crowdfunding Portals",
-  },
-  {
-    number: "04",
-    icon: Shield,
-    category: "COMPLIANCE",
-    title: "Built for India's DPDP Act",
-  },
-];
+type SecurityFeature = PublicHealthImpactFeature & { icon: LucideIcon };
 
 function AnimatedDivider() {
   const reduce = useReducedMotion();
@@ -119,9 +91,17 @@ function SecurityRow({ feature }: { feature: SecurityFeature }) {
   );
 }
 
-export function PublicHealthDataSecurity() {
+export function PublicHealthDataSecurity({
+  section = DEFAULT_PUBLIC_HEALTH_PAGE.impact,
+}: {
+  section?: PublicHealthPageData["impact"];
+}) {
   const reduce = useReducedMotion();
   const { ref: featuresRef, visible: featuresVisible } = useInViewAnimation<HTMLUListElement>();
+  const FEATURES: SecurityFeature[] = section.features.map((feature, index) => ({
+    ...feature,
+    icon: FEATURE_ICONS[index] ?? Network,
+  }));
 
   return (
     <section
@@ -144,21 +124,20 @@ export function PublicHealthDataSecurity() {
           <div>
             <StaggerItem>
               <p className="t-eyebrow secondaryFont text-brand text-[0.65rem] tracking-[0.28em]">
-                — IMPACT —
+                {section.eyebrow}
               </p>
             </StaggerItem>
 
             <StaggerItem>
               <h2 className="t-heading mt-5 max-w-none text-balance text-[#121212]">
-                Impact at a Glance
+                {section.heading}
               </h2>
             </StaggerItem>
           </div>
 
           <StaggerItem className="lg:pt-8">
             <p className="secondaryFont max-w-md text-[15px] leading-relaxed text-[#8f8f8f] sm:text-base lg:ml-auto lg:text-right">
-              A unified digital infrastructure enabling connected care, better governance, and
-              seamless compliance across India&apos;s rare disease ecosystem.
+              {section.description}
             </p>
           </StaggerItem>
         </StaggerGroup>

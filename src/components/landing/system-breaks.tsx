@@ -4,53 +4,11 @@ import { useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
 import { EASE, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
-import { HOSPITAL_PATH, PHARMA_PATH, PLATFORM_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
-
-// Each module is a "where the system breaks" entry. The left rail lists every module
-// by audience (the active one expands with its summary + Learn more); the right blue
-// panel shows the active module's Problem / Solution pair.
-const MODULES = [
-  {
-    icon: "module-clinicians",
-    title: "Clinicians",
-    href: PLATFORM_PATH,
-    desc: "Managing complex genetic cases with fragmented records, extensive documentation, and limited clinical support.",
-    problem:
-      "Managing complex genetic cases with fragmented records, extensive documentation, and limited clinical support.",
-    solution:
-      "AI-assisted workflows, structured clinical data capture, and integrated decision support designed specifically for rare disease care.",
-  },
-  {
-    icon: "module-clinicians",
-    title: "Government & Public Health",
-    href: PUBLIC_HEALTH_PATH,
-    desc: "Limited visibility into patient journeys, outcomes, disease burden, and program performance.",
-    problem:
-      "Limited visibility into patient journeys, outcomes, disease burden, and program performance.",
-    solution:
-      "National-scale registries, screening programs, patient tracking, and real-time analytics for data-driven decision making.",
-  },
-  {
-    icon: "module-clinicians",
-    title: "Research & Biotech",
-    href: PHARMA_PATH,
-    desc: "Difficulty generating high-quality, longitudinal datasets for research and innovation.",
-    problem:
-      "Difficulty generating high-quality, longitudinal datasets for research and innovation.",
-    solution:
-      "Research-ready structured data, advanced analytics, cohort identification, and real-world evidence generation.",
-  },
-  {
-    icon: "module-clinicians",
-    title: "Centres of Excellence",
-    href: HOSPITAL_PATH,
-    desc: "Complex workflows, multidisciplinary care coordination, and increasing patient volumes.",
-    problem:
-      "Complex workflows, multidisciplinary care coordination, and increasing patient volumes.",
-    solution:
-      "Unified workflows, centralized data management, AI-assisted documentation, and operational insights.",
-  },
-];
+import {
+  DEFAULT_ECOSYSTEM_MODULES,
+  DEFAULT_HOME_PAGE,
+} from "@/lib/cms/defaults/home";
+import type { EcosystemModule } from "@/lib/cms/types";
 
 const listItemVariants: Variants = {
   hidden: { opacity: 0, y: 56, scale: 0.96 },
@@ -86,7 +44,15 @@ function ModuleGlyph({ icon, tone }: { icon: string; tone: string }) {
   );
 }
 
-export function SystemBreaks() {
+export function SystemBreaks({
+  heading = DEFAULT_HOME_PAGE.ecosystemChallenges.heading,
+  description = DEFAULT_HOME_PAGE.ecosystemChallenges.description,
+  modules = DEFAULT_ECOSYSTEM_MODULES,
+}: {
+  heading?: string;
+  description?: string;
+  modules?: EcosystemModule[];
+}) {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
   const { ref: listRef, visible: listVisible } = useInViewAnimation<HTMLUListElement>();
@@ -99,14 +65,11 @@ export function SystemBreaks() {
     <section id="about" className="bg-white px-6 py-24 sm:px-10 sm:pt-10">
       <StaggerGroup className="mx-auto w-full max-w-7xl">
         <StaggerItem>
-          <h2 className="t-heading mx-auto text-center text-black capitalize">
-            One Ecosystem. Multiple Challenges. Shared Impact.
-          </h2>
+          <h2 className="t-heading mx-auto text-center text-black capitalize">{heading}</h2>
         </StaggerItem>
         <StaggerItem>
           <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-lg">
-            Purpose-built solutions that help clinicians, institutions, researchers, and public
-            health programs overcome the unique challenges of rare and genetic diseases.
+            {description}
           </p>
         </StaggerItem>
 
@@ -122,8 +85,9 @@ export function SystemBreaks() {
               show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
             }}
           >
-            {MODULES.map((m, i) => {
+            {modules.map((m, i) => {
               const isActive = i === active;
+              const icon = m.icon ?? "module-clinicians";
               return (
                 <motion.li key={m.title} variants={reduce ? undefined : listItemVariants}>
                   <motion.button
@@ -139,7 +103,7 @@ export function SystemBreaks() {
                     }`}
                   >
                     <span className="flex w-full items-center gap-3">
-                      <ModuleGlyph icon={m.icon} tone={isActive ? "#024385" : "#024385"} />
+                      <ModuleGlyph icon={icon} tone={isActive ? "#024385" : "#024385"} />
                       <motion.span
                         animate={{ opacity: isActive ? 1 : 1 }}
                         transition={{ duration: 0.35, ease: EASE }}
@@ -175,7 +139,7 @@ export function SystemBreaks() {
                           }}
                         >
                           <span className="text-sm leading-relaxed text-black/55">{m.desc}</span>
-                          {"href" in m && m.href ? (
+                          {m.href ? (
                             <a
                               href={m.href}
                               className="text-brand w-fit rounded-lg border border-black/15 bg-white px-4 py-2 text-xs font-medium transition-colors hover:bg-black/3"
@@ -210,7 +174,7 @@ export function SystemBreaks() {
           {/* RIGHT — blue swirl panel with the Problem / Solution pair */}
           <StaggerItem className="relative overflow-hidden rounded-lg bg-[#021b39] bg-[url('/images/reality-panel.svg')] bg-cover bg-center p-8 sm:p-10">
             <div className="grid">
-              {MODULES.map((m, i) => {
+              {modules.map((m, i) => {
                 const isActive = i === active;
                 return (
                   <motion.div

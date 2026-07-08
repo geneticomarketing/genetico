@@ -4,7 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import { EASE, Reveal } from "@/components/motion/reveal";
-import { getSolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
+import type { SolutionsContent } from "@/lib/solutions-content";
 
 type BurdenCard = {
   id: string;
@@ -275,9 +275,12 @@ function BurdenCardItem({
   );
 }
 
-export function SolutionsClinicalBurden({ variant = "hospital" }: { variant?: SolutionsVariant }) {
-  const content = getSolutionsContent(variant);
-  const cards = content.clinicalBurden.cards;
+export function SolutionsClinicalBurden({
+  content,
+}: {
+  content: SolutionsContent["clinicalBurden"];
+}) {
+  const cards = content.cards;
   const [active, setActive] = useState(0);
   const [rowWidth, setRowWidth] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
@@ -354,17 +357,17 @@ export function SolutionsClinicalBurden({ variant = "hospital" }: { variant?: So
           <div className="flex items-center justify-center gap-4 sm:gap-6">
             <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
-              {content.clinicalBurden.label}
+              {content.label}
             </p>
             <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
           </div>
 
           <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">
-            {content.clinicalBurden.heading}
+            {content.heading}
           </h2>
 
           <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
-            {content.clinicalBurden.description}
+            {content.description}
           </p>
         </Reveal>
 

@@ -5,120 +5,10 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 import { EASE, Reveal, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { DEFAULT_PUBLIC_HEALTH_PAGE } from "@/lib/cms/defaults/public-health";
+import type { PublicHealthPageData, PublicHealthTier } from "@/lib/cms/types";
 
-type TierUser = {
-  role: string;
-  description: string;
-};
-
-type Tier = {
-  id: string;
-  tabLabel: string;
-  bannerLabel: string;
-  title: string;
-  happens: string[];
-  dataFlows: string[];
-  users: TierUser[];
-};
-
-const TIERS: Tier[] = [
-  {
-    id: "tertiary",
-    tabLabel: "Tertiary Level",
-    bannerLabel: "CENTRES OF EXCELLENCE",
-    title: "Tertiary Level",
-    happens: [
-      "Structured phenotyping and genotype capture",
-      "NPRD case management and reporting",
-      "Genetic counseling and pedigree analysis",
-      "Automated reporting to ministries",
-    ],
-    dataFlows: [
-      "Structured case records → national registry",
-      "Anonymised cohort data → research use",
-      "Ministry reports → automated, scheduled",
-      "Referrals downward → secondary tier",
-    ],
-    users: [
-      {
-        role: "Clinical Geneticist",
-        description: "Consultation workflows, RAPID scoring, case registry entry",
-      },
-      {
-        role: "Genetic Counselor",
-        description: "Pedigree editor, patient history, follow-up scheduling",
-      },
-      {
-        role: "Hospital Admin / Reporting Officer",
-        description: "NPRD automated reports, ministry submissions, audit logs",
-      },
-    ],
-  },
-  {
-    id: "secondary",
-    tabLabel: "Secondary Level",
-    bannerLabel: "DISTRICT HOSPITALS",
-    title: "Secondary Level",
-    happens: [
-      "Referral intake and clinical workup documentation",
-      "Specialist consultation coordination",
-      "Lab order tracking and results capture",
-      "Upward referrals to tertiary centres",
-    ],
-    dataFlows: [
-      "Referral packets → tertiary centres",
-      "Diagnostic summaries → district registry",
-      "Follow-up alerts → primary tier",
-      "Aggregated metrics → state dashboards",
-    ],
-    users: [
-      {
-        role: "District Physician",
-        description: "Referral workflows, case summaries, specialist coordination",
-      },
-      {
-        role: "Lab Coordinator",
-        description: "Test orders, result digitisation, sample tracking",
-      },
-      {
-        role: "District Program Officer",
-        description: "District reporting, referral analytics, program oversight",
-      },
-    ],
-  },
-  {
-    id: "primary",
-    tabLabel: "Primary Level",
-    bannerLabel: "PRIMARY HEALTH CENTRES",
-    title: "Primary Level",
-    happens: [
-      "Community screening and early symptom capture",
-      "ASHA and ANM field data collection",
-      "Patient identification and referral initiation",
-      "Health education and follow-up reminders",
-    ],
-    dataFlows: [
-      "Screening records → secondary tier",
-      "Referral triggers → district hospitals",
-      "Vaccination and visit logs → state systems",
-      "Population signals → policy dashboards",
-    ],
-    users: [
-      {
-        role: "Primary Care Physician",
-        description: "Screening tools, referral initiation, patient triage",
-      },
-      {
-        role: "ASHA / Community Health Worker",
-        description: "Mobile capture, household visits, symptom reporting",
-      },
-      {
-        role: "PHC Medical Officer",
-        description: "Program monitoring, local registry, outreach planning",
-      },
-    ],
-  },
-];
+type Tier = PublicHealthTier;
 
 const SWITCH = { duration: 0.45, ease: EASE };
 
@@ -342,9 +232,14 @@ function TierPanel({ tier }: { tier: Tier }) {
   );
 }
 
-export function PublicHealthThreeTierModel() {
+export function PublicHealthThreeTierModel({
+  section = DEFAULT_PUBLIC_HEALTH_PAGE.threeTier,
+}: {
+  section?: PublicHealthPageData["threeTier"];
+}) {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
+  const TIERS = section.tiers;
   const tier = TIERS[active];
 
   return (
@@ -356,18 +251,17 @@ export function PublicHealthThreeTierModel() {
         <StaggerGroup className="mx-auto max-w-3xl text-center" stagger={0.1}>
           <StaggerItem>
             <p className="t-eyebrow secondaryFont text-[0.65rem] tracking-[0.28em] text-brand">
-              — THREE-TIER MODEL —
+              {section.eyebrow}
             </p>
           </StaggerItem>
 
           <StaggerItem>
-            <h2 className="t-heading mx-auto mt-6 text-balance text-[#121212]">How It Works</h2>
+            <h2 className="t-heading mx-auto mt-6 text-balance text-[#121212]">{section.heading}</h2>
           </StaggerItem>
 
           <StaggerItem>
             <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
-              Genetico operates across all three levels of India&apos;s healthcare system —
-              connecting frontline workers to national policy data through a single platform.
+              {section.description}
             </p>
           </StaggerItem>
         </StaggerGroup>

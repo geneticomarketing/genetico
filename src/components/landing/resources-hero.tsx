@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE } from "@/components/motion/reveal";
+import { DEFAULT_RESOURCES_PAGE } from "@/lib/cms/defaults/resources";
+import type { ResourcesPageData } from "@/lib/cms/types";
 
 const STAGGER_S = 0.3;
 const ENTRANCE_DURATION = 1.5;
@@ -22,7 +24,11 @@ function heroEntrance(contentIndex: number, reduce: boolean | null) {
   };
 }
 
-export function ResourcesHero() {
+export function ResourcesHero({
+  hero = DEFAULT_RESOURCES_PAGE.hero,
+}: {
+  hero?: ResourcesPageData["hero"];
+}) {
   const reduce = useReducedMotion();
 
   return (
@@ -35,7 +41,7 @@ export function ResourcesHero() {
         transition={{ duration: 0.8 }}
       >
         <Image
-          src="/rhero.png"
+          src={hero.image}
           alt=""
           fill
           sizes="100vw"
@@ -60,20 +66,19 @@ export function ResourcesHero() {
 
       <div className="relative mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col items-center justify-center px-6 pt-24 pb-8 text-center sm:pt-28">
         <motion.h1 {...heroEntrance(1, reduce)} className="t-display mx-auto text-white">
-          Resources
+          {hero.title}
         </motion.h1>
         <motion.p
           {...heroEntrance(2, reduce)}
           className="secondaryFont mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:mt-7 sm:text-lg"
         >
-          Clinical insights, updates, and learning from Genetico
+          {hero.subtitle}
         </motion.p>
         <motion.p
           {...heroEntrance(3, reduce)}
           className="secondaryFont mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/65 sm:text-base"
         >
-          A curated collection of videos, articles, and clinical updates from Genetico&apos;s work in
-          rare and genetic diseases. Built for clinicians, researchers, and healthcare teams.
+          {hero.description}
         </motion.p>
       </div>
     </section>

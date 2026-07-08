@@ -3,6 +3,8 @@
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE } from "@/components/motion/reveal";
+import { DEFAULT_PUBLIC_HEALTH_PAGE } from "@/lib/cms/defaults/public-health";
+import type { PublicHealthPageData } from "@/lib/cms/types";
 
 const STAGGER_S = 0.3;
 const ENTRANCE_DURATION = 1.5;
@@ -30,7 +32,11 @@ function heroBgEntrance(reduce: boolean | null) {
   };
 }
 
-export function PublicHealthHero() {
+export function PublicHealthHero({
+  hero = DEFAULT_PUBLIC_HEALTH_PAGE.hero,
+}: {
+  hero?: PublicHealthPageData["hero"];
+}) {
   const reduce = useReducedMotion();
 
   return (
@@ -40,7 +46,7 @@ export function PublicHealthHero() {
       style={{
         // background:
         //   "radial-gradient(80% 70% at 22% 58%, #12325a 0%, #07101f 42%, #03060e 72%, #010207 100%)",
-        background: "url('/phero.png')",
+        background: hero.image ? `url('${hero.image}')` : "url('/phero.png')",
       }}
     >
       {/*  */}
@@ -57,16 +63,20 @@ export function PublicHealthHero() {
         >
           Digital Backbone for
           <br />
-          India&apos;s rare disease ecosystem
+          {hero.titleLine2.includes("India") ? (
+            <>
+              India&apos;s <span className="text-brand">rare disease ecosystem</span>
+            </>
+          ) : (
+            hero.titleLine2
+          )}
         </motion.h1>
 
         <motion.p
           {...heroEntrance(2, reduce)}
           className="secondaryFont mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-white/55 sm:mt-7 sm:text-base"
         >
-          IndiGeneUs.AI connects India&apos;s rare disease ecosystem in a Hub &amp; Spoke model
-          from PHC-level referral to CoE-level diagnosis, giving government health institutions
-          the clinical and reporting tools they need for NPRD implementation.
+          {hero.subtitle}
         </motion.p>
       </div>
     </section>

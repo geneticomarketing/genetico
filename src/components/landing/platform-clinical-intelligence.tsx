@@ -4,44 +4,19 @@ import { useRef, type ReactElement } from "react";
 import { motion, useReducedMotion, useTransform, type MotionValue } from "motion/react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { DEFAULT_PLATFORM_PAGE } from "@/lib/cms/defaults/platform";
+import type { PlatformCapability, PlatformPageData } from "@/lib/cms/types";
 import { useScrollMappedValue } from "@/lib/motion/scroll-value";
 import { useProjectScroll } from "@/lib/motion/use-project-scroll";
 
-type Capability = {
-  number: string;
-  title: string;
-  description: string;
-  badge: string;
-};
+type Capability = PlatformCapability;
 
 type WidgetProps = {
   progress: MotionValue<number>;
   reduce: boolean | null;
 };
 
-const CAPABILITIES: Capability[] = [
-  {
-    number: "01",
-    title: "RAPID Score™",
-    description:
-      "Prioritizes likely differential diagnoses by continuously analyzing structured phenotypic, genomic, and clinical data as new information becomes available.",
-    badge: "AI-Assisted Differential Diagnosis",
-  },
-  {
-    number: "02",
-    title: "Evidence-Based Clinical Reasoning",
-    description:
-      "Every recommendation is fully traceable to structured phenotypic data, genomic findings, clinical guidelines, and published literature, ensuring AI remains transparent, explainable, and clinician-controlled.",
-    badge: "Transparent & Explainable AI",
-  },
-  {
-    number: "03",
-    title: "Disease Comparison & Clinical Disambiguation",
-    description:
-      "Compare clinically similar rare diseases side by side using phenotypic overlap, genomic findings, inheritance patterns, and supporting evidence to improve diagnostic confidence.",
-    badge: "AI-Assisted Disease Comparison",
-  },
-];
+const CAPABILITIES: Capability[] = DEFAULT_PLATFORM_PAGE.clinicalIntelligence.capabilities;
 
 const RAPID_SCORES = [
   { name: "Dravet Syndrome", code: "G40.82", value: 74, active: true },
@@ -305,7 +280,12 @@ function CapabilityRow({ capability, index }: { capability: Capability; index: n
   );
 }
 
-export function PlatformClinicalIntelligence() {
+export function PlatformClinicalIntelligence({
+  section = DEFAULT_PLATFORM_PAGE.clinicalIntelligence,
+}: {
+  section?: PlatformPageData["clinicalIntelligence"];
+}) {
+  const capabilities = section.capabilities;
   return (
     <section
       id="clinical-intelligence"
@@ -320,7 +300,7 @@ export function PlatformClinicalIntelligence() {
             <div>
               <div className="flex items-center gap-3">
                 <p className="t-eyebrow text-accent text-[0.7rem] tracking-[0.32em]">
-                  Clinical Intelligence
+                  {section.eyebrow}
                 </p>
                 <span aria-hidden className="bg-accent h-0.5 w-10 sm:w-14" />
               </div>
@@ -328,18 +308,17 @@ export function PlatformClinicalIntelligence() {
                 className="t-heading mt-5 max-w-none text-white"
                 style={{ fontVariationSettings: '"SERF" 100' }}
               >
-                Clinical Decision Support System
+                {section.heading}
               </h2>
             </div>
             <p className="max-w-md text-[15px] leading-relaxed text-white/45 sm:text-base lg:justify-self-end lg:pb-1">
-              AI-assisted clinical decision support that combines phenotypic, genomic, and clinical
-              evidence to help clinicians evaluate complex rare disease cases with greater confidence.
+              {section.description}
             </p>
           </div>
         </Reveal>
 
         <div className="mt-16 border-t border-white/10 sm:mt-20">
-          {CAPABILITIES.map((capability, index) => (
+          {capabilities.map((capability, index) => (
             <CapabilityRow key={capability.number} capability={capability} index={index} />
           ))}
         </div>

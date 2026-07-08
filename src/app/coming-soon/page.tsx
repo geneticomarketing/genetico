@@ -2,12 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Coming Soon | Genetico",
-  description: "This section of Genetico is coming soon.",
-};
+import { getUtilityPagesData } from "@/lib/cms/page-data";
 
-export default function ComingSoonPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const utility = await getUtilityPagesData();
+  const comingSoon = utility.comingSoon;
+
+  return {
+    title: comingSoon?.metaTitle ?? "Coming Soon | Genetico",
+    description: comingSoon?.metaDescription ?? "This section of Genetico is coming soon.",
+  };
+}
+
+export default async function ComingSoonPage() {
+  const utility = await getUtilityPagesData();
+  const page = utility.comingSoon;
+
   return (
     <main className="relative flex min-h-[calc(100vh-8rem)] flex-1 flex-col items-center justify-center overflow-hidden px-6 py-24 sm:px-10">
       <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -20,18 +30,17 @@ export default function ComingSoonPage() {
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
-        <p className="t-eyebrow text-accent mb-5">Coming soon</p>
-        <h1 className="t-heading text-balance text-white">We&apos;re building something new</h1>
+        <p className="t-eyebrow text-accent mb-5">{page.eyebrow}</p>
+        <h1 className="t-heading text-balance text-white">{page.heading}</h1>
         <p className="mt-5 max-w-lg text-base leading-relaxed text-white/60 sm:text-lg">
-          This part of Genetico is still in development. Check back soon for updates on our
-          platform, resources, and more.
+          {page.body}
         </p>
         <Link
-          href="/"
+          href={page.backHref ?? "/"}
           className="bg-brand mt-10 inline-flex items-center gap-2 rounded-lg border border-white/10 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#01356b]"
         >
           <ArrowLeft size={16} strokeWidth={2} />
-          Back to home
+          {page.backLabel}
         </Link>
       </div>
     </main>

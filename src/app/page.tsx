@@ -1,45 +1,8 @@
-"use client";
-import { motion, useTransform } from "motion/react";
-import { Hero } from "@/components/landing/hero";
-import { SystemBreaks } from "@/components/landing/system-breaks";
-import { FoundationalPlatform } from "@/components/landing/foundational-platform";
-import { EcosystemProblems } from "@/components/landing/ecosystem-problems";
-import { PartnersSecurity } from "@/components/landing/partners-security";
-import { HomeCta } from "@/components/landing/home-cta";
-import { useRef } from "react";
-import { useProjectScroll } from "@/lib/motion/use-project-scroll";
-export default function Home() {
-  const pageRef = useRef(null);
+import { HomeClient } from "@/app/home-client";
+import { getHomePageData } from "@/lib/cms/page-data";
 
-  const { scrollYProgress: pageScroll } = useProjectScroll({
-    target: pageRef,
-    offset: ["start start", "end end"],
-  });
+export default async function Home() {
+  const data = await getHomePageData();
 
-  const heroScale = useTransform(pageScroll, [0, 0.4], [1, 0.55]);
-  const heroY = useTransform(pageScroll, [0, 0.4], ["0%", "50%"]);
-
-  return (
-    <>
-      <main ref={pageRef} className="flex flex-1 flex-col">
-        <motion.div
-          className="fixed w-full"
-          style={{
-            scale: heroScale,
-            y: heroY,
-          }}
-        >
-          <Hero />
-        </motion.div>
-        <div className="min-h-screen"></div>
-        <div className="relative z-999999999">
-          <FoundationalPlatform />
-          <SystemBreaks />
-          <EcosystemProblems />
-          <PartnersSecurity />
-          <HomeCta />
-        </div>
-      </main>
-    </>
-  );
+  return <HomeClient data={data} />;
 }

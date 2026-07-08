@@ -269,14 +269,13 @@ function OutcomeColumn({
 }
 
 export function SolutionsMeasurableOutcomes({
-  variant = "hospital",
+  content,
 }: {
-  variant?: SolutionsVariant;
+  content: import("@/lib/solutions-content").SolutionsContent["measurableOutcomes"];
 }) {
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
-  const content = getSolutionsContent(variant);
-  const metrics: OutcomeMetric[] = content.measurableOutcomes.metrics.map((metric) => ({
+  const metrics: OutcomeMetric[] = content.metrics.map((metric) => ({
     ...metric,
     icon: METRIC_ICONS[metric.id] ?? Database,
   }));
@@ -296,17 +295,17 @@ export function SolutionsMeasurableOutcomes({
           <div className="flex items-center justify-center gap-3 sm:gap-4">
             <span aria-hidden className="h-px w-6 shrink-0 bg-[#b8cce0] sm:w-10" />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
-              {content.measurableOutcomes.label}
+              {content.label}
             </p>
             <span aria-hidden className="h-px w-6 shrink-0 bg-[#b8cce0] sm:w-10" />
           </div>
 
           <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">
-            {content.measurableOutcomes.heading}
+            {content.heading}
           </h2>
 
           <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
-            {content.measurableOutcomes.description}
+            {content.description}
           </p>
         </Reveal>
 

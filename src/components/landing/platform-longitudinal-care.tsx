@@ -4,38 +4,10 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE, Reveal, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { DEFAULT_PLATFORM_PAGE } from "@/lib/cms/defaults/platform";
+import type { LongitudinalColumn, PlatformPageData } from "@/lib/cms/types";
 
-type CareColumn = {
-  id: string;
-  title: string;
-  description: string;
-  bullets: string[];
-};
-
-const COLUMNS: CareColumn[] = [
-  {
-    id: "journey",
-    title: "Longitudinal Patient Journey",
-    description:
-      "Capture every milestone in a patient's rare disease journey, from referral and diagnosis to treatment and follow-up, through structured longitudinal records that support continuity of care and informed clinical decisions.",
-    bullets: [
-      "Unified patient timeline across every clinical encounter",
-      "AI-assisted visit summaries and clinical documentation",
-      "Track disease progression, treatment response, and outcomes over time",
-    ],
-  },
-  {
-    id: "analytics",
-    title: "Advanced Clinical Analytics",
-    description:
-      "Transform structured clinical data into real-time dashboards that reveal patient trends, cohort insights, disease progression, and operational performance across institutions.",
-    bullets: [
-      "Interactive cohort analysis and disease trend visualization",
-      "AI-assisted analytics for clinical and research insights",
-      "Export research-ready reports and population-level evidence",
-    ],
-  },
-];
+type CareColumn = LongitudinalColumn;
 
 const TIMELINE_EVENTS = [
   { date: "Jan 2024", label: "Initial Referral", y: 88 },
@@ -346,7 +318,12 @@ function CohortDashboardCard() {
 
 const DASHBOARDS = [PatientTimelineCard, CohortDashboardCard];
 
-export function PlatformLongitudinalCare() {
+export function PlatformLongitudinalCare({
+  section = DEFAULT_PLATFORM_PAGE.longitudinalCare,
+}: {
+  section?: PlatformPageData["longitudinalCare"];
+}) {
+  const COLUMNS = section.columns;
   return (
     <section
       id="longitudinal-care"
@@ -358,7 +335,7 @@ export function PlatformLongitudinalCare() {
             <div>
               <div className="flex items-center gap-3">
                 <p className="t-eyebrow text-[0.7rem] tracking-[0.32em] text-[#7a8fa8]">
-                  Longitudinal Care
+                  {section.eyebrow}
                 </p>
                 <span aria-hidden className="bg-accent h-0.5 w-10 sm:w-14" />
               </div>
@@ -366,12 +343,11 @@ export function PlatformLongitudinalCare() {
                 className="t-heading mt-5 max-w-none text-black"
                 style={{ fontVariationSettings: '"SERF" 100' }}
               >
-                From Patient Journeys to Longitudinal Intelligence
+                {section.heading}
               </h2>
             </div>
             <p className="text-ink-muted max-w-md text-[15px] leading-relaxed sm:text-base lg:justify-self-end lg:pb-1">
-              Build lifelong patient records that evolve with every consultation, enabling continuous
-              care, AI-assisted insights, outcome tracking, and research-ready longitudinal data.
+              {section.description}
             </p>
           </div>
         </Reveal>

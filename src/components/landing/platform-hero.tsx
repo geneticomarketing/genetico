@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE } from "@/components/motion/reveal";
+import { DEFAULT_PLATFORM_PAGE } from "@/lib/cms/defaults/platform";
+import type { PlatformPageData } from "@/lib/cms/types";
 import Link from "next/link";
 
 const STAGGER_S = 0.3;
@@ -32,7 +34,7 @@ function heroBgEntrance(reduce: boolean | null) {
   };
 }
 
-export function PlatformHero() {
+export function PlatformHero({ hero = DEFAULT_PLATFORM_PAGE.hero }: { hero?: PlatformPageData["hero"] }) {
   const reduce = useReducedMotion();
 
   return (
@@ -50,7 +52,7 @@ export function PlatformHero() {
         {...heroBgEntrance(reduce)}
       >
         <Image
-          src="/platformhero.png"
+          src={hero.image}
           alt=""
           fill
           sizes="100vw"
@@ -71,22 +73,20 @@ export function PlatformHero() {
 
       <div className="relative mx-auto flex h-full min-h-0 w-full max-w-4xl flex-col items-center justify-center px-6 pt-24 pb-8 text-center sm:pt-28">
         <motion.h1 {...heroEntrance(1, reduce)} className="t-display mx-auto text-white">
-          IndiGeneUs.AI
+          {hero.title}
         </motion.h1>
         <motion.p
           {...heroEntrance(2, reduce)}
           className="mt-6 max-w-2xl text-sm leading-relaxed text-white/55 sm:text-base"
         >
-          An AI-enabled digital infrastructure purpose-built for rare and genetic diseases, bringing
-          together clinical workflows, decision support, structured data, analytics, and research
-          into one intelligent ecosystem.
+          {hero.subtitle}
         </motion.p>
         <motion.div {...heroEntrance(3, reduce)} className="mt-8">
           <Link
-            href="#get-in-touch"
+            href={hero.ctaHref}
             className="--backdrop-blur-md inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/50 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/15"
           >
-            Schedule a Walkthrough
+            {hero.ctaLabel}
             <span aria-hidden>→</span>
           </Link>
         </motion.div>

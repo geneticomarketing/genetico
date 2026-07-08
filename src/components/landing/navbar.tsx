@@ -6,9 +6,9 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { EASE } from "@/components/motion/reveal";
-import { HOSPITAL_PATH, PHARMA_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
-import { CALENDLY_URL } from "@/lib/contact";
+import { BLOG_PATH, HOSPITAL_PATH, PHARMA_PATH, PUBLIC_HEALTH_PATH, leadFormHref } from "@/lib/routes";
 import Link from "next/link";
+import { useSiteData } from "@/lib/cms/site-data-context";
 
 type NavLink = {
   type: "link";
@@ -26,20 +26,20 @@ type NavDropdown = {
 
 type NavItem = NavLink | NavDropdown;
 
-const SOLUTIONS_LINKS = [
+const DEFAULT_SOLUTIONS_LINKS = [
   { label: "Hospital / Clinician / CoE", href: HOSPITAL_PATH, icon: "🏥" },
   { label: "Life Science / Biotech organisation", href: PHARMA_PATH, icon: "💊" },
   { label: "Public health", href: PUBLIC_HEALTH_PATH, icon: "💊" },
 ];
 
-const NAV_ITEMS: NavItem[] = [
+const DEFAULT_NAV_ITEMS: NavItem[] = [
   { type: "link", label: "About", href: "/about-us", isDark: true },
   { type: "link", label: "Platform", href: "/platform", isDark: false },
   {
     type: "dropdown",
     label: "Solutions",
     isDark: false,
-    links: SOLUTIONS_LINKS,
+    links: DEFAULT_SOLUTIONS_LINKS,
   },
   { type: "link", label: "Resources", href: "/resources", isDark: false },
 ];
@@ -241,7 +241,39 @@ function MobileSolutionsDropdown({
   );
 }
 
+function buildNavItems(siteData: ReturnType<typeof useSiteData>): NavItem[] {
+  const nav = siteData?.navigation;
+  if (!nav?.mainNav?.length) return DEFAULT_NAV_ITEMS;
+
+  const solutionsLinks =
+    nav.solutionsNav?.map((link) => ({
+      label: link.label,
+      href: link.href,
+      icon: link.icon ?? "",
+    })) ?? DEFAULT_SOLUTIONS_LINKS;
+
+  return nav.mainNav.map((item) => {
+    if (item.type === "dropdown") {
+      return {
+        type: "dropdown" as const,
+        label: item.label,
+        isDark: item.isDark ?? false,
+        links: solutionsLinks,
+      };
+    }
+    return {
+      type: "link" as const,
+      label: item.label,
+      href: item.href ?? "/",
+      isDark: item.isDark ?? false,
+    };
+  });
+}
+
 export function Navbar() {
+  const siteData = useSiteData();
+  const navItems = buildNavItems(siteData);
+  const ctaLabel = siteData?.navigation?.ctaLabel ?? "Book a demo";
   // isDark pages (e.g. About) use a white bar + black links; default is transparent
   // over the dark hero, switching to a dark translucent bar once scrolled.
   const [scrolled, setScrolled] = useState(false);
@@ -256,9 +288,13 @@ export function Navbar() {
   }, []);
 
   const path = usePathname();
+  const leadFormLink = leadFormHref(path);
 
   const isDark =
-    path.startsWith("/about-us") || path.startsWith(HOSPITAL_PATH) || path.startsWith(PHARMA_PATH);
+    path.startsWith("/about-us") ||
+    path.startsWith(BLOG_PATH) ||
+    path.startsWith(HOSPITAL_PATH) ||
+    path.startsWith(PHARMA_PATH);
 
   const solid = scrolled || open;
 
@@ -293,7 +329,7 @@ export function Navbar() {
 
         {/* Desktop links */}
         <ul className="hidden items-center gap-7 lg:flex">
-          {NAV_ITEMS.map((item) => {
+          {navItems.map((item) => {
             if (item.type === "dropdown") {
               return <SolutionsDropdown key={item.label} item={item} isDark={isDark} />;
             }
@@ -314,14 +350,14 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <a
-          href={CALENDLY_URL}
+          href={leadFormLink}
           className={`hidden rounded-lg border px-5 py-2 text-sm font-medium transition-colors lg:inline-flex ${
             isDark
               ? "bg-brand hover:bg-brand/90 border-black/20 text-white"
               : "bg-brand hover:bg-brand/90 border-white/25 text-white"
           }`}
         >
-          Book a demo
+          {ctaLabel}
         </a>
 
         {/* Mobile hamburger */}
@@ -344,7 +380,7 @@ export function Navbar() {
           }`}
         >
           <ul className="mx-auto flex w-full max-w-7xl flex-col px-6 py-3 sm:px-8">
-            {NAV_ITEMS.map((item) => {
+            {navItems.map((item) => {
               if (item.type === "dropdown") {
                 return (
                   <MobileSolutionsDropdown
@@ -374,7 +410,7 @@ export function Navbar() {
             })}
             <li className="py-3">
               <a
-                href={CALENDLY_URL}
+                href={leadFormLink}
                 onClick={closeMobileMenu}
                 className={`inline-flex rounded-full border px-5 py-2 text-sm font-medium ${
                   isDark
@@ -382,7 +418,7 @@ export function Navbar() {
                     : "border-white/25 bg-white/5 text-white"
                 }`}
               >
-                Book a demo
+                {ctaLabel}
               </a>
             </li>
           </ul>

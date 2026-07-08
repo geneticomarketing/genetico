@@ -5,38 +5,29 @@ import { CalendarCheck, Mail } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
 import type { ContactFormPayload } from "@/lib/contact-form";
+import { useSiteData } from "@/lib/cms/site-data-context";
 import { CALENDLY_URL, CONTACT_EMAIL, CONTACT_MAILTO } from "@/lib/contact";
 
-const ROLES = [
+const DEFAULT_ROLES = [
   {
     label: "Clinician or Hospital",
-    blurb:
+    description:
       "We'll connect you to our medical team to walk through workflows, integration and a 2-week pilot at your center.",
   },
   {
     label: "Government or Public Health",
-    blurb:
+    description:
       "We'll route you to our public health team to discuss screening frameworks, registries and population-scale deployment.",
   },
   {
     label: "Life Science or Industry",
-    blurb:
+    description:
       "We'll connect you with partnerships to explore cohort access, real-world evidence and research collaboration.",
   },
   {
     label: "Investor",
-    blurb:
+    description:
       "We'll set up time with the founding team to walk through the platform, traction and roadmap.",
-  },
-] as const;
-
-const CONTACTS = [
-  { label: "Email", value: CONTACT_EMAIL, href: CONTACT_MAILTO, Icon: Mail },
-  {
-    label: "Book a meeting",
-    value: "calendly.com/priyanshu-vats-genetico",
-    href: CALENDLY_URL,
-    Icon: CalendarCheck,
   },
 ] as const;
 
@@ -91,6 +82,30 @@ function Field({
 }
 
 export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
+  const siteData = useSiteData();
+  const settings = siteData?.settings;
+  const roles =
+    settings?.contactRoles?.length ?
+      settings.contactRoles.map((role) => ({
+        label: role.label,
+        description: role.description ?? "",
+      }))
+    : DEFAULT_ROLES.map((role) => ({ label: role.label, description: role.description }));
+
+  const contactForm = settings?.contactForm;
+  const submitLabel = contactForm?.submitLabel ?? "Talk to Our Team";
+  const successMessage =
+    contactForm?.successMessage ?? "Thanks — your message was sent. Our team will be in touch soon.";
+  const privacyNote =
+    contactForm?.privacyNote ??
+    "By submitting, you agree to be contacted by Genetico. We never share your information.";
+  const intro =
+    contactForm?.intro ??
+    "Genetico connects clinicians, institutions, government bodies, and industry stakeholders through a unified digital infrastructure. Tell us who you are and we'll route you to the right person.";
+
+  const calendlyUrl = settings?.calendlyUrl ?? CALENDLY_URL;
+  const contactEmail = settings?.contactEmail ?? CONTACT_EMAIL;
+
   const [active, setActive] = useState(0);
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -107,7 +122,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
 
     const payload: ContactFormPayload = {
       ...formData,
-      role: ROLES[active]?.label ?? ROLES[0].label,
+      role: roles[active]?.label ?? roles[0]?.label ?? "",
     };
 
     try {
@@ -140,7 +155,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
       className="flex min-w-0 flex-col rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_15px_60px_rgba(0,0,0,0.07)] max-md:w-full sm:p-6 md:p-8"
     >
       <div className="-mx-5 flex [scrollbar-width:none] items-center gap-2 overflow-x-auto border-b border-black/10 px-5 pb-4 [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:mx-0 md:justify-between md:gap-2 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
-        {ROLES.map((role, i) => (
+        {roles.map((role, i) => (
           <button
             key={role.label}
             type="button"
@@ -158,7 +173,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
       </div>
 
       <p className="text-brand pt-4 text-sm leading-snug font-medium sm:pt-5 sm:text-[15px]">
-        {ROLES[active]?.blurb}
+        {roles[active]?.description}
       </p>
 
       <div className="mt-5 flex flex-col gap-4 sm:mt-6 sm:gap-5">
@@ -220,12 +235,12 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
       </div>
 
       <p className="mt-5 text-center text-xs leading-normal text-black/45 sm:mt-6 sm:text-[13px]">
-        By submitting, you agree to be contacted by Genetico. We never share your information.
+        {privacyNote}
       </p>
 
       {status === "success" && (
         <p className="text-brand mt-4 text-center text-sm font-medium" role="status">
-          Thanks — your message was sent. Our team will be in touch soon.
+          {successMessage}
         </p>
       )}
 
@@ -240,7 +255,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
         disabled={status === "submitting" || status === "success"}
         className="bg-brand mt-4 w-full rounded-lg py-3.5 text-[15px] font-medium text-white transition-colors hover:bg-[#01356b] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "submitting" ? "Sending..." : "Talk to Our Team"}
+        {status === "submitting" ? "Sending..." : submitLabel}
       </button>
     </form>
   );
@@ -265,13 +280,19 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
               Different conversation, depending on who you are
             </h2>
             <p className="max-w-md text-sm leading-relaxed text-black/55 sm:text-[15px]">
-              Genetico connects clinicians, institutions, government bodies, and industry
-              stakeholders through a unified digital infrastructure. Tell us who you are and
-              we&apos;ll route you to the right person.
+              {intro}
             </p>
 
             <div className="mt-1 flex flex-col gap-5 sm:mt-2 sm:gap-6">
-              {CONTACTS.map((c) => (
+              {[
+                { label: "Email", value: contactEmail, href: CONTACT_MAILTO, Icon: Mail },
+                {
+                  label: "Book a meeting",
+                  value: calendlyUrl.replace(/^https?:\/\//, ""),
+                  href: calendlyUrl,
+                  Icon: CalendarCheck,
+                },
+              ].map((c) => (
                 <div key={c.label} className="flex items-start gap-3 sm:items-center sm:gap-4">
                   <span className="text-brand shrink-0">
                     <c.Icon size={20} strokeWidth={1.6} />

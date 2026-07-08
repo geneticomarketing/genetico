@@ -3,62 +3,8 @@
 import { useState } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
-
-type Gap = {
-  tab: string;
-  problemTitle: string;
-  problemDesc: string;
-  solutionTitle: string;
-  solutionDesc: string;
-};
-
-const GAPS: Gap[] = [
-  {
-    tab: "Diagnosis & Access",
-    problemTitle: "Years of Diagnostic Delay",
-    problemDesc:
-      "Patients often experience years of diagnostic delays due to limited awareness, fragmented information, and complex referral pathways.",
-    solutionTitle: "Structured, Connected Pathways",
-    solutionDesc:
-      "Structured patient journeys, AI-assisted clinical workflows, and connected referral pathways that support earlier diagnosis and access to care.",
-  },
-  {
-    tab: "Primary Care Gap",
-    problemTitle: "Missed Early Signs",
-    problemDesc:
-      "Early signs are frequently missed due to limited rare disease awareness and lack of standardized screening approaches.",
-    solutionTitle: "Digital Screening Workflows",
-    solutionDesc:
-      "Digital screening workflows, referral support systems, and analytics that help identify patients sooner.",
-  },
-  {
-    tab: "Secondary Care Gap",
-    problemTitle: "Fragmented Clinical Information",
-    problemDesc:
-      "Clinical information becomes fragmented as patients move across providers, departments, and institutions.",
-    solutionTitle: "Longitudinal Patient Records",
-    solutionDesc:
-      "Longitudinal patient records and connected care workflows that ensure critical information remains accessible throughout the care journey.",
-  },
-  {
-    tab: "Tertiary Care Overload",
-    problemTitle: "Specialist Centre Overload",
-    problemDesc:
-      "Specialist centres face increasing patient volumes, extensive documentation requirements, and complex genetic workflows.",
-    solutionTitle: "AI-Assisted Rare Disease Workflows",
-    solutionDesc:
-      "AI-assisted documentation, clinical decision support, structured data capture, and workflow automation designed for rare disease programs.",
-  },
-  {
-    tab: "Policy & Planning Gap",
-    problemTitle: "Limited Real-World Data",
-    problemDesc:
-      "Limited access to reliable, real-world data makes it difficult to assess disease burden, monitor outcomes, and plan interventions effectively.",
-    solutionTitle: "Population-Level Evidence",
-    solutionDesc:
-      "Population-level registries, program analytics, and evidence generation that support informed policy and resource allocation decisions.",
-  },
-];
+import { DEFAULT_ECOSYSTEM_GAPS, DEFAULT_HOME_PAGE } from "@/lib/cms/defaults/home";
+import type { EcosystemGap } from "@/lib/cms/types";
 
 // Single source of truth for the shared type scale, so it isn't repeated inline
 // across the Problem / Solution panels. Colours come from theme tokens (globals.css).
@@ -107,7 +53,15 @@ function PanelBody({
   );
 }
 
-export function EcosystemProblems() {
+export function EcosystemProblems({
+  heading = DEFAULT_HOME_PAGE.ecosystemGapsSection.heading,
+  description = DEFAULT_HOME_PAGE.ecosystemGapsSection.description,
+  gaps = DEFAULT_ECOSYSTEM_GAPS,
+}: {
+  heading?: string;
+  description?: string;
+  gaps?: EcosystemGap[];
+}) {
   const [active, setActive] = useState(0);
 
   return (
@@ -115,18 +69,15 @@ export function EcosystemProblems() {
       <Reveal>
         <div className="mx-auto max-w-[1280px]">
           {/* Heading */}
-          <h2 className="t-heading mx-auto text-center text-black">
-            The Rare Disease Journey Remains Fragmented
-          </h2>
+          <h2 className="t-heading mx-auto text-center text-black">{heading}</h2>
           <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-lg">
-            From diagnosis to long-term care and policy planning, critical gaps continue to impact
-            patients, clinicians, and healthcare systems.
+            {description}
           </p>
 
           {/* Tabs */}
           <div className="mt-16 flex justify-center">
             <div className="border-line flex flex-wrap items-center gap-1.5 rounded-[16px] border bg-white p-2 shadow-[0_4px_20px_rgba(0,0,0,0.04)] max-md:flex-nowrap max-md:overflow-x-scroll max-md:overflow-y-hidden">
-              {GAPS.map((gap, index) => (
+              {gaps.map((gap, index) => (
                 <button
                   key={gap.tab}
                   onClick={() => setActive(index)}
@@ -146,7 +97,7 @@ export function EcosystemProblems() {
           <div className="bg-surface mt-14 grid gap-8 rounded-r-lg max-md:px-4 lg:grid-cols-2">
             {/* PROBLEM */}
             <div className={`${PANEL_MIN_H} px-0 py-0 sm:px-14`}>
-              {GAPS.map((gap, index) => (
+              {gaps.map((gap, index) => (
                 <div key={gap.tab} className={`h-full ${active === index ? "block" : "hidden"}`}>
                   <PanelBody
                     label="Problem"
@@ -176,7 +127,7 @@ export function EcosystemProblems() {
 
               {/* White card */}
               <div className="absolute inset-5 rounded-[20px] bg-white px-7 py-8 shadow-[0_15px_50px_rgba(0,0,0,0.12)] sm:inset-[58px] sm:px-[46px] sm:py-[42px]">
-                {GAPS.map((gap, index) => (
+                {gaps.map((gap, index) => (
                   <div key={gap.tab} className={`h-full ${active === index ? "block" : "hidden"}`}>
                     <PanelBody
                       label="Solution"

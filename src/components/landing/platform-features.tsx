@@ -5,85 +5,10 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE } from "@/components/motion/reveal";
+import { DEFAULT_PLATFORM_PAGE } from "@/lib/cms/defaults/platform";
+import type { PlatformFeature, PlatformPageData } from "@/lib/cms/types";
 
-type Feature = {
-  id: string;
-  number: string;
-  tabTitle: string;
-  category: string;
-  subheading: string;
-  title: string;
-  description: string;
-  bullets: string[];
-  illustration: string;
-};
-
-const FEATURES: Feature[] = [
-  {
-    id: "pedigree",
-    number: "01",
-    tabTitle: "Pedigree Intelligence",
-    category: "GENETIC DATA CAPTURE",
-    subheading: "VISUALIZE FAMILY HISTORY WITH STRUCTURED GENETIC INTELLIGENCE",
-    title: "Pedigree Intelligence",
-    description:
-      "Create detailed family pedigrees through an intuitive visual interface designed for clinical genetics. Capture inheritance patterns, phenotype relationships, and family history as structured data that supports diagnosis, clinical decision support, and future analysis.",
-    bullets: [
-      "Interactive pedigree builder with automated relationship mapping",
-      "Visualize inheritance patterns and genetic relationships",
-      "Integrated with longitudinal patient records and clinical workflows",
-    ],
-    illustration: "/thing.png",
-  },
-  {
-    id: "hpo",
-    number: "02",
-    tabTitle: "AI-powered Phenotyping",
-    category: "PHENOTYPING",
-    subheading: "STANDARDIZED PHENOTYPE DOCUMENTATION AT SCALE",
-    title: "AI-powered Phenotyping",
-    description:
-      "Automatically extract Human Phenotype Ontology (HPO) terms from clinical notes and reports using AI, reducing manual effort while improving the consistency and completeness of phenotype documentation.",
-    bullets: [
-      "AI-assisted HPO extraction",
-      "Standardized phenotype documentation",
-      "Improved clinical decision support",
-    ],
-    illustration: "/platform/hpo-extraction.svg",
-  },
-  {
-    id: "ocr",
-    number: "03",
-    tabTitle: "OCR & Report Digitization",
-    category: "DIGITIZATION",
-    subheading: "STRUCTURED DATA FROM CLINICAL DOCUMENTS",
-    title: "OCR & Report Digitization",
-    description:
-      "Digitize laboratory reports, genetic test results, and clinical documents using AI-powered OCR and intelligent data extraction to create structured, searchable clinical records.",
-    bullets: [
-      "AI-powered OCR",
-      "Intelligent report parsing",
-      "Structured clinical data generation",
-    ],
-    illustration: "/platform/ocr-digitization.svg",
-  },
-  {
-    id: "workflows",
-    number: "04",
-    tabTitle: "Structured Clinical Workflows",
-    category: "WORKFLOWS",
-    subheading: "CONSISTENT DOCUMENTATION ACROSS PROGRAMS",
-    title: "Structured Clinical Workflows",
-    description:
-      "Purpose-built workflows standardize data capture across rare disease programs, enabling consistent documentation, interoperability, analytics, and research-ready datasets.",
-    bullets: [
-      "Standardized clinical templates",
-      "AI-assisted documentation",
-      "Research-ready structured data",
-    ],
-    illustration: "/platform/standardized-workflows.svg",
-  },
-];
+type Feature = PlatformFeature;
 
 function FeatureIllustration({ src, alt }: { src: string; alt: string }) {
   return (
@@ -100,10 +25,15 @@ function FeatureIllustration({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-export function PlatformFeatures() {
+export function PlatformFeatures({
+  section = DEFAULT_PLATFORM_PAGE.featuresSection,
+}: {
+  section?: PlatformPageData["featuresSection"];
+}) {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
   const switchTransition = reduce ? { duration: 0 } : { duration: 0.45, ease: EASE };
+  const FEATURES = section.features;
 
   return (
     <section
@@ -116,18 +46,16 @@ export function PlatformFeatures() {
           <div>
             <div className="flex items-center gap-3">
               <p className="t-eyebrow text-[0.7rem] tracking-[0.32em] text-[#7a8fa8]">
-                The Platform
+                {section.eyebrow}
               </p>
               <span aria-hidden className="bg-accent h-0.5 w-10 sm:w-14" />
             </div>
             <h2 className="t-heading mt-5 max-w-none text-black">
-              Intelligent Data Capture for Rare Disease Care
+              {section.heading}
             </h2>
           </div>
           <p className="text-ink-muted max-w-md text-[15px] leading-relaxed sm:text-base lg:justify-self-end lg:pb-1">
-            AI-assisted data capture, structured clinical workflows, and intelligent automation reduce
-            manual effort while improving the quality, consistency, and usability of rare disease
-            data.
+            {section.description}
           </p>
         </div>
 

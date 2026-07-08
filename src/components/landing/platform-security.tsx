@@ -4,35 +4,14 @@ import { FileText, ShieldCheck, UserCog } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/reveal";
+import { DEFAULT_PLATFORM_PAGE } from "@/lib/cms/defaults/platform";
+import type { PlatformPageData, SecurityCard } from "@/lib/cms/types";
 
-type SecurityCard = {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-};
+const SECURITY_ICONS = [ShieldCheck, UserCog, FileText] as const;
 
-const CARDS: SecurityCard[] = [
-  {
-    icon: ShieldCheck,
-    title: "Enterprise-grade Data Protection",
-    description:
-      "Clinical and genomic data is encrypted during transmission and storage using industry-standard security protocols.",
-  },
-  {
-    icon: UserCog,
-    title: "Role-based Access Control",
-    description:
-      "Granular permissions ensure every user accesses only the information relevant to their clinical or operational responsibilities.",
-  },
-  {
-    icon: FileText,
-    title: "Complete Audit Trails",
-    description:
-      "Every action is securely logged, providing full traceability, accountability, and compliance across clinical workflows.",
-  },
-];
+type SecurityCardWithIcon = SecurityCard & { icon: LucideIcon };
 
-function SecurityFeatureCard({ card }: { card: SecurityCard }) {
+function SecurityFeatureCard({ card }: { card: SecurityCardWithIcon }) {
   const Icon = card.icon;
 
   return (
@@ -55,7 +34,16 @@ function SecurityFeatureCard({ card }: { card: SecurityCard }) {
   );
 }
 
-export function PlatformSecurity() {
+export function PlatformSecurity({
+  section = DEFAULT_PLATFORM_PAGE.security,
+}: {
+  section?: PlatformPageData["security"];
+}) {
+  const cards: SecurityCardWithIcon[] = section.cards.map((card, index) => ({
+    ...card,
+    icon: SECURITY_ICONS[index] ?? ShieldCheck,
+  }));
+
   return (
     <section
       id="security"
@@ -69,7 +57,7 @@ export function PlatformSecurity() {
           <div className="flex items-center justify-center gap-4 sm:gap-6">
             <span aria-hidden className="h-px w-10 bg-white/20 sm:w-16" />
             <p className="t-eyebrow shrink-0 text-[0.7rem] tracking-[0.32em] text-white/50">
-              Security &amp; Compliance
+              {section.eyebrow}
             </p>
             <span aria-hidden className="h-px w-10 bg-white/20 sm:w-16" />
           </div>
@@ -78,18 +66,16 @@ export function PlatformSecurity() {
             className="t-heading mx-auto mt-6 max-w-none text-white"
             style={{ fontVariationSettings: '"SERF" 100' }}
           >
-            Built for Trust. Designed for Healthcare.
+            {section.heading}
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-white/55 sm:text-base">
-            Every layer of IndiGeneUs.AI is designed to protect sensitive clinical and genetic
-            information through enterprise-grade security, transparent governance, and
-            institution-controlled data ownership.
+            {section.description}
           </p>
         </Reveal>
 
         <StaggerGroup className="mt-14 grid gap-6 sm:mt-16 lg:grid-cols-3 lg:gap-8">
-          {CARDS.map((card) => (
+          {cards.map((card) => (
             <StaggerItem key={card.title} className="h-full">
               <SecurityFeatureCard card={card} />
             </StaggerItem>

@@ -3,44 +3,10 @@
 import { motion, useReducedMotion } from "motion/react";
 
 import { EASE, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
+import { DEFAULT_PUBLIC_HEALTH_PAGE } from "@/lib/cms/defaults/public-health";
+import type { PublicHealthClassification, PublicHealthPageData } from "@/lib/cms/types";
 
-type Classification = {
-  id: string;
-  level: string;
-  timeBadge?: string;
-  title: string;
-  description: string;
-  tags: string[];
-};
-
-const CLASSIFICATIONS: Classification[] = [
-  {
-    id: "hub",
-    level: "HUB A/B | NATIONAL LEVEL",
-    title: "NPRD / Ministry of Health",
-    description:
-      "PCI-capable national coordination. Aggregates reporting from all Spoke C hospitals, publishes policy guidance, and maintains the national rare disease registry.",
-    tags: ["National dashboard", "Policy analytics", "Automated NPRD reports"],
-  },
-  {
-    id: "spoke-c",
-    level: "SPOKE C | SECONDARY LEVEL",
-    timeBadge: "<30 min",
-    title: "Centres of Excellence (Class C)",
-    description:
-      "EGC-capable hospitals within 30 min of the hub. Manage confirmed rare disease cases, run specialist workflows, and refer complex cases upward.",
-    tags: ["Case management", "Genetic counselling", "Specialist workflows"],
-  },
-  {
-    id: "spoke-d",
-    level: "SPOKE D | PRIMARY LEVEL",
-    timeBadge: ">30 min",
-    title: "District Health Centres (Class D)",
-    description:
-      "EGC & Thrombolysis capable, >30 min from hub. First point of contact — screen for suspected cases and dispatch ambulance referrals to Spoke C.",
-    tags: ["Screening tools", "Referral submission", "Field data capture"],
-  },
-];
+type Classification = PublicHealthClassification;
 
 const HUB = { x: 108, y: 188, r: 52 };
 const C_RADIUS = 104;
@@ -403,7 +369,12 @@ function HubSpokeDiagram() {
   );
 }
 
-export function PublicHealthTierArchitecture() {
+export function PublicHealthTierArchitecture({
+  section = DEFAULT_PUBLIC_HEALTH_PAGE.architecture,
+}: {
+  section?: PublicHealthPageData["architecture"];
+}) {
+  const CLASSIFICATIONS = section.classifications;
   return (
     <section
       id="tier-architecture"
@@ -416,7 +387,7 @@ export function PublicHealthTierArchitecture() {
               <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
               {/* <span aria-hidden className="h-px w-px shrink-0 bg-[#b8cce0] sm:w-16" /> */}
               <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
-                Architecture
+                {section.eyebrow}
               </p>
               <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
             </div>
@@ -424,14 +395,13 @@ export function PublicHealthTierArchitecture() {
 
           <StaggerItem>
             <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">
-              How the Tiers Are Connected
+              {section.heading}
             </h2>
           </StaggerItem>
 
           <StaggerItem>
             <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
-              Hub-and-spoke model connecting all levels of healthcare delivery through a unified
-              platform. Structured reporting flows up; referral guidance flows down.
+              {section.description}
             </p>
           </StaggerItem>
         </StaggerGroup>
@@ -440,7 +410,7 @@ export function PublicHealthTierArchitecture() {
           <StaggerGroup className="space-y-8" stagger={0.12} delayChildren={0.05}>
             <StaggerItem>
               <p className="secondaryFont text-[0.62rem] font-semibold tracking-[0.18em] text-[#a3afc4] uppercase">
-                HOSPITAL CLASSIFICATION
+                {section.classificationLabel}
               </p>
             </StaggerItem>
             {CLASSIFICATIONS.map((item, index) => (

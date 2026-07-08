@@ -1,10 +1,10 @@
-import Link from "next/link";
-
+import { CtaButtons } from "@/components/landing/cta-buttons";
 import { GetInTouch } from "@/components/landing/get-in-touch";
 import { Reveal } from "@/components/motion/reveal";
-import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
+import { DEFAULT_HOME_PAGE } from "@/lib/cms/defaults/home";
+import type { PageCta } from "@/lib/cms/types";
 
-export function HomeCta() {
+export function HomeCta({ cta = DEFAULT_HOME_PAGE.cta }: { cta?: PageCta }) {
   return (
     <section
       id="get-in-touch"
@@ -20,30 +20,11 @@ export function HomeCta() {
       </div>
 
       <Reveal className="relative z-10 mx-auto max-w-3xl text-center">
-        <h2 className="t-heading mx-auto text-balance text-[#121212]">
-          Building the Future of Rare Disease Intelligence Together
-        </h2>
+        <h2 className="t-heading mx-auto text-balance text-[#121212]">{cta.heading}</h2>
         <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-black/55 sm:mt-6 sm:text-lg">
-          Discover how AI-enabled workflows, clinical decision support, and structured data
-          infrastructure can help advance rare disease care, research, and public health
-          initiatives.
+          {cta.description}
         </p>
-        <div className="mt-8 mb-10 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4">
-          <Link
-            href={CALENDLY_URL}
-            className="bg-brand inline-flex rounded-lg px-7 py-3 text-sm font-medium text-white shadow-[0_4px_14px_rgba(2,67,133,0.35)] transition-colors hover:bg-[#01356b]"
-          >
-            Schedule a Demo
-          </Link>
-          <a
-            href={NEWSLETTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex rounded-lg border border-black/15 bg-white px-7 py-3 text-sm font-medium text-black transition-colors hover:bg-black/[0.03]"
-          >
-            Subscribe to Newsletter
-          </a>
-        </div>
+        <CtaButtons buttons={cta.buttons} className="mt-8 mb-10 sm:mt-10" />
       </Reveal>
 
       <GetInTouch embedded />

@@ -1,5 +1,7 @@
 import { SolutionsPage } from "@/components/landing/solutions-page";
+import { getSolutionsContent } from "@/lib/cms/queries";
 
-export default function PharmaPage() {
-  return <SolutionsPage variant="pharma" />;
+export default async function PharmaPage() {
+  const content = await getSolutionsContent("pharma");
+  return <SolutionsPage variant="pharma" content={content} />;
 }
