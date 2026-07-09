@@ -5,6 +5,7 @@ import { withAdminGroup } from "../with-admin-group";
 export const EcosystemModules = withAdminGroup(
   {
     slug: "ecosystem-modules",
+    labels: { singular: "Ecosystem Module", plural: "Ecosystem Modules" },
     admin: {
       useAsTitle: "title",
       defaultColumns: ["title", "sortOrder"],
@@ -26,6 +27,7 @@ export const EcosystemModules = withAdminGroup(
 export const EcosystemGaps = withAdminGroup(
   {
     slug: "ecosystem-gaps",
+    labels: { singular: "Ecosystem Gap", plural: "Ecosystem Gap Items" },
     admin: {
       useAsTitle: "tabLabel",
       defaultColumns: ["tabLabel", "sortOrder"],

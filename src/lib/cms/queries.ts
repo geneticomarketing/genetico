@@ -3,7 +3,6 @@ import { BLOG_POSTS, type BlogPost } from "@/lib/blogs";
 import { SOLUTIONS_CONTENT, type SolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
 import type { SolutionPage } from "@/payload-types";
 import type {
-  AboutPage,
   BlogPost as CmsBlogPost,
   Config,
   EcosystemGap as CmsEcosystemGap,
@@ -11,12 +10,8 @@ import type {
   ExternalArticle as CmsExternalArticle,
   FeaturedVideo as CmsFeaturedVideo,
   GrantsAward as CmsGrantAward,
-  HomePage,
   NewsArticle as CmsNewsArticle,
   Partner as CmsPartner,
-  PlatformPage,
-  PublicHealthPage,
-  ResourcesPage,
   ShortVideo as CmsShortVideo,
   TeamMember as CmsTeamMember,
   UtilityPage,
@@ -335,26 +330,6 @@ export async function getFooterContent() {
     ],
     legalLinks: [{ label: "Privacy Policy", href: "/privacy-policy" }],
   });
-}
-
-export async function getHomePageContent(): Promise<HomePage | null> {
-  return getGlobal<HomePage | null>("home-page", null);
-}
-
-export async function getAboutPageContent(): Promise<AboutPage | null> {
-  return getGlobal<AboutPage | null>("about-page", null);
-}
-
-export async function getPlatformPageContent(): Promise<PlatformPage | null> {
-  return getGlobal<PlatformPage | null>("platform-page", null);
-}
-
-export async function getPublicHealthPageContent(): Promise<PublicHealthPage | null> {
-  return getGlobal<PublicHealthPage | null>("public-health-page", null);
-}
-
-export async function getResourcesPageContent(): Promise<ResourcesPage | null> {
-  return getGlobal<ResourcesPage | null>("resources-page", null);
 }
 
 export async function getUtilityPagesContent() {

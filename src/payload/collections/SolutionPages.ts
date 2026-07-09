@@ -50,6 +50,7 @@ const outcomeMetricFields = [
 export const SolutionPages = withAdminGroup(
   {
     slug: "solution-pages",
+    labels: { singular: "Solution Page", plural: "Hospital & Life Science Pages" },
     admin: {
       useAsTitle: "slug",
       defaultColumns: ["slug", "hero.titleLine1"],

@@ -1,11 +1,6 @@
 import {
   getCollection,
   getGlobal,
-  getHomePageContent,
-  getAboutPageContent,
-  getPlatformPageContent,
-  getPublicHealthPageContent,
-  getResourcesPageContent,
   getBlogPosts,
 } from "./queries";
 import { resolveMediaUrl } from "./resolve-media-url";
@@ -41,7 +36,16 @@ import type {
   Partner as CmsPartner,
   ShortVideo as CmsShortVideo,
   TeamMember as CmsTeamMember,
+  Config,
 } from "@/payload-types";
+
+type GlobalSlug = keyof Config["globals"];
+
+async function getSectionGlobal<S extends GlobalSlug>(
+  slug: S,
+): Promise<Config["globals"][S] | null> {
+  return getGlobal<Config["globals"][S] | null>(slug, null);
+}
 
 function mergeCta(
   cms?: { heading?: string | null; description?: string | null; buttons?: CtaButton[] | null } | null,
@@ -92,8 +96,28 @@ function mapGrants(docs: CmsGrantAward[]): GrantAward[] {
 }
 
 export async function getHomePageData(): Promise<HomePageData> {
-  const [page, modules, gaps, partners, newsArticles] = await Promise.all([
-    getHomePageContent(),
+  const [
+    hero,
+    whoWeAre,
+    ecosystemChallenges,
+    ecosystemGapsSection,
+    partnersSection,
+    securitySection,
+    newsSection,
+    ctaSection,
+    modules,
+    gaps,
+    partners,
+    newsArticles,
+  ] = await Promise.all([
+    getSectionGlobal("home-hero"),
+    getSectionGlobal("home-who-we-are"),
+    getSectionGlobal("home-ecosystem-challenges"),
+    getSectionGlobal("home-ecosystem-gaps"),
+    getSectionGlobal("home-partners"),
+    getSectionGlobal("home-security"),
+    getSectionGlobal("home-news"),
+    getSectionGlobal("home-cta"),
     getCollection<CmsEcosystemModule>("ecosystem-modules", [] as CmsEcosystemModule[]),
     getCollection<CmsEcosystemGap>("ecosystem-gaps", [] as CmsEcosystemGap[]),
     getCollection<CmsPartner>("partners", [] as CmsPartner[]),
@@ -103,8 +127,8 @@ export async function getHomePageData(): Promise<HomePageData> {
   const defaults = DEFAULT_HOME_PAGE;
 
   const heroSlides: HeroSlide[] =
-    page?.heroSlides?.length ?
-      page.heroSlides.map((s) => ({
+    hero?.heroSlides?.length ?
+      hero.heroSlides.map((s) => ({
         id: s.id,
         title: s.title,
         body: s.body,
@@ -154,10 +178,10 @@ export async function getHomePageData(): Promise<HomePageData> {
   return {
     heroSlides,
     whoWeAre: {
-      eyebrow: page?.whoWeAre?.eyebrow || defaults.whoWeAre.eyebrow,
+      eyebrow: whoWeAre?.eyebrow || defaults.whoWeAre.eyebrow,
       paragraphs:
-        page?.whoWeAre?.paragraphs?.length ?
-          page.whoWeAre.paragraphs
+        whoWeAre?.paragraphs?.length ?
+          whoWeAre.paragraphs
             .filter((p) => p.text)
             .map((p) => ({
               text: p.text,
@@ -166,31 +190,31 @@ export async function getHomePageData(): Promise<HomePageData> {
         : defaults.whoWeAre.paragraphs,
     },
     ecosystemChallenges: {
-      heading: page?.ecosystemChallenges?.heading || defaults.ecosystemChallenges.heading,
-      description: page?.ecosystemChallenges?.description || defaults.ecosystemChallenges.description,
+      heading: ecosystemChallenges?.heading || defaults.ecosystemChallenges.heading,
+      description: ecosystemChallenges?.description || defaults.ecosystemChallenges.description,
     },
     ecosystemGapsSection: {
-      heading: page?.ecosystemGaps?.heading || defaults.ecosystemGapsSection.heading,
-      description: page?.ecosystemGaps?.description || defaults.ecosystemGapsSection.description,
+      heading: ecosystemGapsSection?.heading || defaults.ecosystemGapsSection.heading,
+      description: ecosystemGapsSection?.description || defaults.ecosystemGapsSection.description,
     },
     partnersSection: {
-      heading: page?.partners?.heading || defaults.partnersSection.heading,
-      description: page?.partners?.description || defaults.partnersSection.description,
+      heading: partnersSection?.heading || defaults.partnersSection.heading,
+      description: partnersSection?.description || defaults.partnersSection.description,
     },
     securitySection: {
-      heading: page?.security?.heading || defaults.securitySection.heading,
-      description: page?.security?.description || defaults.securitySection.description,
+      heading: securitySection?.heading || defaults.securitySection.heading,
+      description: securitySection?.description || defaults.securitySection.description,
       features:
-        page?.security?.features?.map((f) => f.text).filter(Boolean) ||
+        securitySection?.features?.map((f) => f.text).filter(Boolean) ||
         defaults.securitySection.features,
     },
     newsSection: {
-      heading: page?.news?.heading || defaults.newsSection.heading,
-      description: page?.news?.description || defaults.newsSection.description,
-      ctaLabel: page?.news?.ctaLabel || defaults.newsSection.ctaLabel,
-      ctaHref: page?.news?.ctaHref || defaults.newsSection.ctaHref,
+      heading: newsSection?.heading || defaults.newsSection.heading,
+      description: newsSection?.description || defaults.newsSection.description,
+      ctaLabel: newsSection?.ctaLabel || defaults.newsSection.ctaLabel,
+      ctaHref: newsSection?.ctaHref || defaults.newsSection.ctaHref,
     },
-    cta: mergeCta(page?.cta, defaults.cta),
+    cta: mergeCta(ctaSection, defaults.cta),
     modules: cmsModules.length ? cmsModules : defaults.modules,
     gaps: cmsGaps.length ? cmsGaps : defaults.gaps,
     partners: cmsPartners.filter((p) => p.logo).length ? cmsPartners.filter((p) => p.logo) : defaults.partners,
@@ -200,14 +224,20 @@ export async function getHomePageData(): Promise<HomePageData> {
 }
 
 export async function getAboutPageData(): Promise<AboutPageData> {
-  const [page, teamDocs, grantDocs] = await Promise.all([
-    getAboutPageContent(),
-    getCollection<CmsTeamMember>("team-members", [] as CmsTeamMember[]),
-    getCollection<CmsGrantAward>("grants-awards", [] as CmsGrantAward[]),
-  ]);
+  const [hero, vision, foundations, leadership, grants, cta, teamDocs, grantDocs] =
+    await Promise.all([
+      getSectionGlobal("about-hero"),
+      getSectionGlobal("about-vision"),
+      getSectionGlobal("about-foundations"),
+      getSectionGlobal("about-leadership"),
+      getSectionGlobal("about-grants"),
+      getSectionGlobal("about-cta"),
+      getCollection<CmsTeamMember>("team-members", [] as CmsTeamMember[]),
+      getCollection<CmsGrantAward>("grants-awards", [] as CmsGrantAward[]),
+    ]);
 
   const defaults = DEFAULT_ABOUT_PAGE;
-  const cmsTitle = page?.hero?.title ?? "";
+  const cmsTitle = hero?.title ?? "";
   const titleParts = cmsTitle.includes("For") ? cmsTitle.split(/\s+For\s+/) : [cmsTitle, ""];
 
   const team = teamDocs.length ? mapTeamMembers(teamDocs) : defaults.team;
@@ -217,45 +247,54 @@ export async function getAboutPageData(): Promise<AboutPageData> {
     hero: {
       titleLine1: titleParts[0] || defaults.hero.titleLine1,
       titleHighlight: titleParts[1] || defaults.hero.titleHighlight,
-      subtitle: page?.hero?.subtitle || defaults.hero.subtitle,
-      ctaLabel: page?.hero?.ctaLabel || defaults.hero.ctaLabel,
-      ctaHref: page?.hero?.ctaHref || defaults.hero.ctaHref,
-      labels:
-        page?.hero?.labels?.map((l) => l.label).filter(Boolean) || defaults.hero.labels,
+      subtitle: hero?.subtitle || defaults.hero.subtitle,
+      ctaLabel: hero?.ctaLabel || defaults.hero.ctaLabel,
+      ctaHref: hero?.ctaHref || defaults.hero.ctaHref,
+      labels: hero?.labels?.map((l) => l.label).filter(Boolean) || defaults.hero.labels,
     },
     vision: {
       eyebrow: defaults.vision.eyebrow,
-      heading: page?.vision?.heading || defaults.vision.heading,
+      heading: vision?.heading || defaults.vision.heading,
     },
     foundations:
-      page?.foundations?.length ?
-        page.foundations.map((f, i) => ({
+      foundations?.items?.length ?
+        foundations.items.map((f, i) => ({
           index: String(i + 1).padStart(2, "0"),
           title: f.title,
           body: f.body,
         }))
       : defaults.foundations,
     leadership: {
-      eyebrow: page?.leadership?.eyebrow || defaults.leadership.eyebrow,
-      heading: page?.leadership?.heading || defaults.leadership.heading,
-      subtitle: page?.leadership?.subtitle || defaults.leadership.subtitle,
+      eyebrow: leadership?.eyebrow || defaults.leadership.eyebrow,
+      heading: leadership?.heading || defaults.leadership.heading,
+      subtitle: leadership?.subtitle || defaults.leadership.subtitle,
     },
     grants: {
-      eyebrow: page?.grants?.eyebrow || defaults.grants.eyebrow,
-      heading: page?.grants?.heading || defaults.grants.heading,
-      description: page?.grants?.description || defaults.grants.description,
+      eyebrow: grants?.eyebrow || defaults.grants.eyebrow,
+      heading: grants?.heading || defaults.grants.heading,
+      description: grants?.description || defaults.grants.description,
     },
-    cta: mergeCta(page?.cta, defaults.cta),
+    cta: mergeCta(cta, defaults.cta),
     team,
     grantItems,
   };
 }
 
 export async function getPlatformPageData(): Promise<PlatformPageData> {
-  const page = await getPlatformPageContent();
+  const [hero, featuresSection, clinicalIntelligence, longitudinalCare, infrastructure, security, cta] =
+    await Promise.all([
+      getSectionGlobal("platform-hero"),
+      getSectionGlobal("platform-features"),
+      getSectionGlobal("platform-clinical-intelligence"),
+      getSectionGlobal("platform-longitudinal-care"),
+      getSectionGlobal("platform-infrastructure"),
+      getSectionGlobal("platform-security"),
+      getSectionGlobal("platform-cta"),
+    ]);
+
   const defaults = DEFAULT_PLATFORM_PAGE;
 
-  const cmsFeatures = page?.featuresSection?.features;
+  const cmsFeatures = featuresSection?.features;
   const features =
     cmsFeatures?.length ?
       cmsFeatures.map((f, i) => ({
@@ -273,25 +312,25 @@ export async function getPlatformPageData(): Promise<PlatformPageData> {
 
   return {
     hero: {
-      title: page?.hero?.title || defaults.hero.title,
-      subtitle: page?.hero?.subtitle || defaults.hero.subtitle,
-      ctaLabel: page?.hero?.ctaLabel || defaults.hero.ctaLabel,
-      ctaHref: page?.hero?.ctaHref || defaults.hero.ctaHref,
-      image: resolveMediaUrl(page?.hero?.image, page?.hero?.imageUrl) || defaults.hero.image,
+      title: hero?.title || defaults.hero.title,
+      subtitle: hero?.subtitle || defaults.hero.subtitle,
+      ctaLabel: hero?.ctaLabel || defaults.hero.ctaLabel,
+      ctaHref: hero?.ctaHref || defaults.hero.ctaHref,
+      image: resolveMediaUrl(hero?.image, hero?.imageUrl) || defaults.hero.image,
     },
     featuresSection: {
-      eyebrow: page?.featuresSection?.eyebrow || defaults.featuresSection.eyebrow,
-      heading: page?.featuresSection?.heading || defaults.featuresSection.heading,
-      description: page?.featuresSection?.description || defaults.featuresSection.description,
+      eyebrow: featuresSection?.eyebrow || defaults.featuresSection.eyebrow,
+      heading: featuresSection?.heading || defaults.featuresSection.heading,
+      description: featuresSection?.description || defaults.featuresSection.description,
       features,
     },
     clinicalIntelligence: {
-      eyebrow: page?.clinicalIntelligence?.eyebrow || defaults.clinicalIntelligence.eyebrow,
-      heading: page?.clinicalIntelligence?.heading || defaults.clinicalIntelligence.heading,
-      description: page?.clinicalIntelligence?.description || defaults.clinicalIntelligence.description,
+      eyebrow: clinicalIntelligence?.eyebrow || defaults.clinicalIntelligence.eyebrow,
+      heading: clinicalIntelligence?.heading || defaults.clinicalIntelligence.heading,
+      description: clinicalIntelligence?.description || defaults.clinicalIntelligence.description,
       capabilities:
-        page?.clinicalIntelligence?.capabilities?.length ?
-          page.clinicalIntelligence.capabilities.map((c, i) => ({
+        clinicalIntelligence?.capabilities?.length ?
+          clinicalIntelligence.capabilities.map((c, i) => ({
             number: String(i + 1).padStart(2, "0"),
             title: c.title,
             description: c.description,
@@ -300,12 +339,12 @@ export async function getPlatformPageData(): Promise<PlatformPageData> {
         : defaults.clinicalIntelligence.capabilities,
     },
     longitudinalCare: {
-      eyebrow: page?.longitudinalCare?.eyebrow || defaults.longitudinalCare.eyebrow,
-      heading: page?.longitudinalCare?.heading || defaults.longitudinalCare.heading,
-      description: page?.longitudinalCare?.description || defaults.longitudinalCare.description,
+      eyebrow: longitudinalCare?.eyebrow || defaults.longitudinalCare.eyebrow,
+      heading: longitudinalCare?.heading || defaults.longitudinalCare.heading,
+      description: longitudinalCare?.description || defaults.longitudinalCare.description,
       columns:
-        page?.longitudinalCare?.columns?.length ?
-          page.longitudinalCare.columns.map((c, i) => ({
+        longitudinalCare?.columns?.length ?
+          longitudinalCare.columns.map((c, i) => ({
             id: `column-${i}`,
             title: c.title,
             description: c.description,
@@ -314,97 +353,105 @@ export async function getPlatformPageData(): Promise<PlatformPageData> {
         : defaults.longitudinalCare.columns,
     },
     infrastructure: {
-      eyebrow: page?.infrastructure?.eyebrow || defaults.infrastructure.eyebrow,
-      heading: page?.infrastructure?.heading || defaults.infrastructure.heading,
-      description: page?.infrastructure?.description || defaults.infrastructure.description,
+      eyebrow: infrastructure?.eyebrow || defaults.infrastructure.eyebrow,
+      heading: infrastructure?.heading || defaults.infrastructure.heading,
+      description: infrastructure?.description || defaults.infrastructure.description,
       integrationTags:
-        page?.infrastructure?.integrationTags?.map((t) => t.tag).filter(Boolean) ||
+        infrastructure?.integrationTags?.map((t) => t.tag).filter(Boolean) ||
         defaults.infrastructure.integrationTags,
-      integrationsTitle: page?.infrastructure?.integrationsTitle || defaults.infrastructure.integrationsTitle,
+      integrationsTitle: infrastructure?.integrationsTitle || defaults.infrastructure.integrationsTitle,
       integrationsDescription:
-        page?.infrastructure?.integrationsDescription || defaults.infrastructure.integrationsDescription,
-      deploymentTitle: page?.infrastructure?.deploymentTitle || defaults.infrastructure.deploymentTitle,
+        infrastructure?.integrationsDescription || defaults.infrastructure.integrationsDescription,
+      deploymentTitle: infrastructure?.deploymentTitle || defaults.infrastructure.deploymentTitle,
       deploymentDescription:
-        page?.infrastructure?.deploymentDescription || defaults.infrastructure.deploymentDescription,
+        infrastructure?.deploymentDescription || defaults.infrastructure.deploymentDescription,
       deploymentOptions:
-        page?.infrastructure?.deploymentOptions?.length ?
-          page.infrastructure.deploymentOptions.map((o) => ({
+        infrastructure?.deploymentOptions?.length ?
+          infrastructure.deploymentOptions.map((o) => ({
             title: o.title,
             description: o.description,
           }))
         : defaults.infrastructure.deploymentOptions,
     },
     security: {
-      eyebrow: page?.security?.eyebrow || defaults.security.eyebrow,
-      heading: page?.security?.heading || defaults.security.heading,
-      description: page?.security?.description || defaults.security.description,
+      eyebrow: security?.eyebrow || defaults.security.eyebrow,
+      heading: security?.heading || defaults.security.heading,
+      description: security?.description || defaults.security.description,
       cards:
-        page?.security?.cards?.length ?
-          page.security.cards.map((c) => ({ title: c.title, description: c.description }))
+        security?.cards?.length ?
+          security.cards.map((c) => ({ title: c.title, description: c.description }))
         : defaults.security.cards,
     },
-    cta: mergeCta(page?.cta, defaults.cta),
+    cta: mergeCta(cta, defaults.cta),
   };
 }
 
 export async function getPublicHealthPageData(): Promise<PublicHealthPageData> {
-  const page = await getPublicHealthPageContent();
+  const [hero, impact, threeTier, architecture, cta] = await Promise.all([
+    getSectionGlobal("public-health-hero"),
+    getSectionGlobal("public-health-impact"),
+    getSectionGlobal("public-health-three-tier"),
+    getSectionGlobal("public-health-architecture"),
+    getSectionGlobal("public-health-cta"),
+  ]);
+
   const defaults = DEFAULT_PUBLIC_HEALTH_PAGE;
 
-  const cmsTitle = page?.hero?.title ?? "";
+  const cmsTitle = hero?.title ?? "";
   const titleLines = cmsTitle.includes("\n") ? cmsTitle.split("\n") : cmsTitle.split(" for ");
 
   return {
     hero: {
       titleLine1: titleLines[0]?.trim() || defaults.hero.titleLine1,
       titleLine2: titleLines[1]?.trim() || defaults.hero.titleLine2,
-      subtitle: page?.hero?.subtitle || defaults.hero.subtitle,
-      image: resolveMediaUrl(page?.hero?.image, page?.hero?.imageUrl) || defaults.hero.image,
+      subtitle: hero?.subtitle || defaults.hero.subtitle,
+      image: resolveMediaUrl(hero?.image, hero?.imageUrl) || defaults.hero.image,
     },
     impact: {
       eyebrow: defaults.impact.eyebrow,
-      heading: page?.impact?.heading || defaults.impact.heading,
-      description: page?.impact?.description || defaults.impact.description,
+      heading: impact?.heading || defaults.impact.heading,
+      description: impact?.description || defaults.impact.description,
       features:
-        page?.impact?.features?.length ?
-          page.impact.features.map((f, i) => ({
-            number: String(i + 1).padStart(2, "0"),
-            category: "",
-            title: f.title,
-            description: f.description,
-          })).map((f, i) => ({
-            ...defaults.impact.features[i],
-            ...f,
-            title: f.title || defaults.impact.features[i]?.title || "",
-          }))
+        impact?.features?.length ?
+          impact.features
+            .map((f, i) => ({
+              number: String(i + 1).padStart(2, "0"),
+              category: "",
+              title: f.title,
+              description: f.description,
+            }))
+            .map((f, i) => ({
+              ...defaults.impact.features[i],
+              ...f,
+              title: f.title || defaults.impact.features[i]?.title || "",
+            }))
         : defaults.impact.features,
     },
     threeTier: {
       eyebrow: defaults.threeTier.eyebrow,
-      heading: page?.threeTier?.heading || defaults.threeTier.heading,
-      description: page?.threeTier?.description || defaults.threeTier.description,
+      heading: threeTier?.heading || defaults.threeTier.heading,
+      description: threeTier?.description || defaults.threeTier.description,
       tiers:
-        page?.threeTier?.tiers?.length ?
-          page.threeTier.tiers.map((t, i) => ({
+        threeTier?.tiers?.length ?
+          threeTier.tiers.map((t, i) => ({
             id: defaults.threeTier.tiers[i]?.id ?? `tier-${i}`,
             tabLabel: t.bannerLabel || defaults.threeTier.tiers[i]?.tabLabel || "",
             bannerLabel: t.bannerLabel,
             title: t.bannerLabel,
             happens: t.happens?.map((h) => h.item).filter(Boolean) || [],
             dataFlows: t.dataFlows?.map((d) => d.item).filter(Boolean) || [],
-            users:
-              t.users?.map((u) => ({ role: u.role, description: u.description })) || [],
+            users: t.users?.map((u) => ({ role: u.role, description: u.description })) || [],
           }))
         : defaults.threeTier.tiers,
     },
     architecture: {
       eyebrow: defaults.architecture.eyebrow,
-      heading: page?.architecture?.heading || defaults.architecture.heading,
-      description: page?.architecture?.description || defaults.architecture.description,
+      heading: architecture?.heading || defaults.architecture.heading,
+      description: architecture?.description || defaults.architecture.description,
       classificationLabel: defaults.architecture.classificationLabel,
       classifications:
-        page?.architecture?.classifications?.length ?
-          page.architecture.classifications.map((c, i) => ({
+        architecture?.classifications?.length ?
+          architecture.classifications.map((c, i) => ({
             id: defaults.architecture.classifications[i]?.id ?? `class-${i}`,
             level: c.level,
             timeBadge: c.timeBadge || undefined,
@@ -414,13 +461,27 @@ export async function getPublicHealthPageData(): Promise<PublicHealthPageData> {
           }))
         : defaults.architecture.classifications,
     },
-    cta: mergeCta(page?.cta, defaults.cta),
+    cta: mergeCta(cta, defaults.cta),
   };
 }
 
 export async function getResourcesPageData(): Promise<ResourcesPageData & { blogPosts: BlogPost[] }> {
-  const [page, featuredVideos, shortVideos, externalArticles, blogPosts] = await Promise.all([
-    getResourcesPageContent(),
+  const [
+    hero,
+    filterTabsSection,
+    blogsSection,
+    blogListing,
+    newsletter,
+    featuredVideos,
+    shortVideos,
+    externalArticles,
+    blogPosts,
+  ] = await Promise.all([
+    getSectionGlobal("resources-hero"),
+    getSectionGlobal("resources-filter-tabs"),
+    getSectionGlobal("resources-blogs-section"),
+    getSectionGlobal("resources-blog-listing"),
+    getSectionGlobal("resources-newsletter"),
     getCollection<CmsFeaturedVideo>("featured-videos", [] as CmsFeaturedVideo[]),
     getCollection<CmsShortVideo>("short-videos", [] as CmsShortVideo[]),
     getCollection<CmsExternalArticle>("external-articles", [] as CmsExternalArticle[]),
@@ -432,32 +493,32 @@ export async function getResourcesPageData(): Promise<ResourcesPageData & { blog
 
   return {
     hero: {
-      title: page?.hero?.title || defaults.hero.title,
-      subtitle: page?.hero?.subtitle || defaults.hero.subtitle,
+      title: hero?.title || defaults.hero.title,
+      subtitle: hero?.subtitle || defaults.hero.subtitle,
       description: defaults.hero.description,
-      image: resolveMediaUrl(page?.hero?.image, page?.hero?.imageUrl) || defaults.hero.image,
+      image: resolveMediaUrl(hero?.image, hero?.imageUrl) || defaults.hero.image,
     },
     filterTabs:
-      page?.filterTabs?.map((t) => t.label).filter(Boolean) || defaults.filterTabs,
+      filterTabsSection?.filterTabs?.map((t) => t.label).filter(Boolean) || defaults.filterTabs,
     blogsSection: {
-      heading: page?.blogsSection?.heading || defaults.blogsSection.heading,
-      seeAllLabel: page?.blogsSection?.seeAllLabel || defaults.blogsSection.seeAllLabel,
-      seeAllHref: page?.blogsSection?.seeAllHref || defaults.blogsSection.seeAllHref,
+      heading: blogsSection?.heading || defaults.blogsSection.heading,
+      seeAllLabel: blogsSection?.seeAllLabel || defaults.blogsSection.seeAllLabel,
+      seeAllHref: blogsSection?.seeAllHref || defaults.blogsSection.seeAllHref,
     },
     blogListing: {
-      title: page?.blogListing?.title || defaults.blogListing.title,
-      metaDescription: page?.blogListing?.metaDescription || defaults.blogListing.metaDescription,
+      title: blogListing?.title || defaults.blogListing.title,
+      metaDescription: blogListing?.metaDescription || defaults.blogListing.metaDescription,
       eyebrow: defaults.blogListing.eyebrow,
-      heading: page?.blogListing?.heading || defaults.blogListing.heading,
-      description: page?.blogListing?.description || defaults.blogListing.description,
-      backLabel: page?.blogListing?.backLabel || defaults.blogListing.backLabel,
-      backHref: page?.blogListing?.backHref || defaults.blogListing.backHref,
+      heading: blogListing?.heading || defaults.blogListing.heading,
+      description: blogListing?.description || defaults.blogListing.description,
+      backLabel: blogListing?.backLabel || defaults.blogListing.backLabel,
+      backHref: blogListing?.backHref || defaults.blogListing.backHref,
     },
     newsletterCta: {
-      heading: page?.newsletterCta?.heading || defaults.newsletterCta.heading,
-      description: page?.newsletterCta?.description || defaults.newsletterCta.description,
-      buttonLabel: page?.newsletterCta?.buttonLabel || defaults.newsletterCta.buttonLabel,
-      buttonHref: page?.newsletterCta?.buttonHref || defaults.newsletterCta.buttonHref,
+      heading: newsletter?.heading || defaults.newsletterCta.heading,
+      description: newsletter?.description || defaults.newsletterCta.description,
+      buttonLabel: newsletter?.buttonLabel || defaults.newsletterCta.buttonLabel,
+      buttonHref: newsletter?.buttonHref || defaults.newsletterCta.buttonHref,
     },
     featuredVideo:
       featured ?

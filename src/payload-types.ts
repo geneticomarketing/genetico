@@ -112,22 +112,74 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
-    'home-page': HomePage;
-    'about-page': AboutPage;
-    'platform-page': PlatformPage;
-    'public-health-page': PublicHealthPage;
-    'resources-page': ResourcesPage;
+    'home-hero': HomeHero;
+    'home-who-we-are': HomeWhoWeAre;
+    'home-ecosystem-challenges': HomeEcosystemChallenge;
+    'home-ecosystem-gaps': HomeEcosystemGap;
+    'home-partners': HomePartner;
+    'home-security': HomeSecurity;
+    'home-news': HomeNew;
+    'home-cta': HomeCta;
+    'about-hero': AboutHero;
+    'about-vision': AboutVision;
+    'about-foundations': AboutFoundation;
+    'about-leadership': AboutLeadership;
+    'about-grants': AboutGrant;
+    'about-cta': AboutCta;
+    'platform-hero': PlatformHero;
+    'platform-features': PlatformFeature;
+    'platform-clinical-intelligence': PlatformClinicalIntelligence;
+    'platform-longitudinal-care': PlatformLongitudinalCare;
+    'platform-infrastructure': PlatformInfrastructure;
+    'platform-security': PlatformSecurity;
+    'platform-cta': PlatformCta;
+    'public-health-hero': PublicHealthHero;
+    'public-health-impact': PublicHealthImpact;
+    'public-health-three-tier': PublicHealthThreeTier;
+    'public-health-architecture': PublicHealthArchitecture;
+    'public-health-cta': PublicHealthCta;
+    'resources-hero': ResourcesHero;
+    'resources-filter-tabs': ResourcesFilterTab;
+    'resources-blogs-section': ResourcesBlogsSection;
+    'resources-blog-listing': ResourcesBlogListing;
+    'resources-newsletter': ResourcesNewsletter;
     'utility-pages': UtilityPage;
     'site-settings': SiteSetting;
     navigation: Navigation;
     footer: Footer;
   };
   globalsSelect: {
-    'home-page': HomePageSelect<false> | HomePageSelect<true>;
-    'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
-    'platform-page': PlatformPageSelect<false> | PlatformPageSelect<true>;
-    'public-health-page': PublicHealthPageSelect<false> | PublicHealthPageSelect<true>;
-    'resources-page': ResourcesPageSelect<false> | ResourcesPageSelect<true>;
+    'home-hero': HomeHeroSelect<false> | HomeHeroSelect<true>;
+    'home-who-we-are': HomeWhoWeAreSelect<false> | HomeWhoWeAreSelect<true>;
+    'home-ecosystem-challenges': HomeEcosystemChallengesSelect<false> | HomeEcosystemChallengesSelect<true>;
+    'home-ecosystem-gaps': HomeEcosystemGapsSelect<false> | HomeEcosystemGapsSelect<true>;
+    'home-partners': HomePartnersSelect<false> | HomePartnersSelect<true>;
+    'home-security': HomeSecuritySelect<false> | HomeSecuritySelect<true>;
+    'home-news': HomeNewsSelect<false> | HomeNewsSelect<true>;
+    'home-cta': HomeCtaSelect<false> | HomeCtaSelect<true>;
+    'about-hero': AboutHeroSelect<false> | AboutHeroSelect<true>;
+    'about-vision': AboutVisionSelect<false> | AboutVisionSelect<true>;
+    'about-foundations': AboutFoundationsSelect<false> | AboutFoundationsSelect<true>;
+    'about-leadership': AboutLeadershipSelect<false> | AboutLeadershipSelect<true>;
+    'about-grants': AboutGrantsSelect<false> | AboutGrantsSelect<true>;
+    'about-cta': AboutCtaSelect<false> | AboutCtaSelect<true>;
+    'platform-hero': PlatformHeroSelect<false> | PlatformHeroSelect<true>;
+    'platform-features': PlatformFeaturesSelect<false> | PlatformFeaturesSelect<true>;
+    'platform-clinical-intelligence': PlatformClinicalIntelligenceSelect<false> | PlatformClinicalIntelligenceSelect<true>;
+    'platform-longitudinal-care': PlatformLongitudinalCareSelect<false> | PlatformLongitudinalCareSelect<true>;
+    'platform-infrastructure': PlatformInfrastructureSelect<false> | PlatformInfrastructureSelect<true>;
+    'platform-security': PlatformSecuritySelect<false> | PlatformSecuritySelect<true>;
+    'platform-cta': PlatformCtaSelect<false> | PlatformCtaSelect<true>;
+    'public-health-hero': PublicHealthHeroSelect<false> | PublicHealthHeroSelect<true>;
+    'public-health-impact': PublicHealthImpactSelect<false> | PublicHealthImpactSelect<true>;
+    'public-health-three-tier': PublicHealthThreeTierSelect<false> | PublicHealthThreeTierSelect<true>;
+    'public-health-architecture': PublicHealthArchitectureSelect<false> | PublicHealthArchitectureSelect<true>;
+    'public-health-cta': PublicHealthCtaSelect<false> | PublicHealthCtaSelect<true>;
+    'resources-hero': ResourcesHeroSelect<false> | ResourcesHeroSelect<true>;
+    'resources-filter-tabs': ResourcesFilterTabsSelect<false> | ResourcesFilterTabsSelect<true>;
+    'resources-blogs-section': ResourcesBlogsSectionSelect<false> | ResourcesBlogsSectionSelect<true>;
+    'resources-blog-listing': ResourcesBlogListingSelect<false> | ResourcesBlogListingSelect<true>;
+    'resources-newsletter': ResourcesNewsletterSelect<false> | ResourcesNewsletterSelect<true>;
     'utility-pages': UtilityPagesSelect<false> | UtilityPagesSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
@@ -1015,9 +1067,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-page".
+ * via the `definition` "home-hero".
  */
-export interface HomePage {
+export interface HomeHero {
   id: number;
   heroSlides?:
     | {
@@ -1033,371 +1085,549 @@ export interface HomePage {
         image?: string | null;
       }[]
     | null;
-  whoWeAre?: {
-    eyebrow?: string | null;
-    paragraphs?:
-      | {
-          text: string;
-          /**
-           * Add exact phrases from the paragraph above to highlight in blue on the website
-           */
-          highlights?:
-            | {
-                phrase: string;
-                id?: string | null;
-              }[]
-            | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  ecosystemChallenges?: {
-    heading?: string | null;
-    description?: string | null;
-  };
-  ecosystemGaps?: {
-    heading?: string | null;
-    description?: string | null;
-  };
-  partners?: {
-    heading?: string | null;
-    description?: string | null;
-  };
-  security?: {
-    heading?: string | null;
-    description?: string | null;
-    features?:
-      | {
-          text: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  news?: {
-    heading?: string | null;
-    description?: string | null;
-    ctaLabel?: string | null;
-    ctaHref?: string | null;
-  };
-  cta?: {
-    heading?: string | null;
-    description?: string | null;
-    buttons?:
-      | {
-          label: string;
-          href: string;
-          variant?: ('primary' | 'secondary') | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-page".
+ * via the `definition` "home-who-we-are".
  */
-export interface AboutPage {
+export interface HomeWhoWeAre {
   id: number;
-  hero: {
-    title: string;
-    subtitle?: string | null;
-    ctaLabel?: string | null;
-    ctaHref?: string | null;
-    labels?:
-      | {
-          label: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  vision?: {
-    heading?: string | null;
-  };
-  foundations?:
+  eyebrow?: string | null;
+  paragraphs?:
+    | {
+        text: string;
+        /**
+         * Add exact phrases from the paragraph above to highlight in blue on the website
+         */
+        highlights?:
+          | {
+              phrase: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-ecosystem-challenges".
+ */
+export interface HomeEcosystemChallenge {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-ecosystem-gaps".
+ */
+export interface HomeEcosystemGap {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-partners".
+ */
+export interface HomePartner {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-security".
+ */
+export interface HomeSecurity {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  features?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-news".
+ */
+export interface HomeNew {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-cta".
+ */
+export interface HomeCta {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  buttons?:
+    | {
+        label: string;
+        href: string;
+        variant?: ('primary' | 'secondary') | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-hero".
+ */
+export interface AboutHero {
+  id: number;
+  title: string;
+  subtitle?: string | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  labels?:
+    | {
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-vision".
+ */
+export interface AboutVision {
+  id: number;
+  heading?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-foundations".
+ */
+export interface AboutFoundation {
+  id: number;
+  items?:
     | {
         title: string;
         body: string;
         id?: string | null;
       }[]
     | null;
-  leadership?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    subtitle?: string | null;
-  };
-  grants?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    description?: string | null;
-  };
-  cta?: {
-    heading?: string | null;
-    description?: string | null;
-    buttons?:
-      | {
-          label: string;
-          href: string;
-          variant?: ('primary' | 'secondary') | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "platform-page".
+ * via the `definition` "about-leadership".
  */
-export interface PlatformPage {
+export interface AboutLeadership {
   id: number;
-  hero: {
-    title: string;
-    subtitle?: string | null;
-    ctaLabel?: string | null;
-    ctaHref?: string | null;
-    image?: (number | null) | Media;
-    /**
-     * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
-     */
-    imageUrl?: string | null;
-  };
-  featuresSection?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    description?: string | null;
-    features?:
-      | {
-          category: string;
-          subheading?: string | null;
-          title: string;
-          description: string;
-          bullets?:
-            | {
-                item: string;
-                id?: string | null;
-              }[]
-            | null;
-          illustrationImage?: (number | null) | Media;
-          /**
-           * Fallback static illustration path if no upload is provided
-           */
-          illustration?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  clinicalIntelligence?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    description?: string | null;
-    capabilities?:
-      | {
-          title: string;
-          description: string;
-          badge?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  longitudinalCare?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    description?: string | null;
-    columns?:
-      | {
-          title: string;
-          description: string;
-          bullets?:
-            | {
-                item: string;
-                id?: string | null;
-              }[]
-            | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  infrastructure?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    description?: string | null;
-    integrationTags?:
-      | {
-          tag: string;
-          id?: string | null;
-        }[]
-      | null;
-    integrationsTitle?: string | null;
-    integrationsDescription?: string | null;
-    deploymentTitle?: string | null;
-    deploymentDescription?: string | null;
-    deploymentOptions?:
-      | {
-          title: string;
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  security?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    description?: string | null;
-    cards?:
-      | {
-          title: string;
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  cta?: {
-    heading?: string | null;
-    description?: string | null;
-    buttons?:
-      | {
-          label: string;
-          href: string;
-          variant?: ('primary' | 'secondary') | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  eyebrow?: string | null;
+  heading?: string | null;
+  subtitle?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "public-health-page".
+ * via the `definition` "about-grants".
  */
-export interface PublicHealthPage {
+export interface AboutGrant {
   id: number;
-  hero: {
-    title: string;
-    subtitle?: string | null;
-    image?: (number | null) | Media;
-    /**
-     * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
-     */
-    imageUrl?: string | null;
-  };
-  impact?: {
-    heading?: string | null;
-    description?: string | null;
-    features?:
-      | {
-          title: string;
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  threeTier?: {
-    heading?: string | null;
-    description?: string | null;
-    tiers?:
-      | {
-          bannerLabel: string;
-          happens?:
-            | {
-                item: string;
-                id?: string | null;
-              }[]
-            | null;
-          dataFlows?:
-            | {
-                item: string;
-                id?: string | null;
-              }[]
-            | null;
-          users?:
-            | {
-                role: string;
-                description: string;
-                id?: string | null;
-              }[]
-            | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  architecture?: {
-    heading?: string | null;
-    description?: string | null;
-    classifications?:
-      | {
-          level: string;
-          timeBadge?: string | null;
-          title: string;
-          description: string;
-          tags?:
-            | {
-                tag: string;
-                id?: string | null;
-              }[]
-            | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  cta?: {
-    heading?: string | null;
-    description?: string | null;
-    buttons?:
-      | {
-          label: string;
-          href: string;
-          variant?: ('primary' | 'secondary') | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "resources-page".
+ * via the `definition` "about-cta".
  */
-export interface ResourcesPage {
+export interface AboutCta {
   id: number;
-  hero: {
-    title: string;
-    subtitle?: string | null;
-    image?: (number | null) | Media;
-    /**
-     * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
-     */
-    imageUrl?: string | null;
-  };
+  heading?: string | null;
+  description?: string | null;
+  buttons?:
+    | {
+        label: string;
+        href: string;
+        variant?: ('primary' | 'secondary') | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-hero".
+ */
+export interface PlatformHero {
+  id: number;
+  title: string;
+  subtitle?: string | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  image?: (number | null) | Media;
+  /**
+   * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
+   */
+  imageUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-features".
+ */
+export interface PlatformFeature {
+  id: number;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  features?:
+    | {
+        category: string;
+        subheading?: string | null;
+        title: string;
+        description: string;
+        bullets?:
+          | {
+              item: string;
+              id?: string | null;
+            }[]
+          | null;
+        illustrationImage?: (number | null) | Media;
+        /**
+         * Fallback static illustration path if no upload is provided
+         */
+        illustration?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-clinical-intelligence".
+ */
+export interface PlatformClinicalIntelligence {
+  id: number;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  capabilities?:
+    | {
+        title: string;
+        description: string;
+        badge?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-longitudinal-care".
+ */
+export interface PlatformLongitudinalCare {
+  id: number;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  columns?:
+    | {
+        title: string;
+        description: string;
+        bullets?:
+          | {
+              item: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-infrastructure".
+ */
+export interface PlatformInfrastructure {
+  id: number;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  integrationTags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  integrationsTitle?: string | null;
+  integrationsDescription?: string | null;
+  deploymentTitle?: string | null;
+  deploymentDescription?: string | null;
+  deploymentOptions?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-security".
+ */
+export interface PlatformSecurity {
+  id: number;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  cards?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-cta".
+ */
+export interface PlatformCta {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  buttons?:
+    | {
+        label: string;
+        href: string;
+        variant?: ('primary' | 'secondary') | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-health-hero".
+ */
+export interface PublicHealthHero {
+  id: number;
+  title: string;
+  subtitle?: string | null;
+  image?: (number | null) | Media;
+  /**
+   * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
+   */
+  imageUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-health-impact".
+ */
+export interface PublicHealthImpact {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  features?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-health-three-tier".
+ */
+export interface PublicHealthThreeTier {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  tiers?:
+    | {
+        bannerLabel: string;
+        happens?:
+          | {
+              item: string;
+              id?: string | null;
+            }[]
+          | null;
+        dataFlows?:
+          | {
+              item: string;
+              id?: string | null;
+            }[]
+          | null;
+        users?:
+          | {
+              role: string;
+              description: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-health-architecture".
+ */
+export interface PublicHealthArchitecture {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  classifications?:
+    | {
+        level: string;
+        timeBadge?: string | null;
+        title: string;
+        description: string;
+        tags?:
+          | {
+              tag: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-health-cta".
+ */
+export interface PublicHealthCta {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  buttons?:
+    | {
+        label: string;
+        href: string;
+        variant?: ('primary' | 'secondary') | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-hero".
+ */
+export interface ResourcesHero {
+  id: number;
+  title: string;
+  subtitle?: string | null;
+  image?: (number | null) | Media;
+  /**
+   * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
+   */
+  imageUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-filter-tabs".
+ */
+export interface ResourcesFilterTab {
+  id: number;
   filterTabs?:
     | {
         label: string;
         id?: string | null;
       }[]
     | null;
-  blogsSection?: {
-    heading?: string | null;
-    seeAllLabel?: string | null;
-    seeAllHref?: string | null;
-  };
-  blogListing?: {
-    title?: string | null;
-    metaDescription?: string | null;
-    heading?: string | null;
-    description?: string | null;
-    backLabel?: string | null;
-    backHref?: string | null;
-  };
-  newsletterCta?: {
-    heading?: string | null;
-    description?: string | null;
-    buttonLabel?: string | null;
-    buttonHref?: string | null;
-  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-blogs-section".
+ */
+export interface ResourcesBlogsSection {
+  id: number;
+  heading?: string | null;
+  seeAllLabel?: string | null;
+  seeAllHref?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-blog-listing".
+ */
+export interface ResourcesBlogListing {
+  id: number;
+  title?: string | null;
+  metaDescription?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  backLabel?: string | null;
+  backHref?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-newsletter".
+ */
+export interface ResourcesNewsletter {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  buttonLabel?: string | null;
+  buttonHref?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1525,9 +1755,9 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-page_select".
+ * via the `definition` "home-hero_select".
  */
-export interface HomePageSelect<T extends boolean = true> {
+export interface HomeHeroSelect<T extends boolean = true> {
   heroSlides?:
     | T
     | {
@@ -1539,74 +1769,27 @@ export interface HomePageSelect<T extends boolean = true> {
         backgroundImage?: T;
         image?: T;
       };
-  whoWeAre?:
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-who-we-are_select".
+ */
+export interface HomeWhoWeAreSelect<T extends boolean = true> {
+  eyebrow?: T;
+  paragraphs?:
     | T
     | {
-        eyebrow?: T;
-        paragraphs?:
+        text?: T;
+        highlights?:
           | T
           | {
-              text?: T;
-              highlights?:
-                | T
-                | {
-                    phrase?: T;
-                    id?: T;
-                  };
+              phrase?: T;
               id?: T;
             };
-      };
-  ecosystemChallenges?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-      };
-  ecosystemGaps?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-      };
-  partners?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-      };
-  security?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        features?:
-          | T
-          | {
-              text?: T;
-              id?: T;
-            };
-      };
-  news?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        ctaLabel?: T;
-        ctaHref?: T;
-      };
-  cta?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        buttons?:
-          | T
-          | {
-              label?: T;
-              href?: T;
-              variant?: T;
-              id?: T;
-            };
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1614,62 +1797,169 @@ export interface HomePageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-page_select".
+ * via the `definition` "home-ecosystem-challenges_select".
  */
-export interface AboutPageSelect<T extends boolean = true> {
-  hero?:
+export interface HomeEcosystemChallengesSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-ecosystem-gaps_select".
+ */
+export interface HomeEcosystemGapsSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-partners_select".
+ */
+export interface HomePartnersSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-security_select".
+ */
+export interface HomeSecuritySelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  features?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        ctaLabel?: T;
-        ctaHref?: T;
-        labels?:
-          | T
-          | {
-              label?: T;
-              id?: T;
-            };
+        text?: T;
+        id?: T;
       };
-  vision?:
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-news_select".
+ */
+export interface HomeNewsSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  ctaLabel?: T;
+  ctaHref?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-cta_select".
+ */
+export interface HomeCtaSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  buttons?:
     | T
     | {
-        heading?: T;
+        label?: T;
+        href?: T;
+        variant?: T;
+        id?: T;
       };
-  foundations?:
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-hero_select".
+ */
+export interface AboutHeroSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  ctaLabel?: T;
+  ctaHref?: T;
+  labels?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-vision_select".
+ */
+export interface AboutVisionSelect<T extends boolean = true> {
+  heading?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-foundations_select".
+ */
+export interface AboutFoundationsSelect<T extends boolean = true> {
+  items?:
     | T
     | {
         title?: T;
         body?: T;
         id?: T;
       };
-  leadership?:
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-leadership_select".
+ */
+export interface AboutLeadershipSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  subtitle?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-grants_select".
+ */
+export interface AboutGrantsSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-cta_select".
+ */
+export interface AboutCtaSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  buttons?:
     | T
     | {
-        eyebrow?: T;
-        heading?: T;
-        subtitle?: T;
-      };
-  grants?:
-    | T
-    | {
-        eyebrow?: T;
-        heading?: T;
-        description?: T;
-      };
-  cta?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        buttons?:
-          | T
-          | {
-              label?: T;
-              href?: T;
-              variant?: T;
-              id?: T;
-            };
+        label?: T;
+        href?: T;
+        variant?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1677,129 +1967,248 @@ export interface AboutPageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "platform-page_select".
+ * via the `definition` "platform-hero_select".
  */
-export interface PlatformPageSelect<T extends boolean = true> {
-  hero?:
+export interface PlatformHeroSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  ctaLabel?: T;
+  ctaHref?: T;
+  image?: T;
+  imageUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-features_select".
+ */
+export interface PlatformFeaturesSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  features?:
+    | T
+    | {
+        category?: T;
+        subheading?: T;
+        title?: T;
+        description?: T;
+        bullets?:
+          | T
+          | {
+              item?: T;
+              id?: T;
+            };
+        illustrationImage?: T;
+        illustration?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-clinical-intelligence_select".
+ */
+export interface PlatformClinicalIntelligenceSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  capabilities?:
     | T
     | {
         title?: T;
-        subtitle?: T;
-        ctaLabel?: T;
-        ctaHref?: T;
-        image?: T;
-        imageUrl?: T;
+        description?: T;
+        badge?: T;
+        id?: T;
       };
-  featuresSection?:
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-longitudinal-care_select".
+ */
+export interface PlatformLongitudinalCareSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  columns?:
     | T
     | {
-        eyebrow?: T;
-        heading?: T;
+        title?: T;
         description?: T;
-        features?:
+        bullets?:
           | T
           | {
-              category?: T;
-              subheading?: T;
-              title?: T;
-              description?: T;
-              bullets?:
-                | T
-                | {
-                    item?: T;
-                    id?: T;
-                  };
-              illustrationImage?: T;
-              illustration?: T;
+              item?: T;
               id?: T;
             };
+        id?: T;
       };
-  clinicalIntelligence?:
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-infrastructure_select".
+ */
+export interface PlatformInfrastructureSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  integrationTags?:
     | T
     | {
-        eyebrow?: T;
-        heading?: T;
+        tag?: T;
+        id?: T;
+      };
+  integrationsTitle?: T;
+  integrationsDescription?: T;
+  deploymentTitle?: T;
+  deploymentDescription?: T;
+  deploymentOptions?:
+    | T
+    | {
+        title?: T;
         description?: T;
-        capabilities?:
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-security_select".
+ */
+export interface PlatformSecuritySelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  cards?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platform-cta_select".
+ */
+export interface PlatformCtaSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  buttons?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        variant?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-health-hero_select".
+ */
+export interface PublicHealthHeroSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  imageUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-health-impact_select".
+ */
+export interface PublicHealthImpactSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  features?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-health-three-tier_select".
+ */
+export interface PublicHealthThreeTierSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  tiers?:
+    | T
+    | {
+        bannerLabel?: T;
+        happens?:
           | T
           | {
-              title?: T;
-              description?: T;
-              badge?: T;
+              item?: T;
               id?: T;
             };
-      };
-  longitudinalCare?:
-    | T
-    | {
-        eyebrow?: T;
-        heading?: T;
-        description?: T;
-        columns?:
+        dataFlows?:
           | T
           | {
-              title?: T;
-              description?: T;
-              bullets?:
-                | T
-                | {
-                    item?: T;
-                    id?: T;
-                  };
+              item?: T;
               id?: T;
             };
+        users?:
+          | T
+          | {
+              role?: T;
+              description?: T;
+              id?: T;
+            };
+        id?: T;
       };
-  infrastructure?:
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "public-health-architecture_select".
+ */
+export interface PublicHealthArchitectureSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  classifications?:
     | T
     | {
-        eyebrow?: T;
-        heading?: T;
+        level?: T;
+        timeBadge?: T;
+        title?: T;
         description?: T;
-        integrationTags?:
+        tags?:
           | T
           | {
               tag?: T;
               id?: T;
             };
-        integrationsTitle?: T;
-        integrationsDescription?: T;
-        deploymentTitle?: T;
-        deploymentDescription?: T;
-        deploymentOptions?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              id?: T;
-            };
-      };
-  security?:
-    | T
-    | {
-        eyebrow?: T;
-        heading?: T;
-        description?: T;
-        cards?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              id?: T;
-            };
-      };
-  cta?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        buttons?:
-          | T
-          | {
-              label?: T;
-              href?: T;
-              variant?: T;
-              id?: T;
-            };
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1807,95 +2216,18 @@ export interface PlatformPageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "public-health-page_select".
+ * via the `definition` "public-health-cta_select".
  */
-export interface PublicHealthPageSelect<T extends boolean = true> {
-  hero?:
+export interface PublicHealthCtaSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  buttons?:
     | T
     | {
-        title?: T;
-        subtitle?: T;
-        image?: T;
-        imageUrl?: T;
-      };
-  impact?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        features?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              id?: T;
-            };
-      };
-  threeTier?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        tiers?:
-          | T
-          | {
-              bannerLabel?: T;
-              happens?:
-                | T
-                | {
-                    item?: T;
-                    id?: T;
-                  };
-              dataFlows?:
-                | T
-                | {
-                    item?: T;
-                    id?: T;
-                  };
-              users?:
-                | T
-                | {
-                    role?: T;
-                    description?: T;
-                    id?: T;
-                  };
-              id?: T;
-            };
-      };
-  architecture?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        classifications?:
-          | T
-          | {
-              level?: T;
-              timeBadge?: T;
-              title?: T;
-              description?: T;
-              tags?:
-                | T
-                | {
-                    tag?: T;
-                    id?: T;
-                  };
-              id?: T;
-            };
-      };
-  cta?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        buttons?:
-          | T
-          | {
-              label?: T;
-              href?: T;
-              variant?: T;
-              id?: T;
-            };
+        label?: T;
+        href?: T;
+        variant?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1903,48 +2235,68 @@ export interface PublicHealthPageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "resources-page_select".
+ * via the `definition` "resources-hero_select".
  */
-export interface ResourcesPageSelect<T extends boolean = true> {
-  hero?:
-    | T
-    | {
-        title?: T;
-        subtitle?: T;
-        image?: T;
-        imageUrl?: T;
-      };
+export interface ResourcesHeroSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  imageUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-filter-tabs_select".
+ */
+export interface ResourcesFilterTabsSelect<T extends boolean = true> {
   filterTabs?:
     | T
     | {
         label?: T;
         id?: T;
       };
-  blogsSection?:
-    | T
-    | {
-        heading?: T;
-        seeAllLabel?: T;
-        seeAllHref?: T;
-      };
-  blogListing?:
-    | T
-    | {
-        title?: T;
-        metaDescription?: T;
-        heading?: T;
-        description?: T;
-        backLabel?: T;
-        backHref?: T;
-      };
-  newsletterCta?:
-    | T
-    | {
-        heading?: T;
-        description?: T;
-        buttonLabel?: T;
-        buttonHref?: T;
-      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-blogs-section_select".
+ */
+export interface ResourcesBlogsSectionSelect<T extends boolean = true> {
+  heading?: T;
+  seeAllLabel?: T;
+  seeAllHref?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-blog-listing_select".
+ */
+export interface ResourcesBlogListingSelect<T extends boolean = true> {
+  title?: T;
+  metaDescription?: T;
+  heading?: T;
+  description?: T;
+  backLabel?: T;
+  backHref?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-newsletter_select".
+ */
+export interface ResourcesNewsletterSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  buttonLabel?: T;
+  buttonHref?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

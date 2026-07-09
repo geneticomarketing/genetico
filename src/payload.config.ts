@@ -19,14 +19,49 @@ import { EcosystemModules, EcosystemGaps } from "./payload/collections/Ecosystem
 import { FeaturedVideos, ShortVideos, ExternalArticles } from "./payload/collections/Resources";
 import { SolutionPages } from "./payload/collections/SolutionPages";
 import { LegalPages } from "./payload/collections/LegalPages";
-import { SiteSettings, Navigation, Footer, HomePage } from "./payload/globals/Site";
+import { SiteSettings, Navigation, Footer } from "./payload/globals/Site";
+import { UtilityPages } from "./payload/globals/Pages";
 import {
-  AboutPage,
-  PlatformPage,
-  PublicHealthPage,
-  ResourcesPage,
-  UtilityPages,
-} from "./payload/globals/Pages";
+  HomeHero,
+  HomeWhoWeAre,
+  HomeEcosystemChallenges,
+  HomeEcosystemGaps,
+  HomePartners,
+  HomeSecurity,
+  HomeNews,
+  HomeCta,
+} from "./payload/globals/sections/home";
+import {
+  AboutHero,
+  AboutVision,
+  AboutFoundations,
+  AboutLeadership,
+  AboutGrants,
+  AboutCta,
+} from "./payload/globals/sections/about";
+import {
+  PlatformHero,
+  PlatformFeatures,
+  PlatformClinicalIntelligence,
+  PlatformLongitudinalCare,
+  PlatformInfrastructure,
+  PlatformSecurity,
+  PlatformCta,
+} from "./payload/globals/sections/platform";
+import {
+  PublicHealthHero,
+  PublicHealthImpact,
+  PublicHealthThreeTier,
+  PublicHealthArchitecture,
+  PublicHealthCta,
+} from "./payload/globals/sections/public-health";
+import {
+  ResourcesHero,
+  ResourcesFilterTabs,
+  ResourcesBlogsSection,
+  ResourcesBlogListing,
+  ResourcesNewsletter,
+} from "./payload/globals/sections/resources";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -48,6 +83,16 @@ export default buildConfig({
     },
     components: {
       Nav: "@/payload/admin/Nav#GeneticoNav",
+    },
+    dashboard: {
+      widgets: [
+        {
+          slug: "collections",
+          Component: "@/payload/admin/widgets/CollectionCards#GeneticoCollectionCards",
+          minWidth: "full",
+        },
+      ],
+      defaultLayout: [{ widgetSlug: "collections", width: "full" }],
     },
   },
   collections: [
@@ -73,12 +118,43 @@ export default buildConfig({
     Users,
   ],
   globals: [
-    // Page content globals (ordered by site navigation)
-    HomePage,
-    AboutPage,
-    PlatformPage,
-    PublicHealthPage,
-    ResourcesPage,
+    // Home Page sections
+    HomeHero,
+    HomeWhoWeAre,
+    HomeEcosystemChallenges,
+    HomeEcosystemGaps,
+    HomePartners,
+    HomeSecurity,
+    HomeNews,
+    HomeCta,
+    // About Page sections
+    AboutHero,
+    AboutVision,
+    AboutFoundations,
+    AboutLeadership,
+    AboutGrants,
+    AboutCta,
+    // Platform Page sections
+    PlatformHero,
+    PlatformFeatures,
+    PlatformClinicalIntelligence,
+    PlatformLongitudinalCare,
+    PlatformInfrastructure,
+    PlatformSecurity,
+    PlatformCta,
+    // Solutions Page sections (includes Public Health)
+    PublicHealthHero,
+    PublicHealthImpact,
+    PublicHealthThreeTier,
+    PublicHealthArchitecture,
+    PublicHealthCta,
+    // Resources Page sections
+    ResourcesHero,
+    ResourcesFilterTabs,
+    ResourcesBlogsSection,
+    ResourcesBlogListing,
+    ResourcesNewsletter,
+    // Legal & utility
     UtilityPages,
     // Site-wide
     SiteSettings,
@@ -104,8 +180,7 @@ export default buildConfig({
             media: {
               prefix: "media",
               generateFileURL: ({ filename, prefix }) =>
-                buildPublicMediaUrl(filename, prefix ?? "media") ??
-                `/api/media/file/${filename}`,
+                buildPublicMediaUrl(filename, prefix ?? "media") ?? `/api/media/file/${filename}`,
             },
           },
           bucket: process.env.S3_BUCKET!,

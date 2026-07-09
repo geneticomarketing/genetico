@@ -1,14 +1,13 @@
 import { Logout } from "@payloadcms/ui";
 import { RenderServerComponent } from "@payloadcms/ui/elements/RenderServerComponent";
-import { EntityType, groupNavItems } from "@payloadcms/ui/shared";
 import { DefaultNavClient, NavHamburger, NavWrapper } from "@payloadcms/next/client";
 import type { NavPreferences, PayloadRequest, ServerProps } from "payload";
 import { PREFERENCE_KEYS } from "payload/shared";
 import { cache } from "react";
 import React from "react";
 
+import { getSortedNavGroups } from "../get-sorted-nav-groups";
 import { SettingsMenuButton } from "../SettingsMenuButton";
-import { sortNavGroups } from "../sort-nav-groups";
 
 const baseClass = "nav";
 
@@ -58,33 +57,17 @@ export const GeneticoNav = async (props: GeneticoNavProps) => {
     admin: {
       components: { afterNav, afterNavLinks, beforeNav, beforeNavLinks, logout, settingsMenu },
     },
-    collections,
-    globals,
   } = payload.config;
 
-  const visibleCollections = visibleEntities?.collections ?? [];
-  const visibleGlobals = visibleEntities?.globals ?? [];
-
-  const groups = sortNavGroups(
-    groupNavItems(
-      [
-        ...collections
-          .filter(({ slug }) => visibleCollections.includes(slug))
-          .map((collection) => ({
-            type: EntityType.collection as const,
-            entity: collection,
-          })),
-        ...globals
-          .filter(({ slug }) => visibleGlobals.includes(slug))
-          .map((global) => ({
-            type: EntityType.global as const,
-            entity: global,
-          })),
-      ],
-      permissions,
-      i18n,
-    ),
-  );
+  const groups = getSortedNavGroups({
+    config: payload.config,
+    i18n,
+    permissions,
+    visibleEntities: {
+      collections: visibleEntities?.collections ?? [],
+      globals: visibleEntities?.globals ?? [],
+    },
+  });
 
   const navPreferences = (await getNavPrefs(req)) ?? { groups: {}, open: true };
 

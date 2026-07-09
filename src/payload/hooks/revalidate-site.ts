@@ -37,13 +37,17 @@ export const revalidateAfterCollectionDelete: CollectionAfterDeleteHook = ({
 
 export const revalidateAfterGlobalChange: GlobalAfterChangeHook = ({ global }) => {
   const extra: string[] = [];
+  const slug = global.slug;
 
-  if (global.slug === "home-page") extra.push("/");
-  if (global.slug === "about-page") extra.push("/about-us");
-  if (global.slug === "platform-page") extra.push("/platform");
-  if (global.slug === "public-health-page") extra.push("/public-health");
-  if (global.slug === "resources-page") extra.push("/resources");
-  if (global.slug === "utility-pages") extra.push("/coming-soon");
+  if (slug.startsWith("home-")) extra.push("/");
+  if (slug.startsWith("about-")) extra.push("/about-us");
+  if (slug.startsWith("platform-")) extra.push("/platform");
+  if (slug.startsWith("public-health-")) extra.push("/public-health");
+  if (slug.startsWith("resources-")) {
+    extra.push("/resources");
+    extra.push("/blog");
+  }
+  if (slug === "utility-pages") extra.push("/coming-soon");
 
   revalidatePublicSite(extra);
 };

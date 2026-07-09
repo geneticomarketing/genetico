@@ -15,13 +15,17 @@ const PUBLIC_PAGE_PATHS = [
 
 /** Bust Next.js static caches so CMS edits appear on the live site. */
 export function revalidatePublicSite(extraPaths: string[] = []) {
-  revalidatePath("/", "layout");
+  try {
+    revalidatePath("/", "layout");
 
-  for (const path of PUBLIC_PAGE_PATHS) {
-    revalidatePath(path);
-  }
+    for (const path of PUBLIC_PAGE_PATHS) {
+      revalidatePath(path);
+    }
 
-  for (const path of extraPaths) {
-    if (path) revalidatePath(path);
+    for (const path of extraPaths) {
+      if (path) revalidatePath(path);
+    }
+  } catch {
+    // No-op outside the Next.js runtime (e.g. seed/CLI scripts).
   }
 }

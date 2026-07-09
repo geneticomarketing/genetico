@@ -19,7 +19,8 @@
     "payload": "payload",
     "generate:importmap": "payload generate:importmap",
     "generate:types": "payload generate:types",
-    "seed": "tsx src/payload/seed/index.ts"
+    "seed": "tsx src/payload/seed/index.ts",
+    "db:cleanup-page-globals": "tsx src/payload/seed/cleanup-legacy-page-globals.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": [

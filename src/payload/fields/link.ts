@@ -26,6 +26,12 @@ export const ctaButtonsField: Field = {
   fields: [
     { name: "label", type: "text", required: true },
     { name: "href", type: "text", required: true },
-    { name: "variant", type: "select", options: ["primary", "secondary"], defaultValue: "primary" },
+    {
+      name: "variant",
+      type: "select",
+      options: ["primary", "secondary"],
+      defaultValue: "primary",
+      enumName: "cta_buttons_variant",
+    },
   ],
 };

@@ -20,6 +20,7 @@ import { DEFAULT_RESOURCES_PAGE, DEFAULT_UTILITY_PAGES } from "../../lib/cms/def
 import { DEFAULT_PRIVACY_POLICY } from "../../lib/cms/defaults/legal";
 import { paragraphsToLexical } from "./helpers";
 import { cleanupSolutionPagesForSchemaPush } from "./cleanup-solution-pages";
+import { cleanupLegacyPageGlobalsForSchemaPush } from "./cleanup-legacy-page-globals";
 
 type CollectionSlug = keyof Config["collections"];
 
@@ -53,6 +54,7 @@ async function seed() {
 
   const connectionString = process.env.DATABASE_URI || process.env.DATABASE_URL!;
   await cleanupSolutionPagesForSchemaPush(connectionString);
+  await cleanupLegacyPageGlobalsForSchemaPush(connectionString);
 
   const payload = await getPayload({ config });
   const home = DEFAULT_HOME_PAGE;
@@ -173,169 +175,241 @@ async function seed() {
     },
   });
 
-  console.log("Seeding home page...");
+  console.log("Seeding home page sections...");
   await payload.updateGlobal({
-    slug: "home-page",
+    slug: "home-hero",
+    data: { heroSlides: home.heroSlides },
+  });
+  await payload.updateGlobal({
+    slug: "home-who-we-are",
     data: {
-      heroSlides: home.heroSlides,
-      whoWeAre: {
-        eyebrow: home.whoWeAre.eyebrow,
-        paragraphs: home.whoWeAre.paragraphs.map((paragraph) => ({
-          text: paragraph.text,
-          highlights: paragraph.highlights.map((phrase) => ({ phrase })),
-        })),
-      },
-      ecosystemChallenges: home.ecosystemChallenges,
-      ecosystemGaps: home.ecosystemGapsSection,
-      partners: home.partnersSection,
-      security: {
-        heading: home.securitySection.heading,
-        description: home.securitySection.description,
-        features: home.securitySection.features.map((text) => ({ text })),
-      },
-      news: home.newsSection,
-      cta: home.cta,
+      eyebrow: home.whoWeAre.eyebrow,
+      paragraphs: home.whoWeAre.paragraphs.map((paragraph) => ({
+        text: paragraph.text,
+        highlights: paragraph.highlights.map((phrase) => ({ phrase })),
+      })),
     },
   });
-
-  console.log("Seeding about page...");
   await payload.updateGlobal({
-    slug: "about-page",
+    slug: "home-ecosystem-challenges",
+    data: home.ecosystemChallenges,
+  });
+  await payload.updateGlobal({
+    slug: "home-ecosystem-gaps",
+    data: home.ecosystemGapsSection,
+  });
+  await payload.updateGlobal({
+    slug: "home-partners",
+    data: home.partnersSection,
+  });
+  await payload.updateGlobal({
+    slug: "home-security",
     data: {
-      hero: {
-        title: `${about.hero.titleLine1} ${about.hero.titleHighlight}`,
-        subtitle: about.hero.subtitle,
-        ctaLabel: about.hero.ctaLabel,
-        ctaHref: about.hero.ctaHref,
-        labels: about.hero.labels.map((label) => ({ label })),
-      },
-      vision: about.vision,
-      foundations: about.foundations.map(({ title, body }) => ({ title, body })),
-      leadership: about.leadership,
-      grants: about.grants,
-      cta: about.cta,
+      heading: home.securitySection.heading,
+      description: home.securitySection.description,
+      features: home.securitySection.features.map((text) => ({ text })),
     },
   });
-
-  console.log("Seeding platform page...");
   await payload.updateGlobal({
-    slug: "platform-page",
-    data: {
-      hero: {
-        title: platform.hero.title,
-        subtitle: platform.hero.subtitle,
-        ctaLabel: platform.hero.ctaLabel,
-        ctaHref: platform.hero.ctaHref,
-        imageUrl: platform.hero.image,
-      },
-      featuresSection: {
-        eyebrow: platform.featuresSection.eyebrow,
-        heading: platform.featuresSection.heading,
-        description: platform.featuresSection.description,
-        features: platform.featuresSection.features.map((f) => ({
-          category: f.category,
-          subheading: f.subheading,
-          title: f.title,
-          description: f.description,
-          bullets: f.bullets.map((item) => ({ item })),
-          illustration: f.illustration,
-        })),
-      },
-      clinicalIntelligence: {
-        eyebrow: platform.clinicalIntelligence.eyebrow,
-        heading: platform.clinicalIntelligence.heading,
-        description: platform.clinicalIntelligence.description,
-        capabilities: platform.clinicalIntelligence.capabilities.map((c) => ({
-          title: c.title,
-          description: c.description,
-          badge: c.badge,
-        })),
-      },
-      longitudinalCare: {
-        eyebrow: platform.longitudinalCare.eyebrow,
-        heading: platform.longitudinalCare.heading,
-        description: platform.longitudinalCare.description,
-        columns: platform.longitudinalCare.columns.map((c) => ({
-          title: c.title,
-          description: c.description,
-          bullets: c.bullets.map((item) => ({ item })),
-        })),
-      },
-      infrastructure: {
-        eyebrow: platform.infrastructure.eyebrow,
-        heading: platform.infrastructure.heading,
-        description: platform.infrastructure.description,
-        integrationTags: platform.infrastructure.integrationTags.map((tag) => ({ tag })),
-        integrationsTitle: platform.infrastructure.integrationsTitle,
-        integrationsDescription: platform.infrastructure.integrationsDescription,
-        deploymentTitle: platform.infrastructure.deploymentTitle,
-        deploymentDescription: platform.infrastructure.deploymentDescription,
-        deploymentOptions: platform.infrastructure.deploymentOptions,
-      },
-      security: platform.security,
-      cta: platform.cta,
-    },
+    slug: "home-news",
+    data: home.newsSection,
+  });
+  await payload.updateGlobal({
+    slug: "home-cta",
+    data: home.cta,
   });
 
-  console.log("Seeding public health page...");
+  console.log("Seeding about page sections...");
   await payload.updateGlobal({
-    slug: "public-health-page",
+    slug: "about-hero",
     data: {
-      hero: {
-        title: `${publicHealth.hero.titleLine1} for ${publicHealth.hero.titleLine2}`,
-        subtitle: publicHealth.hero.subtitle,
-        imageUrl: publicHealth.hero.image,
-      },
-      impact: {
-        heading: publicHealth.impact.heading,
-        description: publicHealth.impact.description,
-        features: publicHealth.impact.features.map((f) => ({
-          title: f.title,
-          description: f.category,
-        })),
-      },
-      threeTier: {
-        heading: publicHealth.threeTier.heading,
-        description: publicHealth.threeTier.description,
-        tiers: publicHealth.threeTier.tiers.map((tier) => ({
-          bannerLabel: tier.bannerLabel,
-          happens: tier.happens.map((item) => ({ item })),
-          dataFlows: tier.dataFlows.map((item) => ({ item })),
-          users: tier.users.map((user) => ({
-            role: user.role,
-            description: user.description,
-          })),
-        })),
-      },
-      architecture: {
-        heading: publicHealth.architecture.heading,
-        description: publicHealth.architecture.description,
-        classifications: publicHealth.architecture.classifications.map((c) => ({
-          level: c.level,
-          timeBadge: c.timeBadge,
-          title: c.title,
-          description: c.description,
-          tags: c.tags.map((tag) => ({ tag })),
-        })),
-      },
-      cta: publicHealth.cta,
+      title: `${about.hero.titleLine1} ${about.hero.titleHighlight}`,
+      subtitle: about.hero.subtitle,
+      ctaLabel: about.hero.ctaLabel,
+      ctaHref: about.hero.ctaHref,
+      labels: about.hero.labels.map((label) => ({ label })),
     },
   });
-
-  console.log("Seeding resources page...");
   await payload.updateGlobal({
-    slug: "resources-page",
+    slug: "about-vision",
+    data: { heading: about.vision.heading },
+  });
+  await payload.updateGlobal({
+    slug: "about-foundations",
     data: {
-      hero: {
-        title: resources.hero.title,
-        subtitle: `${resources.hero.subtitle}\n\n${resources.hero.description}`,
-        imageUrl: resources.hero.image,
-      },
+      items: about.foundations.map(({ title, body }) => ({ title, body })),
+    },
+  });
+  await payload.updateGlobal({
+    slug: "about-leadership",
+    data: about.leadership,
+  });
+  await payload.updateGlobal({
+    slug: "about-grants",
+    data: about.grants,
+  });
+  await payload.updateGlobal({
+    slug: "about-cta",
+    data: about.cta,
+  });
+
+  console.log("Seeding platform page sections...");
+  await payload.updateGlobal({
+    slug: "platform-hero",
+    data: {
+      title: platform.hero.title,
+      subtitle: platform.hero.subtitle,
+      ctaLabel: platform.hero.ctaLabel,
+      ctaHref: platform.hero.ctaHref,
+      imageUrl: platform.hero.image,
+    },
+  });
+  await payload.updateGlobal({
+    slug: "platform-features",
+    data: {
+      eyebrow: platform.featuresSection.eyebrow,
+      heading: platform.featuresSection.heading,
+      description: platform.featuresSection.description,
+      features: platform.featuresSection.features.map((f) => ({
+        category: f.category,
+        subheading: f.subheading,
+        title: f.title,
+        description: f.description,
+        bullets: f.bullets.map((item) => ({ item })),
+        illustration: f.illustration,
+      })),
+    },
+  });
+  await payload.updateGlobal({
+    slug: "platform-clinical-intelligence",
+    data: {
+      eyebrow: platform.clinicalIntelligence.eyebrow,
+      heading: platform.clinicalIntelligence.heading,
+      description: platform.clinicalIntelligence.description,
+      capabilities: platform.clinicalIntelligence.capabilities.map((c) => ({
+        title: c.title,
+        description: c.description,
+        badge: c.badge,
+      })),
+    },
+  });
+  await payload.updateGlobal({
+    slug: "platform-longitudinal-care",
+    data: {
+      eyebrow: platform.longitudinalCare.eyebrow,
+      heading: platform.longitudinalCare.heading,
+      description: platform.longitudinalCare.description,
+      columns: platform.longitudinalCare.columns.map((c) => ({
+        title: c.title,
+        description: c.description,
+        bullets: c.bullets.map((item) => ({ item })),
+      })),
+    },
+  });
+  await payload.updateGlobal({
+    slug: "platform-infrastructure",
+    data: {
+      eyebrow: platform.infrastructure.eyebrow,
+      heading: platform.infrastructure.heading,
+      description: platform.infrastructure.description,
+      integrationTags: platform.infrastructure.integrationTags.map((tag) => ({ tag })),
+      integrationsTitle: platform.infrastructure.integrationsTitle,
+      integrationsDescription: platform.infrastructure.integrationsDescription,
+      deploymentTitle: platform.infrastructure.deploymentTitle,
+      deploymentDescription: platform.infrastructure.deploymentDescription,
+      deploymentOptions: platform.infrastructure.deploymentOptions,
+    },
+  });
+  await payload.updateGlobal({
+    slug: "platform-security",
+    data: platform.security,
+  });
+  await payload.updateGlobal({
+    slug: "platform-cta",
+    data: platform.cta,
+  });
+
+  console.log("Seeding public health page sections...");
+  await payload.updateGlobal({
+    slug: "public-health-hero",
+    data: {
+      title: `${publicHealth.hero.titleLine1} for ${publicHealth.hero.titleLine2}`,
+      subtitle: publicHealth.hero.subtitle,
+      imageUrl: publicHealth.hero.image,
+    },
+  });
+  await payload.updateGlobal({
+    slug: "public-health-impact",
+    data: {
+      heading: publicHealth.impact.heading,
+      description: publicHealth.impact.description,
+      features: publicHealth.impact.features.map((f) => ({
+        title: f.title,
+        description: f.category,
+      })),
+    },
+  });
+  await payload.updateGlobal({
+    slug: "public-health-three-tier",
+    data: {
+      heading: publicHealth.threeTier.heading,
+      description: publicHealth.threeTier.description,
+      tiers: publicHealth.threeTier.tiers.map((tier) => ({
+        bannerLabel: tier.bannerLabel,
+        happens: tier.happens.map((item) => ({ item })),
+        dataFlows: tier.dataFlows.map((item) => ({ item })),
+        users: tier.users.map((user) => ({
+          role: user.role,
+          description: user.description,
+        })),
+      })),
+    },
+  });
+  await payload.updateGlobal({
+    slug: "public-health-architecture",
+    data: {
+      heading: publicHealth.architecture.heading,
+      description: publicHealth.architecture.description,
+      classifications: publicHealth.architecture.classifications.map((c) => ({
+        level: c.level,
+        timeBadge: c.timeBadge,
+        title: c.title,
+        description: c.description,
+        tags: c.tags.map((tag) => ({ tag })),
+      })),
+    },
+  });
+  await payload.updateGlobal({
+    slug: "public-health-cta",
+    data: publicHealth.cta,
+  });
+
+  console.log("Seeding resources page sections...");
+  await payload.updateGlobal({
+    slug: "resources-hero",
+    data: {
+      title: resources.hero.title,
+      subtitle: resources.hero.subtitle,
+      imageUrl: resources.hero.image,
+    },
+  });
+  await payload.updateGlobal({
+    slug: "resources-filter-tabs",
+    data: {
       filterTabs: resources.filterTabs.map((label) => ({ label })),
-      blogsSection: resources.blogsSection,
-      blogListing: resources.blogListing,
-      newsletterCta: resources.newsletterCta,
     },
+  });
+  await payload.updateGlobal({
+    slug: "resources-blogs-section",
+    data: resources.blogsSection,
+  });
+  await payload.updateGlobal({
+    slug: "resources-blog-listing",
+    data: resources.blogListing,
+  });
+  await payload.updateGlobal({
+    slug: "resources-newsletter",
+    data: resources.newsletterCta,
   });
 
   console.log("Seeding utility pages...");
