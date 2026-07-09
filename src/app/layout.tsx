@@ -3,6 +3,7 @@ import { Albert_Sans } from "next/font/google";
 import "./globals.css";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getFooterContent, getNavigation, getSiteSettings } from "@/lib/cms/queries";
+import { CMS_PAGE_REVALIDATE_SECONDS } from "@/lib/cms/cache";
 import { SiteDataProvider } from "@/lib/cms/site-data-context";
 import { AppChrome } from "@/components/app-chrome";
 import { createRootMetadata, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
@@ -11,6 +12,8 @@ const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
   subsets: ["latin"],
 });
+
+export const revalidate = CMS_PAGE_REVALIDATE_SECONDS;
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();

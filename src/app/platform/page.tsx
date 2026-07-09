@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 
 import { PlatformClient } from "@/app/platform/platform-client";
+import { CMS_PAGE_REVALIDATE_SECONDS } from "@/lib/cms/cache";
 import { getPlatformPageData } from "@/lib/cms/page-data";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+
+export const revalidate = CMS_PAGE_REVALIDATE_SECONDS;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getPlatformPageData();

@@ -9,9 +9,12 @@ import { BlogCard } from "@/components/blog/blog-card";
 import { Reveal } from "@/components/motion/reveal";
 
 import { getBlogPosts } from "@/lib/cms/queries";
+import { CMS_PAGE_REVALIDATE_SECONDS } from "@/lib/cms/cache";
 import { getResourcesPageData } from "@/lib/cms/page-data";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+
+export const revalidate = CMS_PAGE_REVALIDATE_SECONDS;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getResourcesPageData();

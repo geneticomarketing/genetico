@@ -3,9 +3,12 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { CONTACT_EMAIL, CONTACT_MAILTO } from "@/lib/contact";
+import { CMS_PAGE_REVALIDATE_SECONDS } from "@/lib/cms/cache";
 import { getLegalPageBySlug } from "@/lib/cms/page-data";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+
+export const revalidate = CMS_PAGE_REVALIDATE_SECONDS;
 
 type PolicySection = {
   title: string;

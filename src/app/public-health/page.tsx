@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 
 import { PublicHealthClient } from "@/app/public-health/public-health-client";
+import { CMS_PAGE_REVALIDATE_SECONDS } from "@/lib/cms/cache";
 import { getPublicHealthPageData } from "@/lib/cms/page-data";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+
+export const revalidate = CMS_PAGE_REVALIDATE_SECONDS;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getPublicHealthPageData();
