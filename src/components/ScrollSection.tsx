@@ -186,7 +186,7 @@ function ProgressLine() {
   return (
     <div
       ref={ref}
-      className="absolute top-0 bottom-0 left-4 w-[2px] -translate-x-1/2 sm:left-1/2 sm:-translate-x-1/2"
+      className="absolute top-0 bottom-0 left-2 w-[2px] -translate-x-1/2 sm:left-1/2 sm:-translate-x-1/2"
       style={{ background: "rgba(30,64,175,0.3)" }}
     >
       <motion.div
@@ -224,7 +224,9 @@ function GrantsTimelineComponent({
         className="mb-12 text-center sm:mb-20"
       >
         <Reveal>
-          <p className="mb-3 text-[10px] tracking-[0.25em] text-blue-400 uppercase">{section.eyebrow}</p>
+          <p className="mb-3 text-[10px] tracking-[0.25em] text-blue-400 uppercase">
+            {section.eyebrow}
+          </p>
         </Reveal>
         <Reveal delay={0.4}>
           <h1
