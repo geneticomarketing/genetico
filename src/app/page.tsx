@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 
 import { HomeClient } from "@/app/home-client";
-import { CMS_PAGE_REVALIDATE_SECONDS } from "@/lib/cms/cache";
 import { getHomePageData } from "@/lib/cms/page-data";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
 
-export const revalidate = CMS_PAGE_REVALIDATE_SECONDS;
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = STATIC_PAGE_SEO.home;

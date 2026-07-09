@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 
 import { ResourcesClient } from "@/app/resources/resources-client";
-import { CMS_PAGE_REVALIDATE_SECONDS } from "@/lib/cms/cache";
 import { getResourcesPageData } from "@/lib/cms/page-data";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
 
-export const revalidate = CMS_PAGE_REVALIDATE_SECONDS;
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getResourcesPageData();

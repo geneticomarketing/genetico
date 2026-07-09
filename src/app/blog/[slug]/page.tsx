@@ -6,11 +6,10 @@ import { ArrowLeft } from "lucide-react";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Reveal } from "@/components/motion/reveal";
 import { BLOG_PATH } from "@/lib/blogs";
-import { CMS_PAGE_REVALIDATE_SECONDS } from "@/lib/cms/cache";
 import { getAllBlogSlugs, getBlogBySlug } from "@/lib/cms/queries";
 import { articleJsonLd, createPageMetadata } from "@/lib/seo";
 
-export const revalidate = CMS_PAGE_REVALIDATE_SECONDS;
+export const revalidate = 60;
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;

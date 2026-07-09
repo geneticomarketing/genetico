@@ -3,10 +3,9 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { getUtilityPagesData } from "@/lib/cms/page-data";
-import { CMS_PAGE_REVALIDATE_SECONDS } from "@/lib/cms/cache";
 import { createPageMetadata } from "@/lib/seo";
 
-export const revalidate = CMS_PAGE_REVALIDATE_SECONDS;
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const utility = await getUtilityPagesData();
