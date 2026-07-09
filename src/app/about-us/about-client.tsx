@@ -102,7 +102,7 @@ export function AboutClient({ data }: { data: AboutPageData }) {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1.8 + (i + 1) / 10 }}
-                      className="text-brand flex w-full items-center justify-center gap-2 border border-zinc-400 bg-white p-2.5 px-3 text-xs opacity-90 shadow-lg sm:text-sm"
+                      className="text-brand flex w-full items-center justify-center gap-2 border border-zinc-400 bg-white p-2.5 px-3 text-xs opacity-90 shadow-lg max-md:-translate-y-16 sm:text-sm"
                     >
                       <p className="shrink-0 font-medium">0{i + 1}</p>
                       <div className="text-center text-black">{item.label}</div>
