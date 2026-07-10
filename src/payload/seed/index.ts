@@ -13,7 +13,14 @@ import {
 } from "../../lib/contact";
 import { HOSPITAL_PATH, PHARMA_PATH, PUBLIC_HEALTH_PATH, leadFormHref } from "../../lib/routes";
 import { DEFAULT_ABOUT_PAGE, DEFAULT_GRANTS, DEFAULT_TEAM } from "../../lib/cms/defaults/about";
-import { DEFAULT_HOME_PAGE, DEFAULT_ECOSYSTEM_GAPS, DEFAULT_ECOSYSTEM_MODULES, DEFAULT_NEWS_ARTICLES, DEFAULT_NEWS_FEATURED, DEFAULT_PARTNERS } from "../../lib/cms/defaults/home";
+import {
+  DEFAULT_HOME_PAGE,
+  DEFAULT_ECOSYSTEM_GAPS,
+  DEFAULT_ECOSYSTEM_MODULES,
+  DEFAULT_NEWS_ARTICLES,
+  DEFAULT_NEWS_FEATURED,
+  DEFAULT_PARTNERS,
+} from "../../lib/cms/defaults/home";
 import { DEFAULT_PLATFORM_PAGE } from "../../lib/cms/defaults/platform";
 import { DEFAULT_PUBLIC_HEALTH_PAGE } from "../../lib/cms/defaults/public-health";
 import { DEFAULT_RESOURCES_PAGE, DEFAULT_UTILITY_PAGES } from "../../lib/cms/defaults/resources";
@@ -106,7 +113,8 @@ async function seed() {
           "Different conversation, depending on who you are. Tell us who you are and we'll route you to the right person.",
         submitLabel: "Talk to Our Team",
         successMessage: "Thanks — your message was sent. Our team will be in touch soon.",
-        errorMessage: "Unable to send your message right now. Please try again or email us directly.",
+        errorMessage:
+          "Unable to send your message right now. Please try again or email us directly.",
         privacyNote:
           "By submitting, you agree to be contacted by Genetico. We never share your information with third parties.",
       },
@@ -118,7 +126,7 @@ async function seed() {
     slug: "navigation",
     data: {
       ctaLabel: "Book a demo",
-      ctaHref: leadFormHref("/"),
+      // ctaHref: leadFormHref("/"),
       mainNav: [
         { label: "About", href: "/about-us", type: "link", isDark: true },
         { label: "Platform", href: "/platform", type: "link", isDark: false },
