@@ -67,7 +67,6 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    'news-articles': NewsArticle;
     partners: Partner;
     'ecosystem-modules': EcosystemModule;
     'ecosystem-gaps': EcosystemGap;
@@ -88,7 +87,6 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    'news-articles': NewsArticlesSelect<false> | NewsArticlesSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
     'ecosystem-modules': EcosystemModulesSelect<false> | EcosystemModulesSelect<true>;
     'ecosystem-gaps': EcosystemGapsSelect<false> | EcosystemGapsSelect<true>;
@@ -215,26 +213,20 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "news-articles".
+ * via the `definition` "partners".
  */
-export interface NewsArticle {
+export interface Partner {
   id: number;
-  title: string;
-  excerpt?: string | null;
-  tag?: string | null;
-  author?: string | null;
-  publishedAt?: string | null;
-  readTime?: string | null;
-  href?: string | null;
-  featured?: boolean | null;
+  name: string;
   /**
-   * Recommended size: 1200 × 675 px (16:9). JPG or WebP, under 350 KB. Use a descriptive file name such as news-aiims-feature.jpg. Stick to lowercase letters, numbers, and hyphens.
+   * Recommended size: 400 × 120 px or similar wide logo. PNG or SVG with a transparent background. Use a descriptive file name such as partner-birac-logo.png, partner-amity-logo.svg. Stick to lowercase letters, numbers, and hyphens.
    */
-  image?: (number | null) | Media;
+  logo?: (number | null) | Media;
   /**
    * Optional fallback static path if no upload is provided
    */
-  imageUrl?: string | null;
+  logoUrl?: string | null;
+  sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -260,25 +252,6 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partners".
- */
-export interface Partner {
-  id: number;
-  name: string;
-  /**
-   * Recommended size: 400 × 120 px or similar wide logo. PNG or SVG with a transparent background. Use a descriptive file name such as partner-birac-logo.png, partner-amity-logo.svg. Stick to lowercase letters, numbers, and hyphens.
-   */
-  logo?: (number | null) | Media;
-  /**
-   * Optional fallback static path if no upload is provided
-   */
-  logoUrl?: string | null;
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -621,10 +594,6 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'news-articles';
-        value: number | NewsArticle;
-      } | null)
-    | ({
         relationTo: 'partners';
         value: number | Partner;
       } | null)
@@ -717,24 +686,6 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "news-articles_select".
- */
-export interface NewsArticlesSelect<T extends boolean = true> {
-  title?: T;
-  excerpt?: T;
-  tag?: T;
-  author?: T;
-  publishedAt?: T;
-  readTime?: T;
-  href?: T;
-  featured?: T;
-  image?: T;
-  imageUrl?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1196,7 +1147,6 @@ export interface HomeNew {
   heading?: string | null;
   description?: string | null;
   ctaLabel?: string | null;
-  ctaHref?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1888,7 +1838,6 @@ export interface HomeNewsSelect<T extends boolean = true> {
   heading?: T;
   description?: T;
   ctaLabel?: T;
-  ctaHref?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -3,6 +3,7 @@ import {
   getGlobal,
   getBlogPosts,
 } from "./queries";
+import { BLOG_POSTS } from "@/lib/blogs";
 import { resolveMediaUrl } from "./resolve-media-url";
 import { DEFAULT_HOME_PAGE } from "./defaults/home";
 import { DEFAULT_ABOUT_PAGE, DEFAULT_TEAM } from "./defaults/about";
@@ -17,7 +18,6 @@ import type {
   GrantAward,
   HeroSlide,
   HomePageData,
-  NewsArticle,
   Partner,
   PlatformPageData,
   PublicHealthPageData,
@@ -32,7 +32,6 @@ import type {
   ExternalArticle as CmsExternalArticle,
   FeaturedVideo as CmsFeaturedVideo,
   GrantsAward as CmsGrantAward,
-  NewsArticle as CmsNewsArticle,
   Partner as CmsPartner,
   ShortVideo as CmsShortVideo,
   TeamMember as CmsTeamMember,
@@ -108,7 +107,8 @@ export async function getHomePageData(): Promise<HomePageData> {
     modules,
     gaps,
     partners,
-    newsArticles,
+    blogPosts,
+    externalArticles,
   ] = await Promise.all([
     getSectionGlobal("home-hero"),
     getSectionGlobal("home-who-we-are"),
@@ -121,7 +121,8 @@ export async function getHomePageData(): Promise<HomePageData> {
     getCollection<CmsEcosystemModule>("ecosystem-modules", [] as CmsEcosystemModule[]),
     getCollection<CmsEcosystemGap>("ecosystem-gaps", [] as CmsEcosystemGap[]),
     getCollection<CmsPartner>("partners", [] as CmsPartner[]),
-    getCollection<CmsNewsArticle>("news-articles", [] as CmsNewsArticle[]),
+    getBlogPosts(),
+    getCollection<CmsExternalArticle>("external-articles", [] as CmsExternalArticle[]),
   ]);
 
   const defaults = DEFAULT_HOME_PAGE;
@@ -160,20 +161,12 @@ export async function getHomePageData(): Promise<HomePageData> {
     logo: resolveMediaUrl(p.logo, p.logoUrl),
   }));
 
-  const cmsNews: NewsArticle[] = newsArticles.map((n) => ({
-    tag: n.tag || "News",
-    title: n.title,
-    excerpt: n.excerpt || undefined,
-    readTime: n.readTime || undefined,
-    image: resolveMediaUrl(n.image, n.imageUrl) || undefined,
-    author: n.author || undefined,
-    date: n.publishedAt ? new Date(n.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : undefined,
-    href: n.href || undefined,
-    featured: n.featured || false,
-  }));
+  const cmsArticles =
+    externalArticles.length ?
+      externalArticles.map((a) => ({ title: a.title, url: a.url }))
+    : DEFAULT_RESOURCES_PAGE.externalArticles;
 
-  const featured = cmsNews.find((n) => n.featured) || defaults.newsFeatured;
-  const sidebarNews = cmsNews.filter((n) => !n.featured);
+  const posts = blogPosts.length ? blogPosts : BLOG_POSTS;
 
   return {
     heroSlides,
@@ -218,8 +211,9 @@ export async function getHomePageData(): Promise<HomePageData> {
     modules: cmsModules.length ? cmsModules : defaults.modules,
     gaps: cmsGaps.length ? cmsGaps : defaults.gaps,
     partners: cmsPartners.filter((p) => p.logo).length ? cmsPartners.filter((p) => p.logo) : defaults.partners,
-    newsFeatured: featured,
-    newsArticles: sidebarNews.length ? sidebarNews : defaults.newsArticles,
+    featuredBlog: posts[0] ?? null,
+    previewBlog: posts[1] ?? null,
+    previewArticles: cmsArticles.slice(0, 2),
   };
 }
 

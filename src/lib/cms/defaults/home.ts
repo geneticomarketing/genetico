@@ -1,4 +1,5 @@
 import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
+import { BLOG_POSTS } from "@/lib/blogs";
 import {
   COMING_SOON_PATH,
   HOSPITAL_PATH,
@@ -6,6 +7,7 @@ import {
   PLATFORM_PATH,
   PUBLIC_HEALTH_PATH,
 } from "@/lib/routes";
+import { DEFAULT_RESOURCES_PAGE } from "./resources";
 import type {
   EcosystemGap,
   EcosystemModule,
@@ -256,6 +258,7 @@ export const DEFAULT_HOME_PAGE: HomePageData = {
   modules: DEFAULT_ECOSYSTEM_MODULES,
   gaps: DEFAULT_ECOSYSTEM_GAPS,
   partners: DEFAULT_PARTNERS,
-  newsFeatured: DEFAULT_NEWS_FEATURED,
-  newsArticles: DEFAULT_NEWS_ARTICLES,
+  featuredBlog: BLOG_POSTS[0] ?? null,
+  previewBlog: BLOG_POSTS[1] ?? null,
+  previewArticles: DEFAULT_RESOURCES_PAGE.externalArticles.slice(0, 2),
 };

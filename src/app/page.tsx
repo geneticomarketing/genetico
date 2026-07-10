@@ -50,8 +50,9 @@ export default async function Home() {
       />
       <NewsUpdates
         newsSection={data.newsSection}
-        featured={data.newsFeatured}
-        articles={data.newsArticles}
+        featuredBlog={data.featuredBlog}
+        previewBlog={data.previewBlog}
+        articles={data.previewArticles}
       />
       <HomeCta cta={data.cta} />
     </ScrollParallaxPage>

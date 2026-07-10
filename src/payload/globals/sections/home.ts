@@ -31,7 +31,8 @@ export const HomeHero = pageSection(
           pathName: "image",
           uploadLabel: "Background image",
           preset: "heroSlide",
-          pathDescription: "Fallback static image path if no upload is provided (e.g. /hero/hero-bg.webp)",
+          pathDescription:
+            "Fallback static image path if no upload is provided (e.g. /hero/hero-bg.webp)",
         }),
       ],
     },
@@ -117,7 +118,7 @@ export const HomeNews = pageSection(
     { name: "heading", type: "text" },
     { name: "description", type: "textarea" },
     { name: "ctaLabel", type: "text" },
-    { name: "ctaHref", type: "text" },
+    // { name: "ctaHref", type: "text" },
   ],
   ADMIN_GROUPS.home,
 );
@@ -125,10 +126,6 @@ export const HomeNews = pageSection(
 export const HomeCta = pageSection(
   "home-cta",
   "CTA",
-  [
-    { name: "heading", type: "text" },
-    { name: "description", type: "textarea" },
-    ctaButtonsField,
-  ],
+  [{ name: "heading", type: "text" }, { name: "description", type: "textarea" }, ctaButtonsField],
   ADMIN_GROUPS.home,
 );

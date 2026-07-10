@@ -1,3 +1,5 @@
+import type { BlogPost } from "@/lib/blogs";
+
 export type CtaButton = {
   label: string;
   href: string;
@@ -318,6 +320,7 @@ export type HomePageData = {
   modules: EcosystemModule[];
   gaps: EcosystemGap[];
   partners: Partner[];
-  newsFeatured: NewsArticle | null;
-  newsArticles: NewsArticle[];
+  featuredBlog: BlogPost | null;
+  previewBlog: BlogPost | null;
+  previewArticles: ExternalArticle[];
 };

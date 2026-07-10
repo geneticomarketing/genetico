@@ -97,7 +97,6 @@ export default buildConfig({
   },
   collections: [
     // Home
-    NewsArticles,
     Partners,
     EcosystemModules,
     EcosystemGaps,
