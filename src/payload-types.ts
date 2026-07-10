@@ -1739,7 +1739,6 @@ export interface Navigation {
       }[]
     | null;
   ctaLabel?: string | null;
-  ctaHref?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2412,7 +2411,6 @@ export interface NavigationSelect<T extends boolean = true> {
         id?: T;
       };
   ctaLabel?: T;
-  ctaHref?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

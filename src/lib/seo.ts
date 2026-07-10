@@ -23,10 +23,12 @@ export const DEFAULT_KEYWORDS = [
 export const DEFAULT_OG_IMAGE = "/phero.png";
 
 export function getSiteUrl(): string {
+  // Never use VERCEL_URL — it is the per-deployment host (e.g. *.vercel.app),
+  // which breaks sitemap, canonical, and Open Graph URLs in production.
   const configured =
     process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
     process.env.SITE_URL?.trim() ||
-    process.env.VERCEL_URL?.trim();
+    process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
 
   if (!configured) return "https://genetico.in";
 

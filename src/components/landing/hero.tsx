@@ -134,12 +134,9 @@ export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] })
                   {slide.title}
                 </motion.h1>
                 <motion.div {...heroEntrance(2, reduce)} className="mt-6 sm:mt-8">
-                  <a
-                    href={slide.href}
-                    className="--backdrop-blur-md inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/50 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/15"
-                  >
+                  <a href={slide.href} className="btn-glass">
                     {slide.cta}
-                    <ArrowRight size={16} strokeWidth={2} />
+                    <ArrowRight size={16} strokeWidth={1.75} />
                   </a>
                 </motion.div>
               </div>

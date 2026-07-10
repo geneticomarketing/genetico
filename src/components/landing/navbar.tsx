@@ -6,7 +6,13 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { EASE } from "@/components/motion/reveal";
-import { BLOG_PATH, HOSPITAL_PATH, PHARMA_PATH, PUBLIC_HEALTH_PATH, leadFormHref } from "@/lib/routes";
+import {
+  BLOG_PATH,
+  HOSPITAL_PATH,
+  PHARMA_PATH,
+  PUBLIC_HEALTH_PATH,
+  leadFormHref,
+} from "@/lib/routes";
 import Link from "next/link";
 import type { SiteData } from "@/lib/cms/site-data-context";
 
@@ -287,7 +293,7 @@ export function Navbar({ navigation }: { navigation?: SiteData["navigation"] }) 
 
   const path = usePathname();
   const leadFormLink = leadFormHref(path);
-
+  console.log(leadFormLink);
   const isDark =
     path.startsWith("/about-us") ||
     path.startsWith(BLOG_PATH) ||
@@ -348,7 +354,7 @@ export function Navbar({ navigation }: { navigation?: SiteData["navigation"] }) 
 
         {/* Desktop CTA */}
         <a
-          href={leadFormLink}
+          href={"/#get-in-touch"}
           className={`hidden rounded-lg border px-5 py-2 text-sm font-medium transition-colors lg:inline-flex ${
             isDark
               ? "bg-brand hover:bg-brand/90 border-black/20 text-white"

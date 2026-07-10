@@ -84,9 +84,8 @@ function Field({
 export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
   const siteData = useSiteData();
   const settings = siteData?.settings;
-  const roles =
-    settings?.contactRoles?.length ?
-      settings.contactRoles.map((role) => ({
+  const roles = settings?.contactRoles?.length
+    ? settings.contactRoles.map((role) => ({
         label: role.label,
         description: role.description ?? "",
       }))
@@ -95,7 +94,8 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
   const contactForm = settings?.contactForm;
   const submitLabel = contactForm?.submitLabel ?? "Talk to Our Team";
   const successMessage =
-    contactForm?.successMessage ?? "Thanks — your message was sent. Our team will be in touch soon.";
+    contactForm?.successMessage ??
+    "Thanks — your message was sent. Our team will be in touch soon.";
   const privacyNote =
     contactForm?.privacyNote ??
     "By submitting, you agree to be contacted by Genetico. We never share your information.";
@@ -152,6 +152,12 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
     <form
       id={embedded ? "lead-form" : undefined}
       onSubmit={handleSubmit}
+      style={
+        {
+          // scrollPaddingTop: "100px",
+          // scrollMarginTop: "-150px",
+        }
+      }
       className="flex min-w-0 flex-col rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_15px_60px_rgba(0,0,0,0.07)] max-md:w-full sm:p-6 md:p-8"
     >
       <div className="-mx-5 flex [scrollbar-width:none] items-center gap-2 overflow-x-auto border-b border-black/10 px-5 pb-4 [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:mx-0 md:justify-between md:gap-2 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
@@ -279,9 +285,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
             <h2 className="t-heading text-black">
               Different conversation, depending on who you are
             </h2>
-            <p className="max-w-md text-sm leading-relaxed text-black/55 sm:text-[15px]">
-              {intro}
-            </p>
+            <p className="max-w-md text-sm leading-relaxed text-black/55 sm:text-[15px]">{intro}</p>
 
             <div className="mt-1 flex flex-col gap-5 sm:mt-2 sm:gap-6">
               {[

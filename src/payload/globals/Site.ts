@@ -66,7 +66,7 @@ export const Navigation = withAdminGroup(
         ],
       },
       { name: "ctaLabel", type: "text", defaultValue: "Book a demo" },
-      { name: "ctaHref", type: "text" },
+      // { name: "ctaHref", type: "text" },
     ],
   } satisfies GlobalConfig,
   ADMIN_GROUPS.site,

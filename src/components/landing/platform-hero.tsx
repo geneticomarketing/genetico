@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 import { EASE } from "@/components/motion/reveal";
 import { DEFAULT_PLATFORM_PAGE } from "@/lib/cms/defaults/platform";
 import type { PlatformPageData } from "@/lib/cms/types";
-import Link from "next/link";
 
 const STAGGER_S = 0.3;
 const ENTRANCE_DURATION = 1.5;
@@ -83,12 +84,9 @@ export function PlatformHero({ hero = DEFAULT_PLATFORM_PAGE.hero }: { hero?: Pla
           {hero.subtitle}
         </motion.p>
         <motion.div {...heroEntrance(3, reduce)} className="mt-8">
-          <Link
-            href={hero.ctaHref}
-            className="--backdrop-blur-md inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/50 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/15"
-          >
+          <Link href={hero.ctaHref} className="btn-glass">
             {hero.ctaLabel}
-            <span aria-hidden>→</span>
+            <ArrowRight size={16} strokeWidth={1.75} />
           </Link>
         </motion.div>
       </div>
