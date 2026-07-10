@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { mediaUploadField } from "../fields/image";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
 
@@ -18,19 +19,14 @@ export const BlogPosts = withAdminGroup(
       { name: "author", type: "text", required: true },
       { name: "publishedAt", type: "date", required: true },
       { name: "readTime", type: "text", required: true },
-      {
+      ...mediaUploadField({
         name: "thumbnailImage",
-        type: "upload",
-        relationTo: "media",
         label: "Thumbnail image",
-      },
-      {
-        name: "thumbnail",
-        type: "text",
-        admin: {
-          description: "Optional fallback: CSS gradient or static image path if no upload is provided",
-        },
-      },
+        preset: "cardThumbnail",
+        fallbackPathName: "thumbnail",
+        fallbackPathDescription:
+          "Optional fallback: CSS gradient or static image path if no upload is provided",
+      }),
       {
         name: "content",
         type: "array",

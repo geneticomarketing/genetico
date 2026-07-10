@@ -227,9 +227,12 @@ export interface NewsArticle {
   readTime?: string | null;
   href?: string | null;
   featured?: boolean | null;
+  /**
+   * Recommended size: 1200 × 675 px (16:9). JPG or WebP, under 350 KB. Use a descriptive file name such as news-aiims-feature.jpg. Stick to lowercase letters, numbers, and hyphens.
+   */
   image?: (number | null) | Media;
   /**
-   * Optional fallback static image path if no upload is provided
+   * Optional fallback static path if no upload is provided
    */
   imageUrl?: string | null;
   updatedAt: string;
@@ -241,6 +244,9 @@ export interface NewsArticle {
  */
 export interface Media {
   id: number;
+  /**
+   * Describe the image for accessibility. When uploading, use a descriptive file name (e.g. hero-bg.webp, partner-birac-logo.png).
+   */
   alt: string;
   prefix?: string | null;
   updatedAt: string;
@@ -262,9 +268,12 @@ export interface Media {
 export interface Partner {
   id: number;
   name: string;
+  /**
+   * Recommended size: 400 × 120 px or similar wide logo. PNG or SVG with a transparent background. Use a descriptive file name such as partner-birac-logo.png, partner-amity-logo.svg. Stick to lowercase letters, numbers, and hyphens.
+   */
   logo?: (number | null) | Media;
   /**
-   * Optional fallback static logo path if no upload is provided
+   * Optional fallback static path if no upload is provided
    */
   logoUrl?: string | null;
   sortOrder?: number | null;
@@ -282,6 +291,9 @@ export interface EcosystemModule {
   problem: string;
   solution: string;
   href: string;
+  /**
+   * Recommended size: 128 × 128 px or smaller. PNG or SVG with a transparent background. Use a descriptive file name such as grant-birac-icon.png, ecosystem-clinicians-icon.svg. Stick to lowercase letters, numbers, and hyphens.
+   */
   icon?: (number | null) | Media;
   /**
    * Fallback static icon path
@@ -316,9 +328,12 @@ export interface TeamMember {
   title: string;
   about: string;
   linkedinUrl?: string | null;
+  /**
+   * Recommended size: 400 × 400 px or larger square crop. JPG or WebP, under 200 KB. Use a descriptive file name such as arjun-gupta.jpg, dr-rohit-sadanand.webp. Stick to lowercase letters, numbers, and hyphens.
+   */
   photo?: (number | null) | Media;
   /**
-   * Optional fallback static photo path if no upload is provided
+   * Optional fallback static path if no upload is provided
    */
   photoUrl?: string | null;
   sortOrder?: number | null;
@@ -334,9 +349,12 @@ export interface GrantsAward {
   year: string;
   title: string;
   subtitle?: string | null;
+  /**
+   * Recommended size: 128 × 128 px or smaller. PNG or SVG with a transparent background. Use a descriptive file name such as grant-birac-icon.png, ecosystem-clinicians-icon.svg. Stick to lowercase letters, numbers, and hyphens.
+   */
   icon?: (number | null) | Media;
   /**
-   * Optional fallback static icon path if no upload is provided
+   * Optional fallback static path if no upload is provided
    */
   iconUrl?: string | null;
   sortOrder?: number | null;
@@ -448,6 +466,9 @@ export interface BlogPost {
   author: string;
   publishedAt: string;
   readTime: string;
+  /**
+   * Recommended size: 800 × 450 px (16:9). JPG, WebP, or PNG, under 250 KB. Use a descriptive file name such as blog-rare-disease-policy.webp. Stick to lowercase letters, numbers, and hyphens.
+   */
   thumbnailImage?: (number | null) | Media;
   /**
    * Optional fallback: CSS gradient or static image path if no upload is provided
@@ -1078,9 +1099,12 @@ export interface HomeHero {
         body: string;
         cta: string;
         href: string;
+        /**
+         * Recommended size: 1920 × 1080 px (16:9). WebP or JPG, ideally under 500 KB. Use a descriptive file name such as hero-bg.webp, hero-dna.jpg. Stick to lowercase letters, numbers, and hyphens.
+         */
         backgroundImage?: (number | null) | Media;
         /**
-         * Fallback static image path if no upload is provided
+         * Fallback static image path if no upload is provided (e.g. /hero/hero-bg.webp)
          */
         image?: string | null;
       }[]
@@ -1293,6 +1317,9 @@ export interface PlatformHero {
   subtitle?: string | null;
   ctaLabel?: string | null;
   ctaHref?: string | null;
+  /**
+   * Recommended size: 1600 × 900 px or wider (16:9). WebP, PNG, or JPG, under 600 KB. Use a descriptive file name such as platform-hero.webp, public-health-hero.png. Stick to lowercase letters, numbers, and hyphens.
+   */
   image?: (number | null) | Media;
   /**
    * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
@@ -1322,6 +1349,9 @@ export interface PlatformFeature {
               id?: string | null;
             }[]
           | null;
+        /**
+         * Recommended size: 800 × 600 px or similar. SVG, PNG, or WebP with a transparent background if needed. Use a descriptive file name such as hpo-extraction.svg, ocr-digitization.png. Stick to lowercase letters, numbers, and hyphens.
+         */
         illustrationImage?: (number | null) | Media;
         /**
          * Fallback static illustration path if no upload is provided
@@ -1453,6 +1483,9 @@ export interface PublicHealthHero {
   id: number;
   title: string;
   subtitle?: string | null;
+  /**
+   * Recommended size: 1600 × 900 px or wider (16:9). WebP, PNG, or JPG, under 600 KB. Use a descriptive file name such as platform-hero.webp, public-health-hero.png. Stick to lowercase letters, numbers, and hyphens.
+   */
   image?: (number | null) | Media;
   /**
    * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
@@ -1568,6 +1601,9 @@ export interface ResourcesHero {
   id: number;
   title: string;
   subtitle?: string | null;
+  /**
+   * Recommended size: 1600 × 900 px or wider (16:9). WebP, PNG, or JPG, under 600 KB. Use a descriptive file name such as platform-hero.webp, public-health-hero.png. Stick to lowercase letters, numbers, and hyphens.
+   */
   image?: (number | null) | Media;
   /**
    * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided

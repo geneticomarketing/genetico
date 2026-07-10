@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { mediaUploadField } from "../fields/image";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
 
@@ -18,12 +19,12 @@ export const NewsArticles = withAdminGroup(
       { name: "readTime", type: "text" },
       { name: "href", type: "text" },
       { name: "featured", type: "checkbox", defaultValue: false },
-      { name: "image", type: "upload", relationTo: "media", label: "Image" },
-      {
-        name: "imageUrl",
-        type: "text",
-        admin: { description: "Optional fallback static image path if no upload is provided" },
-      },
+      ...mediaUploadField({
+        name: "image",
+        label: "Image",
+        preset: "newsThumbnail",
+        fallbackPathName: "imageUrl",
+      }),
     ],
   } satisfies CollectionConfig,
   ADMIN_GROUPS.home,

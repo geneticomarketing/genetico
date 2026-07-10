@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { mediaUploadField } from "../fields/image";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
 
@@ -16,8 +17,13 @@ export const EcosystemModules = withAdminGroup(
       { name: "problem", type: "textarea", required: true },
       { name: "solution", type: "textarea", required: true },
       { name: "href", type: "text", required: true },
-      { name: "icon", type: "upload", relationTo: "media" },
-      { name: "iconUrl", type: "text", admin: { description: "Fallback static icon path" } },
+      ...mediaUploadField({
+        name: "icon",
+        label: "Icon",
+        preset: "smallIcon",
+        fallbackPathName: "iconUrl",
+        fallbackPathDescription: "Fallback static icon path",
+      }),
       { name: "sortOrder", type: "number", defaultValue: 0 },
     ],
   } satisfies CollectionConfig,

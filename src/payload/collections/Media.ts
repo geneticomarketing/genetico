@@ -36,6 +36,10 @@ export const Media = withAdminGroup(
         name: "alt",
         type: "text",
         required: true,
+        admin: {
+          description:
+            "Describe the image for accessibility. When uploading, use a descriptive file name (e.g. hero-bg.webp, partner-birac-logo.png).",
+        },
       },
     ],
   } satisfies CollectionConfig,

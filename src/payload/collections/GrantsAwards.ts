@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { mediaUploadField } from "../fields/image";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
 
@@ -13,12 +14,12 @@ export const GrantsAwards = withAdminGroup(
       { name: "year", type: "text", required: true },
       { name: "title", type: "text", required: true },
       { name: "subtitle", type: "text" },
-      { name: "icon", type: "upload", relationTo: "media", label: "Icon" },
-      {
-        name: "iconUrl",
-        type: "text",
-        admin: { description: "Optional fallback static icon path if no upload is provided" },
-      },
+      ...mediaUploadField({
+        name: "icon",
+        label: "Icon",
+        preset: "smallIcon",
+        fallbackPathName: "iconUrl",
+      }),
       { name: "sortOrder", type: "number", defaultValue: 0 },
     ],
   } satisfies CollectionConfig,

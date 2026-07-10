@@ -22,7 +22,7 @@ export const PlatformHero = pageSection(
     { name: "subtitle", type: "textarea" },
     { name: "ctaLabel", type: "text" },
     { name: "ctaHref", type: "text" },
-    ...imageUploadFields({ uploadLabel: "Hero image" }),
+    ...imageUploadFields({ uploadLabel: "Hero image", preset: "pageHero" }),
   ],
   ADMIN_GROUPS.platform,
 );
@@ -51,6 +51,7 @@ export const PlatformFeatures = pageSection(
           uploadName: "illustrationImage",
           pathName: "illustration",
           uploadLabel: "Illustration",
+          preset: "featureIllustration",
           pathDescription: "Fallback static illustration path if no upload is provided",
         }),
       ],

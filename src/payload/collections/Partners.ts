@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { mediaUploadField } from "../fields/image";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
 
@@ -11,12 +12,12 @@ export const Partners = withAdminGroup(
     },
     fields: [
       { name: "name", type: "text", required: true },
-      { name: "logo", type: "upload", relationTo: "media", label: "Logo" },
-      {
-        name: "logoUrl",
-        type: "text",
-        admin: { description: "Optional fallback static logo path if no upload is provided" },
-      },
+      ...mediaUploadField({
+        name: "logo",
+        label: "Logo",
+        preset: "partnerLogo",
+        fallbackPathName: "logoUrl",
+      }),
       { name: "sortOrder", type: "number", defaultValue: 0 },
     ],
   } satisfies CollectionConfig,

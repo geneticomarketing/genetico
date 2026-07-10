@@ -19,7 +19,7 @@ export const ResourcesHero = pageSection(
   [
     { name: "title", type: "text", required: true },
     { name: "subtitle", type: "textarea" },
-    ...imageUploadFields({ uploadLabel: "Hero image" }),
+    ...imageUploadFields({ uploadLabel: "Hero image", preset: "pageHero" }),
   ],
   ADMIN_GROUPS.resources,
 );
