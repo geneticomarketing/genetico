@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 
-import { PlatformClient } from "@/app/platform/platform-client";
+import { PageCtaSection } from "@/components/landing/page-cta-section";
+import { PlatformClinicalIntelligence } from "@/components/landing/platform-clinical-intelligence";
+import { PlatformFeatures } from "@/components/landing/platform-features";
+import { PlatformHero } from "@/components/landing/platform-hero";
+import { PlatformInfrastructure } from "@/components/landing/platform-infrastructure";
+import { PlatformLongitudinalCare } from "@/components/landing/platform-longitudinal-care";
+import { PlatformSecurity } from "@/components/landing/platform-security";
+import { ScrollParallaxPage } from "@/components/motion/scroll-parallax-page";
 import { getPlatformPageData } from "@/lib/cms/page-data";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
@@ -21,5 +28,20 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PlatformPage() {
   const data = await getPlatformPageData();
-  return <PlatformClient data={data} />;
+
+  return (
+    <ScrollParallaxPage hero={<PlatformHero hero={data.hero} />}>
+      <PlatformFeatures section={data.featuresSection} />
+      <PlatformClinicalIntelligence section={data.clinicalIntelligence} />
+      <PlatformLongitudinalCare section={data.longitudinalCare} />
+      <PlatformInfrastructure section={data.infrastructure} />
+      <PlatformSecurity section={data.security} />
+      <PageCtaSection
+        heading={data.cta.heading}
+        description={data.cta.description}
+        buttons={data.cta.buttons}
+        descriptionClassName="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-black/55 sm:mt-6 sm:text-lg"
+      />
+    </ScrollParallaxPage>
+  );
 }

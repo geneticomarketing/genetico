@@ -13,9 +13,10 @@ const ENTRANCE_DURATION = 1.5;
 const BG_DURATION = 1;
 
 function heroEntrance(contentIndex: number, reduce: boolean | null) {
+  // Keep above-fold copy visible in SSR HTML; animate only after hydration.
   if (reduce) return { initial: false as const };
   return {
-    initial: { opacity: 0, y: 40 },
+    initial: false as const,
     animate: { opacity: 1, y: 0 },
     transition: {
       duration: ENTRANCE_DURATION,
@@ -28,7 +29,7 @@ function heroEntrance(contentIndex: number, reduce: boolean | null) {
 function heroBgEntrance(reduce: boolean | null) {
   if (reduce) return { initial: false as const };
   return {
-    initial: { opacity: 0 },
+    initial: false as const,
     animate: { opacity: 1 },
     transition: { duration: BG_DURATION, ease: EASE, delay: 0 },
   };

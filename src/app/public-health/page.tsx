@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 
-import { PublicHealthClient } from "@/app/public-health/public-health-client";
+import { PageCtaSection } from "@/components/landing/page-cta-section";
+import { PublicHealthDataSecurity } from "@/components/landing/public-health-data-security";
+import { PublicHealthHero } from "@/components/landing/public-health-hero";
+import { PublicHealthThreeTierModel } from "@/components/landing/public-health-three-tier-model";
+import { PublicHealthTierArchitecture } from "@/components/landing/public-health-tier-architecture";
+import { ScrollParallaxPage } from "@/components/motion/scroll-parallax-page";
 import { getPublicHealthPageData } from "@/lib/cms/page-data";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
@@ -22,5 +27,17 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PublicHealthPage() {
   const data = await getPublicHealthPageData();
-  return <PublicHealthClient data={data} />;
+
+  return (
+    <ScrollParallaxPage hero={<PublicHealthHero hero={data.hero} />}>
+      <PublicHealthDataSecurity section={data.impact} />
+      <PublicHealthThreeTierModel section={data.threeTier} />
+      <PublicHealthTierArchitecture section={data.architecture} />
+      <PageCtaSection
+        heading={data.cta.heading}
+        description={data.cta.description}
+        buttons={data.cta.buttons}
+      />
+    </ScrollParallaxPage>
+  );
 }

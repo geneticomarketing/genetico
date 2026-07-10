@@ -65,11 +65,14 @@ export function StaggerGroup({
   className,
   stagger = 0.15,
   delayChildren = 0.1,
+  /** When true, children are visible in SSR HTML (use for above-fold heroes). */
+  ssrVisible = false,
 }: {
   children: ReactNode;
   className?: string;
   stagger?: number;
   delayChildren?: number;
+  ssrVisible?: boolean;
 }) {
   const { ref, visible, reduce } = useInViewAnimation();
 
@@ -77,8 +80,8 @@ export function StaggerGroup({
     <motion.div
       ref={ref}
       className={className}
-      initial={reduce ? false : "hidden"}
-      animate={visible ? "show" : "hidden"}
+      initial={reduce || ssrVisible ? false : "hidden"}
+      animate={visible || ssrVisible ? "show" : "hidden"}
       variants={{
         hidden: {},
         show: { transition: { staggerChildren: stagger, delayChildren } },

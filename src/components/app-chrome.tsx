@@ -1,12 +1,22 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Navbar } from "@/components/landing/navbar";
-import { MotionSafariFix } from "@/components/MotionSafariFix";
-import LS from "@/components/LS";
-import { Footer } from "@/components/landing/footer";
 
-export function AppChrome({ children }: { children: React.ReactNode }) {
+import { Navbar } from "@/components/landing/navbar";
+import { Footer } from "@/components/landing/footer";
+import LS from "@/components/LS";
+import { MotionSafariFix } from "@/components/MotionSafariFix";
+import type { SiteData } from "@/lib/cms/site-data-context";
+
+export function AppChrome({
+  children,
+  navigation,
+  footer,
+}: {
+  children: React.ReactNode;
+  navigation: SiteData["navigation"];
+  footer: SiteData["footer"];
+}) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
 
@@ -18,9 +28,9 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
     <div className="bg-navy flex min-h-full flex-col">
       <MotionSafariFix />
       <LS />
-      <Navbar />
+      <Navbar navigation={navigation} />
       {children}
-      <Footer />
+      <Footer footer={footer} />
     </div>
   );
 }

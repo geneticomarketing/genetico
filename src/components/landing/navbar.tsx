@@ -8,7 +8,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { EASE } from "@/components/motion/reveal";
 import { BLOG_PATH, HOSPITAL_PATH, PHARMA_PATH, PUBLIC_HEALTH_PATH, leadFormHref } from "@/lib/routes";
 import Link from "next/link";
-import { useSiteData } from "@/lib/cms/site-data-context";
+import type { SiteData } from "@/lib/cms/site-data-context";
 
 type NavLink = {
   type: "link";
@@ -241,18 +241,17 @@ function MobileSolutionsDropdown({
   );
 }
 
-function buildNavItems(siteData: ReturnType<typeof useSiteData>): NavItem[] {
-  const nav = siteData?.navigation;
-  if (!nav?.mainNav?.length) return DEFAULT_NAV_ITEMS;
+function buildNavItems(navigation?: SiteData["navigation"] | null): NavItem[] {
+  if (!navigation?.mainNav?.length) return DEFAULT_NAV_ITEMS;
 
   const solutionsLinks =
-    nav.solutionsNav?.map((link) => ({
+    navigation.solutionsNav?.map((link) => ({
       label: link.label,
       href: link.href,
       icon: link.icon ?? "",
     })) ?? DEFAULT_SOLUTIONS_LINKS;
 
-  return nav.mainNav.map((item) => {
+  return navigation.mainNav.map((item) => {
     if (item.type === "dropdown") {
       return {
         type: "dropdown" as const,
@@ -270,10 +269,9 @@ function buildNavItems(siteData: ReturnType<typeof useSiteData>): NavItem[] {
   });
 }
 
-export function Navbar() {
-  const siteData = useSiteData();
-  const navItems = buildNavItems(siteData);
-  const ctaLabel = siteData?.navigation?.ctaLabel ?? "Book a demo";
+export function Navbar({ navigation }: { navigation?: SiteData["navigation"] }) {
+  const navItems = buildNavItems(navigation);
+  const ctaLabel = navigation?.ctaLabel ?? "Book a demo";
   // isDark pages (e.g. About) use a white bar + black links; default is transparent
   // over the dark hero, switching to a dark translucent bar once scrolled.
   const [scrolled, setScrolled] = useState(false);

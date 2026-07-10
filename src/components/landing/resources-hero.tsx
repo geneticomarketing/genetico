@@ -12,9 +12,10 @@ const ENTRANCE_DURATION = 1.5;
 const BG_DURATION = 1;
 
 function heroEntrance(contentIndex: number, reduce: boolean | null) {
+  // Keep above-fold copy visible in SSR HTML; animate only after hydration.
   if (reduce) return { initial: false as const };
   return {
-    initial: { opacity: 0, y: 40 },
+    initial: false as const,
     animate: { opacity: 1, y: 0 },
     transition: {
       duration: ENTRANCE_DURATION,
@@ -36,7 +37,7 @@ export function ResourcesHero({
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0"
-        initial={{ opacity: 0 }}
+        initial={false}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >

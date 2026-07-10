@@ -35,7 +35,9 @@ export default async function RootLayout({
       <body className="h-full">
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <SiteDataProvider value={{ navigation, footer, settings }}>
-          <AppChrome>{children}</AppChrome>
+          <AppChrome navigation={navigation} footer={footer}>
+            {children}
+          </AppChrome>
         </SiteDataProvider>
       </body>
     </html>

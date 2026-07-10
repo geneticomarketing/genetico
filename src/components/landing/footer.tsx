@@ -9,7 +9,7 @@ import {
   PRIVACY_POLICY_PATH,
   PUBLIC_HEALTH_PATH,
 } from "@/lib/routes";
-import { useSiteData } from "@/lib/cms/site-data-context";
+import type { SiteData } from "@/lib/cms/site-data-context";
 
 const DEFAULT_MENU = [
   { label: "Home", href: "/" },
@@ -31,10 +31,7 @@ const SOCIAL_ICONS = {
   youtube: FaYoutube,
 } as const;
 
-export function Footer() {
-  const siteData = useSiteData();
-  const footer = siteData?.footer;
-
+export function Footer({ footer }: { footer?: SiteData["footer"] }) {
   const tagline =
     footer?.tagline ??
     "IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format & enables AI-assisted clinical decision-making for rare and genetic disorders.";
