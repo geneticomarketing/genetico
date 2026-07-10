@@ -315,7 +315,7 @@ export type HomePageData = {
   ecosystemGapsSection: { heading: string; description: string };
   partnersSection: { heading: string; description: string };
   securitySection: { heading: string; description: string; features: string[] };
-  newsSection: { heading: string; description: string; ctaLabel: string; ctaHref: string };
+  newsSection: { heading: string; description: string; ctaLabel: string };
   cta: PageCta;
   modules: EcosystemModule[];
   gaps: EcosystemGap[];

@@ -1,8 +1,4 @@
-import {
-  getCollection,
-  getGlobal,
-  getBlogPosts,
-} from "./queries";
+import { getCollection, getGlobal, getBlogPosts } from "./queries";
 import { BLOG_POSTS } from "@/lib/blogs";
 import { resolveMediaUrl } from "./resolve-media-url";
 import { DEFAULT_HOME_PAGE } from "./defaults/home";
@@ -47,7 +43,11 @@ async function getSectionGlobal<S extends GlobalSlug>(
 }
 
 function mergeCta(
-  cms?: { heading?: string | null; description?: string | null; buttons?: CtaButton[] | null } | null,
+  cms?: {
+    heading?: string | null;
+    description?: string | null;
+    buttons?: CtaButton[] | null;
+  } | null,
   fallback?: { heading: string; description: string; buttons: CtaButton[] },
 ) {
   return {
@@ -127,9 +127,8 @@ export async function getHomePageData(): Promise<HomePageData> {
 
   const defaults = DEFAULT_HOME_PAGE;
 
-  const heroSlides: HeroSlide[] =
-    hero?.heroSlides?.length ?
-      hero.heroSlides.map((s) => ({
+  const heroSlides: HeroSlide[] = hero?.heroSlides?.length
+    ? hero.heroSlides.map((s) => ({
         id: s.id,
         title: s.title,
         body: s.body,
@@ -161,9 +160,8 @@ export async function getHomePageData(): Promise<HomePageData> {
     logo: resolveMediaUrl(p.logo, p.logoUrl),
   }));
 
-  const cmsArticles =
-    externalArticles.length ?
-      externalArticles.map((a) => ({ title: a.title, url: a.url }))
+  const cmsArticles = externalArticles.length
+    ? externalArticles.map((a) => ({ title: a.title, url: a.url }))
     : DEFAULT_RESOURCES_PAGE.externalArticles;
 
   const posts = blogPosts.length ? blogPosts : BLOG_POSTS;
@@ -172,9 +170,8 @@ export async function getHomePageData(): Promise<HomePageData> {
     heroSlides,
     whoWeAre: {
       eyebrow: whoWeAre?.eyebrow || defaults.whoWeAre.eyebrow,
-      paragraphs:
-        whoWeAre?.paragraphs?.length ?
-          whoWeAre.paragraphs
+      paragraphs: whoWeAre?.paragraphs?.length
+        ? whoWeAre.paragraphs
             .filter((p) => p.text)
             .map((p) => ({
               text: p.text,
@@ -205,12 +202,13 @@ export async function getHomePageData(): Promise<HomePageData> {
       heading: newsSection?.heading || defaults.newsSection.heading,
       description: newsSection?.description || defaults.newsSection.description,
       ctaLabel: newsSection?.ctaLabel || defaults.newsSection.ctaLabel,
-      ctaHref: newsSection?.ctaHref || defaults.newsSection.ctaHref,
     },
     cta: mergeCta(ctaSection, defaults.cta),
     modules: cmsModules.length ? cmsModules : defaults.modules,
     gaps: cmsGaps.length ? cmsGaps : defaults.gaps,
-    partners: cmsPartners.filter((p) => p.logo).length ? cmsPartners.filter((p) => p.logo) : defaults.partners,
+    partners: cmsPartners.filter((p) => p.logo).length
+      ? cmsPartners.filter((p) => p.logo)
+      : defaults.partners,
     featuredBlog: posts[0] ?? null,
     previewBlog: posts[1] ?? null,
     previewArticles: cmsArticles.slice(0, 2),
@@ -250,9 +248,8 @@ export async function getAboutPageData(): Promise<AboutPageData> {
       eyebrow: defaults.vision.eyebrow,
       heading: vision?.heading || defaults.vision.heading,
     },
-    foundations:
-      foundations?.items?.length ?
-        foundations.items.map((f, i) => ({
+    foundations: foundations?.items?.length
+      ? foundations.items.map((f, i) => ({
           index: String(i + 1).padStart(2, "0"),
           title: f.title,
           body: f.body,
@@ -275,23 +272,29 @@ export async function getAboutPageData(): Promise<AboutPageData> {
 }
 
 export async function getPlatformPageData(): Promise<PlatformPageData> {
-  const [hero, featuresSection, clinicalIntelligence, longitudinalCare, infrastructure, security, cta] =
-    await Promise.all([
-      getSectionGlobal("platform-hero"),
-      getSectionGlobal("platform-features"),
-      getSectionGlobal("platform-clinical-intelligence"),
-      getSectionGlobal("platform-longitudinal-care"),
-      getSectionGlobal("platform-infrastructure"),
-      getSectionGlobal("platform-security"),
-      getSectionGlobal("platform-cta"),
-    ]);
+  const [
+    hero,
+    featuresSection,
+    clinicalIntelligence,
+    longitudinalCare,
+    infrastructure,
+    security,
+    cta,
+  ] = await Promise.all([
+    getSectionGlobal("platform-hero"),
+    getSectionGlobal("platform-features"),
+    getSectionGlobal("platform-clinical-intelligence"),
+    getSectionGlobal("platform-longitudinal-care"),
+    getSectionGlobal("platform-infrastructure"),
+    getSectionGlobal("platform-security"),
+    getSectionGlobal("platform-cta"),
+  ]);
 
   const defaults = DEFAULT_PLATFORM_PAGE;
 
   const cmsFeatures = featuresSection?.features;
-  const features =
-    cmsFeatures?.length ?
-      cmsFeatures.map((f, i) => ({
+  const features = cmsFeatures?.length
+    ? cmsFeatures.map((f, i) => ({
         id: f.title?.toLowerCase().replace(/\s+/g, "-") ?? `feature-${i}`,
         number: String(i + 1).padStart(2, "0"),
         tabTitle: f.title,
@@ -322,9 +325,8 @@ export async function getPlatformPageData(): Promise<PlatformPageData> {
       eyebrow: clinicalIntelligence?.eyebrow || defaults.clinicalIntelligence.eyebrow,
       heading: clinicalIntelligence?.heading || defaults.clinicalIntelligence.heading,
       description: clinicalIntelligence?.description || defaults.clinicalIntelligence.description,
-      capabilities:
-        clinicalIntelligence?.capabilities?.length ?
-          clinicalIntelligence.capabilities.map((c, i) => ({
+      capabilities: clinicalIntelligence?.capabilities?.length
+        ? clinicalIntelligence.capabilities.map((c, i) => ({
             number: String(i + 1).padStart(2, "0"),
             title: c.title,
             description: c.description,
@@ -336,9 +338,8 @@ export async function getPlatformPageData(): Promise<PlatformPageData> {
       eyebrow: longitudinalCare?.eyebrow || defaults.longitudinalCare.eyebrow,
       heading: longitudinalCare?.heading || defaults.longitudinalCare.heading,
       description: longitudinalCare?.description || defaults.longitudinalCare.description,
-      columns:
-        longitudinalCare?.columns?.length ?
-          longitudinalCare.columns.map((c, i) => ({
+      columns: longitudinalCare?.columns?.length
+        ? longitudinalCare.columns.map((c, i) => ({
             id: `column-${i}`,
             title: c.title,
             description: c.description,
@@ -353,15 +354,15 @@ export async function getPlatformPageData(): Promise<PlatformPageData> {
       integrationTags:
         infrastructure?.integrationTags?.map((t) => t.tag).filter(Boolean) ||
         defaults.infrastructure.integrationTags,
-      integrationsTitle: infrastructure?.integrationsTitle || defaults.infrastructure.integrationsTitle,
+      integrationsTitle:
+        infrastructure?.integrationsTitle || defaults.infrastructure.integrationsTitle,
       integrationsDescription:
         infrastructure?.integrationsDescription || defaults.infrastructure.integrationsDescription,
       deploymentTitle: infrastructure?.deploymentTitle || defaults.infrastructure.deploymentTitle,
       deploymentDescription:
         infrastructure?.deploymentDescription || defaults.infrastructure.deploymentDescription,
-      deploymentOptions:
-        infrastructure?.deploymentOptions?.length ?
-          infrastructure.deploymentOptions.map((o) => ({
+      deploymentOptions: infrastructure?.deploymentOptions?.length
+        ? infrastructure.deploymentOptions.map((o) => ({
             title: o.title,
             description: o.description,
           }))
@@ -371,9 +372,8 @@ export async function getPlatformPageData(): Promise<PlatformPageData> {
       eyebrow: security?.eyebrow || defaults.security.eyebrow,
       heading: security?.heading || defaults.security.heading,
       description: security?.description || defaults.security.description,
-      cards:
-        security?.cards?.length ?
-          security.cards.map((c) => ({ title: c.title, description: c.description }))
+      cards: security?.cards?.length
+        ? security.cards.map((c) => ({ title: c.title, description: c.description }))
         : defaults.security.cards,
     },
     cta: mergeCta(cta, defaults.cta),
@@ -405,9 +405,8 @@ export async function getPublicHealthPageData(): Promise<PublicHealthPageData> {
       eyebrow: defaults.impact.eyebrow,
       heading: impact?.heading || defaults.impact.heading,
       description: impact?.description || defaults.impact.description,
-      features:
-        impact?.features?.length ?
-          impact.features
+      features: impact?.features?.length
+        ? impact.features
             .map((f, i) => ({
               number: String(i + 1).padStart(2, "0"),
               category: "",
@@ -425,9 +424,8 @@ export async function getPublicHealthPageData(): Promise<PublicHealthPageData> {
       eyebrow: defaults.threeTier.eyebrow,
       heading: threeTier?.heading || defaults.threeTier.heading,
       description: threeTier?.description || defaults.threeTier.description,
-      tiers:
-        threeTier?.tiers?.length ?
-          threeTier.tiers.map((t, i) => ({
+      tiers: threeTier?.tiers?.length
+        ? threeTier.tiers.map((t, i) => ({
             id: defaults.threeTier.tiers[i]?.id ?? `tier-${i}`,
             tabLabel: t.bannerLabel || defaults.threeTier.tiers[i]?.tabLabel || "",
             bannerLabel: t.bannerLabel,
@@ -443,9 +441,8 @@ export async function getPublicHealthPageData(): Promise<PublicHealthPageData> {
       heading: architecture?.heading || defaults.architecture.heading,
       description: architecture?.description || defaults.architecture.description,
       classificationLabel: defaults.architecture.classificationLabel,
-      classifications:
-        architecture?.classifications?.length ?
-          architecture.classifications.map((c, i) => ({
+      classifications: architecture?.classifications?.length
+        ? architecture.classifications.map((c, i) => ({
             id: defaults.architecture.classifications[i]?.id ?? `class-${i}`,
             level: c.level,
             timeBadge: c.timeBadge || undefined,
@@ -459,7 +456,9 @@ export async function getPublicHealthPageData(): Promise<PublicHealthPageData> {
   };
 }
 
-export async function getResourcesPageData(): Promise<ResourcesPageData & { blogPosts: BlogPost[] }> {
+export async function getResourcesPageData(): Promise<
+  ResourcesPageData & { blogPosts: BlogPost[] }
+> {
   const [
     hero,
     filterTabsSection,
@@ -514,9 +513,8 @@ export async function getResourcesPageData(): Promise<ResourcesPageData & { blog
       buttonLabel: newsletter?.buttonLabel || defaults.newsletterCta.buttonLabel,
       buttonHref: newsletter?.buttonHref || defaults.newsletterCta.buttonHref,
     },
-    featuredVideo:
-      featured ?
-        {
+    featuredVideo: featured
+      ? {
           title: featured.title,
           description: featured.description || defaults.featuredVideo.description,
           youtubeUrl: featured.youtubeUrl,
@@ -525,9 +523,8 @@ export async function getResourcesPageData(): Promise<ResourcesPageData & { blog
           tags: featured.tags?.map((t) => t.tag).filter(Boolean) || defaults.featuredVideo.tags,
         }
       : defaults.featuredVideo,
-    shortVideos:
-      shortVideos.length ?
-        shortVideos.map((v, i) => ({
+    shortVideos: shortVideos.length
+      ? shortVideos.map((v, i) => ({
           title: v.title,
           description: v.description || "",
           category: v.category || defaults.shortVideos[i]?.category || "",
@@ -536,9 +533,8 @@ export async function getResourcesPageData(): Promise<ResourcesPageData & { blog
           duration: v.duration || "",
         }))
       : defaults.shortVideos,
-    externalArticles:
-      externalArticles.length ?
-        externalArticles.map((a) => ({ title: a.title, url: a.url }))
+    externalArticles: externalArticles.length
+      ? externalArticles.map((a) => ({ title: a.title, url: a.url }))
       : defaults.externalArticles,
     sectionHeadings: defaults.sectionHeadings,
     blogPosts,
