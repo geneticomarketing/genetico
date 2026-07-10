@@ -244,7 +244,7 @@ export const DEFAULT_HOME_PAGE: HomePageData = {
     heading: "Explore Our News & Articles",
     description: "Stay updated with the latest from Genetico and the rare disease ecosystem.",
     ctaLabel: "See all",
-    ctaHref: "/resources",
+    // ctaHref: "/resources",
   },
   cta: {
     heading: "Building the Future of Rare Disease Intelligence Together",

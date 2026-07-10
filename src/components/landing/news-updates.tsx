@@ -51,7 +51,7 @@ export function NewsUpdates({
     heading: string;
     description: string;
     ctaLabel: string;
-    ctaHref: string;
+    // ctaHref: string;
   };
   featuredBlog?: BlogPost | null;
   previewBlog?: BlogPost | null;
@@ -192,7 +192,7 @@ export function NewsUpdates({
             </motion.ul>
             <motion.a
               ref={ctaRef}
-              href={newsSection.ctaHref}
+              href={"/resources"}
               className="text-brand mt-4 inline-block text-sm font-semibold transition-opacity hover:opacity-70"
               initial={reduce ? false : { opacity: 0, y: 40, scale: 0.96 }}
               animate={
