@@ -1,6 +1,10 @@
 import { resolveMediaUrl } from "./resolve-media-url";
 import { BLOG_POSTS, type BlogPost } from "@/lib/blogs";
-import { SOLUTIONS_CONTENT, type SolutionsContent, type SolutionsVariant } from "@/lib/solutions-content";
+import {
+  SOLUTIONS_CONTENT,
+  type SolutionsContent,
+  type SolutionsVariant,
+} from "@/lib/solutions-content";
 import type { SolutionPage } from "@/payload-types";
 import type {
   BlogPost as CmsBlogPost,
@@ -10,7 +14,7 @@ import type {
   ExternalArticle as CmsExternalArticle,
   FeaturedVideo as CmsFeaturedVideo,
   GrantsAward as CmsGrantAward,
-  NewsArticle as CmsNewsArticle,
+  // NewsArticle as CmsNewsArticle,
   Partner as CmsPartner,
   ShortVideo as CmsShortVideo,
   TeamMember as CmsTeamMember,
@@ -76,9 +80,7 @@ function mapBurdenCards(
 ): SolutionsContent["clinicalBurden"]["cards"] {
   return (cards ?? [])
     .map((card) => {
-      const collapsedTitle = (card.collapsedTitle ?? [])
-        .map((line) => line.line)
-        .filter(Boolean);
+      const collapsedTitle = (card.collapsedTitle ?? []).map((line) => line.line).filter(Boolean);
 
       if (!card.label || !card.title || collapsedTitle.length < 2) return null;
 
@@ -173,7 +175,9 @@ function mergeSolutionsContent(doc: SolutionPage, fallback: SolutionsContent): S
   };
 }
 
-export async function getSolutionsContent(variant: SolutionsVariant = "hospital"): Promise<SolutionsContent> {
+export async function getSolutionsContent(
+  variant: SolutionsVariant = "hospital",
+): Promise<SolutionsContent> {
   const fallback = SOLUTIONS_CONTENT[variant];
   if (!isCmsConfigured()) return fallback;
 
@@ -279,7 +283,8 @@ export async function getSiteSettings() {
       submitLabel: "Talk to Our Team",
       successMessage: "Thanks — your message was sent. Our team will be in touch soon.",
       errorMessage: "Unable to send your message right now.",
-      privacyNote: "By submitting, you agree to be contacted by Genetico. We never share your information.",
+      privacyNote:
+        "By submitting, you agree to be contacted by Genetico. We never share your information.",
     },
   });
 }
@@ -325,8 +330,16 @@ export async function getFooterContent() {
     ],
     socialLinks: [
       { name: "X", href: "https://x.com/genetico_in", platform: "x" as const },
-      { name: "LinkedIn", href: "https://www.linkedin.com/company/genetico-in/", platform: "linkedin" as const },
-      { name: "YouTube", href: "https://youtube.com/@geneticord?si=v-e6PZkTFHRrJaGr", platform: "youtube" as const },
+      {
+        name: "LinkedIn",
+        href: "https://www.linkedin.com/company/genetico-in/",
+        platform: "linkedin" as const,
+      },
+      {
+        name: "YouTube",
+        href: "https://youtube.com/@geneticord?si=v-e6PZkTFHRrJaGr",
+        platform: "youtube" as const,
+      },
     ],
     legalLinks: [{ label: "Privacy Policy", href: "/privacy-policy" }],
   });
@@ -344,9 +357,9 @@ export async function getPartners() {
   return getCollection<CmsPartner>("partners", [] as CmsPartner[]);
 }
 
-export async function getNewsArticles() {
-  return getCollection<CmsNewsArticle>("news-articles", [] as CmsNewsArticle[]);
-}
+// export async function getNewsArticles() {
+//   return getCollection<CmsNewsArticle>("news-articles", [] as CmsNewsArticle[]);
+// }
 
 export async function getGrantsAwards() {
   return getCollection<CmsGrantAward>("grants-awards", [] as CmsGrantAward[]);

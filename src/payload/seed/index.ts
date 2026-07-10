@@ -460,29 +460,29 @@ async function seed() {
     });
   }
 
-  console.log("Seeding news articles...");
-  const featured = DEFAULT_NEWS_FEATURED;
-  await upsertByField(payload, "news-articles", "title", featured.title, {
-    title: featured.title,
-    excerpt: featured.excerpt,
-    tag: featured.tag,
-    author: featured.author,
-    publishedAt: featured.date ? new Date(featured.date).toISOString() : new Date().toISOString(),
-    readTime: featured.readTime,
-    href: featured.href,
-    imageUrl: featured.image,
-    featured: true,
-  });
+  // console.log("Seeding news articles...");
+  // const featured = DEFAULT_NEWS_FEATURED;
+  // await upsertByField(payload, "news-articles", "title", featured.title, {
+  //   title: featured.title,
+  //   excerpt: featured.excerpt,
+  //   tag: featured.tag,
+  //   author: featured.author,
+  //   publishedAt: featured.date ? new Date(featured.date).toISOString() : new Date().toISOString(),
+  //   readTime: featured.readTime,
+  //   href: featured.href,
+  //   imageUrl: featured.image,
+  //   featured: true,
+  // });
 
-  for (const [index, article] of DEFAULT_NEWS_ARTICLES.entries()) {
-    await upsertByField(payload, "news-articles", "title", `${article.title} (${index + 1})`, {
-      title: article.title,
-      tag: article.tag,
-      readTime: article.readTime,
-      featured: false,
-      sortOrder: index + 1,
-    });
-  }
+  // for (const [index, article] of DEFAULT_NEWS_ARTICLES.entries()) {
+  //   await upsertByField(payload, "news-articles", "title", `${article.title} (${index + 1})`, {
+  //     title: article.title,
+  //     tag: article.tag,
+  //     readTime: article.readTime,
+  //     featured: false,
+  //     sortOrder: index + 1,
+  //   });
+  // }
 
   console.log("Seeding team members...");
   for (const [index, member] of DEFAULT_TEAM.entries()) {
