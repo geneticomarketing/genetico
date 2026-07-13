@@ -76,7 +76,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             />
 
             <p
-              className="secondaryFont mt-8 text-[11px] font-semibold tracking-[0.14em] uppercase"
+              className="t-badge secondaryFont mt-8 text-[11px] font-semibold tracking-[0.14em] uppercase"
               style={{ color: post.categoryColor }}
             >
               {post.category}

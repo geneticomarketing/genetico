@@ -17,7 +17,7 @@ const listItemVariants: Variants = {
 function Tag({ children, uppercase = true }: { children: string; uppercase?: boolean }) {
   return (
     <span
-      className={`w-fit rounded-md bg-[#ECEEF1] px-2.5 py-1 text-[11px] font-semibold tracking-[0.1em] text-[#5A5F66] ${uppercase ? "uppercase" : ""}`}
+      className={`t-badge w-fit rounded-md bg-[#ECEEF1] px-2.5 py-1 text-[11px] font-semibold tracking-[0.1em] text-[#5A5F66] ${uppercase ? "uppercase" : ""}`}
     >
       {children}
     </span>

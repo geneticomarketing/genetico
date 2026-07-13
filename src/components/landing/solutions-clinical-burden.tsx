@@ -47,7 +47,7 @@ function BurdenActiveCardPanel({
       />
       <div className="relative z-10 flex h-full flex-col p-5 sm:p-6">
         {showLabel && (
-          <span className="secondaryFont text-[0.68rem] font-medium tracking-[0.22em] text-white/45 uppercase">
+          <span className="t-badge secondaryFont text-[0.68rem] font-medium tracking-[0.22em] text-white/45 uppercase">
             {card.label}
           </span>
         )}
@@ -79,7 +79,7 @@ function CollapsedCardContent({ card }: { card: BurdenCard }) {
         />
       </span>
       <span
-        className="secondaryFont text-[0.68rem] font-medium tracking-[0.22em] text-[#c5cdd8] uppercase"
+        className="t-badge secondaryFont text-[0.68rem] font-medium tracking-[0.22em] text-[#c5cdd8] uppercase"
         style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
       >
         {card.label}
@@ -161,7 +161,7 @@ function BurdenMobileCarousel({
               type="button"
               onClick={() => onSelect(index)}
               aria-pressed={isActive}
-              className={`secondaryFont shrink-0 rounded-full border px-3.5 py-1.5 text-[0.65rem] font-medium tracking-[0.16em] uppercase transition-colors sm:px-4 sm:text-[0.68rem] ${
+              className={`t-badge secondaryFont shrink-0 rounded-full border px-3.5 py-1.5 text-[0.65rem] font-medium tracking-[0.16em] uppercase transition-colors sm:px-4 sm:text-[0.68rem] ${
                 isActive
                   ? "border-brand bg-brand text-white"
                   : "border-[#d4dce6] bg-white text-[#6e6e73] hover:border-[#b8c4d4]"
@@ -348,11 +348,11 @@ export function SolutionsClinicalBurden({
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-4 sm:gap-6">
-            <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
+            <span aria-hidden className="throbbing-bgH h-1 w-10 shrink-0 rounded-full sm:w-16" />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
               {content.label}
             </p>
-            <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
+            <span aria-hidden className="throbbing-bgH h-1 w-10 shrink-0 rounded-full sm:w-16" />
           </div>
 
           <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">{content.heading}</h2>

@@ -9,7 +9,7 @@ import type { EcosystemGap } from "@/lib/cms/types";
 // Single source of truth for the shared type scale, so it isn't repeated inline
 // across the Problem / Solution panels. Colours come from theme tokens (globals.css).
 const PANEL_MIN_H = "min-h-[460px] max-md:min-h-[400px]";
-const LABEL_CLASS = "text-[14px] font-semibold tracking-[0.18em] uppercase";
+const LABEL_CLASS = "t-badge text-[14px] font-semibold tracking-[0.18em] uppercase";
 const TITLE_CLASS = "t-card-title mt-4 max-w-[460px] text-black";
 const DESC_CLASS = "text-ink-muted max-w-[440px] text-[16px] leading-[1.6]";
 

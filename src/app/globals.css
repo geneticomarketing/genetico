@@ -35,7 +35,9 @@ html {
      fallback that renders until the Season file is dropped at public/fonts/. */
   --font-sans: "Season VF", var(--font-albert-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: "Season VF", ui-serif, Georgia, Cambria, "Times New Roman", serif;
-  --font-jetbrains-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  /* next/font sets --font-jetbrains on <html>; this theme token powers
+     font-jetbrains-mono and .t-eyebrow / .t-badge. */
+  --font-jetbrains-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 :root {
@@ -151,18 +153,32 @@ body {
     letter-spacing: -0.02em;
     font-size: clamp(1.5rem, 2.6vw, 2rem);
   }
+}
 
-  .t-eyebrow {
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    font-size: 0.8125rem;
-    font-family: var(--font-jetbrains-mono);
-  }
+/* Eyebrows & badges — outside @layer so they beat unlayered .secondaryFont.
+   JetBrains Mono is the site-wide face for every eyebrow and badge. */
+.t-eyebrow {
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  font-family: var(--font-jetbrains-mono);
+}
+
+.t-badge {
+  font-family: var(--font-jetbrains-mono) !important;
 }
 
 .throbbing-bg {
   background: var(--linear-gradient-top);
+  background-size: 200% 200%;
+  -webkit-animation: textGradientTop 5s ease infinite;
+  -moz-animation: textGradientTop 5s ease infinite;
+  animation: textGradientTop 5s ease infinite;
+}
+/*  */
+.throbbing-bgH {
+  background: linear-gradient(90deg, var(--color-brand), var(--color-accent));
   background-size: 200% 200%;
   -webkit-animation: textGradientTop 5s ease infinite;
   -moz-animation: textGradientTop 5s ease infinite;

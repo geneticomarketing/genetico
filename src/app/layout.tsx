@@ -13,7 +13,9 @@ const albertSans = Albert_Sans({
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+  /* Distinct from the Tailwind theme token so `--font-jetbrains-mono` can
+     safely compose: var(--font-jetbrains) + fallbacks (no circular ref). */
+  variable: "--font-jetbrains",
   subsets: ["latin"],
 });
 

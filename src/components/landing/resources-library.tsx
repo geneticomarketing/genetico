@@ -12,7 +12,7 @@ import { youtubeIdFromUrl, youtubeThumbnailUrl } from "@/lib/youtube";
 
 function FeaturedTagLine({ tags }: { tags: string[] }) {
   return (
-    <p className="secondaryFont flex flex-wrap items-center gap-x-2 text-[10px] font-semibold tracking-[0.16em] text-white/85 uppercase sm:text-[11px]">
+    <p className="t-badge secondaryFont flex flex-wrap items-center gap-x-2 text-[10px] font-semibold tracking-[0.16em] text-white/85 uppercase sm:text-[11px]">
       {tags.map((tag, index) => (
         <span key={tag} className="inline-flex items-center gap-2">
           {index > 0 ? <span aria-hidden className="text-white/50">•</span> : null}
@@ -72,7 +72,7 @@ export function ResourcesLibrary({
                 />
 
                 <div className="absolute top-5 left-5 sm:top-6 sm:left-6">
-                  <span className="inline-flex items-center gap-2 rounded-md bg-black/45 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-white uppercase backdrop-blur-sm sm:px-3.5 sm:text-xs">
+                  <span className="t-badge inline-flex items-center gap-2 rounded-md bg-black/45 px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-white uppercase backdrop-blur-sm sm:px-3.5 sm:text-xs">
                     <span aria-hidden className="size-2 rounded-md bg-[#34d399]" />
                     Now Showing
                   </span>

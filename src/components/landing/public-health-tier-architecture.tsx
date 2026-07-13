@@ -43,7 +43,7 @@ const OUTER_DASH_D = `M ${polar(HUB.x, HUB.y, D_RADIUS, D_ANGLES[0]).x} ${polar(
 
 function TagPill({ children }: { children: string }) {
   return (
-    <span className="secondaryFont text-brand rounded-full bg-[#eef4f9] px-3 py-1.5 text-[0.68rem] font-medium">
+    <span className="t-badge secondaryFont text-brand rounded-full bg-[#eef4f9] px-3 py-1.5 text-[0.68rem] font-medium">
       {children}
     </span>
   );
@@ -55,11 +55,11 @@ function ClassificationBlock({ item, index }: { item: Classification; index: num
       <article className={index > 0 ? "border-t border-[#e8ebf0] pt-8" : ""}>
         <div className="flex flex-wrap items-center gap-2">
           <span aria-hidden className="bg-brand size-1.5 shrink-0 rounded-full" />
-          <span className="secondaryFont text-[0.62rem] font-semibold tracking-[0.14em] text-[#6e6e73] uppercase">
+          <span className="t-badge secondaryFont text-[0.62rem] font-semibold tracking-[0.14em] text-[#6e6e73] uppercase">
             {item.level}
           </span>
           {item.timeBadge && (
-            <span className="secondaryFont text-brand rounded-full bg-[#e8f4fc] px-2 py-0.5 text-[0.6rem] font-semibold">
+            <span className="t-badge secondaryFont text-brand rounded-full bg-[#e8f4fc] px-2 py-0.5 text-[0.6rem] font-semibold">
               {item.timeBadge}
             </span>
           )}
@@ -384,12 +384,11 @@ export function PublicHealthTierArchitecture({
         <StaggerGroup className="mx-auto max-w-3xl text-center" stagger={0.1}>
           <StaggerItem>
             <div className="flex items-center justify-center gap-4 sm:gap-6">
-              <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
-              {/* <span aria-hidden className="h-px w-px shrink-0 bg-[#b8cce0] sm:w-16" /> */}
+              <span aria-hidden className="throbbing-bgH h-1 w-12 shrink-0 rounded-full" />
               <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
                 {section.eyebrow}
               </p>
-              <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
+              <span aria-hidden className="throbbing-bgH h-1 w-12 shrink-0 rounded-full" />
             </div>
           </StaggerItem>
 
@@ -409,7 +408,7 @@ export function PublicHealthTierArchitecture({
         <div className="mt-14 grid items-center gap-12 lg:mt-16 lg:grid-cols-2 lg:gap-14 xl:gap-20">
           <StaggerGroup className="space-y-8" stagger={0.12} delayChildren={0.05}>
             <StaggerItem>
-              <p className="secondaryFont text-[0.62rem] font-semibold tracking-[0.18em] text-[#a3afc4] uppercase">
+              <p className="t-badge secondaryFont text-[0.62rem] font-semibold tracking-[0.18em] text-[#a3afc4] uppercase">
                 {section.classificationLabel}
               </p>
             </StaggerItem>

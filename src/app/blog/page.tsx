@@ -42,7 +42,7 @@ export default async function BlogPage() {
           </Link>
 
           <Reveal>
-            <p className="secondaryFont text-[11px] font-semibold tracking-[0.16em] text-[#45B191] uppercase">
+            <p className="t-eyebrow text-[11px] tracking-[0.16em] text-[#45B191]">
               {data.blogListing.eyebrow}
             </p>
             <h1

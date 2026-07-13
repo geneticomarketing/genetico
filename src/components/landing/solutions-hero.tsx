@@ -159,10 +159,10 @@ function CohortDatasetCard({
         className="rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
       >
         <div className="flex items-center justify-between gap-2">
-          <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
+          <span className="t-badge secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
             Research Cohort
           </span>
-          <span className="rounded-full bg-[#eef4f9] px-2 py-0.5 text-[0.6rem] font-semibold tracking-wide text-brand uppercase">
+          <span className="t-badge rounded-full bg-[#eef4f9] px-2 py-0.5 text-[0.6rem] font-semibold tracking-wide text-brand uppercase">
             Live
           </span>
         </div>
@@ -203,7 +203,7 @@ function NaturalHistoryCard({
         className="rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
       >
         <div className="flex items-baseline justify-between gap-2">
-          <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
+          <span className="t-badge secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
             Natural History Study
           </span>
           <span className="secondaryFont text-[0.62rem] text-[#a3afc4]">Longitudinal</span>
@@ -272,7 +272,7 @@ function LifeScienceHeroVisual({
 
           <div className="absolute top-[8%] right-[6%] inline-flex items-center gap-2 rounded-full border border-[#e8ebf0] bg-white px-3 py-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
             <span className="size-2 shrink-0 rounded-full bg-[#2b7623]" />
-            <span className="secondaryFont text-[0.65rem] font-medium tracking-[0.12em] text-[#6e6e73] uppercase">
+            <span className="t-badge secondaryFont text-[0.65rem] font-medium tracking-[0.12em] text-[#6e6e73] uppercase">
               Research-ready datasets
             </span>
           </div>
@@ -324,10 +324,10 @@ function HpoExtractionCard({
         className="rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
       >
         <div className="flex items-center justify-between gap-2">
-          <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
+          <span className="t-badge secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
             HPO Extraction
           </span>
-          <span className="rounded-full bg-[#2b7623] px-2 py-0.5 text-[0.6rem] font-semibold tracking-wide text-white uppercase">
+          <span className="t-badge rounded-full bg-[#2b7623] px-2 py-0.5 text-[0.6rem] font-semibold tracking-wide text-white uppercase">
             Auto
           </span>
         </div>
@@ -359,7 +359,7 @@ function RapidScoreCard({
         className="rounded-xl border border-[#e8ebf0] bg-white p-4 text-left shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
       >
         <div className="flex items-baseline justify-between gap-2">
-          <span className="secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
+          <span className="t-badge secondaryFont text-brand text-[0.65rem] font-semibold tracking-[0.14em] uppercase">
             Rapid Score
           </span>
           <span className="secondaryFont text-[0.62rem] text-[#a3afc4]">AI · Ranked</span>

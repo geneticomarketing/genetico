@@ -76,7 +76,7 @@ function SecurityRow({ feature }: { feature: SecurityFeature }) {
           <Icon className="text-brand size-5" strokeWidth={1.6} aria-hidden />
         </motion.div>
 
-        <p className="secondaryFont text-[0.62rem] font-semibold tracking-[0.22em] text-[#a3afc4] uppercase sm:col-auto">
+        <p className="t-badge secondaryFont text-[0.62rem] font-semibold tracking-[0.22em] text-[#a3afc4] uppercase sm:col-auto">
           {feature.category}
         </p>
 
@@ -123,9 +123,19 @@ export function PublicHealthDataSecurity({
         >
           <div>
             <StaggerItem>
-              <p className="t-eyebrow secondaryFont text-brand text-[0.65rem] tracking-[0.28em]">
-                {section.eyebrow}
-              </p>
+              <div className="flex items-center gap-4 sm:gap-5">
+                <span
+                  aria-hidden
+                  className="throbbing-bgH h-1 w-12 shrink-0 rounded-full"
+                />
+                <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.65rem] tracking-[0.28em]">
+                  {section.eyebrow}
+                </p>
+                <span
+                  aria-hidden
+                  className="throbbing-bgH h-1 w-12 shrink-0 rounded-full"
+                />
+              </div>
             </StaggerItem>
 
             <StaggerItem>

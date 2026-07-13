@@ -134,7 +134,7 @@ function ProgressRing({
           </motion.span>
         )}
         {!metric.hideCenterSubLabel && (
-          <span className="secondaryFont mt-1 text-[0.62rem] font-semibold tracking-[0.22em] text-[#a3afc4] uppercase">
+          <span className="t-badge secondaryFont mt-1 text-[0.62rem] font-semibold tracking-[0.22em] text-[#a3afc4] uppercase">
             BETTER
           </span>
         )}
@@ -195,7 +195,7 @@ function OutcomeColumn({
       <ProgressRing metric={metric} progress={progress} reduce={reduce} />
 
       <p
-        className="secondaryFont mt-6 text-[0.65rem] font-semibold tracking-[0.12em]"
+        className="t-badge secondaryFont mt-6 text-[0.65rem] font-semibold tracking-[0.12em]"
         style={{ color: metric.accent }}
       >
         {metric.label}
@@ -293,11 +293,11 @@ export function SolutionsMeasurableOutcomes({
       <div ref={sectionRef} className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-3 sm:gap-4">
-            <span aria-hidden className="h-px w-6 shrink-0 bg-[#b8cce0] sm:w-10" />
+            <span aria-hidden className="throbbing-bgH h-1 w-6 shrink-0 rounded-full sm:w-10" />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
               {content.label}
             </p>
-            <span aria-hidden className="h-px w-6 shrink-0 bg-[#b8cce0] sm:w-10" />
+            <span aria-hidden className="throbbing-bgH h-1 w-6 shrink-0 rounded-full sm:w-10" />
           </div>
 
           <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">

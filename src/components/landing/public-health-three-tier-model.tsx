@@ -58,7 +58,7 @@ function TierPanel({ tier }: { tier: Tier }) {
       <div className="relative overflow-hidden bg-brand px-6 py-6 sm:px-8 sm:py-7">
         <BannerSwirl />
         <div className="relative z-10">
-          <p className="secondaryFont text-[0.62rem] font-semibold tracking-[0.22em] text-white/65 uppercase">
+          <p className="t-badge secondaryFont text-[0.62rem] font-semibold tracking-[0.22em] text-white/65 uppercase">
             {tier.bannerLabel}
           </p>
           <h3
@@ -94,7 +94,7 @@ function TierPanel({ tier }: { tier: Tier }) {
                 }
           }
         >
-          <p className="secondaryFont text-[0.62rem] font-semibold tracking-[0.18em] text-[#a3afc4] uppercase">
+          <p className="t-badge secondaryFont text-[0.62rem] font-semibold tracking-[0.18em] text-[#a3afc4] uppercase">
             WHAT HAPPENS AT THIS TIER
           </p>
           <motion.ul
@@ -139,7 +139,7 @@ function TierPanel({ tier }: { tier: Tier }) {
                 }
           }
         >
-          <p className="secondaryFont text-[0.62rem] font-semibold tracking-[0.18em] text-[#a3afc4] uppercase">
+          <p className="t-badge secondaryFont text-[0.62rem] font-semibold tracking-[0.18em] text-[#a3afc4] uppercase">
             WHAT DATA FLOWS OUT
           </p>
           <motion.ul
@@ -189,7 +189,7 @@ function TierPanel({ tier }: { tier: Tier }) {
                 }
           }
         >
-          <p className="secondaryFont text-[0.62rem] font-semibold tracking-[0.18em] text-[#a3afc4] uppercase">
+          <p className="t-badge secondaryFont text-[0.62rem] font-semibold tracking-[0.18em] text-[#a3afc4] uppercase">
             WHO USES IT AT THIS TIER
           </p>
           <motion.ul
@@ -250,9 +250,19 @@ export function PublicHealthThreeTierModel({
       <div className="mx-auto w-full max-w-7xl">
         <StaggerGroup className="mx-auto max-w-3xl text-center" stagger={0.1}>
           <StaggerItem>
-            <p className="t-eyebrow secondaryFont text-[0.65rem] tracking-[0.28em] text-brand">
-              {section.eyebrow}
-            </p>
+            <div className="flex items-center justify-center gap-4 sm:gap-6">
+              <span
+                aria-hidden
+                className="throbbing-bgH h-1 w-12 shrink-0 rounded-full"
+              />
+              <p className="t-eyebrow secondaryFont shrink-0 text-[0.65rem] tracking-[0.28em] text-brand">
+                {section.eyebrow}
+              </p>
+              <span
+                aria-hidden
+                className="throbbing-bgH h-1 w-12 shrink-0 rounded-full"
+              />
+            </div>
           </StaggerItem>
 
           <StaggerItem>

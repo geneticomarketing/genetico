@@ -46,7 +46,7 @@ function rowRange(index: number, count: number): [number, number] {
 
 function CapabilityBadge({ label }: { label: string }) {
   return (
-    <span className="border-accent/45 text-accent inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold tracking-[0.14em] uppercase">
+    <span className="t-badge border-accent/45 text-accent inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold tracking-[0.14em] uppercase">
       <span aria-hidden className="bg-accent size-1.5 rounded-full" />
       {label}
     </span>
@@ -200,7 +200,7 @@ function ComparisonWidget({ progress, reduce }: WidgetProps) {
     >
       <div className="relative grid grid-cols-3">
         <div className="px-4 py-5 sm:px-5">
-          <p className="text-[10px] font-semibold tracking-[0.16em] text-white/30 uppercase">
+          <p className="t-badge text-[10px] font-semibold tracking-[0.16em] text-white/30 uppercase">
             Disease A
           </p>
           <p className="mt-2 text-[14px] font-medium text-white">Dravet Syndrome</p>
@@ -218,7 +218,7 @@ function ComparisonWidget({ progress, reduce }: WidgetProps) {
             className="absolute top-0 bottom-0 left-0 w-px origin-top bg-white/10"
             style={reduce ? undefined : { scaleY: divider1 }}
           />
-          <p className="text-accent text-[10px] font-semibold tracking-[0.16em] uppercase">
+          <p className="t-badge text-accent text-[10px] font-semibold tracking-[0.16em] uppercase">
             Shared
           </p>
           <ul className="text-accent mt-4 space-y-2.5 text-[12px] leading-relaxed">
@@ -234,7 +234,7 @@ function ComparisonWidget({ progress, reduce }: WidgetProps) {
         </div>
 
         <div className="px-4 py-5 sm:px-5">
-          <p className="text-[10px] font-semibold tracking-[0.16em] text-white/30 uppercase">
+          <p className="t-badge text-[10px] font-semibold tracking-[0.16em] text-white/30 uppercase">
             Disease B
           </p>
           <p className="mt-2 text-[14px] font-medium text-white">Lennox-Gastaut</p>
@@ -319,10 +319,13 @@ export function PlatformClinicalIntelligence({
           <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16">
             <div>
               <div className="flex items-center gap-3">
-                <p className="t-eyebrow text-accent font-jetbrains-mono text-[0.7rem] tracking-[0.32em]">
+                <p className="t-eyebrow text-brand text-[0.7rem] tracking-[0.32em]">
                   {section.eyebrow}
                 </p>
-                <span aria-hidden className="bg-accent h-0.5 w-10 sm:w-14" />
+                <span
+                  aria-hidden
+                  className="throbbing-bgH h-1 w-10 rounded-full sm:w-14"
+                />
               </div>
               <h2
                 className="t-heading mt-5 max-w-none text-white"

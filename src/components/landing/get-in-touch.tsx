@@ -178,7 +178,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
         ))}
       </div>
 
-      <p className="text-brand pt-4 text-sm leading-snug font-medium sm:pt-5 sm:text-[15px]">
+      <p className="text-brand min-h-18 pt-4 text-sm leading-snug font-medium sm:pt-5 sm:text-[15px]">
         {roles[active]?.description}
       </p>
 
@@ -302,7 +302,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
                     <c.Icon size={20} strokeWidth={1.6} />
                   </span>
                   <div className="flex flex-col gap-0.5">
-                    <span className="text-xs font-semibold tracking-wide text-black/40 uppercase">
+                    <span className="t-badge text-xs font-semibold tracking-wide text-black/40 uppercase">
                       {c.label}
                     </span>
                     <a

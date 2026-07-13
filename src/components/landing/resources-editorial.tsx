@@ -25,7 +25,7 @@ function ArticleRow({ item, index }: { item: ArticleItem; index: number }) {
           {String(index + 1).padStart(2, "0")}
         </span>
 
-        <span className="secondaryFont flex shrink-0 items-center gap-2 text-[11px] font-semibold tracking-[0.14em] text-[#0a66c2] sm:w-28">
+        <span className="t-badge secondaryFont flex shrink-0 items-center gap-2 text-[11px] font-semibold tracking-[0.14em] text-[#0a66c2] sm:w-28">
           <span aria-hidden className="size-1.5 rounded-full bg-[#0a66c2]" />
           ARTICLE
         </span>

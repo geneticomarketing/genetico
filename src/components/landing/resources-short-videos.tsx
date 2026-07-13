@@ -77,7 +77,7 @@ function ShortVideoCard({
       </div>
 
       <p
-        className="secondaryFont mt-3 text-[11px] font-semibold tracking-[0.14em] uppercase"
+        className="t-badge secondaryFont mt-3 text-[11px] font-semibold tracking-[0.14em] uppercase"
         style={{ color: video.categoryColor }}
       >
         {video.category}

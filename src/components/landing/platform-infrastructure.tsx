@@ -3,7 +3,13 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
-import { EASE, Reveal, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
+import {
+  EASE,
+  Reveal,
+  StaggerGroup,
+  StaggerItem,
+  useInViewAnimation,
+} from "@/components/motion/reveal";
 import { DEFAULT_PLATFORM_PAGE } from "@/lib/cms/defaults/platform";
 import type { PlatformPageData } from "@/lib/cms/types";
 
@@ -14,8 +20,8 @@ const CROSSFADE = { duration: 0.38, ease: EASE };
 
 function SectionBadge({ label, dotClassName }: { label: string; dotClassName?: string }) {
   return (
-    <span className="text-brand inline-flex w-fit items-center gap-2 rounded-full bg-[#e8f4fc] px-3 py-1.5 text-[11px] font-semibold tracking-[0.14em] uppercase">
-      <span aria-hidden className={`size-1.5 rounded-full ${dotClassName ?? "bg-accent"}`} />
+    <span className="t-badge text-brand inline-flex w-fit items-center gap-2 rounded-full bg-[#e8f4fc] px-3 py-1.5 text-[11px] font-semibold tracking-[0.14em] uppercase">
+      <span aria-hidden className={`size-1.5 rounded-full ${dotClassName ?? "bg-accent"} `} />
       {label}
     </span>
   );
@@ -158,10 +164,10 @@ export function PlatformInfrastructure({
           <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16">
             <div>
               <div className="flex items-center gap-3">
-                <p className="t-eyebrow text-[0.7rem] tracking-[0.32em] text-[#7a8fa8]">
+                <p className="t-eyebrow text-brand text-[0.7rem] tracking-[0.32em]">
                   {section.eyebrow}
                 </p>
-                <span aria-hidden className="bg-accent h-0.5 w-10 sm:w-14" />
+                <span aria-hidden className="throbbing-bgH h-1 w-10 rounded-full sm:w-14" />
               </div>
               <h2
                 className="t-heading mt-5 max-w-none text-black"

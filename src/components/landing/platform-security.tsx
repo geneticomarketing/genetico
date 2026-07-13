@@ -55,11 +55,11 @@ export function PlatformSecurity({
       <div className="relative mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-4 sm:gap-6">
-            <span aria-hidden className="h-px w-10 bg-white/20 sm:w-16" />
-            <p className="t-eyebrow shrink-0 text-[0.7rem] tracking-[0.32em] text-white/50">
+            <span aria-hidden className="throbbing-bgH h-1 w-10 rounded-full sm:w-16" />
+            <p className="t-eyebrow text-brand shrink-0 text-[0.7rem] tracking-[0.32em]">
               {section.eyebrow}
             </p>
-            <span aria-hidden className="h-px w-10 bg-white/20 sm:w-16" />
+            <span aria-hidden className="throbbing-bgH h-1 w-10 rounded-full sm:w-16" />
           </div>
 
           <h2

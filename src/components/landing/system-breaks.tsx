@@ -199,7 +199,7 @@ export function SystemBreaks({
                       animate={isActive ? "show" : "hidden"}
                       className="flex-1 rounded-2xl bg-white/[0.07] px-6 py-7 ring-1 ring-white/10"
                     >
-                      <span className="text-sm font-semibold tracking-wide text-white/55 uppercase">
+                      <span className="t-badge text-sm font-semibold tracking-wide text-white/55 uppercase">
                         Problem
                       </span>
                       <p className="mt-4 text-base leading-relaxed text-white/85">{m.problem}</p>
@@ -212,7 +212,7 @@ export function SystemBreaks({
                       animate={isActive ? "show" : "hidden"}
                       className="flex-1 rounded-2xl bg-white px-6 py-7 shadow-[0_10px_40px_rgba(0,0,0,0.3)]"
                     >
-                      <span className="text-brand text-sm font-semibold tracking-wide uppercase">
+                      <span className="t-badge text-brand text-sm font-semibold tracking-wide uppercase">
                         Solution
                       </span>
                       <p className="mt-4 text-base leading-relaxed text-black">{m.solution}</p>

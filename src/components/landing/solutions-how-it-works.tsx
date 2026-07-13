@@ -193,7 +193,7 @@ function PatientIntakeDashboard() {
 
         <div className="mt-4 space-y-4">
           <div>
-            <p className="text-[0.62rem] font-semibold tracking-[0.14em] text-[#a3afc4] uppercase">
+            <p className="t-badge text-[0.62rem] font-semibold tracking-[0.14em] text-[#a3afc4] uppercase">
               HPO TERMS
             </p>
             <div className="mt-2 flex flex-wrap gap-2 rounded-lg border border-[#eef1f5] p-3">
@@ -223,7 +223,7 @@ function PatientIntakeDashboard() {
           </div>
 
           <div>
-            <p className="text-[0.62rem] font-semibold tracking-[0.14em] text-[#a3afc4] uppercase">
+            <p className="t-badge text-[0.62rem] font-semibold tracking-[0.14em] text-[#a3afc4] uppercase">
               SYMPTOM ONSET
             </p>
             <div className="mt-2 rounded-lg border border-[#eef1f5] px-3 py-2.5 text-[0.75rem] text-[#6e6e73]">
@@ -232,7 +232,7 @@ function PatientIntakeDashboard() {
           </div>
 
           <div>
-            <p className="text-[0.62rem] font-semibold tracking-[0.14em] text-[#a3afc4] uppercase">
+            <p className="t-badge text-[0.62rem] font-semibold tracking-[0.14em] text-[#a3afc4] uppercase">
               FAMILY HISTORY
             </p>
             <div className="mt-2 flex flex-wrap gap-4 text-[0.75rem] text-[#6e6e73]">
@@ -313,7 +313,7 @@ function DocumentImportDashboard() {
             <p className="text-[0.68rem] text-[#a3afc4]">2.4 MB · Uploaded just now</p>
           </div>
           <motion.span
-            className="text-success inline-flex shrink-0 items-center gap-1 rounded-full bg-[#e8f5e9] px-2.5 py-1 text-[0.62rem] font-semibold"
+            className="t-badge text-success inline-flex shrink-0 items-center gap-1 rounded-full bg-[#e8f5e9] px-2.5 py-1 text-[0.62rem] font-semibold"
             animate={reduce ? undefined : { scale: [1, 1.05, 1] }}
             transition={PULSE}
           >
@@ -333,7 +333,7 @@ function DocumentImportDashboard() {
         </div>
 
         <div className="mt-4 overflow-hidden rounded-xl border border-[#eef1f5]">
-          <p className="text-brand bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] uppercase">
+          <p className="t-badge text-brand bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] uppercase">
             IDENTIFIED DATA
           </p>
           <ul>
@@ -360,7 +360,7 @@ function DocumentImportDashboard() {
           {["Structured", "HPO Tagged", "Registry-Ready"].map((tag, index) => (
             <motion.span
               key={tag}
-              className="text-brand inline-flex items-center gap-1 rounded-full bg-[#eef4f9] px-2.5 py-1 text-[0.62rem] font-medium"
+              className="t-badge text-brand inline-flex items-center gap-1 rounded-full bg-[#eef4f9] px-2.5 py-1 text-[0.62rem] font-medium"
               animate={reduce ? undefined : { opacity: [0.65, 1, 0.65] }}
               transition={{ ...PULSE, delay: index * 0.25 }}
             >
@@ -394,7 +394,7 @@ function RapidScoreDashboard() {
   return (
     <MacWindow title="RAPID Score™ — Differential Diagnosis">
       <div className="secondaryFont p-4 sm:p-5">
-        <p className="text-[0.62rem] font-semibold tracking-[0.14em] text-[#a3afc4] uppercase">
+        <p className="t-badge text-[0.62rem] font-semibold tracking-[0.14em] text-[#a3afc4] uppercase">
           Ranked candidates
         </p>
         <ul className="mt-3 space-y-3">
@@ -441,7 +441,7 @@ function RapidScoreDashboard() {
         </ul>
 
         <div className="mt-4 overflow-hidden rounded-xl border border-[#eef1f5]">
-          <p className="text-brand bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] uppercase">
+          <p className="t-badge text-brand bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] uppercase">
             Evidence summary
           </p>
           <ul className="divide-y divide-[#eef1f5]">
@@ -488,7 +488,7 @@ function PatientTimelineDashboard() {
               ID: GEN-2024-041 · Rare skeletal dysplasia
             </p>
           </div>
-          <span className="text-brand shrink-0 rounded-full bg-[#eef4f9] px-2.5 py-1 text-[0.62rem] font-semibold">
+          <span className="t-badge text-brand shrink-0 rounded-full bg-[#eef4f9] px-2.5 py-1 text-[0.62rem] font-semibold">
             Active
           </span>
         </div>
@@ -545,7 +545,7 @@ function PatientTimelineDashboard() {
         </div>
 
         <div className="mt-6 rounded-lg bg-[#f4f6f9] px-3 py-3">
-          <p className="text-[0.62rem] font-semibold tracking-[0.12em] text-[#a3afc4] uppercase">
+          <p className="t-badge text-[0.62rem] font-semibold tracking-[0.12em] text-[#a3afc4] uppercase">
             LAST NOTE — DEC 2023
           </p>
           <p className="mt-1.5 text-[0.72rem] leading-relaxed text-[#6e6e73]">
@@ -591,7 +591,7 @@ function CohortAnalyticsDashboard() {
             return (
               <motion.span
                 key={filter}
-                className={`rounded-full px-2.5 py-1 text-[0.62rem] font-medium ${
+                className={`t-badge rounded-full px-2.5 py-1 text-[0.62rem] font-medium ${
                   isActive
                     ? "bg-brand text-white"
                     : "border border-[#eef1f5] bg-white text-[#6e6e73]"
@@ -619,7 +619,7 @@ function CohortAnalyticsDashboard() {
         </div>
 
         <div className="mt-4 overflow-hidden rounded-xl border border-[#eef1f5]">
-          <p className="text-brand bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] uppercase">
+          <p className="t-badge text-brand bg-[#eef4f9] px-3 py-2 text-[0.62rem] font-semibold tracking-[0.14em] uppercase">
             Longitudinal coverage
           </p>
           <ul>
@@ -724,11 +724,11 @@ export function SolutionsHowItWorks({
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-4 sm:gap-6">
-            <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
+            <span aria-hidden className="throbbing-bgH h-1 w-10 shrink-0 rounded-full sm:w-16" />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
               {content.label}
             </p>
-            <span aria-hidden className="h-px w-10 shrink-0 bg-[#b8cce0] sm:w-16" />
+            <span aria-hidden className="throbbing-bgH h-1 w-10 shrink-0 rounded-full sm:w-16" />
           </div>
 
           <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">

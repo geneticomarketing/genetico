@@ -9,5 +9,5 @@ export function youtubeEmbedUrl(id: string, autoplay = false): string {
 }
 
 export function youtubeThumbnailUrl(id: string): string {
-  return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+  return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 }

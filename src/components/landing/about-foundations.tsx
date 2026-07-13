@@ -20,11 +20,17 @@ export function AboutFoundations({
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-4xl text-center" y={56}>
           <div className="flex items-center justify-center gap-4 sm:gap-6">
-            <span aria-hidden className="h-px w-12 shrink-0 bg-[#b8cce0] sm:w-20 md:w-28" />
-            <p className="t-eyebrow secondaryFont shrink-0 text-[0.7rem] tracking-[0.36em] text-[#9ba8be]">
+            <span
+              aria-hidden
+              className="throbbing-bgH h-1 w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+            />
+            <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
               {vision.eyebrow}
             </p>
-            <span aria-hidden className="h-px w-12 shrink-0 bg-[#b8cce0] sm:w-20 md:w-28" />
+            <span
+              aria-hidden
+              className="throbbing-bgH h-1 w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+            />
           </div>
 
           <h2 className="mainFont mx-auto mt-8 max-w-4xl text-[clamp(2.25rem,3.4vw,3.5rem)] leading-[1.02] tracking-[-0.03em] text-balance text-[#111111]">
@@ -61,7 +67,7 @@ export function AboutFoundations({
             >
               <div aria-hidden className="mt-0.5 w-[2px] shrink-0 self-stretch bg-[#b8cce0]" />
               <div className="min-w-0 pl-5 sm:pl-6">
-                <span className="secondaryFont text-[0.68rem] tracking-[0.28em] text-[#a3afc4]">
+                <span className="t-badge secondaryFont text-[0.68rem] tracking-[0.28em] text-[#a3afc4]">
                   {item.index}
                 </span>
                 <h3 className="mainFont mt-3 text-[1.15rem] leading-tight text-[#111111] sm:text-[1.35rem]">

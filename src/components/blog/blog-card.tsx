@@ -12,14 +12,14 @@ export function BlogCard({ post }: { post: BlogPost }) {
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <span aria-hidden className="absolute inset-0" style={{ background: post.thumbnail }} />
-        <span className="secondaryFont absolute top-4 left-4 rounded-md bg-white/90 px-2.5 py-1 text-[11px] font-semibold tracking-[0.12em] text-[#121212] uppercase">
+        <span className="t-badge secondaryFont absolute top-4 left-4 rounded-md bg-white/90 px-2.5 py-1 text-[11px] font-semibold tracking-[0.12em] text-[#121212] uppercase">
           {post.category}
         </span>
       </div>
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <p
-          className="secondaryFont text-[11px] font-semibold tracking-[0.14em] uppercase"
+          className="t-badge secondaryFont text-[11px] font-semibold tracking-[0.14em] uppercase"
           style={{ color: post.categoryColor }}
         >
           {post.category}

@@ -332,10 +332,10 @@ export function PlatformLongitudinalCare({
           <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16">
             <div>
               <div className="flex items-center gap-3">
-                <p className="t-eyebrow text-[0.7rem] tracking-[0.32em] text-[#7a8fa8]">
+                <p className="t-eyebrow text-brand text-[0.7rem] tracking-[0.32em]">
                   {section.eyebrow}
                 </p>
-                <span aria-hidden className="bg-accent h-0.5 w-10 sm:w-14" />
+                <span aria-hidden className="throbbing-bgH h-1 w-10 rounded-full sm:w-14" />
               </div>
               <h2
                 className="t-heading mt-5 max-w-none text-black"

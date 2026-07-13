@@ -10,7 +10,7 @@ export const DEFAULT_PUBLIC_HEALTH_PAGE: PublicHealthPageData = {
     image: "/phero.png",
   },
   impact: {
-    eyebrow: "— IMPACT —",
+    eyebrow: "IMPACT",
     heading: "Impact at a Glance",
     description:
       "A unified digital infrastructure enabling connected care, better governance, and seamless compliance across India's rare disease ecosystem.",
@@ -38,7 +38,7 @@ export const DEFAULT_PUBLIC_HEALTH_PAGE: PublicHealthPageData = {
     ],
   },
   threeTier: {
-    eyebrow: "— THREE-TIER MODEL —",
+    eyebrow: "THREE-TIER MODEL",
     heading: "How It Works",
     description:
       "Genetico operates across all three levels of India's healthcare system — connecting frontline workers to national policy data through a single platform.",

@@ -67,7 +67,9 @@ export function FoundationalPlatform({
   return (
     <section id="platform" className="bg-[#010207] px-6 py-24 sm:px-10 sm:py-32">
       <Reveal className="mx-auto w-full max-w-4xl text-center">
-        <p className="text-sm font-medium tracking-[0.08em] text-white/45">{eyebrow}</p>
+        <p className="font-jetbrains-mono text-sm font-medium tracking-[0.08em] text-white/45">
+          {eyebrow}
+        </p>
       </Reveal>
 
       <Reveal>

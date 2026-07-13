@@ -122,7 +122,7 @@ function DeepDiveContentPanel({
   return (
     <div className="flex flex-col justify-center px-5 py-6 sm:px-7 sm:py-8 lg:px-8 lg:py-10">
       <p
-        className="secondaryFont flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em]"
+        className="t-badge secondaryFont flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em]"
         style={{ color: dive.categoryColor }}
       >
         <span

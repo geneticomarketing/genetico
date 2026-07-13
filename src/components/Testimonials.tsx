@@ -133,7 +133,7 @@ function MemberDrawer({ person, onClose }: { person: TeamMemberWithQuote; onClos
                 <X className="h-4 w-4" strokeWidth={2.25} />
               </button>
               <div className="absolute right-0 bottom-0 left-0 px-7 pb-7">
-                <p className="secondaryFont text-[0.68rem] font-semibold tracking-[0.22em] text-white/85 uppercase">
+                <p className="t-badge secondaryFont text-[0.68rem] font-semibold tracking-[0.22em] text-white/85 uppercase">
                   {person.title}
                 </p>
                 <h2
@@ -155,7 +155,7 @@ function MemberDrawer({ person, onClose }: { person: TeamMemberWithQuote; onClos
               ) : null}
 
               <div className={person.quote ? "mt-8" : ""}>
-                <p className="secondaryFont text-brand text-[0.68rem] font-semibold tracking-[0.22em] uppercase">
+                <p className="t-badge secondaryFont text-brand text-[0.68rem] font-semibold tracking-[0.22em] uppercase">
                   About
                 </p>
                 <p className="secondaryFont mt-3 text-[0.9375rem] leading-relaxed text-[#4a4a4f]">
@@ -272,7 +272,7 @@ function LeadershipCarouselComponent({
       {/* Header */}
       <div className="mb-8 text-center sm:mb-12">
         <Reveal>
-          <p className="mb-2 text-xs font-semibold tracking-widest text-blue-600 uppercase">
+          <p className="t-eyebrow mb-2 text-xs font-semibold tracking-widest text-blue-600">
             {leadership.eyebrow}
           </p>
         </Reveal>
@@ -335,7 +335,7 @@ function LeadershipCarouselComponent({
                   </div>
                 </div>
                 <p
-                  className="mb-1 text-[0.65rem] font-semibold tracking-widest uppercase"
+                  className="t-badge mb-1 text-[0.65rem] font-semibold tracking-widest uppercase"
                   style={{ color: centerPerson.color }}
                 >
                   {centerPerson.title}
@@ -434,7 +434,7 @@ function LeadershipCarouselComponent({
               </div>
             </div>
             <p
-              className="mb-1 text-xs font-semibold tracking-widest uppercase"
+              className="t-badge mb-1 text-xs font-semibold tracking-widest uppercase"
               style={{ color: centerPerson.color }}
             >
               {centerPerson.title}

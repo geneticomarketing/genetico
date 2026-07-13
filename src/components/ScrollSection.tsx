@@ -25,7 +25,7 @@ function TimelineCard({ item }: { item: TimelineItem }) {
           <p className="text-sm leading-tight font-semibold text-blue-50 sm:text-[0.9375rem]">
             {item.title}
           </p>
-          <p className="mt-0.5 text-[8px] tracking-widest text-teal-400 uppercase sm:text-[9px]">
+          <p className="t-badge mt-0.5 text-[8px] tracking-widest text-teal-400 uppercase sm:text-[9px]">
             {item.subtitle}
           </p>
         </div>
@@ -160,7 +160,7 @@ function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
 
       {/* Mobile stack */}
       <div className="flex min-w-0 flex-1 flex-col sm:hidden">
-        <div className="mb-2 text-[11px] font-semibold tracking-[0.22em] text-blue-300/70 uppercase">
+        <div className="t-badge mb-2 text-[11px] font-semibold tracking-[0.22em] text-blue-300/70 uppercase">
           {item.year}
         </div>
         <motion.div
@@ -224,7 +224,7 @@ function GrantsTimelineComponent({
         className="mb-12 text-center sm:mb-20"
       >
         <Reveal>
-          <p className="mb-3 text-[10px] tracking-[0.25em] text-blue-400 uppercase">
+          <p className="t-eyebrow mb-3 text-[10px] tracking-[0.25em] text-blue-400">
             {section.eyebrow}
           </p>
         </Reveal>
