@@ -40,7 +40,7 @@ export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
           <div className="relative z-9999999999 mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               href={hero.ctaHref}
-              className="bg-brand hover:bg-brand/70 inline-flex items-center gap-2 rounded-lg border border-white/20 px-6 py-3 text-sm font-medium text-white backdrop-blur-md transition-colors"
+              className="bg-brand hover:bg-brand/70 inline-flex items-center gap-2 rounded-lg border border-white/20 px-5 py-2 text-sm font-medium text-white backdrop-blur-md transition-colors"
             >
               {hero.ctaLabel}
               <span aria-hidden className="text-lg leading-none">

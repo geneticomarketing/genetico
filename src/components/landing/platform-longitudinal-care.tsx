@@ -30,8 +30,9 @@ const CHART_BARS = [
 const CHART_BASE = 296;
 const CYCLE_MS = 1800;
 
-const FONT_SANS = 'var(--font-sans), ui-sans-serif, system-ui, sans-serif';
-const FONT_DISPLAY = 'var(--font-display), ui-serif, Georgia, serif';
+const FONT_SANS = "var(--font-sans), ui-sans-serif, system-ui, sans-serif";
+const FONT_JB = "var(--font-jetbrains-mono), ui-sans-serif, system-ui, sans-serif";
+const FONT_DISPLAY = "var(--font-display), ui-serif, Georgia, serif";
 const SANS_VAR = { fontVariationSettings: '"SERF" 0' } as const;
 const DISPLAY_VAR = { fontVariationSettings: '"SERF" 100' } as const;
 
@@ -60,7 +61,7 @@ function PatientTimelineCard() {
           x="32"
           y="44"
           fill="#7EB8E8"
-          fontFamily={FONT_SANS}
+          fontFamily={FONT_JB}
           style={SANS_VAR}
           fontSize="11"
           fontWeight="600"
@@ -95,11 +96,7 @@ function PatientTimelineCard() {
                   r: isActive && !reduce ? [8, 9.25, 8] : isActive ? 8 : 6,
                   strokeWidth: isActive ? 2 : 1.5,
                 }}
-                transition={
-                  isActive && !reduce
-                    ? PULSE
-                    : { duration: STEP.duration, ease: EASE }
-                }
+                transition={isActive && !reduce ? PULSE : { duration: STEP.duration, ease: EASE }}
               />
               {isActive && (
                 <motion.circle
@@ -184,6 +181,7 @@ function PatientTimelineCard() {
 function CohortDashboardCard() {
   const reduce = useReducedMotion();
   const [activeBar, setActiveBar] = useState(4);
+  const FONT_JB = "var(--font-jetbrains-mono), ui-sans-serif, system-ui, sans-serif";
 
   useEffect(() => {
     if (reduce) return;
@@ -211,7 +209,7 @@ function CohortDashboardCard() {
           x="32"
           y="44"
           fill="#5FD7CB"
-          fontFamily={FONT_SANS}
+          fontFamily={FONT_JB}
           style={SANS_VAR}
           fontSize="11"
           fontWeight="600"

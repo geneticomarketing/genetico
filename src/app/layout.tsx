@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Albert_Sans } from "next/font/google";
+import { Albert_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getFooterContent, getNavigation, getSiteSettings } from "@/lib/cms/queries";
@@ -9,6 +9,11 @@ import { createRootMetadata, organizationJsonLd, websiteJsonLd } from "@/lib/seo
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
+  subsets: ["latin"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
@@ -31,7 +36,10 @@ export default async function RootLayout({
   ]);
 
   return (
-    <html lang="en" className={`${albertSans.variable} h-full`}>
+    <html
+      lang="en"
+      className={`${albertSans.variable} ${jetbrainsMono.variable} h-full`}
+    >
       <body className="h-full">
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <SiteDataProvider value={{ navigation, footer, settings }}>

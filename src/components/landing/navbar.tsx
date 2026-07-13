@@ -358,7 +358,7 @@ export function Navbar({ navigation }: { navigation?: SiteData["navigation"] }) 
           className={`hidden rounded-lg border px-5 py-2 text-sm font-medium transition-colors lg:inline-flex ${
             isDark
               ? "bg-brand hover:bg-brand/90 border-black/20 text-white"
-              : "bg-brand hover:bg-brand/90 border-white/25 text-white"
+              : "hover:bg-brand/90 border-white/25 bg-white/10 text-white backdrop-blur-lg"
           }`}
         >
           {ctaLabel}

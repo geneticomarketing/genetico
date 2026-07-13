@@ -50,9 +50,7 @@ export function PlatformFeatures({
               </p>
               <span aria-hidden className="bg-accent h-0.5 w-10 sm:w-14" />
             </div>
-            <h2 className="t-heading mt-5 max-w-none text-black">
-              {section.heading}
-            </h2>
+            <h2 className="t-heading mt-5 max-w-none text-black">{section.heading}</h2>
           </div>
           <p className="text-ink-muted max-w-md text-[15px] leading-relaxed sm:text-base lg:justify-self-end lg:pb-1">
             {section.description}
@@ -129,12 +127,12 @@ export function PlatformFeatures({
                     zIndex: isActive ? 1 : 0,
                   }}
                 >
-                  <span className="text-accent inline-flex w-fit items-center gap-2 rounded-full bg-[#e8f4fc] px-3 py-1.5 text-[11px] font-semibold tracking-[0.14em] uppercase">
+                  <span className="font-jetbrains-mono inline-flex w-fit items-center gap-2 rounded-full border-2 border-[#02438524] bg-[#f2f5f7] px-3 py-3 text-[12px] font-semibold tracking-[0.14em] text-[#02438580] uppercase">
                     <span aria-hidden className="bg-accent size-1.5 rounded-full" />
                     {feature.category}
                   </span>
 
-                  <p className="text-ink-faint mt-5 text-[11px] font-semibold tracking-[0.18em] uppercase">
+                  <p className="text-ink-faint font-jetbrains-mono mt-5 text-[11px] font-semibold tracking-[0.18em] uppercase">
                     {feature.subheading}
                   </p>
 
