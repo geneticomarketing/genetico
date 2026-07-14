@@ -118,7 +118,26 @@ export const HomeNews = pageSection(
     { name: "heading", type: "text" },
     { name: "description", type: "textarea" },
     { name: "ctaLabel", type: "text" },
-    // { name: "ctaHref", type: "text" },
+    {
+      name: "resourcePicks",
+      type: "json",
+      label: "Featured & sidebar content",
+      validate: (value) => {
+        if (!value || typeof value !== "object") return true;
+        const sidebar = (value as { sidebar?: unknown[] }).sidebar;
+        if (Array.isArray(sidebar) && sidebar.length > 4) {
+          return "Select at most 4 sidebar items.";
+        }
+        return true;
+      },
+      admin: {
+        description:
+          "Pick content from the Resources page to show on the home page news section.",
+        components: {
+          Field: "@/payload/admin/fields/HomeNewsResourcePicker#HomeNewsResourcePicker",
+        },
+      },
+    },
   ],
   ADMIN_GROUPS.home,
 );

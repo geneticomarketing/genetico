@@ -1,11 +1,16 @@
 import { getCollection, getGlobal, getBlogPosts } from "./queries";
-import { BLOG_POSTS } from "@/lib/blogs";
+import { getPayloadClient, isCmsConfigured } from "./get-payload";
+import { BLOG_POSTS, blogHref } from "@/lib/blogs";
 import { resolveMediaUrl } from "./resolve-media-url";
 import { DEFAULT_HOME_PAGE } from "./defaults/home";
 import { DEFAULT_ABOUT_PAGE, DEFAULT_TEAM } from "./defaults/about";
 import { DEFAULT_PLATFORM_PAGE } from "./defaults/platform";
 import { DEFAULT_PUBLIC_HEALTH_PAGE } from "./defaults/public-health";
 import { DEFAULT_RESOURCES_PAGE, DEFAULT_UTILITY_PAGES } from "./defaults/resources";
+import {
+  resolveHomeNewsResourcePicks,
+} from "./home-news-resources";
+import type { HomeNewsResourceCollection, HomeNewsResourcePicks } from "./resource-collections";
 import type {
   AboutPageData,
   CtaButton,
@@ -19,6 +24,7 @@ import type {
   PublicHealthPageData,
   ResourcesPageData,
   TeamMember,
+  NewsResourceItem,
 } from "./types";
 import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
 import type { BlogPost } from "@/lib/blogs";
@@ -26,6 +32,7 @@ import type {
   EcosystemGap as CmsEcosystemGap,
   EcosystemModule as CmsEcosystemModule,
   ExternalArticle as CmsExternalArticle,
+  DeepDive as CmsDeepDive,
   FeaturedVideo as CmsFeaturedVideo,
   GrantsAward as CmsGrantAward,
   Partner as CmsPartner,
@@ -92,6 +99,63 @@ function mapGrants(docs: CmsGrantAward[]): GrantAward[] {
     icon: resolveMediaUrl(doc.icon, doc.iconUrl),
     category: index % 2 === 0 ? "left" : "right",
   }));
+}
+
+function blogPostToNewsItem(post: BlogPost): NewsResourceItem {
+  return {
+    id: `blog-posts:${post.slug}`,
+    collection: "blog-posts",
+    category: post.category,
+    categoryColor: post.categoryColor,
+    title: post.title,
+    excerpt: post.excerpt,
+    author: post.author,
+    date: post.date,
+    readTime: post.readTime,
+    thumbnail: post.thumbnail,
+    href: blogHref(post.slug),
+    external: false,
+  };
+}
+
+function defaultHomeNewsItems(posts: BlogPost[], articles: { title: string; url: string }[]) {
+  const featured = posts[0] ? blogPostToNewsItem(posts[0]) : null;
+  const sidebar: NewsResourceItem[] = [];
+
+  if (posts[1]) sidebar.push(blogPostToNewsItem(posts[1]));
+  for (const article of articles.slice(0, 3)) {
+    sidebar.push({
+      id: `external-articles:${article.url}`,
+      collection: "external-articles",
+      category: "Article",
+      title: article.title,
+      href: article.url,
+      thumbnail: "",
+      external: true,
+    });
+  }
+
+  return { featured, sidebar: sidebar.slice(0, 4) };
+}
+
+async function fetchHomeNewsResourceDoc(
+  collection: HomeNewsResourceCollection,
+  id: number | string,
+) {
+  if (!isCmsConfigured()) return null;
+
+  const payload = await getPayloadClient();
+  if (!payload) return null;
+
+  try {
+    return await payload.findByID({
+      collection,
+      id,
+      depth: 1,
+    });
+  } catch {
+    return null;
+  }
 }
 
 export async function getHomePageData(): Promise<HomePageData> {
@@ -165,6 +229,16 @@ export async function getHomePageData(): Promise<HomePageData> {
     : DEFAULT_RESOURCES_PAGE.externalArticles;
 
   const posts = blogPosts.length ? blogPosts : BLOG_POSTS;
+  const fallbackNews = defaultHomeNewsItems(posts, cmsArticles);
+
+  const resourcePicks = newsSection?.resourcePicks as HomeNewsResourcePicks | null | undefined;
+  const hasResourcePicks =
+    resourcePicks?.featured ||
+    (Array.isArray(resourcePicks?.sidebar) && resourcePicks.sidebar.length > 0);
+
+  const resolvedNews = hasResourcePicks
+    ? await resolveHomeNewsResourcePicks(resourcePicks, fetchHomeNewsResourceDoc)
+    : fallbackNews;
 
   return {
     heroSlides,
@@ -209,9 +283,9 @@ export async function getHomePageData(): Promise<HomePageData> {
     partners: cmsPartners.filter((p) => p.logo).length
       ? cmsPartners.filter((p) => p.logo)
       : defaults.partners,
-    featuredBlog: posts[0] ?? null,
-    previewBlog: posts[1] ?? null,
-    previewArticles: cmsArticles.slice(0, 2),
+    featuredNewsItem: resolvedNews.featured ?? fallbackNews.featured,
+    sidebarNewsItems:
+      resolvedNews.sidebar.length > 0 ? resolvedNews.sidebar : fallbackNews.sidebar,
   };
 }
 
@@ -465,8 +539,10 @@ export async function getResourcesPageData(): Promise<
     blogsSection,
     blogListing,
     newsletter,
+    deepDivesSection,
     featuredVideos,
     shortVideos,
+    deepDives,
     externalArticles,
     blogPosts,
   ] = await Promise.all([
@@ -475,8 +551,10 @@ export async function getResourcesPageData(): Promise<
     getSectionGlobal("resources-blogs-section"),
     getSectionGlobal("resources-blog-listing"),
     getSectionGlobal("resources-newsletter"),
+    getSectionGlobal("resources-deep-dives-section"),
     getCollection<CmsFeaturedVideo>("featured-videos", [] as CmsFeaturedVideo[]),
     getCollection<CmsShortVideo>("short-videos", [] as CmsShortVideo[]),
+    getCollection<CmsDeepDive>("deep-dives", [] as CmsDeepDive[]),
     getCollection<CmsExternalArticle>("external-articles", [] as CmsExternalArticle[]),
     getBlogPosts(),
   ]);
@@ -537,6 +615,33 @@ export async function getResourcesPageData(): Promise<
       ? externalArticles.map((a) => ({ title: a.title, url: a.url }))
       : defaults.externalArticles,
     sectionHeadings: defaults.sectionHeadings,
+    deepDivesSection: {
+      heading: deepDivesSection?.heading || defaults.deepDivesSection.heading,
+      subtitle: deepDivesSection?.subtitle || defaults.deepDivesSection.subtitle,
+      seeAllLabel: deepDivesSection?.seeAllLabel || defaults.deepDivesSection.seeAllLabel,
+      seeAllHref: deepDivesSection?.seeAllHref || defaults.deepDivesSection.seeAllHref,
+    },
+    deepDives: deepDives.length
+      ? deepDives.map((dive, index) => {
+          const fallback = defaults.deepDives[index];
+
+          return {
+            title: dive.title,
+            description: dive.description || fallback?.description || "",
+            category: dive.category || fallback?.category || "",
+            categoryColor: dive.categoryColor || fallback?.categoryColor,
+            youtubeUrl: dive.youtubeUrl,
+            duration: dive.duration || fallback?.duration || "",
+            sourceLabel: dive.sourceLabel || fallback?.sourceLabel || "",
+            thumbnailGradient: dive.thumbnailGradient || fallback?.thumbnailGradient,
+            tags:
+              dive.tags?.map((tag) => tag.tag).filter(Boolean) ||
+              fallback?.tags ||
+              [],
+            videoLeft: dive.videoLeft ?? index % 2 === 0,
+          };
+        })
+      : defaults.deepDives,
     blogPosts,
   };
 }

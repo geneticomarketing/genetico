@@ -419,6 +419,10 @@ async function seed() {
     slug: "resources-newsletter",
     data: resources.newsletterCta,
   });
+  await payload.updateGlobal({
+    slug: "resources-deep-dives-section",
+    data: resources.deepDivesSection,
+  });
 
   console.log("Seeding utility pages...");
   await payload.updateGlobal({
@@ -592,6 +596,23 @@ async function seed() {
     });
   }
 
+  console.log("Seeding deep dives...");
+  for (const [index, dive] of resources.deepDives.entries()) {
+    await upsertByField(payload, "deep-dives", "title", dive.title, {
+      title: dive.title,
+      description: dive.description,
+      category: dive.category,
+      categoryColor: dive.categoryColor,
+      youtubeUrl: dive.youtubeUrl,
+      duration: dive.duration,
+      sourceLabel: dive.sourceLabel,
+      thumbnailGradient: dive.thumbnailGradient,
+      tags: dive.tags.map((tag) => ({ tag })),
+      videoLeft: dive.videoLeft,
+      sortOrder: index,
+    });
+  }
+
   console.log("Seeding external articles...");
   for (const [index, article] of resources.externalArticles.entries()) {
     await upsertByField(payload, "external-articles", "title", article.title, {
@@ -600,6 +621,36 @@ async function seed() {
       sortOrder: index,
     });
   }
+
+  console.log("Seeding home news resource picks...");
+  const [blogDocs, articleDocs] = await Promise.all([
+    payload.find({ collection: "blog-posts", sort: "-publishedAt", limit: 5 }),
+    payload.find({ collection: "external-articles", sort: "sortOrder", limit: 5 }),
+  ]);
+
+  const featuredBlog = blogDocs.docs[0];
+  const previewBlog = blogDocs.docs[1];
+  const sidebarPicks = [
+    ...(previewBlog
+      ? [{ relationTo: "blog-posts" as const, value: previewBlog.id }]
+      : []),
+    ...articleDocs.docs.slice(0, 2).map((doc) => ({
+      relationTo: "external-articles" as const,
+      value: doc.id,
+    })),
+  ].slice(0, 4);
+
+  await payload.updateGlobal({
+    slug: "home-news",
+    data: {
+      resourcePicks: {
+        featured: featuredBlog
+          ? { relationTo: "blog-posts" as const, value: featuredBlog.id }
+          : null,
+        sidebar: sidebarPicks,
+      },
+    },
+  });
 
   console.log("Seeding legal pages...");
   await upsertByField(payload, "legal-pages", "slug", DEFAULT_PRIVACY_POLICY.slug, {

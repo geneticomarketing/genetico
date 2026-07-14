@@ -38,6 +38,8 @@ export default async function ResourcesPage() {
         blogsSection={data.blogsSection}
         blogPosts={data.blogPosts}
         sectionHeadings={data.sectionHeadings}
+        deepDivesSection={data.deepDivesSection}
+        deepDives={data.deepDives}
       />
       <section
         id="get-in-touch"

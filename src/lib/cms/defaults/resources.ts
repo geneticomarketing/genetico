@@ -95,6 +95,42 @@ export const DEFAULT_RESOURCES_PAGE: ResourcesPageData = {
     videos: "Videos",
     articles: "Articles",
   },
+  deepDivesSection: {
+    heading: "Deep Dives",
+    subtitle: "Feature-length sessions",
+    seeAllLabel: "See all",
+    seeAllHref: "#deep-dives",
+  },
+  deepDives: [
+    {
+      title: "Building National Genomics Infrastructure: Summit Panel Discussion",
+      description:
+        "Keynote and Q&A on policy frameworks, technology stack, and cross-institutional data sharing for LMICs.",
+      category: "EVENT",
+      categoryColor: "#d97706",
+      youtubeUrl: "https://youtu.be/PXUZa_j8ep8",
+      duration: "1:12:08",
+      sourceLabel: "Global Rare Disease Summit · Geneva",
+      thumbnailGradient:
+        "radial-gradient(ellipse 85% 85% at 50% 45%, rgba(180,95,45,0.45) 0%, rgba(48,28,18,0.92) 55%, rgba(18,10,8,1) 100%)",
+      tags: ["Policy", "Infrastructure", "LMIC"],
+      videoLeft: true,
+    },
+    {
+      title: "Rare Disease Care in India: Conversation with Leading Geneticists",
+      description:
+        "Panel discussion on rare disease burden, registry development, and AI-assisted clinical tools across five Indian states.",
+      category: "RESEARCH",
+      categoryColor: "#059669",
+      youtubeUrl: "https://youtu.be/nimBOGNS2j8",
+      duration: "45:22",
+      sourceLabel: "ISHG Annual Conference",
+      thumbnailGradient:
+        "radial-gradient(ellipse 85% 85% at 50% 45%, rgba(45,130,95,0.45) 0%, rgba(16,36,28,0.92) 55%, rgba(8,16,12,1) 100%)",
+      tags: ["Genetics", "Registry", "AI"],
+      videoLeft: false,
+    },
+  ],
 };
 
 export const DEFAULT_COMING_SOON = {

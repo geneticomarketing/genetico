@@ -1,14 +1,15 @@
 "use client";
 
 import { ArrowRight, Play } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { YoutubeEmbed } from "@/components/youtube-embed";
+import { DEFAULT_RESOURCES_PAGE } from "@/lib/cms/defaults/resources";
+import type { DeepDive, ResourcesPageData } from "@/lib/cms/types";
+import { youtubeIdFromUrl, youtubeThumbnailUrl } from "@/lib/youtube";
 
-const SAMPLE_VIDEO_SRC =
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-
-type DeepDive = {
+type DeepDiveCardData = {
   id: string;
   category: string;
   categoryColor: string;
@@ -21,64 +22,49 @@ type DeepDive = {
   videoLeft: boolean;
 };
 
-const DEEP_DIVES: DeepDive[] = [
-  {
-    id: "rare-disease-policy",
-    category: "EVENT",
-    categoryColor: "#d97706",
-    title: "National Rare Disease Policy: From Framework to Implementation",
-    description:
-      "A comprehensive panel session unpacking India's national rare disease policy framework, implementation challenges across states, and the infrastructure required to deliver on its promise.",
-    tags: ["Policy", "Infrastructure", "Genetics"],
-    duration: "1:12:08",
-    sourceLabel: "Global Rare Disease Summit · Geneva",
-    thumbnail:
-      "radial-gradient(ellipse 85% 85% at 50% 45%, rgba(180,95,45,0.45) 0%, rgba(48,28,18,0.92) 55%, rgba(18,10,8,1) 100%)",
-    videoLeft: true,
-  },
-  {
-    id: "genomic-infrastructure",
-    category: "RESEARCH",
-    categoryColor: "#059669",
-    title: "Building India's Genomic Data Infrastructure for Rare Disease Research",
-    description:
-      "Leading researchers discuss how structured genomic data, national registries, and cross-institutional collaboration are accelerating rare disease discovery and translational outcomes.",
-    tags: ["Research", "Data", "Registry"],
-    duration: "58:24",
-    sourceLabel: "ICMR National Symposium · New Delhi",
-    thumbnail:
-      "radial-gradient(ellipse 85% 85% at 50% 45%, rgba(45,130,95,0.45) 0%, rgba(16,36,28,0.92) 55%, rgba(8,16,12,1) 100%)",
-    videoLeft: false,
-  },
-];
+function toCardDive(dive: DeepDive, index: number): DeepDiveCardData {
+  const id = youtubeIdFromUrl(dive.youtubeUrl);
+  const defaults = DEFAULT_RESOURCES_PAGE.deepDives[index];
+
+  return {
+    id,
+    category: dive.category,
+    categoryColor: dive.categoryColor ?? defaults?.categoryColor ?? "#024385",
+    title: dive.title,
+    description: dive.description,
+    tags: dive.tags,
+    duration: dive.duration,
+    sourceLabel: dive.sourceLabel,
+    thumbnail: dive.thumbnailGradient || defaults?.thumbnailGradient || youtubeThumbnailUrl(id),
+    videoLeft: dive.videoLeft ?? index % 2 === 0,
+  };
+}
 
 function DeepDiveVideoPanel({
   dive,
   isPlaying,
   onPlay,
-  onEnd,
 }: {
-  dive: DeepDive;
+  dive: DeepDiveCardData;
   isPlaying: boolean;
   onPlay: () => void;
-  onEnd: () => void;
 }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (!isPlaying || !videoRef.current) return;
-    void videoRef.current.play();
-  }, [isPlaying]);
+  const isGradient =
+    dive.thumbnail.startsWith("radial-gradient") || dive.thumbnail.startsWith("linear-gradient");
 
   return (
     <div className="relative min-h-[220px] bg-[#0a1018] sm:min-h-[260px] lg:min-h-[320px]">
       {!isPlaying ? (
         <>
-          <span
-            aria-hidden
-            className="absolute inset-0"
-            style={{ background: dive.thumbnail }}
-          />
+          {isGradient ? (
+            <span aria-hidden className="absolute inset-0" style={{ background: dive.thumbnail }} />
+          ) : (
+            <img
+              src={dive.thumbnail}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
           <button
             type="button"
             onClick={onPlay}
@@ -86,7 +72,10 @@ function DeepDiveVideoPanel({
             className="absolute inset-0 z-10 flex items-center justify-center"
           >
             <span className="grid size-14 place-items-center rounded-full bg-white/25 backdrop-blur-sm sm:size-16">
-              <Play className="ml-1 size-6 fill-[#121212] text-[#121212] sm:size-7" strokeWidth={0} />
+              <Play
+                className="ml-1 size-6 fill-[#121212] text-[#121212] sm:size-7"
+                strokeWidth={0}
+              />
             </span>
           </button>
           <span className="absolute top-4 right-4 rounded-md bg-black/65 px-2.5 py-1 text-xs font-medium text-white">
@@ -97,28 +86,18 @@ function DeepDiveVideoPanel({
           </p>
         </>
       ) : (
-        <video
-          ref={videoRef}
-          src={SAMPLE_VIDEO_SRC}
-          controls
-          playsInline
-          onEnded={onEnd}
-          className="absolute inset-0 h-full w-full object-cover"
-        >
-          <track kind="captions" />
-        </video>
+        <YoutubeEmbed
+          id={dive.id}
+          title={dive.title}
+          autoplay
+          className="absolute inset-0 h-full w-full"
+        />
       )}
     </div>
   );
 }
 
-function DeepDiveContentPanel({
-  dive,
-  onWatch,
-}: {
-  dive: DeepDive;
-  onWatch: () => void;
-}) {
+function DeepDiveContentPanel({ dive, onWatch }: { dive: DeepDiveCardData; onWatch: () => void }) {
   return (
     <div className="flex flex-col justify-center px-5 py-6 sm:px-7 sm:py-8 lg:px-8 lg:py-10">
       <p
@@ -149,7 +128,7 @@ function DeepDiveContentPanel({
           {dive.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-md bg-[#eef4fb] px-2.5 py-1 text-xs font-medium text-brand"
+              className="text-brand rounded-md bg-[#eef4fb] px-2.5 py-1 text-xs font-medium"
             >
               {tag}
             </span>
@@ -173,16 +152,12 @@ function DeepDiveCard({
   dive,
   isPlaying,
   onPlay,
-  onEnd,
 }: {
-  dive: DeepDive;
+  dive: DeepDiveCardData;
   isPlaying: boolean;
   onPlay: () => void;
-  onEnd: () => void;
 }) {
-  const videoPanel = (
-    <DeepDiveVideoPanel dive={dive} isPlaying={isPlaying} onPlay={onPlay} onEnd={onEnd} />
-  );
+  const videoPanel = <DeepDiveVideoPanel dive={dive} isPlaying={isPlaying} onPlay={onPlay} />;
   const contentPanel = <DeepDiveContentPanel dive={dive} onWatch={onPlay} />;
 
   return (
@@ -204,11 +179,27 @@ function DeepDiveCard({
   );
 }
 
-export function ResourcesDeepDives() {
+export function ResourcesDeepDives({
+  compactTop = false,
+  deepDivesSection = DEFAULT_RESOURCES_PAGE.deepDivesSection,
+  deepDives = DEFAULT_RESOURCES_PAGE.deepDives,
+}: {
+  compactTop?: boolean;
+  deepDivesSection?: ResourcesPageData["deepDivesSection"];
+  deepDives?: DeepDive[];
+}) {
   const [playingId, setPlayingId] = useState<string | null>(null);
+  const items = deepDives.map(toCardDive);
+
+  if (!items.length) return null;
 
   return (
-    <section id="deep-dives" className="bg-white px-6 py-16 sm:px-10 sm:py-20 lg:py-24">
+    <section
+      id="deep-dives"
+      className={`bg-white px-6 sm:px-10 ${
+        compactTop ? "pt-0 pb-16 sm:pb-20 lg:pb-24" : "py-16 sm:py-20 lg:py-24"
+      }`}
+    >
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="flex items-end justify-between gap-6">
           <div className="flex min-w-0 items-center gap-4">
@@ -218,29 +209,32 @@ export function ResourcesDeepDives() {
                 className="text-[clamp(1.5rem,2.4vw,2rem)] leading-[1.08] tracking-[-0.02em] text-[#121212]"
                 style={{ fontFamily: "var(--font-display)", fontVariationSettings: '"SERF" 100' }}
               >
-                Deep Dives
+                {deepDivesSection.heading}
               </h2>
-              <span className="secondaryFont text-sm text-[#8f8f8f]">Feature-length sessions</span>
+              {deepDivesSection.subtitle ? (
+                <span className="secondaryFont text-sm text-[#8f8f8f]">
+                  {deepDivesSection.subtitle}
+                </span>
+              ) : null}
             </div>
           </div>
 
-          <a
-            href="#deep-dives"
+          {/* <a
+            href={deepDivesSection.seeAllHref}
             className="text-brand inline-flex shrink-0 items-center gap-1 text-sm font-medium transition-colors hover:text-[#01356b]"
           >
-            See all
+            {deepDivesSection.seeAllLabel}
             <ArrowRight className="size-4" strokeWidth={2} />
-          </a>
+          </a> */}
         </Reveal>
 
         <div className="mt-8 flex flex-col gap-6 sm:mt-10">
-          {DEEP_DIVES.map((dive, index) => (
-            <Reveal key={dive.id} delay={index * 0.06}>
+          {items.map((dive, index) => (
+            <Reveal key={dive.id || `${dive.title}-${index}`} delay={index * 0.06}>
               <DeepDiveCard
                 dive={dive}
                 isPlaying={playingId === dive.id}
                 onPlay={() => setPlayingId(dive.id)}
-                onEnd={() => setPlayingId(null)}
               />
             </Reveal>
           ))}

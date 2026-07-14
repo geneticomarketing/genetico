@@ -113,6 +113,10 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
 
   const updateField = (name: keyof typeof INITIAL_FORM, value: string) => {
     setFormData((current) => ({ ...current, [name]: value }));
+    if (status === "success" || status === "error") {
+      setStatus("idle");
+      setErrorMessage("");
+    }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -258,7 +262,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
 
       <button
         type="submit"
-        disabled={status === "submitting" || status === "success"}
+        disabled={status === "submitting"}
         className="bg-brand mt-4 w-full rounded-lg py-3.5 text-[15px] font-medium text-white transition-colors hover:bg-[#01356b] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {status === "submitting" ? "Sending..." : submitLabel}

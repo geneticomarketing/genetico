@@ -5,9 +5,7 @@ import { motion, useReducedMotion, type Variants } from "motion/react";
 
 import { EASE, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
 import { DEFAULT_HOME_PAGE } from "@/lib/cms/defaults/home";
-import { DEFAULT_RESOURCES_PAGE } from "@/lib/cms/defaults/resources";
-import type { ExternalArticle } from "@/lib/cms/types";
-import { BLOG_POSTS, blogHref, type BlogPost } from "@/lib/blogs";
+import type { NewsResourceItem } from "@/lib/cms/types";
 
 const listItemVariants: Variants = {
   hidden: { opacity: 0, y: 56, scale: 0.96 },
@@ -39,32 +37,96 @@ function thumbnailStyle(thumbnail: string): CSSProperties {
   return { background: thumbnail };
 }
 
-type SidebarItem = { kind: "blog"; blog: BlogPost } | { kind: "article"; article: ExternalArticle };
+function FeaturedCard({ item }: { item: NewsResourceItem }) {
+  return (
+    <a
+      href={item.href}
+      target={item.external ? "_blank" : undefined}
+      rel={item.external ? "noopener noreferrer" : undefined}
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.08] bg-white p-3 shadow-[0_4px_24px_rgba(0,0,0,0.05)] transition-shadow hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)]"
+    >
+      <StaggerGroup className="flex h-full flex-col" stagger={0.08} delayChildren={0.05}>
+        <StaggerItem>
+          <div className="relative aspect-[2/1] w-full overflow-hidden rounded-xl">
+            <span
+              aria-hidden
+              className="absolute inset-0"
+              style={thumbnailStyle(item.thumbnail)}
+            />
+          </div>
+        </StaggerItem>
+        <StaggerItem className="flex flex-1 flex-col gap-3 px-1.5 pt-3 pb-1">
+          <StaggerGroup className="flex flex-col gap-3" stagger={0.08}>
+            <StaggerItem>
+              <Tag uppercase={false}>{item.category}</Tag>
+            </StaggerItem>
+            <StaggerItem>
+              <h3 className="group-hover:text-brand text-lg leading-snug font-semibold text-black sm:text-xl">
+                {item.title}
+              </h3>
+            </StaggerItem>
+            {item.excerpt ? (
+              <StaggerItem>
+                <p className="line-clamp-2 text-sm leading-relaxed text-black/55">{item.excerpt}</p>
+              </StaggerItem>
+            ) : null}
+            <StaggerItem>
+              <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-1 text-[13px] text-black/45">
+                {item.author ? <span>{item.author}</span> : null}
+                {item.author && item.date ? (
+                  <span aria-hidden className="text-black/20">
+                    |
+                  </span>
+                ) : null}
+                {item.date ? <span>{item.date}</span> : null}
+                {(item.author || item.date) && item.readTime ? (
+                  <span aria-hidden className="text-black/20">
+                    |
+                  </span>
+                ) : null}
+                {item.readTime ? <span>{item.readTime}</span> : null}
+              </div>
+            </StaggerItem>
+          </StaggerGroup>
+        </StaggerItem>
+      </StaggerGroup>
+    </a>
+  );
+}
+
+function SidebarRow({ item }: { item: NewsResourceItem }) {
+  return (
+    <a
+      href={item.href}
+      target={item.external ? "_blank" : undefined}
+      rel={item.external ? "noopener noreferrer" : undefined}
+      className="group flex flex-col gap-2 py-3.5 transition-opacity hover:opacity-70"
+    >
+      <Tag>{item.category}</Tag>
+      <h3 className="text-base leading-snug font-medium text-black sm:text-lg">{item.title}</h3>
+      {item.readTime ? <span className="text-sm text-black/45">{item.readTime}</span> : null}
+    </a>
+  );
+}
 
 export function NewsUpdates({
   newsSection = DEFAULT_HOME_PAGE.newsSection,
-  featuredBlog = BLOG_POSTS[0] ?? null,
-  previewBlog = BLOG_POSTS[1] ?? null,
-  articles = DEFAULT_RESOURCES_PAGE.externalArticles.slice(0, 2),
+  featuredNewsItem = DEFAULT_HOME_PAGE.featuredNewsItem,
+  sidebarNewsItems = DEFAULT_HOME_PAGE.sidebarNewsItems,
 }: {
   newsSection?: {
     heading: string;
     description: string;
     ctaLabel: string;
-    // ctaHref: string;
   };
-  featuredBlog?: BlogPost | null;
-  previewBlog?: BlogPost | null;
-  articles?: ExternalArticle[];
+  featuredNewsItem?: NewsResourceItem | null;
+  sidebarNewsItems?: NewsResourceItem[];
 }) {
   const reduce = useReducedMotion();
   const { ref: articlesRef, visible: articlesVisible } = useInViewAnimation<HTMLUListElement>();
   const { ref: ctaRef, visible: ctaVisible } = useInViewAnimation<HTMLAnchorElement>();
 
-  const sidebarItems: SidebarItem[] = [
-    ...(previewBlog ? [{ kind: "blog" as const, blog: previewBlog }] : []),
-    ...articles.slice(0, 3).map((article) => ({ kind: "article" as const, article })),
-  ];
+  const sidebarItems = sidebarNewsItems.slice(0, 4);
 
   return (
     <section id="news" className="bg-white px-6 py-14 sm:px-10 sm:py-20">
@@ -84,58 +146,11 @@ export function NewsUpdates({
           className="mt-8 grid gap-6 sm:mt-10 lg:grid-cols-[1.7fr_1px_1fr] lg:gap-8"
           stagger={0.15}
         >
-          {featuredBlog && (
+          {featuredNewsItem ? (
             <StaggerItem>
-              <a
-                href={blogHref(featuredBlog.slug)}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.08] bg-white p-3 shadow-[0_4px_24px_rgba(0,0,0,0.05)] transition-shadow hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)]"
-              >
-                <StaggerGroup className="flex h-full flex-col" stagger={0.08} delayChildren={0.05}>
-                  <StaggerItem>
-                    <div className="relative aspect-[2/1] w-full overflow-hidden rounded-xl">
-                      <span
-                        aria-hidden
-                        className="absolute inset-0"
-                        style={thumbnailStyle(featuredBlog.thumbnail)}
-                      />
-                    </div>
-                  </StaggerItem>
-                  <StaggerItem className="flex flex-1 flex-col gap-3 px-1.5 pt-3 pb-1">
-                    <StaggerGroup className="flex flex-col gap-3" stagger={0.08}>
-                      <StaggerItem>
-                        <Tag uppercase={false}>{featuredBlog.category}</Tag>
-                      </StaggerItem>
-                      <StaggerItem>
-                        <h3 className="group-hover:text-brand text-lg leading-snug font-semibold text-black sm:text-xl">
-                          {featuredBlog.title}
-                        </h3>
-                      </StaggerItem>
-                      {featuredBlog.excerpt && (
-                        <StaggerItem>
-                          <p className="line-clamp-2 text-sm leading-relaxed text-black/55">
-                            {featuredBlog.excerpt}
-                          </p>
-                        </StaggerItem>
-                      )}
-                      <StaggerItem>
-                        <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-1 text-[13px] text-black/45">
-                          <span>{featuredBlog.author}</span>
-                          <span aria-hidden className="text-black/20">
-                            |
-                          </span>
-                          <span>{featuredBlog.date}</span>
-                          <span aria-hidden className="text-black/20">
-                            |
-                          </span>
-                          <span>{featuredBlog.readTime}</span>
-                        </div>
-                      </StaggerItem>
-                    </StaggerGroup>
-                  </StaggerItem>
-                </StaggerGroup>
-              </a>
+              <FeaturedCard item={featuredNewsItem} />
             </StaggerItem>
-          )}
+          ) : null}
 
           <StaggerItem className="hidden self-stretch lg:block">
             <span aria-hidden className="block h-full w-px bg-black/10" />
@@ -152,47 +167,15 @@ export function NewsUpdates({
                 show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
               }}
             >
-              {sidebarItems.map((item, index) => (
-                <motion.li
-                  key={
-                    item.kind === "blog"
-                      ? `blog-${item.blog.slug}`
-                      : `article-${item.article.url}-${index}`
-                  }
-                  variants={reduce ? undefined : listItemVariants}
-                >
-                  {item.kind === "blog" ? (
-                    <a
-                      href={blogHref(item.blog.slug)}
-                      className="group flex flex-col gap-2 py-3.5 transition-opacity hover:opacity-70"
-                    >
-                      <Tag>{item.blog.category}</Tag>
-                      <h3 className="text-base leading-snug font-medium text-black sm:text-lg">
-                        {item.blog.title}
-                      </h3>
-                      {item.blog.readTime && (
-                        <span className="text-sm text-black/45">{item.blog.readTime}</span>
-                      )}
-                    </a>
-                  ) : (
-                    <a
-                      href={item.article.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex flex-col gap-2 py-3.5 transition-opacity hover:opacity-70"
-                    >
-                      <Tag>Article</Tag>
-                      <h3 className="text-base leading-snug font-medium text-black sm:text-lg">
-                        {item.article.title}
-                      </h3>
-                    </a>
-                  )}
+              {sidebarItems.map((item) => (
+                <motion.li key={item.id} variants={reduce ? undefined : listItemVariants}>
+                  <SidebarRow item={item} />
                 </motion.li>
               ))}
             </motion.ul>
             <motion.a
               ref={ctaRef}
-              href={"/resources"}
+              href="/resources"
               className="text-brand mt-4 inline-block text-sm font-semibold transition-opacity hover:opacity-70"
               initial={reduce ? false : { opacity: 0, y: 40, scale: 0.96 }}
               animate={

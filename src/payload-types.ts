@@ -76,6 +76,7 @@ export interface Config {
     'blog-posts': BlogPost;
     'featured-videos': FeaturedVideo;
     'short-videos': ShortVideo;
+    'deep-dives': DeepDive;
     'external-articles': ExternalArticle;
     'legal-pages': LegalPage;
     media: Media;
@@ -96,6 +97,7 @@ export interface Config {
     'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
     'featured-videos': FeaturedVideosSelect<false> | FeaturedVideosSelect<true>;
     'short-videos': ShortVideosSelect<false> | ShortVideosSelect<true>;
+    'deep-dives': DeepDivesSelect<false> | DeepDivesSelect<true>;
     'external-articles': ExternalArticlesSelect<false> | ExternalArticlesSelect<true>;
     'legal-pages': LegalPagesSelect<false> | LegalPagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -140,6 +142,7 @@ export interface Config {
     'resources-filter-tabs': ResourcesFilterTab;
     'resources-blogs-section': ResourcesBlogsSection;
     'resources-blog-listing': ResourcesBlogListing;
+    'resources-deep-dives-section': ResourcesDeepDivesSection;
     'resources-newsletter': ResourcesNewsletter;
     'utility-pages': UtilityPage;
     'site-settings': SiteSetting;
@@ -177,6 +180,7 @@ export interface Config {
     'resources-filter-tabs': ResourcesFilterTabsSelect<false> | ResourcesFilterTabsSelect<true>;
     'resources-blogs-section': ResourcesBlogsSectionSelect<false> | ResourcesBlogsSectionSelect<true>;
     'resources-blog-listing': ResourcesBlogListingSelect<false> | ResourcesBlogListingSelect<true>;
+    'resources-deep-dives-section': ResourcesDeepDivesSectionSelect<false> | ResourcesDeepDivesSectionSelect<true>;
     'resources-newsletter': ResourcesNewsletterSelect<false> | ResourcesNewsletterSelect<true>;
     'utility-pages': UtilityPagesSelect<false> | UtilityPagesSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
@@ -240,7 +244,6 @@ export interface Media {
    * Describe the image for accessibility. When uploading, use a descriptive file name (e.g. hero-bg.webp, partner-birac-logo.png).
    */
   alt: string;
-  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -493,6 +496,43 @@ export interface ShortVideo {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "deep-dives".
+ */
+export interface DeepDive {
+  id: number;
+  title: string;
+  description?: string | null;
+  category: string;
+  /**
+   * Hex color for the category label (e.g. #d97706)
+   */
+  categoryColor?: string | null;
+  youtubeUrl: string;
+  duration?: string | null;
+  /**
+   * Event or source shown on the video panel (e.g. Global Rare Disease Summit · Geneva)
+   */
+  sourceLabel?: string | null;
+  /**
+   * Optional CSS background gradient for the video panel. Leave empty to use the YouTube thumbnail.
+   */
+  thumbnailGradient?: string | null;
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Place the video on the left side. Leave unchecked to alternate automatically by sort order.
+   */
+  videoLeft?: boolean | null;
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "external-articles".
  */
 export interface ExternalArticle {
@@ -628,6 +668,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'short-videos';
         value: number | ShortVideo;
+      } | null)
+    | ({
+        relationTo: 'deep-dives';
+        value: number | DeepDive;
       } | null)
     | ({
         relationTo: 'external-articles';
@@ -921,6 +965,30 @@ export interface ShortVideosSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "deep-dives_select".
+ */
+export interface DeepDivesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  category?: T;
+  categoryColor?: T;
+  youtubeUrl?: T;
+  duration?: T;
+  sourceLabel?: T;
+  thumbnailGradient?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  videoLeft?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "external-articles_select".
  */
 export interface ExternalArticlesSelect<T extends boolean = true> {
@@ -961,7 +1029,6 @@ export interface LegalPagesSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
-  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1147,6 +1214,18 @@ export interface HomeNew {
   heading?: string | null;
   description?: string | null;
   ctaLabel?: string | null;
+  /**
+   * Pick content from the Resources page to show on the home page news section.
+   */
+  resourcePicks?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1606,6 +1685,19 @@ export interface ResourcesBlogListing {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-deep-dives-section".
+ */
+export interface ResourcesDeepDivesSection {
+  id: number;
+  heading?: string | null;
+  subtitle?: string | null;
+  seeAllLabel?: string | null;
+  seeAllHref?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "resources-newsletter".
  */
 export interface ResourcesNewsletter {
@@ -1838,6 +1930,7 @@ export interface HomeNewsSelect<T extends boolean = true> {
   heading?: T;
   description?: T;
   ctaLabel?: T;
+  resourcePicks?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2268,6 +2361,19 @@ export interface ResourcesBlogListingSelect<T extends boolean = true> {
   description?: T;
   backLabel?: T;
   backHref?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-deep-dives-section_select".
+ */
+export interface ResourcesDeepDivesSectionSelect<T extends boolean = true> {
+  heading?: T;
+  subtitle?: T;
+  seeAllLabel?: T;
+  seeAllHref?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

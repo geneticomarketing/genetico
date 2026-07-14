@@ -73,3 +73,15 @@ export const ResourcesNewsletter = pageSection(
   ],
   ADMIN_GROUPS.resources,
 );
+
+export const ResourcesDeepDivesSection = pageSection(
+  "resources-deep-dives-section",
+  "Deep Dives Section",
+  [
+    { name: "heading", type: "text" },
+    { name: "subtitle", type: "text" },
+    { name: "seeAllLabel", type: "text" },
+    { name: "seeAllHref", type: "text" },
+  ],
+  ADMIN_GROUPS.resources,
+);

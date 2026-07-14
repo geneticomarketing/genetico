@@ -6,6 +6,8 @@ import { Reveal } from "@/components/motion/reveal";
 
 import { ResourcesBlogs } from "@/components/landing/resources-blogs";
 
+import { ResourcesDeepDives } from "@/components/landing/resources-deep-dives";
+
 import { ResourcesEditorial } from "@/components/landing/resources-editorial";
 
 import { ResourcesLibrary } from "@/components/landing/resources-library";
@@ -39,6 +41,10 @@ export function ResourcesContent({
   blogPosts = [],
 
   sectionHeadings = DEFAULT_RESOURCES_PAGE.sectionHeadings,
+
+  deepDivesSection = DEFAULT_RESOURCES_PAGE.deepDivesSection,
+
+  deepDives = DEFAULT_RESOURCES_PAGE.deepDives,
 }: {
   filterTabs?: string[];
 
@@ -53,6 +59,10 @@ export function ResourcesContent({
   blogPosts?: BlogPost[];
 
   sectionHeadings?: ResourcesPageData["sectionHeadings"];
+
+  deepDivesSection?: ResourcesPageData["deepDivesSection"];
+
+  deepDives?: ResourcesPageData["deepDives"];
 }) {
   const [activeTab, setActiveTab] = useState<ResourceTab>(filterTabs[0] ?? "All");
 
@@ -110,6 +120,14 @@ export function ResourcesContent({
           compactTop={showFeatured}
           videos={shortVideos}
           heading={sectionHeadings.videos}
+        />
+      ) : null}
+
+      {showVideos ? (
+        <ResourcesDeepDives
+          compactTop
+          deepDivesSection={deepDivesSection}
+          deepDives={deepDives}
         />
       ) : null}
 

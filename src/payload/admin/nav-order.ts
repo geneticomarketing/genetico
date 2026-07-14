@@ -64,6 +64,8 @@ export const ADMIN_NAV_ENTITY_ORDER: Record<string, string[]> = {
     "globals:resources-blog-listing",
     "collections:featured-videos",
     "collections:short-videos",
+    "globals:resources-deep-dives-section",
+    "collections:deep-dives",
     "collections:external-articles",
     "globals:resources-newsletter",
   ],

@@ -16,7 +16,7 @@ import { TeamMembers } from "./payload/collections/TeamMembers";
 import { Partners } from "./payload/collections/Partners";
 import { GrantsAwards } from "./payload/collections/GrantsAwards";
 import { EcosystemModules, EcosystemGaps } from "./payload/collections/Ecosystem";
-import { FeaturedVideos, ShortVideos, ExternalArticles } from "./payload/collections/Resources";
+import { DeepDives, FeaturedVideos, ShortVideos, ExternalArticles } from "./payload/collections/Resources";
 import { SolutionPages } from "./payload/collections/SolutionPages";
 import { LegalPages } from "./payload/collections/LegalPages";
 import { SiteSettings, Navigation, Footer } from "./payload/globals/Site";
@@ -60,6 +60,7 @@ import {
   ResourcesFilterTabs,
   ResourcesBlogsSection,
   ResourcesBlogListing,
+  ResourcesDeepDivesSection,
   ResourcesNewsletter,
 } from "./payload/globals/sections/resources";
 
@@ -109,6 +110,7 @@ export default buildConfig({
     BlogPosts,
     FeaturedVideos,
     ShortVideos,
+    DeepDives,
     ExternalArticles,
     // Legal
     LegalPages,
@@ -152,6 +154,7 @@ export default buildConfig({
     ResourcesFilterTabs,
     ResourcesBlogsSection,
     ResourcesBlogListing,
+    ResourcesDeepDivesSection,
     ResourcesNewsletter,
     // Legal & utility
     UtilityPages,

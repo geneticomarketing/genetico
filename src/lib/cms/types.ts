@@ -270,6 +270,21 @@ export type ResourcesPageData = {
   shortVideos: (ShortVideo & { categoryColor?: string })[];
   externalArticles: ExternalArticle[];
   sectionHeadings: { videos: string; articles: string };
+  deepDivesSection: { heading: string; subtitle: string; seeAllLabel: string; seeAllHref: string };
+  deepDives: DeepDive[];
+};
+
+export type DeepDive = {
+  title: string;
+  description: string;
+  category: string;
+  categoryColor?: string;
+  youtubeUrl: string;
+  duration: string;
+  sourceLabel: string;
+  thumbnailGradient?: string;
+  tags: string[];
+  videoLeft?: boolean;
 };
 
 export type FeaturedVideo = {
@@ -292,6 +307,26 @@ export type ShortVideo = {
 export type ExternalArticle = {
   title: string;
   url: string;
+};
+
+export type NewsResourceItem = {
+  id: string;
+  collection:
+    | "blog-posts"
+    | "featured-videos"
+    | "short-videos"
+    | "deep-dives"
+    | "external-articles";
+  category: string;
+  categoryColor?: string;
+  title: string;
+  excerpt?: string;
+  author?: string;
+  date?: string;
+  readTime?: string;
+  thumbnail: string;
+  href: string;
+  external?: boolean;
 };
 
 export type PageCta = {
@@ -320,7 +355,6 @@ export type HomePageData = {
   modules: EcosystemModule[];
   gaps: EcosystemGap[];
   partners: Partner[];
-  featuredBlog: BlogPost | null;
-  previewBlog: BlogPost | null;
-  previewArticles: ExternalArticle[];
+  featuredNewsItem: NewsResourceItem | null;
+  sidebarNewsItems: NewsResourceItem[];
 };

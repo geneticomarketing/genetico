@@ -1,5 +1,5 @@
 import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
-import { BLOG_POSTS } from "@/lib/blogs";
+import { BLOG_POSTS, blogHref } from "@/lib/blogs";
 import {
   COMING_SOON_PATH,
   HOSPITAL_PATH,
@@ -14,8 +14,42 @@ import type {
   HeroSlide,
   HomePageData,
   NewsArticle,
+  NewsResourceItem,
   Partner,
 } from "../types";
+
+function blogToNewsItem(
+  post: (typeof BLOG_POSTS)[number],
+): NewsResourceItem {
+  return {
+    id: `blog-posts:${post.slug}`,
+    collection: "blog-posts",
+    category: post.category,
+    categoryColor: post.categoryColor,
+    title: post.title,
+    excerpt: post.excerpt,
+    author: post.author,
+    date: post.date,
+    readTime: post.readTime,
+    thumbnail: post.thumbnail,
+    href: blogHref(post.slug),
+    external: false,
+  };
+}
+
+function articleToNewsItem(
+  article: (typeof DEFAULT_RESOURCES_PAGE.externalArticles)[number],
+): NewsResourceItem {
+  return {
+    id: `external-articles:${article.url}`,
+    collection: "external-articles",
+    category: "Article",
+    title: article.title,
+    href: article.url,
+    thumbnail: "",
+    external: true,
+  };
+}
 
 export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
   {
@@ -258,7 +292,9 @@ export const DEFAULT_HOME_PAGE: HomePageData = {
   modules: DEFAULT_ECOSYSTEM_MODULES,
   gaps: DEFAULT_ECOSYSTEM_GAPS,
   partners: DEFAULT_PARTNERS,
-  featuredBlog: BLOG_POSTS[0] ?? null,
-  previewBlog: BLOG_POSTS[1] ?? null,
-  previewArticles: DEFAULT_RESOURCES_PAGE.externalArticles.slice(0, 2),
+  featuredNewsItem: BLOG_POSTS[0] ? blogToNewsItem(BLOG_POSTS[0]) : null,
+  sidebarNewsItems: [
+    ...(BLOG_POSTS[1] ? [blogToNewsItem(BLOG_POSTS[1])] : []),
+    ...DEFAULT_RESOURCES_PAGE.externalArticles.slice(0, 2).map(articleToNewsItem),
+  ],
 };
