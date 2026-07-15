@@ -244,6 +244,7 @@ export interface Media {
    * Describe the image for accessibility. When uploading, use a descriptive file name (e.g. hero-bg.webp, partner-birac-logo.png).
    */
   alt: string;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -1029,6 +1030,7 @@ export interface LegalPagesSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
