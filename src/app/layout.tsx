@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import { Albert_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { JsonLd } from "@/components/seo/json-ld";
-import { getFooterContent, getNavigation, getSiteSettings } from "@/lib/cms/queries";
-import { SiteDataProvider } from "@/lib/cms/site-data-context";
-import { AppChrome } from "@/components/app-chrome";
-import { createRootMetadata, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
@@ -21,34 +16,22 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const revalidate = 60;
 
-export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSiteSettings();
-  return createRootMetadata(settings.siteDescription);
-}
+export const metadata: Metadata = {
+  applicationName: "Genetico",
+};
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [navigation, footer, settings] = await Promise.all([
-    getNavigation(),
-    getFooterContent(),
-    getSiteSettings(),
-  ]);
-
   return (
     <html
       lang="en"
       className={`${albertSans.variable} ${jetbrainsMono.variable} h-full`}
     >
       <body className="h-full">
-        <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
-        <SiteDataProvider value={{ navigation, footer, settings }}>
-          <AppChrome navigation={navigation} footer={footer}>
-            {children}
-          </AppChrome>
-        </SiteDataProvider>
+        {children}
       </body>
     </html>
   );

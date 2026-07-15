@@ -1,7 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-
 import { Navbar } from "@/components/landing/navbar";
 import { Footer } from "@/components/landing/footer";
 import LS from "@/components/LS";
@@ -17,13 +15,6 @@ export function AppChrome({
   navigation: SiteData["navigation"];
   footer: SiteData["footer"];
 }) {
-  const pathname = usePathname();
-  const isAdmin = pathname.startsWith("/admin");
-
-  if (isAdmin) {
-    return children;
-  }
-
   return (
     <div className="bg-navy flex min-h-full flex-col">
       <MotionSafariFix />
