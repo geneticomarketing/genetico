@@ -56,59 +56,61 @@ npm run seed
 
 Access the CMS at **`/admin`**. Content is organized **by page** in the sidebar:
 
-| Group | What you can edit |
-|-------|-------------------|
-| **Site-wide** | Site settings, navigation, footer |
-| **Home** | Home page sections (hero, who we are, CTAs) + ecosystem modules, gaps, partners, news |
-| **About** | About page content + team members + grants & awards |
-| **Platform** | Platform page (all sections + CTA) |
-| **Solutions** | Hospital and Life Science solution pages |
-| **Public Health** | Public health page (hero, tiers, architecture, CTA) |
-| **Resources** | Resources page + blog posts, videos, external articles |
-| **Legal & Utility** | Privacy policy, coming soon page |
-| **Media** | Uploaded images and files |
+| Group               | What you can edit                                                                     |
+| ------------------- | ------------------------------------------------------------------------------------- |
+| **Site-wide**       | Site settings, navigation, footer                                                     |
+| **Home**            | Home page sections (hero, who we are, CTAs) + ecosystem modules, gaps, partners, news |
+| **About**           | About page content + team members + grants & awards                                   |
+| **Platform**        | Platform page (all sections + CTA)                                                    |
+| **Solutions**       | Hospital and Life Science solution pages                                              |
+| **Public Health**   | Public health page (hero, tiers, architecture, CTA)                                   |
+| **Resources**       | Resources page + blog posts, videos, external articles                                |
+| **Legal & Utility** | Privacy policy, coming soon page                                                      |
+| **Media**           | Uploaded images and files                                                             |
 
 Each page has a **Page Content** global for section titles, descriptions, and CTAs. Repeatable items (team, partners, blogs, etc.) live in collections under the same group.
 
 ### Globals (single-page settings)
-| Global | What it controls |
-|--------|-----------------|
-| **Site Settings** | Contact emails, Calendly, newsletter URL |
-| **Navigation** | Main nav links, solutions dropdown, CTA button |
-| **Footer** | Tagline, menu links, social links, copyright |
-| **Home Page** | Hero slides, section headings, CTA |
-| **About Page** | Hero, vision, leadership intro, grants intro |
-| **Platform Page** | All platform section content |
-| **Public Health Page** | Hero, tiers, architecture, impact |
-| **Resources Page** | Hero, filter tabs, newsletter CTA |
+
+| Global                 | What it controls                               |
+| ---------------------- | ---------------------------------------------- |
+| **Site Settings**      | Contact emails, Calendly, newsletter URL       |
+| **Navigation**         | Main nav links, solutions dropdown, CTA button |
+| **Footer**             | Tagline, menu links, social links, copyright   |
+| **Home Page**          | Hero slides, section headings, CTA             |
+| **About Page**         | Hero, vision, leadership intro, grants intro   |
+| **Platform Page**      | All platform section content                   |
+| **Public Health Page** | Hero, tiers, architecture, impact              |
+| **Resources Page**     | Hero, filter tabs, newsletter CTA              |
 
 ### Collections (repeatable content)
-| Collection | What it controls |
-|-----------|-----------------|
-| **Blog Posts** | All blog articles |
-| **News Articles** | Home page news section |
-| **Team Members** | Leadership team on About page |
-| **Partners** | Partner logos marquee |
-| **Grants & Awards** | Recognition timeline |
+
+| Collection            | What it controls                       |
+| --------------------- | -------------------------------------- |
+| **Blog Posts**        | All blog articles                      |
+| **News Articles**     | Home page news section                 |
+| **Team Members**      | Leadership team on About page          |
+| **Partners**          | Partner logos marquee                  |
+| **Grants & Awards**   | Recognition timeline                   |
 | **Ecosystem Modules** | Home "Where the System Breaks" section |
-| **Ecosystem Gaps** | Home ecosystem gaps tabs |
-| **Solution Pages** | Hospital & Life Science solution pages |
-| **Featured Videos** | Resources featured video |
-| **Short Videos** | Resources short video cards |
-| **External Articles** | LinkedIn/editorial links |
-| **Legal Pages** | Privacy policy and future legal pages |
-| **Media** | Uploaded images and files |
+| **Ecosystem Gaps**    | Home ecosystem gaps tabs               |
+| **Solution Pages**    | Hospital & Life Science solution pages |
+| **Featured Videos**   | Resources featured video               |
+| **Short Videos**      | Resources short video cards            |
+| **External Articles** | LinkedIn/editorial links               |
+| **Legal Pages**       | Privacy policy and future legal pages  |
+| **Media**             | Uploaded images and files              |
 
 ## Optional: Supabase Storage for media
 
 To store uploaded images in Supabase Storage instead of local disk:
 
-1. Create a bucket in Supabase Storage (e.g. `genetico-media`)
+1. Create a bucket in Supabase Storage (e.g. `genetico`)
 2. Get S3 credentials from **Project Settings → Storage → S3 Connection**
 3. Add to `.env.local`:
 
 ```env
-S3_BUCKET=genetico-media
+S3_BUCKET=genetico
 S3_ACCESS_KEY_ID=your-access-key
 S3_SECRET_ACCESS_KEY=your-secret-key
 S3_REGION=ap-south-1
@@ -117,12 +119,12 @@ S3_ENDPOINT=https://[project-ref].supabase.co/storage/v1/s3
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start Next.js + Payload admin |
-| `npm run seed` | Import hardcoded content into CMS |
-| `npm run generate:types` | Regenerate TypeScript types from schema |
-| `npm run generate:importmap` | Regenerate Payload admin import map |
+| Command                      | Description                             |
+| ---------------------------- | --------------------------------------- |
+| `npm run dev`                | Start Next.js + Payload admin           |
+| `npm run seed`               | Import hardcoded content into CMS       |
+| `npm run generate:types`     | Regenerate TypeScript types from schema |
+| `npm run generate:importmap` | Regenerate Payload admin import map     |
 
 ## How it works
 
