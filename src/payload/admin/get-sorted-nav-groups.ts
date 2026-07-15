@@ -1,6 +1,6 @@
-import { EntityType, groupNavItems } from "@payloadcms/ui/shared";
+import { groupNavItems } from "@payloadcms/ui/utilities/groupNavItems";
 import type { I18nClient } from "@payloadcms/translations";
-import type { SanitizedConfig, SanitizedPermissions, VisibleEntities } from "payload";
+import { EntityType, type SanitizedConfig, type SanitizedPermissions, type VisibleEntities } from "payload";
 
 import { sortNavGroups } from "./sort-nav-groups";
 

@@ -1,4 +1,4 @@
-import type { NavGroupType } from "@payloadcms/ui/shared";
+import type { NavGroupType } from "@payloadcms/ui/utilities/groupNavItems";
 
 import { ADMIN_NAV_ENTITY_ORDER, ADMIN_NAV_GROUP_ORDER } from "./nav-order";
 
