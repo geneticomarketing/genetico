@@ -22,16 +22,13 @@ export async function generateMetadata(): Promise<Metadata> {
     path: seo.path,
   });
 }
-
+console.log("test");
 export default async function Home() {
   const data = await getHomePageData();
 
   return (
     <ScrollParallaxPage hero={<Hero slides={data.heroSlides} />}>
-      <FoundationalPlatform
-        eyebrow={data.whoWeAre.eyebrow}
-        paragraphs={data.whoWeAre.paragraphs}
-      />
+      <FoundationalPlatform eyebrow={data.whoWeAre.eyebrow} paragraphs={data.whoWeAre.paragraphs} />
       <SystemBreaks
         heading={data.ecosystemChallenges.heading}
         description={data.ecosystemChallenges.description}
