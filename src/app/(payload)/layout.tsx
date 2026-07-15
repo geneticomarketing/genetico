@@ -22,10 +22,16 @@ const serverFunction: ServerFunctionClient = async function (args) {
   });
 };
 
-const Layout = ({ children }: Args) => (
-  <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
-    {children}
-  </RootLayout>
-);
+const Layout = ({ children }: Args) => {
+  console.log("====================");
+  console.log("LAYOUT LOADED");
+  console.log(children);
+  console.log("====================");
+  return (
+    <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
+      {children}
+    </RootLayout>
+  );
+};
 
 export default Layout;
