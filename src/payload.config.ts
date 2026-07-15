@@ -175,27 +175,26 @@ export default buildConfig({
     push: process.env.NODE_ENV !== "production",
   }),
   sharp,
-  plugins: useS3
-    ? [
-        s3Storage({
-          collections: {
-            media: {
-              prefix: "media",
-              generateFileURL: ({ filename, prefix }) =>
-                buildPublicMediaUrl(filename, prefix ?? "media") ?? `/api/media/file/${filename}`,
-            },
-          },
-          bucket: process.env.S3_BUCKET!,
-          config: {
-            forcePathStyle: true,
-            credentials: {
-              accessKeyId: process.env.S3_ACCESS_KEY_ID!,
-              secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
-            },
-            region: process.env.S3_REGION || "us-east-1",
-            endpoint: process.env.S3_ENDPOINT!,
-          },
-        }),
-      ]
-    : [],
+  plugins: [
+    s3Storage({
+      enabled: useS3,
+      collections: {
+        media: {
+          prefix: "media",
+          generateFileURL: ({ filename, prefix }) =>
+            buildPublicMediaUrl(filename, prefix ?? "media") ?? `/api/media/file/${filename}`,
+        },
+      },
+      bucket: process.env.S3_BUCKET || "disabled",
+      config: {
+        forcePathStyle: true,
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || "disabled",
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || "disabled",
+        },
+        region: process.env.S3_REGION || "us-east-1",
+        endpoint: process.env.S3_ENDPOINT || "http://localhost",
+      },
+    }),
+  ],
 });
