@@ -5,7 +5,7 @@ import { formatContactEmail, type ContactFormPayload } from "@/lib/contact-form"
 import { CONTACT_EMAIL, CONTACT_EMAIL_CC } from "@/lib/contact";
 
 function getResend() {
-  const apiKey = process.env.RESEND_API_KEY?.trim() || "re_fcBgNR1j_Ceo8ed5bDKjincq5ChysxVUE";
+  const apiKey = process.env.RESEND_API_KEY?.trim();
   console.log("====================");
   console.log(apiKey);
   console.log("====================");
@@ -55,11 +55,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please complete all required fields." }, { status: 400 });
   }
 
-  const from = process.env.RESEND_FROM?.trim() || "Genetico Website <onboarding@resend.dev>";
+  const from = process.env.RESEND_FROM?.trim() || "Genetico Website <info@indigeneus.ai>";
   const to = process.env.RESEND_TO?.trim() || CONTACT_EMAIL;
   const cc = process.env.RESEND_CC?.trim() || CONTACT_EMAIL_CC;
 
-  const { error } = await resend.emails.send({
+  const { error, data } = await resend.emails.send({
     from,
     to: [to],
     ...(cc ? { cc: [cc] } : {}),
@@ -67,7 +67,9 @@ export async function POST(request: Request) {
     subject: `Genetico lead: ${payload.role} — ${payload.firstName} ${payload.lastName}`,
     text: formatContactEmail(payload),
   });
-
+  console.log("====================");
+  console.log(data);
+  console.log("====================");
   if (error) {
     console.error("[contact] Resend send failed:", error);
     return NextResponse.json(
