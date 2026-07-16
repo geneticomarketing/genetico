@@ -6,9 +6,6 @@ import { CONTACT_EMAIL, CONTACT_EMAIL_CC } from "@/lib/contact";
 
 function getResend() {
   const apiKey = process.env.RESEND_API_KEY?.trim();
-  console.log("====================");
-  console.log(apiKey);
-  console.log("====================");
   return apiKey ? new Resend(apiKey) : null;
 }
 
