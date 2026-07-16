@@ -145,6 +145,16 @@ body {
     max-width: 53rem;
   }
 
+  .footer-heading {
+    font-family: var(--font-display);
+    font-variation-settings: "SERF" 100;
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+  }
+  /*  */
+
   .t-card-title {
     font-family: var(--font-display);
     font-variation-settings: "SERF" 100;

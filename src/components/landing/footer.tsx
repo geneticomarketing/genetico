@@ -136,9 +136,10 @@ export function Footer({ footer }: { footer?: SiteData["footer"] }) {
       </div>
       <div
         style={{
-          backgroundImage: `linear-gradient(0deg, var(--color-brand), var(--color-accent))`,
+          backgroundImage: `linear-gradient(0deg, #DDEEFF , #024385)`,
+          maxWidth: "100%",
         }}
-        className="overflow-hidden bg-clip-text text-center font-serif text-[18vw] text-transparent"
+        className="footer-heading translate-y-8 overflow-hidden bg-clip-text text-center text-[18vw] leading-52 text-transparent"
       >
         GENETICO
       </div>
