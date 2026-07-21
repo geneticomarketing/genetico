@@ -6,9 +6,10 @@ import { PageCtaSection } from "@/components/landing/page-cta-section";
 import { GrantsTimeline } from "@/components/ScrollSection";
 import { LeadershipCarousel } from "@/components/Testimonials";
 import { ScrollParallaxPage } from "@/components/motion/scroll-parallax-page";
-import { getAboutPageData } from "@/lib/cms/page-data";
+import { getAboutPageData, getHomePageData } from "@/lib/cms/page-data";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+import { PartnersSecurity } from "@/components/landing/partners-security";
 
 export const revalidate = 60;
 
@@ -25,6 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutUsPage() {
   const data = await getAboutPageData();
+  const data2 = await getHomePageData();
 
   return (
     <ScrollParallaxPage
@@ -33,9 +35,20 @@ export default async function AboutUsPage() {
     >
       <AboutFoundations vision={data.vision} foundations={data.foundations} />
       <LeadershipCarousel team={data.team} leadership={data.leadership} />
-      <section>
+      <section className="overflow-y-hidden">
         <GrantsTimeline section={data.grants} items={data.grantItems} />
       </section>
+
+      <section className="pt-16 bg-white">
+        <PartnersSecurity
+          about={true}
+          partnersSection={data2.partnersSection}
+          securitySection={data2.securitySection}
+          partners={data2.partners}
+          securityFeatures={data2.securitySection.features}
+        />
+      </section>
+
       <PageCtaSection
         heading={data.cta.heading}
         description={data.cta.description}

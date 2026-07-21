@@ -156,25 +156,29 @@ export function PartnersSecurity({
   securitySection = DEFAULT_HOME_PAGE.securitySection,
   partners = DEFAULT_PARTNERS,
   securityFeatures = DEFAULT_HOME_PAGE.securitySection.features,
+  about,
 }: {
   partnersSection?: { heading: string; description: string };
   securitySection?: { heading: string; description: string };
   partners?: Partner[];
   securityFeatures?: string[];
+  about?: boolean;
 }) {
   return (
     <>
       {/* ───────── Customers & Advisors — light band ───────── */}
-      <section className="bg-[#010207]  px-6 pb-24 sm:px-10 sm:pb-28">
+      <section className="bg-white   px-6 pb-24 sm:px-10 sm:pb-28">
         <Reveal className="mx-auto w-full max-w-7xl">
-          <div className="flex flex-col items-center gap-4 text-center">
-            <h2 className="t-heading text-white">{partnersSection.heading}</h2>
-            <p className="max-w-xl text-base text-white/55 sm:text-lg sm:leading-normal">
-              {partnersSection.description}
-            </p>
-          </div>
+          {about && (
+            <div className="flex flex-col items-center gap-4 text-center">
+              <h2 className="t-heading text-[#010207]">{partnersSection.heading}</h2>
+              <p className="max-w-xl text-base text-[#010207]/55 sm:text-lg sm:leading-normal">
+                {partnersSection.description}
+              </p>
+            </div>
+          )}
 
-          <div className="mt-14 flex flex-col gap-6">
+          <div className=" flex flex-col gap-6">
             <MarqueeRow partners={partners} />
             {/* <MarqueeRow partners={partners} reverse /> */}
           </div>
