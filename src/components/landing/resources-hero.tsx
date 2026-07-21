@@ -50,14 +50,7 @@ export function ResourcesHero({
           unoptimized
           className="object-cover object-center"
         />
-        <div
-          aria-hidden
-          style={{
-            background:
-              "linear-gradient(280deg, #12325a 0%, #024385 46%, #00101f 78%, #00101f 100%)",
-          }}
-          className="absolute inset-0 opacity-65"
-        />
+        <div aria-hidden className="bg-brand-deep absolute inset-0 opacity-65" />
       </motion.div>
 
       <div

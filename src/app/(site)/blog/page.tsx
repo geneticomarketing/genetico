@@ -31,7 +31,7 @@ export default async function BlogPage() {
 
   return (
     <main className="flex flex-1 flex-col bg-white">
-      <section className="border-line border-b bg-[#F4F6F9] px-6 pt-20 pb-16 sm:px-10 sm:pt-24 sm:pb-20 lg:py-24 lg:pt-28">
+      <section className="border-line border-b bg-mist px-6 pt-20 pb-16 sm:px-10 sm:pt-24 sm:pb-20 lg:py-24 lg:pt-28">
         <div className="mx-auto w-full max-w-7xl">
           <Link
             href={data.blogListing.backHref}

@@ -43,7 +43,7 @@ export default async function ResourcesPage() {
       />
       <section
         id="get-in-touch"
-        className="relative overflow-hidden bg-[#F4F6F9] px-5 py-20 sm:px-10 sm:py-24 lg:py-32"
+        className="relative overflow-hidden bg-mist px-5 py-20 sm:px-10 sm:py-24 lg:py-32"
       >
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <img
@@ -51,7 +51,7 @@ export default async function ResourcesPage() {
             alt=""
             className="absolute top-1/2 right-[-18%] h-[140%] w-auto max-w-none -translate-y-1/2 scale-x-[-1] opacity-90"
           />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_50%_50%,#F4F6F9_35%,transparent_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_50%_50%,var(--color-mist)_35%,transparent_100%)]" />
         </div>
 
         <Reveal className="relative z-10 mx-auto max-w-3xl text-center">

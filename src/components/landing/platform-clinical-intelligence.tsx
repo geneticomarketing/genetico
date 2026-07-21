@@ -309,10 +309,7 @@ export function PlatformClinicalIntelligence({
   return (
     <section
       id="clinical-intelligence"
-      className="relative overflow-hidden px-6 py-20 text-white sm:px-10 sm:py-24 lg:py-28"
-      style={{
-        background: "linear-gradient(280deg, #12325a 0%, #024385 46%, #00101f 78%, #00101f 100%)",
-      }}
+      className="bg-brand-deep relative overflow-hidden px-6 py-20 text-white sm:px-10 sm:py-24 lg:py-28"
     >
       <div className="relative mx-auto w-full max-w-7xl">
         <Reveal>

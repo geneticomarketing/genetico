@@ -4,6 +4,7 @@ import { EcosystemProblems } from "@/components/landing/ecosystem-problems";
 import { FoundationalPlatform } from "@/components/landing/foundational-platform";
 import { Hero } from "@/components/landing/hero";
 import { HomeCta } from "@/components/landing/home-cta";
+import { HomeFaqs } from "@/components/landing/home-faqs";
 import { NewsUpdates } from "@/components/landing/news-updates";
 import { PartnersSecurity } from "@/components/landing/partners-security";
 import { SystemBreaks } from "@/components/landing/system-breaks";
@@ -22,13 +23,19 @@ export async function generateMetadata(): Promise<Metadata> {
     path: seo.path,
   });
 }
-console.log("test");
+
 export default async function Home() {
   const data = await getHomePageData();
 
   return (
     <ScrollParallaxPage hero={<Hero slides={data.heroSlides} />}>
       <FoundationalPlatform eyebrow={data.whoWeAre.eyebrow} paragraphs={data.whoWeAre.paragraphs} />
+      <PartnersSecurity
+        partnersSection={data.partnersSection}
+        securitySection={data.securitySection}
+        partners={data.partners}
+        securityFeatures={data.securitySection.features}
+      />
       <SystemBreaks
         heading={data.ecosystemChallenges.heading}
         description={data.ecosystemChallenges.description}
@@ -39,16 +46,16 @@ export default async function Home() {
         description={data.ecosystemGapsSection.description}
         gaps={data.gaps}
       />
-      <PartnersSecurity
-        partnersSection={data.partnersSection}
-        securitySection={data.securitySection}
-        partners={data.partners}
-        securityFeatures={data.securitySection.features}
-      />
       <NewsUpdates
         newsSection={data.newsSection}
         featuredNewsItem={data.featuredNewsItem}
         sidebarNewsItems={data.sidebarNewsItems}
+      />
+      <HomeFaqs
+        eyebrow={data.faqSection.eyebrow}
+        heading={data.faqSection.heading}
+        description={data.faqSection.description}
+        items={data.faqSection.items}
       />
       <HomeCta cta={data.cta} />
     </ScrollParallaxPage>

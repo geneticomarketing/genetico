@@ -321,7 +321,7 @@ export async function getFooterContent() {
       { label: "About", href: "/about-us" },
       { label: "How it Works", href: "/platform" },
       { label: "For Business", href: "/hospital" },
-      { label: "FAQs", href: "/coming-soon" },
+      { label: "FAQs", href: "/#faqs" },
     ],
     solutionsLinks: [
       { label: "Hospital / Clinician / CoE", href: "/hospital" },

@@ -27,8 +27,16 @@ function ScrollWord({
       {word.leadingSpace ? " " : ""}
       <motion.span
         style={{ opacity }}
-        className={word.hl ? "font-semibold text-[#38BDF8]" : "text-[#ffffff90]"}
+        className={word.hl ? "font-semibold text-white relative" : "text-[#ffffff90]"}
       >
+        {word.hl && (
+          <motion.div
+            style={{
+              opacity,
+            }}
+            className="absolute bottom-0 left-0 w-[125%] bg-white h-px"
+          ></motion.div>
+        )}
         {word.text}
       </motion.span>
     </>
@@ -81,7 +89,7 @@ export function FoundationalPlatform({
             <p key={pIndex}>
               {words.map((word, i) =>
                 word.pIndex !== pIndex ? null : reduce ? (
-                  <span key={i} className={word.hl ? "font-semibold text-[#DDEEFF]" : ""}>
+                  <span key={i} className={word.hl ? "font-semibold " : ""}>
                     {word.leadingSpace ? " " : ""}
                     {word.text}
                   </span>

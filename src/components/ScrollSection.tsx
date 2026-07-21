@@ -210,12 +210,7 @@ function GrantsTimelineComponent({
   }));
 
   return (
-    <section
-      className="min-h-screen px-4 py-16 sm:px-4 sm:py-20"
-      style={{
-        background: "linear-gradient(160deg , #010E20 , #024385 , #012A54)",
-      }}
-    >
+    <section className="bg-brand-band min-h-screen px-4 py-16 sm:px-4 sm:py-20">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}

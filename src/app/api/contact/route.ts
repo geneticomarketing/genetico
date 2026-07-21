@@ -21,6 +21,7 @@ function parsePayload(body: unknown): ContactFormPayload | null {
   const lastName = typeof data.lastName === "string" ? data.lastName.trim() : "";
   const email = typeof data.email === "string" ? data.email.trim() : "";
   const role = typeof data.role === "string" ? data.role.trim() : "";
+  const phone = typeof data.phone === "string" ? data.phone.trim() : undefined;
   const organisation = typeof data.organisation === "string" ? data.organisation.trim() : undefined;
   const message = typeof data.message === "string" ? data.message.trim() : undefined;
 
@@ -28,7 +29,7 @@ function parsePayload(body: unknown): ContactFormPayload | null {
     return null;
   }
 
-  return { firstName, lastName, email, role, organisation, message };
+  return { firstName, lastName, email, phone, role, organisation, message };
 }
 
 export async function POST(request: Request) {

@@ -159,7 +159,7 @@ async function seed() {
         { label: "About", href: "/about-us" },
         { label: "How it Works", href: "/platform" },
         { label: "For Business", href: HOSPITAL_PATH },
-        { label: "FAQs", href: "/coming-soon" },
+        { label: "FAQs", href: "/#faqs" },
       ],
       solutionsLinks: [
         { label: "Hospital / Clinician / CoE", href: HOSPITAL_PATH },
@@ -221,6 +221,10 @@ async function seed() {
   await payload.updateGlobal({
     slug: "home-news",
     data: home.newsSection,
+  });
+  await payload.updateGlobal({
+    slug: "home-faqs",
+    data: home.faqSection,
   });
   await payload.updateGlobal({
     slug: "home-cta",

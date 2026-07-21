@@ -2,13 +2,7 @@
 
 import { FaLinkedinIn, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { CALENDLY_URL } from "@/lib/contact";
-import {
-  COMING_SOON_PATH,
-  HOSPITAL_PATH,
-  PHARMA_PATH,
-  PRIVACY_POLICY_PATH,
-  PUBLIC_HEALTH_PATH,
-} from "@/lib/routes";
+import { HOSPITAL_PATH, PHARMA_PATH, PRIVACY_POLICY_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
 import type { SiteData } from "@/lib/cms/site-data-context";
 
 const DEFAULT_MENU = [
@@ -16,7 +10,7 @@ const DEFAULT_MENU = [
   { label: "About", href: "/about-us" },
   { label: "How it Works", href: "/platform" },
   { label: "For Business", href: HOSPITAL_PATH },
-  { label: "FAQs", href: COMING_SOON_PATH },
+  { label: "FAQs", href: "/#faqs" },
 ];
 
 const DEFAULT_SOLUTIONS = [
@@ -58,7 +52,7 @@ export function Footer({ footer }: { footer?: SiteData["footer"] }) {
   const legalLinks = footer?.legalLinks ?? [{ label: "Privacy Policy", href: PRIVACY_POLICY_PATH }];
 
   return (
-    <footer className="relative overflow-hidden bg-[#00060c] bg-[url('/footer-bg.svg')] bg-cover bg-top bg-no-repeat px-6 pt-20 sm:px-10">
+    <footer className="bg-brand-band relative overflow-hidden px-6 pt-20 sm:px-10">
       <div className="mx-auto w-full max-w-7xl">
         <div className="mt-24 grid gap-12 md:grid-cols-[1fr_1.35fr]">
           <div className="flex flex-col gap-8">
@@ -134,13 +128,7 @@ export function Footer({ footer }: { footer?: SiteData["footer"] }) {
           </div>
         </div>
       </div>
-      <div
-        style={{
-          backgroundImage: `linear-gradient(0deg, #DDEEFF , #024385)`,
-          maxWidth: "100%",
-        }}
-        className="footer-heading translate-y-8 overflow-hidden bg-clip-text text-center text-[18vw] leading-52 text-transparent"
-      >
+      <div className="footer-heading text-brand-wordmark translate-y-8 overflow-hidden text-center text-[18vw] leading-52 ">
         GENETICO
       </div>
     </footer>

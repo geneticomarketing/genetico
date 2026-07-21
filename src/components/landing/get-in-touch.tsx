@@ -38,6 +38,7 @@ const INITIAL_FORM: Omit<ContactFormPayload, "role"> = {
   firstName: "",
   lastName: "",
   email: "",
+  phone: "",
   organisation: "",
   message: "",
 };
@@ -207,16 +208,27 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
             disabled={status === "submitting"}
           />
         </div>
-        <Field
-          label="Work Email"
-          name="email"
-          value={formData.email}
-          onChange={updateField}
-          placeholder="janedoe@email.com"
-          type="email"
-          required
-          disabled={status === "submitting"}
-        />
+        <div className="flex flex-col gap-4 sm:flex-row sm:gap-5 md:gap-6">
+          <Field
+            label="Work Email"
+            name="email"
+            value={formData.email}
+            onChange={updateField}
+            placeholder="janedoe@email.com"
+            type="email"
+            required
+            disabled={status === "submitting"}
+          />
+          <Field
+            label="Phone Number"
+            name="phone"
+            value={formData.phone ?? ""}
+            onChange={updateField}
+            placeholder="+91 98765 43210"
+            type="tel"
+            disabled={status === "submitting"}
+          />
+        </div>
 
         <label className="flex flex-col gap-1.5">
           <span className="text-sm font-medium text-black/70">Organisation</span>
@@ -281,7 +293,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
   return (
     <section
       id="get-in-touch"
-      className="relative overflow-hidden bg-[#F4F6F9] px-5 py-16 sm:px-10 sm:py-20 lg:py-28"
+      className="relative overflow-hidden bg-mist px-5 py-16 sm:px-10 sm:py-20 lg:py-28"
     >
       <Reveal className="relative z-10 mx-auto w-full max-w-7xl">
         <div className="grid gap-8 sm:gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-20">

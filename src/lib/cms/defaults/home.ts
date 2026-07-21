@@ -18,9 +18,7 @@ import type {
   Partner,
 } from "../types";
 
-function blogToNewsItem(
-  post: (typeof BLOG_POSTS)[number],
-): NewsResourceItem {
+function blogToNewsItem(post: (typeof BLOG_POSTS)[number]): NewsResourceItem {
   return {
     id: `blog-posts:${post.slug}`,
     collection: "blog-posts",
@@ -55,7 +53,7 @@ export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
   {
     id: "clinicians",
     title: "Designed for the Complexity of Rare and Genetic Disease Care",
-    body: "Streamline clinical workflows, capture structured patient data, leverage AI-assisted documentation, and access decision-support tools built specifically for genetics and rare diseases.",
+    eyebrow: "Testing eyebrow",
     cta: "Explore Clinical Solutions",
     href: PLATFORM_PATH,
     image: "/hero/hero-bg.webp",
@@ -63,7 +61,8 @@ export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
   {
     id: "public-health",
     title: "Powering Rare Disease Programs at Population Scale",
-    body: "Enable registries, screening initiatives, patient tracking, analytics, and outcome monitoring through a unified digital infrastructure designed for national and state-level programs.",
+    eyebrow: "Testing eyebrow",
+
     cta: "Explore Public Health Solutions",
     href: PUBLIC_HEALTH_PATH,
     image: "/hero/hero-dna.jpg",
@@ -71,7 +70,8 @@ export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
   {
     id: "research",
     title: "Transforming Clinical Data into Research-Ready Intelligence",
-    body: "Generate structured datasets, accelerate cohort identification, support longitudinal studies, and unlock AI-driven insights from real-world rare disease data.",
+    eyebrow: "Testing eyebrow",
+
     cta: "Explore Research Solutions",
     href: PHARMA_PATH,
     image: "/hero/hero-molecule.jpg",
@@ -79,7 +79,8 @@ export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
   {
     id: "ecosystem",
     title: "Connecting Stakeholders Across the Rare Disease Ecosystem",
-    body: "Bring together clinicians, institutions, researchers, patient groups, and policymakers through a shared platform that enables collaboration, visibility, and evidence-based decision making.",
+    eyebrow: "Testing eyebrow",
+
     cta: "Discover the Ecosystem",
     href: HOSPITAL_PATH,
     image: "/hero/hero-antibody.jpg",
@@ -279,6 +280,39 @@ export const DEFAULT_HOME_PAGE: HomePageData = {
     description: "Stay updated with the latest from Genetico and the rare disease ecosystem.",
     ctaLabel: "See all",
     // ctaHref: "/resources",
+  },
+  faqSection: {
+    eyebrow: "FAQs",
+    heading: "Frequently Asked Questions",
+    description:
+      "Answers to common questions about Genetico, IndiGeneUs.AI, and how we support rare and genetic disease care.",
+    items: [
+      {
+        question: "What is Genetico?",
+        answer:
+          "Genetico is building the digital backbone for the rare and genetic disease ecosystem. By connecting clinical care, research, public health, and AI, we transform fragmented healthcare data into structured, interoperable, and actionable intelligence.",
+      },
+      {
+        question: "What is IndiGeneUs.AI?",
+        answer:
+          "IndiGeneUs.AI is Genetico's AI-enabled clinical genetics platform. It supports structured phenotype capture, pedigree analysis, clinical decision support, longitudinal patient management, and research workflows through a unified digital ecosystem.",
+      },
+      {
+        question: "Who is Genetico built for?",
+        answer:
+          "Genetico is designed for clinicians, hospitals, diagnostic laboratories, research institutions, biotechnology organizations, and public health programs working in rare and genetic diseases.",
+      },
+      {
+        question: "Can Genetico integrate with our existing systems?",
+        answer:
+          "Yes. IndiGeneUs.AI is designed to integrate with existing healthcare infrastructure, including hospital and laboratory information systems, enabling organizations to strengthen their clinical genetics workflows without disrupting existing operations.",
+      },
+      {
+        question: "Why does structured clinical data matter?",
+        answer:
+          "Rare disease data often exists in fragmented reports, PDFs, and free-text clinical notes. Structured data enables better clinical decision-making, AI-assisted analysis, longitudinal patient management, research, and public health initiatives. It forms the foundation for a connected rare disease ecosystem.",
+      },
+    ],
   },
   cta: {
     heading: "Building the Future of Rare Disease Intelligence Together",

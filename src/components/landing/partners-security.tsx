@@ -10,10 +10,7 @@ import {
 import { useRef } from "react";
 
 import { EASE, Reveal, useInViewAnimation } from "@/components/motion/reveal";
-import {
-  DEFAULT_HOME_PAGE,
-  DEFAULT_PARTNERS,
-} from "@/lib/cms/defaults/home";
+import { DEFAULT_HOME_PAGE, DEFAULT_PARTNERS } from "@/lib/cms/defaults/home";
 import type { Partner } from "@/lib/cms/types";
 import { useScrollMappedValue } from "@/lib/motion/scroll-value";
 import { useProjectScroll } from "@/lib/motion/use-project-scroll";
@@ -168,24 +165,24 @@ export function PartnersSecurity({
   return (
     <>
       {/* ───────── Customers & Advisors — light band ───────── */}
-      <section className="bg-white px-6 py-24 sm:px-10 sm:py-28">
+      <section className="bg-[#010207]  px-6 pb-24 sm:px-10 sm:pb-28">
         <Reveal className="mx-auto w-full max-w-7xl">
           <div className="flex flex-col items-center gap-4 text-center">
-            <h2 className="t-heading text-black">{partnersSection.heading}</h2>
-            <p className="max-w-xl text-base text-black/55 sm:text-lg sm:leading-normal">
+            <h2 className="t-heading text-white">{partnersSection.heading}</h2>
+            <p className="max-w-xl text-base text-white/55 sm:text-lg sm:leading-normal">
               {partnersSection.description}
             </p>
           </div>
 
           <div className="mt-14 flex flex-col gap-6">
             <MarqueeRow partners={partners} />
-            <MarqueeRow partners={partners} reverse />
+            {/* <MarqueeRow partners={partners} reverse /> */}
           </div>
         </Reveal>
       </section>
 
       {/* ───────── Data Security & Compliance — blue band ───────── */}
-      <section className="relative overflow-hidden bg-[linear-gradient(160deg,#00060C_0%,#024385_50%,#0A4989_78%,#DDEEFF_145%)] px-6 py-24 sm:px-10 sm:py-32">
+      <section className="bg-brand-band relative overflow-hidden px-6 py-24 sm:px-10 sm:py-32">
         <Reveal className="relative z-10 mx-auto w-full max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
             <div className="flex flex-col gap-5 text-left lg:max-w-md">

@@ -9,7 +9,7 @@ export type CtaButton = {
 export type HeroSlide = {
   id: string;
   title: string;
-  body: string;
+  eyebrow: string;
   cta: string;
   href: string;
   image: string;
@@ -340,6 +340,11 @@ export type WhoWeAreParagraph = {
   highlights: string[];
 };
 
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
+
 export type HomePageData = {
   heroSlides: HeroSlide[];
   whoWeAre: {
@@ -351,6 +356,12 @@ export type HomePageData = {
   partnersSection: { heading: string; description: string };
   securitySection: { heading: string; description: string; features: string[] };
   newsSection: { heading: string; description: string; ctaLabel: string };
+  faqSection: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    items: FaqItem[];
+  };
   cta: PageCta;
   modules: EcosystemModule[];
   gaps: EcosystemGap[];

@@ -27,6 +27,7 @@ export const ADMIN_NAV_ENTITY_ORDER: Record<string, string[]> = {
     "globals:home-security",
     "globals:home-news",
     "collections:news-articles",
+    "globals:home-faqs",
     "globals:home-cta",
   ],
   [ADMIN_GROUPS.about]: [

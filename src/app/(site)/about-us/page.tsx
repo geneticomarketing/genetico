@@ -32,9 +32,7 @@ export default async function AboutUsPage() {
       hero={<AboutHero hero={data.hero} />}
     >
       <AboutFoundations vision={data.vision} foundations={data.foundations} />
-      <section>
-        <LeadershipCarousel team={data.team} leadership={data.leadership} />
-      </section>
+      <LeadershipCarousel team={data.team} leadership={data.leadership} />
       <section>
         <GrantsTimeline section={data.grants} items={data.grantItems} />
       </section>

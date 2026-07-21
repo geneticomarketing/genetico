@@ -27,7 +27,7 @@ const MIN_EXPANDED_W = 320;
 const WIDTH_MS = 520;
 
 const CARD_GRADIENT =
-  "radial-gradient(110% 85% at 78% 18%, rgba(95,215,203,0.16) 0%, transparent 52%), radial-gradient(85% 75% at 18% 82%, rgba(2,67,133,0.4) 0%, transparent 58%), linear-gradient(145deg, #024385 0%, #00101f 58%, #000810 100%)";
+  "radial-gradient(110% 85% at 78% 18%, color-mix(in srgb, var(--color-accent) 16%, transparent) 0%, transparent 52%), radial-gradient(85% 75% at 18% 82%, color-mix(in srgb, var(--color-brand) 40%, transparent) 0%, transparent 58%), linear-gradient(145deg, var(--color-brand) 0%, var(--color-navy) 58%, var(--color-deep) 100%)";
 
 function BurdenActiveCardPanel({
   card,

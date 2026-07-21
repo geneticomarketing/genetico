@@ -29,6 +29,7 @@ import {
   HomePartners,
   HomeSecurity,
   HomeNews,
+  HomeFaqs,
   HomeCta,
 } from "./payload/globals/sections/home";
 import {
@@ -127,6 +128,7 @@ export default buildConfig({
     HomePartners,
     HomeSecurity,
     HomeNews,
+    HomeFaqs,
     HomeCta,
     // About Page sections
     AboutHero,

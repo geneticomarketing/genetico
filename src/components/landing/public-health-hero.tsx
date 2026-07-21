@@ -66,7 +66,7 @@ export function PublicHealthHero({
           <br />
           {hero.titleLine2.includes("India") ? (
             <>
-              India&apos;s <span className="text-brand">rare disease ecosystem</span>
+              India&apos;s <span className="text-accent">rare disease ecosystem</span>
             </>
           ) : (
             hero.titleLine2

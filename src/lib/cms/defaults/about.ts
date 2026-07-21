@@ -2,10 +2,10 @@ import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
 import type { AboutPageData, GrantAward, TeamMember } from "../types";
 
 export const DEFAULT_HERO_LABELS = [
-  { label: "Clinical Workflows", position: "top-[5%] left-[2%] sm:left-[6%]" },
-  { label: "AI Decision Support", position: "top-[5%] right-[2%] sm:right-[6%]" },
-  { label: "Research Analytics", position: "bottom-[50%] left-[0%] sm:left-[4%]" },
-  { label: "Longitudinal Care", position: "bottom-[50%] right-[0%] sm:right-[4%]" },
+  { label: "Clinical Workflows", anchor: "top-left" },
+  { label: "AI Decision Support", anchor: "top-right" },
+  { label: "Research Analytics", anchor: "mid-left" },
+  { label: "Longitudinal Care", anchor: "mid-right" },
 ] as const;
 
 export const DEFAULT_TEAM: TeamMember[] = [

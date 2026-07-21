@@ -45,6 +45,8 @@ export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] })
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
 
+  // console.log(slides);
+
   const next = useCallback(() => setActive((i) => (i + 1) % slides.length), [slides.length]);
   const prev = useCallback(
     () => setActive((i) => (i - 1 + slides.length) % slides.length),
@@ -126,10 +128,27 @@ export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] })
                 i === active ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
-              <div className="flex flex-col">
+              <div className="flex h-full flex-col justify-start">
+                <div className="flex min-h-36 items-center justify-center gap-4 sm:gap-6">
+                  <span
+                    aria-hidden
+                    className="throbbing-bgH h-1 w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+                  />
+                  <motion.p
+                    {...heroEntrance(3, reduce)}
+                    className="w-fit text-sm leading-relaxed text-white/55 sm:text-base"
+                  >
+                    {slide.eyebrow}
+                  </motion.p>
+                  <span
+                    aria-hidden
+                    className="throbbing-bgH h-1 w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+                  />
+                </div>
+
                 <motion.h1
                   {...heroEntrance(1, reduce)}
-                  className="t-display mx-auto text-white capitalize"
+                  className="t-display mx-auto text-white capitalize min-h-64"
                 >
                   {slide.title}
                 </motion.h1>
@@ -140,13 +159,6 @@ export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] })
                   </a>
                 </motion.div>
               </div>
-
-              <motion.p
-                {...heroEntrance(3, reduce)}
-                className="min-h-36 max-w-xl shrink-0 text-sm leading-relaxed text-white/55 sm:text-base"
-              >
-                {slide.body}
-              </motion.p>
             </div>
           ))}
         </div>

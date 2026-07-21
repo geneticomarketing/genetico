@@ -7,9 +7,7 @@ import { DEFAULT_ABOUT_PAGE, DEFAULT_TEAM } from "./defaults/about";
 import { DEFAULT_PLATFORM_PAGE } from "./defaults/platform";
 import { DEFAULT_PUBLIC_HEALTH_PAGE } from "./defaults/public-health";
 import { DEFAULT_RESOURCES_PAGE, DEFAULT_UTILITY_PAGES } from "./defaults/resources";
-import {
-  resolveHomeNewsResourcePicks,
-} from "./home-news-resources";
+import { resolveHomeNewsResourcePicks } from "./home-news-resources";
 import type { HomeNewsResourceCollection, HomeNewsResourcePicks } from "./resource-collections";
 import type {
   AboutPageData,
@@ -167,6 +165,7 @@ export async function getHomePageData(): Promise<HomePageData> {
     partnersSection,
     securitySection,
     newsSection,
+    faqSection,
     ctaSection,
     modules,
     gaps,
@@ -181,6 +180,7 @@ export async function getHomePageData(): Promise<HomePageData> {
     getSectionGlobal("home-partners"),
     getSectionGlobal("home-security"),
     getSectionGlobal("home-news"),
+    getSectionGlobal("home-faqs"),
     getSectionGlobal("home-cta"),
     getCollection<CmsEcosystemModule>("ecosystem-modules", [] as CmsEcosystemModule[]),
     getCollection<CmsEcosystemGap>("ecosystem-gaps", [] as CmsEcosystemGap[]),
@@ -195,7 +195,7 @@ export async function getHomePageData(): Promise<HomePageData> {
     ? hero.heroSlides.map((s) => ({
         id: s.id,
         title: s.title,
-        body: s.body,
+        eyebrow: s.eyebrow,
         cta: s.cta,
         href: s.href,
         image: resolveMediaUrl(s.backgroundImage, s.image),
@@ -277,6 +277,19 @@ export async function getHomePageData(): Promise<HomePageData> {
       description: newsSection?.description || defaults.newsSection.description,
       ctaLabel: newsSection?.ctaLabel || defaults.newsSection.ctaLabel,
     },
+    faqSection: {
+      eyebrow: faqSection?.eyebrow || defaults.faqSection.eyebrow,
+      heading: faqSection?.heading || defaults.faqSection.heading,
+      description: faqSection?.description || defaults.faqSection.description,
+      items: faqSection?.items?.length
+        ? faqSection.items
+            .filter((item) => item.question && item.answer)
+            .map((item) => ({
+              question: item.question,
+              answer: item.answer,
+            }))
+        : defaults.faqSection.items,
+    },
     cta: mergeCta(ctaSection, defaults.cta),
     modules: cmsModules.length ? cmsModules : defaults.modules,
     gaps: cmsGaps.length ? cmsGaps : defaults.gaps,
@@ -284,8 +297,7 @@ export async function getHomePageData(): Promise<HomePageData> {
       ? cmsPartners.filter((p) => p.logo)
       : defaults.partners,
     featuredNewsItem: resolvedNews.featured ?? fallbackNews.featured,
-    sidebarNewsItems:
-      resolvedNews.sidebar.length > 0 ? resolvedNews.sidebar : fallbackNews.sidebar,
+    sidebarNewsItems: resolvedNews.sidebar.length > 0 ? resolvedNews.sidebar : fallbackNews.sidebar,
   };
 }
 
@@ -634,10 +646,7 @@ export async function getResourcesPageData(): Promise<
             duration: dive.duration || fallback?.duration || "",
             sourceLabel: dive.sourceLabel || fallback?.sourceLabel || "",
             thumbnailGradient: dive.thumbnailGradient || fallback?.thumbnailGradient,
-            tags:
-              dive.tags?.map((tag) => tag.tag).filter(Boolean) ||
-              fallback?.tags ||
-              [],
+            tags: dive.tags?.map((tag) => tag.tag).filter(Boolean) || fallback?.tags || [],
             videoLeft: dive.videoLeft ?? index % 2 === 0,
           };
         })

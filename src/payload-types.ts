@@ -119,6 +119,7 @@ export interface Config {
     'home-partners': HomePartner;
     'home-security': HomeSecurity;
     'home-news': HomeNew;
+    'home-faqs': HomeFaq;
     'home-cta': HomeCta;
     'about-hero': AboutHero;
     'about-vision': AboutVision;
@@ -157,6 +158,7 @@ export interface Config {
     'home-partners': HomePartnersSelect<false> | HomePartnersSelect<true>;
     'home-security': HomeSecuritySelect<false> | HomeSecuritySelect<true>;
     'home-news': HomeNewsSelect<false> | HomeNewsSelect<true>;
+    'home-faqs': HomeFaqsSelect<false> | HomeFaqsSelect<true>;
     'home-cta': HomeCtaSelect<false> | HomeCtaSelect<true>;
     'about-hero': AboutHeroSelect<false> | AboutHeroSelect<true>;
     'about-vision': AboutVisionSelect<false> | AboutVisionSelect<true>;
@@ -1116,7 +1118,7 @@ export interface HomeHero {
     | {
         id: string;
         title: string;
-        body: string;
+        eyebrow: string;
         cta: string;
         href: string;
         /**
@@ -1227,6 +1229,25 @@ export interface HomeNew {
     | string
     | number
     | boolean
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-faqs".
+ */
+export interface HomeFaq {
+  id: number;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  items?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1842,7 +1863,7 @@ export interface HomeHeroSelect<T extends boolean = true> {
     | {
         id?: T;
         title?: T;
-        body?: T;
+        eyebrow?: T;
         cta?: T;
         href?: T;
         backgroundImage?: T;
@@ -1933,6 +1954,25 @@ export interface HomeNewsSelect<T extends boolean = true> {
   description?: T;
   ctaLabel?: T;
   resourcePicks?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-faqs_select".
+ */
+export interface HomeFaqsSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

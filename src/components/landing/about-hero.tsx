@@ -6,18 +6,44 @@ import type { AboutPageData } from "@/lib/cms/types";
 import { motion } from "motion/react";
 import Link from "next/link";
 
-const LABEL_POSITIONS = DEFAULT_HERO_LABELS;
+type LabelAnchor = (typeof DEFAULT_HERO_LABELS)[number]["anchor"];
+
+const ANCHOR_CLASS: Record<LabelAnchor, string> = {
+  "top-left": "top-[5%] left-[1%] xl:left-[3%]",
+  "top-right": "top-[5%] right-[1%] xl:right-[3%]",
+  "mid-left": "top-[52%] left-0 -translate-y-1/2 xl:left-[2%]",
+  "mid-right": "top-[52%] right-0 -translate-y-1/2 xl:right-[2%]",
+};
+
+function LabelCard({
+  index,
+  label,
+  className = "",
+}: {
+  index: number;
+  label: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`text-brand pointer-events-none flex items-center gap-2 border border-zinc-300/90 bg-white/95 shadow-[0_8px_24px_rgba(2,67,133,0.08)] backdrop-blur-sm ${className}`}
+    >
+      <span className="shrink-0 font-medium tabular-nums">{String(index + 1).padStart(2, "0")}</span>
+      <span className="min-w-0 text-left leading-snug text-black">{label}</span>
+    </div>
+  );
+}
 
 export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
   const heroLabels = hero.labels.map((label, i) => ({
     label,
-    position: LABEL_POSITIONS[i]?.position ?? "",
+    anchor: DEFAULT_HERO_LABELS[i]?.anchor ?? "top-left",
   }));
 
   return (
-    <section className="isolate flex min-h-screen items-center overflow-hidden bg-white">
+    <section className="isolate flex min-h-[100svh] items-center overflow-hidden bg-white">
       <StaggerGroup
-        className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-6 py-24 text-center sm:px-8 lg:py-28"
+        className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-5 py-20 text-center sm:px-8 sm:py-24 lg:py-28"
         stagger={0.4}
         delayChildren={0.08}
         ssrVisible
@@ -37,7 +63,7 @@ export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
         </StaggerItem>
 
         <StaggerItem>
-          <div className="relative z-9999999999 mt-10 flex flex-wrap items-center justify-center gap-4">
+          <div className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4 sm:mt-10">
             <Link
               href={hero.ctaHref}
               className="bg-brand hover:bg-brand/70 inline-flex items-center gap-2 rounded-lg border border-white/20 px-5 py-2 text-sm font-medium text-white backdrop-blur-md transition-colors"
@@ -49,36 +75,58 @@ export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
             </Link>
           </div>
         </StaggerItem>
-        <StaggerItem>
-          <div className="relative mx-auto mt-10 w-full max-w-[49rem]">
-            <img src="/race.svg" className="rotate mx-auto h-auto w-full lg:w-196" alt="" />
-            {heroLabels.map((item, i) => (
-              <motion.div
-                key={item.label}
-                initial={false}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.8 + (i + 1) / 10 }}
-                className="hidden lg:block"
-              >
-                <div
-                  className={`text-brand pointer-events-none absolute flex w-fit max-w-[11rem] items-center justify-center gap-2.5 border border-zinc-400 bg-white p-3 px-3 text-sm shadow-lg ${item.position}`}
-                >
-                  <p className="shrink-0 font-medium">0{i + 1}</p>
-                  <div className="text-left text-black">{item.label}</div>
-                </div>
-              </motion.div>
-            ))}
-            <div className="mt-5 grid grid-cols-2 gap-2 sm:mt-6 lg:hidden">
+
+        <StaggerItem className="w-full">
+          <div className="relative mx-auto mt-8 w-full max-w-[52rem] sm:mt-10">
+            {/* Mobile / tablet: crop-zoom the circular graphic, labels stacked cleanly below */}
+            <div className="lg:hidden">
+              <div className="relative mx-auto aspect-square w-[min(100%,19rem)] overflow-hidden sm:w-[min(100%,24rem)]">
+                <img
+                  src="/race.svg"
+                  alt=""
+                  className="rotate absolute top-1/2 left-1/2 w-[170%] max-w-none -translate-x-1/2 -translate-y-1/2"
+                />
+              </div>
+
+              <ul className="mx-auto mt-5 grid max-w-md grid-cols-2 gap-2 sm:mt-6 sm:max-w-xl sm:gap-3">
+                {heroLabels.map((item, i) => (
+                  <motion.li
+                    key={item.label}
+                    initial={false}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.8 + (i + 1) / 10 }}
+                  >
+                    <LabelCard
+                      index={i}
+                      label={item.label}
+                      className="w-full gap-2 rounded-md px-3 py-2.5 text-xs sm:text-sm"
+                    />
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Desktop: full landscape stage with floating labels */}
+            <div className="@container relative mx-auto hidden aspect-[800/480] w-full lg:block">
+              <img
+                src="/race.svg"
+                alt=""
+                className="rotate absolute inset-0 h-full w-full object-contain"
+              />
+
               {heroLabels.map((item, i) => (
                 <motion.div
                   key={item.label}
                   initial={false}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.8 + (i + 1) / 10 }}
-                  className="text-brand flex w-full items-center justify-center gap-2 border border-zinc-400 bg-white p-2.5 px-3 text-xs opacity-90 shadow-lg max-md:-translate-y-16 sm:text-sm"
+                  className={`absolute z-10 ${ANCHOR_CLASS[item.anchor]}`}
                 >
-                  <p className="shrink-0 font-medium">0{i + 1}</p>
-                  <div className="text-center text-black">{item.label}</div>
+                  <LabelCard
+                    index={i}
+                    label={item.label}
+                    className="w-[clamp(9rem,17cqi,11rem)] gap-2 rounded-md p-2.5 text-[clamp(0.75rem,2cqi,0.875rem)] xl:gap-2.5 xl:p-3"
+                  />
                 </motion.div>
               ))}
             </div>

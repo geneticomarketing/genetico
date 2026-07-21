@@ -23,7 +23,7 @@ export const HomeHero = pageSection(
       fields: [
         { name: "id", type: "text", required: true },
         { name: "title", type: "text", required: true },
-        { name: "body", type: "textarea", required: true },
+        { name: "eyebrow", type: "text", required: true },
         { name: "cta", type: "text", required: true },
         { name: "href", type: "text", required: true },
         ...imageUploadFields({
@@ -131,12 +131,31 @@ export const HomeNews = pageSection(
         return true;
       },
       admin: {
-        description:
-          "Pick content from the Resources page to show on the home page news section.",
+        description: "Pick content from the Resources page to show on the home page news section.",
         components: {
           Field: "@/payload/admin/fields/HomeNewsResourcePicker#HomeNewsResourcePicker",
         },
       },
+    },
+  ],
+  ADMIN_GROUPS.home,
+);
+
+export const HomeFaqs = pageSection(
+  "home-faqs",
+  "FAQs",
+  [
+    { name: "eyebrow", type: "text" },
+    { name: "heading", type: "text" },
+    { name: "description", type: "textarea" },
+    {
+      name: "items",
+      type: "array",
+      labels: { singular: "FAQ", plural: "FAQs" },
+      fields: [
+        { name: "question", type: "text", required: true },
+        { name: "answer", type: "textarea", required: true },
+      ],
     },
   ],
   ADMIN_GROUPS.home,
