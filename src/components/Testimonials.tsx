@@ -67,7 +67,7 @@ function MemberDrawer({ person, onClose }: { person: TeamMember; onClose: () => 
       {visible ? (
         <motion.div
           key="drawer-overlay"
-          className="fixed inset-0 z-[100] flex justify-end"
+          className="fixed inset-0 z-[9999999999999999] flex justify-end"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

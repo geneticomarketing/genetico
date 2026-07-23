@@ -27,7 +27,7 @@ function ScrollWord({
       {word.leadingSpace ? " " : ""}
       <motion.span
         style={{ opacity }}
-        className={word.hl ? "font-bold text-brand relative" : "text-brand font-thin"}
+        className={word.hl ? "font-semibold text-brand relative" : "text-brand "}
       >
         {word.hl && (
           <motion.div
@@ -73,9 +73,9 @@ export function FoundationalPlatform({
   const span = REVEAL_END - window;
 
   return (
-    <section id="platform" className="bg-white px-6 py-24 sm:px-10 sm:py-32">
+    <section id="platform" className="bg-white px-6 pt-24 sm:px-10 sm:pt-32 pb-6">
       <Reveal className="mx-auto w-full max-w-4xl text-center">
-        <p className="font-jetbrains-mono text-sm font-medium tracking-[0.08em] text-[#010207]">
+        <p className="font-jetbrains-mono text-sm font-medium tracking-[0.08em] text-brand">
           {eyebrow}
         </p>
       </Reveal>

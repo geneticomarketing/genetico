@@ -129,21 +129,21 @@ export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] })
               }`}
             >
               <div className="flex h-full flex-col justify-start">
-                <div className="flex min-h-36 items-center justify-center gap-4 sm:gap-6">
-                  <span
+                <div className="flex min-h-16 items-center justify-center gap-4 sm:gap-6">
+                  {/* <span
                     aria-hidden
                     className="throbbing-bgH h-1 w-12 shrink-0 rounded-full sm:w-20 md:w-28"
-                  />
+                  /> */}
                   <motion.p
                     {...heroEntrance(3, reduce)}
                     className="w-fit text-sm leading-relaxed text-white/55 sm:text-base"
                   >
                     {slide.eyebrow}
                   </motion.p>
-                  <span
+                  {/* <span
                     aria-hidden
                     className="throbbing-bgH h-1 w-12 shrink-0 rounded-full sm:w-20 md:w-28"
-                  />
+                  /> */}
                 </div>
 
                 <motion.h1
