@@ -67,14 +67,17 @@ function MemberDrawer({ person, onClose }: { person: TeamMember; onClose: () => 
       {visible ? (
         <motion.div
           key="drawer-overlay"
-          className="fixed inset-0 z-[9999999999999999] flex justify-end"
+          className="fixed inset-0 z-[200] flex justify-end"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
           onClick={requestClose}
         >
-          <div className="bg-navy/60 pointer-events-none absolute inset-0 backdrop-blur-[2px]" aria-hidden />
+          <div
+            className="bg-navy/60 pointer-events-none absolute inset-0 backdrop-blur-[2px]"
+            aria-hidden
+          />
           <motion.aside
             role="dialog"
             aria-modal="true"
@@ -158,46 +161,46 @@ function MemberCard({
       layout={false}
       whileHover={{ y: -3 }}
       transition={{ duration: 0.3, ease: EASE }}
-      className="group flex h-full flex-col overflow-hidden border border-black/[0.08] bg-white shadow-[0_6px_20px_rgba(2,67,133,0.05)] transition-shadow duration-300 hover:shadow-[0_12px_28px_rgba(2,67,133,0.1)]"
+      className="group relative flex h-full flex-col overflow-hidden border border-black/[0.08] bg-white shadow-[0_6px_20px_rgba(2,67,133,0.05)] transition-shadow duration-300 hover:shadow-[0_12px_28px_rgba(2,67,133,0.1)]"
     >
       <button
         type="button"
         onClick={() => onOpen(person)}
-        className="relative aspect-[4/5] w-full overflow-hidden bg-[#e8eef5] text-left"
+        className="absolute inset-0 z-10 cursor-pointer"
         aria-label={`Open profile for ${person.name}`}
-      >
+      />
+
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#e8eef5]">
         <TeamPhoto
           person={person}
           className="size-full transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           imgClassName="size-full object-cover object-top"
         />
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/20 to-transparent opacity-80" />
-      </button>
+      </div>
 
-      <div className="flex flex-1 flex-col p-3.5 sm:p-4">
+      <div className="relative flex flex-1 flex-col p-3.5 sm:p-4">
         <p className="t-badge text-brand text-[0.6rem] font-semibold tracking-[0.16em] uppercase">
           {person.title}
         </p>
         <h3 className="mt-1.5 text-base font-medium tracking-tight text-[#121212] sm:text-[1.05rem]">
           {person.name}
         </h3>
-        <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-black/55">{person.about}</p>
+        <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-black/55">
+          {person.about}
+        </p>
 
         <div className="mt-auto flex items-center gap-2 pt-3.5">
-          <button
-            type="button"
-            onClick={() => onOpen(person)}
-            className="text-brand inline-flex items-center gap-1 text-xs font-semibold transition-opacity hover:opacity-70 sm:text-[13px]"
-          >
+          <span className="text-brand inline-flex items-center gap-1 text-xs font-semibold sm:text-[13px]">
             View profile
             <ArrowUpRight className="size-3" aria-hidden />
-          </button>
+          </span>
           {person.linkedinUrl ? (
             <a
               href={person.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-auto inline-flex size-7 items-center justify-center rounded-full border border-black/10 text-[#0a66c2] transition-colors hover:border-[#0a66c2]/30 hover:bg-[#0a66c2]/5"
+              className="relative z-20 ml-auto inline-flex size-7 items-center justify-center rounded-full border border-black/10 text-[#0a66c2] transition-colors hover:border-[#0a66c2]/30 hover:bg-[#0a66c2]/5"
               aria-label={`${person.name} on LinkedIn`}
               onClick={(event) => event.stopPropagation()}
             >
@@ -227,8 +230,18 @@ function LeadershipCarouselComponent({
 
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         <StaggerGroup className="mx-auto max-w-3xl text-center" stagger={0.12}>
-          <StaggerItem>
-            <p className="t-eyebrow text-brand">{leadership.eyebrow}</p>
+          <StaggerItem className="mx-auto w-full max-w-4xl text-center relative flex items-center justify-center gap-4 sm:gap-6">
+            <span
+              aria-hidden
+              className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+            />
+            <p className="font-jetbrains-mono text-sm font-medium tracking-[0.08em] text-brand">
+              {leadership.eyebrow}
+            </p>
+            <span
+              aria-hidden
+              className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+            />
           </StaggerItem>
           <StaggerItem>
             <h2 className="t-heading mx-auto mt-4 text-balance text-[#121212]">
@@ -255,7 +268,9 @@ function LeadershipCarouselComponent({
         </StaggerGroup>
       </div>
 
-      {drawerPerson ? <MemberDrawer person={drawerPerson} onClose={() => setDrawerPerson(null)} /> : null}
+      {drawerPerson ? (
+        <MemberDrawer person={drawerPerson} onClose={() => setDrawerPerson(null)} />
+      ) : null}
     </section>
   );
 }

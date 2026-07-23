@@ -64,11 +64,7 @@ function ProgressRing({
 
   return (
     <div className="relative mx-auto size-[9.5rem] sm:size-[10.5rem]">
-      <svg
-        viewBox="0 0 120 120"
-        className="size-full -rotate-90"
-        aria-hidden
-      >
+      <svg viewBox="0 0 120 120" className="size-full -rotate-90" aria-hidden>
         <circle
           cx="60"
           cy="60"
@@ -246,11 +242,7 @@ function OutcomeColumn({
           ) : null}
 
           <motion.li
-            style={
-              reduce
-                ? undefined
-                : { opacity: positiveOpacity, fontWeight: positiveWeight }
-            }
+            style={reduce ? undefined : { opacity: positiveOpacity, fontWeight: positiveWeight }}
             className="flex items-start gap-2.5 text-[#121212]"
           >
             <span
@@ -293,16 +285,14 @@ export function SolutionsMeasurableOutcomes({
       <div ref={sectionRef} className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-3 sm:gap-4">
-            <span aria-hidden className="throbbing-bgH h-1 w-6 shrink-0 rounded-full sm:w-10" />
+            <span aria-hidden className="throbbing-bgH h-px w-6 shrink-0 rounded-full sm:w-10" />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
               {content.label}
             </p>
-            <span aria-hidden className="throbbing-bgH h-1 w-6 shrink-0 rounded-full sm:w-10" />
+            <span aria-hidden className="throbbing-bgH h-px w-6 shrink-0 rounded-full sm:w-10" />
           </div>
 
-          <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">
-            {content.heading}
-          </h2>
+          <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">{content.heading}</h2>
 
           <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
             {content.description}

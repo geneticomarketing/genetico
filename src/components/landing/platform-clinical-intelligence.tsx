@@ -319,7 +319,7 @@ export function PlatformClinicalIntelligence({
                 <p className="t-eyebrow text-accent text-[0.7rem] tracking-[0.32em]">
                   {section.eyebrow}
                 </p>
-                <span aria-hidden className="throbbing-bgH h-1 w-10 rounded-full sm:w-14" />
+                <span aria-hidden className="throbbing-bgH h-px w-10 rounded-full sm:w-14" />
               </div>
               <h2
                 className="t-heading mt-5 max-w-none text-white"

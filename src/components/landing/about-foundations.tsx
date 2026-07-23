@@ -22,14 +22,14 @@ export function AboutFoundations({
           <div className="flex items-center justify-center gap-4 sm:gap-6">
             <span
               aria-hidden
-              className="throbbing-bgH h-1 w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+              className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
             />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
               {vision.eyebrow}
             </p>
             <span
               aria-hidden
-              className="throbbing-bgH h-1 w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+              className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
             />
           </div>
 

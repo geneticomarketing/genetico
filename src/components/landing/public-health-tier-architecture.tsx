@@ -384,11 +384,11 @@ export function PublicHealthTierArchitecture({
         <StaggerGroup className="mx-auto max-w-3xl text-center" stagger={0.1}>
           <StaggerItem>
             <div className="flex items-center justify-center gap-4 sm:gap-6">
-              <span aria-hidden className="throbbing-bgH h-1 w-12 shrink-0 rounded-full" />
+              <span aria-hidden className="throbbing-bgH h-px w-12 shrink-0 rounded-full" />
               <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
                 {section.eyebrow}
               </p>
-              <span aria-hidden className="throbbing-bgH h-1 w-12 shrink-0 rounded-full" />
+              <span aria-hidden className="throbbing-bgH h-px w-12 shrink-0 rounded-full" />
             </div>
           </StaggerItem>
 

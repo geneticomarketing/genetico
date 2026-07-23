@@ -63,7 +63,7 @@ export function ScrollParallaxPage({
         {hero}
       </motion.div>
       {useFixedHero ? <div className="min-h-screen" aria-hidden /> : null}
-      <div className="relative z-999999999">{children}</div>
+      <div className="relative z-10">{children}</div>
     </main>
   );
 }

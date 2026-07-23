@@ -14,7 +14,10 @@ const SWITCH = { duration: 0.45, ease: EASE };
 
 function BannerSwirl() {
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-[min(52%,280px)] overflow-hidden">
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-y-0 right-0 w-[min(52%,280px)] overflow-hidden"
+    >
       <div className="absolute -right-6 top-1/2 size-40 -translate-y-1/2 rounded-full bg-accent/25 blur-2xl" />
       <div className="absolute right-8 top-[18%] size-28 rounded-full bg-white/12 blur-xl" />
       <div className="absolute right-16 bottom-[12%] size-36 rounded-full bg-[#5fd7cb]/20 blur-2xl" />
@@ -33,11 +36,7 @@ function BannerSwirl() {
           d="M120 20 C180 40, 200 80, 280 60 L280 120 L80 120 C40 100, 60 40, 120 20 Z"
           fill="url(#tier-swirl-a)"
         />
-        <path
-          d="M140 0 C220 30, 240 90, 280 40 L280 0 Z"
-          fill="white"
-          fillOpacity="0.08"
-        />
+        <path d="M140 0 C220 30, 240 90, 280 40 L280 0 Z" fill="white" fillOpacity="0.08" />
       </svg>
     </div>
   );
@@ -251,22 +250,18 @@ export function PublicHealthThreeTierModel({
         <StaggerGroup className="mx-auto max-w-3xl text-center" stagger={0.1}>
           <StaggerItem>
             <div className="flex items-center justify-center gap-4 sm:gap-6">
-              <span
-                aria-hidden
-                className="throbbing-bgH h-1 w-12 shrink-0 rounded-full"
-              />
+              <span aria-hidden className="throbbing-bgH h-px w-12 shrink-0 rounded-full" />
               <p className="t-eyebrow secondaryFont shrink-0 text-[0.65rem] tracking-[0.28em] text-brand">
                 {section.eyebrow}
               </p>
-              <span
-                aria-hidden
-                className="throbbing-bgH h-1 w-12 shrink-0 rounded-full"
-              />
+              <span aria-hidden className="throbbing-bgH h-px w-12 shrink-0 rounded-full" />
             </div>
           </StaggerItem>
 
           <StaggerItem>
-            <h2 className="t-heading mx-auto mt-6 text-balance text-[#121212]">{section.heading}</h2>
+            <h2 className="t-heading mx-auto mt-6 text-balance text-[#121212]">
+              {section.heading}
+            </h2>
           </StaggerItem>
 
           <StaggerItem>
@@ -277,9 +272,7 @@ export function PublicHealthThreeTierModel({
         </StaggerGroup>
 
         <Reveal className="mt-12 flex justify-center sm:mt-14" delay={0.08}>
-          <div
-            className="flex flex-wrap items-center justify-center gap-1 rounded-2xl border border-[#e8ebf0] bg-white p-1.5 shadow-[0_4px_24px_rgba(0,0,0,0.06)]"
-          >
+          <div className="flex flex-wrap items-center justify-center gap-1 rounded-2xl border border-[#e8ebf0] bg-white p-1.5 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
             {TIERS.map((t, index) => {
               const isActive = index === active;
               return (

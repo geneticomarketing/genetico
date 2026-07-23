@@ -715,7 +715,6 @@ export function SolutionsHowItWorks({
 }: {
   content: import("@/lib/solutions-content").SolutionsContent["howItWorks"];
 }) {
-
   return (
     <section
       id="how-it-works"
@@ -724,16 +723,14 @@ export function SolutionsHowItWorks({
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-4 sm:gap-6">
-            <span aria-hidden className="throbbing-bgH h-1 w-10 shrink-0 rounded-full sm:w-16" />
+            <span aria-hidden className="throbbing-bgH h-px w-10 shrink-0 rounded-full sm:w-16" />
             <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.7rem] tracking-[0.36em]">
               {content.label}
             </p>
-            <span aria-hidden className="throbbing-bgH h-1 w-10 shrink-0 rounded-full sm:w-16" />
+            <span aria-hidden className="throbbing-bgH h-px w-10 shrink-0 rounded-full sm:w-16" />
           </div>
 
-          <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">
-            {content.heading}
-          </h2>
+          <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">{content.heading}</h2>
 
           <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
             {content.description}

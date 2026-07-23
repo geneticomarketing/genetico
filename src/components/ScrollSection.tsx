@@ -218,10 +218,18 @@ function GrantsTimelineComponent({
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className="mb-12 text-center sm:mb-20"
       >
-        <Reveal>
-          <p className="t-eyebrow mb-3 text-[10px] tracking-[0.25em] text-blue-400">
+        <Reveal className="mx-auto w-full max-w-4xl text-center relative flex items-center justify-center gap-4 sm:gap-6 mb-5">
+          <span
+            aria-hidden
+            className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+          />
+          <p className="font-jetbrains-mono text-sm font-medium tracking-[0.08em] text-white">
             {section.eyebrow}
           </p>
+          <span
+            aria-hidden
+            className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+          />
         </Reveal>
         <Reveal delay={0.4}>
           <h1

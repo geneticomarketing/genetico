@@ -3,7 +3,13 @@
 import { Database, LayoutDashboard, Network, Shield, type LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 
-import { EASE, Reveal, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
+import {
+  EASE,
+  Reveal,
+  StaggerGroup,
+  StaggerItem,
+  useInViewAnimation,
+} from "@/components/motion/reveal";
 import { DEFAULT_PUBLIC_HEALTH_PAGE } from "@/lib/cms/defaults/public-health";
 import type { PublicHealthImpactFeature, PublicHealthPageData } from "@/lib/cms/types";
 
@@ -124,17 +130,11 @@ export function PublicHealthDataSecurity({
           <div>
             <StaggerItem>
               <div className="flex items-center gap-4 sm:gap-5">
-                <span
-                  aria-hidden
-                  className="throbbing-bgH h-1 w-12 shrink-0 rounded-full"
-                />
+                {/* <span aria-hidden className="throbbing-bgH h-px w-12 shrink-0 rounded-full" /> */}
                 <p className="t-eyebrow secondaryFont text-brand shrink-0 text-[0.65rem] tracking-[0.28em]">
                   {section.eyebrow}
                 </p>
-                <span
-                  aria-hidden
-                  className="throbbing-bgH h-1 w-12 shrink-0 rounded-full"
-                />
+                <span aria-hidden className="throbbing-bgH h-px w-12 shrink-0 rounded-full" />
               </div>
             </StaggerItem>
 

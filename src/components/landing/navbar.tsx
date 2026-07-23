@@ -315,7 +315,7 @@ export function Navbar({ navigation }: { navigation?: SiteData["navigation"] }) 
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-999999999999999 w-full transition duration-300 ${headerClass}`}
+      className={`fixed inset-x-0 top-0 z-50 w-full transition duration-300 ${headerClass}`}
     >
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 sm:px-8">
         <a href="/" className="flex items-center gap-2.5" onClick={closeMobileMenu}>

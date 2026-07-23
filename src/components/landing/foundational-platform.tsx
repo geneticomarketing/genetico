@@ -74,10 +74,18 @@ export function FoundationalPlatform({
 
   return (
     <section id="platform" className="bg-white px-6 pt-24 sm:px-10 sm:pt-32 pb-6">
-      <Reveal className="mx-auto w-full max-w-4xl text-center">
+      <Reveal className="mx-auto w-full max-w-4xl text-center relative flex items-center justify-center gap-4 sm:gap-6">
+        <span
+          aria-hidden
+          className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+        />
         <p className="font-jetbrains-mono text-sm font-medium tracking-[0.08em] text-brand">
           {eyebrow}
         </p>
+        <span
+          aria-hidden
+          className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+        />
       </Reveal>
 
       <Reveal>

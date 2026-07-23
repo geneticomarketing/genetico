@@ -132,7 +132,7 @@ export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] })
                 <div className="flex min-h-16 items-center justify-center gap-4 sm:gap-6">
                   {/* <span
                     aria-hidden
-                    className="throbbing-bgH h-1 w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+                    className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
                   /> */}
                   <motion.p
                     {...heroEntrance(3, reduce)}
@@ -142,7 +142,7 @@ export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] })
                   </motion.p>
                   {/* <span
                     aria-hidden
-                    className="throbbing-bgH h-1 w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+                    className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
                   /> */}
                 </div>
 
