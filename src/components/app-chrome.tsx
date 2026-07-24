@@ -18,7 +18,7 @@ export function AppChrome({
   return (
     <div className="bg-navy flex min-h-full flex-col">
       <MotionSafariFix />
-      <LS />
+      {/* <LS /> */}
       <Navbar navigation={navigation} />
       {children}
       <Footer footer={footer} />

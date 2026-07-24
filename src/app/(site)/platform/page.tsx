@@ -36,12 +36,14 @@ export default async function PlatformPage() {
       <PlatformLongitudinalCare section={data.longitudinalCare} />
       <PlatformInfrastructure section={data.infrastructure} />
       <PlatformSecurity section={data.security} />
-      <PageCtaSection
-        heading={data.cta.heading}
-        description={data.cta.description}
-        buttons={data.cta.buttons}
-        descriptionClassName="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-black/55 sm:mt-6 sm:text-lg"
-      />
+      <div id="cta">
+        <PageCtaSection
+          heading={data.cta.heading}
+          description={data.cta.description}
+          buttons={data.cta.buttons}
+          descriptionClassName="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-black/55 sm:mt-6 sm:text-lg"
+        />
+      </div>
     </ScrollParallaxPage>
   );
 }

@@ -36,7 +36,11 @@ function heroBgEntrance(reduce: boolean | null) {
   };
 }
 
-export function PlatformHero({ hero = DEFAULT_PLATFORM_PAGE.hero }: { hero?: PlatformPageData["hero"] }) {
+export function PlatformHero({
+  hero = DEFAULT_PLATFORM_PAGE.hero,
+}: {
+  hero?: PlatformPageData["hero"];
+}) {
   const reduce = useReducedMotion();
 
   return (
@@ -84,10 +88,17 @@ export function PlatformHero({ hero = DEFAULT_PLATFORM_PAGE.hero }: { hero?: Pla
           {hero.subtitle}
         </motion.p>
         <motion.div {...heroEntrance(3, reduce)} className="mt-8">
-          <Link href={hero.ctaHref} className="btn-glass">
+          <button
+            onClick={() => {
+              document.querySelector("#cta")?.scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
+            className="btn-glass"
+          >
             {hero.ctaLabel}
             <ArrowRight size={16} strokeWidth={1.75} />
-          </Link>
+          </button>
         </motion.div>
       </div>
     </section>

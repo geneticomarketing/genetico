@@ -314,11 +314,9 @@ export function Navbar({ navigation }: { navigation?: SiteData["navigation"] }) 
   };
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 w-full transition duration-300 ${headerClass}`}
-    >
+    <header className={`fixed inset-x-0 top-0 z-50 w-full transition duration-300 ${headerClass}`}>
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 sm:px-8">
-        <a href="/" className="flex items-center gap-2.5" onClick={closeMobileMenu}>
+        <Link href="/" className="flex items-center gap-2.5" onClick={closeMobileMenu}>
           <Image
             src="/logo-small.svg"
             alt="Genetico"
@@ -329,7 +327,7 @@ export function Navbar({ navigation }: { navigation?: SiteData["navigation"] }) 
             className={`h-8 w-auto sm:h-9 ${isDark ? "" : "brightness-0 invert"}`}
           />
           <div className={`font-bold ${isDark ? "text-brand" : "text-white"}`}>GENETICO</div>
-        </a>
+        </Link>
 
         {/* Desktop links */}
         <ul className="hidden items-center gap-7 lg:flex">

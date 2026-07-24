@@ -317,3 +317,7 @@ body {
     rotate: 360deg;
   }
 }
+
+.font-jetbrains-mono {
+  @apply uppercase;
+}
