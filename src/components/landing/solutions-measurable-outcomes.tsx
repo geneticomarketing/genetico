@@ -292,11 +292,12 @@ export function SolutionsMeasurableOutcomes({
             <span aria-hidden className="throbbing-bgH h-px w-6 shrink-0 rounded-full sm:w-10" />
           </div>
 
-          <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">{content.heading}</h2>
-
-          <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
-            {content.description}
-          </p>
+          <div className="t-intro mx-auto mt-8">
+            <h2 className="t-heading text-balance text-[#121212]">{content.heading}</h2>
+            <p className="secondaryFont t-subhead mt-5 text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
+              {content.description}
+            </p>
+          </div>
         </Reveal>
 
         <div className="mt-14 grid gap-12 sm:mt-20 sm:gap-14 md:grid-cols-3 md:gap-8 lg:gap-10">

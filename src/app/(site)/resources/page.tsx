@@ -55,12 +55,14 @@ export default async function ResourcesPage() {
         </div>
 
         <Reveal className="relative z-10 mx-auto max-w-3xl text-center">
-          <h2 className="t-heading mx-auto text-balance text-[#121212]">
-            {data.newsletterCta.heading}
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-black/55 sm:mt-6 sm:text-[1rem]">
-            {data.newsletterCta.description}
-          </p>
+          <div className="t-intro mx-auto">
+            <h2 className="t-heading text-balance text-[#121212]">
+              {data.newsletterCta.heading}
+            </h2>
+            <p className="t-subhead mt-5 text-base leading-relaxed text-black/55 sm:mt-6 sm:text-[1rem]">
+              {data.newsletterCta.description}
+            </p>
+          </div>
           <a
             href={data.newsletterCta.buttonHref}
             target="_blank"

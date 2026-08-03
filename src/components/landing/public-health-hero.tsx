@@ -58,27 +58,29 @@ export function PublicHealthHero({
       />
 
       <div className="relative mx-auto flex h-full min-h-0 w-full max-w-4xl flex-col items-center justify-center px-6 pt-24 pb-8 text-center sm:px-8 sm:pt-28">
-        <motion.h1
-          {...heroEntrance(1, reduce)}
-          className="t-display mx-auto text-balance text-white"
-        >
-          Digital Backbone for
-          <br />
-          {hero.titleLine2.includes("India") ? (
-            <>
-              India&apos;s <span className="text-accent">rare disease ecosystem</span>
-            </>
-          ) : (
-            hero.titleLine2
-          )}
-        </motion.h1>
+        <div className="t-intro-lg t-intro">
+          <motion.h1
+            {...heroEntrance(1, reduce)}
+            className="t-display text-balance text-white"
+          >
+            Digital Backbone for
+            <br />
+            {hero.titleLine2.includes("India") ? (
+              <>
+                India&apos;s <span className="text-accent">rare disease ecosystem</span>
+              </>
+            ) : (
+              hero.titleLine2
+            )}
+          </motion.h1>
 
-        <motion.p
-          {...heroEntrance(2, reduce)}
-          className="secondaryFont mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-white/55 sm:mt-7 sm:text-base"
-        >
-          {hero.subtitle}
-        </motion.p>
+          <motion.p
+            {...heroEntrance(2, reduce)}
+            className="secondaryFont t-subhead mt-6 text-sm leading-relaxed text-white/55 sm:mt-7 sm:text-base"
+          >
+            {hero.subtitle}
+          </motion.p>
+        </div>
       </div>
     </section>
   );

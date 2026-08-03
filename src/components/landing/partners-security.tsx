@@ -196,7 +196,7 @@ export function PartnersSecurity({
               >
                 {securitySection.heading}
               </h2>
-              <p className="max-w-84  text-[1em] leading-relaxed text-white/70 sm:text-[1rem]">
+              <p className=" text-[1em] leading-relaxed text-white/70 sm:text-[1rem] max-w-76">
                 {securitySection.description}
               </p>
             </div>

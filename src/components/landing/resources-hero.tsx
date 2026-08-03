@@ -59,21 +59,23 @@ export function ResourcesHero({
       />
 
       <div className="relative mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col items-center justify-center px-6 pt-24 pb-8 text-center sm:pt-28">
-        <motion.h1 {...heroEntrance(1, reduce)} className="t-display mx-auto text-white">
-          {hero.title}
-        </motion.h1>
-        <motion.p
-          {...heroEntrance(2, reduce)}
-          className="secondaryFont mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:mt-7 sm:text-[1rem]"
-        >
-          {hero.subtitle}
-        </motion.p>
-        <motion.p
-          {...heroEntrance(3, reduce)}
-          className="secondaryFont mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/65 sm:text-base"
-        >
-          {hero.description}
-        </motion.p>
+        <div className="t-intro-lg t-intro">
+          <motion.h1 {...heroEntrance(1, reduce)} className="t-display text-white">
+            {hero.title}
+          </motion.h1>
+          <motion.p
+            {...heroEntrance(2, reduce)}
+            className="secondaryFont t-subhead mt-6 text-base leading-relaxed text-white/85 sm:mt-7 sm:text-[1rem]"
+          >
+            {hero.subtitle}
+          </motion.p>
+          <motion.p
+            {...heroEntrance(3, reduce)}
+            className="secondaryFont t-subhead mt-5 text-sm leading-relaxed text-white/65 sm:text-base"
+          >
+            {hero.description}
+          </motion.p>
+        </div>
       </div>
     </section>
   );

@@ -50,16 +50,13 @@ export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
         delayChildren={0.08}
         ssrVisible
       >
-        <StaggerItem>
-          <h1 className="t-display max-w-4xl text-balance text-[#121212] sm:max-w-5xl">
+        <StaggerItem className="t-intro-lg t-intro mx-auto text-center">
+          <h1 className="t-display text-balance text-[#121212] sm:max-w-none">
             {hero.titleLine1}
             <br />
             For <span className="text-brand">{hero.titleHighlight}</span>
           </h1>
-        </StaggerItem>
-
-        <StaggerItem>
-          <p className="mt-6 max-w-3xl text-sm leading-relaxed text-pretty text-black/70 sm:text-base">
+          <p className="t-subhead mt-6 text-sm leading-relaxed text-pretty text-black/70 sm:text-base">
             {hero.subtitle}
           </p>
         </StaggerItem>

@@ -59,16 +59,18 @@ export function PlatformSecurity({
             <span aria-hidden className="throbbing-bgH h-px w-10 rounded-full sm:w-16" />
           </div>
 
-          <h2
-            className="t-heading mx-auto mt-6 max-w-none text-white"
-            style={{ fontVariationSettings: '"SERF" 100' }}
-          >
-            {section.heading}
-          </h2>
+          <div className="t-intro mx-auto mt-6">
+            <h2
+              className="t-heading text-white"
+              style={{ fontVariationSettings: '"SERF" 100' }}
+            >
+              {section.heading}
+            </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-white/55 sm:text-base">
-            {section.description}
-          </p>
+            <p className="t-subhead mt-5 text-[15px] leading-relaxed text-white/55 sm:text-base">
+              {section.description}
+            </p>
+          </div>
         </Reveal>
 
         <StaggerGroup className="mt-14 grid gap-6 sm:mt-16 lg:grid-cols-3 lg:gap-8">

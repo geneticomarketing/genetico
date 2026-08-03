@@ -235,16 +235,14 @@ function GrantsTimelineComponent({
             className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
           />
         </Reveal>
-        <Reveal delay={0.4}>
+        <Reveal delay={0.4} className="t-intro mx-auto">
           <h1
             className="mb-4 text-3xl leading-tight font-light tracking-tight text-white sm:text-[3.25rem]"
             style={{ fontFamily: "Georgia, serif" }}
           >
             {section.heading}
           </h1>
-        </Reveal>
-        <Reveal delay={0.6}>
-          <p className="mx-auto max-w-md text-sm leading-relaxed text-blue-300/60">
+          <p className="t-subhead sm:text-[1rem] leading-relaxed text-blue-300/60">
             {section.description}
           </p>
         </Reveal>

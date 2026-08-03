@@ -392,14 +392,9 @@ export function PublicHealthTierArchitecture({
             </div>
           </StaggerItem>
 
-          <StaggerItem>
-            <h2 className="t-heading mx-auto mt-8 text-balance text-[#121212]">
-              {section.heading}
-            </h2>
-          </StaggerItem>
-
-          <StaggerItem>
-            <p className="secondaryFont mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
+          <StaggerItem className="t-intro mx-auto mt-8">
+            <h2 className="t-heading text-balance text-[#121212]">{section.heading}</h2>
+            <p className="secondaryFont t-subhead mt-5 text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
               {section.description}
             </p>
           </StaggerItem>

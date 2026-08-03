@@ -53,22 +53,18 @@ function CarouselTrack({ reverse = false }: { reverse?: boolean }) {
 export default function CustomersCarousel() {
   return (
     <section className="overflow-hidden bg-white py-20">
-      <div className="mx-auto mb-14 max-w-xl px-4 text-center">
-        <Reveal>
-          <h2
-            className="mb-5 text-5xl font-light tracking-tight text-gray-900"
-            style={{ fontFamily: "Georgia, serif" }}
-          >
-            Customers &amp; Advisors
-          </h2>
-        </Reveal>
-        <Reveal delay={0.3}>
-          <p className="text-sm leading-relaxed text-gray-500">
-            Genetico works with leading clinical institutions, Centres of Excellence, and ecosystem
-            partners across rare disease care, research, and public health initiatives.
-          </p>
-        </Reveal>
-      </div>
+      <Reveal className="t-intro mx-auto mb-14 px-4 text-center">
+        <h2
+          className="mb-5 text-5xl font-light tracking-tight text-gray-900"
+          style={{ fontFamily: "Georgia, serif" }}
+        >
+          Customers &amp; Advisors
+        </h2>
+        <p className="t-subhead text-sm leading-relaxed text-gray-500">
+          Genetico works with leading clinical institutions, Centres of Excellence, and ecosystem
+          partners across rare disease care, research, and public health initiatives.
+        </p>
+      </Reveal>
 
       <Reveal delay={0.4}>
         <div className="relative flex flex-col gap-8">

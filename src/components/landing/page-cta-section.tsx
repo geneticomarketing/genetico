@@ -19,7 +19,7 @@ export function PageCtaSection({
   heading,
   description,
   buttons,
-  descriptionClassName = "secondaryFont mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#8f8f8f] sm:mt-6",
+  descriptionClassName = "secondaryFont t-subhead mt-5 text-base leading-relaxed text-[#8f8f8f] sm:mt-6",
   showContactForm = true,
 }: PageCtaSectionProps) {
   return (
@@ -37,8 +37,10 @@ export function PageCtaSection({
       </div>
 
       <Reveal className="relative z-10 mx-auto max-w-3xl text-center">
-        <h2 className="t-heading mx-auto text-balance text-[#121212]">{heading}</h2>
-        <p className={descriptionClassName}>{description}</p>
+        <div className="t-intro mx-auto">
+          <h2 className="t-heading text-balance text-[#121212]">{heading}</h2>
+          <p className={descriptionClassName}>{description}</p>
+        </div>
         {buttons?.length ? (
           <CtaButtons buttons={buttons} className="mt-8 mb-10 sm:mt-10" />
         ) : null}

@@ -139,14 +139,14 @@ export function PublicHealthDataSecurity({
             </StaggerItem>
 
             <StaggerItem>
-              <h2 className="t-heading mt-5 max-w-none text-balance text-[#121212]">
+              <h2 className="t-heading mt-5 max-w-xl text-balance text-[#121212]">
                 {section.heading}
               </h2>
             </StaggerItem>
           </div>
 
           <StaggerItem className="lg:pt-8">
-            <p className="secondaryFont max-w-md text-[15px] leading-relaxed text-[#8f8f8f] sm:text-base lg:ml-auto lg:text-right">
+            <p className="secondaryFont max-w-sm text-[15px] leading-relaxed text-[#8f8f8f] sm:text-base lg:ml-auto lg:text-right">
               {section.description}
             </p>
           </StaggerItem>

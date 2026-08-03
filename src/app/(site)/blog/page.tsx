@@ -45,15 +45,17 @@ export default async function BlogPage() {
             <p className="t-eyebrow text-[11px] tracking-[0.16em] text-[#45B191]">
               {data.blogListing.eyebrow}
             </p>
-            <h1
-              className="mt-3 max-w-3xl text-[clamp(2rem,4vw,3rem)] leading-[1.08] tracking-[-0.02em] text-[#121212]"
-              style={{ fontFamily: "var(--font-display)", fontVariationSettings: '"SERF" 100' }}
-            >
-              {data.blogListing.heading}
-            </h1>
-            <p className="secondaryFont mt-5 max-w-2xl text-base leading-relaxed text-[#6e6e73] sm:text-[1rem]">
-              {data.blogListing.description}
-            </p>
+            <div className="t-intro mt-3 text-left">
+              <h1
+                className="text-[clamp(2rem,4vw,3rem)] leading-[1.08] tracking-[-0.02em] text-[#121212]"
+                style={{ fontFamily: "var(--font-display)", fontVariationSettings: '"SERF" 100' }}
+              >
+                {data.blogListing.heading}
+              </h1>
+              <p className="secondaryFont t-subhead mt-5 text-base leading-relaxed text-[#6e6e73] sm:text-[1rem]">
+                {data.blogListing.description}
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>

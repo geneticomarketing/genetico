@@ -322,13 +322,13 @@ export function PlatformClinicalIntelligence({
                 <span aria-hidden className="throbbing-bgH h-px w-10 rounded-full sm:w-14" />
               </div>
               <h2
-                className="t-heading mt-5 max-w-none text-white"
+                className="t-heading mt-5 max-w-xl text-white"
                 style={{ fontVariationSettings: '"SERF" 100' }}
               >
                 {section.heading}
               </h2>
             </div>
-            <p className="max-w-md text-[15px] leading-relaxed text-white/45 sm:text-base lg:justify-self-end lg:pb-1">
+            <p className="max-w-sm text-[15px] leading-relaxed text-white/45 sm:text-base lg:justify-self-end lg:pb-1">
               {section.description}
             </p>
           </div>

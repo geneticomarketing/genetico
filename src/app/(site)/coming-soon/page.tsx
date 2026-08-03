@@ -36,10 +36,12 @@ export default async function ComingSoonPage() {
 
       <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
         <p className="t-eyebrow text-accent mb-5">{page.eyebrow}</p>
-        <h1 className="t-heading text-balance text-white">{page.heading}</h1>
-        <p className="mt-5 max-w-lg text-base leading-relaxed text-white/60 sm:text-[1rem]">
-          {page.body}
-        </p>
+        <div className="t-intro">
+          <h1 className="t-heading text-balance text-white">{page.heading}</h1>
+          <p className="t-subhead mt-5 text-base leading-relaxed text-white/60 sm:text-[1rem]">
+            {page.body}
+          </p>
+        </div>
         <Link
           href={page.backHref ?? "/"}
           className="bg-brand mt-10 inline-flex items-center gap-2 rounded-lg border border-white/10 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#01356b]"

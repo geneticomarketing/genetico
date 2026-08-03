@@ -50,9 +50,9 @@ export function PlatformFeatures({
               </p>
               <span aria-hidden className="throbbing-bgH h-px w-10 rounded-full sm:w-14" />
             </div>
-            <h2 className="t-heading mt-5 max-w-none text-[#121212]">{section.heading}</h2>
+            <h2 className="t-heading mt-5 max-w-xl text-[#121212]">{section.heading}</h2>
           </div>
-          <p className="text-ink-muted max-w-md text-[15px] leading-relaxed sm:text-base lg:justify-self-end lg:pb-1">
+          <p className="text-ink-muted max-w-sm text-[15px] leading-relaxed sm:text-base lg:justify-self-end lg:pb-1">
             {section.description}
           </p>
         </div>

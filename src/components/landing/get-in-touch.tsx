@@ -298,10 +298,14 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
       <Reveal className="relative z-10 mx-auto w-full max-w-7xl">
         <div className="grid gap-8 sm:gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-20">
           <div className="flex flex-col gap-5 sm:gap-7">
-            <h2 className="t-heading text-black">
-              Different conversation, depending on who you are
-            </h2>
-            <p className="max-w-md text-sm leading-relaxed text-black/55 sm:text-[15px]">{intro}</p>
+            <div className="t-intro">
+              <h2 className="t-heading text-black">
+                Different conversation, depending on who you are
+              </h2>
+              <p className="t-subhead mt-5 text-sm leading-relaxed text-black/55 sm:text-[15px]">
+                {intro}
+              </p>
+            </div>
 
             <div className="mt-1 flex flex-col gap-5 sm:mt-2 sm:gap-6">
               {[

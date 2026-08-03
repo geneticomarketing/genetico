@@ -108,21 +108,23 @@ function HeroHeading({
         </div>
       ) : null}
 
-      <motion.h1
-        {...heroEntrance(1, reduce)}
-        className="t-display mx-auto text-balance text-[#121212]"
-      >
-        {content.titleLine1}
-        <br />
-        <span className="text-brand">{content.titleHighlight}</span>
-      </motion.h1>
+      <div className="t-intro-lg t-intro mx-auto">
+        <motion.h1
+          {...heroEntrance(1, reduce)}
+          className="t-display text-balance text-[#121212]"
+        >
+          {content.titleLine1}
+          <br />
+          <span className="text-brand">{content.titleHighlight}</span>
+        </motion.h1>
 
-      <motion.p
-        {...heroEntrance(2, reduce)}
-        className="secondaryFont mx-auto mt-4 max-w-xl text-sm leading-relaxed text-[#8f8f8f] md:mt-7 md:text-base"
-      >
-        {content.subtitle}
-      </motion.p>
+        <motion.p
+          {...heroEntrance(2, reduce)}
+          className="secondaryFont t-subhead mt-4 text-sm leading-relaxed text-[#8f8f8f] md:mt-7 md:text-base"
+        >
+          {content.subtitle}
+        </motion.p>
+      </div>
     </>
   );
 }

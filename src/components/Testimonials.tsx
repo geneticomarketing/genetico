@@ -243,13 +243,9 @@ function LeadershipCarouselComponent({
               className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
             />
           </StaggerItem>
-          <StaggerItem>
-            <h2 className="t-heading mx-auto mt-4 text-balance text-[#121212]">
-              {leadership.heading}
-            </h2>
-          </StaggerItem>
-          <StaggerItem>
-            <p className="mt-5 text-base leading-relaxed text-black/55 sm:text-[1rem]">
+          <StaggerItem className="t-intro mx-auto mt-4 text-center">
+            <h2 className="t-heading text-balance text-[#121212]">{leadership.heading}</h2>
+            <p className="t-subhead mt-5 text-base leading-relaxed text-black/55 sm:text-[1rem]">
               {leadership.subtitle}
             </p>
           </StaggerItem>

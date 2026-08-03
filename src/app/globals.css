@@ -200,7 +200,12 @@ body {
     max-width: min(100%, 42rem);
   }
 
-  .t-intro .t-heading {
+  .t-intro-lg {
+    max-width: min(100%, 52rem);
+  }
+
+  .t-intro .t-heading,
+  .t-intro .t-display {
     max-width: none;
   }
 
