@@ -71,7 +71,7 @@ export function ResourcesHero({
           </motion.p>
           <motion.p
             {...heroEntrance(3, reduce)}
-            className="secondaryFont t-subhead mt-5 text-sm leading-relaxed text-white/65 sm:text-base"
+            className="secondaryFont  mt-5 text-sm leading-relaxed text-white/65 sm:text-base"
           >
             {hero.description}
           </motion.p>
