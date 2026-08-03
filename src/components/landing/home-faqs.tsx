@@ -124,7 +124,7 @@ export function HomeFaqs({
 
       <div className="relative z-10 mx-auto w-full max-w-3xl">
         <StaggerGroup className="flex flex-col items-center text-center" stagger={0.12}>
-          <StaggerItem className="mx-auto w-full max-w-4xl text-center relative flex items-center justify-center gap-4 sm:gap-6">
+          <StaggerItem className="mx-auto w-full max-w-4xl relative flex items-center justify-center gap-4 sm:gap-6">
             <span
               aria-hidden
               className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
@@ -137,11 +137,9 @@ export function HomeFaqs({
               className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
             />
           </StaggerItem>
-          <StaggerItem>
-            <h2 className="t-heading mt-4 text-balance text-[#121212]">{heading}</h2>
-          </StaggerItem>
-          <StaggerItem>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-black/55 sm:text-[1rem]">
+          <StaggerItem className="t-intro mx-auto mt-4 text-center">
+            <h2 className="t-heading text-balance text-[#121212]">{heading}</h2>
+            <p className="t-subhead mt-5 text-base leading-relaxed text-black/55 sm:text-[1rem]">
               {description}
             </p>
           </StaggerItem>

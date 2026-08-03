@@ -69,10 +69,10 @@ export function EcosystemProblems({
       <Reveal>
         <div className="mx-auto max-w-[1280px]">
           {/* Heading */}
-          <h2 className="t-heading mx-auto text-center text-[#121212]">{heading}</h2>
-          <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-[1rem]">
-            {description}
-          </p>
+          <div className="t-intro mx-auto text-center">
+            <h2 className="t-heading text-[#121212]">{heading}</h2>
+            <p className="t-subhead mt-5 text-base text-black/55 sm:text-[1rem]">{description}</p>
+          </div>
 
           {/* Tabs */}
           <div className="mt-16 flex justify-center">

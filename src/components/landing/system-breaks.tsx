@@ -61,13 +61,9 @@ export function SystemBreaks({
   return (
     <section id="about" className="bg-white px-6 py-24 sm:px-10 sm:pt-28">
       <StaggerGroup className="mx-auto w-full max-w-7xl">
-        <StaggerItem>
-          <h2 className="t-heading mx-auto text-center text-[#121212] capitalize">{heading}</h2>
-        </StaggerItem>
-        <StaggerItem>
-          <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-[1rem]">
-            {description}
-          </p>
+        <StaggerItem className="t-intro mx-auto text-center">
+          <h2 className="t-heading text-[#121212] capitalize">{heading}</h2>
+          <p className="t-subhead mt-5 text-base text-black/55 sm:text-[1rem]">{description}</p>
         </StaggerItem>
 
         <div className="mt-14 grid gap-10 rounded-md border border-gray-200 p-8 max-md:px-0 lg:grid-cols-[5fr_1px_7fr] lg:items-stretch">

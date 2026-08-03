@@ -127,12 +127,10 @@ export function NewsUpdates({
   return (
     <section id="news" className="bg-white px-6 py-14 sm:px-14 sm:py-26">
       <div className="mx-auto w-full max-w-7xl">
-        <StaggerGroup className="flex flex-col items-center gap-3 text-center" stagger={0.12}>
-          <StaggerItem>
+        <StaggerGroup className="flex flex-col items-center" stagger={0.12}>
+          <StaggerItem className="t-intro text-center">
             <h2 className="t-heading text-[#121212]">{newsSection.heading}</h2>
-          </StaggerItem>
-          <StaggerItem>
-            <p className="max-w-2xl text-base text-black/55 sm:text-[1rem] sm:leading-normal">
+            <p className="t-subhead mt-3 text-base text-black/55 sm:text-[1rem] sm:leading-normal">
               {newsSection.description}
             </p>
           </StaggerItem>

@@ -170,9 +170,9 @@ export function PartnersSecurity({
       <section className="bg-white   px-6 pb-24 sm:px-10 sm:pb-28">
         <Reveal className="mx-auto w-full max-w-7xl">
           {about && (
-            <div className="flex flex-col items-center gap-4 text-center">
+            <div className="t-intro mx-auto text-center">
               <h2 className="t-heading text-[#121212]">{partnersSection.heading}</h2>
-              <p className="max-w-xl text-base text-[#010207]/55 sm:text-[1rem] sm:leading-normal">
+              <p className="t-subhead mt-4 text-base text-[#010207]/55 sm:text-[1rem] sm:leading-normal">
                 {partnersSection.description}
               </p>
             </div>
@@ -189,14 +189,14 @@ export function PartnersSecurity({
       <section className="bg-brand-band relative overflow-hidden px-6 py-24 sm:px-10 sm:py-32">
         <Reveal className="relative z-10 mx-auto w-full max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
-            <div className="flex flex-col gap-5 text-left lg:max-w-md">
+            <div className="t-intro flex flex-col gap-5 text-left lg:max-w-md">
               <h2
-                className="t-heading max-w-none text-balance text-white"
+                className="t-heading text-balance text-white"
                 style={{ fontVariationSettings: '"SERF" 100' }}
               >
                 {securitySection.heading}
               </h2>
-              <p className="text-[1em] leading-relaxed text-white/70 sm:text-[1rem]">
+              <p className="max-w-84  text-[1em] leading-relaxed text-white/70 sm:text-[1rem]">
                 {securitySection.description}
               </p>
             </div>

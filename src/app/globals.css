@@ -194,6 +194,21 @@ body {
     max-width: 53rem;
   }
 
+  /* Heading + subhead share one visual width (shrink-wraps to the heading). */
+  .t-intro {
+    width: fit-content;
+    max-width: min(100%, 42rem);
+  }
+
+  .t-intro .t-heading {
+    max-width: none;
+  }
+
+  .t-subhead {
+    width: 0;
+    min-width: 100%;
+  }
+
   .footer-heading {
     font-family: var(--font-display);
     font-variation-settings: "SERF" 100;
