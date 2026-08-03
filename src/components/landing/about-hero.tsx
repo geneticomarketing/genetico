@@ -11,8 +11,8 @@ type LabelAnchor = (typeof DEFAULT_HERO_LABELS)[number]["anchor"];
 const ANCHOR_CLASS: Record<LabelAnchor, string> = {
   "top-left": "top-[5%] left-[1%] xl:left-[3%]",
   "top-right": "top-[5%] right-[1%] xl:right-[3%]",
-  "mid-left": "top-[52%] left-0 -translate-y-1/2 xl:left-[2%]",
-  "mid-right": "top-[52%] right-0 -translate-y-1/2 xl:right-[2%]",
+  "mid-left": "top-[50%] left-0 -translate-y-1/2 xl:left-[2%]",
+  "mid-right": "top-[50%] right-0 -translate-y-1/2 xl:right-[2%]",
 };
 
 function LabelCard({
@@ -109,7 +109,7 @@ export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
             </div>
 
             {/* Desktop: full landscape stage with floating labels */}
-            <div className="@container relative mx-auto hidden aspect-[800/480] w-full lg:block">
+            <div className="@container relative mx-auto hidden aspect-[800/480] w-full lg:block max-2xl:-translate-y-26">
               <img
                 src="/race.svg"
                 alt=""
