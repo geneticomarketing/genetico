@@ -96,7 +96,11 @@ function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   // No `once` — stays hidden until scroll reaches it, re-hides if scrolled back
   // margin: top offset pushes trigger point to ~40% down the viewport
-  const isInView = useInView(ref, VIEWPORT);
+  const isInView = useInView(ref, {
+    once: false,
+    amount: 1,
+    margin: "0px 0px -30% 0px",
+  });
   const isLeft = item.category === "left";
 
   return (
