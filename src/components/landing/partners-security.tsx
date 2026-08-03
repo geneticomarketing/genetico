@@ -82,7 +82,7 @@ function FeatureItem({
   return (
     <motion.li
       variants={reduce ? undefined : featureItemVariants}
-      whileHover={reduce ? undefined : { x: 8 }}
+      // whileHover={reduce ? undefined : { x: 8 }}
       transition={{ duration: 0.3, ease: EASE }}
       className="group relative z-10 flex cursor-default items-center gap-4"
     >
@@ -94,7 +94,7 @@ function FeatureItem({
       </motion.span>
       <motion.span
         style={reduce ? undefined : { opacity: textOpacity }}
-        className="text-[15px] text-white/80 transition-colors duration-300 ease-out group-hover:text-white sm:text-base"
+        className="text-[15px] text-white/80 duration-300 ease-out group-hover:text-white sm:text-base group-hover:scale-101 group-hover:translate-x-5"
       >
         {feature}
       </motion.span>
@@ -196,7 +196,7 @@ export function PartnersSecurity({
               >
                 {securitySection.heading}
               </h2>
-              <p className="text-base leading-relaxed text-white/70 sm:text-lg">
+              <p className="text-[1em] leading-relaxed text-white/70 sm:text-[1em]">
                 {securitySection.description}
               </p>
             </div>

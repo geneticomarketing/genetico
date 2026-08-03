@@ -128,27 +128,19 @@ export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] })
                 i === active ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
-              <div className="flex h-full flex-col justify-start">
+              <div className="flex h-full flex-col justify-center">
                 <div className="flex min-h-16 items-center justify-center gap-4 sm:gap-6">
-                  {/* <span
-                    aria-hidden
-                    className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
-                  /> */}
                   <motion.p
                     {...heroEntrance(3, reduce)}
-                    className="w-fit text-sm leading-relaxed text-white/55 sm:text-base"
+                    className="w-fit  leading-relaxed text-white/55 sm:text-base"
                   >
                     {slide.eyebrow}
                   </motion.p>
-                  {/* <span
-                    aria-hidden
-                    className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
-                  /> */}
                 </div>
 
                 <motion.h1
                   {...heroEntrance(1, reduce)}
-                  className="t-display mx-auto text-white capitalize min-h-64"
+                  className="t-display mx-auto text-white capitalize min-h-72"
                 >
                   {slide.title}
                 </motion.h1>

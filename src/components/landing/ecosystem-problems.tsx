@@ -70,7 +70,7 @@ export function EcosystemProblems({
         <div className="mx-auto max-w-[1280px]">
           {/* Heading */}
           <h2 className="t-heading mx-auto text-center text-black">{heading}</h2>
-          <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-[1em]">
             {description}
           </p>
 

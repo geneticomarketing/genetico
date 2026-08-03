@@ -4,10 +4,7 @@ import { useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
 import { EASE, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
-import {
-  DEFAULT_ECOSYSTEM_MODULES,
-  DEFAULT_HOME_PAGE,
-} from "@/lib/cms/defaults/home";
+import { DEFAULT_ECOSYSTEM_MODULES, DEFAULT_HOME_PAGE } from "@/lib/cms/defaults/home";
 import type { EcosystemModule } from "@/lib/cms/types";
 
 const listItemVariants: Variants = {
@@ -62,7 +59,7 @@ export function SystemBreaks({
   const switchTransition = reduce ? { duration: 0 } : { duration: 0.5, ease: EASE };
 
   return (
-    <section id="about" className="bg-white px-6 py-24 sm:px-10 sm:pt-10">
+    <section id="about" className="bg-white px-6 py-24 sm:px-10 sm:pt-28">
       <StaggerGroup className="mx-auto w-full max-w-7xl">
         <StaggerItem>
           <h2 className="t-heading mx-auto text-center text-black capitalize">{heading}</h2>
