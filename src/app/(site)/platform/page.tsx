@@ -41,7 +41,7 @@ export default async function PlatformPage() {
           heading={data.cta.heading}
           description={data.cta.description}
           buttons={data.cta.buttons}
-          descriptionClassName="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-black/55 sm:mt-6 sm:text-lg"
+          descriptionClassName="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-black/55 sm:mt-6 sm:text-[1rem]"
         />
       </div>
     </ScrollParallaxPage>

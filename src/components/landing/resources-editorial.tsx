@@ -35,7 +35,10 @@ function ArticleRow({ item, index }: { item: ArticleItem; index: number }) {
         </span>
 
         <span className="text-brand order-2 ml-auto shrink-0 sm:order-4 sm:ml-0">
-          <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2} />
+          <ArrowRight
+            className="size-4 transition-transform group-hover:translate-x-0.5"
+            strokeWidth={2}
+          />
         </span>
       </a>
     </li>
@@ -66,7 +69,10 @@ export function ResourcesEditorial({
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <div className="flex min-w-0 items-center gap-4">
-            <span aria-hidden className="bg-brand h-10 w-1 shrink-0 rounded-full sm:h-11" />
+            <span
+              aria-hidden
+              className="bg-linear-to-b from-[#024385] to-[#0CF9E8] h-10 w-[4px] shrink-0 rounded-full sm:h-11"
+            />
             <h2
               className="text-[clamp(1.5rem,2.4vw,2rem)] leading-[1.08] tracking-[-0.02em] text-[#121212]"
               style={{ fontFamily: "var(--font-display)", fontVariationSettings: '"SERF" 100' }}

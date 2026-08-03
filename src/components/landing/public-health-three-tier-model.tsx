@@ -57,9 +57,9 @@ function TierPanel({ tier }: { tier: Tier }) {
       <div className="relative overflow-hidden bg-brand px-6 py-6 sm:px-8 sm:py-7">
         <BannerSwirl />
         <div className="relative z-10">
-          <p className="t-badge secondaryFont text-[0.62rem] font-semibold tracking-[0.22em] text-white/65 uppercase">
+          {/* <p className="t-badge secondaryFont text-[0.62rem] font-semibold tracking-[0.22em] text-white/65 uppercase">
             {tier.bannerLabel}
-          </p>
+          </p> */}
           <h3
             className="mt-2 text-[clamp(1.5rem,2.8vw,2rem)] font-medium leading-tight text-white"
             style={{ fontVariationSettings: '"SERF" 100' }}
@@ -281,7 +281,7 @@ export function PublicHealthThreeTierModel({
                   type="button"
                   onClick={() => setActive(index)}
                   aria-pressed={isActive}
-                  className={`secondaryFont rounded-xl px-5 py-2.5 text-[0.9rem] font-medium transition-all duration-300 sm:px-6 sm:text-[0.9375rem] ${
+                  className={`secondaryFont rounded-xl px-5 py-2.5 text-[0.9rem] font-medium transition-all duration-300 sm:px-6 sm:text-[0.85rem] ${
                     isActive
                       ? "bg-brand text-white shadow-[0_8px_24px_rgba(2,67,133,0.28)]"
                       : "text-[#8f8f8f] hover:text-[#121212]"

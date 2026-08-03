@@ -37,7 +37,7 @@ export default async function ComingSoonPage() {
       <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
         <p className="t-eyebrow text-accent mb-5">{page.eyebrow}</p>
         <h1 className="t-heading text-balance text-white">{page.heading}</h1>
-        <p className="mt-5 max-w-lg text-base leading-relaxed text-white/60 sm:text-lg">
+        <p className="mt-5 max-w-lg text-base leading-relaxed text-white/60 sm:text-[1rem]">
           {page.body}
         </p>
         <Link

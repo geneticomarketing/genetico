@@ -28,7 +28,9 @@ function LabelCard({
     <div
       className={`text-brand pointer-events-none flex items-center gap-2 border border-zinc-300/90 bg-white/95 shadow-[0_8px_24px_rgba(2,67,133,0.08)] backdrop-blur-sm ${className}`}
     >
-      <span className="shrink-0 font-medium tabular-nums">{String(index + 1).padStart(2, "0")}</span>
+      <span className="shrink-0 font-medium tabular-nums">
+        {String(index + 1).padStart(2, "0")}
+      </span>
       <span className="min-w-0 text-left leading-snug text-black">{label}</span>
     </div>
   );
@@ -49,7 +51,7 @@ export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
         ssrVisible
       >
         <StaggerItem>
-          <h1 className="t-display max-w-4xl text-balance text-black sm:max-w-5xl">
+          <h1 className="t-display max-w-4xl text-balance text-[#121212] sm:max-w-5xl">
             {hero.titleLine1}
             <br />
             For <span className="text-brand">{hero.titleHighlight}</span>

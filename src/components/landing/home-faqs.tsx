@@ -39,7 +39,7 @@ function FaqRow({
           className="group flex w-full items-start justify-between gap-6 py-5 text-left sm:py-6"
         >
           <span
-            className={`text-base leading-snug font-semibold transition-colors duration-300 sm:text-lg ${
+            className={`text-base leading-snug font-semibold transition-colors duration-300 sm:text-[1rem] ${
               open ? "text-brand" : "text-black group-hover:text-brand"
             }`}
           >
@@ -141,7 +141,7 @@ export function HomeFaqs({
             <h2 className="t-heading mt-4 text-balance text-[#121212]">{heading}</h2>
           </StaggerItem>
           <StaggerItem>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-black/55 sm:text-lg">
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-black/55 sm:text-[1rem]">
               {description}
             </p>
           </StaggerItem>

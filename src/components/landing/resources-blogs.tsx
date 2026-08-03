@@ -31,7 +31,10 @@ export function ResourcesBlogs({
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <div className="flex min-w-0 items-center gap-4">
-            <span aria-hidden className="bg-brand h-10 w-1 shrink-0 rounded-full sm:h-11" />
+            <span
+              aria-hidden
+              className="bg-linear-to-b from-[#024385] to-[#0CF9E8] h-10 w-[4px] shrink-0 rounded-full sm:h-11"
+            />
             <h2
               className="text-[clamp(1.5rem,2.4vw,2rem)] leading-[1.08] tracking-[-0.02em] text-[#121212]"
               style={{ fontFamily: "var(--font-display)", fontVariationSettings: '"SERF" 100' }}

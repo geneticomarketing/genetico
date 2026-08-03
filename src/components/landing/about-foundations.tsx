@@ -33,7 +33,7 @@ export function AboutFoundations({
             />
           </div>
 
-          <h2 className="mainFont mx-auto mt-8 max-w-4xl text-[clamp(2.25rem,3.4vw,3.5rem)] leading-[1.02] tracking-[-0.03em] text-balance text-[#111111]">
+          <h2 className="mainFont mx-auto mt-8 max-w-4xl sm:text-[3.25rem] --text-[clamp(2.25rem,3.4vw,3.5rem)] leading-[1.02] tracking-[-0.03em] text-balance text-[#121212]">
             {vision.heading}
           </h2>
         </Reveal>
@@ -73,7 +73,7 @@ export function AboutFoundations({
                 <h3 className="mainFont mt-3 text-[1.15rem] leading-tight text-[#111111] sm:text-[1.35rem]">
                   {item.title}
                 </h3>
-                <p className="secondaryFont mt-3 text-sm leading-relaxed text-[#8f8f8f] sm:text-[0.98rem]">
+                <p className="secondaryFont mt-3 text-sm leading-relaxed text-[#8f8f8f] sm:text-[1rem]">
                   {item.body}
                 </p>
               </div>

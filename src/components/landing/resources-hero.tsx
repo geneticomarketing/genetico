@@ -64,7 +64,7 @@ export function ResourcesHero({
         </motion.h1>
         <motion.p
           {...heroEntrance(2, reduce)}
-          className="secondaryFont mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:mt-7 sm:text-lg"
+          className="secondaryFont mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:mt-7 sm:text-[1rem]"
         >
           {hero.subtitle}
         </motion.p>

@@ -62,10 +62,10 @@ export function SystemBreaks({
     <section id="about" className="bg-white px-6 py-24 sm:px-10 sm:pt-28">
       <StaggerGroup className="mx-auto w-full max-w-7xl">
         <StaggerItem>
-          <h2 className="t-heading mx-auto text-center text-black capitalize">{heading}</h2>
+          <h2 className="t-heading mx-auto text-center text-[#121212] capitalize">{heading}</h2>
         </StaggerItem>
         <StaggerItem>
-          <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-[1rem]">
             {description}
           </p>
         </StaggerItem>
@@ -135,7 +135,7 @@ export function SystemBreaks({
                             delay: isActive && !reduce ? 0.08 : 0,
                           }}
                         >
-                          <span className="text-sm leading-relaxed text-black/55">{m.desc}</span>
+                          <span className="text-[1em] leading-relaxed text-black/55">{m.desc}</span>
                           {m.href ? (
                             <a
                               href={m.href}

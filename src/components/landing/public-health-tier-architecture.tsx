@@ -65,7 +65,7 @@ function ClassificationBlock({ item, index }: { item: Classification; index: num
           )}
         </div>
 
-        <h3 className="secondaryFont mt-3 text-[1.05rem] font-semibold text-[#121212] sm:text-lg">
+        <h3 className="secondaryFont mt-3 text-[1.05rem] font-semibold text-[#121212] sm:text-[1rem]">
           {item.title}
         </h3>
 

@@ -338,7 +338,7 @@ export function PlatformLongitudinalCare({
                 <span aria-hidden className="throbbing-bgH h-px w-10 rounded-full sm:w-14" />
               </div>
               <h2
-                className="t-heading mt-5 max-w-none text-black"
+                className="t-heading mt-5 max-w-none text-[#121212]"
                 style={{ fontVariationSettings: '"SERF" 100' }}
               >
                 {section.heading}
@@ -358,7 +358,7 @@ export function PlatformLongitudinalCare({
                 <Dashboard />
 
                 <h3
-                  className="t-card-title mt-8 max-w-none text-black"
+                  className="t-card-title mt-8 max-w-none text-[#121212]"
                   style={{ fontVariationSettings: '"SERF" 100' }}
                 >
                   {column.title}

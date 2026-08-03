@@ -51,7 +51,7 @@ export default async function BlogPage() {
             >
               {data.blogListing.heading}
             </h1>
-            <p className="secondaryFont mt-5 max-w-2xl text-base leading-relaxed text-[#6e6e73] sm:text-lg">
+            <p className="secondaryFont mt-5 max-w-2xl text-base leading-relaxed text-[#6e6e73] sm:text-[1rem]">
               {data.blogListing.description}
             </p>
           </Reveal>

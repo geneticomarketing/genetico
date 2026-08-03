@@ -249,7 +249,7 @@ function LeadershipCarouselComponent({
             </h2>
           </StaggerItem>
           <StaggerItem>
-            <p className="mt-5 text-base leading-relaxed text-black/55 sm:text-lg">
+            <p className="mt-5 text-base leading-relaxed text-black/55 sm:text-[1rem]">
               {leadership.subtitle}
             </p>
           </StaggerItem>

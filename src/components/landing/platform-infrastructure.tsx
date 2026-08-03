@@ -66,7 +66,7 @@ function IntegrationsCard({ section }: { section: PlatformPageData["infrastructu
 
       <div className="border-line mt-8 border-t pt-8">
         <h3
-          className="t-card-title max-w-none text-black"
+          className="t-card-title max-w-none text-[#121212]"
           style={{ fontVariationSettings: '"SERF" 100' }}
         >
           {section.integrationsTitle}
@@ -92,7 +92,7 @@ function DeploymentCard({ section }: { section: PlatformPageData["infrastructure
 
   return (
     <article className="flex h-full flex-col rounded-2xl bg-[#f4f6f8] p-6 sm:p-8">
-      <SectionBadge label="Deployment" dotClassName="bg-brand" />
+      <SectionBadge label="Deployment" dotClassName="bg-accent" />
 
       <div className="mt-8 flex flex-1 flex-col justify-center gap-3 sm:mt-10">
         {DEPLOYMENT_OPTIONS.map((option, index) => {
@@ -139,7 +139,7 @@ function DeploymentCard({ section }: { section: PlatformPageData["infrastructure
 
       <div className="border-line mt-8 border-t pt-8">
         <h3
-          className="t-card-title max-w-none text-black"
+          className="t-card-title max-w-none text-[#121212]"
           style={{ fontVariationSettings: '"SERF" 100' }}
         >
           {section.deploymentTitle}
@@ -170,7 +170,7 @@ export function PlatformInfrastructure({
                 <span aria-hidden className="throbbing-bgH h-px w-10 rounded-full sm:w-14" />
               </div>
               <h2
-                className="t-heading mt-5 max-w-none text-black"
+                className="t-heading mt-5 max-w-none text-[#121212]"
                 style={{ fontVariationSettings: '"SERF" 100' }}
               >
                 {section.heading}

@@ -171,8 +171,8 @@ export function PartnersSecurity({
         <Reveal className="mx-auto w-full max-w-7xl">
           {about && (
             <div className="flex flex-col items-center gap-4 text-center">
-              <h2 className="t-heading text-[#010207]">{partnersSection.heading}</h2>
-              <p className="max-w-xl text-base text-[#010207]/55 sm:text-lg sm:leading-normal">
+              <h2 className="t-heading text-[#121212]">{partnersSection.heading}</h2>
+              <p className="max-w-xl text-base text-[#010207]/55 sm:text-[1rem] sm:leading-normal">
                 {partnersSection.description}
               </p>
             </div>
@@ -196,7 +196,7 @@ export function PartnersSecurity({
               >
                 {securitySection.heading}
               </h2>
-              <p className="text-[1em] leading-relaxed text-white/70 sm:text-[1em]">
+              <p className="text-[1em] leading-relaxed text-white/70 sm:text-[1rem]">
                 {securitySection.description}
               </p>
             </div>

@@ -183,7 +183,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
         ))}
       </div>
 
-      <p className="text-brand min-h-18 pt-4 text-sm leading-snug font-medium sm:pt-5 sm:text-[15px]">
+      <p className="text-brand min-h-18 pt-4 text-sm leading-snug font-medium sm:pt-5 sm:text-[1rem]">
         {roles[active]?.description}
       </p>
 

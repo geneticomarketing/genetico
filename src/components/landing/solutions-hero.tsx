@@ -90,12 +90,22 @@ function HeroHeading({
   return (
     <>
       {content.eyebrow ? (
-        <motion.p
-          {...heroEntrance(0.5, reduce)}
-          className="t-eyebrow secondaryFont mx-auto mb-4 text-[0.7rem] tracking-[0.36em] text-brand md:mb-5"
-        >
-          {content.eyebrow}
-        </motion.p>
+        <div className="relative flex justify-center items-center gap-3 sm:mb-6">
+          <span
+            aria-hidden
+            className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+          />
+          <motion.p
+            {...heroEntrance(0.5, reduce)}
+            className="t-eyebrow secondaryFont   text-[0.7rem] tracking-[0.36em] text-brand  w-fit"
+          >
+            {content.eyebrow}
+          </motion.p>
+          <span
+            aria-hidden
+            className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+          />
+        </div>
       ) : null}
 
       <motion.h1
@@ -522,7 +532,10 @@ function HeroInfographicStage({
         </>
       ) : (
         <>
-          <DocumentProcessedPill reduce={reduce} className="absolute top-[3%] left-[1%] max-w-[42%]" />
+          <DocumentProcessedPill
+            reduce={reduce}
+            className="absolute top-[3%] left-[1%] max-w-[42%]"
+          />
           <HpoExtractionCard
             reduce={reduce}
             className="absolute top-[1%] right-[1%] w-[38%] max-w-[15.5rem] min-w-[11.5rem]"
@@ -572,10 +585,7 @@ export function SolutionsHero({
   const reduce = useReducedMotion();
 
   return (
-    <section
-      id="hero"
-      className="relative bg-white md:h-dvh md:overflow-hidden"
-    >
+    <section id="hero" className="relative bg-white md:h-dvh md:overflow-hidden">
       <HexGridBackground />
       <SolutionsHeroMobile reduce={reduce} variant={variant} hero={content} />
       <SolutionsHeroDesktop reduce={reduce} variant={variant} hero={content} />

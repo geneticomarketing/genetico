@@ -233,7 +233,7 @@ function GrantsTimelineComponent({
         </Reveal>
         <Reveal delay={0.4}>
           <h1
-            className="mb-4 text-3xl leading-tight font-light tracking-tight text-white sm:text-5xl"
+            className="mb-4 text-3xl leading-tight font-light tracking-tight text-white sm:text-[3.25rem]"
             style={{ fontFamily: "Georgia, serif" }}
           >
             {section.heading}

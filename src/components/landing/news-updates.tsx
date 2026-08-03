@@ -48,11 +48,7 @@ function FeaturedCard({ item }: { item: NewsResourceItem }) {
       <StaggerGroup className="flex h-full flex-col" stagger={0.08} delayChildren={0.05}>
         <StaggerItem>
           <div className="relative aspect-[2/1] w-full overflow-hidden rounded-xl">
-            <span
-              aria-hidden
-              className="absolute inset-0"
-              style={thumbnailStyle(item.thumbnail)}
-            />
+            <span aria-hidden className="absolute inset-0" style={thumbnailStyle(item.thumbnail)} />
           </div>
         </StaggerItem>
         <StaggerItem className="flex flex-1 flex-col gap-3 px-1.5 pt-3 pb-1">
@@ -103,7 +99,7 @@ function SidebarRow({ item }: { item: NewsResourceItem }) {
       className="group flex flex-col gap-2 py-3.5 transition-opacity hover:opacity-70"
     >
       <Tag>{item.category}</Tag>
-      <h3 className="text-base leading-snug font-medium text-black sm:text-lg">{item.title}</h3>
+      <h3 className="text-base leading-snug font-medium text-black sm:text-[1rem]">{item.title}</h3>
       {item.readTime ? <span className="text-sm text-black/45">{item.readTime}</span> : null}
     </a>
   );
@@ -129,14 +125,14 @@ export function NewsUpdates({
   const sidebarItems = sidebarNewsItems.slice(0, 4);
 
   return (
-    <section id="news" className="bg-white px-6 py-14 sm:px-10 sm:py-20">
+    <section id="news" className="bg-white px-6 py-14 sm:px-14 sm:py-26">
       <div className="mx-auto w-full max-w-7xl">
         <StaggerGroup className="flex flex-col items-center gap-3 text-center" stagger={0.12}>
           <StaggerItem>
-            <h2 className="t-heading text-black">{newsSection.heading}</h2>
+            <h2 className="t-heading text-[#121212]">{newsSection.heading}</h2>
           </StaggerItem>
           <StaggerItem>
-            <p className="max-w-2xl text-base text-black/55 sm:text-lg sm:leading-normal">
+            <p className="max-w-2xl text-base text-black/55 sm:text-[1rem] sm:leading-normal">
               {newsSection.description}
             </p>
           </StaggerItem>

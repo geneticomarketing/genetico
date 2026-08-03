@@ -10,7 +10,7 @@ import type { EcosystemGap } from "@/lib/cms/types";
 // across the Problem / Solution panels. Colours come from theme tokens (globals.css).
 const PANEL_MIN_H = "min-h-[460px] max-md:min-h-[400px]";
 const LABEL_CLASS = "t-badge text-[14px] font-semibold tracking-[0.18em] uppercase";
-const TITLE_CLASS = "t-card-title mt-4 max-w-[460px] text-black";
+const TITLE_CLASS = "t-card-title mt-4 max-w-[460px] text-[#121212]";
 const DESC_CLASS = "text-ink-muted max-w-[440px] text-[16px] leading-[1.6]";
 
 /** Label + title + description, shared by both the Problem and Solution panels.
@@ -69,8 +69,8 @@ export function EcosystemProblems({
       <Reveal>
         <div className="mx-auto max-w-[1280px]">
           {/* Heading */}
-          <h2 className="t-heading mx-auto text-center text-black">{heading}</h2>
-          <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-[1em]">
+          <h2 className="t-heading mx-auto text-center text-[#121212]">{heading}</h2>
+          <p className="mx-auto mt-5 max-w-2xl text-center text-base text-black/55 sm:text-[1rem]">
             {description}
           </p>
 

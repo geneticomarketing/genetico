@@ -87,7 +87,7 @@ function SecurityRow({ feature }: { feature: SecurityFeature }) {
         </p>
 
         <p
-          className="col-span-2 text-[clamp(1.05rem,1.8vw,1.35rem)] leading-snug font-medium text-[#4a5f78] max-md:col-span-4 sm:col-span-1"
+          className="col-span-2 text-[1.5rem] leading-snug font-medium text-[#121212] max-md:col-span-4 sm:col-span-1"
           style={{ fontVariationSettings: '"SERF" 100' }}
         >
           {feature.title}
