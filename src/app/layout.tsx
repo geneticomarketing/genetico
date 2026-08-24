@@ -29,10 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${albertSans.variable} ${jetbrainsMono.variable} h-full`}
-    >
+    <html lang="en" className={`${albertSans.variable} ${jetbrainsMono.variable} h-full`}>
       <head>
         {/* Google Tag Manager */}
         <Script id="google-tag-manager" strategy="beforeInteractive">
