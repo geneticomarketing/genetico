@@ -1,16 +1,4 @@
 {
-  "pnpm": {
-    "supportedArchitectures": {
-      "os": [
-        "current",
-        "linux"
-      ],
-      "cpu": [
-        "current",
-        "x64"
-      ]
-    }
-  },
   "name": "genetico",
   "version": "0.1.0",
   "private": true,
