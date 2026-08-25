@@ -10,7 +10,7 @@ import { getAllBlogSlugs, getBlogBySlug } from "@/lib/cms/queries";
 import { articleJsonLd, createPageMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
-
+//
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
 };
