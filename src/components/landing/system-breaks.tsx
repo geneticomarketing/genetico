@@ -66,7 +66,7 @@ export function SystemBreaks({
           <p className="t-subhead mt-5 text-base text-black/55 sm:text-[1rem]">{description}</p>
         </StaggerItem>
 
-        <div className="mt-14 grid gap-10 rounded-md border border-gray-200 p-8 max-md:px-0 lg:grid-cols-[5fr_1px_7fr] lg:items-stretch">
+        <div className="mt-14 grid gap-10 rounded-md border border-gray-200 p-8 pt-0 max-md:px-0 lg:grid-cols-[5fr_1px_7fr] lg:items-stretch">
           {/* LEFT — module rail: active expands into a card, the rest are plain rows */}
           <motion.ul
             ref={listRef}

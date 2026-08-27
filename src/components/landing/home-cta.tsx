@@ -8,7 +8,7 @@ export function HomeCta({ cta = DEFAULT_HOME_PAGE.cta }: { cta?: PageCta }) {
   return (
     <section
       id="get-in-touch"
-      className="relative overflow-hidden bg-mist px-5 py-20 sm:px-10 sm:py-24 lg:py-32"
+      className="relative overflow-hidden bg-mist px-5 pt-20 sm:px-10 sm:pt-24 lg:pt-32"
     >
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <img

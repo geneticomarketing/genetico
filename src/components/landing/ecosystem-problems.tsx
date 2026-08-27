@@ -65,7 +65,7 @@ export function EcosystemProblems({
   const [active, setActive] = useState(0);
 
   return (
-    <section id="solutions" className="bg-white px-6 py-28 lg:px-10 lg:py-10">
+    <section id="solutions" className="bg-white px-6 pb-28 lg:px-10 lg:pb-10">
       <Reveal>
         <div className="mx-auto max-w-[1280px]">
           {/* Heading */}
@@ -96,7 +96,9 @@ export function EcosystemProblems({
           {/* Cards */}
           <div className="bg-surface mt-14 grid gap-8 rounded-r-lg max-md:px-4 lg:grid-cols-2">
             {/* PROBLEM */}
-            <div className={`${PANEL_MIN_H} px-0 py-0 sm:px-14`}>
+            <div
+              className={`${"PANEL_MIN_H"} min-h-[460px] max-md:min-h-[250px] px-0 py-0 sm:px-14`}
+            >
               {gaps.map((gap, index) => (
                 <div key={gap.tab} className={`h-full ${active === index ? "block" : "hidden"}`}>
                   <PanelBody

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type TouchEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -12,6 +12,7 @@ import type { HeroSlide } from "@/lib/cms/types";
 const STAGGER_S = 0.3;
 const ENTRANCE_DURATION = 1.5;
 const BG_DURATION = 1;
+const SWIPE_THRESHOLD_PX = 48;
 
 function heroEntrance(contentIndex: number, reduce: boolean | null) {
   // Keep above-fold copy visible in SSR HTML; animate only after hydration.
@@ -44,13 +45,39 @@ const AUTOPLAY_MS = 6000;
 export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] }) {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
-
-  // console.log(slides);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
 
   const next = useCallback(() => setActive((i) => (i + 1) % slides.length), [slides.length]);
   const prev = useCallback(
     () => setActive((i) => (i - 1 + slides.length) % slides.length),
     [slides.length],
+  );
+
+  const onTouchStart = useCallback((e: TouchEvent<HTMLElement>) => {
+    const t = e.touches[0];
+    if (!t) return;
+    touchStart.current = { x: t.clientX, y: t.clientY };
+  }, []);
+
+  const onTouchEnd = useCallback(
+    (e: TouchEvent<HTMLElement>) => {
+      const start = touchStart.current;
+      touchStart.current = null;
+      if (!start) return;
+
+      const t = e.changedTouches[0];
+      if (!t) return;
+
+      const dx = t.clientX - start.x;
+      const dy = t.clientY - start.y;
+      if (Math.abs(dx) < SWIPE_THRESHOLD_PX) return;
+      // Prefer horizontal intent so vertical page scroll isn't treated as a swipe.
+      if (Math.abs(dx) < Math.abs(dy)) return;
+
+      if (dx < 0) next();
+      else prev();
+    },
+    [next, prev],
   );
 
   useEffect(() => {
@@ -61,7 +88,9 @@ export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] })
   return (
     <section
       id="home"
-      className="relative h-dvh overflow-hidden"
+      className="relative h-dvh touch-pan-y overflow-hidden"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
       style={{
         background:
           "radial-gradient(75% 65% at 28% 42%, #12325a 0%, #07101f 46%, #03060e 78%, #010207 100%)",
