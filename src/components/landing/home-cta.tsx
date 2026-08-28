@@ -8,7 +8,7 @@ export function HomeCta({ cta = DEFAULT_HOME_PAGE.cta }: { cta?: PageCta }) {
   return (
     <section
       id="get-in-touch"
-      className="relative overflow-hidden bg-mist px-5 pt-20 sm:px-10 sm:pt-24 lg:pt-32"
+      className="relative overflow-hidden bg-mist px-gutter pt-section"
     >
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <img
@@ -22,7 +22,7 @@ export function HomeCta({ cta = DEFAULT_HOME_PAGE.cta }: { cta?: PageCta }) {
       <Reveal className="relative z-10 mx-auto max-w-3xl text-center">
         <div className="t-intro mx-auto">
           <h2 className="t-heading text-balance text-[#121212]">{cta.heading}</h2>
-          <p className="t-subhead mt-5 text-base leading-relaxed text-black/55 sm:mt-6 sm:text-[1rem]">
+          <p className="t-subhead mt-5 text-base leading-relaxed text-ink-muted sm:mt-6 sm:text-[1rem]">
             {cta.description}
           </p>
         </div>

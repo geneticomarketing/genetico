@@ -158,7 +158,7 @@ export function PlatformInfrastructure({
   section?: PlatformPageData["infrastructure"];
 }) {
   return (
-    <section id="infrastructure" className="bg-white px-6 py-20 sm:px-10 sm:py-24 lg:py-28">
+    <section id="infrastructure" className="bg-white px-gutter py-section">
       <div className="mx-auto w-full max-w-7xl">
         <Reveal>
           <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16">

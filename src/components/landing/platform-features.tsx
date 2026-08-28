@@ -38,7 +38,7 @@ export function PlatformFeatures({
   return (
     <section
       id="platform-features"
-      className="bg-white px-6 py-20 text-black sm:px-10 sm:py-24 lg:py-28"
+      className="bg-white px-gutter py-section text-black"
     >
       <div className="mx-auto w-full max-w-7xl">
         {/* Header */}

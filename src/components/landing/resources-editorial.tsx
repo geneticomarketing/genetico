@@ -46,11 +46,9 @@ function ArticleRow({ item, index }: { item: ArticleItem; index: number }) {
 }
 
 export function ResourcesEditorial({
-  compactTop = false,
   articles = DEFAULT_RESOURCES_PAGE.externalArticles,
   heading = DEFAULT_RESOURCES_PAGE.sectionHeadings.articles,
 }: {
-  compactTop?: boolean;
   articles?: ExternalArticle[];
   heading?: string;
 }) {
@@ -62,9 +60,7 @@ export function ResourcesEditorial({
   return (
     <section
       id="editorial"
-      className={`bg-white px-5 sm:px-10 ${
-        compactTop ? "pb-16 pt-0 sm:pb-20 lg:pb-24" : "py-16 sm:py-20 lg:py-24"
-      }`}
+      className="bg-white px-gutter py-section"
     >
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">

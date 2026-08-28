@@ -24,7 +24,7 @@ export default async function ComingSoonPage() {
   const page = utility.comingSoon;
 
   return (
-    <main className="relative flex min-h-[calc(100vh-8rem)] flex-1 flex-col items-center justify-center overflow-hidden px-6 py-24 sm:px-10">
+    <main className="relative flex min-h-[calc(100vh-8rem)] flex-1 flex-col items-center justify-center overflow-hidden px-gutter py-24">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute top-1/2 left-1/2 h-[min(90vw,720px)] w-[min(90vw,720px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(95,215,203,0.14)_0%,transparent_68%)]" />
         <img

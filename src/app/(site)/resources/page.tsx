@@ -43,7 +43,7 @@ export default async function ResourcesPage() {
       />
       <section
         id="get-in-touch"
-        className="relative overflow-hidden bg-mist px-5 py-20 sm:px-10 sm:py-24 lg:py-32"
+        className="relative overflow-hidden bg-mist px-gutter py-section"
       >
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <img
@@ -59,7 +59,7 @@ export default async function ResourcesPage() {
             <h2 className="t-heading text-balance text-[#121212]">
               {data.newsletterCta.heading}
             </h2>
-            <p className="t-subhead mt-5 text-base leading-relaxed text-black/55 sm:mt-6 sm:text-[1rem]">
+            <p className="t-subhead mt-5 text-base leading-relaxed text-ink-muted sm:mt-6 sm:text-[1rem]">
               {data.newsletterCta.description}
             </p>
           </div>

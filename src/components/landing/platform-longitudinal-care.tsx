@@ -325,7 +325,7 @@ export function PlatformLongitudinalCare({
   return (
     <section
       id="longitudinal-care"
-      className="bg-[#f6f8fb] px-6 py-20 text-black sm:px-10 sm:py-24 lg:py-28"
+      className="bg-[#f6f8fb] px-gutter py-section text-black"
     >
       <div className="mx-auto w-full max-w-7xl">
         <Reveal>

@@ -74,11 +74,9 @@ export function ResourcesContent({
 
   const showBlogs = activeTab === "All" || activeTab === "Blogs";
 
-  const compactOffset = (showFeatured ? 1 : 0) + (showVideos ? 1 : 0) + (showArticles ? 1 : 0);
-
   return (
     <div className="bg-white">
-      <section className="px-6 pt-20 sm:px-10 sm:pt-24 lg:pt-28">
+      <section className="px-gutter pt-section">
         <div className="mx-auto w-full max-w-7xl">
           <Reveal>
             <div className="flex w-full [scrollbar-width:none] overflow-x-auto lg:w-auto lg:overflow-visible [&::-webkit-scrollbar]:hidden">
@@ -113,11 +111,10 @@ export function ResourcesContent({
         </div>
       </section>
 
-      {showFeatured ? <ResourcesLibrary compactTop featuredVideo={featuredVideo} /> : null}
+      {showFeatured ? <ResourcesLibrary featuredVideo={featuredVideo} /> : null}
 
       {showVideos ? (
         <ResourcesShortVideos
-          compactTop={showFeatured}
           videos={shortVideos}
           heading={sectionHeadings.videos}
         />
@@ -125,7 +122,6 @@ export function ResourcesContent({
 
       {showVideos ? (
         <ResourcesDeepDives
-          compactTop
           deepDivesSection={deepDivesSection}
           deepDives={deepDives}
         />
@@ -133,7 +129,6 @@ export function ResourcesContent({
 
       {showArticles ? (
         <ResourcesEditorial
-          compactTop={showFeatured || showVideos}
           articles={externalArticles}
           heading={sectionHeadings.articles}
         />
@@ -141,7 +136,6 @@ export function ResourcesContent({
 
       {showBlogs ? (
         <ResourcesBlogs
-          compactTop={compactOffset > 0}
           blogsSection={blogsSection}
           blogPosts={blogPosts}
         />

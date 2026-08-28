@@ -9,10 +9,17 @@ import Link from "next/link";
 type LabelAnchor = (typeof DEFAULT_HERO_LABELS)[number]["anchor"];
 
 const ANCHOR_CLASS: Record<LabelAnchor, string> = {
-  "top-left": "top-[5%] left-[1%] xl:left-[3%]",
-  "top-right": "top-[5%] right-[1%] xl:right-[3%]",
-  "mid-left": "top-[50%] left-0 -translate-y-1/2 xl:left-[2%]",
-  "mid-right": "top-[50%] right-0 -translate-y-1/2 xl:right-[2%]",
+  "top-left": "top-[0%] left-[1%] xl:left-[3%]",
+  "top-right": "top-[0%] right-[1%] xl:right-[3%]",
+  "mid-left": "top-[20%] left-0 -translate-y-1/2 xl:left-[2%]",
+  "mid-right": "top-[20%] right-0 -translate-y-1/2 xl:right-[2%]",
+};
+
+const MOBILE_ANCHOR_CLASS: Record<LabelAnchor, string> = {
+  "top-left": "top-0 left-0",
+  "top-right": "top-0 right-0",
+  "mid-left": "bottom-[50%] left-0",
+  "mid-right": "bottom-[50%] right-0",
 };
 
 function LabelCard({
@@ -36,6 +43,28 @@ function LabelCard({
   );
 }
 
+function FloatingLabels({
+  items,
+  positionClass,
+  cardClassName,
+}: {
+  items: { label: string; anchor: LabelAnchor }[];
+  positionClass: Record<LabelAnchor, string>;
+  cardClassName: string;
+}) {
+  return items.map((item, i) => (
+    <motion.div
+      key={item.label}
+      initial={false}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1.8 + (i + 1) / 10 }}
+      className={`absolute z-10 ${positionClass[item.anchor]}`}
+    >
+      <LabelCard index={i} label={item.label} className={cardClassName} />
+    </motion.div>
+  ));
+}
+
 export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
   const heroLabels = hero.labels.map((label, i) => ({
     label,
@@ -43,9 +72,9 @@ export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
   }));
 
   return (
-    <section className="isolate flex min-h-[100svh] items-center overflow-hidden bg-white">
+    <section className="isolate flex min-h-[100svh] flex-col overflow-x-clip bg-white pt-36">
       <StaggerGroup
-        className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-5 py-20 text-center sm:px-8 sm:py-24 lg:py-28"
+        className="relative mx-auto my-auto flex w-full max-w-6xl flex-col items-center px-gutter pb-section text-center"
         stagger={0.4}
         delayChildren={0.08}
         ssrVisible
@@ -77,9 +106,9 @@ export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
 
         <StaggerItem className="w-full">
           <div className="relative mx-auto mt-8 w-full max-w-[52rem] sm:mt-10">
-            {/* Mobile / tablet: crop-zoom the circular graphic, labels stacked cleanly below */}
-            <div className="lg:hidden">
-              <div className="relative mx-auto aspect-square w-[min(100%,19rem)] overflow-hidden sm:w-[min(100%,24rem)]">
+            {/* Mobile / tablet: crop-zoom the circular graphic with floating labels around it */}
+            <div className="relative mx-auto w-full max-w-[22rem] sm:max-w-[28rem] lg:hidden">
+              <div className="relative mx-auto aspect-square w-[68%] overflow-hidden sm:w-[70%]">
                 <img
                   src="/race.svg"
                   alt=""
@@ -87,47 +116,26 @@ export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
                 />
               </div>
 
-              <ul className="mx-auto mt-5 grid max-w-md grid-cols-2 gap-2 sm:mt-6 sm:max-w-xl sm:gap-3">
-                {heroLabels.map((item, i) => (
-                  <motion.li
-                    key={item.label}
-                    initial={false}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.8 + (i + 1) / 10 }}
-                  >
-                    <LabelCard
-                      index={i}
-                      label={item.label}
-                      className="w-full gap-2 rounded-md px-3 py-2.5 text-xs sm:text-sm"
-                    />
-                  </motion.li>
-                ))}
-              </ul>
+              <FloatingLabels
+                items={heroLabels}
+                positionClass={MOBILE_ANCHOR_CLASS}
+                cardClassName="max-w-[9.5rem] gap-1.5 rounded-md px-2.5 py-2 text-[0.7rem] sm:max-w-[11rem] sm:px-3 sm:py-2.5 sm:text-xs"
+              />
             </div>
 
             {/* Desktop: full landscape stage with floating labels */}
-            <div className="@container relative mx-auto hidden aspect-[800/480] w-full lg:block max-2xl:-translate-y-26">
+            <div className="@container relative mx-auto hidden aspect-[800/480] w-full overflow-visible lg:block max-2xl:-translate-y-26">
               <img
                 src="/race.svg"
                 alt=""
                 className="rotate absolute inset-0 h-full w-full object-contain"
               />
 
-              {heroLabels.map((item, i) => (
-                <motion.div
-                  key={item.label}
-                  initial={false}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.8 + (i + 1) / 10 }}
-                  className={`absolute z-10 ${ANCHOR_CLASS[item.anchor]}`}
-                >
-                  <LabelCard
-                    index={i}
-                    label={item.label}
-                    className="w-[clamp(9rem,17cqi,11rem)] gap-2 rounded-md p-2.5 text-[clamp(0.75rem,2cqi,0.875rem)] xl:gap-2.5 xl:p-3"
-                  />
-                </motion.div>
-              ))}
+              <FloatingLabels
+                items={heroLabels}
+                positionClass={ANCHOR_CLASS}
+                cardClassName="w-[clamp(9rem,17cqi,11rem)] gap-2 rounded-md p-2.5 text-[clamp(0.75rem,2cqi,0.875rem)] xl:gap-2.5 xl:p-3"
+              />
             </div>
           </div>
         </StaggerItem>

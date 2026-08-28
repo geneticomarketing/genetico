@@ -112,7 +112,7 @@ export function PublicHealthDataSecurity({
   return (
     <section
       id="impact"
-      className="relative overflow-hidden px-6 py-20 text-[#121212] sm:px-10 sm:py-24 lg:py-28"
+      className="relative overflow-hidden px-gutter py-section text-[#121212]"
       style={{
         background: "linear-gradient(155deg, #f2f7fc 0%, #f8fafc 38%, #ffffff 62%, #ffffff 100%)",
       }}
@@ -146,7 +146,7 @@ export function PublicHealthDataSecurity({
           </div>
 
           <StaggerItem className="lg:pt-8">
-            <p className="secondaryFont max-w-sm text-[15px] leading-relaxed text-[#8f8f8f] sm:text-base lg:ml-auto lg:text-right">
+            <p className="secondaryFont max-w-sm text-[15px] leading-relaxed text-ink-muted sm:text-base lg:ml-auto lg:text-right">
               {section.description}
             </p>
           </StaggerItem>

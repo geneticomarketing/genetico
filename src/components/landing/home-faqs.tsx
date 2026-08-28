@@ -116,7 +116,7 @@ export function HomeFaqs({
   const { ref: listRef, visible: listVisible } = useInViewAnimation<HTMLUListElement>();
 
   return (
-    <section id="faqs" className="relative overflow-hidden bg-white px-5 py-20 sm:px-10 sm:py-24">
+    <section id="faqs" className="relative overflow-hidden bg-white px-gutter py-section">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-x-0 top-0 h-px bg-black/5" />
         <div className="bg-brand-glow absolute top-[-20%] left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full" />
@@ -139,7 +139,7 @@ export function HomeFaqs({
           </StaggerItem>
           <StaggerItem className="t-intro mx-auto mt-4 text-center">
             <h2 className="t-heading text-balance text-[#121212]">{heading}</h2>
-            <p className="t-subhead mt-5 text-base leading-relaxed text-black/55 sm:text-[1rem]">
+            <p className="t-subhead mt-5 text-base leading-relaxed text-ink-muted sm:text-[1rem]">
               {description}
             </p>
           </StaggerItem>

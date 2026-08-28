@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           author: post.author,
         })}
       />
-      <article className="px-6 pt-20 pb-16 sm:px-10 sm:pt-24 sm:pb-20 lg:py-24 lg:pt-28">
+      <article className="px-gutter pt-page pb-section">
         <div className="mx-auto w-full max-w-3xl">
           <Link
             href={BLOG_PATH}

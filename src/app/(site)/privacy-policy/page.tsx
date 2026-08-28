@@ -84,7 +84,7 @@ export default async function PrivacyPolicyPage() {
     : "July 3, 2026";
 
   return (
-    <main className="relative flex flex-1 flex-col px-6 py-20 sm:px-10 sm:py-24">
+    <main className="relative flex flex-1 flex-col px-gutter pt-page pb-section">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-1/2 h-[min(100vw,640px)] w-[min(100vw,640px)] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(95,215,203,0.08)_0%,transparent_70%)]" />
       </div>

@@ -73,7 +73,7 @@ export function FoundationalPlatform({
   const span = REVEAL_END - window;
 
   return (
-    <section id="platform" className="bg-white px-6 pt-24 sm:px-10 sm:pt-32 pb-6">
+    <section id="platform" className="bg-white px-gutter py-section">
       <Reveal className="mx-auto w-full max-w-4xl text-center relative flex items-center justify-center gap-4 sm:gap-6">
         <span
           aria-hidden

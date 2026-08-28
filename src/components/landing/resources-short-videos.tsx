@@ -98,11 +98,9 @@ function ShortVideoCard({
 }
 
 export function ResourcesShortVideos({
-  compactTop = false,
   videos = DEFAULT_RESOURCES_PAGE.shortVideos,
   heading = DEFAULT_RESOURCES_PAGE.sectionHeadings.videos,
 }: {
-  compactTop?: boolean;
   videos?: (ShortVideo & { categoryColor?: string })[];
   heading?: string;
 }) {
@@ -112,11 +110,7 @@ export function ResourcesShortVideos({
   return (
     <section
       id="short-videos"
-      className={`bg-white px-6 sm:px-10 ${
-        compactTop
-          ? "pb-16 pt-0 sm:pb-20 lg:pb-24"
-          : "py-16 sm:py-20 lg:py-24"
-      }`}
+      className="bg-white px-gutter py-section"
     >
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="flex items-end justify-between gap-6">

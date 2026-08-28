@@ -11,11 +11,9 @@ import type { BlogPost } from "@/lib/blogs";
 import { BLOG_POSTS } from "@/lib/blogs";
 
 export function ResourcesBlogs({
-  compactTop = false,
   blogsSection = DEFAULT_RESOURCES_PAGE.blogsSection,
   blogPosts = [],
 }: {
-  compactTop?: boolean;
   blogsSection?: ResourcesPageData["blogsSection"];
   blogPosts?: BlogPost[];
 }) {
@@ -24,9 +22,7 @@ export function ResourcesBlogs({
   return (
     <section
       id="blogs"
-      className={`bg-white px-6 sm:px-10 ${
-        compactTop ? "pb-16 pt-0 sm:pb-20 lg:pb-24" : "py-16 sm:py-20 lg:py-24"
-      }`}
+      className="bg-white px-gutter py-section"
     >
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">

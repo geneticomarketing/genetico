@@ -32,6 +32,7 @@ export default async function AboutUsPage() {
     <ScrollParallaxPage
       className="min-h-screen bg-[#050b14] text-white"
       hero={<AboutHero hero={data.hero} />}
+      fixedHeroFromMd
     >
       <AboutFoundations vision={data.vision} foundations={data.foundations} />
       <LeadershipCarousel team={data.team} leadership={data.leadership} />
@@ -39,7 +40,7 @@ export default async function AboutUsPage() {
         <GrantsTimeline section={data.grants} items={data.grantItems} />
       </section>
 
-      <section className="pt-16 bg-white">
+      <section className="bg-white">
         <PartnersSecurity
           about={true}
           partnersSection={data2.partnersSection}

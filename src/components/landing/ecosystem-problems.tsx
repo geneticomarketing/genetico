@@ -65,13 +65,13 @@ export function EcosystemProblems({
   const [active, setActive] = useState(0);
 
   return (
-    <section id="solutions" className="bg-white px-6 pb-28 lg:px-10 lg:pb-10">
+    <section id="solutions" className="bg-white px-gutter py-section">
       <Reveal>
         <div className="mx-auto max-w-[1280px]">
           {/* Heading */}
           <div className="t-intro mx-auto text-center">
             <h2 className="t-heading text-[#121212]">{heading}</h2>
-            <p className="t-subhead mt-5 text-base text-black/55 sm:text-[1rem]">{description}</p>
+            <p className="t-subhead mt-5 text-base text-ink-muted sm:text-[1rem]">{description}</p>
           </div>
 
           {/* Tabs */}

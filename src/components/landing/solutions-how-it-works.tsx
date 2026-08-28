@@ -52,7 +52,7 @@ function FeatureText({
         {category}
       </p>
       <h3 className="t-card-title text-brand mt-4 max-w-none">{title}</h3>
-      <p className="secondaryFont mt-4 text-[15px] leading-relaxed text-[#8f8f8f] sm:text-base">
+      <p className="secondaryFont mt-4 text-[15px] leading-relaxed text-ink-muted sm:text-base">
         {description}
       </p>
       <CheckCallout>{callout}</CheckCallout>
@@ -75,7 +75,7 @@ function MacWindow({
     <motion.div
       animate={reduce ? undefined : { y: [0, -10, 0] }}
       transition={FLOAT}
-      className={`overflow-hidden rounded-2xl border border-[#e8ebf0] bg-white shadow-[0_24px_64px_rgba(0,36,69,0.1)] ${className ?? ""}`}
+      className={`w-full overflow-hidden rounded-2xl border border-[#e8ebf0] bg-white shadow-[0_24px_64px_rgba(0,36,69,0.1)] ${className ?? ""}`}
     >
       <div className="relative flex items-center justify-center border-b border-[#eef1f5] px-4 py-3">
         <div aria-hidden className="absolute left-4 flex gap-1.5">
@@ -324,7 +324,7 @@ function DocumentImportDashboard() {
 
         <div className="mt-4">
           <div className="flex items-center justify-between text-[0.72rem]">
-            <span className="text-[#8f8f8f]">Extracting structured data</span>
+            <span className="text-ink-muted">Extracting structured data</span>
             <span className="text-brand font-semibold">100%</span>
           </div>
           <div className="mt-2">
@@ -571,6 +571,12 @@ function PatientTimelineDashboard() {
   );
 }
 
+const COHORT_COVERAGE = [
+  { label: "Baseline visits", value: 100 },
+  { label: "12-month follow-up", value: 78 },
+  { label: "24-month follow-up", value: 54 },
+];
+
 function CohortAnalyticsDashboard() {
   const reduce = useReducedMotion();
   const filters = ["Age 2–18", "HPO: Seizures", "Confirmed diagnosis", "Follow-up ≥ 2 yrs"];
@@ -605,15 +611,15 @@ function CohortAnalyticsDashboard() {
           })}
         </div>
 
-        <div className="mt-4 grid grid-cols-3 gap-3 rounded-xl border border-[#eef1f5] p-3">
+        <div className="mt-4 grid grid-cols-3 gap-3 rounded-xl border border-[#eef1f5] px-3 py-4">
           {[
             { label: "Eligible", value: "84" },
             { label: "Enrolled", value: "61" },
             { label: "Sites", value: "9" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <p className="text-brand text-xl font-semibold tabular-nums">{stat.value}</p>
-              <p className="text-[0.62rem] text-[#a3afc4]">{stat.label}</p>
+              <p className="text-brand text-2xl font-semibold tabular-nums">{stat.value}</p>
+              <p className="mt-0.5 text-[0.62rem] text-[#a3afc4]">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -623,19 +629,34 @@ function CohortAnalyticsDashboard() {
             Longitudinal coverage
           </p>
           <ul>
-            {[
-              { label: "Baseline visits", value: "100%" },
-              { label: "12-month follow-up", value: "78%" },
-              { label: "Registry export", value: "Ready" },
-            ].map((row) => (
-              <li
-                key={row.label}
-                className="flex items-center justify-between gap-3 border-t border-[#eef1f5] px-3 py-2.5 text-[0.72rem] first:border-t-0"
-              >
-                <span className="text-[#a3afc4]">{row.label}</span>
-                <span className="font-medium text-[#121212]">{row.value}</span>
-              </li>
-            ))}
+            {COHORT_COVERAGE.map((row, index) => {
+              const isActive = index === activeFilter % COHORT_COVERAGE.length;
+              return (
+                <motion.li
+                  key={row.label}
+                  className="border-t border-[#eef1f5] px-3 py-2.5 first:border-t-0"
+                  animate={{
+                    backgroundColor: isActive ? "rgba(238,244,249,0.9)" : "rgba(255,255,255,1)",
+                  }}
+                  transition={{ duration: 0.35, ease: EASE }}
+                >
+                  <div className="flex items-center justify-between gap-3 text-[0.72rem]">
+                    <span className="text-[#a3afc4]">{row.label}</span>
+                    <span className="font-medium tabular-nums text-[#121212]">{row.value}%</span>
+                  </div>
+                  <div className="mt-1.5">
+                    <ShimmerBar value={row.value} height="h-1.5" animateWidth={isActive} />
+                  </div>
+                </motion.li>
+              );
+            })}
+            <li className="flex items-center justify-between gap-3 border-t border-[#eef1f5] px-3 py-2.5 text-[0.72rem]">
+              <span className="text-[#a3afc4]">Registry export</span>
+              <span className="t-badge text-brand inline-flex items-center gap-1 rounded-full bg-[#eef4f9] px-2 py-0.5 text-[0.62rem] font-medium">
+                <Check className="size-3" strokeWidth={2.5} />
+                Ready
+              </span>
+            </li>
           </ul>
         </div>
       </div>
@@ -664,7 +685,7 @@ function SolutionRow({
 }) {
   return (
     <div
-      className={`relative py-16 sm:py-20 lg:py-24 ${tinted ? "rounded-3xl px-6 sm:px-10 lg:px-12" : ""}`}
+      className={`relative py-section ${tinted ? "rounded-3xl" : ""}`}
     >
       <div
         className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-20 ${
@@ -718,7 +739,7 @@ export function SolutionsHowItWorks({
   return (
     <section
       id="how-it-works"
-      className="bg-white px-6 py-20 text-[#121212] sm:px-10 sm:py-24 lg:py-28"
+      className="bg-white px-gutter py-section text-[#121212]"
     >
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">
@@ -732,13 +753,13 @@ export function SolutionsHowItWorks({
 
           <div className="t-intro mx-auto mt-8">
             <h2 className="t-heading text-balance text-[#121212]">{content.heading}</h2>
-            <p className="secondaryFont t-subhead mt-5 text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
+            <p className="secondaryFont t-subhead mt-5 text-[15px] leading-relaxed text-ink-muted sm:mt-6 sm:text-base">
               {content.description}
             </p>
           </div>
         </Reveal>
 
-        <div className="mt-14 sm:mt-20">
+        <div>
           {content.rows.map((row) => {
             const Dashboard = dashboardForRow(row);
             return (

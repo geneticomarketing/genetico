@@ -16,7 +16,12 @@ html {
   overscroll-behavior: none;
 }
 
+.text-ink-muted {
+  color: #6e6e73;
+}
+
 @theme inline {
+  /* --color-text-ink-muted: #ff0000; */
   /* Brand palette — sourced from Figma "Genetico internal design file" */
   --color-brand: #024385;
   --color-navy: #00101f;
@@ -41,6 +46,13 @@ html {
   /* next/font sets --font-jetbrains on <html>; this theme token powers
      font-jetbrains-mono and .t-eyebrow / .t-badge. */
   --font-jetbrains-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* Site-wide content-section padding (top + bottom). Use py-section / pt-section / pb-section. */
+  --spacing-section: 5rem; /* 80px */
+  /* Site-wide page gutter (left + right). Use px-gutter. */
+  --spacing-gutter: 1.5rem; /* 24px */
+  /* First-section top padding on pages without a hero (navbar + 80px). */
+  --spacing-page: 9.25rem; /* 68px nav + 80px */
 }
 
 :root {
@@ -212,6 +224,7 @@ body {
   .t-subhead {
     width: 0;
     min-width: 100%;
+    color: var(--color-ink-muted); /* #6E6E73 — light-section default; dark bands override */
   }
 
   .footer-heading {

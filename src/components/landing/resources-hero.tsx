@@ -58,7 +58,7 @@ export function ResourcesHero({
         className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-[linear-gradient(to_bottom,transparent,#010207)]"
       />
 
-      <div className="relative mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col items-center justify-center px-6 pt-24 pb-8 text-center sm:pt-28">
+      <div className="relative mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col items-center justify-center px-gutter pt-24 pb-8 text-center sm:pt-28">
         <div className="t-intro-lg t-intro">
           <motion.h1 {...heroEntrance(1, reduce)} className="t-display text-white">
             {hero.title}

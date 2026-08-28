@@ -90,10 +90,11 @@ function HeroHeading({
   return (
     <>
       {content.eyebrow ? (
-        <div className="relative flex justify-center items-center gap-3 sm:mb-6">
+        <div className="relative flex justify-center items-center gap-3 sm:mb-12">
           <span
             aria-hidden
-            className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+            // throbbing-bgH h-px w-10 shrink-0 rounded-full sm:w-16
+            className="throbbing-bgH h-px w-10 shrink-0 rounded-full sm:w-16 md:w-16"
           />
           <motion.p
             {...heroEntrance(0.5, reduce)}
@@ -103,16 +104,13 @@ function HeroHeading({
           </motion.p>
           <span
             aria-hidden
-            className="throbbing-bgH h-px w-12 shrink-0 rounded-full sm:w-20 md:w-28"
+            className="throbbing-bgH h-px w-10 shrink-0 rounded-full sm:w-16 md:w-16"
           />
         </div>
       ) : null}
 
       <div className="t-intro-lg t-intro mx-auto">
-        <motion.h1
-          {...heroEntrance(1, reduce)}
-          className="t-display text-balance text-[#121212]"
-        >
+        <motion.h1 {...heroEntrance(1, reduce)} className="t-display text-balance text-[#121212]">
           {content.titleLine1}
           <br />
           <span className="text-brand">{content.titleHighlight}</span>
@@ -120,7 +118,7 @@ function HeroHeading({
 
         <motion.p
           {...heroEntrance(2, reduce)}
-          className="secondaryFont t-subhead mt-4 text-sm leading-relaxed text-[#8f8f8f] md:mt-7 md:text-base"
+          className="secondaryFont t-subhead mt-4 text-sm leading-relaxed text-ink-muted md:mt-7 md:text-base"
         >
           {content.subtitle}
         </motion.p>
@@ -413,7 +411,7 @@ function SolutionsHeroMobile({
   const isPharma = variant === "pharma";
 
   return (
-    <div className="relative mx-auto w-full max-w-lg px-5 pt-24 pb-12 text-center md:hidden">
+    <div className="relative mx-auto w-full max-w-lg px-gutter pt-24 pb-12 text-center md:hidden">
       <HeroHeading reduce={reduce} hero={hero} />
 
       <motion.div {...heroBgEntrance(reduce)} className="relative mt-8 w-full">
@@ -562,7 +560,7 @@ function SolutionsHeroDesktop({
   hero: import("@/lib/solutions-content").SolutionsContent["hero"];
 }) {
   return (
-    <div className="relative mx-auto hidden h-full min-h-0 w-full max-w-6xl grid grid-rows-[auto_minmax(0,1fr)] px-8 pt-24 pb-6 text-center md:grid lg:pt-28 lg:pb-8">
+    <div className="relative mx-auto hidden h-full min-h-0 w-full max-w-6xl grid grid-rows-[auto_minmax(0,1fr)] px-gutter pt-32 pb-6 text-center md:grid lg:pt-32 lg:pb-8">
       <div className="shrink-0">
         <HeroHeading reduce={reduce} hero={hero} />
       </div>

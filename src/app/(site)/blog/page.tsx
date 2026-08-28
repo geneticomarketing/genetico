@@ -31,7 +31,7 @@ export default async function BlogPage() {
 
   return (
     <main className="flex flex-1 flex-col bg-white">
-      <section className="border-line border-b bg-mist px-6 pt-20 pb-16 sm:px-10 sm:pt-24 sm:pb-20 lg:py-24 lg:pt-28">
+      <section className="border-line border-b bg-mist px-gutter pt-page pb-section">
         <div className="mx-auto w-full max-w-7xl">
           <Link
             href={data.blogListing.backHref}
@@ -52,7 +52,7 @@ export default async function BlogPage() {
               >
                 {data.blogListing.heading}
               </h1>
-              <p className="secondaryFont t-subhead mt-5 text-base leading-relaxed text-[#6e6e73] sm:text-[1rem]">
+              <p className="secondaryFont t-subhead mt-5 text-base leading-relaxed text-ink-muted sm:text-[1rem]">
                 {data.blogListing.description}
               </p>
             </div>
@@ -60,7 +60,7 @@ export default async function BlogPage() {
         </div>
       </section>
 
-      <section className="px-6 py-16 sm:px-10 sm:py-20 lg:py-24">
+      <section className="px-gutter py-section">
         <div className="mx-auto grid w-full max-w-7xl gap-6 sm:grid-cols-2 lg:grid-cols-2">
           {posts.map((post, index) => (
             <Reveal key={post.slug} delay={index * 0.05}>

@@ -284,7 +284,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
 
   if (embedded) {
     return (
-      <Reveal className="relative z-10 mx-auto w-full max-w-3xl pb-16 max-md:w-full sm:px-10 sm:pb-20 lg:pb-24">
+      <Reveal className="relative z-10 mx-auto w-full max-w-3xl pb-section max-md:w-full">
         {form}
       </Reveal>
     );
@@ -293,7 +293,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
   return (
     <section
       id="get-in-touch"
-      className="relative overflow-hidden bg-mist px-5 py-16 sm:px-10 sm:py-20 lg:py-28"
+      className="relative overflow-hidden bg-mist px-gutter py-section"
     >
       <Reveal className="relative z-10 mx-auto w-full max-w-7xl">
         <div className="grid gap-8 sm:gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-20">
@@ -302,7 +302,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
               <h2 className="t-heading text-black">
                 Different conversation, depending on who you are
               </h2>
-              <p className="t-subhead mt-5 text-sm leading-relaxed text-black/55 sm:text-[15px]">
+              <p className="t-subhead mt-5 text-sm leading-relaxed text-ink-muted sm:text-[15px]">
                 {intro}
               </p>
             </div>

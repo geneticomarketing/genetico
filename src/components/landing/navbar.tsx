@@ -315,7 +315,7 @@ export function Navbar({ navigation }: { navigation?: SiteData["navigation"] }) 
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 w-full transition duration-300 ${headerClass}`}>
-      <nav className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 sm:px-8">
+      <nav className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-gutter py-4">
         <Link href="/" className="flex items-center gap-2.5" onClick={closeMobileMenu}>
           <Image
             src="/logo-small.svg"
@@ -381,7 +381,7 @@ export function Navbar({ navigation }: { navigation?: SiteData["navigation"] }) 
             isDark ? "border-black/10 bg-white/95" : "border-white/10 bg-[#06131f]/95"
           }`}
         >
-          <ul className="mx-auto flex w-full max-w-7xl flex-col px-6 py-3 sm:px-8">
+          <ul className="mx-auto flex w-full max-w-7xl flex-col px-gutter py-3">
             {navItems.map((item) => {
               if (item.type === "dropdown") {
                 return (

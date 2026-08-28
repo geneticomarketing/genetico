@@ -52,7 +52,7 @@ function CarouselTrack({ reverse = false }: { reverse?: boolean }) {
 
 export default function CustomersCarousel() {
   return (
-    <section className="overflow-hidden bg-white py-20">
+    <section className="overflow-hidden bg-white py-section">
       <Reveal className="t-intro mx-auto mb-14 px-4 text-center">
         <h2
           className="mb-5 text-5xl font-light tracking-tight text-gray-900"
@@ -60,7 +60,7 @@ export default function CustomersCarousel() {
         >
           Customers &amp; Advisors
         </h2>
-        <p className="t-subhead text-sm leading-relaxed text-gray-500">
+        <p className="t-subhead text-sm leading-relaxed text-ink-muted">
           Genetico works with leading clinical institutions, Centres of Excellence, and ecosystem
           partners across rare disease care, research, and public health initiatives.
         </p>

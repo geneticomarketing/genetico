@@ -147,7 +147,7 @@ export function Hero({ slides = DEFAULT_HERO_SLIDES }: { slides?: HeroSlide[] })
       </button>
 
       {/* Centered stage — locked to one viewport; slides share one grid cell. */}
-      <div className="relative mx-auto flex h-full min-h-0 w-full max-w-4xl flex-col px-6 pt-24 pb-8 text-center sm:pt-28">
+      <div className="relative mx-auto flex h-full min-h-0 w-full max-w-4xl flex-col px-gutter pt-24 pb-8 text-center sm:pt-28">
         <div className="relative min-h-0 w-full flex-1">
           {slides.map((slide, i) => (
             <div

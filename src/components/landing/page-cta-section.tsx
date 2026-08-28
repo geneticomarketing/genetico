@@ -19,13 +19,13 @@ export function PageCtaSection({
   heading,
   description,
   buttons,
-  descriptionClassName = "secondaryFont t-subhead mt-5 text-base leading-relaxed text-[#8f8f8f] sm:mt-6",
+  descriptionClassName = "secondaryFont t-subhead mt-5 text-base leading-relaxed text-ink-muted sm:mt-6",
   showContactForm = true,
 }: PageCtaSectionProps) {
   return (
     <section
       id="get-in-touch"
-      className="relative overflow-hidden bg-mist px-5 pt-20 sm:px-10 sm:pt-24 lg:pt-32"
+      className="relative overflow-hidden bg-mist px-gutter pt-section"
     >
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <img

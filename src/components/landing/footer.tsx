@@ -52,9 +52,9 @@ export function Footer({ footer }: { footer?: SiteData["footer"] }) {
   const legalLinks = footer?.legalLinks ?? [{ label: "Privacy Policy", href: PRIVACY_POLICY_PATH }];
 
   return (
-    <footer className="bg-brand-band relative overflow-hidden px-6 pt-20 sm:px-10">
-      <div className="mx-auto w-full max-w-7xl">
-        <div className="mt-24 grid gap-12 md:grid-cols-[1fr_1.35fr]">
+    <footer className="bg-brand-band relative overflow-hidden px-gutter pt-section">
+      <div className="mx-auto w-full max-w-7xl mb-16">
+        <div className="--mt-24 grid gap-12 md:grid-cols-[1fr_1.35fr]">
           <div className="flex flex-col gap-8">
             <p className="max-w-xs text-sm leading-7 text-white/55">{tagline}</p>
             <div className="flex items-center gap-3">

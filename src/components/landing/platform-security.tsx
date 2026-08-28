@@ -47,7 +47,7 @@ export function PlatformSecurity({
   return (
     <section
       id="security"
-      className="bg-brand-deep relative overflow-hidden px-6 py-20 text-white sm:px-10 sm:py-24 lg:py-28"
+      className="bg-brand-deep relative overflow-hidden px-gutter py-section text-white"
     >
       <div className="relative mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">

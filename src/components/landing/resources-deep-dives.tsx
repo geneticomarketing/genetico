@@ -180,11 +180,9 @@ function DeepDiveCard({
 }
 
 export function ResourcesDeepDives({
-  compactTop = false,
   deepDivesSection = DEFAULT_RESOURCES_PAGE.deepDivesSection,
   deepDives = DEFAULT_RESOURCES_PAGE.deepDives,
 }: {
-  compactTop?: boolean;
   deepDivesSection?: ResourcesPageData["deepDivesSection"];
   deepDives?: DeepDive[];
 }) {
@@ -196,9 +194,7 @@ export function ResourcesDeepDives({
   return (
     <section
       id="deep-dives"
-      className={`bg-white px-6 sm:px-10 ${
-        compactTop ? "pt-0 pb-16 sm:pb-20 lg:pb-24" : "py-16 sm:py-20 lg:py-24"
-      }`}
+      className="bg-white px-gutter py-section"
     >
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="flex items-end justify-between gap-6">
@@ -215,7 +211,7 @@ export function ResourcesDeepDives({
                 {deepDivesSection.heading}
               </h2>
               {deepDivesSection.subtitle ? (
-                <span className="secondaryFont text-sm text-[#8f8f8f]">
+                <span className="secondaryFont text-sm text-ink-muted">
                   {deepDivesSection.subtitle}
                 </span>
               ) : null}

@@ -41,10 +41,8 @@ function FeaturedTagLine({
 }
 
 export function ResourcesLibrary({
-  compactTop = false,
   featuredVideo = DEFAULT_RESOURCES_PAGE.featuredVideo,
 }: {
-  compactTop?: boolean;
   featuredVideo?: FeaturedVideo;
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -62,9 +60,7 @@ export function ResourcesLibrary({
   return (
     <section
       id="resources-library"
-      className={`bg-white px-6 sm:px-10 ${
-        compactTop ? "pb-16 pt-8 sm:pb-20 lg:pb-24" : "py-20 sm:py-24 lg:py-28"
-      }`}
+      className="bg-white px-gutter py-section"
     >
       <div className="mx-auto w-full max-w-7xl">
         <Reveal>

@@ -223,7 +223,7 @@ function LeadershipCarouselComponent({
   const [drawerPerson, setDrawerPerson] = useState<TeamMember | null>(null);
 
   return (
-    <section className="relative overflow-hidden bg-mist px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-mist px-gutter py-section">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="bg-brand-glow absolute top-0 left-1/2 h-[420px] w-[900px] -translate-x-1/2 rounded-full" />
       </div>
@@ -245,7 +245,7 @@ function LeadershipCarouselComponent({
           </StaggerItem>
           <StaggerItem className="t-intro mx-auto mt-4 text-center">
             <h2 className="t-heading text-balance text-[#121212]">{leadership.heading}</h2>
-            <p className="t-subhead mt-5 text-base leading-relaxed text-black/55 sm:text-[1rem]">
+            <p className="t-subhead mt-5 text-base leading-relaxed text-ink-muted sm:text-[1rem]">
               {leadership.subtitle}
             </p>
           </StaggerItem>

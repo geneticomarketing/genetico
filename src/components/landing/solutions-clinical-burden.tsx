@@ -343,7 +343,7 @@ export function SolutionsClinicalBurden({
   return (
     <section
       id="clinical-burden"
-      className="bg-white px-6 py-20 text-[#121212] sm:px-10 sm:py-24 lg:py-28"
+      className="bg-white px-gutter py-section text-[#121212]"
     >
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">
@@ -357,7 +357,7 @@ export function SolutionsClinicalBurden({
 
           <div className="t-intro mx-auto mt-8">
             <h2 className="t-heading text-balance text-[#121212]">{content.heading}</h2>
-            <p className="secondaryFont t-subhead mt-5 text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
+            <p className="secondaryFont t-subhead mt-5 text-[15px] leading-relaxed text-ink-muted sm:mt-6 sm:text-base">
               {content.description}
             </p>
           </div>

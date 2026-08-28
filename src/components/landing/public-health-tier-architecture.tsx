@@ -69,7 +69,7 @@ function ClassificationBlock({ item, index }: { item: Classification; index: num
           {item.title}
         </h3>
 
-        <p className="secondaryFont mt-2 text-[0.9rem] leading-relaxed text-[#8f8f8f] sm:text-[0.9375rem]">
+        <p className="secondaryFont mt-2 text-[0.9rem] leading-relaxed text-ink-muted sm:text-[0.9375rem]">
           {item.description}
         </p>
 
@@ -378,7 +378,7 @@ export function PublicHealthTierArchitecture({
   return (
     <section
       id="tier-architecture"
-      className="bg-[#f6f8fb] px-6 py-20 text-[#121212] sm:px-10 sm:py-24 lg:py-28"
+      className="bg-[#f6f8fb] px-gutter py-section text-[#121212]"
     >
       <div className="mx-auto w-full max-w-7xl">
         <StaggerGroup className="mx-auto max-w-3xl text-center" stagger={0.1}>
@@ -394,7 +394,7 @@ export function PublicHealthTierArchitecture({
 
           <StaggerItem className="t-intro mx-auto mt-8">
             <h2 className="t-heading text-balance text-[#121212]">{section.heading}</h2>
-            <p className="secondaryFont t-subhead mt-5 text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
+            <p className="secondaryFont t-subhead mt-5 text-[15px] leading-relaxed text-ink-muted sm:mt-6 sm:text-base">
               {section.description}
             </p>
           </StaggerItem>

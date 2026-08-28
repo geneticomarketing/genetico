@@ -269,7 +269,7 @@ function CapabilityRow({ capability, index }: { capability: Capability; index: n
   return (
     <div
       ref={rowRef}
-      className={`grid gap-10 py-12 sm:py-14 lg:grid-cols-2 lg:items-center lg:gap-16 ${
+      className={`grid gap-10 py-section lg:grid-cols-2 lg:items-center lg:gap-16 ${
         index < CAPABILITIES.length - 1 ? "border-b border-white/10" : ""
       }`}
     >
@@ -309,7 +309,7 @@ export function PlatformClinicalIntelligence({
   return (
     <section
       id="clinical-intelligence"
-      className="bg-brand-deep relative overflow-hidden px-6 py-20 text-white sm:px-10 sm:py-24 lg:py-28"
+      className="bg-brand-deep relative overflow-hidden px-gutter py-section text-white"
     >
       <div className="relative mx-auto w-full max-w-7xl">
         <Reveal>

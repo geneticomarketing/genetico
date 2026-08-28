@@ -16,7 +16,7 @@ export function AboutFoundations({
     useInViewAnimation<HTMLUListElement>();
 
   return (
-    <section className="mainFont bg-white px-3 py-20 text-[#121212] md:px-8 lg:py-28">
+    <section className="mainFont bg-white px-gutter py-section text-[#121212]">
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-4xl text-center" y={56}>
           <div className="flex items-center justify-center gap-4 sm:gap-6">
@@ -73,7 +73,7 @@ export function AboutFoundations({
                 <h3 className="mainFont mt-3 text-[1.15rem] leading-tight text-[#111111] sm:text-[1.35rem]">
                   {item.title}
                 </h3>
-                <p className="secondaryFont mt-3 text-sm leading-relaxed text-[#8f8f8f] sm:text-[1rem]">
+                <p className="secondaryFont mt-3 text-sm leading-relaxed text-ink-muted sm:text-[1rem]">
                   {item.body}
                 </p>
               </div>

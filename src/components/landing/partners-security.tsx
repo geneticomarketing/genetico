@@ -167,12 +167,12 @@ export function PartnersSecurity({
   return (
     <>
       {/* ───────── Customers & Advisors — light band ───────── */}
-      <section className="bg-white   px-6 pb-24 sm:px-10 sm:pb-28">
+      <section className={`bg-white px-gutter ${about ? "py-section" : "pb-section"}`}>
         <Reveal className="mx-auto w-full max-w-7xl">
           {about && (
             <div className="t-intro mx-auto text-center">
               <h2 className="t-heading text-[#121212]">{partnersSection.heading}</h2>
-              <p className="t-subhead mt-4 text-base text-[#010207]/55 sm:text-[1rem] sm:leading-normal">
+              <p className="t-subhead mt-4 text-base text-ink-muted sm:text-[1rem] sm:leading-normal">
                 {partnersSection.description}
               </p>
             </div>
@@ -186,7 +186,7 @@ export function PartnersSecurity({
       </section>
 
       {/* ───────── Data Security & Compliance — blue band ───────── */}
-      <section className="bg-brand-band relative overflow-hidden px-6 py-24 sm:px-10 sm:py-32">
+      <section className="bg-brand-band relative overflow-hidden px-gutter py-section">
         <Reveal className="relative z-10 mx-auto w-full max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
             <div className="t-intro flex flex-col gap-5 text-left lg:max-w-md">

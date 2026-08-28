@@ -214,7 +214,7 @@ function GrantsTimelineComponent({
   }));
 
   return (
-    <section className="bg-brand-band min-h-screen px-4 py-16 sm:px-4 sm:py-20">
+    <section className="bg-brand-band min-h-screen px-gutter py-section">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}

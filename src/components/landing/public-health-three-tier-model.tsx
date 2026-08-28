@@ -219,7 +219,7 @@ function TierPanel({ tier }: { tier: Tier }) {
                 <p className="secondaryFont text-[0.9rem] font-semibold text-[#121212] sm:text-[0.9375rem]">
                   {user.role}
                 </p>
-                <p className="secondaryFont mt-1 text-[0.82rem] leading-relaxed text-[#8f8f8f] sm:text-[0.875rem]">
+                <p className="secondaryFont mt-1 text-[0.82rem] leading-relaxed text-ink-muted sm:text-[0.875rem]">
                   {user.description}
                 </p>
               </motion.li>
@@ -244,7 +244,7 @@ export function PublicHealthThreeTierModel({
   return (
     <section
       id="three-tier-model"
-      className="bg-white px-6 py-20 text-[#121212] sm:px-10 sm:py-24 lg:py-28"
+      className="bg-white px-gutter py-section text-[#121212]"
     >
       <div className="mx-auto w-full max-w-7xl">
         <StaggerGroup className="mx-auto max-w-3xl text-center" stagger={0.1}>
@@ -260,14 +260,14 @@ export function PublicHealthThreeTierModel({
 
           <StaggerItem className="t-intro mx-auto mt-6">
             <h2 className="t-heading text-balance text-[#121212]">{section.heading}</h2>
-            <p className="secondaryFont t-subhead mt-5 text-[15px] leading-relaxed text-[#8f8f8f] sm:mt-6 sm:text-base">
+            <p className="secondaryFont t-subhead mt-5 text-[15px] leading-relaxed text-ink-muted sm:mt-6 sm:text-base">
               {section.description}
             </p>
           </StaggerItem>
         </StaggerGroup>
 
         <Reveal className="mt-12 flex justify-center sm:mt-14" delay={0.08}>
-          <div className="flex flex-wrap items-center justify-center gap-1 rounded-2xl border border-[#e8ebf0] bg-white p-1.5 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+          <div className="flex w-max max-w-full min-w-0 flex-nowrap items-center gap-1 overflow-x-auto overscroll-x-contain rounded-2xl border border-[#e8ebf0] bg-white p-1.5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {TIERS.map((t, index) => {
               const isActive = index === active;
               return (
@@ -276,10 +276,10 @@ export function PublicHealthThreeTierModel({
                   type="button"
                   onClick={() => setActive(index)}
                   aria-pressed={isActive}
-                  className={`secondaryFont rounded-xl px-5 py-2.5 text-[0.9rem] font-medium transition-all duration-300 sm:px-6 sm:text-[0.85rem] ${
+                  className={`secondaryFont shrink-0 rounded-xl px-5 py-2.5 text-[0.9rem] font-medium whitespace-nowrap transition-all duration-300 sm:px-6 sm:text-[0.85rem] ${
                     isActive
                       ? "bg-brand text-white shadow-[0_8px_24px_rgba(2,67,133,0.28)]"
-                      : "text-[#8f8f8f] hover:text-[#121212]"
+                      : "text-ink-muted hover:text-[#121212]"
                   }`}
                 >
                   {t.tabLabel}
