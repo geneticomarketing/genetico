@@ -22,6 +22,7 @@ import type {
 } from "@/payload-types";
 import { getPayloadClient, isCmsConfigured } from "./get-payload";
 import { DEFAULT_UTILITY_PAGES } from "./defaults/resources";
+import { resolveBadgeTheme, resolveMetricTheme, slugifyId } from "@/payload/fields/color-themes";
 
 type CollectionSlug = keyof Config["collections"];
 type GlobalSlug = keyof Config["globals"];
@@ -79,19 +80,21 @@ function mapBurdenCards(
   cards: NonNullable<SolutionPage["clinicalBurden"]>["cards"] | null | undefined,
 ): SolutionsContent["clinicalBurden"]["cards"] {
   return (cards ?? [])
-    .map((card) => {
+    .map((card, index) => {
       const collapsedTitle = (card.collapsedTitle ?? []).map((line) => line.line).filter(Boolean);
 
       if (!card.label || !card.title || collapsedTitle.length < 2) return null;
 
+      const theme = resolveBadgeTheme(card.badgeTheme, index);
+
       return {
-        id: card.cardId ?? "",
-        number: card.number,
+        id: card.cardId || slugifyId(card.label, `card-${index + 1}`),
+        number: card.number || String(index + 1).padStart(2, "0"),
         label: card.label,
         badge: card.badge,
-        badgeDot: card.badgeDot,
-        badgeBg: card.badgeBg,
-        badgeText: card.badgeText,
+        badgeDot: theme.badgeDot,
+        badgeBg: theme.badgeBg,
+        badgeText: theme.badgeText,
         title: card.title,
         collapsedTitle: [collapsedTitle[0], collapsedTitle[1]] as [string, string],
         description: card.description,
@@ -104,21 +107,23 @@ function mapOutcomeMetrics(
   metrics: NonNullable<SolutionPage["measurableOutcomes"]>["metrics"] | null | undefined,
 ): SolutionsContent["measurableOutcomes"]["metrics"] {
   return (metrics ?? [])
-    .map((metric) => {
+    .map((metric, index) => {
       if (!metric.label) return null;
 
+      const theme = resolveMetricTheme(metric.metricTheme, index);
+
       return {
-        id: metric.metricId ?? "",
+        id: metric.metricId || slugifyId(metric.label, `metric-${index + 1}`),
         maxPercent: metric.maxPercent,
         label: metric.label,
-        ringTrack: metric.ringTrack,
-        ringFill: metric.ringFill,
-        accent: metric.accent,
+        ringTrack: theme.ringTrack,
+        ringFill: theme.ringFill,
+        accent: theme.accent,
         fromText: metric.fromText,
         toText: metric.toText,
         negative: metric.negative ?? undefined,
         positive: metric.positive,
-        positiveIconBg: metric.positiveIconBg,
+        positiveIconBg: theme.positiveIconBg,
         centerValue: metric.centerValue ?? undefined,
         hideCenterSubLabel: metric.hideCenterSubLabel ?? undefined,
       };
@@ -129,9 +134,9 @@ function mapOutcomeMetrics(
 function mergeSolutionsContent(doc: SolutionPage, fallback: SolutionsContent): SolutionsContent {
   const cmsCards = mapBurdenCards(doc.clinicalBurden?.cards ?? []);
   const cmsRows = (doc.howItWorks?.rows ?? [])
-    .filter((row) => row?.category && row?.title && row?.number)
-    .map((row) => ({
-      number: row.number,
+    .filter((row) => row?.category && row?.title)
+    .map((row, index) => ({
+      number: row.number || String(index + 1).padStart(2, "0"),
       category: row.category,
       title: row.title,
       description: row.description,
