@@ -20,7 +20,7 @@ const FALLBACK_SECTIONS: PolicySection[] = [
   {
     title: "1. Introduction",
     body: [
-      "Genetico (\"we,\" \"us,\" or \"our\") operates IndiGeneUs.AI, a platform that structures clinical workflows, captures standardized patient data, and supports AI-assisted clinical decision-making for rare and genetic disorders.",
+      'Genetico ("we," "us," or "our") operates IndiGeneUs.AI, a platform that structures clinical workflows, captures standardized patient data, and supports AI-assisted clinical decision-making for rare and genetic disorders.',
       "This Privacy Policy explains how we collect, use, disclose, and safeguard information when you visit our website, use our platform, or otherwise interact with us. By using our services, you agree to the practices described here.",
     ],
   },
@@ -44,7 +44,10 @@ function richTextToParagraphs(body: unknown): string[] {
     if (!node || typeof node !== "object") continue;
     const record = node as { type?: string; children?: { text?: string }[] };
     if (record.type === "paragraph" && record.children?.length) {
-      const text = record.children.map((child) => child.text ?? "").join("").trim();
+      const text = record.children
+        .map((child) => child.text ?? "")
+        .join("")
+        .trim();
       if (text) paragraphs.push(text);
     }
   }
@@ -65,9 +68,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PrivacyPolicyPage() {
   const page = await getLegalPageBySlug("privacy-policy");
-  const sections: PolicySection[] =
-    page?.sections?.length ?
-      page.sections.map((section) => ({
+  const sections: PolicySection[] = page?.sections?.length
+    ? page.sections.map((section) => ({
         title: section.title,
         body: richTextToParagraphs(section.body),
         list: section.bullets?.map((item) => item.item).filter(Boolean),
@@ -107,7 +109,10 @@ export default async function PrivacyPolicyPage() {
             <section key={section.title}>
               <h2 className="text-lg font-medium text-white">{section.title}</h2>
               {section.body.map((paragraph) => (
-                <p key={paragraph} className="mt-3 text-sm leading-relaxed text-white/60 sm:text-base">
+                <p
+                  key={paragraph}
+                  className="mt-3 text-sm leading-relaxed text-white/60 sm:text-base"
+                >
                   {paragraph}
                 </p>
               ))}
@@ -122,7 +127,10 @@ export default async function PrivacyPolicyPage() {
                 </p>
               )}
               {section.list?.map((item) => (
-                <p key={item} className="mt-3 pl-4 text-sm leading-relaxed text-white/60 sm:text-base">
+                <p
+                  key={item}
+                  className="mt-3 pl-4 text-sm leading-relaxed text-white/60 sm:text-base"
+                >
                   <span aria-hidden className="mr-2 text-white/30">
                     •
                   </span>

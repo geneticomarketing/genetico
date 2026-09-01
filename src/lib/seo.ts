@@ -63,9 +63,8 @@ export function createPageMetadata({
   const canonicalPath = path.startsWith("/") ? path : path ? `/${path}` : "";
   const canonicalUrl = `${getSiteUrl()}${canonicalPath}`;
 
-  const openGraphImages =
-    ogImage ?
-      [{ url: ogImage, width: 1200, height: 630, alt: `${title} — ${SITE_NAME}` }]
+  const openGraphImages = ogImage
+    ? [{ url: ogImage, width: 1200, height: 630, alt: `${title} — ${SITE_NAME}` }]
     : undefined;
 
   return {
@@ -75,19 +74,19 @@ export function createPageMetadata({
     alternates: {
       canonical: canonicalUrl,
     },
-    robots: noIndex ?
-      { index: false, follow: false }
-    : {
-        index: true,
-        follow: true,
-        googleBot: {
+    robots: noIndex
+      ? { index: false, follow: false }
+      : {
           index: true,
           follow: true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-video-preview": -1,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+          },
         },
-      },
     openGraph: {
       type,
       locale: "en_US",

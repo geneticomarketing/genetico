@@ -47,7 +47,9 @@ export function useProjectScroll(options: UseScrollOptions = {}) {
       const target = readTarget(options.target);
 
       if (target) {
-        result.scrollYProgress.set(computeElementScrollProgress(target.getBoundingClientRect(), offsets));
+        result.scrollYProgress.set(
+          computeElementScrollProgress(target.getBoundingClientRect(), offsets),
+        );
         return;
       }
 

@@ -376,10 +376,7 @@ export function PublicHealthTierArchitecture({
 }) {
   const CLASSIFICATIONS = section.classifications;
   return (
-    <section
-      id="tier-architecture"
-      className="bg-[#f6f8fb] px-gutter py-section text-[#121212]"
-    >
+    <section id="tier-architecture" className="bg-[#f6f8fb] px-gutter py-section text-[#121212]">
       <div className="mx-auto w-full max-w-7xl">
         <StaggerGroup className="mx-auto max-w-3xl text-center" stagger={0.1}>
           <StaggerItem>

@@ -1,4 +1,8 @@
-import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, GlobalAfterChangeHook } from "payload";
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+  GlobalAfterChangeHook,
+} from "payload";
 
 import { revalidatePublicSite } from "@/lib/cms/revalidate-site";
 
@@ -21,17 +25,11 @@ function pathsForCollection(slug: string, doc: Record<string, unknown> | undefin
   return extra;
 }
 
-export const revalidateAfterCollectionChange: CollectionAfterChangeHook = ({
-  collection,
-  doc,
-}) => {
+export const revalidateAfterCollectionChange: CollectionAfterChangeHook = ({ collection, doc }) => {
   revalidatePublicSite(pathsForCollection(collection.slug, doc as Record<string, unknown>));
 };
 
-export const revalidateAfterCollectionDelete: CollectionAfterDeleteHook = ({
-  collection,
-  doc,
-}) => {
+export const revalidateAfterCollectionDelete: CollectionAfterDeleteHook = ({ collection, doc }) => {
   revalidatePublicSite(pathsForCollection(collection.slug, doc as Record<string, unknown>));
 };
 

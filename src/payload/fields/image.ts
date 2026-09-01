@@ -37,10 +37,7 @@ export const IMAGE_UPLOAD_PRESETS = {
 
 export type ImageUploadPreset = keyof typeof IMAGE_UPLOAD_PRESETS;
 
-export function imageUploadDescription(
-  preset: ImageUploadPreset,
-  extra?: string,
-): string {
+export function imageUploadDescription(preset: ImageUploadPreset, extra?: string): string {
   const { size, fileName } = IMAGE_UPLOAD_PRESETS[preset];
   const base = `Recommended size: ${size} Use a descriptive file name such as ${fileName}. Stick to lowercase letters, numbers, and hyphens.`;
   return extra ? `${base} ${extra}` : base;
@@ -77,8 +74,7 @@ export function imageUploadFields({
   preset,
   uploadDescription,
 }: ImageFieldOptions = {}): Field[] {
-  const description =
-    uploadDescription ?? (preset ? imageUploadDescription(preset) : undefined);
+  const description = uploadDescription ?? (preset ? imageUploadDescription(preset) : undefined);
 
   return [
     {
@@ -105,8 +101,7 @@ export function mediaUploadField({
   fallbackPathName,
   fallbackPathDescription = "Optional fallback static path if no upload is provided",
 }: MediaUploadFieldOptions): Field[] {
-  const description =
-    uploadDescription ?? (preset ? imageUploadDescription(preset) : undefined);
+  const description = uploadDescription ?? (preset ? imageUploadDescription(preset) : undefined);
 
   const fields: Field[] = [
     {

@@ -278,10 +278,7 @@ export function SolutionsMeasurableOutcomes({
   });
 
   return (
-    <section
-      id="measurable-outcomes"
-      className="bg-white px-gutter py-section text-[#121212]"
-    >
+    <section id="measurable-outcomes" className="bg-white px-gutter py-section text-[#121212]">
       <div ref={sectionRef} className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-3 sm:gap-4">

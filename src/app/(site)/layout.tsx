@@ -26,7 +26,9 @@ export default async function SiteLayout({
     <>
       <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       <SiteDataProvider value={{ navigation, footer, settings }}>
-        <AppChrome navigation={navigation} footer={footer}>{children}</AppChrome>
+        <AppChrome navigation={navigation} footer={footer}>
+          {children}
+        </AppChrome>
       </SiteDataProvider>
     </>
   );

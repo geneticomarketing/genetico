@@ -27,8 +27,10 @@ export function sortNavGroups(groups: NavGroupType[]): NavGroupType[] {
 
   return [...groups]
     .sort((a, b) => {
-      const aRank = groupRank.get(a.label as (typeof ADMIN_NAV_GROUP_ORDER)[number]) ?? Number.MAX_SAFE_INTEGER;
-      const bRank = groupRank.get(b.label as (typeof ADMIN_NAV_GROUP_ORDER)[number]) ?? Number.MAX_SAFE_INTEGER;
+      const aRank =
+        groupRank.get(a.label as (typeof ADMIN_NAV_GROUP_ORDER)[number]) ?? Number.MAX_SAFE_INTEGER;
+      const bRank =
+        groupRank.get(b.label as (typeof ADMIN_NAV_GROUP_ORDER)[number]) ?? Number.MAX_SAFE_INTEGER;
       return aRank - bRank;
     })
     .map(sortEntities);

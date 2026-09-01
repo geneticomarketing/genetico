@@ -60,10 +60,7 @@ export function PlatformSecurity({
           </div>
 
           <div className="t-intro mx-auto mt-6">
-            <h2
-              className="t-heading text-white"
-              style={{ fontVariationSettings: '"SERF" 100' }}
-            >
+            <h2 className="t-heading text-white" style={{ fontVariationSettings: '"SERF" 100' }}>
               {section.heading}
             </h2>
 

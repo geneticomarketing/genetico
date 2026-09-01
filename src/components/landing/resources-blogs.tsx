@@ -20,10 +20,7 @@ export function ResourcesBlogs({
   const posts = (blogPosts.length ? blogPosts : BLOG_POSTS).slice(0, 3);
 
   return (
-    <section
-      id="blogs"
-      className="bg-white px-gutter py-section"
-    >
+    <section id="blogs" className="bg-white px-gutter py-section">
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <div className="flex min-w-0 items-center gap-4">

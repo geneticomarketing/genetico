@@ -684,9 +684,7 @@ function SolutionRow({
   tinted?: boolean;
 }) {
   return (
-    <div
-      className={`relative py-section ${tinted ? "rounded-3xl" : ""}`}
-    >
+    <div className={`relative py-section ${tinted ? "rounded-3xl" : ""}`}>
       <div
         className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-20 ${
           reverse ? "" : ""
@@ -737,10 +735,7 @@ export function SolutionsHowItWorks({
   content: import("@/lib/solutions-content").SolutionsContent["howItWorks"];
 }) {
   return (
-    <section
-      id="how-it-works"
-      className="bg-white px-gutter py-section text-[#121212]"
-    >
+    <section id="how-it-works" className="bg-white px-gutter py-section text-[#121212]">
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-4 sm:gap-6">

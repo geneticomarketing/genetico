@@ -58,10 +58,7 @@ export function ResourcesLibrary({
   };
 
   return (
-    <section
-      id="resources-library"
-      className="bg-white px-gutter py-section"
-    >
+    <section id="resources-library" className="bg-white px-gutter py-section">
       <div className="mx-auto w-full max-w-7xl">
         <Reveal>
           <article className="overflow-hidden rounded-[10px] border border-black/[0.08] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.05)] md:relative md:min-h-[480px] md:border-0 md:bg-black md:shadow-none lg:min-h-[520px]">

@@ -16,3 +16,10 @@ yarn.lock
 next-env.d.ts
 coverage/
 *.tsbuildinfo
+
+# Written by the Payload CLI, not by hand. `payload generate:importmap` runs as
+# part of `npm run build` and `generate:types` rewrites payload-types.ts, and
+# neither output is Prettier-formatted — so format-gating them makes any build
+# fail the next format:check.
+src/app/(payload)/admin/importMap.js
+src/payload-types.ts

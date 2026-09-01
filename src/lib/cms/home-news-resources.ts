@@ -1,6 +1,7 @@
 import { blogHref } from "@/lib/blogs";
 import { youtubeIdFromUrl, youtubeThumbnailUrl } from "@/lib/youtube";
-import { resolveMediaUrl } from "./resolve-media-url";import type {
+import { resolveMediaUrl } from "./resolve-media-url";
+import type {
   HomeNewsResourceCollection,
   HomeNewsResourcePicks,
   HomeNewsResourceRef,
@@ -40,7 +41,10 @@ function formatBlogDate(iso: string): string {
   });
 }
 
-function resourceHref(href: string, external = isExternalUrl(href)): Pick<NewsResourceItem, "href" | "external"> {
+function resourceHref(
+  href: string,
+  external = isExternalUrl(href),
+): Pick<NewsResourceItem, "href" | "external"> {
   return { href, external };
 }
 
@@ -185,8 +189,7 @@ export function mapDocToNewsResourceItem(
         title: dive.title,
         excerpt: dive.description || undefined,
         readTime: dive.duration || undefined,
-        thumbnail:
-          dive.thumbnailGradient || (youtubeId ? youtubeThumbnailUrl(youtubeId) : ""),
+        thumbnail: dive.thumbnailGradient || (youtubeId ? youtubeThumbnailUrl(youtubeId) : ""),
         ...resourceHref(dive.youtubeUrl),
       };
     }
@@ -198,7 +201,8 @@ export function mapDocToNewsResourceItem(
         category: "Article",
         title: article.title,
         thumbnail: "",
-        ...resourceHref(article.url),      };
+        ...resourceHref(article.url),
+      };
     }
     default:
       return null;

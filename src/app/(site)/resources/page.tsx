@@ -41,10 +41,7 @@ export default async function ResourcesPage() {
         deepDivesSection={data.deepDivesSection}
         deepDives={data.deepDives}
       />
-      <section
-        id="get-in-touch"
-        className="relative overflow-hidden bg-mist px-gutter py-section"
-      >
+      <section id="get-in-touch" className="relative overflow-hidden bg-mist px-gutter py-section">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <img
             src="/dna.svg"
@@ -56,9 +53,7 @@ export default async function ResourcesPage() {
 
         <Reveal className="relative z-10 mx-auto max-w-3xl text-center">
           <div className="t-intro mx-auto">
-            <h2 className="t-heading text-balance text-[#121212]">
-              {data.newsletterCta.heading}
-            </h2>
+            <h2 className="t-heading text-balance text-[#121212]">{data.newsletterCta.heading}</h2>
             <p className="t-subhead mt-5 text-base leading-relaxed text-ink-muted sm:mt-6 sm:text-[1rem]">
               {data.newsletterCta.description}
             </p>
