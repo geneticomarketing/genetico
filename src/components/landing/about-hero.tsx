@@ -83,7 +83,13 @@ export function AboutHero({ hero }: { hero: AboutPageData["hero"] }) {
           <h1 className="t-display text-balance text-[#121212] sm:max-w-none">
             {hero.titleLine1}
             <br />
-            For <span className="text-brand">{hero.titleHighlight}</span>
+            {hero.titleLine2}
+            {hero.titleHighlight ? (
+              <>
+                {hero.titleLine2 ? " " : null}
+                <span className="text-brand">{hero.titleHighlight}</span>
+              </>
+            ) : null}
           </h1>
           <p className="t-subhead mt-6 text-sm leading-relaxed text-pretty text-black/70 sm:text-base">
             {hero.subtitle}

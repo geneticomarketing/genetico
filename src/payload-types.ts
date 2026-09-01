@@ -13,53 +13,53 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-  | 'Pacific/Midway'
-  | 'Pacific/Niue'
-  | 'Pacific/Honolulu'
-  | 'Pacific/Rarotonga'
-  | 'America/Anchorage'
-  | 'Pacific/Gambier'
-  | 'America/Los_Angeles'
-  | 'America/Tijuana'
-  | 'America/Denver'
-  | 'America/Phoenix'
-  | 'America/Chicago'
-  | 'America/Guatemala'
-  | 'America/New_York'
-  | 'America/Bogota'
-  | 'America/Caracas'
-  | 'America/Santiago'
-  | 'America/Buenos_Aires'
-  | 'America/Sao_Paulo'
-  | 'Atlantic/South_Georgia'
-  | 'Atlantic/Azores'
-  | 'Atlantic/Cape_Verde'
-  | 'Europe/London'
-  | 'Europe/Berlin'
-  | 'Africa/Lagos'
-  | 'Europe/Athens'
-  | 'Africa/Cairo'
-  | 'Europe/Moscow'
-  | 'Asia/Riyadh'
-  | 'Asia/Dubai'
-  | 'Asia/Baku'
-  | 'Asia/Karachi'
-  | 'Asia/Tashkent'
-  | 'Asia/Calcutta'
-  | 'Asia/Dhaka'
-  | 'Asia/Almaty'
-  | 'Asia/Jakarta'
-  | 'Asia/Bangkok'
-  | 'Asia/Shanghai'
-  | 'Asia/Singapore'
-  | 'Asia/Tokyo'
-  | 'Asia/Seoul'
-  | 'Australia/Brisbane'
-  | 'Australia/Sydney'
-  | 'Pacific/Guam'
-  | 'Pacific/Noumea'
-  | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | "Pacific/Midway"
+  | "Pacific/Niue"
+  | "Pacific/Honolulu"
+  | "Pacific/Rarotonga"
+  | "America/Anchorage"
+  | "Pacific/Gambier"
+  | "America/Los_Angeles"
+  | "America/Tijuana"
+  | "America/Denver"
+  | "America/Phoenix"
+  | "America/Chicago"
+  | "America/Guatemala"
+  | "America/New_York"
+  | "America/Bogota"
+  | "America/Caracas"
+  | "America/Santiago"
+  | "America/Buenos_Aires"
+  | "America/Sao_Paulo"
+  | "Atlantic/South_Georgia"
+  | "Atlantic/Azores"
+  | "Atlantic/Cape_Verde"
+  | "Europe/London"
+  | "Europe/Berlin"
+  | "Africa/Lagos"
+  | "Europe/Athens"
+  | "Africa/Cairo"
+  | "Europe/Moscow"
+  | "Asia/Riyadh"
+  | "Asia/Dubai"
+  | "Asia/Baku"
+  | "Asia/Karachi"
+  | "Asia/Tashkent"
+  | "Asia/Calcutta"
+  | "Asia/Dhaka"
+  | "Asia/Almaty"
+  | "Asia/Jakarta"
+  | "Asia/Bangkok"
+  | "Asia/Shanghai"
+  | "Asia/Singapore"
+  | "Asia/Tokyo"
+  | "Asia/Seoul"
+  | "Australia/Brisbane"
+  | "Australia/Sydney"
+  | "Pacific/Guam"
+  | "Pacific/Noumea"
+  | "Pacific/Auckland"
+  | "Pacific/Fiji";
 
 export interface Config {
   auth: {
@@ -68,124 +68,150 @@ export interface Config {
   blocks: {};
   collections: {
     partners: Partner;
-    'ecosystem-modules': EcosystemModule;
-    'ecosystem-gaps': EcosystemGap;
-    'team-members': TeamMember;
-    'grants-awards': GrantsAward;
-    'solution-pages': SolutionPage;
-    'blog-posts': BlogPost;
-    'featured-videos': FeaturedVideo;
-    'short-videos': ShortVideo;
-    'deep-dives': DeepDive;
-    'external-articles': ExternalArticle;
-    'legal-pages': LegalPage;
+    "ecosystem-modules": EcosystemModule;
+    "ecosystem-gaps": EcosystemGap;
+    "team-members": TeamMember;
+    "grants-awards": GrantsAward;
+    "solution-pages": SolutionPage;
+    "blog-posts": BlogPost;
+    "featured-videos": FeaturedVideo;
+    "short-videos": ShortVideo;
+    "deep-dives": DeepDive;
+    "external-articles": ExternalArticle;
+    "legal-pages": LegalPage;
     media: Media;
     users: User;
-    'payload-kv': PayloadKv;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
+    "payload-kv": PayloadKv;
+    "payload-locked-documents": PayloadLockedDocument;
+    "payload-preferences": PayloadPreference;
+    "payload-migrations": PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
     partners: PartnersSelect<false> | PartnersSelect<true>;
-    'ecosystem-modules': EcosystemModulesSelect<false> | EcosystemModulesSelect<true>;
-    'ecosystem-gaps': EcosystemGapsSelect<false> | EcosystemGapsSelect<true>;
-    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
-    'grants-awards': GrantsAwardsSelect<false> | GrantsAwardsSelect<true>;
-    'solution-pages': SolutionPagesSelect<false> | SolutionPagesSelect<true>;
-    'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
-    'featured-videos': FeaturedVideosSelect<false> | FeaturedVideosSelect<true>;
-    'short-videos': ShortVideosSelect<false> | ShortVideosSelect<true>;
-    'deep-dives': DeepDivesSelect<false> | DeepDivesSelect<true>;
-    'external-articles': ExternalArticlesSelect<false> | ExternalArticlesSelect<true>;
-    'legal-pages': LegalPagesSelect<false> | LegalPagesSelect<true>;
+    "ecosystem-modules": EcosystemModulesSelect<false> | EcosystemModulesSelect<true>;
+    "ecosystem-gaps": EcosystemGapsSelect<false> | EcosystemGapsSelect<true>;
+    "team-members": TeamMembersSelect<false> | TeamMembersSelect<true>;
+    "grants-awards": GrantsAwardsSelect<false> | GrantsAwardsSelect<true>;
+    "solution-pages": SolutionPagesSelect<false> | SolutionPagesSelect<true>;
+    "blog-posts": BlogPostsSelect<false> | BlogPostsSelect<true>;
+    "featured-videos": FeaturedVideosSelect<false> | FeaturedVideosSelect<true>;
+    "short-videos": ShortVideosSelect<false> | ShortVideosSelect<true>;
+    "deep-dives": DeepDivesSelect<false> | DeepDivesSelect<true>;
+    "external-articles": ExternalArticlesSelect<false> | ExternalArticlesSelect<true>;
+    "legal-pages": LegalPagesSelect<false> | LegalPagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+    "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
+    "payload-locked-documents":
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
+    "payload-preferences": PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    "payload-migrations": PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {
-    'home-hero': HomeHero;
-    'home-who-we-are': HomeWhoWeAre;
-    'home-ecosystem-challenges': HomeEcosystemChallenge;
-    'home-ecosystem-gaps': HomeEcosystemGap;
-    'home-partners': HomePartner;
-    'home-security': HomeSecurity;
-    'home-news': HomeNew;
-    'home-faqs': HomeFaq;
-    'home-cta': HomeCta;
-    'about-hero': AboutHero;
-    'about-vision': AboutVision;
-    'about-foundations': AboutFoundation;
-    'about-leadership': AboutLeadership;
-    'about-grants': AboutGrant;
-    'about-cta': AboutCta;
-    'platform-hero': PlatformHero;
-    'platform-features': PlatformFeature;
-    'platform-clinical-intelligence': PlatformClinicalIntelligence;
-    'platform-longitudinal-care': PlatformLongitudinalCare;
-    'platform-infrastructure': PlatformInfrastructure;
-    'platform-security': PlatformSecurity;
-    'platform-cta': PlatformCta;
-    'public-health-hero': PublicHealthHero;
-    'public-health-impact': PublicHealthImpact;
-    'public-health-three-tier': PublicHealthThreeTier;
-    'public-health-architecture': PublicHealthArchitecture;
-    'public-health-cta': PublicHealthCta;
-    'resources-hero': ResourcesHero;
-    'resources-filter-tabs': ResourcesFilterTab;
-    'resources-blogs-section': ResourcesBlogsSection;
-    'resources-blog-listing': ResourcesBlogListing;
-    'resources-deep-dives-section': ResourcesDeepDivesSection;
-    'resources-newsletter': ResourcesNewsletter;
-    'utility-pages': UtilityPage;
-    'site-settings': SiteSetting;
+    "home-hero": HomeHero;
+    "home-who-we-are": HomeWhoWeAre;
+    "home-ecosystem-challenges": HomeEcosystemChallenge;
+    "home-ecosystem-gaps": HomeEcosystemGap;
+    "home-partners": HomePartner;
+    "home-security": HomeSecurity;
+    "home-news": HomeNew;
+    "home-faqs": HomeFaq;
+    "home-cta": HomeCta;
+    "about-hero": AboutHero;
+    "about-vision": AboutVision;
+    "about-foundations": AboutFoundation;
+    "about-leadership": AboutLeadership;
+    "about-grants": AboutGrant;
+    "about-cta": AboutCta;
+    "platform-hero": PlatformHero;
+    "platform-features": PlatformFeature;
+    "platform-clinical-intelligence": PlatformClinicalIntelligence;
+    "platform-longitudinal-care": PlatformLongitudinalCare;
+    "platform-infrastructure": PlatformInfrastructure;
+    "platform-security": PlatformSecurity;
+    "platform-cta": PlatformCta;
+    "public-health-hero": PublicHealthHero;
+    "public-health-impact": PublicHealthImpact;
+    "public-health-three-tier": PublicHealthThreeTier;
+    "public-health-architecture": PublicHealthArchitecture;
+    "public-health-cta": PublicHealthCta;
+    "resources-hero": ResourcesHero;
+    "resources-filter-tabs": ResourcesFilterTab;
+    "resources-videos-section": ResourcesVideosSection;
+    "resources-deep-dives-section": ResourcesDeepDivesSection;
+    "resources-articles-section": ResourcesArticlesSection;
+    "resources-blogs-section": ResourcesBlogsSection;
+    "resources-blog-listing": ResourcesBlogListing;
+    "resources-newsletter": ResourcesNewsletter;
+    "utility-pages": UtilityPage;
+    "site-settings": SiteSetting;
     navigation: Navigation;
     footer: Footer;
   };
   globalsSelect: {
-    'home-hero': HomeHeroSelect<false> | HomeHeroSelect<true>;
-    'home-who-we-are': HomeWhoWeAreSelect<false> | HomeWhoWeAreSelect<true>;
-    'home-ecosystem-challenges': HomeEcosystemChallengesSelect<false> | HomeEcosystemChallengesSelect<true>;
-    'home-ecosystem-gaps': HomeEcosystemGapsSelect<false> | HomeEcosystemGapsSelect<true>;
-    'home-partners': HomePartnersSelect<false> | HomePartnersSelect<true>;
-    'home-security': HomeSecuritySelect<false> | HomeSecuritySelect<true>;
-    'home-news': HomeNewsSelect<false> | HomeNewsSelect<true>;
-    'home-faqs': HomeFaqsSelect<false> | HomeFaqsSelect<true>;
-    'home-cta': HomeCtaSelect<false> | HomeCtaSelect<true>;
-    'about-hero': AboutHeroSelect<false> | AboutHeroSelect<true>;
-    'about-vision': AboutVisionSelect<false> | AboutVisionSelect<true>;
-    'about-foundations': AboutFoundationsSelect<false> | AboutFoundationsSelect<true>;
-    'about-leadership': AboutLeadershipSelect<false> | AboutLeadershipSelect<true>;
-    'about-grants': AboutGrantsSelect<false> | AboutGrantsSelect<true>;
-    'about-cta': AboutCtaSelect<false> | AboutCtaSelect<true>;
-    'platform-hero': PlatformHeroSelect<false> | PlatformHeroSelect<true>;
-    'platform-features': PlatformFeaturesSelect<false> | PlatformFeaturesSelect<true>;
-    'platform-clinical-intelligence': PlatformClinicalIntelligenceSelect<false> | PlatformClinicalIntelligenceSelect<true>;
-    'platform-longitudinal-care': PlatformLongitudinalCareSelect<false> | PlatformLongitudinalCareSelect<true>;
-    'platform-infrastructure': PlatformInfrastructureSelect<false> | PlatformInfrastructureSelect<true>;
-    'platform-security': PlatformSecuritySelect<false> | PlatformSecuritySelect<true>;
-    'platform-cta': PlatformCtaSelect<false> | PlatformCtaSelect<true>;
-    'public-health-hero': PublicHealthHeroSelect<false> | PublicHealthHeroSelect<true>;
-    'public-health-impact': PublicHealthImpactSelect<false> | PublicHealthImpactSelect<true>;
-    'public-health-three-tier': PublicHealthThreeTierSelect<false> | PublicHealthThreeTierSelect<true>;
-    'public-health-architecture': PublicHealthArchitectureSelect<false> | PublicHealthArchitectureSelect<true>;
-    'public-health-cta': PublicHealthCtaSelect<false> | PublicHealthCtaSelect<true>;
-    'resources-hero': ResourcesHeroSelect<false> | ResourcesHeroSelect<true>;
-    'resources-filter-tabs': ResourcesFilterTabsSelect<false> | ResourcesFilterTabsSelect<true>;
-    'resources-blogs-section': ResourcesBlogsSectionSelect<false> | ResourcesBlogsSectionSelect<true>;
-    'resources-blog-listing': ResourcesBlogListingSelect<false> | ResourcesBlogListingSelect<true>;
-    'resources-deep-dives-section': ResourcesDeepDivesSectionSelect<false> | ResourcesDeepDivesSectionSelect<true>;
-    'resources-newsletter': ResourcesNewsletterSelect<false> | ResourcesNewsletterSelect<true>;
-    'utility-pages': UtilityPagesSelect<false> | UtilityPagesSelect<true>;
-    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    "home-hero": HomeHeroSelect<false> | HomeHeroSelect<true>;
+    "home-who-we-are": HomeWhoWeAreSelect<false> | HomeWhoWeAreSelect<true>;
+    "home-ecosystem-challenges":
+      | HomeEcosystemChallengesSelect<false>
+      | HomeEcosystemChallengesSelect<true>;
+    "home-ecosystem-gaps": HomeEcosystemGapsSelect<false> | HomeEcosystemGapsSelect<true>;
+    "home-partners": HomePartnersSelect<false> | HomePartnersSelect<true>;
+    "home-security": HomeSecuritySelect<false> | HomeSecuritySelect<true>;
+    "home-news": HomeNewsSelect<false> | HomeNewsSelect<true>;
+    "home-faqs": HomeFaqsSelect<false> | HomeFaqsSelect<true>;
+    "home-cta": HomeCtaSelect<false> | HomeCtaSelect<true>;
+    "about-hero": AboutHeroSelect<false> | AboutHeroSelect<true>;
+    "about-vision": AboutVisionSelect<false> | AboutVisionSelect<true>;
+    "about-foundations": AboutFoundationsSelect<false> | AboutFoundationsSelect<true>;
+    "about-leadership": AboutLeadershipSelect<false> | AboutLeadershipSelect<true>;
+    "about-grants": AboutGrantsSelect<false> | AboutGrantsSelect<true>;
+    "about-cta": AboutCtaSelect<false> | AboutCtaSelect<true>;
+    "platform-hero": PlatformHeroSelect<false> | PlatformHeroSelect<true>;
+    "platform-features": PlatformFeaturesSelect<false> | PlatformFeaturesSelect<true>;
+    "platform-clinical-intelligence":
+      | PlatformClinicalIntelligenceSelect<false>
+      | PlatformClinicalIntelligenceSelect<true>;
+    "platform-longitudinal-care":
+      | PlatformLongitudinalCareSelect<false>
+      | PlatformLongitudinalCareSelect<true>;
+    "platform-infrastructure":
+      | PlatformInfrastructureSelect<false>
+      | PlatformInfrastructureSelect<true>;
+    "platform-security": PlatformSecuritySelect<false> | PlatformSecuritySelect<true>;
+    "platform-cta": PlatformCtaSelect<false> | PlatformCtaSelect<true>;
+    "public-health-hero": PublicHealthHeroSelect<false> | PublicHealthHeroSelect<true>;
+    "public-health-impact": PublicHealthImpactSelect<false> | PublicHealthImpactSelect<true>;
+    "public-health-three-tier":
+      | PublicHealthThreeTierSelect<false>
+      | PublicHealthThreeTierSelect<true>;
+    "public-health-architecture":
+      | PublicHealthArchitectureSelect<false>
+      | PublicHealthArchitectureSelect<true>;
+    "public-health-cta": PublicHealthCtaSelect<false> | PublicHealthCtaSelect<true>;
+    "resources-hero": ResourcesHeroSelect<false> | ResourcesHeroSelect<true>;
+    "resources-filter-tabs": ResourcesFilterTabsSelect<false> | ResourcesFilterTabsSelect<true>;
+    "resources-videos-section":
+      | ResourcesVideosSectionSelect<false>
+      | ResourcesVideosSectionSelect<true>;
+    "resources-deep-dives-section":
+      | ResourcesDeepDivesSectionSelect<false>
+      | ResourcesDeepDivesSectionSelect<true>;
+    "resources-articles-section":
+      | ResourcesArticlesSectionSelect<false>
+      | ResourcesArticlesSectionSelect<true>;
+    "resources-blogs-section":
+      | ResourcesBlogsSectionSelect<false>
+      | ResourcesBlogsSectionSelect<true>;
+    "resources-blog-listing": ResourcesBlogListingSelect<false> | ResourcesBlogListingSelect<true>;
+    "resources-newsletter": ResourcesNewsletterSelect<false> | ResourcesNewsletterSelect<true>;
+    "utility-pages": UtilityPagesSelect<false> | UtilityPagesSelect<true>;
+    "site-settings": SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
   };
@@ -218,11 +244,16 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * The logos in the scrolling partner row. Appears on the home page and the About page, under the “Partners” heading.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "partners".
  */
 export interface Partner {
   id: number;
+  /**
+   * Used as the image description for screen readers.
+   */
   name: string;
   /**
    * Recommended size: 400 × 120 px or similar wide logo. PNG or SVG with a transparent background. Use a descriptive file name such as partner-birac-logo.png, partner-amity-logo.svg. Stick to lowercase letters, numbers, and hyphens.
@@ -232,11 +263,16 @@ export interface Partner {
    * Optional fallback static path if no upload is provided
    */
   logoUrl?: string | null;
+  /**
+   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
+   */
   sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * Every image and file used on the website. Upload here first, then pick the image from the page section that needs it.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
@@ -260,6 +296,8 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * The cards in the “Ecosystem Challenges” section of the home page. Each card flips between a problem and a solution.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ecosystem-modules".
  */
@@ -269,6 +307,9 @@ export interface EcosystemModule {
   description: string;
   problem: string;
   solution: string;
+  /**
+   * A path on this site such as /platform.
+   */
   href: string;
   /**
    * Recommended size: 128 × 128 px or smaller. PNG or SVG with a transparent background. Use a descriptive file name such as grant-birac-icon.png, ecosystem-clinicians-icon.svg. Stick to lowercase letters, numbers, and hyphens.
@@ -278,11 +319,16 @@ export interface EcosystemModule {
    * Fallback static icon path
    */
   iconUrl?: string | null;
+  /**
+   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
+   */
   sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * The tabs in the “Ecosystem Gaps” section of the home page. Each tab shows a problem beside its solution.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ecosystem-gaps".
  */
@@ -293,11 +339,16 @@ export interface EcosystemGap {
   problemDescription: string;
   solutionTitle: string;
   solutionDescription: string;
+  /**
+   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
+   */
   sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * The people shown in the leadership carousel on the About page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team-members".
  */
@@ -306,6 +357,9 @@ export interface TeamMember {
   name: string;
   title: string;
   about: string;
+  /**
+   * Full address, starting with https://
+   */
   linkedinUrl?: string | null;
   /**
    * Recommended size: 400 × 400 px or larger square crop. JPG or WebP, under 200 KB. Use a descriptive file name such as arjun-gupta.jpg, dr-rohit-sadanand.webp. Stick to lowercase letters, numbers, and hyphens.
@@ -315,11 +369,16 @@ export interface TeamMember {
    * Optional fallback static path if no upload is provided
    */
   photoUrl?: string | null;
+  /**
+   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
+   */
   sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * The recognition timeline on the About page. Entries alternate left and right automatically.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "grants-awards".
  */
@@ -336,94 +395,142 @@ export interface GrantsAward {
    * Optional fallback static path if no upload is provided
    */
   iconUrl?: string | null;
+  /**
+   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
+   */
   sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * Two pages share this layout: Hospital / Clinician / CoE (/hospital) and Life Science / Pharma (/life-science). Open the one you want to edit — do not create new entries.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "solution-pages".
  */
 export interface SolutionPage {
   id: number;
-  slug: 'hospital' | 'pharma';
+  slug: "hospital" | "pharma";
+  /**
+   * The top of the page. The headline is split so part of it can be coloured.
+   */
   hero: {
     eyebrow?: string | null;
     titleLine1: string;
     titleHighlight: string;
     subtitle: string;
   };
+  /**
+   * The expanding cards that describe the current burden.
+   */
   clinicalBurden: {
     label: string;
     heading: string;
     description: string;
     cards?:
       | {
-          cardId: string;
-          number: string;
           label: string;
           badge: string;
-          badgeDot: string;
-          badgeBg: string;
-          badgeText: string;
+          /**
+           * Leave empty to cycle through Red, Blue, Teal and Grey in order.
+           */
+          badgeTheme?: ("red" | "blue" | "teal" | "slate") | null;
           title: string;
+          /**
+           * Shown while the card is closed. Add exactly two lines — the card is hidden if there are fewer.
+           */
           collapsedTitle: {
             line: string;
             id?: string | null;
           }[];
           description: string;
+          /**
+           * Optional. Leave empty to number the cards automatically (01, 02, 03…).
+           */
+          number?: string | null;
+          /**
+           * Optional. Filled in automatically from the card title if you leave it empty.
+           */
+          cardId?: string | null;
           id?: string | null;
         }[]
       | null;
   };
+  /**
+   * The numbered walkthrough rows.
+   */
   howItWorks: {
     label: string;
     heading: string;
     description: string;
     rows?:
       | {
-          number: string;
           category: string;
           title: string;
           description: string;
           callout: string;
+          /**
+           * Optional. Leave empty to number the steps automatically (01, 02, 03…).
+           */
+          number?: string | null;
           reverse?: boolean | null;
           tinted?: boolean | null;
           id?: string | null;
         }[]
       | null;
   };
+  /**
+   * The circular progress rings and their before/after lines.
+   */
   measurableOutcomes: {
     label: string;
     heading: string;
     description: string;
     metrics?:
       | {
-          metricId: string;
-          maxPercent: number;
           label: string;
-          ringTrack: string;
-          ringFill: string;
-          accent: string;
+          /**
+           * How far the circle fills, as a percentage.
+           */
+          maxPercent: number;
+          /**
+           * Leave empty to cycle through Red, Green and Blue in order.
+           */
+          metricTheme?: ("red" | "green" | "blue") | null;
           fromText: string;
           toText: string;
-          negative?: string | null;
           positive: string;
-          positiveIconBg: string;
+          negative?: string | null;
+          /**
+           * Leave empty to show the percentage above.
+           */
           centerValue?: string | null;
           hideCenterSubLabel?: boolean | null;
+          /**
+           * Optional. Filled in automatically from the metric name if you leave it empty.
+           */
+          metricId?: string | null;
           id?: string | null;
         }[]
       | null;
   };
+  /**
+   * The last band on the page, above the footer.
+   */
   cta: {
     heading: string;
     description: string;
+    /**
+     * Usually one or two. The first button is the more prominent one.
+     */
     buttons?:
       | {
           label: string;
+          /**
+           * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
+           */
           href: string;
-          variant?: ('primary' | 'secondary') | null;
+          variant?: ("primary" | "secondary") | null;
           id?: string | null;
         }[]
       | null;
@@ -432,19 +539,27 @@ export interface SolutionPage {
   createdAt: string;
 }
 /**
+ * Blog articles. They appear on the Resources page, on the /blog listing, and can be featured in the home page news section.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blog-posts".
  */
 export interface BlogPost {
   id: number;
-  slug: string;
-  category: string;
-  categoryColor: string;
   title: string;
+  /**
+   * The last part of the link, e.g. rare-disease-policy gives /blog/rare-disease-policy. Lowercase letters, numbers and hyphens only. Changing this breaks existing links.
+   */
+  slug: string;
   excerpt: string;
   author: string;
   publishedAt: string;
   readTime: string;
+  category: string;
+  /**
+   * A hex colour for the category label. Genetico blue is #024385; amber is #d97706.
+   */
+  categoryColor: string;
   /**
    * Recommended size: 800 × 450 px (16:9). JPG, WebP, or PNG, under 250 KB. Use a descriptive file name such as blog-rare-disease-policy.webp. Stick to lowercase letters, numbers, and hyphens.
    */
@@ -453,6 +568,9 @@ export interface BlogPost {
    * Optional fallback: CSS gradient or static image path if no upload is provided
    */
   thumbnail?: string | null;
+  /**
+   * Add one paragraph per row. Drag to reorder.
+   */
   content: {
     paragraph: string;
     id?: string | null;
@@ -461,6 +579,8 @@ export interface BlogPost {
   createdAt: string;
 }
 /**
+ * The large video panel near the top of the Resources page. Only the first entry is shown, so keep one here.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "featured-videos".
  */
@@ -468,6 +588,9 @@ export interface FeaturedVideo {
   id: number;
   title: string;
   description?: string | null;
+  /**
+   * Paste the link from YouTube's Share button, e.g. https://youtu.be/abc123. Shorts and normal videos both work.
+   */
   youtubeUrl: string;
   duration?: string | null;
   articleLink?: string | null;
@@ -478,11 +601,16 @@ export interface FeaturedVideo {
       }[]
     | null;
   featured?: boolean | null;
+  /**
+   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
+   */
   sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * The horizontal row of small video cards on the Resources page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "short-videos".
  */
@@ -491,13 +619,21 @@ export interface ShortVideo {
   title: string;
   description?: string | null;
   category: string;
+  /**
+   * Paste the link from YouTube's Share button, e.g. https://youtu.be/abc123. Shorts and normal videos both work.
+   */
   youtubeUrl: string;
   duration?: string | null;
+  /**
+   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
+   */
   sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * Long-form video sessions on the Resources page. Each one gets a full-width panel that alternates left and right.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "deep-dives".
  */
@@ -510,6 +646,9 @@ export interface DeepDive {
    * Hex color for the category label (e.g. #d97706)
    */
   categoryColor?: string | null;
+  /**
+   * Paste the link from YouTube's Share button, e.g. https://youtu.be/abc123. Shorts and normal videos both work.
+   */
   youtubeUrl: string;
   duration?: string | null;
   /**
@@ -530,23 +669,36 @@ export interface DeepDive {
    * Place the video on the left side. Leave unchecked to alternate automatically by sort order.
    */
   videoLeft?: boolean | null;
+  /**
+   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
+   */
   sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * Links out to articles published elsewhere (LinkedIn, press). Shown in the “Articles” section of the Resources page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "external-articles".
  */
 export interface ExternalArticle {
   id: number;
   title: string;
+  /**
+   * Full address, starting with https://
+   */
   url: string;
+  /**
+   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
+   */
   sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * Long-form legal pages such as the privacy policy. The web address comes from the “slug” field — privacy-policy becomes /privacy-policy.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "legal-pages".
  */
@@ -567,8 +719,8 @@ export interface LegalPage {
               version: number;
               [k: string]: unknown;
             }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            direction: ("ltr" | "rtl") | null;
+            format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
             indent: number;
             version: number;
           };
@@ -587,6 +739,8 @@ export interface LegalPage {
   createdAt: string;
 }
 /**
+ * People who can sign in to this admin panel.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -610,7 +764,7 @@ export interface User {
       }[]
     | null;
   password?: string | null;
-  collection: 'users';
+  collection: "users";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -637,64 +791,64 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'partners';
+        relationTo: "partners";
         value: number | Partner;
       } | null)
     | ({
-        relationTo: 'ecosystem-modules';
+        relationTo: "ecosystem-modules";
         value: number | EcosystemModule;
       } | null)
     | ({
-        relationTo: 'ecosystem-gaps';
+        relationTo: "ecosystem-gaps";
         value: number | EcosystemGap;
       } | null)
     | ({
-        relationTo: 'team-members';
+        relationTo: "team-members";
         value: number | TeamMember;
       } | null)
     | ({
-        relationTo: 'grants-awards';
+        relationTo: "grants-awards";
         value: number | GrantsAward;
       } | null)
     | ({
-        relationTo: 'solution-pages';
+        relationTo: "solution-pages";
         value: number | SolutionPage;
       } | null)
     | ({
-        relationTo: 'blog-posts';
+        relationTo: "blog-posts";
         value: number | BlogPost;
       } | null)
     | ({
-        relationTo: 'featured-videos';
+        relationTo: "featured-videos";
         value: number | FeaturedVideo;
       } | null)
     | ({
-        relationTo: 'short-videos';
+        relationTo: "short-videos";
         value: number | ShortVideo;
       } | null)
     | ({
-        relationTo: 'deep-dives';
+        relationTo: "deep-dives";
         value: number | DeepDive;
       } | null)
     | ({
-        relationTo: 'external-articles';
+        relationTo: "external-articles";
         value: number | ExternalArticle;
       } | null)
     | ({
-        relationTo: 'legal-pages';
+        relationTo: "legal-pages";
         value: number | LegalPage;
       } | null)
     | ({
-        relationTo: 'media';
+        relationTo: "media";
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'users';
+        relationTo: "users";
         value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: 'users';
+    relationTo: "users";
     value: number | User;
   };
   updatedAt: string;
@@ -707,7 +861,7 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: number;
   user: {
-    relationTo: 'users';
+    relationTo: "users";
     value: number | User;
   };
   key?: string | null;
@@ -828,13 +982,9 @@ export interface SolutionPagesSelect<T extends boolean = true> {
         cards?:
           | T
           | {
-              cardId?: T;
-              number?: T;
               label?: T;
               badge?: T;
-              badgeDot?: T;
-              badgeBg?: T;
-              badgeText?: T;
+              badgeTheme?: T;
               title?: T;
               collapsedTitle?:
                 | T
@@ -843,6 +993,8 @@ export interface SolutionPagesSelect<T extends boolean = true> {
                     id?: T;
                   };
               description?: T;
+              number?: T;
+              cardId?: T;
               id?: T;
             };
       };
@@ -855,11 +1007,11 @@ export interface SolutionPagesSelect<T extends boolean = true> {
         rows?:
           | T
           | {
-              number?: T;
               category?: T;
               title?: T;
               description?: T;
               callout?: T;
+              number?: T;
               reverse?: T;
               tinted?: T;
               id?: T;
@@ -874,19 +1026,16 @@ export interface SolutionPagesSelect<T extends boolean = true> {
         metrics?:
           | T
           | {
-              metricId?: T;
-              maxPercent?: T;
               label?: T;
-              ringTrack?: T;
-              ringFill?: T;
-              accent?: T;
+              maxPercent?: T;
+              metricTheme?: T;
               fromText?: T;
               toText?: T;
-              negative?: T;
               positive?: T;
-              positiveIconBg?: T;
+              negative?: T;
               centerValue?: T;
               hideCenterSubLabel?: T;
+              metricId?: T;
               id?: T;
             };
       };
@@ -912,14 +1061,14 @@ export interface SolutionPagesSelect<T extends boolean = true> {
  * via the `definition` "blog-posts_select".
  */
 export interface BlogPostsSelect<T extends boolean = true> {
-  slug?: T;
-  category?: T;
-  categoryColor?: T;
   title?: T;
+  slug?: T;
   excerpt?: T;
   author?: T;
   publishedAt?: T;
   readTime?: T;
+  category?: T;
+  categoryColor?: T;
   thumbnailImage?: T;
   thumbnail?: T;
   content?:
@@ -1109,24 +1258,35 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * The full-screen slideshow at the very top of the home page. Each slide has its own background image, small label, headline and button — the site rotates through them automatically.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-hero".
  */
 export interface HomeHero {
   id: number;
+  /**
+   * Drag to reorder. Slides play top to bottom.
+   */
   heroSlides?:
     | {
+        /**
+         * Not shown on the website — a short name so you can tell slides apart (e.g. hospitals, public-health).
+         */
         id: string;
-        title: string;
         eyebrow: string;
+        title: string;
         cta: string;
+        /**
+         * A path on this site such as /platform, or a full https:// address.
+         */
         href: string;
         /**
          * Recommended size: 1920 × 1080 px (16:9). WebP or JPG, ideally under 500 KB. Use a descriptive file name such as hero-bg.webp, hero-dna.jpg. Stick to lowercase letters, numbers, and hyphens.
          */
         backgroundImage?: (number | null) | Media;
         /**
-         * Fallback static image path if no upload is provided (e.g. /hero/hero-bg.webp)
+         * Leave empty unless a developer asked you to use a built-in image path (e.g. /hero/hero-bg.webp).
          */
         image?: string | null;
       }[]
@@ -1135,6 +1295,8 @@ export interface HomeHero {
   createdAt?: string | null;
 }
 /**
+ * The introduction paragraphs directly below the slideshow.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-who-we-are".
  */
@@ -1145,7 +1307,7 @@ export interface HomeWhoWeAre {
     | {
         text: string;
         /**
-         * Add exact phrases from the paragraph above to highlight in blue on the website
+         * Copy an exact phrase from the paragraph above to colour it blue. It must match the paragraph letter for letter, or nothing will be highlighted.
          */
         highlights?:
           | {
@@ -1160,6 +1322,8 @@ export interface HomeWhoWeAre {
   createdAt?: string | null;
 }
 /**
+ * Heading and description above the grid of challenge cards. The cards themselves are edited in “Ecosystem challenge cards” just below.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-ecosystem-challenges".
  */
@@ -1171,6 +1335,8 @@ export interface HomeEcosystemChallenge {
   createdAt?: string | null;
 }
 /**
+ * Heading and description above the tabbed “gaps” panel. The tabs themselves are edited in “Ecosystem gap tabs” just below.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-ecosystem-gaps".
  */
@@ -1182,6 +1348,8 @@ export interface HomeEcosystemGap {
   createdAt?: string | null;
 }
 /**
+ * Heading and description above the scrolling row of partner logos. The logos themselves are edited in “Partner logos” just below. This section also appears on the About page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-partners".
  */
@@ -1193,6 +1361,8 @@ export interface HomePartner {
   createdAt?: string | null;
 }
 /**
+ * The dark panel beside the partner logos, with the list of trust and compliance points. This section also appears on the About page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-security".
  */
@@ -1210,6 +1380,8 @@ export interface HomeSecurity {
   createdAt?: string | null;
 }
 /**
+ * The news band near the bottom of the home page. Pick which blog posts, videos and articles to feature — everything you can choose here is created on the Resources page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-news".
  */
@@ -1219,7 +1391,7 @@ export interface HomeNew {
   description?: string | null;
   ctaLabel?: string | null;
   /**
-   * Pick content from the Resources page to show on the home page news section.
+   * Choose one large featured item and up to four smaller items beside it. Leave empty to show the newest blog posts automatically.
    */
   resourcePicks?:
     | {
@@ -1234,6 +1406,8 @@ export interface HomeNew {
   createdAt?: string | null;
 }
 /**
+ * The frequently asked questions accordion near the bottom of the home page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-faqs".
  */
@@ -1253,6 +1427,8 @@ export interface HomeFaq {
   createdAt?: string | null;
 }
 /**
+ * The last band on the home page, above the footer.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-cta".
  */
@@ -1260,11 +1436,17 @@ export interface HomeCta {
   id: number;
   heading?: string | null;
   description?: string | null;
+  /**
+   * Usually one or two. The first button is the more prominent one.
+   */
   buttons?:
     | {
         label: string;
+        /**
+         * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
+         */
         href: string;
-        variant?: ('primary' | 'secondary') | null;
+        variant?: ("primary" | "secondary") | null;
         id?: string | null;
       }[]
     | null;
@@ -1272,14 +1454,30 @@ export interface HomeCta {
   createdAt?: string | null;
 }
 /**
+ * The top of the About page. The headline is split across two lines — see the help text on each field.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about-hero".
  */
 export interface AboutHero {
   id: number;
-  title: string;
+  /**
+   * Example: Building Infrastructure
+   */
+  titleLine1: string;
+  /**
+   * The plain words at the start of the second line, before the blue words. Example: For
+   */
+  titleLine2?: string | null;
+  /**
+   * The end of the second line, shown in blue. Example: Rare Disease Care
+   */
+  titleHighlight?: string | null;
   subtitle?: string | null;
   ctaLabel?: string | null;
+  /**
+   * A path on this site such as /platform, or a full https:// address.
+   */
   ctaHref?: string | null;
   labels?:
     | {
@@ -1291,16 +1489,21 @@ export interface AboutHero {
   createdAt?: string | null;
 }
 /**
+ * The large single-sentence statement directly below the hero.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about-vision".
  */
 export interface AboutVision {
   id: number;
+  eyebrow?: string | null;
   heading?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
+ * The numbered list of foundation points below the vision statement. Numbering is added automatically in the order you list them here.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about-foundations".
  */
@@ -1317,6 +1520,8 @@ export interface AboutFoundation {
   createdAt?: string | null;
 }
 /**
+ * Heading and intro above the leadership carousel. The people themselves are edited in “Team members” just below.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about-leadership".
  */
@@ -1329,6 +1534,8 @@ export interface AboutLeadership {
   createdAt?: string | null;
 }
 /**
+ * Heading and intro above the recognition timeline. The entries themselves are edited in “Grants & awards” just below.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about-grants".
  */
@@ -1341,6 +1548,8 @@ export interface AboutGrant {
   createdAt?: string | null;
 }
 /**
+ * The last band on the About page, above the footer. (Section 6 — the partner logos and Security & Trust panel — is shared with the home page and is edited under “Home page”.)
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about-cta".
  */
@@ -1348,11 +1557,17 @@ export interface AboutCta {
   id: number;
   heading?: string | null;
   description?: string | null;
+  /**
+   * Usually one or two. The first button is the more prominent one.
+   */
   buttons?:
     | {
         label: string;
+        /**
+         * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
+         */
         href: string;
-        variant?: ('primary' | 'secondary') | null;
+        variant?: ("primary" | "secondary") | null;
         id?: string | null;
       }[]
     | null;
@@ -1360,6 +1575,8 @@ export interface AboutCta {
   createdAt?: string | null;
 }
 /**
+ * The top of the Platform page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "platform-hero".
  */
@@ -1368,6 +1585,9 @@ export interface PlatformHero {
   title: string;
   subtitle?: string | null;
   ctaLabel?: string | null;
+  /**
+   * A path on this site such as /#get-in-touch, or a full https:// address.
+   */
   ctaHref?: string | null;
   /**
    * Recommended size: 1600 × 900 px or wider (16:9). WebP, PNG, or JPG, under 600 KB. Use a descriptive file name such as platform-hero.webp, public-health-hero.png. Stick to lowercase letters, numbers, and hyphens.
@@ -1381,6 +1601,8 @@ export interface PlatformHero {
   createdAt?: string | null;
 }
 /**
+ * The tabbed feature walkthrough below the hero. Each feature becomes one tab, numbered automatically in the order listed here.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "platform-features".
  */
@@ -1391,9 +1613,9 @@ export interface PlatformFeature {
   description?: string | null;
   features?:
     | {
+        title: string;
         category: string;
         subheading?: string | null;
-        title: string;
         description: string;
         bullets?:
           | {
@@ -1406,7 +1628,7 @@ export interface PlatformFeature {
          */
         illustrationImage?: (number | null) | Media;
         /**
-         * Fallback static illustration path if no upload is provided
+         * Leave empty unless a developer asked you to use a built-in image path (e.g. /platform/hpo-extraction.svg).
          */
         illustration?: string | null;
         id?: string | null;
@@ -1416,6 +1638,8 @@ export interface PlatformFeature {
   createdAt?: string | null;
 }
 /**
+ * The clinical decision support section, with its grid of capability cards.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "platform-clinical-intelligence".
  */
@@ -1436,6 +1660,8 @@ export interface PlatformClinicalIntelligence {
   createdAt?: string | null;
 }
 /**
+ * The patient-journey section, laid out as side-by-side columns.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "platform-longitudinal-care".
  */
@@ -1461,6 +1687,8 @@ export interface PlatformLongitudinalCare {
   createdAt?: string | null;
 }
 /**
+ * The integrations and deployment section.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "platform-infrastructure".
  */
@@ -1469,14 +1697,14 @@ export interface PlatformInfrastructure {
   eyebrow?: string | null;
   heading?: string | null;
   description?: string | null;
+  integrationsTitle?: string | null;
+  integrationsDescription?: string | null;
   integrationTags?:
     | {
         tag: string;
         id?: string | null;
       }[]
     | null;
-  integrationsTitle?: string | null;
-  integrationsDescription?: string | null;
   deploymentTitle?: string | null;
   deploymentDescription?: string | null;
   deploymentOptions?:
@@ -1490,6 +1718,8 @@ export interface PlatformInfrastructure {
   createdAt?: string | null;
 }
 /**
+ * The security cards near the bottom of the Platform page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "platform-security".
  */
@@ -1509,6 +1739,8 @@ export interface PlatformSecurity {
   createdAt?: string | null;
 }
 /**
+ * The last band on the Platform page, above the footer.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "platform-cta".
  */
@@ -1516,11 +1748,17 @@ export interface PlatformCta {
   id: number;
   heading?: string | null;
   description?: string | null;
+  /**
+   * Usually one or two. The first button is the more prominent one.
+   */
   buttons?:
     | {
         label: string;
+        /**
+         * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
+         */
         href: string;
-        variant?: ('primary' | 'secondary') | null;
+        variant?: ("primary" | "secondary") | null;
         id?: string | null;
       }[]
     | null;
@@ -1528,12 +1766,25 @@ export interface PlatformCta {
   createdAt?: string | null;
 }
 /**
+ * The top of the Public Health page. The headline is split across two lines — see the help text on each field.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-health-hero".
  */
 export interface PublicHealthHero {
   id: number;
-  title: string;
+  /**
+   * Example: Digital Backbone for
+   */
+  titleLine1: string;
+  /**
+   * The plain words at the start of the second line, before the teal words. Example: India's
+   */
+  titleLine2?: string | null;
+  /**
+   * The end of the second line, shown in teal. Example: rare disease ecosystem
+   */
+  titleHighlight?: string | null;
   subtitle?: string | null;
   /**
    * Recommended size: 1600 × 900 px or wider (16:9). WebP, PNG, or JPG, under 600 KB. Use a descriptive file name such as platform-hero.webp, public-health-hero.png. Stick to lowercase letters, numbers, and hyphens.
@@ -1547,11 +1798,14 @@ export interface PublicHealthHero {
   createdAt?: string | null;
 }
 /**
+ * The numbered impact cards directly below the hero. Numbering is added automatically in the order you list the cards.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-health-impact".
  */
 export interface PublicHealthImpact {
   id: number;
+  eyebrow?: string | null;
   heading?: string | null;
   description?: string | null;
   features?:
@@ -1565,11 +1819,14 @@ export interface PublicHealthImpact {
   createdAt?: string | null;
 }
 /**
+ * The three stacked tier panels that explain how the system works. List the tiers top to bottom.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-health-three-tier".
  */
 export interface PublicHealthThreeTier {
   id: number;
+  eyebrow?: string | null;
   heading?: string | null;
   description?: string | null;
   tiers?:
@@ -1601,13 +1858,20 @@ export interface PublicHealthThreeTier {
   createdAt?: string | null;
 }
 /**
+ * The connected-architecture diagram below the three-tier model.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-health-architecture".
  */
 export interface PublicHealthArchitecture {
   id: number;
+  eyebrow?: string | null;
   heading?: string | null;
   description?: string | null;
+  /**
+   * The small heading that sits above the list below. Example: Data classification
+   */
+  classificationLabel?: string | null;
   classifications?:
     | {
         level: string;
@@ -1627,6 +1891,8 @@ export interface PublicHealthArchitecture {
   createdAt?: string | null;
 }
 /**
+ * The last band on the Public Health page, above the footer.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "public-health-cta".
  */
@@ -1634,11 +1900,17 @@ export interface PublicHealthCta {
   id: number;
   heading?: string | null;
   description?: string | null;
+  /**
+   * Usually one or two. The first button is the more prominent one.
+   */
   buttons?:
     | {
         label: string;
+        /**
+         * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
+         */
         href: string;
-        variant?: ('primary' | 'secondary') | null;
+        variant?: ("primary" | "secondary") | null;
         id?: string | null;
       }[]
     | null;
@@ -1646,6 +1918,8 @@ export interface PublicHealthCta {
   createdAt?: string | null;
 }
 /**
+ * The top of the Resources page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "resources-hero".
  */
@@ -1653,6 +1927,7 @@ export interface ResourcesHero {
   id: number;
   title: string;
   subtitle?: string | null;
+  description?: string | null;
   /**
    * Recommended size: 1600 × 900 px or wider (16:9). WebP, PNG, or JPG, under 600 KB. Use a descriptive file name such as platform-hero.webp, public-health-hero.png. Stick to lowercase letters, numbers, and hyphens.
    */
@@ -1665,6 +1940,8 @@ export interface ResourcesHero {
   createdAt?: string | null;
 }
 /**
+ * The row of filter buttons below the hero. “All” should stay first. The other tabs only work with these exact words: Featured, Videos, Articles, Blogs.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "resources-filter-tabs".
  */
@@ -1680,33 +1957,20 @@ export interface ResourcesFilterTab {
   createdAt?: string | null;
 }
 /**
+ * Heading above the horizontal row of short video cards. The videos themselves are edited in “Short videos” just below.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "resources-blogs-section".
+ * via the `definition` "resources-videos-section".
  */
-export interface ResourcesBlogsSection {
+export interface ResourcesVideosSection {
   id: number;
   heading?: string | null;
-  seeAllLabel?: string | null;
-  seeAllHref?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "resources-blog-listing".
- */
-export interface ResourcesBlogListing {
-  id: number;
-  title?: string | null;
-  metaDescription?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  backLabel?: string | null;
-  backHref?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
+ * Heading above the long-form video sections. The videos themselves are edited in “Deep dives” just below.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "resources-deep-dives-section".
  */
@@ -1720,6 +1984,58 @@ export interface ResourcesDeepDivesSection {
   createdAt?: string | null;
 }
 /**
+ * Heading above the list of external article links. The links themselves are edited in “External articles” just below.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-articles-section".
+ */
+export interface ResourcesArticlesSection {
+  id: number;
+  heading?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Heading above the blog cards at the bottom of the Resources page. The posts themselves are edited in “Blog posts” just below.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-blogs-section".
+ */
+export interface ResourcesBlogsSection {
+  id: number;
+  heading?: string | null;
+  seeAllLabel?: string | null;
+  seeAllHref?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * A separate page that lists every blog post, reached from “See all” on the Resources page. This section controls only its header — the posts come from “Blog posts”.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-blog-listing".
+ */
+export interface ResourcesBlogListing {
+  id: number;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  backLabel?: string | null;
+  backHref?: string | null;
+  /**
+   * Shown in the browser tab and in Google results.
+   */
+  title?: string | null;
+  /**
+   * The grey summary line under the page title in Google results.
+   */
+  metaDescription?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The last band on the Resources page, above the footer.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "resources-newsletter".
  */
@@ -1733,38 +2049,56 @@ export interface ResourcesNewsletter {
   createdAt?: string | null;
 }
 /**
+ * A placeholder page used for links that are not live yet. Nothing links to it from the main menu.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "utility-pages".
  */
 export interface UtilityPage {
   id: number;
   comingSoon?: {
-    metaTitle?: string | null;
-    metaDescription?: string | null;
     eyebrow?: string | null;
     heading?: string | null;
     body?: string | null;
     backLabel?: string | null;
     backHref?: string | null;
+    /**
+     * Shown in the browser tab and in Google results.
+     */
+    metaTitle?: string | null;
+    metaDescription?: string | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
+ * Used across the whole website: where contact form submissions go, the booking link, and the wording of the “Get in touch” form.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".
  */
 export interface SiteSetting {
   id: number;
   siteName?: string | null;
+  /**
+   * The default summary shown in Google results and link previews.
+   */
   siteDescription?: string | null;
+  /**
+   * Shown on the site. Where enquiries are sent.
+   */
   contactEmail: string;
   contactEmailCc?: string | null;
-  calendlyUrl?: string | null;
   newsletterUrl?: string | null;
   featuredVideoUrl?: string | null;
+  /**
+   * The tabs across the top of the contact form. The chosen option is included in the email you receive.
+   */
   contactRoles?:
     | {
+        /**
+         * Not shown on the website (e.g. clinician, investor).
+         */
         id: string;
         label: string;
         description?: string | null;
@@ -1781,16 +2115,27 @@ export interface SiteSetting {
   createdAt?: string | null;
 }
 /**
+ * The menu bar at the top of every page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation".
  */
 export interface Navigation {
   id: number;
+  /**
+   * Shown left to right in this order.
+   */
   mainNav?:
     | {
         label: string;
+        /**
+         * Leave empty for the Solutions dropdown.
+         */
         href?: string | null;
-        type?: ('link' | 'dropdown') | null;
+        type?: ("link" | "dropdown") | null;
+        /**
+         * Tick only if this item sits on a light background.
+         */
         isDark?: boolean | null;
         id?: string | null;
       }[]
@@ -1808,12 +2153,17 @@ export interface Navigation {
   createdAt?: string | null;
 }
 /**
+ * The band at the bottom of every page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
   id: number;
   tagline: string;
+  /**
+   * The year is added automatically.
+   */
   copyrightText?: string | null;
   sectionLabels?: {
     menuHeading?: string | null;
@@ -1837,7 +2187,7 @@ export interface Footer {
     | {
         name: string;
         href: string;
-        platform: 'x' | 'linkedin' | 'youtube';
+        platform: "x" | "linkedin" | "youtube";
         id?: string | null;
       }[]
     | null;
@@ -1849,6 +2199,9 @@ export interface Footer {
       }[]
     | null;
   contactLabel?: string | null;
+  /**
+   * Leave empty to jump to the contact form on whichever page the visitor is on, falling back to the home page form on pages without one.
+   */
   contactHref?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1862,8 +2215,8 @@ export interface HomeHeroSelect<T extends boolean = true> {
     | T
     | {
         id?: T;
-        title?: T;
         eyebrow?: T;
+        title?: T;
         cta?: T;
         href?: T;
         backgroundImage?: T;
@@ -2001,7 +2354,9 @@ export interface HomeCtaSelect<T extends boolean = true> {
  * via the `definition` "about-hero_select".
  */
 export interface AboutHeroSelect<T extends boolean = true> {
-  title?: T;
+  titleLine1?: T;
+  titleLine2?: T;
+  titleHighlight?: T;
   subtitle?: T;
   ctaLabel?: T;
   ctaHref?: T;
@@ -2020,6 +2375,7 @@ export interface AboutHeroSelect<T extends boolean = true> {
  * via the `definition` "about-vision_select".
  */
 export interface AboutVisionSelect<T extends boolean = true> {
+  eyebrow?: T;
   heading?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -2110,9 +2466,9 @@ export interface PlatformFeaturesSelect<T extends boolean = true> {
   features?:
     | T
     | {
+        title?: T;
         category?: T;
         subheading?: T;
-        title?: T;
         description?: T;
         bullets?:
           | T
@@ -2181,14 +2537,14 @@ export interface PlatformInfrastructureSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
   description?: T;
+  integrationsTitle?: T;
+  integrationsDescription?: T;
   integrationTags?:
     | T
     | {
         tag?: T;
         id?: T;
       };
-  integrationsTitle?: T;
-  integrationsDescription?: T;
   deploymentTitle?: T;
   deploymentDescription?: T;
   deploymentOptions?:
@@ -2245,7 +2601,9 @@ export interface PlatformCtaSelect<T extends boolean = true> {
  * via the `definition` "public-health-hero_select".
  */
 export interface PublicHealthHeroSelect<T extends boolean = true> {
-  title?: T;
+  titleLine1?: T;
+  titleLine2?: T;
+  titleHighlight?: T;
   subtitle?: T;
   image?: T;
   imageUrl?: T;
@@ -2258,6 +2616,7 @@ export interface PublicHealthHeroSelect<T extends boolean = true> {
  * via the `definition` "public-health-impact_select".
  */
 export interface PublicHealthImpactSelect<T extends boolean = true> {
+  eyebrow?: T;
   heading?: T;
   description?: T;
   features?:
@@ -2276,6 +2635,7 @@ export interface PublicHealthImpactSelect<T extends boolean = true> {
  * via the `definition` "public-health-three-tier_select".
  */
 export interface PublicHealthThreeTierSelect<T extends boolean = true> {
+  eyebrow?: T;
   heading?: T;
   description?: T;
   tiers?:
@@ -2312,8 +2672,10 @@ export interface PublicHealthThreeTierSelect<T extends boolean = true> {
  * via the `definition` "public-health-architecture_select".
  */
 export interface PublicHealthArchitectureSelect<T extends boolean = true> {
+  eyebrow?: T;
   heading?: T;
   description?: T;
+  classificationLabel?: T;
   classifications?:
     | T
     | {
@@ -2359,6 +2721,7 @@ export interface PublicHealthCtaSelect<T extends boolean = true> {
 export interface ResourcesHeroSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
+  description?: T;
   image?: T;
   imageUrl?: T;
   updatedAt?: T;
@@ -2382,6 +2745,39 @@ export interface ResourcesFilterTabsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-videos-section_select".
+ */
+export interface ResourcesVideosSectionSelect<T extends boolean = true> {
+  heading?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-deep-dives-section_select".
+ */
+export interface ResourcesDeepDivesSectionSelect<T extends boolean = true> {
+  heading?: T;
+  subtitle?: T;
+  seeAllLabel?: T;
+  seeAllHref?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources-articles-section_select".
+ */
+export interface ResourcesArticlesSectionSelect<T extends boolean = true> {
+  heading?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "resources-blogs-section_select".
  */
 export interface ResourcesBlogsSectionSelect<T extends boolean = true> {
@@ -2397,25 +2793,13 @@ export interface ResourcesBlogsSectionSelect<T extends boolean = true> {
  * via the `definition` "resources-blog-listing_select".
  */
 export interface ResourcesBlogListingSelect<T extends boolean = true> {
-  title?: T;
-  metaDescription?: T;
+  eyebrow?: T;
   heading?: T;
   description?: T;
   backLabel?: T;
   backHref?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "resources-deep-dives-section_select".
- */
-export interface ResourcesDeepDivesSectionSelect<T extends boolean = true> {
-  heading?: T;
-  subtitle?: T;
-  seeAllLabel?: T;
-  seeAllHref?: T;
+  title?: T;
+  metaDescription?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2441,13 +2825,13 @@ export interface UtilityPagesSelect<T extends boolean = true> {
   comingSoon?:
     | T
     | {
-        metaTitle?: T;
-        metaDescription?: T;
         eyebrow?: T;
         heading?: T;
         body?: T;
         backLabel?: T;
         backHref?: T;
+        metaTitle?: T;
+        metaDescription?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -2462,7 +2846,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   siteDescription?: T;
   contactEmail?: T;
   contactEmailCc?: T;
-  calendlyUrl?: T;
   newsletterUrl?: T;
   featuredVideoUrl?: T;
   contactRoles?:
@@ -2568,7 +2951,7 @@ export interface CollectionsWidget {
   data?: {
     [k: string]: unknown;
   };
-  width: 'full';
+  width: "full";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2578,7 +2961,6 @@ export interface Auth {
   [k: string]: unknown;
 }
 
-
-declare module 'payload' {
+declare module "payload" {
   export interface GeneratedTypes extends Config {}
 }

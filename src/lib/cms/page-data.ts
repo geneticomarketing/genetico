@@ -315,23 +315,22 @@ export async function getAboutPageData(): Promise<AboutPageData> {
     ]);
 
   const defaults = DEFAULT_ABOUT_PAGE;
-  const cmsTitle = hero?.title ?? "";
-  const titleParts = cmsTitle.includes("For") ? cmsTitle.split(/\s+For\s+/) : [cmsTitle, ""];
 
   const team = teamDocs.length ? mapTeamMembers(teamDocs) : defaults.team;
   const grantItems = grantDocs.length ? mapGrants(grantDocs) : defaults.grantItems;
 
   return {
     hero: {
-      titleLine1: titleParts[0] || defaults.hero.titleLine1,
-      titleHighlight: titleParts[1] || defaults.hero.titleHighlight,
+      titleLine1: hero?.titleLine1 || defaults.hero.titleLine1,
+      titleLine2: hero?.titleLine2 ?? defaults.hero.titleLine2,
+      titleHighlight: hero?.titleHighlight || defaults.hero.titleHighlight,
       subtitle: hero?.subtitle || defaults.hero.subtitle,
       ctaLabel: hero?.ctaLabel || defaults.hero.ctaLabel,
       ctaHref: hero?.ctaHref || defaults.hero.ctaHref,
       labels: hero?.labels?.map((l) => l.label).filter(Boolean) || defaults.hero.labels,
     },
     vision: {
-      eyebrow: defaults.vision.eyebrow,
+      eyebrow: vision?.eyebrow || defaults.vision.eyebrow,
       heading: vision?.heading || defaults.vision.heading,
     },
     foundations: foundations?.items?.length
@@ -477,18 +476,16 @@ export async function getPublicHealthPageData(): Promise<PublicHealthPageData> {
 
   const defaults = DEFAULT_PUBLIC_HEALTH_PAGE;
 
-  const cmsTitle = hero?.title ?? "";
-  const titleLines = cmsTitle.includes("\n") ? cmsTitle.split("\n") : cmsTitle.split(" for ");
-
   return {
     hero: {
-      titleLine1: titleLines[0]?.trim() || defaults.hero.titleLine1,
-      titleLine2: titleLines[1]?.trim() || defaults.hero.titleLine2,
+      titleLine1: hero?.titleLine1 || defaults.hero.titleLine1,
+      titleLine2: hero?.titleLine2 ?? defaults.hero.titleLine2,
+      titleHighlight: hero?.titleHighlight || defaults.hero.titleHighlight,
       subtitle: hero?.subtitle || defaults.hero.subtitle,
       image: resolveMediaUrl(hero?.image, hero?.imageUrl) || defaults.hero.image,
     },
     impact: {
-      eyebrow: defaults.impact.eyebrow,
+      eyebrow: impact?.eyebrow || defaults.impact.eyebrow,
       heading: impact?.heading || defaults.impact.heading,
       description: impact?.description || defaults.impact.description,
       features: impact?.features?.length
@@ -507,7 +504,7 @@ export async function getPublicHealthPageData(): Promise<PublicHealthPageData> {
         : defaults.impact.features,
     },
     threeTier: {
-      eyebrow: defaults.threeTier.eyebrow,
+      eyebrow: threeTier?.eyebrow || defaults.threeTier.eyebrow,
       heading: threeTier?.heading || defaults.threeTier.heading,
       description: threeTier?.description || defaults.threeTier.description,
       tiers: threeTier?.tiers?.length
@@ -523,10 +520,11 @@ export async function getPublicHealthPageData(): Promise<PublicHealthPageData> {
         : defaults.threeTier.tiers,
     },
     architecture: {
-      eyebrow: defaults.architecture.eyebrow,
+      eyebrow: architecture?.eyebrow || defaults.architecture.eyebrow,
       heading: architecture?.heading || defaults.architecture.heading,
       description: architecture?.description || defaults.architecture.description,
-      classificationLabel: defaults.architecture.classificationLabel,
+      classificationLabel:
+        architecture?.classificationLabel || defaults.architecture.classificationLabel,
       classifications: architecture?.classifications?.length
         ? architecture.classifications.map((c, i) => ({
             id: defaults.architecture.classifications[i]?.id ?? `class-${i}`,
@@ -552,6 +550,8 @@ export async function getResourcesPageData(): Promise<
     blogListing,
     newsletter,
     deepDivesSection,
+    videosSection,
+    articlesSection,
     featuredVideos,
     shortVideos,
     deepDives,
@@ -564,6 +564,8 @@ export async function getResourcesPageData(): Promise<
     getSectionGlobal("resources-blog-listing"),
     getSectionGlobal("resources-newsletter"),
     getSectionGlobal("resources-deep-dives-section"),
+    getSectionGlobal("resources-videos-section"),
+    getSectionGlobal("resources-articles-section"),
     getCollection<CmsFeaturedVideo>("featured-videos", [] as CmsFeaturedVideo[]),
     getCollection<CmsShortVideo>("short-videos", [] as CmsShortVideo[]),
     getCollection<CmsDeepDive>("deep-dives", [] as CmsDeepDive[]),
@@ -578,7 +580,7 @@ export async function getResourcesPageData(): Promise<
     hero: {
       title: hero?.title || defaults.hero.title,
       subtitle: hero?.subtitle || defaults.hero.subtitle,
-      description: defaults.hero.description,
+      description: hero?.description || defaults.hero.description,
       image: resolveMediaUrl(hero?.image, hero?.imageUrl) || defaults.hero.image,
     },
     filterTabs:
@@ -591,7 +593,7 @@ export async function getResourcesPageData(): Promise<
     blogListing: {
       title: blogListing?.title || defaults.blogListing.title,
       metaDescription: blogListing?.metaDescription || defaults.blogListing.metaDescription,
-      eyebrow: defaults.blogListing.eyebrow,
+      eyebrow: blogListing?.eyebrow || defaults.blogListing.eyebrow,
       heading: blogListing?.heading || defaults.blogListing.heading,
       description: blogListing?.description || defaults.blogListing.description,
       backLabel: blogListing?.backLabel || defaults.blogListing.backLabel,
@@ -626,7 +628,10 @@ export async function getResourcesPageData(): Promise<
     externalArticles: externalArticles.length
       ? externalArticles.map((a) => ({ title: a.title, url: a.url }))
       : defaults.externalArticles,
-    sectionHeadings: defaults.sectionHeadings,
+    sectionHeadings: {
+      videos: videosSection?.heading || defaults.sectionHeadings.videos,
+      articles: articlesSection?.heading || defaults.sectionHeadings.articles,
+    },
     deepDivesSection: {
       heading: deepDivesSection?.heading || defaults.deepDivesSection.heading,
       subtitle: deepDivesSection?.subtitle || defaults.deepDivesSection.subtitle,

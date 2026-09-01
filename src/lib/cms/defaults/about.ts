@@ -165,6 +165,7 @@ export const DEFAULT_GRANTS: GrantAward[] = [
 export const DEFAULT_ABOUT_PAGE: AboutPageData = {
   hero: {
     titleLine1: "Building Infrastructure",
+    titleLine2: "For",
     titleHighlight: "Rare Disease Care",
     subtitle:
       "An AI-enabled digital infrastructure connecting clinical care, research, and public health to transform rare disease diagnosis, management, and outcomes.",
