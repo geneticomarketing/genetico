@@ -17,9 +17,13 @@ const PAGES_WITH_LEAD_FORM = [
   PUBLIC_HEALTH_PATH,
 ] as const;
 
+/**
+ * Link to the lead form: an in-page anchor when the current page renders one,
+ * otherwise the form on the home page.
+ */
 export function leadFormHref(pathname: string): string {
   if (PAGES_WITH_LEAD_FORM.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
     return LEAD_FORM_HASH;
   }
-  return `/${LEAD_FORM_HASH.slice(1)}`;
+  return `/${LEAD_FORM_HASH}`;
 }
