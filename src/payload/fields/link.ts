@@ -23,15 +23,31 @@ export const navLinkField: Field = {
 export const ctaButtonsField: Field = {
   name: "buttons",
   type: "array",
+  label: "Buttons",
+  labels: { singular: "Button", plural: "Buttons" },
+  admin: { description: "Usually one or two. The first button is the more prominent one." },
   fields: [
-    { name: "label", type: "text", required: true },
-    { name: "href", type: "text", required: true },
+    { name: "label", type: "text", required: true, label: "Button text" },
+    {
+      name: "href",
+      type: "text",
+      required: true,
+      label: "Button link",
+      admin: {
+        description:
+          "A path on this site such as /platform or /#get-in-touch, or a full https:// address.",
+      },
+    },
     {
       name: "variant",
       type: "select",
-      options: ["primary", "secondary"],
+      options: [
+        { label: "Solid (filled blue)", value: "primary" },
+        { label: "Outline", value: "secondary" },
+      ],
       defaultValue: "primary",
       enumName: "cta_buttons_variant",
+      label: "Style",
     },
   ],
 };
