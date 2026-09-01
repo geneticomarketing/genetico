@@ -59,19 +59,16 @@ export function PublicHealthHero({
 
       <div className="relative mx-auto flex h-full min-h-0 w-full max-w-4xl flex-col items-center justify-center px-gutter pt-24 pb-8 text-center sm:pt-28">
         <div className="t-intro-lg t-intro">
-          <motion.h1
-            {...heroEntrance(1, reduce)}
-            className="t-display text-balance text-white"
-          >
-            Digital Backbone for
+          <motion.h1 {...heroEntrance(1, reduce)} className="t-display text-balance text-white">
+            {hero.titleLine1}
             <br />
-            {hero.titleLine2.includes("India") ? (
+            {hero.titleLine2}
+            {hero.titleHighlight ? (
               <>
-                India&apos;s <span className="text-accent">rare disease ecosystem</span>
+                {hero.titleLine2 ? " " : null}
+                <span className="text-accent">{hero.titleHighlight}</span>
               </>
-            ) : (
-              hero.titleLine2
-            )}
+            ) : null}
           </motion.h1>
 
           <motion.p

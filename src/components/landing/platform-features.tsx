@@ -36,10 +36,7 @@ export function PlatformFeatures({
   const FEATURES = section.features;
 
   return (
-    <section
-      id="platform-features"
-      className="bg-white px-gutter py-section text-black"
-    >
+    <section id="platform-features" className="bg-white px-gutter py-section text-black">
       <div className="mx-auto w-full max-w-7xl">
         {/* Header */}
         <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16">

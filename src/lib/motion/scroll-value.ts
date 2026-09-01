@@ -1,7 +1,7 @@
 "use client";
 
 import { useMotionValueEvent, type MotionValue } from "motion/react";
-import { useLayoutEffect, useState } from "react";
+import { useState } from "react";
 
 export function mapProgress(
   progress: number,
@@ -23,19 +23,15 @@ export function useScrollMappedValue(
   outputRange: [number, number],
   enabled = true,
 ): number {
-  const [value, setValue] = useState(() =>
-    enabled ? mapProgress(progress.get(), inputRange, outputRange) : outputRange[1],
-  );
+  // The mapped value is derived on every render rather than mirrored into state,
+  // so it always reflects the current progress and the ranges currently passed in.
+  // The subscription exists only to schedule a re-render as the value changes.
+  const [, setTick] = useState(0);
 
-  useMotionValueEvent(progress, "change", (v) => {
+  useMotionValueEvent(progress, "change", () => {
     if (!enabled) return;
-    setValue(mapProgress(v, inputRange, outputRange));
+    setTick((tick) => tick + 1);
   });
 
-  useLayoutEffect(() => {
-    if (!enabled) return;
-    setValue(mapProgress(progress.get(), inputRange, outputRange));
-  }, [enabled, progress, inputRange, outputRange]);
-
-  return enabled ? value : outputRange[1];
+  return enabled ? mapProgress(progress.get(), inputRange, outputRange) : outputRange[1];
 }

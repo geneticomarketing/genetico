@@ -1,8 +1,9 @@
-import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
+import { NEWSLETTER_URL } from "@/lib/contact";
 import { BLOG_POSTS, blogHref } from "@/lib/blogs";
 import {
   COMING_SOON_PATH,
   HOSPITAL_PATH,
+  LEAD_FORM_HASH,
   PHARMA_PATH,
   PLATFORM_PATH,
   PUBLIC_HEALTH_PATH,
@@ -319,7 +320,7 @@ export const DEFAULT_HOME_PAGE: HomePageData = {
     description:
       "Discover how AI-enabled workflows, clinical decision support, and structured data infrastructure can help advance rare disease care, research, and public health initiatives.",
     buttons: [
-      { label: "Schedule a Demo", href: CALENDLY_URL, variant: "primary" },
+      { label: "Schedule a Demo", href: LEAD_FORM_HASH, variant: "primary" },
       { label: "Subscribe to Newsletter", href: NEWSLETTER_URL, variant: "secondary" },
     ],
   },

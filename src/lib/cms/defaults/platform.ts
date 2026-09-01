@@ -1,4 +1,5 @@
-import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
+import { NEWSLETTER_URL } from "@/lib/contact";
+import { LEAD_FORM_HASH } from "@/lib/routes";
 import type { PlatformPageData } from "../types";
 
 export const DEFAULT_PLATFORM_PAGE: PlatformPageData = {
@@ -205,7 +206,7 @@ export const DEFAULT_PLATFORM_PAGE: PlatformPageData = {
     description:
       "Discover how AI-assisted clinical workflows, structured data intelligence, clinical decision support, and advanced analytics can help transform rare disease care across your institution.",
     buttons: [
-      { label: "Book a Demo", href: CALENDLY_URL, variant: "primary" },
+      { label: "Book a Demo", href: LEAD_FORM_HASH, variant: "primary" },
       { label: "Subscribe for Updates", href: NEWSLETTER_URL, variant: "secondary" },
     ],
   },

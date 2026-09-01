@@ -114,32 +114,18 @@ export function ResourcesContent({
       {showFeatured ? <ResourcesLibrary featuredVideo={featuredVideo} /> : null}
 
       {showVideos ? (
-        <ResourcesShortVideos
-          videos={shortVideos}
-          heading={sectionHeadings.videos}
-        />
+        <ResourcesShortVideos videos={shortVideos} heading={sectionHeadings.videos} />
       ) : null}
 
       {showVideos ? (
-        <ResourcesDeepDives
-          deepDivesSection={deepDivesSection}
-          deepDives={deepDives}
-        />
+        <ResourcesDeepDives deepDivesSection={deepDivesSection} deepDives={deepDives} />
       ) : null}
 
       {showArticles ? (
-        <ResourcesEditorial
-          articles={externalArticles}
-          heading={sectionHeadings.articles}
-        />
+        <ResourcesEditorial articles={externalArticles} heading={sectionHeadings.articles} />
       ) : null}
 
-      {showBlogs ? (
-        <ResourcesBlogs
-          blogsSection={blogsSection}
-          blogPosts={blogPosts}
-        />
-      ) : null}
+      {showBlogs ? <ResourcesBlogs blogsSection={blogsSection} blogPosts={blogPosts} /> : null}
     </div>
   );
 }

@@ -341,10 +341,7 @@ export function SolutionsClinicalBurden({
       : MIN_EXPANDED_W;
 
   return (
-    <section
-      id="clinical-burden"
-      className="bg-white px-gutter py-section text-[#121212]"
-    >
+    <section id="clinical-burden" className="bg-white px-gutter py-section text-[#121212]">
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-4 sm:gap-6">

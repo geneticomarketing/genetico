@@ -61,13 +61,12 @@ async function getGlobalData(req: WidgetServerProps["req"]): Promise<GlobalLockD
   ): GlobalLockData[] =>
     config.globals.map((global) => {
       const lockDuration =
-        typeof global.lockDocuments === "object" ?
-          global.lockDocuments.duration
-        : globalLockDurationDefault;
+        typeof global.lockDocuments === "object"
+          ? global.lockDocuments.duration
+          : globalLockDurationDefault;
       const lockedDoc = lockedDocs.find((doc) => doc.globalSlug === global.slug);
       const rawUser = lockedDoc?.user?.value;
-      const userEditing =
-        typeof rawUser === "object" && rawUser !== null ? rawUser : null;
+      const userEditing = typeof rawUser === "object" && rawUser !== null ? rawUser : null;
 
       return {
         slug: global.slug,

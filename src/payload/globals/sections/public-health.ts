@@ -1,115 +1,158 @@
-import type { Field, GlobalConfig } from "payload";
-
 import { ctaButtonsField } from "../../fields/link";
 import { imageUploadFields } from "../../fields/image";
 import { ADMIN_GROUPS } from "../../admin-groups";
-import { withAdminGroup } from "../../with-admin-group";
-
-function pageSection(
-  slug: string,
-  label: string,
-  fields: Field[],
-  group: (typeof ADMIN_GROUPS)[keyof typeof ADMIN_GROUPS],
-): GlobalConfig {
-  return withAdminGroup({ slug, label, fields }, group);
-}
+import { pageSection } from "./section";
 
 export const PublicHealthHero = pageSection(
   "public-health-hero",
-  "Public Health — Hero",
+  "1. Hero",
+  "The top of the Public Health page. The headline is split across two lines — see the help text on each field.",
   [
-    { name: "title", type: "text", required: true },
-    { name: "subtitle", type: "textarea" },
-    ...imageUploadFields({ uploadLabel: "Hero image", preset: "pageHero" }),
+    {
+      name: "titleLine1",
+      type: "text",
+      required: true,
+      label: "Headline — first line",
+      admin: { description: "Example: Digital Backbone for" },
+    },
+    {
+      name: "titleLine2",
+      type: "text",
+      label: "Headline — second line",
+      admin: {
+        description:
+          "The plain words at the start of the second line, before the teal words. Example: India's",
+      },
+    },
+    {
+      name: "titleHighlight",
+      type: "text",
+      label: "Headline — words in teal",
+      admin: {
+        description: "The end of the second line, shown in teal. Example: rare disease ecosystem",
+      },
+    },
+    { name: "subtitle", type: "textarea", label: "Paragraph below the headline" },
+    ...imageUploadFields({ uploadLabel: "Background image", preset: "pageHero" }),
   ],
-  ADMIN_GROUPS.solutions,
+  ADMIN_GROUPS.publicHealth,
 );
 
 export const PublicHealthImpact = pageSection(
   "public-health-impact",
-  "Public Health — Impact",
+  "2. Impact at a Glance",
+  "The numbered impact cards directly below the hero. Numbering is added automatically in the order you list the cards.",
   [
-    { name: "heading", type: "text" },
-    { name: "description", type: "textarea" },
+    { name: "eyebrow", type: "text", label: "Small label above the heading" },
+    { name: "heading", type: "text", label: "Heading" },
+    { name: "description", type: "textarea", label: "Description" },
     {
       name: "features",
       type: "array",
+      label: "Impact cards",
+      labels: { singular: "Card", plural: "Cards" },
       fields: [
-        { name: "title", type: "text", required: true },
-        { name: "description", type: "textarea", required: true },
+        { name: "title", type: "text", required: true, label: "Title" },
+        { name: "description", type: "textarea", required: true, label: "Description" },
       ],
     },
   ],
-  ADMIN_GROUPS.solutions,
+  ADMIN_GROUPS.publicHealth,
 );
 
 export const PublicHealthThreeTier = pageSection(
   "public-health-three-tier",
-  "Public Health — Three Tier Model",
+  "3. Three-Tier Model",
+  "The three stacked tier panels that explain how the system works. List the tiers top to bottom.",
   [
-    { name: "heading", type: "text" },
-    { name: "description", type: "textarea" },
+    { name: "eyebrow", type: "text", label: "Small label above the heading" },
+    { name: "heading", type: "text", label: "Heading" },
+    { name: "description", type: "textarea", label: "Description" },
     {
       name: "tiers",
       type: "array",
+      label: "Tiers",
+      labels: { singular: "Tier", plural: "Tiers" },
       fields: [
-        { name: "bannerLabel", type: "text", required: true },
+        { name: "bannerLabel", type: "text", required: true, label: "Tier name" },
         {
           name: "happens",
           type: "array",
-          fields: [{ name: "item", type: "text", required: true }],
+          label: "What happens here",
+          labels: { singular: "Point", plural: "Points" },
+          fields: [{ name: "item", type: "text", required: true, label: "Point" }],
         },
         {
           name: "dataFlows",
           type: "array",
-          fields: [{ name: "item", type: "text", required: true }],
+          label: "Data that flows",
+          labels: { singular: "Item", plural: "Items" },
+          fields: [{ name: "item", type: "text", required: true, label: "Item" }],
         },
         {
           name: "users",
           type: "array",
+          label: "Who uses it",
+          labels: { singular: "Role", plural: "Roles" },
           fields: [
-            { name: "role", type: "text", required: true },
-            { name: "description", type: "textarea", required: true },
+            { name: "role", type: "text", required: true, label: "Role" },
+            { name: "description", type: "textarea", required: true, label: "What they do" },
           ],
         },
       ],
     },
   ],
-  ADMIN_GROUPS.solutions,
+  ADMIN_GROUPS.publicHealth,
 );
 
 export const PublicHealthArchitecture = pageSection(
   "public-health-architecture",
-  "Public Health — Architecture",
+  "4. How the Tiers Connect",
+  "The connected-architecture diagram below the three-tier model.",
   [
-    { name: "heading", type: "text" },
-    { name: "description", type: "textarea" },
+    { name: "eyebrow", type: "text", label: "Small label above the heading" },
+    { name: "heading", type: "text", label: "Heading" },
+    { name: "description", type: "textarea", label: "Description" },
+    {
+      name: "classificationLabel",
+      type: "text",
+      label: "Label above the classification list",
+      admin: {
+        description:
+          "The small heading that sits above the list below. Example: Data classification",
+      },
+    },
     {
       name: "classifications",
       type: "array",
+      label: "Classification levels",
+      labels: { singular: "Level", plural: "Levels" },
       fields: [
-        { name: "level", type: "text", required: true },
-        { name: "timeBadge", type: "text" },
-        { name: "title", type: "text", required: true },
-        { name: "description", type: "textarea", required: true },
+        { name: "level", type: "text", required: true, label: "Level name" },
+        { name: "timeBadge", type: "text", label: "Timing badge (optional)" },
+        { name: "title", type: "text", required: true, label: "Title" },
+        { name: "description", type: "textarea", required: true, label: "Description" },
         {
           name: "tags",
           type: "array",
-          fields: [{ name: "tag", type: "text", required: true }],
+          label: "Tags",
+          labels: { singular: "Tag", plural: "Tags" },
+          fields: [{ name: "tag", type: "text", required: true, label: "Tag" }],
         },
       ],
     },
   ],
-  ADMIN_GROUPS.solutions,
+  ADMIN_GROUPS.publicHealth,
 );
 
 export const PublicHealthCta = pageSection(
   "public-health-cta",
-  "Public Health — CTA",
+  "5. Closing call to action",
+  "The last band on the Public Health page, above the footer.",
   [
-    { name: "heading", type: "text" },
-    { name: "description", type: "textarea" },
+    { name: "heading", type: "text", label: "Heading" },
+    { name: "description", type: "textarea", label: "Description" },
     ctaButtonsField,
   ],
-  ADMIN_GROUPS.solutions,
+  ADMIN_GROUPS.publicHealth,
 );

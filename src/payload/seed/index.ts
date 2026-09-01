@@ -5,13 +5,12 @@ import config from "../../payload.config";
 import { BLOG_POSTS } from "../../lib/blogs";
 import { SOLUTIONS_CONTENT } from "../../lib/solutions-content";
 import {
-  CALENDLY_URL,
   CONTACT_EMAIL,
   CONTACT_EMAIL_CC,
   FEATURED_VIDEO_URL,
   NEWSLETTER_URL,
 } from "../../lib/contact";
-import { HOSPITAL_PATH, PHARMA_PATH, PUBLIC_HEALTH_PATH, leadFormHref } from "../../lib/routes";
+import { HOSPITAL_PATH, LEAD_FORM_HASH, PHARMA_PATH, PUBLIC_HEALTH_PATH } from "../../lib/routes";
 import { DEFAULT_ABOUT_PAGE, DEFAULT_GRANTS, DEFAULT_TEAM } from "../../lib/cms/defaults/about";
 import {
   DEFAULT_HOME_PAGE,
@@ -79,7 +78,6 @@ async function seed() {
         "IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format, and enables AI-assisted clinical decision-making for rare and genetic disorders.",
       contactEmail: CONTACT_EMAIL,
       contactEmailCc: CONTACT_EMAIL_CC,
-      calendlyUrl: CALENDLY_URL,
       newsletterUrl: NEWSLETTER_URL,
       featuredVideoUrl: FEATURED_VIDEO_URL,
       contactRoles: [
@@ -149,7 +147,7 @@ async function seed() {
         "IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format & enables AI-assisted clinical decision-making for rare and genetic disorders.",
       copyrightText: "Genetico. All rights reserved.",
       contactLabel: "Contact Us",
-      contactHref: CALENDLY_URL,
+      contactHref: LEAD_FORM_HASH,
       sectionLabels: {
         menuHeading: "Menu",
         solutionsHeading: "Solutions",
@@ -235,7 +233,9 @@ async function seed() {
   await payload.updateGlobal({
     slug: "about-hero",
     data: {
-      title: `${about.hero.titleLine1} ${about.hero.titleHighlight}`,
+      titleLine1: about.hero.titleLine1,
+      titleLine2: about.hero.titleLine2,
+      titleHighlight: about.hero.titleHighlight,
       subtitle: about.hero.subtitle,
       ctaLabel: about.hero.ctaLabel,
       ctaHref: about.hero.ctaHref,
@@ -345,7 +345,9 @@ async function seed() {
   await payload.updateGlobal({
     slug: "public-health-hero",
     data: {
-      title: `${publicHealth.hero.titleLine1} for ${publicHealth.hero.titleLine2}`,
+      titleLine1: publicHealth.hero.titleLine1,
+      titleLine2: publicHealth.hero.titleLine2,
+      titleHighlight: publicHealth.hero.titleHighlight,
       subtitle: publicHealth.hero.subtitle,
       imageUrl: publicHealth.hero.image,
     },
@@ -635,9 +637,7 @@ async function seed() {
   const featuredBlog = blogDocs.docs[0];
   const previewBlog = blogDocs.docs[1];
   const sidebarPicks = [
-    ...(previewBlog
-      ? [{ relationTo: "blog-posts" as const, value: previewBlog.id }]
-      : []),
+    ...(previewBlog ? [{ relationTo: "blog-posts" as const, value: previewBlog.id }] : []),
     ...articleDocs.docs.slice(0, 2).map((doc) => ({
       relationTo: "external-articles" as const,
       value: doc.id,

@@ -323,10 +323,7 @@ export function PlatformLongitudinalCare({
 }) {
   const COLUMNS = section.columns;
   return (
-    <section
-      id="longitudinal-care"
-      className="bg-[#f6f8fb] px-gutter py-section text-black"
-    >
+    <section id="longitudinal-care" className="bg-[#f6f8fb] px-gutter py-section text-black">
       <div className="mx-auto w-full max-w-7xl">
         <Reveal>
           <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16">

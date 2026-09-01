@@ -23,10 +23,7 @@ export function PageCtaSection({
   showContactForm = true,
 }: PageCtaSectionProps) {
   return (
-    <section
-      id="get-in-touch"
-      className="relative overflow-hidden bg-mist px-gutter pt-section"
-    >
+    <section id="get-in-touch" className="relative overflow-hidden bg-mist px-gutter pt-section">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <img
           src="/dna.svg"
@@ -41,9 +38,7 @@ export function PageCtaSection({
           <h2 className="t-heading text-balance text-[#121212]">{heading}</h2>
           <p className={descriptionClassName}>{description}</p>
         </div>
-        {buttons?.length ? (
-          <CtaButtons buttons={buttons} className="mt-8 mb-10 sm:mt-10" />
-        ) : null}
+        {buttons?.length ? <CtaButtons buttons={buttons} className="mt-8 mb-10 sm:mt-10" /> : null}
       </Reveal>
 
       {showContactForm ? <GetInTouch embedded /> : null}

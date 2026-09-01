@@ -4,7 +4,8 @@ import type { PublicHealthPageData } from "../types";
 export const DEFAULT_PUBLIC_HEALTH_PAGE: PublicHealthPageData = {
   hero: {
     titleLine1: "Digital Backbone for",
-    titleLine2: "India's rare disease ecosystem",
+    titleLine2: "India's",
+    titleHighlight: "rare disease ecosystem",
     subtitle:
       "IndiGeneUs.AI connects India's rare disease ecosystem in a Hub & Spoke model from PHC-level referral to CoE-level diagnosis, giving government health institutions the clinical and reporting tools they need for NPRD implementation.",
     image: "/phero.png",

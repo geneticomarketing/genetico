@@ -6,9 +6,12 @@ import { withAdminGroup } from "../with-admin-group";
 export const LegalPages = withAdminGroup(
   {
     slug: "legal-pages",
+    labels: { singular: "Legal page", plural: "Legal pages" },
     admin: {
       useAsTitle: "title",
       defaultColumns: ["slug", "title", "lastUpdated"],
+      description:
+        "Long-form legal pages such as the privacy policy. The web address comes from the “slug” field — privacy-policy becomes /privacy-policy.",
     },
     fields: [
       {

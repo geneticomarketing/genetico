@@ -8,7 +8,7 @@ export const DEFAULT_PRIVACY_POLICY = {
     {
       title: "1. Introduction",
       body: [
-        "Genetico (\"we,\" \"us,\" or \"our\") operates IndiGeneUs.AI, a platform that structures clinical workflows, captures standardized patient data, and supports AI-assisted clinical decision-making for rare and genetic disorders.",
+        'Genetico ("we," "us," or "our") operates IndiGeneUs.AI, a platform that structures clinical workflows, captures standardized patient data, and supports AI-assisted clinical decision-making for rare and genetic disorders.',
         "This Privacy Policy explains how we collect, use, disclose, and safeguard information when you visit our website, use our platform, or otherwise interact with us. By using our services, you agree to the practices described here.",
       ],
     },
@@ -89,7 +89,7 @@ export const DEFAULT_PRIVACY_POLICY = {
     {
       title: "12. Changes to This Policy",
       body: [
-        "We may update this Privacy Policy from time to time. We will post the updated policy on this page and update the \"Last updated\" date.",
+        'We may update this Privacy Policy from time to time. We will post the updated policy on this page and update the "Last updated" date.',
         "Material changes may be communicated through our website or directly to institutional customers where appropriate.",
       ],
     },

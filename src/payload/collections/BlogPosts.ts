@@ -6,19 +6,42 @@ import { withAdminGroup } from "../with-admin-group";
 export const BlogPosts = withAdminGroup(
   {
     slug: "blog-posts",
+    labels: { singular: "Blog post", plural: "Blog posts" },
     admin: {
       useAsTitle: "title",
       defaultColumns: ["title", "category", "author", "publishedAt"],
+      description:
+        "Blog articles. They appear on the Resources page, on the /blog listing, and can be featured in the home page news section.",
     },
     fields: [
-      { name: "slug", type: "text", required: true, unique: true },
-      { name: "category", type: "text", required: true },
-      { name: "categoryColor", type: "text", required: true, defaultValue: "#024385" },
-      { name: "title", type: "text", required: true },
-      { name: "excerpt", type: "textarea", required: true },
-      { name: "author", type: "text", required: true },
-      { name: "publishedAt", type: "date", required: true },
-      { name: "readTime", type: "text", required: true },
+      { name: "title", type: "text", required: true, label: "Title" },
+      {
+        name: "slug",
+        type: "text",
+        required: true,
+        unique: true,
+        label: "Web address",
+        admin: {
+          description:
+            "The last part of the link, e.g. rare-disease-policy gives /blog/rare-disease-policy. Lowercase letters, numbers and hyphens only. Changing this breaks existing links.",
+        },
+      },
+      { name: "excerpt", type: "textarea", required: true, label: "Summary" },
+      { name: "author", type: "text", required: true, label: "Author" },
+      { name: "publishedAt", type: "date", required: true, label: "Publish date" },
+      { name: "readTime", type: "text", required: true, label: "Reading time (e.g. 6 min read)" },
+      { name: "category", type: "text", required: true, label: "Category label" },
+      {
+        name: "categoryColor",
+        type: "text",
+        required: true,
+        defaultValue: "#024385",
+        label: "Category colour",
+        admin: {
+          description:
+            "A hex colour for the category label. Genetico blue is #024385; amber is #d97706.",
+        },
+      },
       ...mediaUploadField({
         name: "thumbnailImage",
         label: "Thumbnail image",
@@ -31,7 +54,10 @@ export const BlogPosts = withAdminGroup(
         name: "content",
         type: "array",
         required: true,
-        fields: [{ name: "paragraph", type: "textarea", required: true }],
+        label: "Article body",
+        labels: { singular: "Paragraph", plural: "Paragraphs" },
+        admin: { description: "Add one paragraph per row. Drag to reorder." },
+        fields: [{ name: "paragraph", type: "textarea", required: true, label: "Paragraph" }],
       },
     ],
   } satisfies CollectionConfig,

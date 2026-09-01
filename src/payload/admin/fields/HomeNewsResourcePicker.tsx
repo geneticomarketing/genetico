@@ -19,10 +19,7 @@ const MAX_SIDEBAR = 4;
 
 type ApiDoc = Record<string, unknown> & { id?: number | string };
 
-async function fetchCollectionDocs(
-  slug: string,
-  sort: string,
-): Promise<ApiDoc[]> {
+async function fetchCollectionDocs(slug: string, sort: string): Promise<ApiDoc[]> {
   const response = await fetch(`/api/${slug}?limit=100&depth=0&sort=${encodeURIComponent(sort)}`, {
     credentials: "include",
   });

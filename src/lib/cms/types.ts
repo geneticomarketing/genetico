@@ -152,6 +152,7 @@ export type ContactFormConfig = {
 export type AboutPageData = {
   hero: {
     titleLine1: string;
+    titleLine2: string;
     titleHighlight: string;
     subtitle: string;
     ctaLabel: string;
@@ -217,6 +218,7 @@ export type PublicHealthPageData = {
   hero: {
     titleLine1: string;
     titleLine2: string;
+    titleHighlight: string;
     subtitle: string;
     image: string;
   };

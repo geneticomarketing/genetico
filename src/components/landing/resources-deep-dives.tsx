@@ -192,10 +192,7 @@ export function ResourcesDeepDives({
   if (!items.length) return null;
 
   return (
-    <section
-      id="deep-dives"
-      className="bg-white px-gutter py-section"
-    >
+    <section id="deep-dives" className="bg-white px-gutter py-section">
       <div className="mx-auto w-full max-w-7xl">
         <Reveal className="flex items-end justify-between gap-6">
           <div className="flex min-w-0 items-center gap-4">

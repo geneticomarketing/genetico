@@ -30,12 +30,15 @@ export const Media = withAdminGroup(
     },
     admin: {
       useAsTitle: "alt",
+      description:
+        "Every image and file used on the website. Upload here first, then pick the image from the page section that needs it.",
     },
     fields: [
       {
         name: "alt",
         type: "text",
         required: true,
+        label: "Image description",
         admin: {
           description:
             "Describe the image for accessibility. When uploading, use a descriptive file name (e.g. hero-bg.webp, partner-birac-logo.png).",

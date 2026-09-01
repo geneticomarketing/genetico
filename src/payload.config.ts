@@ -11,12 +11,16 @@ import { buildPublicMediaUrl } from "./lib/cms/storage-url";
 import { Users } from "./payload/collections/Users";
 import { Media } from "./payload/collections/Media";
 import { BlogPosts } from "./payload/collections/BlogPosts";
-import { NewsArticles } from "./payload/collections/NewsArticles";
 import { TeamMembers } from "./payload/collections/TeamMembers";
 import { Partners } from "./payload/collections/Partners";
 import { GrantsAwards } from "./payload/collections/GrantsAwards";
 import { EcosystemModules, EcosystemGaps } from "./payload/collections/Ecosystem";
-import { DeepDives, FeaturedVideos, ShortVideos, ExternalArticles } from "./payload/collections/Resources";
+import {
+  DeepDives,
+  FeaturedVideos,
+  ShortVideos,
+  ExternalArticles,
+} from "./payload/collections/Resources";
 import { SolutionPages } from "./payload/collections/SolutionPages";
 import { LegalPages } from "./payload/collections/LegalPages";
 import { SiteSettings, Navigation, Footer } from "./payload/globals/Site";
@@ -59,6 +63,8 @@ import {
 import {
   ResourcesHero,
   ResourcesFilterTabs,
+  ResourcesVideosSection,
+  ResourcesArticlesSection,
   ResourcesBlogsSection,
   ResourcesBlogListing,
   ResourcesDeepDivesSection,
@@ -154,9 +160,11 @@ export default buildConfig({
     // Resources Page sections
     ResourcesHero,
     ResourcesFilterTabs,
+    ResourcesVideosSection,
+    ResourcesDeepDivesSection,
+    ResourcesArticlesSection,
     ResourcesBlogsSection,
     ResourcesBlogListing,
-    ResourcesDeepDivesSection,
     ResourcesNewsletter,
     // Legal & utility
     UtilityPages,

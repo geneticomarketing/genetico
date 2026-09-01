@@ -242,10 +242,7 @@ export function PublicHealthThreeTierModel({
   const tier = TIERS[active];
 
   return (
-    <section
-      id="three-tier-model"
-      className="bg-white px-gutter py-section text-[#121212]"
-    >
+    <section id="three-tier-model" className="bg-white px-gutter py-section text-[#121212]">
       <div className="mx-auto w-full max-w-7xl">
         <StaggerGroup className="mx-auto max-w-3xl text-center" stagger={0.1}>
           <StaggerItem>

@@ -1,4 +1,5 @@
-import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
+import { NEWSLETTER_URL } from "@/lib/contact";
+import { LEAD_FORM_HASH } from "@/lib/routes";
 import type { AboutPageData, GrantAward, TeamMember } from "../types";
 
 export const DEFAULT_HERO_LABELS = [
@@ -165,6 +166,7 @@ export const DEFAULT_GRANTS: GrantAward[] = [
 export const DEFAULT_ABOUT_PAGE: AboutPageData = {
   hero: {
     titleLine1: "Building Infrastructure",
+    titleLine2: "For",
     titleHighlight: "Rare Disease Care",
     subtitle:
       "An AI-enabled digital infrastructure connecting clinical care, research, and public health to transform rare disease diagnosis, management, and outcomes.",
@@ -209,7 +211,7 @@ export const DEFAULT_ABOUT_PAGE: AboutPageData = {
     description:
       "We work alongside clinicians, institutions, researchers, and public health programs to build intelligent infrastructure that transforms fragmented data into better decisions and better outcomes.",
     buttons: [
-      { label: "Book a Demo", href: CALENDLY_URL, variant: "primary" },
+      { label: "Book a Demo", href: LEAD_FORM_HASH, variant: "primary" },
       { label: "Subscribe to Updates", href: NEWSLETTER_URL, variant: "secondary" },
     ],
   },

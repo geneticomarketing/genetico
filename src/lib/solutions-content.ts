@@ -1,5 +1,5 @@
 import type { CtaButton } from "@/lib/cms/types";
-import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
+import { NEWSLETTER_URL } from "@/lib/contact";
 
 export type SolutionsVariant = "hospital" | "pharma";
 
@@ -393,8 +393,7 @@ export const SOLUTIONS_CONTENT: Record<SolutionsVariant, SolutionsContent> = {
           accent: "#024385",
           fromText: "Fragmented records",
           toText: "Longitudinal, analysis-ready cohorts",
-          positive:
-            "Support registries, natural history studies, and collaborative research",
+          positive: "Support registries, natural history studies, and collaborative research",
           positiveIconBg: "#024385",
         },
       ],

@@ -18,7 +18,10 @@ function isGlobalConfig(config: CollectionConfig | GlobalConfig): config is Glob
   );
 }
 
-function withRevalidate<T extends CollectionConfig | GlobalConfig>(config: T, group: AdminGroup): T {
+function withRevalidate<T extends CollectionConfig | GlobalConfig>(
+  config: T,
+  group: AdminGroup,
+): T {
   if (group === ADMIN_GROUPS.system) return config;
 
   if (isGlobalConfig(config)) {

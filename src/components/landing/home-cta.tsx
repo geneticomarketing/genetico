@@ -6,10 +6,7 @@ import type { PageCta } from "@/lib/cms/types";
 
 export function HomeCta({ cta = DEFAULT_HOME_PAGE.cta }: { cta?: PageCta }) {
   return (
-    <section
-      id="get-in-touch"
-      className="relative overflow-hidden bg-mist px-gutter pt-section"
-    >
+    <section id="get-in-touch" className="relative overflow-hidden bg-mist px-gutter pt-section">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <img
           src="/dna.svg"

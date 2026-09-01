@@ -50,7 +50,10 @@ export function BlogCard({ post }: { post: BlogPost }) {
 
         <span className="text-brand mt-4 inline-flex items-center gap-1 text-sm font-medium">
           Read blog
-          <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2} />
+          <ArrowRight
+            className="size-4 transition-transform group-hover:translate-x-0.5"
+            strokeWidth={2}
+          />
         </span>
       </div>
     </Link>

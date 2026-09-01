@@ -1,7 +1,10 @@
 import { withPayload } from "@payloadcms/next/withPayload";
 import type { NextConfig } from "next";
 
-import { getSupabasePublicStorageBase, getSupabaseStorageHostname } from "./src/lib/cms/storage-url";
+import {
+  getSupabasePublicStorageBase,
+  getSupabaseStorageHostname,
+} from "./src/lib/cms/storage-url";
 
 const supabaseHostname = getSupabaseStorageHostname();
 const supabasePublicBase = getSupabasePublicStorageBase();
@@ -25,8 +28,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Permissions-Policy",
-            value:
-              'unload=(self "https://www.youtube.com" "https://www.youtube-nocookie.com")',
+            value: 'unload=(self "https://www.youtube.com" "https://www.youtube-nocookie.com")',
           },
         ],
       },

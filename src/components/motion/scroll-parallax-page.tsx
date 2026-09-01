@@ -33,10 +33,8 @@ export function ScrollParallaxPage({
   const [scrollFx, setScrollFx] = useState<boolean | null>(fixedHeroFromMd ? null : true);
 
   useLayoutEffect(() => {
-    if (!fixedHeroFromMd) {
-      setScrollFx(true);
-      return;
-    }
+    // Already initialised to `true` above, so there is nothing to sync here.
+    if (!fixedHeroFromMd) return;
 
     const mq = window.matchMedia("(min-width: 768px)");
     const update = () => setScrollFx(mq.matches);
