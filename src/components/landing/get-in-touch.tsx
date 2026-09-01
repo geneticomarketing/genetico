@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { CalendarCheck, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
 import type { ContactFormPayload } from "@/lib/contact-form";
 import { useSiteData } from "@/lib/cms/site-data-context";
-import { CALENDLY_URL, CONTACT_EMAIL, CONTACT_MAILTO } from "@/lib/contact";
+import { CONTACT_EMAIL, CONTACT_MAILTO } from "@/lib/contact";
 
 const DEFAULT_ROLES = [
   {
@@ -104,7 +104,6 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
     contactForm?.intro ??
     "Genetico connects clinicians, institutions, government bodies, and industry stakeholders through a unified digital infrastructure. Tell us who you are and we'll route you to the right person.";
 
-  const calendlyUrl = settings?.calendlyUrl ?? CALENDLY_URL;
   const contactEmail = settings?.contactEmail ?? CONTACT_EMAIL;
 
   const [active, setActive] = useState(0);
@@ -291,10 +290,7 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
   }
 
   return (
-    <section
-      id="get-in-touch"
-      className="relative overflow-hidden bg-mist px-gutter py-section"
-    >
+    <section id="get-in-touch" className="relative overflow-hidden bg-mist px-gutter py-section">
       <Reveal className="relative z-10 mx-auto w-full max-w-7xl">
         <div className="grid gap-8 sm:gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-20">
           <div className="flex flex-col gap-5 sm:gap-7">
@@ -308,32 +304,26 @@ export function GetInTouch({ embedded = false }: { embedded?: boolean }) {
             </div>
 
             <div className="mt-1 flex flex-col gap-5 sm:mt-2 sm:gap-6">
-              {[
-                { label: "Email", value: contactEmail, href: CONTACT_MAILTO, Icon: Mail },
-                {
-                  label: "Book a meeting",
-                  value: calendlyUrl.replace(/^https?:\/\//, ""),
-                  href: calendlyUrl,
-                  Icon: CalendarCheck,
-                },
-              ].map((c) => (
-                <div key={c.label} className="flex items-start gap-3 sm:items-center sm:gap-4">
-                  <span className="text-brand shrink-0">
-                    <c.Icon size={20} strokeWidth={1.6} />
-                  </span>
-                  <div className="flex flex-col gap-0.5">
-                    <span className="t-badge text-xs font-semibold tracking-wide text-black/40 uppercase">
-                      {c.label}
+              {[{ label: "Email", value: contactEmail, href: CONTACT_MAILTO, Icon: Mail }].map(
+                (c) => (
+                  <div key={c.label} className="flex items-start gap-3 sm:items-center sm:gap-4">
+                    <span className="text-brand shrink-0">
+                      <c.Icon size={20} strokeWidth={1.6} />
                     </span>
-                    <a
-                      href={c.href}
-                      className="hover:text-brand text-sm font-medium break-words text-black/80 transition-colors sm:text-base"
-                    >
-                      {c.value}
-                    </a>
+                    <div className="flex flex-col gap-0.5">
+                      <span className="t-badge text-xs font-semibold tracking-wide text-black/40 uppercase">
+                        {c.label}
+                      </span>
+                      <a
+                        href={c.href}
+                        className="hover:text-brand text-sm font-medium break-words text-black/80 transition-colors sm:text-base"
+                      >
+                        {c.value}
+                      </a>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           </div>
 

@@ -1,8 +1,14 @@
 "use client";
 
 import { FaLinkedinIn, FaXTwitter, FaYoutube } from "react-icons/fa6";
-import { CALENDLY_URL } from "@/lib/contact";
-import { HOSPITAL_PATH, PHARMA_PATH, PRIVACY_POLICY_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
+import { usePathname } from "next/navigation";
+import {
+  HOSPITAL_PATH,
+  PHARMA_PATH,
+  PRIVACY_POLICY_PATH,
+  PUBLIC_HEALTH_PATH,
+  leadFormHref,
+} from "@/lib/routes";
 import type { SiteData } from "@/lib/cms/site-data-context";
 
 const DEFAULT_MENU = [
@@ -26,6 +32,7 @@ const SOCIAL_ICONS = {
 } as const;
 
 export function Footer({ footer }: { footer?: SiteData["footer"] }) {
+  const pathname = usePathname();
   const tagline =
     footer?.tagline ??
     "IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format & enables AI-assisted clinical decision-making for rare and genetic disorders.";
@@ -48,7 +55,10 @@ export function Footer({ footer }: { footer?: SiteData["footer"] }) {
   ];
   const copyrightText = footer?.copyrightText ?? "Genetico. All rights reserved.";
   const contactLabel = footer?.contactLabel ?? "Contact Us";
-  const contactHref = footer?.contactHref ?? CALENDLY_URL;
+  // Defaults to the lead form on the current page, falling back to the home
+  // page form on pages that do not have one.
+  const contactHref = footer?.contactHref || leadFormHref(pathname);
+  const contactIsExternal = contactHref.startsWith("http");
   const legalLinks = footer?.legalLinks ?? [{ label: "Privacy Policy", href: PRIVACY_POLICY_PATH }];
 
   return (
@@ -103,8 +113,7 @@ export function Footer({ footer }: { footer?: SiteData["footer"] }) {
               ))}
               <a
                 href={contactHref}
-                target="_blank"
-                rel="noreferrer"
+                {...(contactIsExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                 className="text-sm text-white/55 transition-colors hover:text-white"
               >
                 {contactLabel}

@@ -24,7 +24,7 @@ import type {
   TeamMember,
   NewsResourceItem,
 } from "./types";
-import { CALENDLY_URL, NEWSLETTER_URL } from "@/lib/contact";
+import { NEWSLETTER_URL } from "@/lib/contact";
 import type { BlogPost } from "@/lib/blogs";
 import type {
   EcosystemGap as CmsEcosystemGap,
@@ -679,4 +679,4 @@ export async function getLegalPageBySlug(slug: string) {
   }
 }
 
-export { CALENDLY_URL, NEWSLETTER_URL };
+export { NEWSLETTER_URL };

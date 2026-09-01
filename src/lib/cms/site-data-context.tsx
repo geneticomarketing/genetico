@@ -50,7 +50,6 @@ export type SiteData = {
   settings: {
     contactEmail?: string | null;
     contactEmailCc?: string | null;
-    calendlyUrl?: string | null;
     newsletterUrl?: string | null;
     contactRoles?: { id?: string | null; label: string; description?: string | null }[] | null;
     contactForm?: {

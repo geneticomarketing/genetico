@@ -253,8 +253,7 @@ export async function getSiteSettings() {
       "IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format, and enables AI-assisted clinical decision-making for rare and genetic disorders.",
     contactEmail: "hello@genetico.in",
     contactEmailCc: "priyanshu.vats@genetico.in",
-    calendlyUrl: "https://calendly.com/priyanshu-vats-genetico/30min",
-    newsletterUrl: "https://mailchi.mp/genetico/genetico-clinical-digest-signup-form",
+    newsletterUrl: "https://mailchi.mp/genetico/rare-insights",
     featuredVideoUrl: "https://youtu.be/AepeMOIsE-M?si=ffEdpbQ4_mNY9YWt",
     contactRoles: [
       {
