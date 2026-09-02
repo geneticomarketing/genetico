@@ -52,38 +52,35 @@ function articleToNewsItem(
 
 export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
   {
-    id: "clinicians",
-    title: "Designed for the Complexity of Rare and Genetic Disease Care",
-    eyebrow: "Testing eyebrow",
-    cta: "Explore Clinical Solutions",
+    id: "company",
+    title: "Connecting Data, Care, and Collaboration Across the Rare Disease Ecosystem",
+    eyebrow: "Digital Backbone",
+    cta: "Explore Genetico",
     href: PLATFORM_PATH,
     image: "/hero/hero-bg.webp",
   },
   {
-    id: "public-health",
-    title: "Powering Rare Disease Programs at Population Scale",
-    eyebrow: "Testing eyebrow",
-
-    cta: "Explore Public Health Solutions",
-    href: PUBLIC_HEALTH_PATH,
+    id: "clinical",
+    title: "Helping Clinicians Decode Complex Genetic Cases with Connected Data and AI",
+    eyebrow: "Clinical Intelligence",
+    cta: "Explore Clinical Solutions",
+    href: HOSPITAL_PATH,
     image: "/hero/hero-dna.jpg",
   },
   {
-    id: "research",
-    title: "Transforming Clinical Data into Research-Ready Intelligence",
-    eyebrow: "Testing eyebrow",
-
-    cta: "Explore Research Solutions",
-    href: PHARMA_PATH,
+    id: "public-health",
+    title: "Powering Rare Disease Programs with Connected Data and Scalable Infrastructure",
+    eyebrow: "Population Health",
+    cta: "Explore Public Health Solutions",
+    href: PUBLIC_HEALTH_PATH,
     image: "/hero/hero-molecule.jpg",
   },
   {
-    id: "ecosystem",
-    title: "Connecting Stakeholders Across the Rare Disease Ecosystem",
-    eyebrow: "Testing eyebrow",
-
-    cta: "Discover the Ecosystem",
-    href: HOSPITAL_PATH,
+    id: "research",
+    title: "Transforming Clinical Data into Insights That Accelerate Discovery",
+    eyebrow: "Research Intelligence",
+    cta: "Explore Research Solutions",
+    href: PHARMA_PATH,
     image: "/hero/hero-antibody.jpg",
   },
 ];
@@ -237,28 +234,27 @@ export const DEFAULT_HOME_PAGE: HomePageData = {
     eyebrow: "Who We Are",
     paragraphs: [
       {
-        text: "Genetico is building the digital backbone for the rare and genetic disease ecosystem.",
-        highlights: ["digital backbone", "rare and genetic disease ecosystem"],
+        text: "Trusted by leading institutions including AIIMS New Delhi and adopted by CDFD Hyderabad for the PraGed Mission across the 15 Rare Disease Centres under it, Genetico is building the digital backbone for the rare and genetic disease ecosystem. Through IndiGeneUs.AI, our AI-enabled clinical genetics platform, we connect patient records, clinical workflows, phenotype data, registries, decision support, analytics, and research into one secure ecosystem.",
+        highlights: [
+          "AIIMS New Delhi",
+          "adopted by CDFD Hyderabad for the PraGed Mission across the 15 Rare Disease Centres under it",
+          "IndiGeneUs.AI",
+        ],
       },
       {
-        text: "For over seven years, we have worked with clinicians, institutions, government programs, and researchers to solve fragmented rare disease data.",
-        highlights: ["fragmented rare disease data"],
-      },
-      {
-        text: "Our AI platform unifies workflows, registries, decision support, analytics, and research into one ecosystem, turning fragmented data into actionable intelligence that improves care, accelerates research, strengthens public health, and supports better decisions.",
-        highlights: ["AI platform", "one ecosystem", "actionable intelligence"],
+        text: "Today, rare disease data is scattered across hospitals, laboratories, registries, research programs, and public health systems. By transforming fragmented information into structured, connected, and computable data, Genetico enables better clinical decisions, accelerates research, strengthens public health programs, and supports collaboration across the entire rare disease ecosystem.",
+        highlights: [],
       },
     ],
   },
   ecosystemChallenges: {
-    heading: "One Ecosystem. Multiple Challenges. Shared Impact.",
-    description:
-      "Rare disease care spans clinicians, public health, research, and centers of excellence — yet each operates with fragmented tools and disconnected data.",
+    heading: "Solutions for Every Stakeholder in the Rare Disease Ecosystem",
+    description: "Purpose-built solutions for every organisation involved in rare disease care.",
   },
   ecosystemGapsSection: {
-    heading: "The Rare Disease Journey Remains Fragmented",
+    heading: "Supporting the Entire Rare Disease Journey",
     description:
-      "From first symptoms to long-term care, patients navigate a complex system where information, expertise, and support are often disconnected.",
+      "From first symptoms to long-term care, Genetico helps connect every stage of the patient journey.",
   },
   partnersSection: {
     heading: "Trusted Across the Rare Disease Ecosystem",
@@ -277,8 +273,9 @@ export const DEFAULT_HOME_PAGE: HomePageData = {
     ],
   },
   newsSection: {
-    heading: "Explore Our News & Articles",
-    description: "Stay updated with the latest from Genetico and the rare disease ecosystem.",
+    heading: "Insights from the Rare Disease Ecosystem",
+    description:
+      "Explore the latest updates, perspectives, and developments shaping rare disease care, research, and technology.",
     ctaLabel: "See all",
     // ctaHref: "/resources",
   },
