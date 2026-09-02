@@ -62,6 +62,7 @@ type MediaUploadFieldOptions = {
   preset?: ImageUploadPreset;
   uploadDescription?: string;
   fallbackPathName?: string;
+  fallbackPathLabel?: string;
   fallbackPathDescription?: string;
 };
 
@@ -99,6 +100,7 @@ export function mediaUploadField({
   preset,
   uploadDescription,
   fallbackPathName,
+  fallbackPathLabel,
   fallbackPathDescription = "Optional fallback static path if no upload is provided",
 }: MediaUploadFieldOptions): Field[] {
   const description = uploadDescription ?? (preset ? imageUploadDescription(preset) : undefined);
@@ -117,6 +119,7 @@ export function mediaUploadField({
     fields.push({
       name: fallbackPathName,
       type: "text",
+      label: fallbackPathLabel,
       admin: { description: fallbackPathDescription },
     });
   }
