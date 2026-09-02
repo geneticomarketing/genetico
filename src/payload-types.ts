@@ -13,53 +13,53 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-  | "Pacific/Midway"
-  | "Pacific/Niue"
-  | "Pacific/Honolulu"
-  | "Pacific/Rarotonga"
-  | "America/Anchorage"
-  | "Pacific/Gambier"
-  | "America/Los_Angeles"
-  | "America/Tijuana"
-  | "America/Denver"
-  | "America/Phoenix"
-  | "America/Chicago"
-  | "America/Guatemala"
-  | "America/New_York"
-  | "America/Bogota"
-  | "America/Caracas"
-  | "America/Santiago"
-  | "America/Buenos_Aires"
-  | "America/Sao_Paulo"
-  | "Atlantic/South_Georgia"
-  | "Atlantic/Azores"
-  | "Atlantic/Cape_Verde"
-  | "Europe/London"
-  | "Europe/Berlin"
-  | "Africa/Lagos"
-  | "Europe/Athens"
-  | "Africa/Cairo"
-  | "Europe/Moscow"
-  | "Asia/Riyadh"
-  | "Asia/Dubai"
-  | "Asia/Baku"
-  | "Asia/Karachi"
-  | "Asia/Tashkent"
-  | "Asia/Calcutta"
-  | "Asia/Dhaka"
-  | "Asia/Almaty"
-  | "Asia/Jakarta"
-  | "Asia/Bangkok"
-  | "Asia/Shanghai"
-  | "Asia/Singapore"
-  | "Asia/Tokyo"
-  | "Asia/Seoul"
-  | "Australia/Brisbane"
-  | "Australia/Sydney"
-  | "Pacific/Guam"
-  | "Pacific/Noumea"
-  | "Pacific/Auckland"
-  | "Pacific/Fiji";
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
 
 export interface Config {
   auth: {
@@ -68,150 +68,128 @@ export interface Config {
   blocks: {};
   collections: {
     partners: Partner;
-    "ecosystem-modules": EcosystemModule;
-    "ecosystem-gaps": EcosystemGap;
-    "team-members": TeamMember;
-    "grants-awards": GrantsAward;
-    "solution-pages": SolutionPage;
-    "blog-posts": BlogPost;
-    "featured-videos": FeaturedVideo;
-    "short-videos": ShortVideo;
-    "deep-dives": DeepDive;
-    "external-articles": ExternalArticle;
-    "legal-pages": LegalPage;
+    'ecosystem-modules': EcosystemModule;
+    'ecosystem-gaps': EcosystemGap;
+    'team-members': TeamMember;
+    'grants-awards': GrantsAward;
+    'solution-pages': SolutionPage;
+    'blog-posts': BlogPost;
+    'featured-videos': FeaturedVideo;
+    'short-videos': ShortVideo;
+    'deep-dives': DeepDive;
+    'external-articles': ExternalArticle;
+    'legal-pages': LegalPage;
     media: Media;
     users: User;
-    "payload-kv": PayloadKv;
-    "payload-locked-documents": PayloadLockedDocument;
-    "payload-preferences": PayloadPreference;
-    "payload-migrations": PayloadMigration;
+    'payload-kv': PayloadKv;
+    'payload-locked-documents': PayloadLockedDocument;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
     partners: PartnersSelect<false> | PartnersSelect<true>;
-    "ecosystem-modules": EcosystemModulesSelect<false> | EcosystemModulesSelect<true>;
-    "ecosystem-gaps": EcosystemGapsSelect<false> | EcosystemGapsSelect<true>;
-    "team-members": TeamMembersSelect<false> | TeamMembersSelect<true>;
-    "grants-awards": GrantsAwardsSelect<false> | GrantsAwardsSelect<true>;
-    "solution-pages": SolutionPagesSelect<false> | SolutionPagesSelect<true>;
-    "blog-posts": BlogPostsSelect<false> | BlogPostsSelect<true>;
-    "featured-videos": FeaturedVideosSelect<false> | FeaturedVideosSelect<true>;
-    "short-videos": ShortVideosSelect<false> | ShortVideosSelect<true>;
-    "deep-dives": DeepDivesSelect<false> | DeepDivesSelect<true>;
-    "external-articles": ExternalArticlesSelect<false> | ExternalArticlesSelect<true>;
-    "legal-pages": LegalPagesSelect<false> | LegalPagesSelect<true>;
+    'ecosystem-modules': EcosystemModulesSelect<false> | EcosystemModulesSelect<true>;
+    'ecosystem-gaps': EcosystemGapsSelect<false> | EcosystemGapsSelect<true>;
+    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
+    'grants-awards': GrantsAwardsSelect<false> | GrantsAwardsSelect<true>;
+    'solution-pages': SolutionPagesSelect<false> | SolutionPagesSelect<true>;
+    'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
+    'featured-videos': FeaturedVideosSelect<false> | FeaturedVideosSelect<true>;
+    'short-videos': ShortVideosSelect<false> | ShortVideosSelect<true>;
+    'deep-dives': DeepDivesSelect<false> | DeepDivesSelect<true>;
+    'external-articles': ExternalArticlesSelect<false> | ExternalArticlesSelect<true>;
+    'legal-pages': LegalPagesSelect<false> | LegalPagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
-    "payload-locked-documents":
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
-    "payload-preferences": PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    "payload-migrations": PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {
-    "home-hero": HomeHero;
-    "home-who-we-are": HomeWhoWeAre;
-    "home-ecosystem-challenges": HomeEcosystemChallenge;
-    "home-ecosystem-gaps": HomeEcosystemGap;
-    "home-partners": HomePartner;
-    "home-security": HomeSecurity;
-    "home-news": HomeNew;
-    "home-faqs": HomeFaq;
-    "home-cta": HomeCta;
-    "about-hero": AboutHero;
-    "about-vision": AboutVision;
-    "about-foundations": AboutFoundation;
-    "about-leadership": AboutLeadership;
-    "about-grants": AboutGrant;
-    "about-cta": AboutCta;
-    "platform-hero": PlatformHero;
-    "platform-features": PlatformFeature;
-    "platform-clinical-intelligence": PlatformClinicalIntelligence;
-    "platform-longitudinal-care": PlatformLongitudinalCare;
-    "platform-infrastructure": PlatformInfrastructure;
-    "platform-security": PlatformSecurity;
-    "platform-cta": PlatformCta;
-    "public-health-hero": PublicHealthHero;
-    "public-health-impact": PublicHealthImpact;
-    "public-health-three-tier": PublicHealthThreeTier;
-    "public-health-architecture": PublicHealthArchitecture;
-    "public-health-cta": PublicHealthCta;
-    "resources-hero": ResourcesHero;
-    "resources-filter-tabs": ResourcesFilterTab;
-    "resources-videos-section": ResourcesVideosSection;
-    "resources-deep-dives-section": ResourcesDeepDivesSection;
-    "resources-articles-section": ResourcesArticlesSection;
-    "resources-blogs-section": ResourcesBlogsSection;
-    "resources-blog-listing": ResourcesBlogListing;
-    "resources-newsletter": ResourcesNewsletter;
-    "utility-pages": UtilityPage;
-    "site-settings": SiteSetting;
+    'home-hero': HomeHero;
+    'home-who-we-are': HomeWhoWeAre;
+    'home-ecosystem-challenges': HomeEcosystemChallenge;
+    'home-ecosystem-gaps': HomeEcosystemGap;
+    'home-partners': HomePartner;
+    'home-security': HomeSecurity;
+    'home-news': HomeNew;
+    'home-faqs': HomeFaq;
+    'home-cta': HomeCta;
+    'about-hero': AboutHero;
+    'about-vision': AboutVision;
+    'about-foundations': AboutFoundation;
+    'about-leadership': AboutLeadership;
+    'about-grants': AboutGrant;
+    'about-cta': AboutCta;
+    'platform-hero': PlatformHero;
+    'platform-features': PlatformFeature;
+    'platform-clinical-intelligence': PlatformClinicalIntelligence;
+    'platform-longitudinal-care': PlatformLongitudinalCare;
+    'platform-infrastructure': PlatformInfrastructure;
+    'platform-security': PlatformSecurity;
+    'platform-cta': PlatformCta;
+    'public-health-hero': PublicHealthHero;
+    'public-health-impact': PublicHealthImpact;
+    'public-health-three-tier': PublicHealthThreeTier;
+    'public-health-architecture': PublicHealthArchitecture;
+    'public-health-cta': PublicHealthCta;
+    'resources-hero': ResourcesHero;
+    'resources-filter-tabs': ResourcesFilterTab;
+    'resources-videos-section': ResourcesVideosSection;
+    'resources-deep-dives-section': ResourcesDeepDivesSection;
+    'resources-articles-section': ResourcesArticlesSection;
+    'resources-blogs-section': ResourcesBlogsSection;
+    'resources-blog-listing': ResourcesBlogListing;
+    'resources-newsletter': ResourcesNewsletter;
+    'utility-pages': UtilityPage;
+    'site-settings': SiteSetting;
     navigation: Navigation;
     footer: Footer;
   };
   globalsSelect: {
-    "home-hero": HomeHeroSelect<false> | HomeHeroSelect<true>;
-    "home-who-we-are": HomeWhoWeAreSelect<false> | HomeWhoWeAreSelect<true>;
-    "home-ecosystem-challenges":
-      | HomeEcosystemChallengesSelect<false>
-      | HomeEcosystemChallengesSelect<true>;
-    "home-ecosystem-gaps": HomeEcosystemGapsSelect<false> | HomeEcosystemGapsSelect<true>;
-    "home-partners": HomePartnersSelect<false> | HomePartnersSelect<true>;
-    "home-security": HomeSecuritySelect<false> | HomeSecuritySelect<true>;
-    "home-news": HomeNewsSelect<false> | HomeNewsSelect<true>;
-    "home-faqs": HomeFaqsSelect<false> | HomeFaqsSelect<true>;
-    "home-cta": HomeCtaSelect<false> | HomeCtaSelect<true>;
-    "about-hero": AboutHeroSelect<false> | AboutHeroSelect<true>;
-    "about-vision": AboutVisionSelect<false> | AboutVisionSelect<true>;
-    "about-foundations": AboutFoundationsSelect<false> | AboutFoundationsSelect<true>;
-    "about-leadership": AboutLeadershipSelect<false> | AboutLeadershipSelect<true>;
-    "about-grants": AboutGrantsSelect<false> | AboutGrantsSelect<true>;
-    "about-cta": AboutCtaSelect<false> | AboutCtaSelect<true>;
-    "platform-hero": PlatformHeroSelect<false> | PlatformHeroSelect<true>;
-    "platform-features": PlatformFeaturesSelect<false> | PlatformFeaturesSelect<true>;
-    "platform-clinical-intelligence":
-      | PlatformClinicalIntelligenceSelect<false>
-      | PlatformClinicalIntelligenceSelect<true>;
-    "platform-longitudinal-care":
-      | PlatformLongitudinalCareSelect<false>
-      | PlatformLongitudinalCareSelect<true>;
-    "platform-infrastructure":
-      | PlatformInfrastructureSelect<false>
-      | PlatformInfrastructureSelect<true>;
-    "platform-security": PlatformSecuritySelect<false> | PlatformSecuritySelect<true>;
-    "platform-cta": PlatformCtaSelect<false> | PlatformCtaSelect<true>;
-    "public-health-hero": PublicHealthHeroSelect<false> | PublicHealthHeroSelect<true>;
-    "public-health-impact": PublicHealthImpactSelect<false> | PublicHealthImpactSelect<true>;
-    "public-health-three-tier":
-      | PublicHealthThreeTierSelect<false>
-      | PublicHealthThreeTierSelect<true>;
-    "public-health-architecture":
-      | PublicHealthArchitectureSelect<false>
-      | PublicHealthArchitectureSelect<true>;
-    "public-health-cta": PublicHealthCtaSelect<false> | PublicHealthCtaSelect<true>;
-    "resources-hero": ResourcesHeroSelect<false> | ResourcesHeroSelect<true>;
-    "resources-filter-tabs": ResourcesFilterTabsSelect<false> | ResourcesFilterTabsSelect<true>;
-    "resources-videos-section":
-      | ResourcesVideosSectionSelect<false>
-      | ResourcesVideosSectionSelect<true>;
-    "resources-deep-dives-section":
-      | ResourcesDeepDivesSectionSelect<false>
-      | ResourcesDeepDivesSectionSelect<true>;
-    "resources-articles-section":
-      | ResourcesArticlesSectionSelect<false>
-      | ResourcesArticlesSectionSelect<true>;
-    "resources-blogs-section":
-      | ResourcesBlogsSectionSelect<false>
-      | ResourcesBlogsSectionSelect<true>;
-    "resources-blog-listing": ResourcesBlogListingSelect<false> | ResourcesBlogListingSelect<true>;
-    "resources-newsletter": ResourcesNewsletterSelect<false> | ResourcesNewsletterSelect<true>;
-    "utility-pages": UtilityPagesSelect<false> | UtilityPagesSelect<true>;
-    "site-settings": SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'home-hero': HomeHeroSelect<false> | HomeHeroSelect<true>;
+    'home-who-we-are': HomeWhoWeAreSelect<false> | HomeWhoWeAreSelect<true>;
+    'home-ecosystem-challenges': HomeEcosystemChallengesSelect<false> | HomeEcosystemChallengesSelect<true>;
+    'home-ecosystem-gaps': HomeEcosystemGapsSelect<false> | HomeEcosystemGapsSelect<true>;
+    'home-partners': HomePartnersSelect<false> | HomePartnersSelect<true>;
+    'home-security': HomeSecuritySelect<false> | HomeSecuritySelect<true>;
+    'home-news': HomeNewsSelect<false> | HomeNewsSelect<true>;
+    'home-faqs': HomeFaqsSelect<false> | HomeFaqsSelect<true>;
+    'home-cta': HomeCtaSelect<false> | HomeCtaSelect<true>;
+    'about-hero': AboutHeroSelect<false> | AboutHeroSelect<true>;
+    'about-vision': AboutVisionSelect<false> | AboutVisionSelect<true>;
+    'about-foundations': AboutFoundationsSelect<false> | AboutFoundationsSelect<true>;
+    'about-leadership': AboutLeadershipSelect<false> | AboutLeadershipSelect<true>;
+    'about-grants': AboutGrantsSelect<false> | AboutGrantsSelect<true>;
+    'about-cta': AboutCtaSelect<false> | AboutCtaSelect<true>;
+    'platform-hero': PlatformHeroSelect<false> | PlatformHeroSelect<true>;
+    'platform-features': PlatformFeaturesSelect<false> | PlatformFeaturesSelect<true>;
+    'platform-clinical-intelligence': PlatformClinicalIntelligenceSelect<false> | PlatformClinicalIntelligenceSelect<true>;
+    'platform-longitudinal-care': PlatformLongitudinalCareSelect<false> | PlatformLongitudinalCareSelect<true>;
+    'platform-infrastructure': PlatformInfrastructureSelect<false> | PlatformInfrastructureSelect<true>;
+    'platform-security': PlatformSecuritySelect<false> | PlatformSecuritySelect<true>;
+    'platform-cta': PlatformCtaSelect<false> | PlatformCtaSelect<true>;
+    'public-health-hero': PublicHealthHeroSelect<false> | PublicHealthHeroSelect<true>;
+    'public-health-impact': PublicHealthImpactSelect<false> | PublicHealthImpactSelect<true>;
+    'public-health-three-tier': PublicHealthThreeTierSelect<false> | PublicHealthThreeTierSelect<true>;
+    'public-health-architecture': PublicHealthArchitectureSelect<false> | PublicHealthArchitectureSelect<true>;
+    'public-health-cta': PublicHealthCtaSelect<false> | PublicHealthCtaSelect<true>;
+    'resources-hero': ResourcesHeroSelect<false> | ResourcesHeroSelect<true>;
+    'resources-filter-tabs': ResourcesFilterTabsSelect<false> | ResourcesFilterTabsSelect<true>;
+    'resources-videos-section': ResourcesVideosSectionSelect<false> | ResourcesVideosSectionSelect<true>;
+    'resources-deep-dives-section': ResourcesDeepDivesSectionSelect<false> | ResourcesDeepDivesSectionSelect<true>;
+    'resources-articles-section': ResourcesArticlesSectionSelect<false> | ResourcesArticlesSectionSelect<true>;
+    'resources-blogs-section': ResourcesBlogsSectionSelect<false> | ResourcesBlogsSectionSelect<true>;
+    'resources-blog-listing': ResourcesBlogListingSelect<false> | ResourcesBlogListingSelect<true>;
+    'resources-newsletter': ResourcesNewsletterSelect<false> | ResourcesNewsletterSelect<true>;
+    'utility-pages': UtilityPagesSelect<false> | UtilityPagesSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
   };
@@ -260,11 +238,11 @@ export interface Partner {
    */
   logo?: (number | null) | Media;
   /**
-   * Optional fallback static path if no upload is provided
+   * Leave this empty and use the Logo upload above. It is only used for logos already built into the site, such as /new/meity.jpg, and is ignored whenever an upload is present.
    */
   logoUrl?: string | null;
   /**
-   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
+   * Lower numbers appear first. The current logos are numbered 10, 20, 30 and so on, so you can slot a new one in between by giving it a number like 25. New logos start at 1000, which puts them at the end of the strip.
    */
   sortOrder?: number | null;
   updatedAt: string;
@@ -410,7 +388,7 @@ export interface GrantsAward {
  */
 export interface SolutionPage {
   id: number;
-  slug: "hospital" | "pharma";
+  slug: 'hospital' | 'pharma';
   /**
    * The top of the page. The headline is split so part of it can be coloured.
    */
@@ -434,7 +412,7 @@ export interface SolutionPage {
           /**
            * Leave empty to cycle through Red, Blue, Teal and Grey in order.
            */
-          badgeTheme?: ("red" | "blue" | "teal" | "slate") | null;
+          badgeTheme?: ('red' | 'blue' | 'teal' | 'slate') | null;
           title: string;
           /**
            * Shown while the card is closed. Add exactly two lines — the card is hidden if there are fewer.
@@ -496,7 +474,7 @@ export interface SolutionPage {
           /**
            * Leave empty to cycle through Red, Green and Blue in order.
            */
-          metricTheme?: ("red" | "green" | "blue") | null;
+          metricTheme?: ('red' | 'green' | 'blue') | null;
           fromText: string;
           toText: string;
           positive: string;
@@ -530,7 +508,7 @@ export interface SolutionPage {
            * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
            */
           href: string;
-          variant?: ("primary" | "secondary") | null;
+          variant?: ('primary' | 'secondary') | null;
           id?: string | null;
         }[]
       | null;
@@ -554,6 +532,10 @@ export interface BlogPost {
   excerpt: string;
   author: string;
   publishedAt: string;
+  /**
+   * Tick this to put the post in the large card on the left of the home page “Insights” section. If no post is ticked, the newest post is used. If several are ticked, the newest of those wins.
+   */
+  featuredOnHome?: boolean | null;
   readTime: string;
   category: string;
   /**
@@ -602,6 +584,10 @@ export interface FeaturedVideo {
     | null;
   featured?: boolean | null;
   /**
+   * When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.
+   */
+  publishedAt?: string | null;
+  /**
    * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
    */
   sortOrder?: number | null;
@@ -624,6 +610,10 @@ export interface ShortVideo {
    */
   youtubeUrl: string;
   duration?: string | null;
+  /**
+   * When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.
+   */
+  publishedAt?: string | null;
   /**
    * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
    */
@@ -670,6 +660,10 @@ export interface DeepDive {
    */
   videoLeft?: boolean | null;
   /**
+   * When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.
+   */
+  publishedAt?: string | null;
+  /**
    * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
    */
   sortOrder?: number | null;
@@ -689,6 +683,10 @@ export interface ExternalArticle {
    * Full address, starting with https://
    */
   url: string;
+  /**
+   * When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.
+   */
+  publishedAt?: string | null;
   /**
    * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
    */
@@ -719,8 +717,8 @@ export interface LegalPage {
               version: number;
               [k: string]: unknown;
             }[];
-            direction: ("ltr" | "rtl") | null;
-            format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
             indent: number;
             version: number;
           };
@@ -764,7 +762,7 @@ export interface User {
       }[]
     | null;
   password?: string | null;
-  collection: "users";
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -791,64 +789,64 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: "partners";
+        relationTo: 'partners';
         value: number | Partner;
       } | null)
     | ({
-        relationTo: "ecosystem-modules";
+        relationTo: 'ecosystem-modules';
         value: number | EcosystemModule;
       } | null)
     | ({
-        relationTo: "ecosystem-gaps";
+        relationTo: 'ecosystem-gaps';
         value: number | EcosystemGap;
       } | null)
     | ({
-        relationTo: "team-members";
+        relationTo: 'team-members';
         value: number | TeamMember;
       } | null)
     | ({
-        relationTo: "grants-awards";
+        relationTo: 'grants-awards';
         value: number | GrantsAward;
       } | null)
     | ({
-        relationTo: "solution-pages";
+        relationTo: 'solution-pages';
         value: number | SolutionPage;
       } | null)
     | ({
-        relationTo: "blog-posts";
+        relationTo: 'blog-posts';
         value: number | BlogPost;
       } | null)
     | ({
-        relationTo: "featured-videos";
+        relationTo: 'featured-videos';
         value: number | FeaturedVideo;
       } | null)
     | ({
-        relationTo: "short-videos";
+        relationTo: 'short-videos';
         value: number | ShortVideo;
       } | null)
     | ({
-        relationTo: "deep-dives";
+        relationTo: 'deep-dives';
         value: number | DeepDive;
       } | null)
     | ({
-        relationTo: "external-articles";
+        relationTo: 'external-articles';
         value: number | ExternalArticle;
       } | null)
     | ({
-        relationTo: "legal-pages";
+        relationTo: 'legal-pages';
         value: number | LegalPage;
       } | null)
     | ({
-        relationTo: "media";
+        relationTo: 'media';
         value: number | Media;
       } | null)
     | ({
-        relationTo: "users";
+        relationTo: 'users';
         value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: "users";
+    relationTo: 'users';
     value: number | User;
   };
   updatedAt: string;
@@ -861,7 +859,7 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: number;
   user: {
-    relationTo: "users";
+    relationTo: 'users';
     value: number | User;
   };
   key?: string | null;
@@ -1066,6 +1064,7 @@ export interface BlogPostsSelect<T extends boolean = true> {
   excerpt?: T;
   author?: T;
   publishedAt?: T;
+  featuredOnHome?: T;
   readTime?: T;
   category?: T;
   categoryColor?: T;
@@ -1097,6 +1096,7 @@ export interface FeaturedVideosSelect<T extends boolean = true> {
         id?: T;
       };
   featured?: T;
+  publishedAt?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1111,6 +1111,7 @@ export interface ShortVideosSelect<T extends boolean = true> {
   category?: T;
   youtubeUrl?: T;
   duration?: T;
+  publishedAt?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1135,6 +1136,7 @@ export interface DeepDivesSelect<T extends boolean = true> {
         id?: T;
       };
   videoLeft?: T;
+  publishedAt?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1146,6 +1148,7 @@ export interface DeepDivesSelect<T extends boolean = true> {
 export interface ExternalArticlesSelect<T extends boolean = true> {
   title?: T;
   url?: T;
+  publishedAt?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1390,9 +1393,6 @@ export interface HomeNew {
   heading?: string | null;
   description?: string | null;
   ctaLabel?: string | null;
-  /**
-   * Choose one large featured item and up to four smaller items beside it. Leave empty to show the newest blog posts automatically.
-   */
   resourcePicks?:
     | {
         [k: string]: unknown;
@@ -1446,7 +1446,7 @@ export interface HomeCta {
          * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
          */
         href: string;
-        variant?: ("primary" | "secondary") | null;
+        variant?: ('primary' | 'secondary') | null;
         id?: string | null;
       }[]
     | null;
@@ -1567,7 +1567,7 @@ export interface AboutCta {
          * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
          */
         href: string;
-        variant?: ("primary" | "secondary") | null;
+        variant?: ('primary' | 'secondary') | null;
         id?: string | null;
       }[]
     | null;
@@ -1758,7 +1758,7 @@ export interface PlatformCta {
          * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
          */
         href: string;
-        variant?: ("primary" | "secondary") | null;
+        variant?: ('primary' | 'secondary') | null;
         id?: string | null;
       }[]
     | null;
@@ -1910,7 +1910,7 @@ export interface PublicHealthCta {
          * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
          */
         href: string;
-        variant?: ("primary" | "secondary") | null;
+        variant?: ('primary' | 'secondary') | null;
         id?: string | null;
       }[]
     | null;
@@ -2132,7 +2132,7 @@ export interface Navigation {
          * Leave empty for the Solutions dropdown.
          */
         href?: string | null;
-        type?: ("link" | "dropdown") | null;
+        type?: ('link' | 'dropdown') | null;
         /**
          * Tick only if this item sits on a light background.
          */
@@ -2187,7 +2187,7 @@ export interface Footer {
     | {
         name: string;
         href: string;
-        platform: "x" | "linkedin" | "youtube";
+        platform: 'x' | 'linkedin' | 'youtube';
         id?: string | null;
       }[]
     | null;
@@ -2951,7 +2951,7 @@ export interface CollectionsWidget {
   data?: {
     [k: string]: unknown;
   };
-  width: "full";
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2961,6 +2961,7 @@ export interface Auth {
   [k: string]: unknown;
 }
 
-declare module "payload" {
+
+declare module 'payload' {
   export interface GeneratedTypes extends Config {}
 }

@@ -34,6 +34,15 @@ export const FeaturedVideos = withAdminGroup(
       },
       { name: "featured", type: "checkbox", defaultValue: false, label: "Featured" },
       {
+        name: "publishedAt",
+        type: "date",
+        label: "Publish date",
+        admin: {
+          description:
+            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
+        },
+      },
+      {
         name: "sortOrder",
         type: "number",
         defaultValue: 0,
@@ -73,6 +82,15 @@ export const ShortVideos = withAdminGroup(
       },
       { name: "duration", type: "text", label: "Length (e.g. 4:12)" },
       {
+        name: "publishedAt",
+        type: "date",
+        label: "Publish date",
+        admin: {
+          description:
+            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
+        },
+      },
+      {
         name: "sortOrder",
         type: "number",
         defaultValue: 0,
@@ -105,6 +123,15 @@ export const ExternalArticles = withAdminGroup(
         required: true,
         label: "Article link",
         admin: { description: "Full address, starting with https://" },
+      },
+      {
+        name: "publishedAt",
+        type: "date",
+        label: "Publish date",
+        admin: {
+          description:
+            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
+        },
       },
       {
         name: "sortOrder",
@@ -178,6 +205,15 @@ export const DeepDives = withAdminGroup(
         admin: {
           description:
             "Place the video on the left side. Leave unchecked to alternate automatically by sort order.",
+        },
+      },
+      {
+        name: "publishedAt",
+        type: "date",
+        label: "Publish date",
+        admin: {
+          description:
+            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
         },
       },
       {

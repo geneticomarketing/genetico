@@ -29,6 +29,16 @@ export const BlogPosts = withAdminGroup(
       { name: "excerpt", type: "textarea", required: true, label: "Summary" },
       { name: "author", type: "text", required: true, label: "Author" },
       { name: "publishedAt", type: "date", required: true, label: "Publish date" },
+      {
+        name: "featuredOnHome",
+        type: "checkbox",
+        defaultValue: false,
+        label: "Show as the featured post on the home page",
+        admin: {
+          description:
+            "Tick this to put the post in the large card on the left of the home page “Insights” section. If no post is ticked, the newest post is used. If several are ticked, the newest of those wins.",
+        },
+      },
       { name: "readTime", type: "text", required: true, label: "Reading time (e.g. 6 min read)" },
       { name: "category", type: "text", required: true, label: "Category label" },
       {
