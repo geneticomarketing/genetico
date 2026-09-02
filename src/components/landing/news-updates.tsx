@@ -1,10 +1,10 @@
 "use client";
 
-import type { CSSProperties } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
 import { EASE, StaggerGroup, StaggerItem, useInViewAnimation } from "@/components/motion/reveal";
 import { DEFAULT_HOME_PAGE } from "@/lib/cms/defaults/home";
+import { thumbnailStyle } from "@/lib/cms/thumbnail-style";
 import type { NewsResourceItem } from "@/lib/cms/types";
 
 const listItemVariants: Variants = {
@@ -20,21 +20,6 @@ function Tag({ children, uppercase = true }: { children: string; uppercase?: boo
       {children}
     </span>
   );
-}
-
-function thumbnailStyle(thumbnail: string): CSSProperties {
-  if (!thumbnail) return { backgroundColor: "#e5e7eb" };
-  if (thumbnail.startsWith("radial") || thumbnail.startsWith("linear")) {
-    return { background: thumbnail };
-  }
-  if (thumbnail.startsWith("http") || thumbnail.startsWith("/")) {
-    return {
-      backgroundImage: `url('${thumbnail}')`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-    };
-  }
-  return { background: thumbnail };
 }
 
 function FeaturedCard({ item }: { item: NewsResourceItem }) {

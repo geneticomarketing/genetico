@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { Reveal } from "@/components/motion/reveal";
 import { BLOG_PATH } from "@/lib/blogs";
 import { getAllBlogSlugs, getBlogBySlug } from "@/lib/cms/queries";
+import { thumbnailStyle } from "@/lib/cms/thumbnail-style";
 import { articleJsonLd, createPageMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
@@ -72,7 +73,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div
               aria-hidden
               className="aspect-[16/9] w-full overflow-hidden rounded-2xl"
-              style={{ background: post.thumbnail }}
+              style={thumbnailStyle(post.thumbnail)}
             />
 
             <p

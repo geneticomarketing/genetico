@@ -145,25 +145,16 @@ export const HomeNews = pageSection(
     { name: "heading", type: "text", label: "Heading" },
     { name: "description", type: "textarea", label: "Description" },
     { name: "ctaLabel", type: "text", label: "Link text (e.g. “See all”)" },
+    // Retired. The section now builds itself from the Resources page: the featured card is the
+    // blog post ticked "Show as the featured post on the home page", and the side list is the most
+    // recent resources of any type. The field is kept (hidden) only so the existing database
+    // column has something to map to — removing it outright stops `next dev` on an interactive
+    // Drizzle prompt. See scripts/drop-home-news-resource-picks.mjs to retire it for good.
     {
       name: "resourcePicks",
       type: "json",
-      label: "Featured & sidebar content",
-      validate: (value) => {
-        if (!value || typeof value !== "object") return true;
-        const sidebar = (value as { sidebar?: unknown[] }).sidebar;
-        if (Array.isArray(sidebar) && sidebar.length > 4) {
-          return "Select at most 4 sidebar items.";
-        }
-        return true;
-      },
-      admin: {
-        description:
-          "Choose one large featured item and up to four smaller items beside it. Leave empty to show the newest blog posts automatically.",
-        components: {
-          Field: "@/payload/admin/fields/HomeNewsResourcePicker#HomeNewsResourcePicker",
-        },
-      },
+      label: "Featured & sidebar content (retired)",
+      admin: { hidden: true },
     },
   ],
   ADMIN_GROUPS.home,

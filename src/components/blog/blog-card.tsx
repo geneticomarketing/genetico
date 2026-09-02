@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 import type { BlogPost } from "@/lib/blogs";
 import { blogHref } from "@/lib/blogs";
+import { thumbnailStyle } from "@/lib/cms/thumbnail-style";
 
 export function BlogCard({ post }: { post: BlogPost }) {
   return (
@@ -11,7 +12,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-[0_2px_16px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)]"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
-        <span aria-hidden className="absolute inset-0" style={{ background: post.thumbnail }} />
+        <span aria-hidden className="absolute inset-0" style={thumbnailStyle(post.thumbnail)} />
         <span className="t-badge secondaryFont absolute top-4 left-4 rounded-md bg-white/90 px-2.5 py-1 text-[11px] font-semibold tracking-[0.12em] text-[#121212] uppercase">
           {post.category}
         </span>

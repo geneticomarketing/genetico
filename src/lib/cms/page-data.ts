@@ -7,8 +7,8 @@ import { DEFAULT_ABOUT_PAGE, DEFAULT_TEAM } from "./defaults/about";
 import { DEFAULT_PLATFORM_PAGE } from "./defaults/platform";
 import { DEFAULT_PUBLIC_HEALTH_PAGE } from "./defaults/public-health";
 import { DEFAULT_RESOURCES_PAGE, DEFAULT_UTILITY_PAGES } from "./defaults/resources";
-import { resolveHomeNewsResourcePicks } from "./home-news-resources";
-import type { HomeNewsResourceCollection, HomeNewsResourcePicks } from "./resource-collections";
+import { selectHomeNewsFeed } from "./home-news-resources";
+import { HOME_NEWS_RESOURCE_COLLECTIONS } from "./resource-collections";
 import type {
   AboutPageData,
   CtaButton,
@@ -136,21 +136,25 @@ function defaultHomeNewsItems(posts: BlogPost[], articles: { title: string; url:
   return { featured, sidebar: sidebar.slice(0, 4) };
 }
 
-async function fetchHomeNewsResourceDoc(
-  collection: HomeNewsResourceCollection,
-  id: number | string,
-) {
+/** Every resource on the Resources page, grouped by type, newest first within each type. */
+async function fetchHomeNewsResourceGroups() {
   if (!isCmsConfigured()) return null;
 
   const payload = await getPayloadClient();
   if (!payload) return null;
 
   try {
-    return await payload.findByID({
-      collection,
-      id,
-      depth: 1,
-    });
+    return await Promise.all(
+      HOME_NEWS_RESOURCE_COLLECTIONS.map(async (collection) => {
+        const { docs } = await payload.find({
+          collection,
+          sort: "-publishedAt",
+          limit: 50,
+          depth: 1,
+        });
+        return { collection, docs };
+      }),
+    );
   } catch {
     return null;
   }
@@ -231,14 +235,8 @@ export async function getHomePageData(): Promise<HomePageData> {
   const posts = blogPosts.length ? blogPosts : BLOG_POSTS;
   const fallbackNews = defaultHomeNewsItems(posts, cmsArticles);
 
-  const resourcePicks = newsSection?.resourcePicks as HomeNewsResourcePicks | null | undefined;
-  const hasResourcePicks =
-    resourcePicks?.featured ||
-    (Array.isArray(resourcePicks?.sidebar) && resourcePicks.sidebar.length > 0);
-
-  const resolvedNews = hasResourcePicks
-    ? await resolveHomeNewsResourcePicks(resourcePicks, fetchHomeNewsResourceDoc)
-    : fallbackNews;
+  const resourceGroups = await fetchHomeNewsResourceGroups();
+  const resolvedNews = resourceGroups ? selectHomeNewsFeed(resourceGroups) : fallbackNews;
 
   return {
     heroSlides,

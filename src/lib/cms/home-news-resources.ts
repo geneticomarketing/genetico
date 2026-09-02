@@ -1,12 +1,8 @@
 import { blogHref } from "@/lib/blogs";
 import { youtubeIdFromUrl, youtubeThumbnailUrl } from "@/lib/youtube";
 import { resolveMediaUrl } from "./resolve-media-url";
-import type {
-  HomeNewsResourceCollection,
-  HomeNewsResourcePicks,
-  HomeNewsResourceRef,
-} from "./resource-collections";
-import { HOME_NEWS_RESOURCE_LABELS, resourceRefKey } from "./resource-collections";
+import type { HomeNewsResourceCollection } from "./resource-collections";
+import { resourceRefKey } from "./resource-collections";
 import type { NewsResourceItem } from "./types";
 import type {
   BlogPost as CmsBlogPost,
@@ -15,16 +11,6 @@ import type {
   FeaturedVideo as CmsFeaturedVideo,
   ShortVideo as CmsShortVideo,
 } from "@/payload-types";
-
-export type ResourceCatalogItem = {
-  ref: HomeNewsResourceRef;
-  key: string;
-  collection: HomeNewsResourceCollection;
-  typeLabel: string;
-  title: string;
-  category: string;
-  meta?: string;
-};
 
 type ResourceDoc =
   | CmsBlogPost
@@ -51,81 +37,6 @@ function resourceHref(
 function isExternalUrl(href: string): boolean {
   return /^https?:\/\//i.test(href);
 }
-export function toCatalogItem(
-  collection: HomeNewsResourceCollection,
-  doc: ResourceDoc,
-): ResourceCatalogItem | null {
-  const value = "id" in doc && doc.id != null ? doc.id : null;
-  if (value == null) return null;
-
-  const ref: HomeNewsResourceRef = { relationTo: collection, value };
-  const typeLabel = HOME_NEWS_RESOURCE_LABELS[collection];
-
-  switch (collection) {
-    case "blog-posts": {
-      const blog = doc as CmsBlogPost;
-      return {
-        ref,
-        key: resourceRefKey(ref),
-        collection,
-        typeLabel,
-        title: blog.title,
-        category: blog.category,
-        meta: blog.readTime,
-      };
-    }
-    case "featured-videos": {
-      const video = doc as CmsFeaturedVideo;
-      return {
-        ref,
-        key: resourceRefKey(ref),
-        collection,
-        typeLabel,
-        title: video.title,
-        category: video.tags?.[0]?.tag || "Video",
-        meta: video.duration || undefined,
-      };
-    }
-    case "short-videos": {
-      const video = doc as CmsShortVideo;
-      return {
-        ref,
-        key: resourceRefKey(ref),
-        collection,
-        typeLabel,
-        title: video.title,
-        category: video.category,
-        meta: video.duration || undefined,
-      };
-    }
-    case "deep-dives": {
-      const dive = doc as CmsDeepDive;
-      return {
-        ref,
-        key: resourceRefKey(ref),
-        collection,
-        typeLabel,
-        title: dive.title,
-        category: dive.category,
-        meta: dive.duration || undefined,
-      };
-    }
-    case "external-articles": {
-      const article = doc as CmsExternalArticle;
-      return {
-        ref,
-        key: resourceRefKey(ref),
-        collection,
-        typeLabel,
-        title: article.title,
-        category: "Article",
-      };
-    }
-    default:
-      return null;
-  }
-}
-
 export function mapDocToNewsResourceItem(
   collection: HomeNewsResourceCollection,
   doc: ResourceDoc,
@@ -209,29 +120,82 @@ export function mapDocToNewsResourceItem(
   }
 }
 
-export async function resolveHomeNewsResourcePicks(
-  picks: HomeNewsResourcePicks | null | undefined,
-  fetchDoc: (
-    collection: HomeNewsResourceCollection,
-    id: number | string,
-  ) => Promise<ResourceDoc | null>,
-): Promise<{ featured: NewsResourceItem | null; sidebar: NewsResourceItem[] }> {
-  const featuredRef = picks?.featured ?? null;
-  const sidebarRefs = picks?.sidebar ?? [];
+export const HOME_NEWS_SIDEBAR_LIMIT = 4;
 
-  const featuredDoc = featuredRef
-    ? await fetchDoc(featuredRef.relationTo, featuredRef.value)
-    : null;
-  const featured = featuredDoc
-    ? mapDocToNewsResourceItem(featuredRef!.relationTo, featuredDoc)
-    : null;
+export type ResourceGroup = {
+  collection: HomeNewsResourceCollection;
+  docs: ResourceDoc[];
+};
 
-  const sidebar: NewsResourceItem[] = [];
-  for (const ref of sidebarRefs.slice(0, 4)) {
-    const doc = await fetchDoc(ref.relationTo, ref.value);
-    const item = doc ? mapDocToNewsResourceItem(ref.relationTo, doc) : null;
-    if (item) sidebar.push(item);
+type FeedEntry = {
+  collection: HomeNewsResourceCollection;
+  item: NewsResourceItem;
+  publishedAt: number | null;
+  sortOrder: number;
+  featuredOnHome: boolean;
+};
+
+function timestamp(value: unknown): number | null {
+  if (typeof value !== "string" || !value) return null;
+  const parsed = Date.parse(value);
+  return Number.isNaN(parsed) ? null : parsed;
+}
+
+function toFeedEntries(groups: ResourceGroup[]): FeedEntry[] {
+  const entries: FeedEntry[] = [];
+
+  for (const group of groups) {
+    for (const doc of group.docs) {
+      const item = mapDocToNewsResourceItem(group.collection, doc);
+      if (!item) continue;
+
+      entries.push({
+        collection: group.collection,
+        item,
+        publishedAt: "publishedAt" in doc ? timestamp(doc.publishedAt) : null,
+        sortOrder: "sortOrder" in doc && typeof doc.sortOrder === "number" ? doc.sortOrder : 0,
+        featuredOnHome: "featuredOnHome" in doc && doc.featuredOnHome === true,
+      });
+    }
   }
 
-  return { featured, sidebar };
+  return entries;
+}
+
+/** Newest first. Undated items come after dated ones, then fall back to their manual sort order. */
+function byRecency(a: FeedEntry, b: FeedEntry): number {
+  if (a.publishedAt !== b.publishedAt) {
+    if (a.publishedAt === null) return 1;
+    if (b.publishedAt === null) return -1;
+    return b.publishedAt - a.publishedAt;
+  }
+  if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
+  return a.item.title.localeCompare(b.item.title);
+}
+
+/**
+ * Build the home page "Insights" section straight from the Resources page content.
+ *
+ * Featured card: the blog post ticked "Show as the featured post on the home page"; the newest
+ * ticked one if several are, and the newest post of all if none is.
+ *
+ * Side list: the most recent resources of any type, newest first, excluding whatever is already
+ * in the featured card.
+ */
+export function selectHomeNewsFeed(
+  groups: ResourceGroup[],
+  sidebarLimit = HOME_NEWS_SIDEBAR_LIMIT,
+): { featured: NewsResourceItem | null; sidebar: NewsResourceItem[] } {
+  const entries = toFeedEntries(groups);
+  const blogPosts = entries.filter((entry) => entry.collection === "blog-posts").sort(byRecency);
+
+  const featuredEntry = blogPosts.find((entry) => entry.featuredOnHome) ?? blogPosts[0] ?? null;
+
+  const sidebar = entries
+    .filter((entry) => entry.item.id !== featuredEntry?.item.id)
+    .sort(byRecency)
+    .slice(0, sidebarLimit)
+    .map((entry) => entry.item);
+
+  return { featured: featuredEntry?.item ?? null, sidebar };
 }

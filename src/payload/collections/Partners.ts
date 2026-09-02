@@ -26,14 +26,18 @@ export const Partners = withAdminGroup(
         label: "Logo",
         preset: "partnerLogo",
         fallbackPathName: "logoUrl",
+        fallbackPathLabel: "Built-in logo path (advanced)",
+        fallbackPathDescription:
+          "Leave this empty and use the Logo upload above. It is only used for logos already built into the site, such as /new/meity.jpg, and is ignored whenever an upload is present.",
       }),
       {
         name: "sortOrder",
         type: "number",
-        defaultValue: 0,
+        defaultValue: 1000,
         label: "Order on the page",
         admin: {
-          description: "Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.",
+          description:
+            "Lower numbers appear first. The current logos are numbered 10, 20, 30 and so on, so you can slot a new one in between by giving it a number like 25. New logos start at 1000, which puts them at the end of the strip.",
           position: "sidebar",
         },
       },
