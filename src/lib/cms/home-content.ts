@@ -1,5 +1,6 @@
 import {
   HOSPITAL_PATH,
+  LEAD_FORM_HASH,
   PHARMA_PATH,
   PLATFORM_PATH,
   PUBLIC_HEALTH_PATH,
@@ -370,9 +371,9 @@ export const DEFAULT_HOME_CONTACT: HomeContactContent = {
   description:
     "Tell us who you are and we will route you to the right team — clinical, programme, " +
     "research, or partnerships.",
-  primaryCta: {
-    label: "Schedule a demo",
-    href: "https://calendly.com/priyanshu-vats-genetico/30min",
-  },
+  // The design points this at Calendly. The project removed every Calendly
+  // CTA in August in favour of the site's own form, so the default follows
+  // the project; it is one field in /admin if that decision is reversed.
+  primaryCta: { label: "Schedule a demo", href: LEAD_FORM_HASH },
   secondaryCta: { label: "Subscribe to updates", href: NEWSLETTER_URL },
 };

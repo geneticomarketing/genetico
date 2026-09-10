@@ -204,7 +204,15 @@ export function GetInTouch({
         </div>
       </div>
 
-      <div className="border-rule shadow-panel mx-auto mt-11 max-w-[700px] rounded-2xl border bg-white px-[30px] pt-[26px] pb-[30px]">
+      {/* `lead-form` is the anchor the rest of the site has always used for
+          this form — the six pages still on the old chrome all link to
+          /#lead-form, and CTAs stored in the CMS point at it too. Keeping it
+          alongside the section's own id means none of those links break while
+          the redesign is only part way through. */}
+      <div
+        id="lead-form"
+        className="border-rule shadow-panel mx-auto mt-11 max-w-[700px] scroll-mt-32 rounded-2xl border bg-white px-[30px] pt-[26px] pb-[30px]"
+      >
         {status === "sent" ? (
           <div className="flex flex-col items-center gap-3.5 px-2 pt-[38px] pb-[34px] text-center">
             <span

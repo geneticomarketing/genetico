@@ -1,4 +1,4 @@
-import { getCollection, getGlobal, getBlogPosts } from "./queries";
+import { getCollection, getGlobal, getSectionGlobal, getBlogPosts } from "./queries";
 import { getPayloadClient, isCmsConfigured } from "./get-payload";
 import { BLOG_POSTS, blogHref } from "@/lib/blogs";
 import { resolveMediaUrl } from "./resolve-media-url";
@@ -40,12 +40,6 @@ import type {
 } from "@/payload-types";
 
 type GlobalSlug = keyof Config["globals"];
-
-async function getSectionGlobal<S extends GlobalSlug>(
-  slug: S,
-): Promise<Config["globals"][S] | null> {
-  return getGlobal<Config["globals"][S] | null>(slug, null);
-}
 
 function mergeCta(
   cms?: {

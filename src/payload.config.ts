@@ -27,14 +27,17 @@ import { SiteSettings, Navigation, Footer } from "./payload/globals/Site";
 import { UtilityPages } from "./payload/globals/Pages";
 import {
   HomeHero,
-  HomeWhoWeAre,
-  HomeEcosystemChallenges,
-  HomeEcosystemGaps,
-  HomePartners,
+  HomeAudience,
+  HomePlatformGlance,
+  HomeProof,
   HomeSecurity,
-  HomeNews,
   HomeFaqs,
   HomeCta,
+  HomeWhoWeAre,
+  HomePartners,
+  HomeEcosystemChallenges,
+  HomeEcosystemGaps,
+  HomeNews,
 } from "./payload/globals/sections/home";
 import {
   AboutHero,
@@ -126,16 +129,21 @@ export default buildConfig({
     Users,
   ],
   globals: [
-    // Home Page sections
+    // Home Page sections, in the order they render
     HomeHero,
-    HomeWhoWeAre,
-    HomeEcosystemChallenges,
-    HomeEcosystemGaps,
-    HomePartners,
+    HomeAudience,
+    HomePlatformGlance,
+    HomeProof,
     HomeSecurity,
-    HomeNews,
     HomeFaqs,
     HomeCta,
+    // Retired with the redesign: hidden from the sidebar, kept so the columns
+    // still have fields to map to.
+    HomeWhoWeAre,
+    HomePartners,
+    HomeEcosystemChallenges,
+    HomeEcosystemGaps,
+    HomeNews,
     // About Page sections
     AboutHero,
     AboutVision,

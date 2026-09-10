@@ -221,6 +221,16 @@ export async function getGlobal<T>(slug: GlobalSlug, fallback: T): Promise<T> {
   }
 }
 
+/**
+ * A page-section global, typed from the Payload config rather than from a
+ * hand-written fallback shape — null when the CMS has no row for it yet.
+ */
+export async function getSectionGlobal<S extends GlobalSlug>(
+  slug: S,
+): Promise<Config["globals"][S] | null> {
+  return getGlobal<Config["globals"][S] | null>(slug, null);
+}
+
 export async function getCollection<T>(
   slug: CollectionSlug,
   fallback: T[],

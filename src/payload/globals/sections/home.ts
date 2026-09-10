@@ -1,54 +1,74 @@
 import { ctaButtonsField } from "../../fields/link";
 import { imageUploadFields } from "../../fields/image";
 import { ADMIN_GROUPS } from "../../admin-groups";
-import { pageSection } from "./section";
+import { pageSection, retiredSection } from "./section";
 
 export const HomeHero = pageSection(
   "home-hero",
-  "1. Hero slideshow",
-  "The full-screen slideshow at the very top of the home page. Each slide has its own background image, small label, headline and button — the site rotates through them automatically.",
+  "1. Hero",
+  "The top of the home page: the headline, the paragraph under it, the two buttons, and the scrolling row of institution names.",
   [
+    { name: "eyebrow", type: "text", label: "Small label above the headline" },
+    {
+      name: "headline",
+      type: "text",
+      label: "Headline",
+      admin: {
+        description:
+          "The part of the headline that never changes. The rotating words below finish the sentence, and a full stop is added automatically — so leave this without one.",
+      },
+    },
+    {
+      name: "rotatingWords",
+      type: "array",
+      label: "Rotating words at the end of the headline",
+      labels: { singular: "Word", plural: "Words" },
+      admin: {
+        description:
+          "Each word appears in turn, about every three seconds. One word on its own simply stays put.",
+      },
+      fields: [{ name: "word", type: "text", required: true, label: "Word" }],
+    },
+    { name: "blurb", type: "textarea", label: "Paragraph below the headline" },
+    {
+      name: "blurbShort",
+      type: "textarea",
+      label: "Shorter paragraph for phones",
+      admin: {
+        description:
+          "Shown instead of the paragraph above on narrow screens, where the longer one crowds the page. Leave empty to use the same text on every screen.",
+      },
+    },
+    ctaButtonsField,
+    { name: "trustedByLabel", type: "text", label: "Label above the scrolling names" },
+    {
+      name: "credentials",
+      type: "array",
+      label: "Institution names",
+      labels: { singular: "Name", plural: "Names" },
+      admin: { description: "Text only — these scroll past under the buttons. Drag to reorder." },
+      fields: [{ name: "name", type: "text", required: true, label: "Name" }],
+    },
+    // Retired with the 2026 redesign: the hero is one statement now, not a
+    // slideshow. The four slides stay in the database by decision — deleting
+    // the field here would also stop `next dev` on an interactive Drizzle
+    // prompt until the column were dropped by hand.
     {
       name: "heroSlides",
       type: "array",
-      label: "Slides",
-      labels: { singular: "Slide", plural: "Slides" },
-      admin: { description: "Drag to reorder. Slides play top to bottom." },
+      label: "Slides (retired)",
+      admin: { hidden: true },
       fields: [
-        {
-          name: "id",
-          type: "text",
-          required: true,
-          label: "Internal name",
-          admin: {
-            description:
-              "Not shown on the website — a short name so you can tell slides apart (e.g. hospitals, public-health).",
-          },
-        },
-        {
-          name: "eyebrow",
-          type: "text",
-          required: true,
-          label: "Small label above the headline",
-        },
-        { name: "title", type: "text", required: true, label: "Headline" },
-        { name: "cta", type: "text", required: true, label: "Button text" },
-        {
-          name: "href",
-          type: "text",
-          required: true,
-          label: "Button link",
-          admin: {
-            description: "A path on this site such as /platform, or a full https:// address.",
-          },
-        },
+        { name: "id", type: "text", required: true },
+        { name: "eyebrow", type: "text", required: true },
+        { name: "title", type: "text", required: true },
+        { name: "cta", type: "text", required: true },
+        { name: "href", type: "text", required: true },
         ...imageUploadFields({
           uploadName: "backgroundImage",
           pathName: "image",
           uploadLabel: "Background image",
           preset: "heroSlide",
-          pathDescription:
-            "Leave empty unless a developer asked you to use a built-in image path (e.g. /hero/hero-bg.webp).",
         }),
       ],
     },
@@ -56,29 +76,37 @@ export const HomeHero = pageSection(
   ADMIN_GROUPS.home,
 );
 
-export const HomeWhoWeAre = pageSection(
-  "home-who-we-are",
-  "2. Who We Are",
-  "The introduction paragraphs directly below the slideshow.",
+export const HomeAudience = pageSection(
+  "home-audience",
+  "2. Who it's for",
+  "The three cards directly below the hero, one per kind of visitor. Each card links to that audience's own page.",
   [
-    { name: "eyebrow", type: "text", label: "Small label above the paragraphs" },
+    { name: "heading", type: "text", label: "Heading" },
+    { name: "description", type: "textarea", label: "Text beside the heading" },
     {
-      name: "paragraphs",
+      name: "doors",
       type: "array",
-      label: "Paragraphs",
-      labels: { singular: "Paragraph", plural: "Paragraphs" },
+      label: "Cards",
+      labels: { singular: "Card", plural: "Cards" },
+      admin: { description: "Drag to reorder. Three cards fit the row; more will wrap." },
       fields: [
-        { name: "text", type: "textarea", required: true, label: "Paragraph text" },
+        { name: "kicker", type: "text", required: true, label: "Small label above the title" },
+        { name: "title", type: "text", required: true, label: "Card title" },
+        { name: "blurb", type: "textarea", required: true, label: "Description" },
         {
-          name: "highlights",
+          name: "points",
           type: "array",
-          label: "Words to highlight in blue",
-          labels: { singular: "Phrase", plural: "Phrases" },
-          admin: {
-            description:
-              "Copy an exact phrase from the paragraph above to colour it blue. It must match the paragraph letter for letter, or nothing will be highlighted.",
-          },
-          fields: [{ name: "phrase", type: "text", required: true, label: "Phrase" }],
+          label: "Bullet points",
+          labels: { singular: "Point", plural: "Points" },
+          fields: [{ name: "text", type: "text", required: true, label: "Text" }],
+        },
+        { name: "ctaLabel", type: "text", required: true, label: "Link text" },
+        {
+          name: "href",
+          type: "text",
+          required: true,
+          label: "Link",
+          admin: { description: "A path on this site, such as /hospital." },
         },
       ],
     },
@@ -86,75 +114,109 @@ export const HomeWhoWeAre = pageSection(
   ADMIN_GROUPS.home,
 );
 
-export const HomePartners = pageSection(
-  "home-partners",
-  "3. Partners — heading",
-  "Heading and description above the scrolling row of partner logos. The logos themselves are edited in “Partner logos” just below. This section also appears on the About page.",
+export const HomePlatformGlance = pageSection(
+  "home-platform-glance",
+  "3. Platform in one glance",
+  "The four-panel block explaining the platform, and the button below it.",
   [
     { name: "heading", type: "text", label: "Heading" },
-    { name: "description", type: "textarea", label: "Description" },
+    { name: "description", type: "textarea", label: "Text below the heading" },
+    {
+      name: "layers",
+      type: "array",
+      label: "Panels",
+      labels: { singular: "Panel", plural: "Panels" },
+      admin: {
+        description:
+          "Drag to reorder — the numbers 01, 02, 03 are added automatically and follow this order. Four panels fit the row.",
+      },
+      fields: [
+        { name: "title", type: "text", required: true, label: "Panel title" },
+        { name: "body", type: "textarea", required: true, label: "Description" },
+        { name: "tag", type: "text", required: true, label: "Small label at the bottom" },
+      ],
+    },
+    { name: "ctaLabel", type: "text", label: "Button text" },
+    {
+      name: "ctaHref",
+      type: "text",
+      label: "Button link",
+      admin: { description: "A path on this site, such as /platform." },
+    },
+  ],
+  ADMIN_GROUPS.home,
+);
+
+export const HomeProof = pageSection(
+  "home-proof",
+  "4. Proof — heading and featured items",
+  "The section showing who already uses Genetico: the heading, the large featured case study, and the three smaller items beside it. The scrolling logos come from “Partner logos” just below.",
+  [
+    { name: "heading", type: "text", label: "Heading" },
+    {
+      name: "featured",
+      type: "group",
+      label: "Featured case study",
+      fields: [
+        { name: "badge", type: "text", label: "Label on the image (e.g. “Now showing”)" },
+        { name: "duration", type: "text", label: "Length (e.g. 28:34)" },
+        { name: "kicker", type: "text", label: "Small label above the title" },
+        { name: "heading", type: "text", label: "Title" },
+        { name: "blurb", type: "textarea", label: "Description" },
+        {
+          name: "before",
+          type: "text",
+          label: "“Before” figure",
+          admin: { description: "Shown struck through, e.g. 3 weeks." },
+        },
+        {
+          name: "after",
+          type: "text",
+          label: "“After” figure",
+          admin: { description: "Shown in blue beside it, e.g. 4 days." },
+        },
+        { name: "ctaLabel", type: "text", label: "Link text" },
+        { name: "href", type: "text", label: "Link" },
+      ],
+    },
+    {
+      name: "clips",
+      type: "array",
+      label: "Items beside the case study",
+      labels: { singular: "Item", plural: "Items" },
+      admin: { description: "Drag to reorder. Three fit the column." },
+      fields: [
+        {
+          name: "meta",
+          type: "text",
+          required: true,
+          label: "Kind and length",
+          admin: { description: "For example: Deep dive · 45:22" },
+        },
+        { name: "title", type: "text", required: true, label: "Title" },
+        { name: "href", type: "text", required: true, label: "Link" },
+      ],
+    },
+    { name: "allResourcesLabel", type: "text", label: "Text on the “all resources” link" },
+    { name: "allResourcesHref", type: "text", label: "“All resources” link" },
   ],
   ADMIN_GROUPS.home,
 );
 
 export const HomeSecurity = pageSection(
   "home-security",
-  "4. Security & Trust",
-  "The dark panel beside the partner logos, with the list of trust and compliance points. This section also appears on the About page.",
+  "5. Security & Compliance",
+  "The dark band near the bottom of the home page listing the trust and compliance points. These points also appear on the About page.",
   [
     { name: "heading", type: "text", label: "Heading" },
-    { name: "description", type: "textarea", label: "Description" },
+    { name: "description", type: "textarea", label: "Text beside the heading" },
     {
       name: "features",
       type: "array",
       label: "Trust points",
       labels: { singular: "Trust point", plural: "Trust points" },
+      admin: { description: "Numbered automatically in this order. Drag to reorder." },
       fields: [{ name: "text", type: "text", required: true, label: "Text" }],
-    },
-  ],
-  ADMIN_GROUPS.home,
-);
-
-export const HomeEcosystemChallenges = pageSection(
-  "home-ecosystem-challenges",
-  "5. Ecosystem Challenges — heading",
-  "Heading and description above the grid of challenge cards. The cards themselves are edited in “Ecosystem challenge cards” just below.",
-  [
-    { name: "heading", type: "text", label: "Heading" },
-    { name: "description", type: "textarea", label: "Description" },
-  ],
-  ADMIN_GROUPS.home,
-);
-
-export const HomeEcosystemGaps = pageSection(
-  "home-ecosystem-gaps",
-  "6. Ecosystem Gaps — heading",
-  "Heading and description above the tabbed “gaps” panel. The tabs themselves are edited in “Ecosystem gap tabs” just below.",
-  [
-    { name: "heading", type: "text", label: "Heading" },
-    { name: "description", type: "textarea", label: "Description" },
-  ],
-  ADMIN_GROUPS.home,
-);
-
-export const HomeNews = pageSection(
-  "home-news",
-  "7. News & Articles",
-  "The news band near the bottom of the home page. Pick which blog posts, videos and articles to feature — everything you can choose here is created on the Resources page.",
-  [
-    { name: "heading", type: "text", label: "Heading" },
-    { name: "description", type: "textarea", label: "Description" },
-    { name: "ctaLabel", type: "text", label: "Link text (e.g. “See all”)" },
-    // Retired. The section now builds itself from the Resources page: the featured card is the
-    // blog post ticked "Show as the featured post on the home page", and the side list is the most
-    // recent resources of any type. The field is kept (hidden) only so the existing database
-    // column has something to map to — removing it outright stops `next dev` on an interactive
-    // Drizzle prompt. See scripts/drop-home-news-resource-picks.mjs to retire it for good.
-    {
-      name: "resourcePicks",
-      type: "json",
-      label: "Featured & sidebar content (retired)",
-      admin: { hidden: true },
     },
   ],
   ADMIN_GROUPS.home,
@@ -162,9 +224,19 @@ export const HomeNews = pageSection(
 
 export const HomeFaqs = pageSection(
   "home-faqs",
-  "8. FAQs",
-  "The frequently asked questions accordion near the bottom of the home page.",
+  "6. FAQs",
+  "The frequently asked questions on the home page. This is the only place the site answers them — the footer and other pages link here.",
   [
+    {
+      name: "showSection",
+      type: "checkbox",
+      defaultValue: true,
+      label: "Show this section on the page",
+      admin: {
+        description:
+          "Untick to hide the questions entirely. The numbered list at the top of the page renumbers itself, so there is no gap.",
+      },
+    },
     { name: "eyebrow", type: "text", label: "Small label above the heading" },
     { name: "heading", type: "text", label: "Heading" },
     { name: "description", type: "textarea", label: "Description" },
@@ -184,12 +256,97 @@ export const HomeFaqs = pageSection(
 
 export const HomeCta = pageSection(
   "home-cta",
-  "9. Closing call to action",
-  "The last band on the home page, above the footer.",
+  "7. Get in touch",
+  "The last section on the home page: the closing heading, the two buttons, and the enquiry form. The form's tabs and wording are edited under “Contact details & form”.",
+  [
+    { name: "heading", type: "text", label: "Heading" },
+    { name: "description", type: "textarea", label: "Text below the heading" },
+    ctaButtonsField,
+  ],
+  ADMIN_GROUPS.home,
+);
+
+/* ── Retired with the 2026 redesign ────────────────────────────────────────
+   Hidden from the sidebar, kept in the config, rows left in the database.
+
+   Keeping them was a deliberate call: the copy is client-written and may be
+   wanted again as the other six pages are redesigned. Deleting the field
+   definitions before dropping the columns would also stop `next dev` on an
+   interactive Drizzle prompt, so removal is a two-step job for later, not a
+   tidy-up to do in passing. */
+
+export const HomeWhoWeAre = retiredSection(
+  "home-who-we-are",
+  "Who We Are",
+  "No longer shown. The redesigned home page opens straight into the three audience cards. The paragraphs are kept here in case the About page wants them.",
+  [
+    { name: "eyebrow", type: "text" },
+    {
+      name: "paragraphs",
+      type: "array",
+      fields: [
+        { name: "text", type: "textarea", required: true },
+        {
+          name: "highlights",
+          type: "array",
+          fields: [{ name: "phrase", type: "text", required: true }],
+        },
+      ],
+    },
+  ],
+  ADMIN_GROUPS.home,
+);
+
+/**
+ * Not retired — moved.
+ *
+ * The redesigned home page carries its own proof heading, so this global now
+ * only renders on the About page. It follows its content into the About group
+ * rather than staying hidden under Home, which would leave the About page's
+ * heading with nowhere to edit it.
+ */
+export const HomePartners = pageSection(
+  "home-partners",
+  "6. Partners — heading",
+  "Heading and description above the row of partner logos on the About page. The logos themselves are edited under “Partner logos” on the Home page.",
   [
     { name: "heading", type: "text", label: "Heading" },
     { name: "description", type: "textarea", label: "Description" },
-    ctaButtonsField,
+  ],
+  ADMIN_GROUPS.about,
+);
+
+export const HomeEcosystemChallenges = retiredSection(
+  "home-ecosystem-challenges",
+  "Ecosystem Challenges — heading",
+  "No longer shown. The redesigned home page has no challenges grid.",
+  [
+    { name: "heading", type: "text" },
+    { name: "description", type: "textarea" },
+  ],
+  ADMIN_GROUPS.home,
+);
+
+export const HomeEcosystemGaps = retiredSection(
+  "home-ecosystem-gaps",
+  "Ecosystem Gaps — heading",
+  "No longer shown. The redesigned home page has no gaps panel.",
+  [
+    { name: "heading", type: "text" },
+    { name: "description", type: "textarea" },
+  ],
+  ADMIN_GROUPS.home,
+);
+
+export const HomeNews = retiredSection(
+  "home-news",
+  "News & Articles",
+  "No longer shown. The proof section now carries the featured case study and the items beside it.",
+  [
+    { name: "heading", type: "text" },
+    { name: "description", type: "textarea" },
+    { name: "ctaLabel", type: "text" },
+    { name: "resourcePicks", type: "json" },
   ],
   ADMIN_GROUPS.home,
 );

@@ -22,3 +22,24 @@ export function pageSection(
 ): GlobalConfig {
   return withAdminGroup({ slug, label, admin: { description }, fields }, group);
 }
+
+/**
+ * A section the site no longer renders.
+ *
+ * Hidden from the sidebar so the editor is not offered content that goes
+ * nowhere, but kept in the config with its fields intact: the rows are still
+ * in the database, and deleting the field definitions would stop `next dev`
+ * on an interactive Drizzle prompt until the columns are dropped by hand.
+ */
+export function retiredSection(
+  slug: string,
+  label: string,
+  reason: string,
+  fields: Field[],
+  group: AdminGroup,
+): GlobalConfig {
+  return withAdminGroup(
+    { slug, label: `${label} (retired)`, admin: { description: reason, hidden: true }, fields },
+    group,
+  );
+}

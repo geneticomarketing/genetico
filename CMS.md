@@ -37,10 +37,18 @@ For example, on the home page, **“3. Partners — heading”** is the wording 
 
 ### Two things that live somewhere unexpected
 
-- **The partner logos and “Security & Trust” panel appear on both the home page and the About
-  page**, and are edited once, under **Home page**. That is why the About group jumps from 5 to 7.
+- **The partner logos and the “Security & Compliance” points appear on both the home page and the
+  About page**, and are edited once, under **Home page**.
 - **Blog posts** are written under **Resources page → Blog posts**, but they also show on the
   `/blog` listing and can be featured on the home page.
+
+### Sections that are no longer shown
+
+The home page was rebuilt in 2026. Its old sections — the hero slideshow, “Who We Are”, the
+ecosystem challenge cards and gap tabs, and the news band — are no longer on the page, so they have
+been taken out of the sidebar. **Nothing was deleted**: the words are still in the database, and a
+developer can bring any of them back. If you are looking for text you remember editing and cannot
+find it, that is probably why — ask before rewriting it somewhere else.
 
 ## Common tasks
 
@@ -154,14 +162,16 @@ in `src/lib/cms/defaults/`. That is what keeps CI green without production crede
 
 ## Scripts
 
-| Command                                                    | Description                                                            |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `npm run dev`                                              | Next.js + the Payload admin                                            |
-| `npm run generate:types`                                   | Regenerate `src/payload-types.ts` — **run after any CMS field change** |
-| `npm run generate:importmap`                               | Regenerate the admin import map                                        |
-| `npx tsx scripts/print-admin-nav.mts`                      | Print the sidebar as an editor sees it                                 |
-| `node --env-file=.env scripts/migrate-cms-realignment.mjs` | One-time schema migration (already applied)                            |
-| `node --env-file=.env scripts/backfill-cms-fields.mjs`     | One-time content backfill (already applied)                            |
+| Command                                                    | Description                                                             |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `npm run dev`                                              | Next.js + the Payload admin                                             |
+| `npm run generate:types`                                   | Regenerate `src/payload-types.ts` — **run after any CMS field change**  |
+| `npm run generate:importmap`                               | Regenerate the admin import map                                         |
+| `npx tsx scripts/print-admin-nav.mts`                      | Print the sidebar as an editor sees it                                  |
+| `node --env-file=.env scripts/migrate-cms-realignment.mjs` | One-time schema migration (already applied)                             |
+| `node --env-file=.env scripts/backfill-cms-fields.mjs`     | One-time content backfill (already applied)                             |
+| `node --env-file=.env scripts/backup-cms.mjs`              | Dump every table to `.cms-backup/` — **run before any schema change**   |
+| `npx tsx scripts/seed-home-redesign.mts`                   | Fill empty home-page fields with the design copy (`--force` overwrites) |
 
 > **`npm run seed` is destructive.** It drops and truncates tables, then overwrites every global
 > with the hardcoded defaults in `src/lib/cms/defaults/`. It is a first-time bootstrap for an empty

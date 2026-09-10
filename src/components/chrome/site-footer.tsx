@@ -9,6 +9,33 @@ const SOCIAL_ICONS = {
   youtube: FaYoutube,
 } as const;
 
+const LINK = "text-sky-link text-[15.5px] transition-colors hover:text-white";
+
+/**
+ * The footer's contact link.
+ *
+ * `contact_href` was deliberately cleared in the CMS so the site could pick
+ * the destination itself, so an empty value is the normal state, not a
+ * mistake — it falls through to the enquiry form on the home page.
+ */
+function ContactLink({ label, href }: { label: string; href?: string | null }) {
+  const destination = href?.trim() || "/#get-in-touch";
+
+  if (destination.startsWith("http")) {
+    return (
+      <a href={destination} target="_blank" rel="noreferrer" className={LINK}>
+        {label}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={destination} className={LINK}>
+      {label}
+    </Link>
+  );
+}
+
 /**
  * The dark band that closes every redesigned page.
  *
@@ -75,15 +102,8 @@ export function SiteFooter({ footer }: { footer: SiteData["footer"] }) {
                 {link.label}
               </Link>
             ))}
-            {footer.contactLabel && footer.contactHref ? (
-              <a
-                href={footer.contactHref}
-                target="_blank"
-                rel="noreferrer"
-                className="text-sky-link text-[15.5px] transition-colors hover:text-white"
-              >
-                {footer.contactLabel}
-              </a>
+            {footer.contactLabel ? (
+              <ContactLink label={footer.contactLabel} href={footer.contactHref} />
             ) : null}
           </div>
         </div>

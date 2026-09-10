@@ -113,14 +113,17 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'home-hero': HomeHero;
-    'home-who-we-are': HomeWhoWeAre;
-    'home-ecosystem-challenges': HomeEcosystemChallenge;
-    'home-ecosystem-gaps': HomeEcosystemGap;
-    'home-partners': HomePartner;
+    'home-audience': HomeAudience;
+    'home-platform-glance': HomePlatformGlance;
+    'home-proof': HomeProof;
     'home-security': HomeSecurity;
-    'home-news': HomeNew;
     'home-faqs': HomeFaq;
     'home-cta': HomeCta;
+    'home-who-we-are': HomeWhoWeAre;
+    'home-partners': HomePartner;
+    'home-ecosystem-challenges': HomeEcosystemChallenge;
+    'home-ecosystem-gaps': HomeEcosystemGap;
+    'home-news': HomeNew;
     'about-hero': AboutHero;
     'about-vision': AboutVision;
     'about-foundations': AboutFoundation;
@@ -154,14 +157,17 @@ export interface Config {
   };
   globalsSelect: {
     'home-hero': HomeHeroSelect<false> | HomeHeroSelect<true>;
-    'home-who-we-are': HomeWhoWeAreSelect<false> | HomeWhoWeAreSelect<true>;
-    'home-ecosystem-challenges': HomeEcosystemChallengesSelect<false> | HomeEcosystemChallengesSelect<true>;
-    'home-ecosystem-gaps': HomeEcosystemGapsSelect<false> | HomeEcosystemGapsSelect<true>;
-    'home-partners': HomePartnersSelect<false> | HomePartnersSelect<true>;
+    'home-audience': HomeAudienceSelect<false> | HomeAudienceSelect<true>;
+    'home-platform-glance': HomePlatformGlanceSelect<false> | HomePlatformGlanceSelect<true>;
+    'home-proof': HomeProofSelect<false> | HomeProofSelect<true>;
     'home-security': HomeSecuritySelect<false> | HomeSecuritySelect<true>;
-    'home-news': HomeNewsSelect<false> | HomeNewsSelect<true>;
     'home-faqs': HomeFaqsSelect<false> | HomeFaqsSelect<true>;
     'home-cta': HomeCtaSelect<false> | HomeCtaSelect<true>;
+    'home-who-we-are': HomeWhoWeAreSelect<false> | HomeWhoWeAreSelect<true>;
+    'home-partners': HomePartnersSelect<false> | HomePartnersSelect<true>;
+    'home-ecosystem-challenges': HomeEcosystemChallengesSelect<false> | HomeEcosystemChallengesSelect<true>;
+    'home-ecosystem-gaps': HomeEcosystemGapsSelect<false> | HomeEcosystemGapsSelect<true>;
+    'home-news': HomeNewsSelect<false> | HomeNewsSelect<true>;
     'about-hero': AboutHeroSelect<false> | AboutHeroSelect<true>;
     'about-vision': AboutVisionSelect<false> | AboutVisionSelect<true>;
     'about-foundations': AboutFoundationsSelect<false> | AboutFoundationsSelect<true>;
@@ -274,7 +280,7 @@ export interface Media {
   focalY?: number | null;
 }
 /**
- * The cards in the “Ecosystem Challenges” section of the home page. Each card flips between a problem and a solution.
+ * No longer shown anywhere on the site. Kept so the cards are not lost.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ecosystem-modules".
@@ -305,7 +311,7 @@ export interface EcosystemModule {
   createdAt: string;
 }
 /**
- * The tabs in the “Ecosystem Gaps” section of the home page. Each tab shows a problem beside its solution.
+ * No longer shown anywhere on the site. Kept so the tabs are not lost.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ecosystem-gaps".
@@ -1261,35 +1267,69 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * The full-screen slideshow at the very top of the home page. Each slide has its own background image, small label, headline and button — the site rotates through them automatically.
+ * The top of the home page: the headline, the paragraph under it, the two buttons, and the scrolling row of institution names.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-hero".
  */
 export interface HomeHero {
   id: number;
+  eyebrow?: string | null;
   /**
-   * Drag to reorder. Slides play top to bottom.
+   * The part of the headline that never changes. The rotating words below finish the sentence, and a full stop is added automatically — so leave this without one.
    */
+  headline?: string | null;
+  /**
+   * Each word appears in turn, about every three seconds. One word on its own simply stays put.
+   */
+  rotatingWords?:
+    | {
+        word: string;
+        id?: string | null;
+      }[]
+    | null;
+  blurb?: string | null;
+  /**
+   * Shown instead of the paragraph above on narrow screens, where the longer one crowds the page. Leave empty to use the same text on every screen.
+   */
+  blurbShort?: string | null;
+  /**
+   * Usually one or two. The first button is the more prominent one.
+   */
+  buttons?:
+    | {
+        label: string;
+        /**
+         * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
+         */
+        href: string;
+        variant?: ('primary' | 'secondary') | null;
+        id?: string | null;
+      }[]
+    | null;
+  trustedByLabel?: string | null;
+  /**
+   * Text only — these scroll past under the buttons. Drag to reorder.
+   */
+  credentials?:
+    | {
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
   heroSlides?:
     | {
-        /**
-         * Not shown on the website — a short name so you can tell slides apart (e.g. hospitals, public-health).
-         */
         id: string;
         eyebrow: string;
         title: string;
         cta: string;
-        /**
-         * A path on this site such as /platform, or a full https:// address.
-         */
         href: string;
         /**
          * Recommended size: 1920 × 1080 px (16:9). WebP or JPG, ideally under 500 KB. Use a descriptive file name such as hero-bg.webp, hero-dna.jpg. Stick to lowercase letters, numbers, and hyphens.
          */
         backgroundImage?: (number | null) | Media;
         /**
-         * Leave empty unless a developer asked you to use a built-in image path (e.g. /hero/hero-bg.webp).
+         * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
          */
         image?: string | null;
       }[]
@@ -1298,26 +1338,34 @@ export interface HomeHero {
   createdAt?: string | null;
 }
 /**
- * The introduction paragraphs directly below the slideshow.
+ * The three cards directly below the hero, one per kind of visitor. Each card links to that audience's own page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-who-we-are".
+ * via the `definition` "home-audience".
  */
-export interface HomeWhoWeAre {
+export interface HomeAudience {
   id: number;
-  eyebrow?: string | null;
-  paragraphs?:
+  heading?: string | null;
+  description?: string | null;
+  /**
+   * Drag to reorder. Three cards fit the row; more will wrap.
+   */
+  doors?:
     | {
-        text: string;
-        /**
-         * Copy an exact phrase from the paragraph above to colour it blue. It must match the paragraph letter for letter, or nothing will be highlighted.
-         */
-        highlights?:
+        kicker: string;
+        title: string;
+        blurb: string;
+        points?:
           | {
-              phrase: string;
+              text: string;
               id?: string | null;
             }[]
           | null;
+        ctaLabel: string;
+        /**
+         * A path on this site, such as /hospital.
+         */
+        href: string;
         id?: string | null;
       }[]
     | null;
@@ -1325,46 +1373,81 @@ export interface HomeWhoWeAre {
   createdAt?: string | null;
 }
 /**
- * Heading and description above the grid of challenge cards. The cards themselves are edited in “Ecosystem challenge cards” just below.
+ * The four-panel block explaining the platform, and the button below it.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-ecosystem-challenges".
+ * via the `definition` "home-platform-glance".
  */
-export interface HomeEcosystemChallenge {
+export interface HomePlatformGlance {
   id: number;
   heading?: string | null;
   description?: string | null;
+  /**
+   * Drag to reorder — the numbers 01, 02, 03 are added automatically and follow this order. Four panels fit the row.
+   */
+  layers?:
+    | {
+        title: string;
+        body: string;
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  ctaLabel?: string | null;
+  /**
+   * A path on this site, such as /platform.
+   */
+  ctaHref?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
- * Heading and description above the tabbed “gaps” panel. The tabs themselves are edited in “Ecosystem gap tabs” just below.
+ * The section showing who already uses Genetico: the heading, the large featured case study, and the three smaller items beside it. The scrolling logos come from “Partner logos” just below.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-ecosystem-gaps".
+ * via the `definition` "home-proof".
  */
-export interface HomeEcosystemGap {
+export interface HomeProof {
   id: number;
   heading?: string | null;
-  description?: string | null;
+  featured?: {
+    badge?: string | null;
+    duration?: string | null;
+    kicker?: string | null;
+    heading?: string | null;
+    blurb?: string | null;
+    /**
+     * Shown struck through, e.g. 3 weeks.
+     */
+    before?: string | null;
+    /**
+     * Shown in blue beside it, e.g. 4 days.
+     */
+    after?: string | null;
+    ctaLabel?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Drag to reorder. Three fit the column.
+   */
+  clips?:
+    | {
+        /**
+         * For example: Deep dive · 45:22
+         */
+        meta: string;
+        title: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  allResourcesLabel?: string | null;
+  allResourcesHref?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
- * Heading and description above the scrolling row of partner logos. The logos themselves are edited in “Partner logos” just below. This section also appears on the About page.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-partners".
- */
-export interface HomePartner {
-  id: number;
-  heading?: string | null;
-  description?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * The dark panel beside the partner logos, with the list of trust and compliance points. This section also appears on the About page.
+ * The dark band near the bottom of the home page listing the trust and compliance points. These points also appear on the About page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-security".
@@ -1373,6 +1456,9 @@ export interface HomeSecurity {
   id: number;
   heading?: string | null;
   description?: string | null;
+  /**
+   * Numbered automatically in this order. Drag to reorder.
+   */
   features?:
     | {
         text: string;
@@ -1383,36 +1469,17 @@ export interface HomeSecurity {
   createdAt?: string | null;
 }
 /**
- * The news band near the bottom of the home page. Pick which blog posts, videos and articles to feature — everything you can choose here is created on the Resources page.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-news".
- */
-export interface HomeNew {
-  id: number;
-  heading?: string | null;
-  description?: string | null;
-  ctaLabel?: string | null;
-  resourcePicks?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * The frequently asked questions accordion near the bottom of the home page.
+ * The frequently asked questions on the home page. This is the only place the site answers them — the footer and other pages link here.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-faqs".
  */
 export interface HomeFaq {
   id: number;
+  /**
+   * Untick to hide the questions entirely. The numbered list at the top of the page renumbers itself, so there is no gap.
+   */
+  showSection?: boolean | null;
   eyebrow?: string | null;
   heading?: string | null;
   description?: string | null;
@@ -1427,7 +1494,7 @@ export interface HomeFaq {
   createdAt?: string | null;
 }
 /**
- * The last band on the home page, above the footer.
+ * The last section on the home page: the closing heading, the two buttons, and the enquiry form. The form's tabs and wording are edited under “Contact details & form”.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-cta".
@@ -1449,6 +1516,92 @@ export interface HomeCta {
         variant?: ('primary' | 'secondary') | null;
         id?: string | null;
       }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * No longer shown. The redesigned home page opens straight into the three audience cards. The paragraphs are kept here in case the About page wants them.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-who-we-are".
+ */
+export interface HomeWhoWeAre {
+  id: number;
+  eyebrow?: string | null;
+  paragraphs?:
+    | {
+        text: string;
+        highlights?:
+          | {
+              phrase: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Heading and description above the row of partner logos on the About page. The logos themselves are edited under “Partner logos” on the Home page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-partners".
+ */
+export interface HomePartner {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * No longer shown. The redesigned home page has no challenges grid.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-ecosystem-challenges".
+ */
+export interface HomeEcosystemChallenge {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * No longer shown. The redesigned home page has no gaps panel.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-ecosystem-gaps".
+ */
+export interface HomeEcosystemGap {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * No longer shown. The proof section now carries the featured case study and the items beside it.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-news".
+ */
+export interface HomeNew {
+  id: number;
+  heading?: string | null;
+  description?: string | null;
+  ctaLabel?: string | null;
+  resourcePicks?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -2211,6 +2364,31 @@ export interface Footer {
  * via the `definition` "home-hero_select".
  */
 export interface HomeHeroSelect<T extends boolean = true> {
+  eyebrow?: T;
+  headline?: T;
+  rotatingWords?:
+    | T
+    | {
+        word?: T;
+        id?: T;
+      };
+  blurb?: T;
+  blurbShort?: T;
+  buttons?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        variant?: T;
+        id?: T;
+      };
+  trustedByLabel?: T;
+  credentials?:
+    | T
+    | {
+        name?: T;
+        id?: T;
+      };
   heroSlides?:
     | T
     | {
@@ -2228,20 +2406,25 @@ export interface HomeHeroSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-who-we-are_select".
+ * via the `definition` "home-audience_select".
  */
-export interface HomeWhoWeAreSelect<T extends boolean = true> {
-  eyebrow?: T;
-  paragraphs?:
+export interface HomeAudienceSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  doors?:
     | T
     | {
-        text?: T;
-        highlights?:
+        kicker?: T;
+        title?: T;
+        blurb?: T;
+        points?:
           | T
           | {
-              phrase?: T;
+              text?: T;
               id?: T;
             };
+        ctaLabel?: T;
+        href?: T;
         id?: T;
       };
   updatedAt?: T;
@@ -2250,33 +2433,54 @@ export interface HomeWhoWeAreSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-ecosystem-challenges_select".
+ * via the `definition` "home-platform-glance_select".
  */
-export interface HomeEcosystemChallengesSelect<T extends boolean = true> {
+export interface HomePlatformGlanceSelect<T extends boolean = true> {
   heading?: T;
   description?: T;
+  layers?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        tag?: T;
+        id?: T;
+      };
+  ctaLabel?: T;
+  ctaHref?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-ecosystem-gaps_select".
+ * via the `definition` "home-proof_select".
  */
-export interface HomeEcosystemGapsSelect<T extends boolean = true> {
+export interface HomeProofSelect<T extends boolean = true> {
   heading?: T;
-  description?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-partners_select".
- */
-export interface HomePartnersSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
+  featured?:
+    | T
+    | {
+        badge?: T;
+        duration?: T;
+        kicker?: T;
+        heading?: T;
+        blurb?: T;
+        before?: T;
+        after?: T;
+        ctaLabel?: T;
+        href?: T;
+      };
+  clips?:
+    | T
+    | {
+        meta?: T;
+        title?: T;
+        href?: T;
+        id?: T;
+      };
+  allResourcesLabel?: T;
+  allResourcesHref?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2300,22 +2504,10 @@ export interface HomeSecuritySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-news_select".
- */
-export interface HomeNewsSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  ctaLabel?: T;
-  resourcePicks?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-faqs_select".
  */
 export interface HomeFaqsSelect<T extends boolean = true> {
+  showSection?: T;
   eyebrow?: T;
   heading?: T;
   description?: T;
@@ -2345,6 +2537,74 @@ export interface HomeCtaSelect<T extends boolean = true> {
         variant?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-who-we-are_select".
+ */
+export interface HomeWhoWeAreSelect<T extends boolean = true> {
+  eyebrow?: T;
+  paragraphs?:
+    | T
+    | {
+        text?: T;
+        highlights?:
+          | T
+          | {
+              phrase?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-partners_select".
+ */
+export interface HomePartnersSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-ecosystem-challenges_select".
+ */
+export interface HomeEcosystemChallengesSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-ecosystem-gaps_select".
+ */
+export interface HomeEcosystemGapsSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-news_select".
+ */
+export interface HomeNewsSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  ctaLabel?: T;
+  resourcePicks?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
