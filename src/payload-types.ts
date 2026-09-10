@@ -1806,6 +1806,10 @@ export interface PlatformHero {
   id: number;
   eyebrow?: string | null;
   title: string;
+  /**
+   * Set in italics at the end of the headline, e.g. “rare and genetic disease”. Leave empty for a headline in one weight.
+   */
+  titleEmphasis?: string | null;
   subtitle?: string | null;
   ctaLabel?: string | null;
   /**
@@ -1922,6 +1926,12 @@ export interface PlatformInfrastructure {
   description?: string | null;
   integrationsTitle?: string | null;
   integrationsDescription?: string | null;
+  integrationBullets?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
   integrationTags?:
     | {
         tag: string;
@@ -1930,6 +1940,12 @@ export interface PlatformInfrastructure {
     | null;
   deploymentTitle?: string | null;
   deploymentDescription?: string | null;
+  deploymentBullets?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
   deploymentOptions?:
     | {
         title: string;
@@ -2805,6 +2821,7 @@ export interface AboutCtaSelect<T extends boolean = true> {
 export interface PlatformHeroSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
+  titleEmphasis?: T;
   subtitle?: T;
   ctaLabel?: T;
   ctaHref?: T;
@@ -2898,6 +2915,12 @@ export interface PlatformInfrastructureSelect<T extends boolean = true> {
   description?: T;
   integrationsTitle?: T;
   integrationsDescription?: T;
+  integrationBullets?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
   integrationTags?:
     | T
     | {
@@ -2906,6 +2929,12 @@ export interface PlatformInfrastructureSelect<T extends boolean = true> {
       };
   deploymentTitle?: T;
   deploymentDescription?: T;
+  deploymentBullets?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
   deploymentOptions?:
     | T
     | {

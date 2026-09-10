@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 
 import { SectionLead } from "@/components/platform/section-lead";
@@ -42,7 +41,7 @@ export function PlatformFeatures({
         <div
           role="tablist"
           aria-label={content.heading}
-          className="border-rule mt-[52px] grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] border-b"
+          className="mt-[52px] grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))]"
         >
           {content.items.map((item, i) => (
             <button
@@ -63,10 +62,8 @@ export function PlatformFeatures({
                 setActive(next);
                 document.getElementById(`platform-tab-${next}`)?.focus();
               }}
-              className={`hover:bg-sheet-soft cursor-pointer px-4 pt-4 pb-[18px] text-left transition-colors ${
-                i === active
-                  ? "border-primary text-ink border-b-2"
-                  : "text-ink-soft border-b-2 border-transparent"
+              className={`hover:bg-sheet-soft border-rule-light cursor-pointer border-t-2 px-5 pt-[18px] pb-5 text-left transition-colors not-last:border-r ${
+                i === active ? "text-ink border-t-[#2FA98F]" : "text-ink-soft border-t-rule"
               }`}
             >
               <span className="font-mono-label block text-xs tracking-[0.08em]">
@@ -91,7 +88,7 @@ export function PlatformFeatures({
               </span>
             ) : null}
             <h3 className="font-headline m-0 text-[clamp(26px,3vw,34px)] leading-[1.14] tracking-[-0.018em]">
-              {current.kicker || current.title}
+              {current.title}
             </h3>
             <p className="text-ink-body m-0 max-w-[36em] text-[14.5px] leading-[1.75]">
               {current.body}
@@ -109,14 +106,19 @@ export function PlatformFeatures({
             </div>
           </div>
 
-          <div className="border-rule rounded-card relative flex aspect-[4/3] items-center justify-center border bg-[#F5F7F9] p-7">
+          <div className="border-rule rounded-card flex aspect-[4/3] items-center justify-center border bg-[#F5F7F9] p-7">
             {current.image ? (
-              <Image
+              /* A plain img rather than next/image: these are SVG diagrams,
+                 which the image optimiser refuses to touch without
+                 dangerouslyAllowSVG — and there is nothing to optimise. */
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
                 src={current.image}
                 alt={current.title}
-                fill
-                sizes="(max-width: 1040px) 100vw, 520px"
-                className="object-contain p-7"
+                /* The SVGs carry a viewBox but no width or height, so they
+                   have no intrinsic size to lay out against — filling the box
+                   and letting object-contain scale them gives them one. */
+                className="h-full w-full object-contain"
               />
             ) : (
               <span className="font-mono-label text-ink-dim text-[11px] tracking-[0.16em] uppercase">

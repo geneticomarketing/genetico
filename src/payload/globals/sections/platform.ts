@@ -10,6 +10,15 @@ export const PlatformHero = pageSection(
   [
     { name: "eyebrow", type: "text", label: "Small label above the headline" },
     { name: "title", type: "text", required: true, label: "Headline" },
+    {
+      name: "titleEmphasis",
+      type: "text",
+      label: "Headline — italic ending",
+      admin: {
+        description:
+          "Set in italics at the end of the headline, e.g. “rare and genetic disease”. Leave empty for a headline in one weight.",
+      },
+    },
     { name: "subtitle", type: "textarea", label: "Paragraph below the headline" },
     { name: "ctaLabel", type: "text", label: "Button text" },
     {
@@ -127,6 +136,13 @@ export const PlatformInfrastructure = pageSection(
     { name: "integrationsTitle", type: "text", label: "Integrations — title" },
     { name: "integrationsDescription", type: "textarea", label: "Integrations — description" },
     {
+      name: "integrationBullets",
+      type: "array",
+      label: "Integrations — bullet points",
+      labels: { singular: "Point", plural: "Points" },
+      fields: [{ name: "item", type: "text", required: true, label: "Text" }],
+    },
+    {
       name: "integrationTags",
       type: "array",
       label: "Integration tags",
@@ -135,6 +151,13 @@ export const PlatformInfrastructure = pageSection(
     },
     { name: "deploymentTitle", type: "text", label: "Deployment — title" },
     { name: "deploymentDescription", type: "textarea", label: "Deployment — description" },
+    {
+      name: "deploymentBullets",
+      type: "array",
+      label: "Deployment — bullet points",
+      labels: { singular: "Point", plural: "Points" },
+      fields: [{ name: "item", type: "text", required: true, label: "Text" }],
+    },
     {
       name: "deploymentOptions",
       type: "array",

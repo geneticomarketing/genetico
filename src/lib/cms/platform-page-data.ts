@@ -31,6 +31,8 @@ export type PlatformContent = {
   hero: {
     eyebrow: string;
     title: string;
+    /** Set in italics at the end of the headline. */
+    titleEmphasis: string;
     blurb: string;
     ctaLabel: string;
     ctaHref: string;
@@ -43,8 +45,8 @@ export type PlatformContent = {
     eyebrow: string;
     heading: string;
     description: string;
-    integrations: { title: string; description: string; tags: string[] };
-    deployment: { title: string; description: string; options: PlatformCard[] };
+    integrations: { title: string; description: string; bullets: string[]; tags: string[] };
+    deployment: { title: string; description: string; bullets: string[]; options: PlatformCard[] };
   };
   security: { eyebrow: string; heading: string; description: string; items: PlatformCard[] };
   cta: { heading: string; description: string };
@@ -89,7 +91,8 @@ export async function getPlatformContent(): Promise<PlatformContent> {
   return {
     hero: {
       eyebrow: text(hero?.eyebrow, "A Genetico Platform"),
-      title: text(hero?.title, "IndiGeneUs.AI"),
+      title: text(hero?.title, "The clinical infrastructure for"),
+      titleEmphasis: text(hero?.titleEmphasis),
       blurb: text(hero?.subtitle),
       ctaLabel: text(hero?.ctaLabel, "Schedule a walkthrough"),
       ctaHref: text(hero?.ctaHref, "#get-in-touch"),
@@ -144,6 +147,7 @@ export async function getPlatformContent(): Promise<PlatformContent> {
       integrations: {
         title: text(infrastructure?.integrationsTitle, "Integrations"),
         description: text(infrastructure?.integrationsDescription),
+        bullets: bullets(infrastructure?.integrationBullets),
         tags: (() => {
           const stored = (infrastructure?.integrationTags ?? [])
             .map((entry) => entry.tag?.trim())
@@ -154,6 +158,7 @@ export async function getPlatformContent(): Promise<PlatformContent> {
       deployment: {
         title: text(infrastructure?.deploymentTitle, "Deployment Flexibility"),
         description: text(infrastructure?.deploymentDescription),
+        bullets: bullets(infrastructure?.deploymentBullets),
         options: (infrastructure?.deploymentOptions ?? [])
           .map((option) => ({ title: option.title, description: text(option.description) }))
           .filter((option) => option.title),

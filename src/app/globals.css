@@ -683,3 +683,14 @@ body {
     transform: translateX(0);
   }
 }
+
+/* The IndiGeneUs mark behind the Platform hero turns slowly enough to read as
+   depth rather than motion — one revolution every two and a bit minutes. */
+@keyframes spin-mark {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

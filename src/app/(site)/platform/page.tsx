@@ -58,8 +58,11 @@ export default async function PlatformPage() {
 
   return (
     <div className="bg-sheet text-ink font-body flex min-h-full flex-col overflow-clip">
-      <SiteHeader navigation={navigation} sections={sections} />
-      <SectionRail sections={sections} pageLabel="IndiGeneUs.AI" />
+      {/* The hero is a full-height dark band, so the header sits on it in
+          white and the rail waits until the hero has gone rather than sliding
+          in over it. */}
+      <SiteHeader navigation={navigation} sections={sections} tone="dark" />
+      <SectionRail sections={sections} pageLabel="IndiGeneUs.AI" revealAfter="top" />
 
       <PlatformHero content={content.hero} sections={inPlatform} />
       <DeployedWith logos={content.trustLogos} />

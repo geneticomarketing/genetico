@@ -1,20 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { scrollToSection, type NumberedSection } from "@/components/chrome/page-sections";
-import { HERO_CASES } from "@/content/platform-demo";
+import { CASE_ROTATE_MS, HERO_CASES } from "@/content/platform-demo";
 import type { PlatformContent } from "@/lib/cms/platform-page-data";
 
 /**
- * The Platform hero: a full-height dark band with the IndiGeneUs mark behind
- * it, and a RAPID Score card showing three worked cases.
+ * The Platform hero: a full-height dark band with the IndiGeneUs mark turning
+ * behind it, and a RAPID Score card working through three cases.
  *
- * The card is labelled "Illustrative" because it is — the scores are a
- * consistent worked example, not output from a patient. Under it, a row of
- * links into the five sections, which is what this page has instead of a hero
- * image.
+ * The cases advance on their own until someone picks one, at which point the
+ * rotation stops for good — taking a choice away from a reader who has just
+ * made one is worse than never having moved at all. The bars fill in shortly
+ * after mount, staggered, so the ranking reads as being computed.
+ *
+ * Under reduced motion the mark holds still, the cases do not advance, and
+ * the bars snap to their final width instead of filling — the transition is
+ * behind Tailwind's motion-safe variant, so CSS decides rather than JS.
  */
 export function PlatformHero({
   content,
@@ -23,8 +27,27 @@ export function PlatformHero({
   content: PlatformContent["hero"];
   sections: NumberedSection[];
 }) {
-  const [active, setActive] = useState(0);
-  const current = HERO_CASES[active];
+  const [caseIndex, setCaseIndex] = useState(0);
+  const [picked, setPicked] = useState(false);
+  const [barsIn, setBarsIn] = useState(false);
+
+  useEffect(() => {
+    const bars = setTimeout(() => setBarsIn(true), 160);
+    return () => clearTimeout(bars);
+  }, []);
+
+  useEffect(() => {
+    if (picked) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+
+    const timer = setInterval(
+      () => setCaseIndex((i) => (i + 1) % HERO_CASES.length),
+      CASE_ROTATE_MS,
+    );
+    return () => clearInterval(timer);
+  }, [picked]);
+
+  const current = HERO_CASES[caseIndex];
 
   return (
     <section
@@ -41,7 +64,7 @@ export function PlatformHero({
           width={1065}
           height={1061}
           priority
-          className="h-full w-full object-contain opacity-[0.13]"
+          className="block h-full w-full opacity-[0.11] motion-safe:animate-[spin-mark_140s_linear_infinite]"
         />
       </div>
       <div
@@ -50,7 +73,7 @@ export function PlatformHero({
       />
 
       <div className="max-w-site relative mx-auto flex w-full flex-1 flex-col">
-        <div className="mid:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] grid grid-cols-[minmax(0,1fr)] items-center gap-[clamp(34px,5vw,64px)] py-[clamp(32px,5vh,64px)]">
+        <div className="nav:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] nav:gap-[clamp(40px,5vw,72px)] grid flex-1 grid-cols-[minmax(0,1fr)] items-center gap-11 py-[clamp(32px,5vh,64px)] [align-content:center]">
           <div className="flex flex-col items-start gap-[26px]">
             <div className="flex items-center gap-4">
               <span className="font-mono-label text-[11px] tracking-[0.2em] whitespace-nowrap text-[#7FA9CC] uppercase">
@@ -61,6 +84,7 @@ export function PlatformHero({
 
             <h1 className="font-headline m-0 max-w-[15em] text-[clamp(36px,4.4vw,58px)] leading-[1.06] tracking-[-0.022em] text-white text-pretty">
               {content.title}
+              {content.titleEmphasis ? <em className="italic"> {content.titleEmphasis}</em> : null}
             </h1>
 
             {content.blurb ? (
@@ -103,11 +127,14 @@ export function PlatformHero({
                 <button
                   key={demo.label}
                   type="button"
-                  aria-pressed={i === active}
-                  onClick={() => setActive(i)}
-                  className={`cursor-pointer rounded-full border px-3.5 py-1.5 text-[12.5px] transition-colors ${
-                    i === active
-                      ? "border-white/45 bg-white/12 text-white"
+                  aria-pressed={i === caseIndex}
+                  onClick={() => {
+                    setCaseIndex(i);
+                    setPicked(true);
+                  }}
+                  className={`cursor-pointer rounded-full border px-[13px] py-[7px] text-xs transition-colors ${
+                    i === caseIndex
+                      ? "border-[#6FD8C2]/55 bg-[#6FD8C2]/16 font-bold text-[#9FE7D6]"
                       : "border-white/18 text-[#9FBDD6] hover:border-white/42"
                   }`}
                 >
@@ -116,31 +143,37 @@ export function PlatformHero({
               ))}
             </div>
 
+            {/* Fixed height so the bars below do not jump as the meta wraps. */}
             <p className="mt-4 mb-0 min-h-[3.2em] text-[13px] leading-[1.6] text-[#9FBDD6]">
               {current.meta}
             </p>
 
-            <div className="mt-2 flex flex-col gap-[15px]">
+            <div className="mt-2 flex flex-col gap-3.5">
               {current.rows.map((row, i) => (
                 <div key={row.name}>
                   <div className="flex items-baseline justify-between gap-3">
                     <span
-                      className={`text-[13.5px] ${i === 0 ? "font-bold text-white" : "text-[#C6D6E4]"}`}
+                      className={`text-sm font-medium ${i === 0 ? "text-white" : "text-[#E4EDF5]"}`}
                     >
                       {row.name}
                     </span>
                     <span
-                      className={`font-mono-label text-[12px] ${
-                        i === 0 ? "text-[#6FD8C2]" : "text-[#8FB2CE]"
+                      className={`font-mono-label text-sm ${
+                        i === 0 ? "text-[#6FD8C2]" : "text-[#8FD8FF]"
                       }`}
                     >
                       {row.score}%
                     </span>
                   </div>
-                  <div className="mt-[7px] h-[5px] overflow-hidden rounded-[3px] bg-white/12">
+                  <div className="mt-[7px] h-[5px] rounded-[3px] bg-white/12">
                     <div
-                      className={`h-full rounded-[3px] ${i === 0 ? "bg-[#6FD8C2]" : "bg-[#4E7FA8]"}`}
-                      style={{ width: `${row.score}%` }}
+                      className={`h-[5px] rounded-[3px] motion-safe:transition-[width] motion-safe:duration-700 motion-safe:ease-out ${
+                        i === 0 ? "bg-[#6FD8C2]" : "bg-[#4FA6D8]"
+                      }`}
+                      style={{
+                        width: barsIn ? `${row.score}%` : 0,
+                        transitionDelay: `${i * 120}ms`,
+                      }}
                     />
                   </div>
                 </div>
@@ -162,7 +195,7 @@ export function PlatformHero({
           <span className="font-mono-label text-[10.5px] tracking-[0.2em] text-[#7FA9CC] uppercase">
             Inside the platform
           </span>
-          <div className="mid:grid-cols-5 mt-3.5 grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-2.5">
+          <div className="nav:grid-cols-5 mt-4 grid grid-cols-2 gap-2.5">
             {sections.map((section) => (
               <a
                 key={section.id}

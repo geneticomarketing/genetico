@@ -36,7 +36,7 @@ export function SectionLead({
         />
       </div>
 
-      <div className="mid:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] mt-6 grid grid-cols-[minmax(0,1fr)] items-end gap-x-14 gap-y-4">
+      <div className="nav:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] mt-6 grid grid-cols-[minmax(0,1fr)] items-start gap-x-14 gap-y-8">
         <h2
           className={`font-headline m-0 text-[clamp(30px,4vw,48px)] leading-[1.1] tracking-[-0.02em] ${
             dark ? "text-white" : ""

@@ -30,7 +30,7 @@
   <circle cx="320" cy="176" r="24" fill="#EEF2F7" stroke="#7EB8E8" stroke-width="2" />
   <rect x="376" y="152" width="48" height="48" rx="4" fill="#EEF2F7" stroke="#C5D0DC" stroke-width="1.5" />
 
-  <!-- generation 3  affected -->
+  <!-- generation 3 — affected -->
   <rect x="136" y="220" width="48" height="48" rx="4" fill="#024385" stroke="#024385" stroke-width="1.5" />
   <circle cx="160" cy="244" r="6" fill="#5FD7CB" />
   <rect x="256" y="220" width="48" height="48" rx="4" fill="#EEF2F7" stroke="#C5D0DC" stroke-width="1.5" />

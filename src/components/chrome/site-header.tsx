@@ -20,14 +20,23 @@ const SOLID_AFTER_PX = 12;
 export function SiteHeader({
   navigation,
   sections,
+  tone = "light",
 }: {
   navigation: SiteData["navigation"];
   sections: NumberedSection[];
+  /**
+   * `dark` is for pages whose hero is a dark band: the header sits on it in
+   * white until the page scrolls, then becomes the usual solid white bar.
+   */
+  tone?: "light" | "dark";
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const solutionsRef = useRef<HTMLDivElement | null>(null);
+
+  // Over a dark hero, everything inverts until the bar turns solid.
+  const onDark = tone === "dark" && !scrolled;
 
   const mainNav = navigation.mainNav ?? [];
   const solutionsNav = navigation.solutionsNav ?? [];
@@ -99,8 +108,13 @@ export function SiteHeader({
 
   return (
     <header
-      className={`sticky top-0 z-[60] border-b transition-[background-color,border-color] duration-300 ${
-        scrolled
+      /* A page with a dark hero has the header lie *over* it rather than
+         above it — the hero carries the top padding to clear it. Elsewhere it
+         is sticky, so it takes its own space at the top of the page. */
+      className={`right-0 left-0 z-[60] border-b transition-[background-color,border-color] duration-300 ${
+        tone === "dark" ? "fixed top-0" : "sticky top-0"
+      } ${
+        scrolled || menuOpen
           ? "border-rule bg-white/92 backdrop-blur-[14px]"
           : "border-transparent bg-transparent"
       }`}
@@ -113,7 +127,7 @@ export function SiteHeader({
             width={1388}
             height={402}
             priority
-            className="block h-[34px] w-auto"
+            className={`block h-[34px] w-auto ${onDark ? "brightness-0 invert" : ""}`}
           />
         </Link>
 
@@ -121,7 +135,9 @@ export function SiteHeader({
         <div className="nav:hidden ml-auto flex items-center gap-2.5">
           <Link
             href="/#get-in-touch"
-            className="bg-primary-deep hover:bg-primary rounded-full px-[18px] py-2.5 text-[13.5px] font-bold text-white transition-colors"
+            className={`rounded-full px-[18px] py-2.5 text-[13.5px] font-bold transition-colors ${
+              onDark ? "bg-white text-[#0A1F33]" : "bg-primary-deep hover:bg-primary text-white"
+            }`}
           >
             {ctaLabel}
           </Link>
@@ -130,7 +146,9 @@ export function SiteHeader({
             onClick={() => setMenuOpen((open) => !open)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="border-rule text-ink flex h-[38px] w-[38px] items-center justify-center rounded-[9px] border bg-white text-base leading-none"
+            className={`flex h-[38px] w-[38px] items-center justify-center rounded-[9px] border bg-transparent text-base leading-none ${
+              onDark ? "border-white/28 text-white" : "border-rule text-ink bg-white"
+            }`}
           >
             {menuOpen ? "×" : "≡"}
           </button>
@@ -156,7 +174,11 @@ export function SiteHeader({
                     aria-expanded={solutionsOpen}
                     aria-haspopup="true"
                     onClick={() => setSolutionsOpen((open) => !open)}
-                    className="text-ink-body hover:text-primary flex items-center gap-[5px] transition-colors"
+                    className={`flex items-center gap-[5px] transition-colors ${
+                      onDark
+                        ? "text-[#B9C8D6] hover:text-white"
+                        : "text-ink-body hover:text-primary"
+                    }`}
                   >
                     {item.label}
                     <span aria-hidden className="text-[9px]">
@@ -189,7 +211,9 @@ export function SiteHeader({
                 key={item.label}
                 href={item.href || "/"}
                 onClick={closeOverlays}
-                className="text-ink-body hover:text-primary text-[14.5px] transition-colors"
+                className={`text-[14.5px] transition-colors ${
+                  onDark ? "text-[#B9C8D6] hover:text-white" : "text-ink-body hover:text-primary"
+                }`}
               >
                 {item.label}
               </Link>
@@ -199,7 +223,9 @@ export function SiteHeader({
 
         <Link
           href="/#get-in-touch"
-          className="bg-primary-deep nav:inline-flex hover:bg-primary hidden flex-none rounded-full px-[22px] py-[11px] text-sm font-bold text-white transition-colors"
+          className={`nav:inline-flex hidden flex-none rounded-full px-[22px] py-[11px] text-sm font-bold transition-colors ${
+            onDark ? "bg-white text-[#0A1F33]" : "bg-primary-deep hover:bg-primary text-white"
+          }`}
         >
           {ctaLabel}
         </Link>
