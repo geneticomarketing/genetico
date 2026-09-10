@@ -22,7 +22,8 @@ export type NumberedSection = PageSection & {
   num: string;
 };
 
-export function numberSections(sections: PageSection[]): NumberedSection[] {
+/** Generic so a page's own section metadata survives the numbering. */
+export function numberSections<T extends PageSection>(sections: T[]): (T & { num: string })[] {
   return sections.map((section, i) => ({
     ...section,
     num: String(i + 1).padStart(2, "0"),

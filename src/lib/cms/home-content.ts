@@ -1,4 +1,4 @@
-import { PLATFORM_PATH } from "@/lib/routes";
+import { HOSPITAL_PATH, PHARMA_PATH, PLATFORM_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
 
 /**
  * The home page's editable content, and the copy it falls back to.
@@ -78,4 +78,121 @@ export const DEFAULT_HOME_HERO: HomeHeroContent = {
     "Board of Genetic Counselling India",
     "GHRC",
   ],
+};
+
+export type HomeDoor = {
+  /** Small label above the title: who this door is for. */
+  kicker: string;
+  title: string;
+  blurb: string;
+  points: string[];
+  ctaLabel: string;
+  href: string;
+};
+
+export type HomeAudienceContent = {
+  heading: string;
+  description: string;
+  doors: HomeDoor[];
+};
+
+export const DEFAULT_HOME_AUDIENCE: HomeAudienceContent = {
+  heading: "Find your path in one click",
+  description:
+    "Three purpose-built solutions. Pick the one that describes you — the rest of this page " +
+    "is optional.",
+  doors: [
+    {
+      kicker: "For clinical teams",
+      title: "Hospital, Clinician & CoE",
+      blurb:
+        "Complex genetic cases, fragmented records, and hours of documentation before a " +
+        "decision can be made.",
+      points: [
+        "AI-assisted intake and phenotype capture",
+        "RAPID Score candidate ranking with evidence",
+        "Registry-ready records from day one",
+      ],
+      ctaLabel: "Explore clinical solutions",
+      href: HOSPITAL_PATH,
+    },
+    {
+      kicker: "For research",
+      title: "Life Science & Biotech",
+      blurb:
+        "Natural history studies and cohort discovery held back by unstructured, " +
+        "site-by-site data.",
+      points: [
+        "Standardized intake across sites",
+        "Cohort discovery on structured fields",
+        "Research-ready export and audit trail",
+      ],
+      ctaLabel: "Explore research solutions",
+      href: PHARMA_PATH,
+    },
+    {
+      kicker: "For programmes",
+      title: "Government & Public Health",
+      blurb:
+        "National programmes need a live view of patients, centres, and outcomes — not " +
+        "periodic spreadsheets.",
+      points: [
+        "Hub-and-spoke registry architecture",
+        "Screening and patient tracking",
+        "Programme analytics in real time",
+      ],
+      ctaLabel: "Explore public health solutions",
+      href: PUBLIC_HEALTH_PATH,
+    },
+  ],
+};
+
+export type HomeLayer = {
+  title: string;
+  body: string;
+  /** Mono label at the foot of the cell, naming the product surface. */
+  tag: string;
+};
+
+export type HomePlatformContent = {
+  heading: string;
+  description: string;
+  layers: HomeLayer[];
+  cta: HomeCta;
+};
+
+export const DEFAULT_HOME_PLATFORM: HomePlatformContent = {
+  heading: "IndiGeneUs.AI in one glance",
+  description: "One workflow, four layers — from the clinic visit to the national registry.",
+  layers: [
+    {
+      title: "Capture",
+      body:
+        "Structured intake at the point of care — phenotype, history, and documents converted " +
+        "into computable fields instead of free text.",
+      tag: "Intelligent data capture",
+    },
+    {
+      title: "Decide",
+      body:
+        "Clinical decision support surfaces ranked differentials with the evidence behind each " +
+        "one, inside the existing workflow.",
+      tag: "CDSS",
+    },
+    {
+      title: "Connect",
+      body:
+        "One longitudinal record per patient across visits, departments, labs, and centres — " +
+        "no re-entry, no duplication.",
+      tag: "Longitudinal record",
+    },
+    {
+      title: "Analyse",
+      body:
+        "Cohorts, registries, and programme dashboards built from the same structured data the " +
+        "clinic already produced.",
+      tag: "Registry & analytics",
+    },
+  ],
+  cta: { label: "See how the platform works", href: PLATFORM_PATH },
 };
