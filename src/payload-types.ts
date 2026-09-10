@@ -1804,6 +1804,7 @@ export interface AboutCta {
  */
 export interface PlatformHero {
   id: number;
+  eyebrow?: string | null;
   title: string;
   subtitle?: string | null;
   ctaLabel?: string | null;
@@ -2802,6 +2803,7 @@ export interface AboutCtaSelect<T extends boolean = true> {
  * via the `definition` "platform-hero_select".
  */
 export interface PlatformHeroSelect<T extends boolean = true> {
+  eyebrow?: T;
   title?: T;
   subtitle?: T;
   ctaLabel?: T;

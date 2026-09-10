@@ -8,6 +8,7 @@ export const PlatformHero = pageSection(
   "1. Hero",
   "The top of the Platform page.",
   [
+    { name: "eyebrow", type: "text", label: "Small label above the headline" },
     { name: "title", type: "text", required: true, label: "Headline" },
     { name: "subtitle", type: "textarea", label: "Paragraph below the headline" },
     { name: "ctaLabel", type: "text", label: "Button text" },
