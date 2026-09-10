@@ -409,6 +409,14 @@ body {
   --font-body: var(--font-dm-sans), -apple-system, "Segoe UI", sans-serif;
   --font-mono-label: var(--font-plex-mono), ui-monospace, monospace;
 
+  /* ── Breakpoints ─────────────────────────────────────────────────────── */
+  /* The prototypes switch layout from a JS width listener because inline
+     styles cannot hold media queries. In production these are real media
+     queries: nav: is where the header collapses to a hamburger and forms go
+     single-column; mid: is where two-column grids stack. */
+  --breakpoint-nav: 880px;
+  --breakpoint-mid: 1040px;
+
   /* ── Geometry ────────────────────────────────────────────────────────── */
   --container-site: 1200px; /* max-w-site */
   --spacing-edge: clamp(20px, 4vw, 32px); /* px-edge — every gutter */
