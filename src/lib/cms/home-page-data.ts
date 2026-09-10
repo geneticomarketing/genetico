@@ -15,6 +15,7 @@ import {
   type HomeProofContent,
   type HomeTrustContent,
 } from "@/lib/cms/home-content";
+import { getProofFeed } from "@/lib/cms/home-proof-resources";
 import { getPartners, getSectionGlobal } from "@/lib/cms/queries";
 import { resolveMediaUrl } from "@/lib/cms/resolve-media-url";
 import type { Partner } from "@/lib/cms/types";
@@ -60,16 +61,18 @@ export type HomePageContent = {
 };
 
 export async function getHomePageContent(): Promise<HomePageContent> {
-  const [hero, audience, platform, proof, security, faqs, cta, cmsPartners] = await Promise.all([
-    getSectionGlobal("home-hero"),
-    getSectionGlobal("home-audience"),
-    getSectionGlobal("home-platform-glance"),
-    getSectionGlobal("home-proof"),
-    getSectionGlobal("home-security"),
-    getSectionGlobal("home-faqs"),
-    getSectionGlobal("home-cta"),
-    getPartners(),
-  ]);
+  const [hero, audience, platform, proof, security, faqs, cta, cmsPartners, proofFeed] =
+    await Promise.all([
+      getSectionGlobal("home-hero"),
+      getSectionGlobal("home-audience"),
+      getSectionGlobal("home-platform-glance"),
+      getSectionGlobal("home-proof"),
+      getSectionGlobal("home-security"),
+      getSectionGlobal("home-faqs"),
+      getSectionGlobal("home-cta"),
+      getPartners(),
+      getProofFeed(),
+    ]);
 
   const words = (hero?.rotatingWords ?? [])
     .map((entry) => entry.word?.trim())
@@ -102,13 +105,13 @@ export async function getHomePageContent(): Promise<HomePageContent> {
     }))
     .filter((layer) => layer.title);
 
-  const clips = (proof?.clips ?? [])
-    .map((clip) => ({
-      meta: clip.meta ?? "",
-      title: clip.title ?? "",
-      href: clip.href ?? "",
-    }))
-    .filter((clip) => clip.title && clip.href);
+  // The strip is built from whichever resources are ticked for the home page;
+  // the stored clips are the retired hand-typed version.
+  const clips = proofFeed.clips.map((clip) => ({
+    meta: clip.meta,
+    title: clip.title,
+    href: clip.href,
+  }));
 
   const featuredDefaults = DEFAULT_HOME_PROOF.featured;
   const featured = proof?.featured;
@@ -161,15 +164,16 @@ export async function getHomePageContent(): Promise<HomePageContent> {
     proof: {
       heading: text(proof?.heading, DEFAULT_HOME_PROOF.heading),
       featured: {
+        // Wording from the CMS, the item itself from the Resources page.
         badge: text(featured?.badge, featuredDefaults.badge),
-        duration: text(featured?.duration, featuredDefaults.duration),
         kicker: text(featured?.kicker, featuredDefaults.kicker),
-        heading: text(featured?.heading, featuredDefaults.heading),
-        blurb: text(featured?.blurb, featuredDefaults.blurb),
-        before: text(featured?.before, featuredDefaults.before),
-        after: text(featured?.after, featuredDefaults.after),
+        before: featured?.before?.trim() ?? "",
+        after: featured?.after?.trim() ?? "",
         ctaLabel: text(featured?.ctaLabel, featuredDefaults.ctaLabel),
-        href: text(featured?.href, featuredDefaults.href),
+        duration: text(proofFeed.featured?.duration, featuredDefaults.duration),
+        heading: text(proofFeed.featured?.title, featuredDefaults.heading),
+        blurb: text(proofFeed.featured?.blurb, featuredDefaults.blurb),
+        href: text(proofFeed.featured?.href, featuredDefaults.href),
       },
       clips: clips.length ? clips : DEFAULT_HOME_PROOF.clips,
       allResourcesLabel: text(proof?.allResourcesLabel, DEFAULT_HOME_PROOF.allResourcesLabel),

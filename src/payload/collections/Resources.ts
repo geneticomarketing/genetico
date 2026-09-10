@@ -1,6 +1,11 @@
 import type { CollectionConfig } from "payload";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
+import {
+  PUBLISHED_AT_DESCRIPTION,
+  homeTitleField,
+  showOnHomeField,
+} from "../fields/home-visibility";
 
 export const FeaturedVideos = withAdminGroup(
   {
@@ -38,10 +43,11 @@ export const FeaturedVideos = withAdminGroup(
         type: "date",
         label: "Publish date",
         admin: {
-          description:
-            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
+          description: PUBLISHED_AT_DESCRIPTION,
         },
       },
+      showOnHomeField,
+      homeTitleField,
       {
         name: "sortOrder",
         type: "number",
@@ -86,10 +92,11 @@ export const ShortVideos = withAdminGroup(
         type: "date",
         label: "Publish date",
         admin: {
-          description:
-            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
+          description: PUBLISHED_AT_DESCRIPTION,
         },
       },
+      showOnHomeField,
+      homeTitleField,
       {
         name: "sortOrder",
         type: "number",
@@ -129,10 +136,11 @@ export const ExternalArticles = withAdminGroup(
         type: "date",
         label: "Publish date",
         admin: {
-          description:
-            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
+          description: PUBLISHED_AT_DESCRIPTION,
         },
       },
+      showOnHomeField,
+      homeTitleField,
       {
         name: "sortOrder",
         type: "number",
@@ -212,10 +220,11 @@ export const DeepDives = withAdminGroup(
         type: "date",
         label: "Publish date",
         admin: {
-          description:
-            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
+          description: PUBLISHED_AT_DESCRIPTION,
         },
       },
+      showOnHomeField,
+      homeTitleField,
       {
         name: "sortOrder",
         type: "number",

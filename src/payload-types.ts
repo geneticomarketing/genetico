@@ -539,8 +539,13 @@ export interface BlogPost {
   author: string;
   publishedAt: string;
   /**
-   * Tick this to put the post in the large card on the left of the home page “Insights” section. If no post is ticked, the newest post is used. If several are ticked, the newest of those wins.
+   * The home page's “In use across the ecosystem” section shows one large item and three smaller ones beside it. Tick this to offer this item; if more are ticked than fit, the ones lowest in “Order on the page” are used.
    */
+  showOnHome?: boolean | null;
+  /**
+   * Optional. The cards on the home page are narrower than on this page, so a long title can crowd them. Leave empty to use the title above.
+   */
+  homeTitle?: string | null;
   featuredOnHome?: boolean | null;
   readTime: string;
   category: string;
@@ -590,9 +595,17 @@ export interface FeaturedVideo {
     | null;
   featured?: boolean | null;
   /**
-   * When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.
+   * When this was published. Shown on the Resources page and used to order items that have one.
    */
   publishedAt?: string | null;
+  /**
+   * The home page's “In use across the ecosystem” section shows one large item and three smaller ones beside it. Tick this to offer this item; if more are ticked than fit, the ones lowest in “Order on the page” are used.
+   */
+  showOnHome?: boolean | null;
+  /**
+   * Optional. The cards on the home page are narrower than on this page, so a long title can crowd them. Leave empty to use the title above.
+   */
+  homeTitle?: string | null;
   /**
    * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
    */
@@ -617,9 +630,17 @@ export interface ShortVideo {
   youtubeUrl: string;
   duration?: string | null;
   /**
-   * When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.
+   * When this was published. Shown on the Resources page and used to order items that have one.
    */
   publishedAt?: string | null;
+  /**
+   * The home page's “In use across the ecosystem” section shows one large item and three smaller ones beside it. Tick this to offer this item; if more are ticked than fit, the ones lowest in “Order on the page” are used.
+   */
+  showOnHome?: boolean | null;
+  /**
+   * Optional. The cards on the home page are narrower than on this page, so a long title can crowd them. Leave empty to use the title above.
+   */
+  homeTitle?: string | null;
   /**
    * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
    */
@@ -666,9 +687,17 @@ export interface DeepDive {
    */
   videoLeft?: boolean | null;
   /**
-   * When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.
+   * When this was published. Shown on the Resources page and used to order items that have one.
    */
   publishedAt?: string | null;
+  /**
+   * The home page's “In use across the ecosystem” section shows one large item and three smaller ones beside it. Tick this to offer this item; if more are ticked than fit, the ones lowest in “Order on the page” are used.
+   */
+  showOnHome?: boolean | null;
+  /**
+   * Optional. The cards on the home page are narrower than on this page, so a long title can crowd them. Leave empty to use the title above.
+   */
+  homeTitle?: string | null;
   /**
    * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
    */
@@ -690,9 +719,17 @@ export interface ExternalArticle {
    */
   url: string;
   /**
-   * When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.
+   * When this was published. Shown on the Resources page and used to order items that have one.
    */
   publishedAt?: string | null;
+  /**
+   * The home page's “In use across the ecosystem” section shows one large item and three smaller ones beside it. Tick this to offer this item; if more are ticked than fit, the ones lowest in “Order on the page” are used.
+   */
+  showOnHome?: boolean | null;
+  /**
+   * Optional. The cards on the home page are narrower than on this page, so a long title can crowd them. Leave empty to use the title above.
+   */
+  homeTitle?: string | null;
   /**
    * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
    */
@@ -1070,6 +1107,8 @@ export interface BlogPostsSelect<T extends boolean = true> {
   excerpt?: T;
   author?: T;
   publishedAt?: T;
+  showOnHome?: T;
+  homeTitle?: T;
   featuredOnHome?: T;
   readTime?: T;
   category?: T;
@@ -1103,6 +1142,8 @@ export interface FeaturedVideosSelect<T extends boolean = true> {
       };
   featured?: T;
   publishedAt?: T;
+  showOnHome?: T;
+  homeTitle?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1118,6 +1159,8 @@ export interface ShortVideosSelect<T extends boolean = true> {
   youtubeUrl?: T;
   duration?: T;
   publishedAt?: T;
+  showOnHome?: T;
+  homeTitle?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1143,6 +1186,8 @@ export interface DeepDivesSelect<T extends boolean = true> {
       };
   videoLeft?: T;
   publishedAt?: T;
+  showOnHome?: T;
+  homeTitle?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1155,6 +1200,8 @@ export interface ExternalArticlesSelect<T extends boolean = true> {
   title?: T;
   url?: T;
   publishedAt?: T;
+  showOnHome?: T;
+  homeTitle?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1410,14 +1457,14 @@ export interface HomePlatformGlance {
 export interface HomeProof {
   id: number;
   heading?: string | null;
+  /**
+   * Which item appears here is decided on the Resources page — tick “Show on the home page” against it. Its title, description, length and link come with it. These fields are the wording wrapped around it.
+   */
   featured?: {
     badge?: string | null;
-    duration?: string | null;
     kicker?: string | null;
-    heading?: string | null;
-    blurb?: string | null;
     /**
-     * Shown struck through, e.g. 3 weeks.
+     * Shown struck through, e.g. 3 weeks. Leave both empty to hide.
      */
     before?: string | null;
     /**
@@ -1425,19 +1472,16 @@ export interface HomeProof {
      */
     after?: string | null;
     ctaLabel?: string | null;
+    duration?: string | null;
+    heading?: string | null;
+    blurb?: string | null;
     href?: string | null;
   };
-  /**
-   * Drag to reorder. Three fit the column.
-   */
   clips?:
     | {
-        /**
-         * For example: Deep dive · 45:22
-         */
-        meta: string;
-        title: string;
-        href: string;
+        meta?: string | null;
+        title?: string | null;
+        href?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -2462,13 +2506,13 @@ export interface HomeProofSelect<T extends boolean = true> {
     | T
     | {
         badge?: T;
-        duration?: T;
         kicker?: T;
-        heading?: T;
-        blurb?: T;
         before?: T;
         after?: T;
         ctaLabel?: T;
+        duration?: T;
+        heading?: T;
+        blurb?: T;
         href?: T;
       };
   clips?:

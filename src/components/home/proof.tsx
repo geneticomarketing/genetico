@@ -108,17 +108,22 @@ export function Proof({
                 {content.featured.blurb}
               </p>
 
-              <div className="mt-1.5 flex flex-wrap items-baseline gap-2.5">
-                <span className="font-mono-label text-ink-dim text-[26px] line-through">
-                  {content.featured.before}
-                </span>
-                <span aria-hidden className="text-teal text-[15px]">
-                  →
-                </span>
-                <span className="font-mono-label text-primary text-[30px]">
-                  {content.featured.after}
-                </span>
-              </div>
+              {/* The before-and-after is a claim about this particular case
+                  study, not something every resource has, so it only appears
+                  when an editor has written both halves. */}
+              {content.featured.before && content.featured.after ? (
+                <div className="mt-1.5 flex flex-wrap items-baseline gap-2.5">
+                  <span className="font-mono-label text-ink-dim text-[26px] line-through">
+                    {content.featured.before}
+                  </span>
+                  <span aria-hidden className="text-teal text-[15px]">
+                    →
+                  </span>
+                  <span className="font-mono-label text-primary text-[30px]">
+                    {content.featured.after}
+                  </span>
+                </div>
+              ) : null}
 
               <span className="text-primary mt-2 inline-flex items-center gap-[7px] text-[13.5px] font-bold">
                 {content.featured.ctaLabel}

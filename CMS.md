@@ -42,6 +42,20 @@ For example, on the home page, **“3. Partners — heading”** is the wording 
 - **Blog posts** are written under **Resources page → Blog posts**, but they also show on the
   `/blog` listing and can be featured on the home page.
 
+### Putting a resource on the home page
+
+The home page's **“In use across the ecosystem”** section is not edited on the home page. It shows
+whichever resources you tick **“Show on the home page”** against, under **Resources page** — one
+large item and three smaller ones beside it. The large one is a featured video if any is ticked.
+
+Everything on those cards — title, description, length, link — comes from the resource itself, so
+the two pages cannot drift apart. If a title is too long for the smaller card, fill in **“Shorter
+title for the home page”** on the resource; the full title still shows on the Resources page.
+
+The wording _around_ the featured card — the “Now showing” label, the small line above the title,
+the before-and-after figures and the link text — is under **Home page → 4. Proof**. Leave the two
+figures empty to hide them.
+
 ### Sections that are no longer shown
 
 The home page was rebuilt in 2026. Its old sections — the hero slideshow, “Who We Are”, the
@@ -172,6 +186,7 @@ in `src/lib/cms/defaults/`. That is what keeps CI green without production crede
 | `node --env-file=.env scripts/backfill-cms-fields.mjs`     | One-time content backfill (already applied)                             |
 | `node --env-file=.env scripts/backup-cms.mjs`              | Dump every table to `.cms-backup/` — **run before any schema change**   |
 | `npx tsx scripts/seed-home-redesign.mts`                   | Fill empty home-page fields with the design copy (`--force` overwrites) |
+| `npx tsx scripts/flag-home-resources.mts`                  | Offer the four videos to the home page's proof strip                    |
 
 > **`npm run seed` is destructive.** It drops and truncates tables, then overwrites every global
 > with the hardcoded defaults in `src/lib/cms/defaults/`. It is a first-time bootstrap for an empty

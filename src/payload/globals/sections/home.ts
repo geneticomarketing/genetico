@@ -156,18 +156,19 @@ export const HomeProof = pageSection(
     {
       name: "featured",
       type: "group",
-      label: "Featured case study",
+      label: "Wording around the featured item",
+      admin: {
+        description:
+          "Which item appears here is decided on the Resources page — tick “Show on the home page” against it. Its title, description, length and link come with it. These fields are the wording wrapped around it.",
+      },
       fields: [
         { name: "badge", type: "text", label: "Label on the image (e.g. “Now showing”)" },
-        { name: "duration", type: "text", label: "Length (e.g. 28:34)" },
         { name: "kicker", type: "text", label: "Small label above the title" },
-        { name: "heading", type: "text", label: "Title" },
-        { name: "blurb", type: "textarea", label: "Description" },
         {
           name: "before",
           type: "text",
           label: "“Before” figure",
-          admin: { description: "Shown struck through, e.g. 3 weeks." },
+          admin: { description: "Shown struck through, e.g. 3 weeks. Leave both empty to hide." },
         },
         {
           name: "after",
@@ -176,25 +177,25 @@ export const HomeProof = pageSection(
           admin: { description: "Shown in blue beside it, e.g. 4 days." },
         },
         { name: "ctaLabel", type: "text", label: "Link text" },
-        { name: "href", type: "text", label: "Link" },
+        // Retired: these now come from the resource itself, so that the home
+        // page and the Resources page cannot drift apart.
+        { name: "duration", type: "text", admin: { hidden: true } },
+        { name: "heading", type: "text", admin: { hidden: true } },
+        { name: "blurb", type: "textarea", admin: { hidden: true } },
+        { name: "href", type: "text", admin: { hidden: true } },
       ],
     },
+    // Retired: the three items beside the featured one are whichever
+    // resources are ticked for the home page, in their Resources-page order.
     {
       name: "clips",
       type: "array",
-      label: "Items beside the case study",
-      labels: { singular: "Item", plural: "Items" },
-      admin: { description: "Drag to reorder. Three fit the column." },
+      label: "Items beside the case study (retired)",
+      admin: { hidden: true },
       fields: [
-        {
-          name: "meta",
-          type: "text",
-          required: true,
-          label: "Kind and length",
-          admin: { description: "For example: Deep dive · 45:22" },
-        },
-        { name: "title", type: "text", required: true, label: "Title" },
-        { name: "href", type: "text", required: true, label: "Link" },
+        { name: "meta", type: "text" },
+        { name: "title", type: "text" },
+        { name: "href", type: "text" },
       ],
     },
     { name: "allResourcesLabel", type: "text", label: "Text on the “all resources” link" },
