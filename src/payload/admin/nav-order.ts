@@ -71,9 +71,10 @@ export const ADMIN_NAV_ENTITY_ORDER: Record<string, string[]> = {
     "globals:public-health-cta",
   ],
   // src/app/(site)/resources/page.tsx → ResourcesContent renders in this order
+  // The filter tabs are derived from the sections below, so there is nothing
+  // to place for them.
   [ADMIN_GROUPS.resources]: [
     "globals:resources-hero",
-    "globals:resources-filter-tabs",
     "collections:featured-videos",
     "globals:resources-videos-section",
     "collections:short-videos",

@@ -16,7 +16,7 @@ import type { SiteData } from "@/lib/cms/site-data-context";
  * here as it is rebuilt; when every route is listed, this component and the
  * `landing/` chrome it wraps are deleted.
  */
-const REDESIGNED_ROUTES = new Set<string>(["/"]);
+const REDESIGNED_ROUTES = new Set<string>(["/", "/resources"]);
 
 export function AppChrome({
   children,

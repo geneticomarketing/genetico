@@ -8,6 +8,7 @@ import {
   type HomeSectionMeta,
 } from "@/lib/cms/home-content";
 import type { Partner } from "@/lib/cms/types";
+import { youtubeThumbnailStack } from "@/lib/youtube";
 
 const CARD =
   "border-rule rounded-card shadow-card hover:shadow-card-lift text-ink border bg-white " +
@@ -30,10 +31,10 @@ function PlayBadge({ size }: { size: number }) {
  * Section 03 — who is already using this: a partner marquee, the AIIMS case
  * study, and three clips from the resource library.
  *
- * The thumbnails are gradient placeholders. The design ships seventeen empty
- * image slots because the client has not supplied stills yet, so rather than
- * inventing artwork these render as coloured grounds that a real image
- * replaces without any layout change.
+ * Thumbnails are the videos' own YouTube stills, with a coloured ground
+ * beneath for anything that is not a video or whose still is missing. The
+ * design ships these as empty image slots awaiting client artwork, but a
+ * video already has a still — no need to wait for one, or to invent it.
  */
 export function Proof({
   section,
@@ -84,8 +85,13 @@ export function Proof({
         <div className="mid:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] mt-10 grid gap-[18px]">
           <Link href={content.featured.href} className={`${CARD} flex flex-col overflow-hidden`}>
             <div
-              className="relative h-[clamp(180px,19vw,250px)] w-full"
-              style={{ backgroundImage: PROOF_FEATURED_PLACEHOLDER }}
+              className="relative h-[clamp(180px,19vw,250px)] w-full bg-cover bg-center"
+              style={{
+                backgroundImage: youtubeThumbnailStack(
+                  content.featured.href,
+                  PROOF_FEATURED_PLACEHOLDER,
+                ),
+              }}
             >
               <span className="pointer-events-none absolute top-4 left-4 z-[2] flex items-center gap-2 rounded-full border border-white/22 bg-[rgba(7,18,28,0.72)] px-3 py-1.5 text-[10px] tracking-[0.16em] text-white uppercase">
                 <span aria-hidden className="bg-teal block h-1.5 w-1.5 rounded-full" />
@@ -142,9 +148,12 @@ export function Proof({
                 className={`${CARD} flex items-center gap-3.5 p-3`}
               >
                 <div
-                  className="relative h-[74px] w-[120px] flex-none overflow-hidden rounded-lg"
+                  className="relative h-[74px] w-[120px] flex-none overflow-hidden rounded-lg bg-cover bg-center"
                   style={{
-                    backgroundImage: PROOF_CLIP_PLACEHOLDERS[i % PROOF_CLIP_PLACEHOLDERS.length],
+                    backgroundImage: youtubeThumbnailStack(
+                      clip.href,
+                      PROOF_CLIP_PLACEHOLDERS[i % PROOF_CLIP_PLACEHOLDERS.length],
+                    ),
                   }}
                 >
                   <PlayBadge size={30} />

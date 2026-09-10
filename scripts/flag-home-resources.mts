@@ -27,6 +27,18 @@ const HOME_TITLES: Record<string, string> = {
     "Rare disease diagnosis time reduced from 3 weeks to 4 days",
 };
 
+/**
+ * The featured film's label and provenance, which the collection had no field
+ * for until now. Both are taken from the recording itself — its own title
+ * card reads "Amar Ujala Exclusive" over "Let's Start · The Startup Show".
+ */
+const FEATURED_DETAILS: Record<string, { kicker: string; source: string }> = {
+  "How AIIMS Delhi reduced rare disease diagnosis time from 3 weeks to 4 days": {
+    kicker: "Case study · AIIMS Delhi · Documentary",
+    source: "Amar Ujala Exclusive · The Startup Show",
+  },
+};
+
 const payload = await getPayload({ config });
 
 for (const collection of ["featured-videos", "short-videos"] as const) {
@@ -34,23 +46,25 @@ for (const collection of ["featured-videos", "short-videos"] as const) {
 
   for (const doc of docs) {
     const homeTitle = HOME_TITLES[doc.title] ?? doc.homeTitle ?? null;
-    const alreadyShown = doc.showOnHome === true;
-    const titleUnchanged = (doc.homeTitle ?? null) === homeTitle;
+    const details = FEATURED_DETAILS[doc.title];
 
-    if (alreadyShown && titleUnchanged) {
-      console.log(`${collection}: "${doc.title}" — already offered`);
+    // Only ever fills a blank: an editor's own wording is never overwritten.
+    const kicker = "kicker" in doc ? doc.kicker?.trim() || details?.kicker : undefined;
+    const source = "source" in doc ? doc.source?.trim() || details?.source : undefined;
+
+    const changes: Record<string, unknown> = {};
+    if (doc.showOnHome !== true) changes.showOnHome = true;
+    if (homeTitle && (doc.homeTitle ?? null) !== homeTitle) changes.homeTitle = homeTitle;
+    if (kicker && "kicker" in doc && doc.kicker !== kicker) changes.kicker = kicker;
+    if (source && "source" in doc && doc.source !== source) changes.source = source;
+
+    if (!Object.keys(changes).length) {
+      console.log(`${collection}: "${doc.title}" — already set`);
       continue;
     }
 
-    await payload.update({
-      collection,
-      id: doc.id,
-      data: { showOnHome: true, ...(homeTitle ? { homeTitle } : {}) },
-    });
-    console.log(
-      `${collection}: "${doc.title}" — offered to the home page` +
-        (homeTitle && !titleUnchanged ? ` (short title: "${homeTitle}")` : ""),
-    );
+    await payload.update({ collection, id: doc.id, data: changes });
+    console.log(`${collection}: "${doc.title}" — set ${Object.keys(changes).join(", ")}`);
   }
 }
 

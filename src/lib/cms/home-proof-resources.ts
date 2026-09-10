@@ -35,6 +35,8 @@ export type ProofResource = {
   href: string;
   /** Longer form, used by the featured card where there is room. */
   fullTitle: string;
+  /** Small label above the title on the featured card. */
+  kicker: string;
   blurb: string;
   duration: string;
 };
@@ -46,6 +48,7 @@ export type ProofFeed = {
 
 type Flagged = {
   id?: number | string | null;
+  kicker?: string | null;
   showOnHome?: boolean | null;
   homeTitle?: string | null;
   sortOrder?: number | null;
@@ -83,6 +86,7 @@ function toResource(
   const short = doc.homeTitle?.trim();
   return {
     id: `${kind}:${doc.id}`,
+    kicker: doc.kicker?.trim() ?? "",
     meta: meta(kind, duration, readTime),
     title: short || doc.title,
     fullTitle: doc.title,

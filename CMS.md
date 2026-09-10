@@ -56,6 +56,13 @@ The wording _around_ the featured card — the “Now showing” label, the smal
 the before-and-after figures and the link text — is under **Home page → 4. Proof**. Leave the two
 figures empty to hide them.
 
+### The Resources page's filter tabs
+
+The row of tabs under the heading is **not edited**. The page builds one tab per section that has
+something in it — Videos, Deep dives, Articles, Blogs — counts the items itself, and leaves a tab
+out entirely when its section is empty. Add a deep dive and the Deep dives tab appears; remove the
+last one and it goes. There is nothing to keep in step by hand.
+
 ### Sections that are no longer shown
 
 The home page was rebuilt in 2026. Its old sections — the hero slideshow, “Who We Are”, the

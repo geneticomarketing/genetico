@@ -207,24 +207,36 @@ export function SiteHeader({
 
       {menuOpen ? (
         <div className="border-rule px-edge max-h-[70vh] overflow-y-auto border-t bg-white pt-[18px] pb-[26px]">
-          <span className="font-mono-label text-ink-soft text-[10.5px] tracking-[0.16em] uppercase">
-            On this page
-          </span>
-          <div className="mt-2.5 flex flex-col">
-            {sections.map((section) => (
-              <a
-                key={section.id}
-                href={`#${section.id}`}
-                onClick={(e) => jump(e, section.id)}
-                className="border-rule-light text-ink flex items-center gap-3 border-b py-3 text-[15.5px]"
-              >
-                <span className="font-mono-label text-primary text-[10.5px]">{section.num}</span>
-                {section.label}
-              </a>
-            ))}
-          </div>
+          {/* Pages whose own chrome already lists what is on them — the
+              Resources filter row, for one — pass no sections. */}
+          {sections.length ? (
+            <>
+              <span className="font-mono-label text-ink-soft text-[10.5px] tracking-[0.16em] uppercase">
+                On this page
+              </span>
+              <div className="mt-2.5 flex flex-col">
+                {sections.map((section) => (
+                  <a
+                    key={section.id}
+                    href={`#${section.id}`}
+                    onClick={(e) => jump(e, section.id)}
+                    className="border-rule-light text-ink flex items-center gap-3 border-b py-3 text-[15.5px]"
+                  >
+                    <span className="font-mono-label text-primary text-[10.5px]">
+                      {section.num}
+                    </span>
+                    {section.label}
+                  </a>
+                ))}
+              </div>
+            </>
+          ) : null}
 
-          <span className="font-mono-label text-ink-soft mt-[22px] block text-[10.5px] tracking-[0.16em] uppercase">
+          <span
+            className={`font-mono-label text-ink-soft block text-[10.5px] tracking-[0.16em] uppercase ${
+              sections.length ? "mt-[22px]" : ""
+            }`}
+          >
             More
           </span>
           <div className="mt-2.5 flex flex-col">

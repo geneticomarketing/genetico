@@ -586,6 +586,14 @@ export interface FeaturedVideo {
    */
   youtubeUrl: string;
   duration?: string | null;
+  /**
+   * For example: Case study · AIIMS Delhi · Documentary
+   */
+  kicker?: string | null;
+  /**
+   * Shown under the watch button. For example: Amar Ujala Exclusive
+   */
+  source?: string | null;
   articleLink?: string | null;
   tags?:
     | {
@@ -1133,6 +1141,8 @@ export interface FeaturedVideosSelect<T extends boolean = true> {
   description?: T;
   youtubeUrl?: T;
   duration?: T;
+  kicker?: T;
+  source?: T;
   articleLink?: T;
   tags?:
     | T
@@ -1458,7 +1468,7 @@ export interface HomeProof {
   id: number;
   heading?: string | null;
   /**
-   * Which item appears here is decided on the Resources page — tick “Show on the home page” against it. Its title, description, length and link come with it. These fields are the wording wrapped around it.
+   * Which item appears here is decided on the Resources page — tick “Show on the home page” against it. Its title, description, length, link and the small label above the title all come with it. These fields are the wording wrapped around it.
    */
   featured?: {
     badge?: string | null;
@@ -2137,7 +2147,7 @@ export interface ResourcesHero {
   createdAt?: string | null;
 }
 /**
- * The row of filter buttons below the hero. “All” should stay first. The other tabs only work with these exact words: Featured, Videos, Articles, Blogs.
+ * No longer edited here. The row of filter buttons is built from the sections below that have content in them, and each tab counts its own items.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "resources-filter-tabs".
@@ -2161,7 +2171,12 @@ export interface ResourcesFilterTab {
  */
 export interface ResourcesVideosSection {
   id: number;
+  /**
+   * A short word or two, e.g. Videos.
+   */
   heading?: string | null;
+  title?: string | null;
+  description?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2173,10 +2188,15 @@ export interface ResourcesVideosSection {
  */
 export interface ResourcesDeepDivesSection {
   id: number;
+  /**
+   * A short word or two, e.g. Deep Dives.
+   */
   heading?: string | null;
-  subtitle?: string | null;
+  title?: string | null;
+  description?: string | null;
   seeAllLabel?: string | null;
   seeAllHref?: string | null;
+  subtitle?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2188,7 +2208,12 @@ export interface ResourcesDeepDivesSection {
  */
 export interface ResourcesArticlesSection {
   id: number;
+  /**
+   * A short word or two, e.g. Videos.
+   */
   heading?: string | null;
+  title?: string | null;
+  description?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2200,7 +2225,12 @@ export interface ResourcesArticlesSection {
  */
 export interface ResourcesBlogsSection {
   id: number;
+  /**
+   * A short word or two, e.g. Blogs.
+   */
   heading?: string | null;
+  title?: string | null;
+  description?: string | null;
   seeAllLabel?: string | null;
   seeAllHref?: string | null;
   updatedAt?: string | null;
@@ -3053,6 +3083,8 @@ export interface ResourcesFilterTabsSelect<T extends boolean = true> {
  */
 export interface ResourcesVideosSectionSelect<T extends boolean = true> {
   heading?: T;
+  title?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -3063,9 +3095,11 @@ export interface ResourcesVideosSectionSelect<T extends boolean = true> {
  */
 export interface ResourcesDeepDivesSectionSelect<T extends boolean = true> {
   heading?: T;
-  subtitle?: T;
+  title?: T;
+  description?: T;
   seeAllLabel?: T;
   seeAllHref?: T;
+  subtitle?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -3076,6 +3110,8 @@ export interface ResourcesDeepDivesSectionSelect<T extends boolean = true> {
  */
 export interface ResourcesArticlesSectionSelect<T extends boolean = true> {
   heading?: T;
+  title?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -3086,6 +3122,8 @@ export interface ResourcesArticlesSectionSelect<T extends boolean = true> {
  */
 export interface ResourcesBlogsSectionSelect<T extends boolean = true> {
   heading?: T;
+  title?: T;
+  description?: T;
   seeAllLabel?: T;
   seeAllHref?: T;
   updatedAt?: T;

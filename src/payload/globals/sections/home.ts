@@ -159,11 +159,13 @@ export const HomeProof = pageSection(
       label: "Wording around the featured item",
       admin: {
         description:
-          "Which item appears here is decided on the Resources page — tick “Show on the home page” against it. Its title, description, length and link come with it. These fields are the wording wrapped around it.",
+          "Which item appears here is decided on the Resources page — tick “Show on the home page” against it. Its title, description, length, link and the small label above the title all come with it. These fields are the wording wrapped around it.",
       },
       fields: [
         { name: "badge", type: "text", label: "Label on the image (e.g. “Now showing”)" },
-        { name: "kicker", type: "text", label: "Small label above the title" },
+        // Retired: the small label belongs to the resource, so that the
+        // featured card reads the same here and on the Resources page.
+        { name: "kicker", type: "text", admin: { hidden: true } },
         {
           name: "before",
           type: "text",
