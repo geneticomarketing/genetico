@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
 
-import { EcosystemProblems } from "@/components/landing/ecosystem-problems";
-import { FoundationalPlatform } from "@/components/landing/foundational-platform";
-import { Hero } from "@/components/landing/hero";
-import { HomeCta } from "@/components/landing/home-cta";
-import { HomeFaqs } from "@/components/landing/home-faqs";
-import { NewsUpdates } from "@/components/landing/news-updates";
-import { PartnersSecurity } from "@/components/landing/partners-security";
-import { SystemBreaks } from "@/components/landing/system-breaks";
-import { ScrollParallaxPage } from "@/components/motion/scroll-parallax-page";
-import { getHomePageData } from "@/lib/cms/page-data";
+import { numberSections } from "@/components/chrome/page-sections";
+import { SectionRail } from "@/components/chrome/section-rail";
+import { SiteFooter } from "@/components/chrome/site-footer";
+import { SiteHeader } from "@/components/chrome/site-header";
+import { Hero } from "@/components/home/hero";
+import { DEFAULT_HOME_HERO, HOME_SECTIONS } from "@/lib/cms/home-content";
+import { getFooterContent, getNavigation } from "@/lib/cms/queries";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
 
@@ -25,39 +22,22 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const data = await getHomePageData();
+  const [navigation, footer] = await Promise.all([getNavigation(), getFooterContent()]);
+  const sections = numberSections(HOME_SECTIONS);
 
   return (
-    <ScrollParallaxPage hero={<Hero slides={data.heroSlides} />}>
-      <FoundationalPlatform eyebrow={data.whoWeAre.eyebrow} paragraphs={data.whoWeAre.paragraphs} />
-      <PartnersSecurity
-        partnersSection={data.partnersSection}
-        securitySection={data.securitySection}
-        partners={data.partners}
-        securityFeatures={data.securitySection.features}
-      />
-      <SystemBreaks
-        heading={data.ecosystemChallenges.heading}
-        description={data.ecosystemChallenges.description}
-        modules={data.modules}
-      />
-      <EcosystemProblems
-        heading={data.ecosystemGapsSection.heading}
-        description={data.ecosystemGapsSection.description}
-        gaps={data.gaps}
-      />
-      <NewsUpdates
-        newsSection={data.newsSection}
-        featuredNewsItem={data.featuredNewsItem}
-        sidebarNewsItems={data.sidebarNewsItems}
-      />
-      <HomeFaqs
-        eyebrow={data.faqSection.eyebrow}
-        heading={data.faqSection.heading}
-        description={data.faqSection.description}
-        items={data.faqSection.items}
-      />
-      <HomeCta cta={data.cta} />
-    </ScrollParallaxPage>
+    <div className="bg-sheet text-ink font-body flex min-h-full flex-col overflow-clip">
+      <SiteHeader navigation={navigation} sections={sections} />
+      <SectionRail sections={sections} />
+
+      <Hero content={DEFAULT_HOME_HERO} />
+
+      {/* The sheet overlaps the sticky hero and scrolls up over it. The footer
+          sits inside it so the rounded top and its shadow cover the whole of
+          the page below the hero. */}
+      <div className="rounded-t-sheet bg-sheet relative z-[2] -mt-8 overflow-hidden shadow-[0_-26px_70px_rgba(7,59,104,0.16)]">
+        <SiteFooter footer={footer} />
+      </div>
+    </div>
   );
 }
