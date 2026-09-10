@@ -355,3 +355,249 @@ body {
 .font-jetbrains-mono {
   @apply uppercase;
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   REDESIGN DESIGN SYSTEM (2026)
+
+   Tokens for the seven-page redesign, sourced from
+   design_handoff_genetico_site/DESIGN_SYSTEM.md.
+
+   These live *alongside* the older dark-navy tokens above rather than
+   replacing them. Swapping --color-brand and --background in place would
+   restyle the six pages that have not been redesigned yet, all at once and
+   without review. Each page moves onto the tokens below as it is rebuilt;
+   when the last one lands, everything above this banner is deleted.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@theme inline {
+  /* ── Ink ─────────────────────────────────────────────────────────────── */
+  --color-ink: #12161a; /* primary text */
+  --color-ink-body: #3c434a; /* body copy */
+  --color-ink-soft: #6e767d; /* secondary, eyebrow grey */
+  --color-ink-dim: #9aa6b1; /* tertiary */
+
+  /* ── Rules ───────────────────────────────────────────────────────────── */
+  --color-rule: #e4e9ed; /* standard border */
+  --color-rule-light: #edf0f2; /* light divider */
+
+  /* ── Surfaces ────────────────────────────────────────────────────────── */
+  --color-sheet: #ffffff;
+  --color-sheet-soft: #fafbfc;
+  --color-sheet-mute: #f4f6f8;
+  --color-sheet-cool: #f6f9fa;
+
+  /* ── Primary ─────────────────────────────────────────────────────────── */
+  --color-primary: #0b4c86; /* brand blue */
+  --color-primary-deep: #073b68; /* filled buttons */
+  --color-primary-tint: #edf3f9; /* chips, hover fills */
+
+  /* ── Accent teal ─────────────────────────────────────────────────────── */
+  --color-teal: #4fb3a0;
+  --color-teal-mid: #2e9b82;
+  --color-teal-deep: #1f6e5c;
+  --color-teal-tint: #edf6f3;
+
+  /* ── Text on the dark band ───────────────────────────────────────────── */
+  --color-sky: #dce9f4;
+  --color-sky-soft: #b9cfe2;
+  --color-sky-bright: #8fc6ef;
+  --color-sky-link: #cfe0ee;
+  --color-mint: #63c9b6;
+
+  /* ── Type families ───────────────────────────────────────────────────── */
+  --font-headline: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-dm-sans), -apple-system, "Segoe UI", sans-serif;
+  --font-mono-label: var(--font-plex-mono), ui-monospace, monospace;
+
+  /* ── Geometry ────────────────────────────────────────────────────────── */
+  --container-site: 1200px; /* max-w-site */
+  --spacing-edge: clamp(20px, 4vw, 32px); /* px-edge — every gutter */
+  --spacing-sect-top: clamp(66px, 7vw, 96px); /* pt-sect-top */
+  --spacing-sect-bot: clamp(72px, 8vw, 104px); /* pb-sect-bot */
+
+  --radius-card: 12px;
+  --radius-chip: 10px;
+  --radius-sheet: 32px;
+
+  /* ── Elevation ───────────────────────────────────────────────────────── */
+  --shadow-card: 0 18px 44px rgba(7, 59, 104, 0.06);
+  --shadow-card-lift: 0 26px 60px rgba(7, 59, 104, 0.16);
+  --shadow-panel: 0 24px 60px rgba(18, 22, 26, 0.07);
+  --shadow-sheet: 0 -26px 70px rgba(7, 59, 104, 0.16);
+}
+
+:root {
+  /* Gradients are not a Tailwind token namespace, so they are plain custom
+     properties surfaced through the utility classes below. */
+  --gradient-dark-band: radial-gradient(140% 120% at 0% 0%, #042743 0%, #0a4577 48%, #0f5fa3 100%);
+  --gradient-dark-tile: radial-gradient(120% 130% at 25% 20%, #0b4c86, #0a3050, #07161f);
+  --gradient-hero-ground: linear-gradient(180deg, #f4f6f8 0%, #f9fafb 58%, #fdfdfe 100%);
+  --gradient-contact-ground: radial-gradient(
+    90% 70% at 50% 0%,
+    #f3f7fa 0%,
+    #fafbfc 60%,
+    #ffffff 100%
+  );
+  --gradient-note-panel: radial-gradient(
+    130% 120% at 15% 0%,
+    #04253f 0%,
+    #0a4577 58%,
+    #0c5493 100%
+  );
+  /* The hairline that opens an eyebrow, and its mirror. */
+  --gradient-hairline: linear-gradient(90deg, rgba(11, 76, 134, 0), #0b4c86);
+  --gradient-hairline-flip: linear-gradient(90deg, #0b4c86, rgba(11, 76, 134, 0));
+}
+
+.bg-dark-band {
+  background-image: var(--gradient-dark-band);
+}
+
+.bg-dark-tile {
+  background-image: var(--gradient-dark-tile);
+}
+
+.bg-hero-ground {
+  background-image: var(--gradient-hero-ground);
+}
+
+.bg-contact-ground {
+  background-image: var(--gradient-contact-ground);
+}
+
+.bg-note-panel {
+  background-image: var(--gradient-note-panel);
+}
+
+/* ── Section reveal ────────────────────────────────────────────────────────
+   Scroll-driven and CSS-only. Deliberately not IntersectionObserver-gated:
+   the design handoff records that an IO implementation left whole sections
+   permanently invisible. Content paints with no animation support and with
+   motion reduced — the animation only ever adds to a visible baseline. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    [data-reveal] {
+      animation: rev linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 42%;
+    }
+  }
+}
+
+@keyframes rev {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Redesign motion ───────────────────────────────────────────────────────
+   wA/wB alternate so the rotating headline word restarts its animation on
+   every swap; em* are the four corner entrances of the hero collage cards. */
+@keyframes word-in-a {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+@keyframes word-in-b {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes card-in-tl {
+  from {
+    opacity: 0;
+    transform: translate(56px, 50px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes card-in-tr {
+  from {
+    opacity: 0;
+    transform: translate(-56px, 46px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes card-in-br {
+  from {
+    opacity: 0;
+    transform: translate(-52px, -54px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes card-in-bl {
+  from {
+    opacity: 0;
+    transform: translate(54px, -46px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(88px);
+  }
+}
