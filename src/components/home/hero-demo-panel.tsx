@@ -37,6 +37,20 @@ const CARD_PLACEMENT = {
 const CARD_ENTER = "motion-safe:animate-[chip-in_.5s_cubic-bezier(.22,.61,.36,1)_both]";
 
 /**
+ * Where the note panel sits inside the collage.
+ *
+ * `running` is the design's placement, sized to leave room for the four cards
+ * that surround it. Before the demo runs there are no cards, so the panel is
+ * wider and centred instead — at the design's size it reads as a small object
+ * adrift in an empty column. It eases back as soon as extraction starts, which
+ * is what the prototype's otherwise-unused `transition: width` anticipates.
+ */
+const IDLE_PANEL_PLACEMENT = {
+  idle: "nav:top-[190px] nav:left-[42px] nav:h-[228px] nav:w-[476px]",
+  running: "nav:top-[164px] nav:left-[112px] nav:h-[262px] nav:w-[336px]",
+} as const;
+
+/**
  * The hero's right-hand panel: a free-text clinical note that, on demand,
  * resolves into the structured fields the platform would produce from it.
  *
@@ -114,7 +128,9 @@ export function HeroDemoPanel() {
     >
       <div className="nav:absolute nav:top-0 nav:left-1/2 nav:block nav:h-[640px] nav:w-[560px] nav:origin-top nav:[transform:translateX(-50%)_scale(var(--collage-scale,1))] flex flex-col gap-[14px]">
         {/* ── The note, and the control that structures it ─────────────── */}
-        <div className="bg-note-panel nav:absolute nav:top-[164px] nav:left-[112px] nav:z-20 nav:h-[262px] nav:w-[336px] nav:overflow-hidden nav:shadow-[0_30px_70px_rgba(4,39,67,0.32)] relative z-[1] flex flex-col gap-3 rounded-[12px] p-[18px] text-white shadow-[0_22px_52px_rgba(7,59,104,0.20)]">
+        <div
+          className={`bg-note-panel nav:absolute nav:z-20 nav:overflow-hidden nav:shadow-[0_30px_70px_rgba(4,39,67,0.32)] relative z-[1] flex flex-col gap-3 rounded-[12px] p-[18px] text-white shadow-[0_22px_52px_rgba(7,59,104,0.20)] motion-safe:transition-[width,left,top,height] motion-safe:duration-500 ease-[cubic-bezier(.22,.61,.36,1)] ${IDLE_PANEL_PLACEMENT[stage === DEMO_STAGES.idle ? "idle" : "running"]}`}
+        >
           <div className="flex items-center justify-between gap-3.5">
             <span className="font-mono-label text-sky-bright text-[10.5px] tracking-[0.16em] uppercase">
               {done
