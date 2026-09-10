@@ -5,6 +5,7 @@ export const PHARMA_PATH = "/life-science";
 export const PUBLIC_HEALTH_PATH = "/public-health";
 export const PLATFORM_PATH = "/platform";
 export const BLOG_PATH = "/blog";
+export const RESOURCES_PATH = "/resources";
 
 export const LEAD_FORM_HASH = "#lead-form";
 

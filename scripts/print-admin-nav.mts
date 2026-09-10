@@ -15,9 +15,13 @@ type Entry = { key: string; label: string };
 
 const entries: Record<string, Entry[]> = {};
 
+// Entities hidden from the sidebar have no position to check — the sections
+// the redesign retired are kept in the config only so their columns still map
+// to a field, and an editor never sees them.
 for (const collection of resolved.collections) {
   const group = collection.admin?.group;
   if (typeof group !== "string") continue;
+  if (collection.admin?.hidden === true) continue;
   const label =
     typeof collection.labels?.plural === "string" ? collection.labels.plural : collection.slug;
   (entries[group] ??= []).push({ key: `collections:${collection.slug}`, label });
@@ -26,6 +30,7 @@ for (const collection of resolved.collections) {
 for (const global of resolved.globals) {
   const group = global.admin?.group;
   if (typeof group !== "string") continue;
+  if (global.admin?.hidden === true) continue;
   const label = typeof global.label === "string" ? global.label : global.slug;
   (entries[group] ??= []).push({ key: `globals:${global.slug}`, label });
 }

@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'DM Sans',-apple-system,'Segoe UI',sans-serif;background:#ffffff;color:#12161A;-webkit-font-smoothing:antialiased}
+  a{color:#0B4C86;text-decoration:none}
+  a:hover{color:#073B68}
+  @keyframes spinMark{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  @keyframes marqTrust{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+</style>
+</helmet>
+
+<div style="width:100%;overflow:clip">
+
+  <header style="{{ headerStyle }}">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,32px);height:64px;display:flex;align-items:center;gap:24px">
+      <a href="#top" style="display:flex;align-items:center;flex:none">
+        <img src="assets/genetico-logo.png" alt="Genetico" style="{{ logoStyle }}" />
+      </a>
+      <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+          <a href="#get-in-touch" style="{{ mobileCtaStyle }}">Book a demo</a>
+          <button type="button" onClick="{{ toggleMenu }}" aria-label="Menu" style="{{ menuBtnStyle }}">{{ menuIcon }}</button>
+        </div>
+      </sc-if>
+      <nav style="{{ navStyle }}">
+        <a href="About%20Us.dc.html" style="font-size:14.5px;font-weight:400;color:{{ navInk }}">About</a>
+        <a href="#top" style="font-size:14.5px;font-weight:700;color:{{ navInkActive }}">Platform</a>
+        <div style="position:relative;font-size:14.5px;color:{{ navInk }};display:flex;align-items:center;gap:5px;cursor:default" onMouseEnter="{{ openSolutions }}" onMouseLeave="{{ closeSolutions }}">
+          <span>Solutions</span>
+          <span style="font-size:9px;font-weight:400">▾</span>
+          <sc-if value="{{ solutionsOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:100%;left:-16px;padding-top:12px;width:286px">
+              <div style="background:#fff;border:1px solid #E4E9ED;border-radius:12px;box-shadow:0 18px 44px rgba(7,59,104,0.12);padding:7px;display:flex;flex-direction:column;gap:1px">
+                <a href="Hospital.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Hospital / Clinician / CoE</a>
+                <a href="Life%20Science.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Life Science / Biotech</a>
+                <a href="Public%20Health.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Public Health</a>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <a href="Resources.dc.html" style="font-size:14.5px;font-weight:400;color:{{ navInk }}">Resources</a>
+      </nav>
+      <a href="#get-in-touch" style="{{ ctaStyle }}" style-hover="opacity:0.9">Book a demo</a>
+    </div>
+
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #E4E9ED;background:#fff;padding:18px clamp(20px,4vw,32px) 26px;max-height:70vh;overflow-y:auto">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">On this page</span>
+        <div style="margin-top:10px;display:flex;flex-direction:column">
+          <sc-for list="{{ sections }}" as="s" hint-placeholder-count="6">
+            <a href="{{ s.href }}" onClick="{{ closeMenu }}" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A;display:flex;align-items:center;gap:12px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#0B4C86">{{ s.num }}</span>{{ s.label }}
+            </a>
+          </sc-for>
+        </div>
+        <span style="display:block;margin-top:22px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">More</span>
+        <div style="margin-top:10px;display:flex;flex-direction:column">
+          <a href="About%20Us.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">About</a>
+          <a href="Hospital.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Hospital / Clinician / CoE</a>
+          <a href="Life%20Science.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Life Science / Biotech</a>
+          <a href="Public%20Health.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Public Health</a>
+          <a href="Resources.dc.html" style="padding:12px 0;font-size:15.5px;color:#12161A">Resources</a>
+        </div>
+      </div>
+    </sc-if>
+  </header>
+
+  <div style="{{ railStyle }}">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,32px);height:52px;display:flex;align-items:center;gap:4px;overflow-x:auto">
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="6">
+        <a href="{{ s.href }}" style="{{ s.style }}" style-hover="background:#EDF3F9;color:#073B68" style-focus="outline:2px solid #0B4C86;outline-offset:2px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;opacity:0.55">{{ s.num }}</span>
+          <span>{{ s.label }}</span>
+        </a>
+      </sc-for>
+    </div>
+    <div style="height:2px;background:#E4E9ED">
+      <div style="{{ progressStyle }}"></div>
+    </div>
+  </div>
+
+  <a href="#platform" style="{{ skipStyle }}" style-focus="left:0;outline:2px solid #0B4C86">Skip to platform content</a>
+
+  <section id="top" style="scroll-margin-top:128px;position:relative;min-height:100vh;display:flex;flex-direction:column;background:#04101C;overflow:hidden;padding:clamp(72px,7.3vw,100px) clamp(20px,4vw,32px) 0">
+    <div style="position:absolute;top:50%;right:-7%;width:min(720px,72vw);aspect-ratio:1;transform:translateY(-50%);pointer-events:none">
+      <img src="assets/indigeneus-mark-white.png" alt="" style="{{ markStyle }}" />
+    </div>
+    <div style="position:absolute;inset:0;background:linear-gradient(104deg,rgba(3,13,23,0.95) 0%,rgba(4,20,36,0.86) 44%,rgba(6,40,70,0.58) 100%);pointer-events:none"></div>
+
+    <div style="position:relative;width:100%;max-width:1200px;margin:0 auto;flex:1;display:flex;flex-direction:column">
+      <div style="{{ heroGrid }}">
+
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:26px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#7FA9CC;white-space:nowrap">A Genetico Platform</span>
+            <span style="height:1px;width:72px;background:rgba(255,255,255,0.28);display:block"></span>
+          </div>
+
+          <h1 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(36px,4.4vw,58px);line-height:1.06;letter-spacing:-0.022em;color:#fff;text-wrap:pretty;max-width:15em">The clinical infrastructure for <em style="font-style:italic">rare and genetic disease</em></h1>
+
+          <p style="margin:0;max-width:34em;font-size:16px;line-height:1.68;color:#C6D6E4">Clinical workflows, AI-assisted decision support, structured longitudinal data, and analytics — brought together in one intelligent ecosystem built for the institutions that treat the hardest cases.</p>
+
+          <a href="#get-in-touch" style="display:inline-flex;align-items:center;gap:11px;padding:14px 26px;border-radius:999px;background:#fff;color:#0A1F33;font-size:14.5px;font-weight:700;outline-offset:3px" style-hover="background:#E6EEF5" style-focus="outline:2px solid #6FD8C2">Schedule a walkthrough <span style="width:20px;height:20px;border-radius:50%;background:#0A1F33;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px">→</span></a>
+        </div>
+
+        <div style="border:1px solid rgba(255,255,255,0.18);border-radius:16px;background:rgba(4,22,40,0.62);backdrop-filter:blur(10px);box-shadow:0 32px 80px rgba(0,0,0,0.42);padding:20px 20px 22px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#7FCBEB">RAPID Score™</span>
+            <span style="padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.22);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#9FBDD6">Illustrative</span>
+          </div>
+
+          <div style="margin-top:16px;display:flex;gap:6px;flex-wrap:wrap">
+            <sc-for list="{{ heroCases }}" as="c" hint-placeholder-count="3">
+              <button type="button" onClick="{{ c.select }}" style="{{ c.style }}" style-hover="border-color:rgba(255,255,255,0.42)">{{ c.label }}</button>
+            </sc-for>
+          </div>
+
+          <p style="margin:16px 0 0;min-height:3.2em;font-size:13px;line-height:1.6;color:#9FBDD6">{{ caseMeta }}</p>
+
+          <div style="margin-top:8px;display:flex;flex-direction:column;gap:15px">
+            <sc-for list="{{ caseRows }}" as="b" hint-placeholder-count="3">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+                  <span style="{{ b.nameStyle }}">{{ b.name }}</span>
+                  <span style="{{ b.pctStyle }}">{{ b.pctLabel }}</span>
+                </div>
+                <div style="margin-top:7px;height:5px;border-radius:3px;background:rgba(255,255,255,0.12);overflow:hidden">
+                  <div style="{{ b.fillStyle }}"></div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.14);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+            <sc-for list="{{ caseStats }}" as="s" hint-placeholder-count="3">
+              <div>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#fff;display:block">{{ s.value }}</span>
+                <span style="font-size:11px;color:#8FB2CE;display:block;margin-top:2px">{{ s.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:auto;padding:20px 0 24px;border-top:1px solid rgba(255,255,255,0.16)">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#7FA9CC">Inside the platform</span>
+        <div style="{{ heroJumpGrid }}">
+          <sc-for list="{{ sections }}" as="s" hint-placeholder-count="5">
+            <a href="{{ s.href }}" style="display:flex;flex-direction:column;gap:6px;padding:14px 15px 15px;border-radius:11px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.28);outline-offset:3px" style-hover="background:rgba(255,255,255,0.11);border-color:rgba(255,255,255,0.34);color:#ffffff" style-focus="outline:2px solid #6FD8C2;color:#ffffff">
+              <span style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;color:#6FD8C2">{{ s.num }}</span>
+                <span style="font-size:12px;color:currentColor">→</span>
+              </span>
+              <span style="font-size:14px;font-weight:500;color:#fff;line-height:1.3">{{ s.label }}</span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="background:#F5F7F9;border-bottom:1px solid #E4E9ED;padding:28px 0 32px">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,32px);display:flex;align-items:center;gap:16px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Deployed with leading institutions</span>
+      <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+    </div>
+    <div style="margin-top:16px;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)">
+      <div style="{{ trustTrackStyle }}">
+        <sc-for list="{{ trustLoop }}" as="l" hint-placeholder-count="10">
+          <div style="width:176px;height:76px;display:flex;align-items:center;justify-content:center;padding:0 22px;flex:none">
+            <img src="{{ l.img }}" alt="{{ l.name }}" style="max-width:100%;max-height:52px;object-fit:contain" />
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <section id="platform" style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px)">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">The Platform</span>
+        <span style="height:1px;width:72px;background:#C3D2DC;display:block"></span>
+      </div>
+      <div style="{{ leadGrid }}">
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.1;letter-spacing:-0.02em">Intelligent Data Capture for Rare Disease Care</h2>
+        <p style="margin:0;font-size:14.5px;line-height:1.75;color:#3C434A;max-width:34em">AI-assisted data capture, structured clinical workflows, and intelligent automation reduce manual effort while improving the quality, consistency, and usability of rare disease data.</p>
+      </div>
+
+      <div style="margin-top:52px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border-bottom:1px solid #E4E9ED">
+        <sc-for list="{{ features }}" as="f" hint-placeholder-count="4">
+          <button type="button" onClick="{{ f.select }}" style="{{ f.tabStyle }}" style-hover="background:#FAFBFC">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.08em;display:block">{{ f.num }}</span>
+            <span style="font-family:'Newsreader',Georgia,serif;font-size:17px;display:block;margin-top:8px">{{ f.title }}</span>
+          </button>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:48px;align-items:center">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <span style="align-self:flex-start;display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border:1px solid #CFE3E0;border-radius:999px;background:#F3FAF8;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#12706A">
+            <span style="width:6px;height:6px;border-radius:50%;background:#2FA98F;display:block"></span>{{ activeBadge }}
+          </span>
+          <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(26px,3vw,34px);line-height:1.14;letter-spacing:-0.018em">{{ activeTitle }}</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.75;color:#3C434A;max-width:36em">{{ activeBody }}</p>
+          <div style="margin-top:6px;display:flex;flex-direction:column;gap:13px">
+            <sc-for list="{{ activeBullets }}" as="b" hint-placeholder-count="3">
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span>
+                <p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">{{ b.text }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;background:#F5F7F9;border:1px solid #E4E9ED;border-radius:12px;padding:28px">
+          <img src="{{ activeImg }}" alt="{{ activeTitle }}" style="max-width:100%;max-height:100%;object-fit:contain" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cdss" style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px);background:radial-gradient(120% 100% at 15% 0%,#04253F 0%,#0A4577 55%,#0C5493 100%);color:#fff">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#8FD8FF">Clinical Intelligence</span>
+        <span style="height:1px;width:72px;background:rgba(255,255,255,0.4);display:block"></span>
+      </div>
+      <div style="{{ leadGrid }}">
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.1;letter-spacing:-0.02em">Clinical Decision Support System</h2>
+        <p style="margin:0;font-size:14.5px;line-height:1.75;color:#B7CCDD;max-width:34em">AI-assisted clinical decision support that combines phenotypic, genomic, and clinical evidence to help clinicians evaluate complex rare disease cases with greater confidence.</p>
+      </div>
+
+      <div style="margin-top:64px;padding-top:36px;border-top:1px solid rgba(255,255,255,0.18);display:grid;gap:40px 56px;align-items:start;grid-template-columns:{{ itemCols }}">
+        <div style="display:flex;gap:20px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8FD8FF;padding-top:6px">01</span>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(24px,2.8vw,32px);line-height:1.16;letter-spacing:-0.018em">RAPID Score™</h3>
+            <p style="margin:0;font-size:14.5px;line-height:1.72;color:#B7CCDD">Prioritizes likely differential diagnoses by continuously analyzing structured phenotypic, genomic, and clinical data as new information becomes available.</p>
+          </div>
+        </div>
+        <div style="border:1px solid rgba(255,255,255,0.20);border-radius:12px;background:rgba(3,25,45,0.45);backdrop-filter:blur(6px);padding:22px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#7FCBEB">AI-Assisted Differential Diagnosis</span>
+          <div style="margin-top:18px;display:flex;flex-direction:column;gap:14px">
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+                <span style="font-size:14px;font-weight:500">Dravet Syndrome <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8FB6D4;margin-left:6px">G40.82</span></span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6FD8C2">74%</span>
+              </div>
+              <div style="margin-top:7px;height:4px;border-radius:2px;background:rgba(255,255,255,0.14)"><div style="width:74%;height:4px;border-radius:2px;background:#6FD8C2"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+                <span style="font-size:14px;font-weight:500">GEFS+ <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8FB6D4;margin-left:6px">G40.30</span></span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6FD8C2">48%</span>
+              </div>
+              <div style="margin-top:7px;height:4px;border-radius:2px;background:rgba(255,255,255,0.14)"><div style="width:48%;height:4px;border-radius:2px;background:#6FD8C2"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+                <span style="font-size:14px;font-weight:500">Lennox-Gastaut <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8FB6D4;margin-left:6px">G40.812</span></span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6FD8C2">23%</span>
+              </div>
+              <div style="margin-top:7px;height:4px;border-radius:2px;background:rgba(255,255,255,0.14)"><div style="width:23%;height:4px;border-radius:2px;background:#6FD8C2"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+                <span style="font-size:14px;font-weight:500">Angelman Syndrome <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8FB6D4;margin-left:6px">Q93.51</span></span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6FD8C2">15%</span>
+              </div>
+              <div style="margin-top:7px;height:4px;border-radius:2px;background:rgba(255,255,255,0.14)"><div style="width:15%;height:4px;border-radius:2px;background:#6FD8C2"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:56px;padding-top:36px;border-top:1px solid rgba(255,255,255,0.18);display:grid;gap:40px 56px;align-items:start;grid-template-columns:{{ itemCols }}">
+        <div style="display:flex;gap:20px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8FD8FF;padding-top:6px">02</span>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(24px,2.8vw,32px);line-height:1.16;letter-spacing:-0.018em">Evidence-Based Clinical Reasoning</h3>
+            <p style="margin:0;font-size:14.5px;line-height:1.72;color:#B7CCDD">Every recommendation is fully traceable to structured phenotypic data, genomic findings, clinical guidelines, and published literature, ensuring AI remains transparent, explainable, and clinician-controlled.</p>
+          </div>
+        </div>
+        <div style="border:1px solid rgba(255,255,255,0.20);border-radius:12px;background:rgba(3,25,45,0.45);backdrop-filter:blur(6px);padding:22px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#7FCBEB">Transparent &amp; Explainable AI</span>
+          <div style="margin-top:16px;display:flex;flex-direction:column">
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.12)">
+              <span style="font-size:14px">Phenotypic Features</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6FD8C2">12 matched</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.12)">
+              <span style="font-size:14px">Genomic Variants</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6FD8C2">SCN1A detected</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.12)">
+              <span style="font-size:14px">Literature Evidence</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6FD8C2">47 publications</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0">
+              <span style="font-size:14px">OMIM Classification</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6FD8C2">Confirmed pathogenic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:56px;padding-top:36px;border-top:1px solid rgba(255,255,255,0.18);display:grid;gap:40px 56px;align-items:start;grid-template-columns:{{ itemCols }}">
+        <div style="display:flex;gap:20px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8FD8FF;padding-top:6px">03</span>
+          <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start">
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(24px,2.8vw,32px);line-height:1.16;letter-spacing:-0.018em">Disease Comparison &amp; Clinical Disambiguation</h3>
+            <p style="margin:0;font-size:14.5px;line-height:1.72;color:#B7CCDD">Compare clinically similar rare diseases side by side using phenotypic overlap, genomic findings, inheritance patterns, and supporting evidence to improve diagnostic confidence.</p>
+          </div>
+        </div>
+        <div style="border:1px solid rgba(255,255,255,0.20);border-radius:12px;overflow:hidden;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))">
+          <div style="padding:18px;background:rgba(3,25,45,0.45)">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#7FCBEB">Disease A</span>
+            <h4 style="margin:9px 0 14px;font-size:14px;font-weight:700">Dravet Syndrome</h4>
+            <div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:#C8DCEC">
+              <span>Febrile seizures</span><span>SCN1A variant</span><span>Hypotonia</span><span>Photosensitivity</span>
+            </div>
+          </div>
+          <div style="padding:18px;background:rgba(6,45,78,0.75);border-left:1px solid rgba(255,255,255,0.14);border-right:1px solid rgba(255,255,255,0.14)">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6FD8C2">Shared</span>
+            <div style="margin-top:31px;display:flex;flex-direction:column;gap:9px;font-size:13px;color:#9FE7D6">
+              <span>Epilepsy</span><span>Dev. delay</span><span>EEG changes</span>
+            </div>
+          </div>
+          <div style="padding:18px;background:rgba(3,25,45,0.45)">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#7FCBEB">Disease B</span>
+            <h4 style="margin:9px 0 14px;font-size:14px;font-weight:700">Lennox-Gastaut</h4>
+            <div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:#C8DCEC">
+              <span>Multiple sz. types</span><span>Slow spike-wave</span><span>Atonic seizures</span><span>Cognitive impairment</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="longitudinal" style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px);background:#F5F7F9">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Longitudinal Care</span>
+        <span style="height:1px;width:72px;background:#C3D2DC;display:block"></span>
+      </div>
+      <div style="{{ leadGrid }}">
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.1;letter-spacing:-0.02em">From Patient Journeys to Longitudinal Intelligence</h2>
+        <p style="margin:0;font-size:14.5px;line-height:1.75;color:#3C434A;max-width:34em">Build lifelong patient records that evolve with every consultation, enabling continuous care, AI-assisted insights, outcome tracking, and research-ready longitudinal data.</p>
+      </div>
+
+      <div style="margin-top:56px;padding-top:36px;border-top:1px solid #E4E9ED;display:grid;gap:40px 56px;align-items:start;grid-template-columns:{{ itemCols }}">
+        <div style="display:flex;gap:20px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#0B4C86;padding-top:6px">01</span>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(24px,2.8vw,32px);line-height:1.16;letter-spacing:-0.018em">Longitudinal Patient Journey</h3>
+            <p style="margin:0;font-size:14.5px;line-height:1.72;color:#3C434A">Capture every milestone in a patient's rare disease journey, from referral and diagnosis to treatment and follow-up, through structured longitudinal records that support continuity of care and informed clinical decisions.</p>
+            <div style="margin-top:4px;display:flex;flex-direction:column;gap:13px">
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">Unified patient timeline across every clinical encounter</p></div>
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">AI-assisted visit summaries and clinical documentation</p></div>
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">Track disease progression, treatment response, and outcomes over time</p></div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#EDF2F5;border:1px solid #E4E9ED;border-radius:12px;padding:24px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#3C434A">Patient Timeline</span>
+          <div style="margin-top:18px;position:relative;padding-left:26px">
+            <div style="position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:#BFD4DE"></div>
+            <div style="position:relative;padding-bottom:18px">
+              <span style="position:absolute;left:-26px;top:3px;width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid #7FBBD6;display:block"></span>
+              <span style="font-size:13px;color:#3C434A;display:block">Jan 2024</span>
+              <span style="font-size:14.5px;font-weight:500;display:block;margin-top:2px">Initial Referral</span>
+            </div>
+            <div style="position:relative;padding-bottom:18px">
+              <span style="position:absolute;left:-26px;top:3px;width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid #7FBBD6;display:block"></span>
+              <span style="font-size:13px;color:#3C434A;display:block">Mar 2024</span>
+              <span style="font-size:14.5px;font-weight:500;display:block;margin-top:2px">Genomic Workup Ordered</span>
+            </div>
+            <div style="position:relative;padding-bottom:18px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+              <div>
+                <span style="position:absolute;left:-26px;top:3px;width:13px;height:13px;border-radius:50%;background:#2FA98F;border:2px solid #A9E4D7;display:block"></span>
+                <span style="font-size:13px;color:#3C434A;display:block">Jun 2024</span>
+                <span style="font-size:14.5px;font-weight:500;display:block;margin-top:2px">Diagnosis Confirmed</span>
+              </div>
+              <span style="flex:none;padding:5px 11px;border-radius:999px;background:#DCF1EC;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#12706A">Active</span>
+            </div>
+            <div style="position:relative;padding-bottom:18px">
+              <span style="position:absolute;left:-26px;top:3px;width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid #7FBBD6;display:block"></span>
+              <span style="font-size:13px;color:#3C434A;display:block">Sep 2024</span>
+              <span style="font-size:14.5px;font-weight:500;display:block;margin-top:2px">Follow-up Review</span>
+            </div>
+            <div style="position:relative">
+              <span style="position:absolute;left:-26px;top:3px;width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid #7FBBD6;display:block"></span>
+              <span style="font-size:13px;color:#3C434A;display:block">Jan 2025</span>
+              <span style="font-size:14.5px;font-weight:500;display:block;margin-top:2px">Treatment Update</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:56px;padding-top:36px;border-top:1px solid #E4E9ED;display:grid;gap:40px 56px;align-items:start;grid-template-columns:{{ itemCols }}">
+        <div style="display:flex;gap:20px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#0B4C86;padding-top:6px">02</span>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(24px,2.8vw,32px);line-height:1.16;letter-spacing:-0.018em">Advanced Clinical Analytics</h3>
+            <p style="margin:0;font-size:14.5px;line-height:1.72;color:#3C434A">Transform structured clinical data into real-time dashboards that reveal patient trends, cohort insights, disease progression, and operational performance across institutions.</p>
+            <div style="margin-top:4px;display:flex;flex-direction:column;gap:13px">
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">Interactive cohort analysis and disease trend visualization</p></div>
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">AI-assisted analytics for clinical and research insights</p></div>
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">Export research-ready reports and population-level evidence</p></div>
+            </div>
+          </div>
+        </div>
+        <div style="background:radial-gradient(120% 120% at 10% 0%,#04253F,#0A4577 70%,#0C5493);border-radius:12px;padding:24px;color:#fff">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#7FCBEB">Patient Cohort Trend</span>
+          <div style="margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px">
+            <div style="border:1px solid rgba(255,255,255,0.18);border-radius:9px;padding:14px">
+              <span style="font-family:'Newsreader',Georgia,serif;font-size:26px;display:block">1,247</span>
+              <span style="font-size:13px;color:#C6D6E4;display:block;margin-top:3px">Active Patients</span>
+            </div>
+            <div style="border:1px solid rgba(255,255,255,0.18);border-radius:9px;padding:14px">
+              <span style="font-family:'Newsreader',Georgia,serif;font-size:26px;display:block">94%</span>
+              <span style="font-size:13px;color:#C6D6E4;display:block;margin-top:3px">Data Completeness</span>
+            </div>
+            <div style="border:1px solid rgba(255,255,255,0.18);border-radius:9px;padding:14px">
+              <span style="font-family:'Newsreader',Georgia,serif;font-size:26px;display:block">312</span>
+              <span style="font-size:13px;color:#C6D6E4;display:block;margin-top:3px">Diagnoses / Month</span>
+            </div>
+          </div>
+          <div style="margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(46px,1fr));gap:6px">
+            <span style="padding:9px 0;border-radius:7px;background:rgba(255,255,255,0.07);text-align:center;font-size:13px;color:#C6D6E4">Jan</span>
+            <span style="padding:9px 0;border-radius:7px;background:rgba(255,255,255,0.07);text-align:center;font-size:13px;color:#C6D6E4">Feb</span>
+            <span style="padding:9px 0;border-radius:7px;background:#1573C4;text-align:center;font-size:13px;color:#fff;font-weight:700">Mar</span>
+            <span style="padding:9px 0;border-radius:7px;background:rgba(255,255,255,0.07);text-align:center;font-size:13px;color:#C6D6E4">Apr</span>
+            <span style="padding:9px 0;border-radius:7px;background:rgba(255,255,255,0.07);text-align:center;font-size:13px;color:#C6D6E4">May</span>
+            <span style="padding:9px 0;border-radius:7px;background:rgba(255,255,255,0.07);text-align:center;font-size:13px;color:#C6D6E4">Jun</span>
+            <span style="padding:9px 0;border-radius:7px;background:rgba(255,255,255,0.07);text-align:center;font-size:13px;color:#C6D6E4">Jul</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="infrastructure" style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px)">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Infrastructure</span>
+        <span style="height:1px;width:72px;background:#C3D2DC;display:block"></span>
+      </div>
+      <div style="{{ leadGrid }}">
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.1;letter-spacing:-0.02em">Built for Enterprise Healthcare Environments</h2>
+        <p style="margin:0;font-size:14.5px;line-height:1.75;color:#3C434A;max-width:34em">Designed to integrate with existing healthcare ecosystems while providing the flexibility to deploy across hospitals, research institutions, and public health programs without disrupting existing workflows.</p>
+      </div>
+
+      <div style="margin-top:56px;padding-top:36px;border-top:1px solid #E4E9ED;display:grid;gap:40px 56px;align-items:start;grid-template-columns:{{ itemCols }}">
+        <div style="display:flex;gap:20px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#0B4C86;padding-top:6px">01</span>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(24px,2.8vw,32px);line-height:1.16;letter-spacing:-0.018em">Integrations</h3>
+            <p style="margin:0;font-size:14.5px;line-height:1.72;color:#3C434A">IndiGeneUs.AI is designed to work alongside your existing digital ecosystem. Connect with hospital information systems, laboratory platforms, genetic testing workflows, and external knowledge resources to create a unified clinical experience.</p>
+            <div style="margin-top:4px;display:flex;flex-direction:column;gap:13px">
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">HL7 / FHIR-native exchange with hospital systems</p></div>
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">Direct connections to LIMS, lab and genetic testing platforms</p></div>
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">Live lookups against OMIM, ORPHANET and HPO</p></div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#F5F7F9;border:1px solid #E4E9ED;border-radius:12px;padding:24px">
+          <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:#E4F3EF;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#12706A">
+            <span style="width:6px;height:6px;border-radius:50%;background:#2FA98F;display:block"></span>Integrations
+          </span>
+          <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:8px">
+            <span style="padding:10px 15px;border:1px solid #E4E9ED;border-radius:8px;background:#fff;font-size:13px">HL7 / FHIR</span>
+            <span style="padding:10px 15px;border:1px solid #E4E9ED;border-radius:8px;background:#fff;font-size:13px">EHR Systems</span>
+            <span style="padding:10px 15px;border:1px solid #E4E9ED;border-radius:8px;background:#fff;font-size:13px">Lab APIs</span>
+            <span style="padding:10px 15px;border:1px solid #E4E9ED;border-radius:8px;background:#fff;font-size:13px">OMIM</span>
+            <span style="padding:10px 15px;border:1px solid #E4E9ED;border-radius:8px;background:#fff;font-size:13px">ORPHANET</span>
+            <span style="padding:10px 15px;border:1px solid #E4E9ED;border-radius:8px;background:#fff;font-size:13px">HAPI-FHIR</span>
+            <span style="padding:10px 15px;border:1px solid #E4E9ED;border-radius:8px;background:#fff;font-size:13px">Custom Webhooks</span>
+            <span style="padding:10px 15px;border:1px solid #E4E9ED;border-radius:8px;background:#fff;font-size:13px">DICOM</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:56px;padding-top:36px;border-top:1px solid #E4E9ED;display:grid;gap:40px 56px;align-items:start;grid-template-columns:{{ itemCols }}">
+        <div style="display:flex;gap:20px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#0B4C86;padding-top:6px">02</span>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(24px,2.8vw,32px);line-height:1.16;letter-spacing:-0.018em">Deployment Flexibility</h3>
+            <p style="margin:0;font-size:14.5px;line-height:1.72;color:#3C434A">Whether deployed on-premise or in the cloud, IndiGeneUs.AI adapts to institutional security, compliance, and operational requirements while ensuring scalability and performance.</p>
+            <div style="margin-top:4px;display:flex;flex-direction:column;gap:13px">
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">Cloud, on-premise or fully air-gapped deployment</p></div>
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">Institution-controlled data residency and retention</p></div>
+              <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:#2FA98F;flex:none;margin-top:8px;display:block"></span><p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">Scales from a single centre to a national programme</p></div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#F5F7F9;border:1px solid #E4E9ED;border-radius:12px;padding:24px">
+          <span style="display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:#E4F3EF;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#12706A">
+            <span style="width:6px;height:6px;border-radius:50%;background:#2FA98F;display:block"></span>Deployment
+          </span>
+          <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">
+            <div style="background:#fff;border:1px solid #E4E9ED;border-radius:9px;padding:15px 17px">
+              <div style="display:flex;align-items:center;gap:9px"><span style="width:6px;height:6px;border-radius:50%;background:#2FA98F;display:block"></span><span style="font-size:14.5px;font-weight:500">Cloud-Based</span></div>
+              <p style="margin:7px 0 0;font-size:13px;line-height:1.55;color:#3C434A">Managed infrastructure, auto-scaling, zero operational overhead.</p>
+            </div>
+            <div style="background:#fff;border:1px solid #E4E9ED;border-radius:9px;padding:15px 17px">
+              <div style="display:flex;align-items:center;gap:9px"><span style="width:6px;height:6px;border-radius:50%;background:#2FA98F;display:block"></span><span style="font-size:14.5px;font-weight:500">On-Premise</span></div>
+              <p style="margin:7px 0 0;font-size:13px;line-height:1.55;color:#3C434A">Full data sovereignty, custom infrastructure, air-gapped options.</p>
+            </div>
+            <div style="background:#fff;border:1px solid #E4E9ED;border-radius:9px;padding:15px 17px">
+              <div style="display:flex;align-items:center;gap:9px"><span style="width:6px;height:6px;border-radius:50%;background:#2FA98F;display:block"></span><span style="font-size:14.5px;font-weight:500">Hybrid</span></div>
+              <p style="margin:7px 0 0;font-size:13px;line-height:1.55;color:#3C434A">Mix of cloud and on-premise based on data sensitivity policies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="security" style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px);background:#F5F7F9;border-top:1px solid #E4E9ED">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Security &amp; Compliance</span>
+        <span style="height:1px;width:72px;background:#C3D2DC;display:block"></span>
+      </div>
+      <div style="{{ leadGrid }}">
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.1;letter-spacing:-0.02em">Built for Trust. Designed for Healthcare.</h2>
+        <p style="margin:0;font-size:14.5px;line-height:1.75;color:#3C434A;max-width:34em">Every layer of IndiGeneUs.AI is designed to protect sensitive clinical and genetic information through enterprise-grade security, transparent governance, and institution-controlled data ownership.</p>
+      </div>
+      <div style="margin-top:56px;padding-top:36px;border-top:1px solid #E4E9ED;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+        <div style="background:#fff;border:1px solid #E4E9ED;border-radius:10px;padding:24px">
+          <h3 style="margin:0 0 10px;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:22px;line-height:1.2;letter-spacing:-0.012em">Enterprise-grade Data Protection</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.65;color:#3C434A">Clinical and genomic data is encrypted during transmission and storage using industry-standard security protocols.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #E4E9ED;border-radius:10px;padding:24px">
+          <h3 style="margin:0 0 10px;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:22px;line-height:1.2;letter-spacing:-0.012em">Role-based Access Control</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.65;color:#3C434A">Granular permissions ensure every user accesses only the information relevant to their clinical or operational responsibilities.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #E4E9ED;border-radius:10px;padding:24px">
+          <h3 style="margin:0 0 10px;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:22px;line-height:1.2;letter-spacing:-0.012em">Complete Audit Trails</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.65;color:#3C434A">Every action is securely logged, providing full traceability, accountability, and compliance across clinical workflows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="get-in-touch" style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px);background:#ffffff;border-top:1px solid #E4E9ED">
+    <div style="max-width:760px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="height:1px;width:72px;background:#C3D2DC;display:block"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Get in Touch</span>
+        <span style="height:1px;width:72px;background:#C3D2DC;display:block"></span>
+      </div>
+      <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(32px,4.4vw,52px);line-height:1.08;letter-spacing:-0.02em">Build the Future of Rare Disease Care with IndiGeneUs.AI</h2>
+      <p style="margin:0;max-width:620px;font-size:14.5px;line-height:1.7;color:#3C434A">Discover how AI-assisted clinical workflows, structured data intelligence, clinical decision support, and advanced analytics can help transform rare disease care across your institution.</p>
+      <a href="https://mailchi.mp/genetico/genetico-clinical-digest-signup-form" target="_blank" rel="noreferrer" style="font-size:14.5px;color:#0B4C86;border-bottom:1px solid #BBD0E2;padding-bottom:2px" style-hover="border-color:#0B4C86">Not ready to talk? Subscribe to the Clinical Digest</a>
+    </div>
+
+    <div style="max-width:700px;margin:44px auto 0;background:#fff;border:1px solid #E4E9ED;border-radius:16px;padding:26px 30px 30px;box-shadow:0 24px 60px rgba(18,22,26,0.07)">
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+          <button type="button" onClick="{{ t.select }}" style="{{ t.style }}" style-hover="background:#EDF3F9">{{ t.label }}</button>
+        </sc-for>
+      </div>
+      <div style="height:1px;background:#E4E9ED;margin:18px 0"></div>
+      <p style="margin:0 0 24px;font-size:14.5px;line-height:1.6;color:#0B4C86">{{ tabBlurb }}</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px 20px">
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">First name*</span>
+          <input placeholder="First name" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Last name*</span>
+          <input placeholder="Last name" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Work email*</span>
+          <input placeholder="janedoe@email.com" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Phone number</span>
+          <input placeholder="+91 98765 43210" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+        </label>
+        <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Organisation</span>
+          <input placeholder="Name of organisation" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+        </label>
+        <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">How can we help?</span>
+          <textarea rows="4" placeholder="Tell us a little about what you're looking for." style="padding:12px 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none;resize:vertical" style-focus="border-color:#0B4C86"></textarea>
+        </label>
+      </div>
+      <p style="margin:20px 0 0;text-align:center;font-size:12px;line-height:1.55;color:#6E767D">By submitting, you agree to be contacted by Genetico. We never share your information with third parties.</p>
+      <button type="button" style="margin-top:18px;width:100%;padding:14px;border:0;border-radius:999px;background:#073B68;color:#fff;font-size:14.5px;font-weight:700;font-family:inherit;cursor:pointer" style-hover="background:#0B4C86">Talk to our team</button>
+    </div>
+  </section>
+
+  <footer style="position:relative;overflow:hidden;background:radial-gradient(140% 120% at 0% 0%,#042743 0%,#0A4577 45%,#0F5FA3 100%);color:#fff;padding:clamp(52px,5.3vw,72px) clamp(20px,4vw,32px) 0">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:48px 40px">
+        <div style="display:flex;flex-direction:column;gap:36px">
+          <p style="margin:0;font-size:15.5px;line-height:2;color:#DCE9F4;max-width:420px">IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format &amp; enables AI-assisted clinical decision-making for rare and genetic disorders.</p>
+          <div style="display:flex;gap:14px">
+            <a href="https://x.com/genetico_in" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.12)">X</a>
+            <a href="https://www.linkedin.com/company/genetico-in/" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.12)">in</a>
+            <a href="https://youtube.com/@geneticord" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff" style-hover="background:rgba(255,255,255,0.12)">▶</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <h3 style="margin:0 0 4px;font-size:25px;font-weight:500;letter-spacing:-0.01em;color:#fff">Menu</h3>
+          <a href="https://www.genetico.in/" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Home</a>
+          <a href="About%20Us.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">About</a>
+          <a href="#platform" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">How it Works</a>
+          <a href="Life%20Science.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">For Business</a>
+          <a href="https://www.genetico.in/#faqs" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">FAQs</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <h3 style="margin:0 0 4px;font-size:25px;font-weight:500;letter-spacing:-0.01em;color:#fff">Solutions</h3>
+          <a href="Hospital.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Hospital / Clinician / CoE</a>
+          <a href="Life%20Science.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Life Science / Biotech organisation</a>
+          <a href="Public%20Health.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Public health</a>
+          <a href="https://calendly.com/priyanshu-vats-genetico/30min" target="_blank" rel="noreferrer" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Contact Us</a>
+        </div>
+      </div>
+
+      <div style="margin-top:56px;padding-top:26px;border-top:1px solid rgba(255,255,255,0.20);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center">
+        <span style="font-size:15px;color:#B9CFE2">Genetico. All rights reserved.</span>
+        <a href="#privacy" style="font-size:15px;color:#B9CFE2" style-hover="color:#fff">Privacy Policy</a>
+      </div>
+
+      <div style="margin-top:34px;height:clamp(90px,13vw,190px);max-height:190px;overflow:hidden;container-type:inline-size;display:flex;align-items:flex-start;justify-content:center">
+        <span style="font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:18cqw;line-height:0.78;letter-spacing:-0.01em;white-space:nowrap;background:linear-gradient(180deg,rgba(255,255,255,0.52) 0%,rgba(255,255,255,0.30) 55%,rgba(255,255,255,0.10) 100%);-webkit-background-clip:text;background-clip:text;color:transparent">GENETICO</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const FEATURES = [
+  {
+    num: "01",
+    title: "Pedigree Intelligence",
+    badge: "Genetic Data Capture",
+    kicker: "Visualize family history with structured genetic intelligence",
+    body: "Create detailed family pedigrees through an intuitive visual interface designed for clinical genetics. Capture inheritance patterns, phenotype relationships, and family history as structured data that supports diagnosis, clinical decision support, and future analysis.",
+    bullets: [
+      "Interactive pedigree builder with automated relationship mapping",
+      "Visualize inheritance patterns and genetic relationships",
+      "Integrated with longitudinal patient records and clinical workflows"
+    ],
+    img: "https://www.genetico.in/thing.png"
+  },
+  {
+    num: "02",
+    title: "AI-powered Phenotyping",
+    badge: "Phenotyping",
+    kicker: "Standardized phenotype documentation at scale",
+    body: "Automatically extract Human Phenotype Ontology (HPO) terms from clinical notes and reports using AI, reducing manual effort while improving the consistency and completeness of phenotype documentation.",
+    bullets: ["AI-assisted HPO extraction", "Standardized phenotype documentation", "Improved clinical decision support"],
+    img: "https://www.genetico.in/platform/hpo-extraction.svg"
+  },
+  {
+    num: "03",
+    title: "OCR & Report Digitization",
+    badge: "Digitization",
+    kicker: "Structured data from clinical documents",
+    body: "Digitize laboratory reports, genetic test results, and clinical documents using AI-powered OCR and intelligent data extraction to create structured, searchable clinical records.",
+    bullets: ["AI-powered OCR", "Intelligent report parsing", "Structured clinical data generation"],
+    img: "https://www.genetico.in/platform/ocr-digitization.svg"
+  },
+  {
+    num: "04",
+    title: "Structured Clinical Workflows",
+    badge: "Workflows",
+    kicker: "Consistent documentation across programs",
+    body: "Purpose-built workflows standardize data capture across rare disease programs, enabling consistent documentation, interoperability, analytics, and research-ready datasets.",
+    bullets: ["Standardized clinical templates", "AI-assisted documentation", "Research-ready structured data"],
+    img: "https://www.genetico.in/platform/standardized-workflows.svg"
+  }
+];
+
+const TABS = [
+  ["Clinician or Hospital", "We'll connect you to our medical team to walk through workflows, integration and a 2-week pilot at your center."],
+  ["Government or Public Health", "We'll walk you through registries, screening programmes, patient tracking and real-time programme analytics."],
+  ["Life Science or Industry", "We'll show how structured, research-ready data and cohort identification support your evidence pipeline."],
+  ["Investor", "We'll share how Genetico is building the digital backbone for the rare disease ecosystem."]
+];
+
+const SB = "https://pfmdimjfbcxamkhrozxa.storage.supabase.co/storage/v1/object/public/genetico/media/";
+
+const TRUST_LOGOS = [
+  ["AIIMS Delhi", SB + "Vector-1.png"],
+  ["CDFD", SB + "Vector.png"],
+  ["SGRH", SB + "SGRH_logo-removebg-preview.png"],
+  ["Manovikas", SB + "Vector-5.png"],
+  ["BGCI", SB + "Vector-3.png"],
+  ["GHRC", SB + "Vector-4.png"],
+  ["TPG", SB + "Vector-2.png"]
+];
+
+const CASES = [
+  {
+    label: "Epilepsy",
+    meta: "4-year-old \u00b7 febrile seizures, developmental delay \u00b7 SCN1A variant detected",
+    rows: [["Dravet Syndrome", 74], ["GEFS+", 48], ["Lennox-Gastaut", 23]],
+    stats: [["12", "HPO matched"], ["47", "Publications"], ["OMIM", "Confirmed path."]]
+  },
+  {
+    label: "Metabolic",
+    meta: "8-month-old \u00b7 hypoglycaemia, hepatomegaly \u00b7 elevated lactate on newborn panel",
+    rows: [["Glycogen Storage Ia", 68], ["Fructose-1,6-BPase Def.", 41], ["Mitochondrial Dis.", 19]],
+    stats: [["9", "HPO matched"], ["31", "Publications"], ["ORPHA", "Likely path."]]
+  },
+  {
+    label: "Neuromuscular",
+    meta: "6-year-old \u00b7 proximal weakness, raised CK \u00b7 calf hypertrophy on examination",
+    rows: [["Duchenne MD", 81], ["Becker MD", 37], ["Limb-Girdle MD", 16]],
+    stats: [["14", "HPO matched"], ["62", "Publications"], ["DMD", "Del. exon 45\u201350"]]
+  }
+];
+
+const SECTIONS = [
+  ["platform", "01", "The Platform"],
+  ["cdss", "02", "Clinical Intelligence"],
+  ["longitudinal", "03", "Longitudinal Care"],
+  ["infrastructure", "04", "Infrastructure"],
+  ["security", "05", "Security"]
+];
+
+class Component extends DCLogic {
+  state = { feature: 0, tab: 0, solutionsOpen: false, narrow: false, menuOpen: false, scrolled: false, active: "platform", railOn: false, caseIdx: 0, barsIn: false, reduced: false, progress: 0, userPicked: false };
+
+  pickCase(i) {
+    this.setState({ caseIdx: i, userPicked: true });
+    if (this.caseTimer) { clearInterval(this.caseTimer); this.caseTimer = null; }
+  }
+
+  componentDidMount() {
+    const mq = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+    const reduced = !!(mq && mq.matches);
+    this.setState({ reduced });
+    this.barTimer = setTimeout(() => this.setState({ barsIn: true }), reduced ? 0 : 160);
+    if (!reduced) {
+      this.caseTimer = setInterval(() => {
+        if (this.state.userPicked) return;
+        this.setState(s => ({ caseIdx: (s.caseIdx + 1) % CASES.length }));
+      }, 6500);
+    }
+
+    this.onScroll = () => {
+      const scrolled = window.scrollY > 40;
+      const hero = document.getElementById("top");
+      const heroH = hero ? hero.offsetHeight : 0;
+      const railOn = heroH > 200 ? window.scrollY > heroH - 120 : false;
+      const probe = 180;
+      let straddled = null, passed = null;
+      for (const [id] of SECTIONS) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        if (r.top <= probe) passed = id;
+        if (straddled === null && r.top <= probe && r.bottom > probe) straddled = id;
+      }
+      const active = straddled || passed || SECTIONS[0][0];
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+      const s = this.state;
+      if (scrolled !== s.scrolled || railOn !== s.railOn || active !== s.active || Math.abs(progress - s.progress) > 0.4) {
+        this.setState({ scrolled, railOn, active, progress });
+      }
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    window.addEventListener("load", this.onScroll);
+    this.onScroll();
+    requestAnimationFrame(() => this.onScroll());
+    this.settleTimer = setTimeout(this.onScroll, 400);
+    this.onResize = () => {
+      const narrow = window.innerWidth < 880;
+      if (narrow !== this.state.narrow) this.setState({ narrow, menuOpen: false });
+      this.onScroll();
+    };
+    window.addEventListener("resize", this.onResize);
+    this.onResize();
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("load", this.onScroll);
+    if (this.settleTimer) clearTimeout(this.settleTimer);
+    if (this.barTimer) clearTimeout(this.barTimer);
+    if (this.caseTimer) clearInterval(this.caseTimer);
+  }
+
+  renderVals() {
+    const n = this.state.narrow;
+    const fi = this.state.feature;
+    const f = FEATURES[fi];
+    const active = this.state.tab;
+    const solid = this.state.scrolled || this.state.menuOpen;
+    return {
+      headerStyle: "position:fixed;top:0;left:0;right:0;z-index:60;" +
+        ((this.state.scrolled || this.state.menuOpen)
+          ? "background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);border-bottom:1px solid #E4E9ED"
+          : "background:transparent;border-bottom:1px solid transparent"),
+      logoStyle: "height:34px;width:auto;display:block;" + (solid ? "" : "filter:brightness(0) invert(1)"),
+      wordInk: solid ? "#12161A" : "#ffffff",
+      navInk: solid ? "#3C434A" : "#B9C8D6",
+      navInkActive: solid ? "#12161A" : "#ffffff",
+      mobileCtaStyle: "padding:10px 18px;border-radius:999px;font-size:13.5px;font-weight:700;" + (solid ? "background:#073B68;color:#fff" : "background:#fff;color:#0A1F33"),
+      menuBtnStyle: "width:38px;height:38px;border-radius:9px;font-size:16px;line-height:1;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;background:transparent;" + (solid ? "border:1px solid #E4E9ED;color:#12161A" : "border:1px solid rgba(255,255,255,0.28);color:#fff"),
+      narrow: n,
+      railStyle: "position:fixed;top:64px;left:0;right:0;z-index:55;background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);border-bottom:1px solid #E4E9ED;transition:transform .28s ease,opacity .28s ease;" +
+        (this.state.railOn ? "opacity:1;transform:translateY(0);pointer-events:auto" : "opacity:0;transform:translateY(-8px);pointer-events:none"),
+      sections: SECTIONS.map(([id, num, label]) => ({
+        href: "#" + id,
+        num,
+        label,
+        style: "flex:none;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-size:13.5px;white-space:nowrap;" +
+          (this.state.active === id ? "background:#EDF3F9;color:#073B68;font-weight:700" : "color:#3C434A;font-weight:400")
+      })),
+      skipStyle: "position:absolute;left:-9999px;top:0;z-index:80;padding:12px 18px;background:#fff;color:#073B68;font-size:14px;font-weight:700;border-radius:0 0 10px 0",
+      markStyle: "width:100%;height:100%;display:block;opacity:0.11;" + (this.state.reduced ? "" : "animation:spinMark 140s linear infinite"),
+      progressStyle: "height:2px;background:#0B4C86;width:" + this.state.progress.toFixed(1) + "%",
+      trustTrackStyle: "display:flex;align-items:center;width:max-content;" + (this.state.reduced ? "" : "animation:marqTrust 46s linear infinite"),
+      trustLoop: TRUST_LOGOS.concat(TRUST_LOGOS).map(([name, img]) => ({ name, img })),
+
+      heroCases: CASES.map((c, i) => ({
+        label: c.label,
+        select: () => this.pickCase(i),
+        style: "padding:7px 13px;border-radius:999px;font-size:12px;font-family:inherit;cursor:pointer;outline-offset:2px;" +
+          (i === this.state.caseIdx
+            ? "border:1px solid rgba(111,216,194,0.55);background:rgba(111,216,194,0.16);color:#9FE7D6;font-weight:700"
+            : "border:1px solid rgba(255,255,255,0.18);background:transparent;color:#9FBDD6;font-weight:400")
+      })),
+      caseMeta: CASES[this.state.caseIdx].meta,
+      caseRows: CASES[this.state.caseIdx].rows.map(([name, pct], i) => ({
+        name,
+        pctLabel: pct + "%",
+        nameStyle: "font-size:14px;font-weight:500;color:" + (i === 0 ? "#ffffff" : "#E4EDF5"),
+        pctStyle: "font-family:'IBM Plex Mono',monospace;font-size:14px;color:" + (i === 0 ? "#6FD8C2" : "#8FD8FF"),
+        fillStyle: "width:" + (this.state.barsIn ? pct : 0) + "%;height:5px;border-radius:3px;background:" +
+          (i === 0 ? "#6FD8C2" : "#4FA6D8") +
+          (this.state.reduced ? "" : ";transition:width 700ms ease-out " + (i * 120) + "ms")
+      })),
+      caseStats: CASES[this.state.caseIdx].stats.map(([value, label]) => ({ value, label })),
+
+      heroGrid: "display:grid;flex:1;align-content:center;gap:" + (n ? "44px" : "clamp(40px,5vw,72px)") + ";align-items:center;grid-template-columns:" + (n ? "minmax(0,1fr)" : "minmax(0,1.08fr) minmax(0,0.92fr)"),
+      heroJumpGrid: "margin-top:16px;display:grid;gap:10px;grid-template-columns:repeat(" + (n ? "2" : "5") + ",minmax(0,1fr))",
+      itemCols: n ? "minmax(0,1fr)" : "minmax(0,1fr) minmax(0,1.05fr)",
+      leadGrid: "margin-top:24px;display:grid;gap:32px 56px;align-items:start;grid-template-columns:" + (n ? "minmax(0,1fr)" : "minmax(0,1.15fr) minmax(0,1fr)"),
+      menuOpen: this.state.menuOpen,
+      menuIcon: this.state.menuOpen ? "\u00d7" : "\u2261",
+      closeMenu: () => this.setState({ menuOpen: false }),
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      navStyle: n ? "display:none" : "display:flex;align-items:center;gap:30px;margin:0 auto",
+      ctaStyle: n ? "display:none" : "flex:none;padding:11px 22px;border-radius:999px;font-size:14px;font-weight:700;" + (solid ? "background:#073B68;color:#fff" : "background:#fff;color:#0A1F33"),
+      solutionsOpen: this.state.solutionsOpen,
+      openSolutions: () => this.setState({ solutionsOpen: true }),
+      closeSolutions: () => this.setState({ solutionsOpen: false }),
+
+      features: FEATURES.map((x, i) => ({
+        num: x.num,
+        title: x.title,
+        select: () => this.setState({ feature: i }),
+        tabStyle: "text-align:left;padding:18px 20px 20px;background:transparent;font-family:inherit;cursor:pointer;border:0;border-top:2px solid " +
+          (i === fi ? "#2FA98F;color:#12161A" : "#E4E9ED;color:#6E767D") +
+          (i < FEATURES.length - 1 ? ";border-right:1px solid #EDF0F2" : "")
+      })),
+      activeBadge: f.badge,
+      activeTitle: f.title,
+      activeBody: f.body,
+      activeImg: f.img,
+      activeBullets: f.bullets.map(text => ({ text })),
+
+      tabs: TABS.map(([label], i) => ({
+        label,
+        select: () => this.setState({ tab: i }),
+        style: "padding:9px 16px;border-radius:999px;font-size:13.5px;font-family:inherit;cursor:pointer;border:0;" +
+          (i === active ? "background:#EDF3F9;color:#0B4C86;font-weight:700" : "background:transparent;color:#3C434A;font-weight:400")
+      })),
+      tabBlurb: TABS[active][1]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

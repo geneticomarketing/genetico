@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'DM Sans',-apple-system,'Segoe UI',sans-serif;background:#ffffff;color:#12161A;-webkit-font-smoothing:antialiased}
+  a{color:#0B4C86;text-decoration:none}
+  a:hover{color:#073B68}
+  @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes marqR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+</style>
+</helmet>
+
+
+
+<div style="width:100%;overflow:clip">
+
+  <header style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);border-bottom:1px solid #E4E9ED">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,32px);height:64px;display:flex;align-items:center;gap:24px">
+      <a href="#top" style="display:flex;align-items:center;flex:none">
+        <img src="assets/genetico-logo.png" alt="Genetico" style="height:34px;width:auto;display:block" />
+      </a>
+      <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+          <a href="#get-in-touch" style="padding:10px 18px;border-radius:999px;background:#073B68;color:#fff;font-size:13.5px;font-weight:700">Book a demo</a>
+          <button type="button" onClick="{{ toggleMenu }}" aria-label="Menu" style="width:38px;height:38px;border-radius:9px;border:1px solid #E4E9ED;background:#fff;color:#12161A;font-size:16px;line-height:1;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center">{{ menuIcon }}</button>
+        </div>
+      </sc-if>
+      <nav style="{{ navStyle }}">
+        <a href="#top" style="font-size:14.5px;font-weight:700;color:#12161A">About</a>
+        <a href="Platform.dc.html" style="font-size:14.5px;font-weight:400;color:#3C434A">Platform</a>
+        <div style="position:relative;font-size:14.5px;color:#3C434A;display:flex;align-items:center;gap:5px;cursor:default" onMouseEnter="{{ openSolutions }}" onMouseLeave="{{ closeSolutions }}">
+          <span>Solutions</span>
+          <span style="font-size:9px;font-weight:400">▾</span>
+          <sc-if value="{{ solutionsOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:100%;left:-16px;padding-top:12px;width:286px">
+              <div style="background:#fff;border:1px solid #E4E9ED;border-radius:12px;box-shadow:0 18px 44px rgba(7,59,104,0.12);padding:7px;display:flex;flex-direction:column;gap:1px">
+                <a href="Hospital.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Hospital / Clinician / CoE</a>
+                <a href="Life%20Science.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Life Science / Biotech</a>
+                <a href="Public%20Health.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Public Health</a>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <a href="Resources.dc.html" style="font-size:14.5px;font-weight:400;color:#3C434A">Resources</a>
+      </nav>
+      <a href="#get-in-touch" style="{{ ctaStyle }}" style-hover="background:#0B4C86;color:#fff">Book a demo</a>
+    </div>
+
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #E4E9ED;background:#fff;padding:18px clamp(20px,4vw,32px) 26px;max-height:70vh;overflow-y:auto">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">On this page</span>
+        <div style="margin-top:10px;display:flex;flex-direction:column">
+          <sc-for list="{{ sections }}" as="s" hint-placeholder-count="6">
+            <a href="{{ s.href }}" onClick="{{ s.go }}" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A;display:flex;align-items:center;gap:12px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#0B4C86">{{ s.num }}</span>{{ s.label }}
+            </a>
+          </sc-for>
+        </div>
+        <span style="display:block;margin-top:22px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">More</span>
+        <div style="margin-top:10px;display:flex;flex-direction:column">
+          <a href="Platform.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Platform</a>
+          <a href="Hospital.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Hospital / Clinician / CoE</a>
+          <a href="Life%20Science.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Life Science / Biotech</a>
+          <a href="Public%20Health.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Public Health</a>
+          <a href="Resources.dc.html" style="padding:12px 0;font-size:15.5px;color:#12161A">Resources</a>
+        </div>
+      </div>
+    </sc-if>
+  </header>
+
+  <div style="{{ railStyle }}">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,32px);height:52px;display:flex;align-items:center;gap:4px;overflow-x:auto">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D;flex:none;margin-right:14px">About Genetico</span>
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="6">
+        <a href="{{ s.href }}" onClick="{{ s.go }}" style="{{ s.railStyle }}" style-hover="background:#EDF3F9;color:#073B68" style-focus="outline:2px solid #0B4C86;outline-offset:2px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;opacity:0.55">{{ s.num }}</span>
+          <span>{{ s.label }}</span>
+        </a>
+      </sc-for>
+    </div>
+    <div style="height:2px;background:#E4E9ED">
+      <div style="{{ progressStyle }}"></div>
+    </div>
+  </div>
+
+  <section id="top" style="scroll-margin-top:128px;padding:clamp(53px,5.5vw,76px) clamp(20px,4vw,32px) clamp(67px,7.0vw,96px);background:linear-gradient(180deg,#FAFBFC 0%,#ffffff 45%)">
+    <div style="max-width:1000px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:26px">
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#3C434A">
+        <span>AIIMS New Delhi</span>
+        <span style="width:3px;height:3px;border-radius:50%;background:#C6CCD2;display:block"></span>
+        <span>CDFD Hyderabad</span>
+        <span style="width:3px;height:3px;border-radius:50%;background:#C6CCD2;display:block"></span>
+        <span>15 Rare Disease Centres · PraGed Mission</span>
+      </div>
+      <h1 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(40px,5.6vw,66px);line-height:1.06;letter-spacing:-0.015em;color:#12161A">
+        Building Infrastructure<br />For <span style="color:#0B4C86">{{ heroWord }}</span>
+      </h1>
+      <p style="margin:0;max-width:620px;font-size:16px;line-height:1.68;color:#3C434A">An AI-enabled digital infrastructure connecting clinical care, research, and public health to transform rare disease diagnosis, management, and outcomes.</p>
+      <a href="#get-in-touch" style="display:inline-flex;align-items:center;gap:9px;padding:13px clamp(18px,2vw,28px);border-radius:999px;background:#073B68;color:#fff;font-size:14px;font-weight:700" style-hover="background:#0B4C86">Get in touch <span style="font-size:13px">→</span></a>
+
+      
+    </div>
+
+    <div style="max-width:1040px;margin:64px auto 0;border-radius:12px;background:linear-gradient(180deg,#F3F7FA 0%,#FAFCFD 100%);border:1px solid #E4E9ED;padding:clamp(32px,3.4vw,46px) clamp(20px,4vw,32px) clamp(28px,2.9vw,40px);display:flex;flex-direction:column;align-items:center;gap:26px">
+      <div style="display:flex;justify-content:center;flex-wrap:wrap;padding-left:16px">
+        <sc-for list="{{ team }}" as="p" hint-placeholder-count="10">
+          <div style="{{ avatarStyle }}border:3px solid #fff;box-shadow:0 4px 14px rgba(18,22,26,0.10);overflow:hidden;background:#E6EBEF;position:relative;display:flex;align-items:center;justify-content:center" title="{{ p.name }}">
+            <span style="font-family:'Newsreader',Georgia,serif;font-size:22px;color:#9AA6B1">{{ p.initials }}</span>
+            <img src="{{ p.img }}" alt="{{ p.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+        <p style="margin:0;max-width:520px;font-family:'Newsreader',Georgia,serif;font-size:22px;line-height:1.4;color:#12161A">A team of clinicians, engineers, data scientists, and advisors — united by deep experience across genetics, health systems, and technology.</p>
+        <a href="#team" onClick="{{ goTeam }}" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px">Meet the team <span style="font-size:12px">↓</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="vision" style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px)">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;justify-content:center;gap:22px">
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,rgba(11,76,134,0),#0B4C86);display:block"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Our Vision</span>
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,#0B4C86,rgba(11,76,134,0));display:block"></span>
+      </div>
+      <h2 style="margin:28px auto 0;max-width:660px;text-align:center;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(32px,4vw,50px);line-height:1.14;letter-spacing:-0.015em">Genetico was built to solve the foundational problem in rare disease care.</h2>
+
+      <div style="margin:64px auto 0;max-width:900px;background:#F6F9FA;border:1px solid #E4E9ED;border-radius:12px;padding:clamp(32px,4vw,52px);display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;color:#0B4C86">01</span>
+          <span style="height:1px;width:20px;background:#C3D2DC;display:block"></span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D">The Core Challenge</span>
+        </div>
+        <p style="margin:0;max-width:760px;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(21px,2.4vw,29px);line-height:1.42;letter-spacing:-0.01em;color:#12161A;text-wrap:pretty">Rare disease care is limited by fragmented clinical data, disconnected workflows, and a lack of structured information needed to support diagnosis, research, and public health.</p>
+      </div>
+
+      <div style="margin:56px auto 0;max-width:1000px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,5vw,72px)">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;color:#0B4C86">02</span>
+            <span style="height:1px;width:20px;background:#C3D2DC;display:block"></span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D">The Mission</span>
+          </div>
+          <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(20px,2.1vw,26px);line-height:1.34;letter-spacing:-0.01em">To empower clinicians, institutions, and researchers with AI-enabled workflows and structured data that improve care and accelerate discovery.</h3>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;color:#0B4C86">03</span>
+            <span style="height:1px;width:20px;background:#C3D2DC;display:block"></span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D">The Vision</span>
+          </div>
+          <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(20px,2.1vw,26px);line-height:1.34;letter-spacing:-0.01em">To build the digital backbone for the rare disease ecosystem, connecting patient care, research, and public health at scale.</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px);background:linear-gradient(180deg,#F4F6F8 0%,#FAFBFC 100%)">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;justify-content:center;gap:22px">
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,rgba(11,76,134,0),#0B4C86);display:block"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Our Team</span>
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,#0B4C86,rgba(11,76,134,0));display:block"></span>
+      </div>
+      <h2 style="margin:22px 0 14px;text-align:center;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(38px,5vw,58px);line-height:1.06;letter-spacing:-0.02em">Leadership</h2>
+      <p style="margin:0 auto;max-width:390px;text-align:center;font-size:14.5px;line-height:1.65;color:#3C434A">Clinicians, engineers, and advisors united by one mission.</p>
+
+      <div style="margin-top:52px;display:flex;align-items:center;gap:16px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Team</span>
+        <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+      </div>
+      <div style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px">
+        <sc-for list="{{ teamCore }}" as="p" hint-placeholder-count="4">
+          <div onClick="{{ p.open }}" style="background:#fff;border:1px solid #E4E9ED;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .2s ease" style-hover="box-shadow:0 16px 38px rgba(18,22,26,0.09)">
+            <div style="position:relative;width:100%;aspect-ratio:1/1;background:#E6EBEF;display:flex;align-items:center;justify-content:center">
+              <span style="font-family:'Newsreader',Georgia,serif;font-size:44px;color:#9AA6B1">{{ p.initials }}</span>
+              <img src="{{ p.img }}" alt="{{ p.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+            </div>
+            <div style="padding:18px 18px 16px;display:flex;flex-direction:column;gap:9px;flex:1">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">{{ p.role }}</span>
+              <h3 style="margin:0;font-size:16.5px;font-weight:500;letter-spacing:-0.005em">{{ p.name }}</h3>
+              <p style="margin:0;font-size:13px;line-height:1.55;color:#3C434A">{{ p.short }}</p>
+              <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <span style="font-size:13px;font-weight:500;color:#0B4C86;display:inline-flex;align-items:center;gap:5px">View profile <span style="font-size:11px">↗</span></span>
+                <sc-if value="{{ p.hasLi }}" hint-placeholder-val="{{ true }}">
+                  <a href="{{ p.li }}" target="_blank" rel="noreferrer" style="width:26px;height:26px;border-radius:50%;border:1px solid #E4E9ED;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:#0B4C86;flex:none" style-hover="border-color:#0B4C86;background:#F2F7FB">in</a>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:44px;display:flex;align-items:center;gap:16px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Advisors &amp; Mentors</span>
+        <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+      </div>
+      <div style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px">
+        <sc-for list="{{ teamAdvisors }}" as="p" hint-placeholder-count="6">
+          <div onClick="{{ p.open }}" style="background:#fff;border:1px solid #E4E9ED;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .2s ease" style-hover="box-shadow:0 16px 38px rgba(18,22,26,0.09)">
+            <div style="position:relative;width:100%;aspect-ratio:1/1;background:#E6EBEF;display:flex;align-items:center;justify-content:center">
+              <span style="font-family:'Newsreader',Georgia,serif;font-size:44px;color:#9AA6B1">{{ p.initials }}</span>
+              <img src="{{ p.img }}" alt="{{ p.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+            </div>
+            <div style="padding:18px 18px 16px;display:flex;flex-direction:column;gap:9px;flex:1">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">{{ p.role }}</span>
+              <h3 style="margin:0;font-size:16.5px;font-weight:500;letter-spacing:-0.005em">{{ p.name }}</h3>
+              <p style="margin:0;font-size:13px;line-height:1.55;color:#3C434A">{{ p.short }}</p>
+              <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <span style="font-size:13px;font-weight:500;color:#0B4C86;display:inline-flex;align-items:center;gap:5px">View profile <span style="font-size:11px">↗</span></span>
+                <sc-if value="{{ p.hasLi }}" hint-placeholder-val="{{ true }}">
+                  <a href="{{ p.li }}" target="_blank" rel="noreferrer" style="width:26px;height:26px;border-radius:50%;border:1px solid #E4E9ED;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:#0B4C86;flex:none" style-hover="border-color:#0B4C86;background:#F2F7FB">in</a>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="recognition" style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px);background:radial-gradient(120% 90% at 15% 0%,#04253F 0%,#0A4577 55%,#0C5493 100%);color:#fff">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;justify-content:center;gap:22px">
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.55));display:block"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#ffffff">Recognition</span>
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,rgba(255,255,255,0.55),rgba(255,255,255,0));display:block"></span>
+      </div>
+      <h2 style="margin:24px 0 16px;text-align:center;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(34px,4.6vw,54px);line-height:1.06;letter-spacing:-0.02em">Rewards &amp; Recognition</h2>
+      <p style="margin:0 auto;max-width:470px;text-align:center;font-size:14.5px;line-height:1.65;color:#B7CCDD">Recognized and supported by leading government bodies, incubators, and innovation programs across India.</p>
+
+      <div style="position:relative;margin-top:64px">
+        <div style="{{ tlLine }}"></div>
+        <sc-for list="{{ awards }}" as="a" hint-placeholder-count="6">
+          <div style="{{ a.rowStyle }}">
+            <div style="{{ a.dotStyle }}"></div>
+            <div style="{{ a.cellA }}">
+              <sc-if value="{{ a.left }}" hint-placeholder-val="{{ true }}">
+                <div style="max-width:{{ a.cardW }};border:1px solid rgba(255,255,255,0.22);border-radius:12px;background:rgba(255,255,255,0.10);backdrop-filter:blur(6px);padding:14px 18px;display:flex;gap:14px;align-items:center">
+                  <img src="{{ a.img }}" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:contain;background:#fff;padding:3px;flex:none" />
+                  <div style="display:flex;flex-direction:column;gap:4px">
+                    <span style="font-size:14.5px;font-weight:700;line-height:1.3">{{ a.title }}</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#63C9B6">{{ a.org }}</span>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ a.right }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:14px;color:#9FBDD6">{{ a.year }}</span>
+              </sc-if>
+            </div>
+            <div style="{{ a.cellB }}">
+              <sc-if value="{{ a.left }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:14px;color:#9FBDD6">{{ a.year }}</span>
+              </sc-if>
+              <sc-if value="{{ a.right }}" hint-placeholder-val="{{ false }}">
+                <div style="max-width:{{ a.cardW }};border:1px solid rgba(255,255,255,0.22);border-radius:12px;background:rgba(255,255,255,0.10);backdrop-filter:blur(6px);padding:14px 18px;display:flex;gap:14px;align-items:center">
+                  <img src="{{ a.img }}" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:contain;background:#fff;padding:3px;flex:none" />
+                  <div style="display:flex;flex-direction:column;gap:4px">
+                    <span style="font-size:14.5px;font-weight:700;line-height:1.3">{{ a.title }}</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#63C9B6">{{ a.org }}</span>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="partners" style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px)">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="max-width:760px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:18px">
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(32px,4.2vw,50px);line-height:1.1;letter-spacing:-0.018em">Trusted Across the Rare Disease Ecosystem</h2>
+        <p style="margin:0;font-size:14.5px;line-height:1.65;color:#3C434A">We collaborate with leading institutions, research organizations, and public health programs building the future of rare disease care in India and beyond.</p>
+      </div>
+
+      <div style="margin-top:56px;display:flex;align-items:center;gap:16px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Institutional &amp; Clinical Partners</span>
+        <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+      </div>
+      <div style="margin-top:4px;overflow:hidden;border-bottom:1px solid #EDF0F2;mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)">
+        <div style="display:flex;align-items:center;width:max-content;animation:marq 42s linear infinite">
+          <sc-for list="{{ institutionsLoop }}" as="l" hint-placeholder-count="10">
+            <div style="width:180px;height:112px;display:flex;align-items:center;justify-content:center;padding:20px;flex:none">
+              <img src="{{ l.img }}" alt="{{ l.name }}" style="max-width:100%;max-height:62px;object-fit:contain" />
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;display:flex;align-items:center;gap:16px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Supported By</span>
+        <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+      </div>
+      <div style="margin-top:4px;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)">
+        <div style="display:flex;align-items:center;width:max-content;animation:marqR 52s linear infinite">
+          <sc-for list="{{ supportersLoop }}" as="l" hint-placeholder-count="10">
+            <div style="width:150px;height:92px;display:flex;align-items:center;justify-content:center;padding:18px;flex:none;opacity:0.72">
+              <img src="{{ l.img }}" alt="{{ l.name }}" style="max-width:100%;max-height:44px;object-fit:contain" />
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="trust" style="scroll-margin-top:128px;padding:clamp(39px,4.1vw,56px) clamp(20px,4vw,32px);background:#F6F9FA;border-top:1px solid #E4E9ED;border-bottom:1px solid #E4E9ED">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:36px 56px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Security &amp; Compliance</span>
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(22px,2.4vw,28px);line-height:1.25;letter-spacing:-0.012em">Built for Trust. Designed for Healthcare.</h2>
+      </div>
+      <div style="{{ trustGrid }}">
+        <sc-for list="{{ trust }}" as="t" hint-placeholder-count="5">
+          <div style="display:flex;gap:11px;align-items:flex-start">
+            <span style="width:5px;height:5px;border-radius:50%;background:#0B4C86;flex:none;margin-top:7px;display:block"></span>
+            <p style="margin:0;font-size:14.5px;line-height:1.55;color:#3C434A">{{ t.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="get-in-touch" style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px);background:radial-gradient(90% 70% at 50% 0%,#F3F7FA 0%,#FAFBFC 60%,#ffffff 100%)">
+    <div style="max-width:760px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="display:flex;align-items:center;justify-content:center;gap:22px">
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,rgba(11,76,134,0),#0B4C86);display:block"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Get in Touch</span>
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,#0B4C86,rgba(11,76,134,0));display:block"></span>
+      </div>
+      <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(32px,4.4vw,52px);line-height:1.08;letter-spacing:-0.02em">Advancing the Rare Disease Ecosystem Starts with Collaboration</h2>
+      <p style="margin:0;max-width:620px;font-size:14.5px;line-height:1.7;color:#3C434A">We work alongside clinicians, institutions, researchers, and public health programs to build intelligent infrastructure that transforms fragmented data into better decisions and better outcomes.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
+        <a href="https://calendly.com/priyanshu-vats-genetico/30min" target="_blank" rel="noreferrer" style="padding:13px clamp(18px,2vw,28px);border-radius:999px;background:#073B68;color:#fff;font-size:14px;font-weight:700" style-hover="background:#0B4C86">Book a Demo</a>
+        <a href="https://mailchi.mp/genetico/genetico-clinical-digest-signup-form" target="_blank" rel="noreferrer" style="padding:13px clamp(18px,2vw,28px);border-radius:999px;border:1px solid #E4E9ED;background:#fff;color:#12161A;font-size:14px;font-weight:500" style-hover="border-color:#0B4C86;color:#0B4C86">Subscribe to Updates</a>
+      </div>
+    </div>
+
+    <div style="max-width:700px;margin:44px auto 0;background:#fff;border:1px solid #E4E9ED;border-radius:16px;padding:26px 30px 30px;box-shadow:0 24px 60px rgba(18,22,26,0.07)">
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+          <button type="button" onClick="{{ t.select }}" style="{{ t.style }}" style-hover="background:#EDF3F9">{{ t.label }}</button>
+        </sc-for>
+      </div>
+      <div style="height:1px;background:#E4E9ED;margin:18px 0 18px"></div>
+      <p style="margin:0 0 24px;font-size:14.5px;line-height:1.6;color:#0B4C86">{{ tabBlurb }}</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px 20px">
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">First name*</span>
+          <input placeholder="First name" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Last name*</span>
+          <input placeholder="Last name" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Work email*</span>
+          <input placeholder="janedoe@email.com" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Phone number</span>
+          <input placeholder="+91 98765 43210" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+        </label>
+        <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Organisation</span>
+          <input placeholder="Name of organisation" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+        </label>
+        <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">How can we help?</span>
+          <textarea rows="4" placeholder="Tell us a little about what you're looking for." style="padding:12px 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none;resize:vertical" style-focus="border-color:#0B4C86"></textarea>
+        </label>
+      </div>
+      <p style="margin:20px 0 0;text-align:center;font-size:12px;line-height:1.55;color:#6E767D">By submitting, you agree to be contacted by Genetico. We never share your information with third parties.</p>
+      <button type="button" style="margin-top:18px;width:100%;padding:14px;border:0;border-radius:999px;background:#073B68;color:#fff;font-size:14.5px;font-weight:700;font-family:inherit;cursor:pointer" style-hover="background:#0B4C86">Talk to our team</button>
+    </div>
+  </section>
+
+  <sc-if value="{{ personOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closePerson }}" style="position:fixed;inset:0;z-index:200;background:rgba(6,26,44,0.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:28px;overflow-y:auto">
+      <div onClick="{{ stop }}" style="background:#fff;border-radius:12px;max-width:660px;width:100%;overflow:hidden;box-shadow:0 40px 90px rgba(6,26,44,0.35);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+        <div style="position:relative;aspect-ratio:1/1;background:#E6EBEF;display:flex;align-items:center;justify-content:center">
+          <span style="font-family:'Newsreader',Georgia,serif;font-size:56px;color:#9AA6B1">{{ person.initials }}</span>
+          <img src="{{ person.img }}" alt="{{ person.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+        </div>
+        <div style="padding:30px 30px 28px;display:flex;flex-direction:column;gap:12px;position:relative">
+          <button type="button" onClick="{{ closePerson }}" style="position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;border:1px solid #E4E9ED;background:#fff;color:#6E767D;font-size:15px;line-height:1;cursor:pointer;font-family:inherit" style-hover="border-color:#0B4C86;color:#0B4C86">×</button>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">{{ person.role }}</span>
+          <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:26px;line-height:1.2;letter-spacing:-0.015em">{{ person.name }}</h3>
+          <p style="margin:0;font-size:14px;line-height:1.7;color:#3C434A">{{ person.bio }}</p>
+          <sc-if value="{{ person.hasLi }}" hint-placeholder-val="{{ true }}">
+            <a href="{{ person.li }}" target="_blank" rel="noreferrer" style="margin-top:6px;align-self:flex-start;padding:10px 18px;border-radius:999px;border:1px solid #E4E9ED;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:7px" style-hover="border-color:#0B4C86;background:#F2F7FB">LinkedIn <span style="font-size:11px">↗</span></a>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <footer style="position:relative;overflow:hidden;background:radial-gradient(140% 120% at 0% 0%,#042743 0%,#0A4577 45%,#0F5FA3 100%);color:#fff;padding:clamp(52px,5.3vw,72px) clamp(20px,4vw,32px) 0">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:48px 40px">
+        <div style="display:flex;flex-direction:column;gap:36px">
+          <p style="margin:0;font-size:15.5px;line-height:2;color:#DCE9F4;max-width:420px">IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format &amp; enables AI-assisted clinical decision-making for rare and genetic disorders.</p>
+          <div style="display:flex;gap:14px">
+            <a href="https://x.com/genetico_in" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.12)">X</a>
+            <a href="https://www.linkedin.com/company/genetico-in/" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.12)">in</a>
+            <a href="https://youtube.com/@geneticord" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff" style-hover="background:rgba(255,255,255,0.12)">▶</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <h3 style="margin:0 0 4px;font-size:25px;font-weight:500;letter-spacing:-0.01em;color:#fff">Menu</h3>
+          <a href="https://www.genetico.in/" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Home</a>
+          <a href="#vision" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">About</a>
+          <a href="Platform.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">How it Works</a>
+          <a href="Life%20Science.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">For Business</a>
+          <a href="https://www.genetico.in/#faqs" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">FAQs</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <h3 style="margin:0 0 4px;font-size:25px;font-weight:500;letter-spacing:-0.01em;color:#fff">Solutions</h3>
+          <a href="Hospital.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Hospital / Clinician / CoE</a>
+          <a href="Life%20Science.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Life Science / Biotech organisation</a>
+          <a href="Public%20Health.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Public health</a>
+          <a href="https://calendly.com/priyanshu-vats-genetico/30min" target="_blank" rel="noreferrer" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Contact Us</a>
+        </div>
+      </div>
+
+      <div style="margin-top:56px;padding-top:26px;border-top:1px solid rgba(255,255,255,0.20);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center">
+        <span style="font-size:15px;color:#B9CFE2">Genetico. All rights reserved.</span>
+        <a href="#privacy" style="font-size:15px;color:#B9CFE2" style-hover="color:#fff">Privacy Policy</a>
+      </div>
+
+      <div style="margin-top:34px;height:clamp(90px,13vw,190px);max-height:190px;overflow:hidden;container-type:inline-size;display:flex;align-items:flex-start;justify-content:center">
+        <span style="font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:18cqw;line-height:0.78;letter-spacing:-0.01em;white-space:nowrap;background:linear-gradient(180deg,rgba(255,255,255,0.52) 0%,rgba(255,255,255,0.30) 55%,rgba(255,255,255,0.10) 100%);-webkit-background-clip:text;background-clip:text;color:transparent">GENETICO</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const SB = "https://pfmdimjfbcxamkhrozxa.storage.supabase.co/storage/v1/object/public/genetico/media/";
+
+const TEAM = [
+  ["Arjun Gupta","Founder & CEO","Masters, Ross School of Business, University of Michigan. B. Tech-Biotech with exposure to drug discovery. 17+ Years across genetics, bioinformatics, testing labs and venture capital.","Arjun%20Gupta.png","https://www.linkedin.com/in/arjungupta25/"],
+  ["Saurabh Verma","Co-founder & CTO","14+ Years of experience Building Software products, M.Tech (Computer Science), Serial Entrepreneur.","Saurabh%20Verma.png",""],
+  ["Dr. Rohit Sadanand","Product Lead","DM Medical Genetics, AIIMS Delhi, MD Paediatrics, MBBS.","Dr%20Rohit%20Sadanand.png","https://www.linkedin.com/in/rohit-sadanand-2413b213b/"],
+  ["Vikram Kumar","Data Scientist","Data science, Bioinformatics, Artificial intelligence, Masters in Technology, Computational Biology, IIIT Delhi.","Vikram%20Kumar.png","https://www.linkedin.com/in/vikram-kumar-233a10193/"],
+  ["Dr. Shubha Phadke","Clinical Advisor","Rt. Prof. & HOD - Dept. of Medical Genetics at SGPGI, Lucknow (35+yrs exp). 300+ Publications. Founder President - Society Indian Academy of Medical Genetics.","Dr%20Shubha%20Phadke.png","https://www.linkedin.com/in/shubha-phadke-87691960/"],
+  ["Dr. Kameshwar Rao","Public Sector Advisor","Rt. Executive Director - National Health Authority. 25 yrs+ of exp. in National Health Systems & Digital Health Transformation.","Dr%20kameshwar%20Rao.png","https://www.linkedin.com/in/kameshwar-rao-punyamurtula-58751b14/"],
+  ["Anil Raina","Strategy Advisor","Ex-GM, SEA-Sanofi Genzyme. MBA (IB). Senior Biopharma Executive. Strategic Leadership in Speciality Care & Rare Diseases.","Anil%20Raina.png","https://www.linkedin.com/in/anilashokraina-consultant-biopharma/"],
+  ["Amit Mookim","Mentor","CEO - Immuneel Therapeutics (Cell & Gene Therapy). MD of IQVIA South Asia. Partner - Healthcare KPMG. 20 yrs+ of healthcare leadership.","Amit%20Mookim.png","https://www.linkedin.com/in/amitmookim/"],
+  ["Dr. Annie Hasan","Mentor","Head - Genetics & Molecular Medicine at Kamineni Hospitals with 35+ yrs of exp. President - Board of Genetic Counselling India.","Dr%20Annie%20hassan.png","https://www.linkedin.com/in/q-annie-hasan-467b811b4/"],
+  ["Bhawna Bhatnagar","Strategy Advisor","A venture capitalist, startup ecosystem builder, and AI product leader with 8+ years of experience across venture capital, entrepreneurship, and technology.","","https://www.linkedin.com/in/bhawnabhatnagar/"]
+];
+
+const AWARDS = [
+  ["Biotech Ignition Grant — BIRAC","Department of Biotechnology, Govt. of India","2019","1.jpg"],
+  ["Seed Investment — IIT Mandi","NIDHI SSS","2020","2.jpg"],
+  ["India-Sweden Healthcare Innovation Challenge","Winner","2022","3.png"],
+  ["Startup Maharathi Award","Startup Mahakumbh — Hon'ble Minister Piyush Goyal","2024","4.jpg"],
+  ["HDFC Bank Parivartan CSR Grant","Corporate Social Responsibility","2024","5.jpg"],
+  ["Scale-up Grant — MeitY","Ministry of Electronics & Information Technology","2025","6.png"]
+];
+
+const LOGOS = [
+  ["10,000 Startups","https://www.genetico.in/new/10000startups.png"],
+  ["CDFD", SB + "Vector.png"],
+  ["Amity University","https://www.genetico.in/new/amity-logo.png"],
+  ["AIIMS Delhi", SB + "Vector-1.png"],
+  ["BIRAC","https://www.genetico.in/new/BIRAC%20Logo.jpg"],
+  ["TPG", SB + "Vector-2.png"],
+  ["Catalyst","https://www.genetico.in/new/Catalyst%20logo%20Black%20final.png"],
+  ["BGCI", SB + "Vector-3.png"],
+  ["HDFC Parivartan","https://www.genetico.in/new/HDFC-Startup-Buildup-Parivartan-Logo-Approved.jpg"],
+  ["GHRC", SB + "Vector-4.png"],
+  ["Indo-Sweden Innovation Centre","https://www.genetico.in/new/indo-sweden.png"],
+  ["Manovikas", SB + "Vector-5.png"],
+  ["JKEDI","https://www.genetico.in/new/JKEDI.png"],
+  ["SGRH", SB + "SGRH_logo-removebg-preview.png"],
+  ["MeitY Startup Hub","https://www.genetico.in/new/meity.jpg"],
+  ["Runway","https://www.genetico.in/new/runway.jpg"],
+  ["UPES","https://www.genetico.in/new/upes.jpg"]
+];
+
+const TRUST = [
+  "Your institution retains full ownership and control of its data.",
+  "Access is restricted based on user roles and responsibilities.",
+  "Every action is securely logged for complete traceability.",
+  "Data is protected through encryption in transit and at rest.",
+  "Hosted on enterprise-grade infrastructure with continuous monitoring."
+];
+
+const TABS = [
+  ["Clinician or Hospital","We'll connect you to our medical team to walk through workflows, integration and a 2-week pilot at your center."],
+  ["Government or Public Health","We'll walk you through registries, screening programmes, patient tracking and real-time programme analytics."],
+  ["Life Science or Industry","We'll show how structured, research-ready data and cohort identification support your evidence pipeline."],
+  ["Investor","We'll share how Genetico is building the digital backbone for the rare disease ecosystem."]
+];
+
+const WORDS = ["Rare Disease Care", "Clinical Genetics", "Public Health", "Rare Disease Research"];
+
+const INSTITUTIONS = ["AIIMS Delhi","CDFD","SGRH","Manovikas","BGCI","GHRC","Amity University","UPES"];
+
+const clip = (s, n) => (s.length > n ? s.slice(0, n).replace(/[\s,.;]+$/, "") + "…" : s);
+
+const SECTIONS = [
+  ["vision", "Vision & Mission", "01"],
+  ["team", "Leadership", "02"],
+  ["recognition", "Recognition", "03"],
+  ["partners", "Partners", "04"],
+  ["trust", "Security", "05"],
+  ["get-in-touch", "Get in Touch", "06"]
+];
+
+class Component extends DCLogic {
+  state = { tab: 0, word: 0, progress: 0, solutionsOpen: false, aboutOpen: false, active: "", railOn: false, person: -1, narrow: false, menuOpen: false };
+
+  componentDidMount() {
+    this.timer = setInterval(() => this.setState(s => ({ word: (s.word + 1) % WORDS.length })), 2800);
+    this.onScroll = () => {
+      const y = window.scrollY;
+      let active = "";
+      for (const [id] of SECTIONS) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 190) active = id;
+      }
+      const railOn = y > 380;
+      if (active !== this.state.active || railOn !== this.state.railOn) this.setState({ active, railOn });
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(100, Math.max(0, (y / max) * 100)) : 0;
+      if (Math.abs(progress - this.state.progress) > 0.4) this.setState({ progress });
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    this.onResize = () => {
+      const narrow = window.innerWidth < 880;
+      if (narrow !== this.state.narrow) this.setState({ narrow, menuOpen: false });
+    };
+    window.addEventListener("resize", this.onResize);
+    this.onScroll();
+    this.onResize();
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("resize", this.onResize);
+  }
+
+  jump(id, e) {
+    if (e) e.preventDefault();
+    if (this.state.menuOpen) this.setState({ menuOpen: false });
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 118;
+    window.scrollTo({ top, behavior: "smooth" });
+    this.setState({ aboutOpen: false, menuOpen: false });
+  }
+
+  renderVals() {
+    const active = this.state.tab;
+    const n = this.state.narrow;
+    const inst = LOGOS.filter(([nm]) => INSTITUTIONS.indexOf(nm) >= 0).map(([name, img]) => ({ name, img }));
+    const supp = LOGOS.filter(([nm]) => INSTITUTIONS.indexOf(nm) < 0).map(([name, img]) => ({ name, img }));
+    const people = TEAM.map(([name, role, bio, file, li], i) => ({
+      name, role, bio, li,
+      hasLi: !!li,
+      short: clip(bio, 92),
+      initials: name.replace(/^Dr\.?\s+/, "").split(/\s+/).map(w => w[0]).join("").slice(0, 2),
+      img: file ? "https://www.genetico.in/team/" + file
+                : SB + "WhatsApp%20Image%202026-08-11%20at%2013.57.15.jpeg",
+      open: () => this.setState({ person: i })
+    }));
+    return {
+      heroWord: WORDS[this.state.word],
+      progressStyle: "height:2px;background:#0B4C86;width:" + this.state.progress.toFixed(1) + "%",
+      solutionsOpen: this.state.solutionsOpen,
+      openSolutions: () => this.setState({ solutionsOpen: true }),
+      closeSolutions: () => this.setState({ solutionsOpen: false }),
+      aboutOpen: this.state.aboutOpen,
+      openAbout: () => this.setState({ aboutOpen: true }),
+      closeAbout: () => this.setState({ aboutOpen: false }),
+      goTeam: (e) => this.jump("team", e),
+      narrow: n,
+      menuOpen: this.state.menuOpen,
+      menuIcon: this.state.menuOpen ? "\u00d7" : "\u2261",
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      navStyle: n ? "display:none" : "display:flex;align-items:center;gap:30px;margin:0 auto",
+      ctaStyle: n ? "display:none" : "flex:none;padding:11px 22px;border-radius:999px;background:#073B68;color:#fff;font-size:14px;font-weight:700",
+      avatarStyle: (n ? "width:56px;height:56px;margin-left:-12px;" : "width:72px;height:72px;margin-left:-16px;") + "border-radius:50%;",
+      tlLine: "position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,rgba(122,197,255,0),rgba(122,197,255,0.5),rgba(122,197,255,0));" + (n ? "left:6px" : "left:50%;transform:translateX(-0.5px)"),
+      trustGrid: (n ? "" : "grid-column:span 2;") + "display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px 32px",
+      personOpen: this.state.person >= 0,
+      person: this.state.person >= 0 ? people[this.state.person] : {},
+      closePerson: () => this.setState({ person: -1 }),
+      stop: (e) => e.stopPropagation(),
+      teamCore: people.slice(0, 4),
+      teamAdvisors: people.slice(4),
+      institutionsLoop: inst.concat(inst),
+      supportersLoop: supp.concat(supp),
+      railStyle: "position:fixed;top:64px;left:0;right:0;z-index:55;background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);border-bottom:1px solid #E4E9ED;transition:transform .28s ease,opacity .28s ease;" +
+        (this.state.railOn ? "transform:translateY(0);opacity:1" : "transform:translateY(-110%);opacity:0;pointer-events:none"),
+      sections: SECTIONS.map(([id, label, num]) => ({
+        id, label, num,
+        href: "#" + id,
+        go: (e) => this.jump(id, e),
+        railStyle: "flex:none;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-size:13.5px;white-space:nowrap;" +
+          (this.state.active === id ? "background:#EDF3F9;color:#073B68;font-weight:700" : "color:#3C434A;font-weight:400")
+      })),
+      team: people,
+      awards: AWARDS.map(([title, org, year, file], i) => ({
+        title, org, year,
+        img: "https://www.genetico.in/logos/grants/" + file,
+        left: !n && i % 2 === 0,
+        right: n || i % 2 === 1,
+        cardW: n ? "100%" : "340px",
+        rowStyle: n
+          ? "position:relative;display:block;padding:0 0 28px 30px"
+          : "position:relative;display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:132px",
+        dotStyle: "position:absolute;width:13px;height:13px;border-radius:50%;background:#4FB3A0;border:2px solid rgba(255,255,255,0.35);z-index:2;" +
+          (n ? "left:0;top:4px" : "left:50%;top:50%;transform:translate(-50%,-50%)"),
+        cellA: n ? "display:block;padding-bottom:8px" : "display:flex;justify-content:flex-end;padding-right:52px",
+        cellB: n ? "display:block" : "display:flex;justify-content:flex-start;padding-left:52px"
+      })),
+      logosLoop: LOGOS.concat(LOGOS).map(([name, img]) => ({ name, img })),
+      trust: TRUST.map((text, i) => ({ text, n: i + 1 })),
+      tabs: TABS.map(([label], i) => ({
+        label,
+        select: () => this.setState({ tab: i }),
+        style: "padding:9px 16px;border-radius:999px;font-size:13.5px;font-family:inherit;cursor:pointer;border:0;" +
+          (i === active ? "background:#EDF3F9;color:#0B4C86;font-weight:700" : "background:transparent;color:#3C434A;font-weight:400")
+      })),
+      tabBlurb: TABS[active][1]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

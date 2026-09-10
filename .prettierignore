@@ -23,3 +23,8 @@ coverage/
 # fail the next format:check.
 src/app/(payload)/admin/importMap.js
 src/payload-types.ts
+
+# Design handoff — reference prototypes authored in another tool. They are a
+# specification, not project source: reformatting them would make them diverge
+# from the artefact the designer shipped.
+design_handoff_genetico_site/

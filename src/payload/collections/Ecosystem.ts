@@ -6,12 +6,17 @@ import { withAdminGroup } from "../with-admin-group";
 export const EcosystemModules = withAdminGroup(
   {
     slug: "ecosystem-modules",
-    labels: { singular: "Ecosystem challenge card", plural: "Ecosystem challenge cards" },
+    labels: {
+      singular: "Ecosystem challenge card (retired)",
+      plural: "Ecosystem challenge cards (retired)",
+    },
     admin: {
       useAsTitle: "title",
       defaultColumns: ["title", "sortOrder"],
-      description:
-        "The cards in the “Ecosystem Challenges” section of the home page. Each card flips between a problem and a solution.",
+      // Retired with the 2026 redesign: the home page no longer has a
+      // challenges grid. Hidden rather than deleted so the rows survive.
+      hidden: true,
+      description: "No longer shown anywhere on the site. Kept so the cards are not lost.",
     },
     fields: [
       { name: "title", type: "text", required: true, label: "Card title" },
@@ -50,12 +55,14 @@ export const EcosystemModules = withAdminGroup(
 export const EcosystemGaps = withAdminGroup(
   {
     slug: "ecosystem-gaps",
-    labels: { singular: "Ecosystem gap tab", plural: "Ecosystem gap tabs" },
+    labels: { singular: "Ecosystem gap tab (retired)", plural: "Ecosystem gap tabs (retired)" },
     admin: {
       useAsTitle: "tabLabel",
       defaultColumns: ["tabLabel", "sortOrder"],
-      description:
-        "The tabs in the “Ecosystem Gaps” section of the home page. Each tab shows a problem beside its solution.",
+      // Retired with the 2026 redesign: the home page no longer has a gaps
+      // panel. Hidden rather than deleted so the rows survive.
+      hidden: true,
+      description: "No longer shown anywhere on the site. Kept so the tabs are not lost.",
     },
     fields: [
       { name: "tabLabel", type: "text", required: true, label: "Tab name" },

@@ -1,6 +1,6 @@
 import { imageUploadFields } from "../../fields/image";
 import { ADMIN_GROUPS } from "../../admin-groups";
-import { pageSection } from "./section";
+import { pageSection, retiredSection } from "./section";
 
 export const ResourcesHero = pageSection(
   "resources-hero",
@@ -15,17 +15,24 @@ export const ResourcesHero = pageSection(
   ADMIN_GROUPS.resources,
 );
 
-export const ResourcesFilterTabs = pageSection(
+/**
+ * Retired: the tabs are derived, not typed.
+ *
+ * The old field let an editor write any label, but a tab only did anything
+ * if it matched one of four exact words — a tab called "Films" filtered
+ * nothing and gave no hint why. The page now builds one tab per section that
+ * has content, counts the items itself, and hides a tab whose section is
+ * empty, so the row cannot get out of step with the page.
+ */
+export const ResourcesFilterTabs = retiredSection(
   "resources-filter-tabs",
-  "2. Filter tabs",
-  "The row of filter buttons below the hero. “All” should stay first. The other tabs only work with these exact words: Featured, Videos, Articles, Blogs.",
+  "Filter tabs",
+  "No longer edited here. The row of filter buttons is built from the sections below that have content in them, and each tab counts its own items.",
   [
     {
       name: "filterTabs",
       type: "array",
-      label: "Tabs",
-      labels: { singular: "Tab", plural: "Tabs" },
-      fields: [{ name: "label", type: "text", required: true, label: "Tab text" }],
+      fields: [{ name: "label", type: "text", required: true }],
     },
   ],
   ADMIN_GROUPS.resources,
@@ -33,39 +40,73 @@ export const ResourcesFilterTabs = pageSection(
 
 export const ResourcesVideosSection = pageSection(
   "resources-videos-section",
-  "4. Short videos — heading",
+  "3. Short videos — heading",
   "Heading above the horizontal row of short video cards. The videos themselves are edited in “Short videos” just below.",
-  [{ name: "heading", type: "text", label: "Heading" }],
+  [
+    {
+      name: "heading",
+      type: "text",
+      label: "Small label above the rule",
+      admin: { description: "A short word or two, e.g. Videos." },
+    },
+    { name: "title", type: "text", label: "Heading" },
+    { name: "description", type: "textarea", label: "One line below the heading" },
+  ],
   ADMIN_GROUPS.resources,
 );
 
 export const ResourcesDeepDivesSection = pageSection(
   "resources-deep-dives-section",
-  "5. Deep Dives — heading",
+  "4. Deep dives — heading",
   "Heading above the long-form video sections. The videos themselves are edited in “Deep dives” just below.",
   [
-    { name: "heading", type: "text", label: "Heading" },
-    { name: "subtitle", type: "text", label: "Subtitle" },
+    {
+      name: "heading",
+      type: "text",
+      label: "Small label above the rule",
+      admin: { description: "A short word or two, e.g. Deep Dives." },
+    },
+    { name: "title", type: "text", label: "Heading" },
+    { name: "description", type: "textarea", label: "One line below the heading" },
     { name: "seeAllLabel", type: "text", label: "Link text (e.g. “See all”)" },
     { name: "seeAllHref", type: "text", label: "Link destination" },
+    // Retired: this held the large heading, which is now `title` so that every
+    // section on the page is described the same way.
+    { name: "subtitle", type: "text", admin: { hidden: true } },
   ],
   ADMIN_GROUPS.resources,
 );
 
 export const ResourcesArticlesSection = pageSection(
   "resources-articles-section",
-  "6. Articles — heading",
+  "5. Articles — heading",
   "Heading above the list of external article links. The links themselves are edited in “External articles” just below.",
-  [{ name: "heading", type: "text", label: "Heading" }],
+  [
+    {
+      name: "heading",
+      type: "text",
+      label: "Small label above the rule",
+      admin: { description: "A short word or two, e.g. Videos." },
+    },
+    { name: "title", type: "text", label: "Heading" },
+    { name: "description", type: "textarea", label: "One line below the heading" },
+  ],
   ADMIN_GROUPS.resources,
 );
 
 export const ResourcesBlogsSection = pageSection(
   "resources-blogs-section",
-  "7. Blogs — heading",
+  "6. Blogs — heading",
   "Heading above the blog cards at the bottom of the Resources page. The posts themselves are edited in “Blog posts” just below.",
   [
-    { name: "heading", type: "text", label: "Heading" },
+    {
+      name: "heading",
+      type: "text",
+      label: "Small label above the rule",
+      admin: { description: "A short word or two, e.g. Blogs." },
+    },
+    { name: "title", type: "text", label: "Heading" },
+    { name: "description", type: "textarea", label: "One line below the heading" },
     { name: "seeAllLabel", type: "text", label: "Link text (e.g. “See all”)" },
     { name: "seeAllHref", type: "text", label: "Link destination" },
   ],
@@ -74,7 +115,7 @@ export const ResourcesBlogsSection = pageSection(
 
 export const ResourcesNewsletter = pageSection(
   "resources-newsletter",
-  "8. Newsletter call to action",
+  "7. Newsletter call to action",
   "The last band on the Resources page, above the footer.",
   [
     { name: "heading", type: "text", label: "Heading" },

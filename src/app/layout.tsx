@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Albert_Sans, JetBrains_Mono } from "next/font/google";
+import { Albert_Sans, DM_Sans, IBM_Plex_Mono, JetBrains_Mono, Newsreader } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
@@ -17,6 +17,33 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+/* ── Redesign faces ────────────────────────────────────────────────────────
+   The three families of the 2026 design system: Newsreader for headlines,
+   DM Sans for UI and body, IBM Plex Mono for eyebrows, labels and figures.
+   Self-hosted by next/font so they cost no extra round trip and no layout
+   shift. Composed into --font-headline / --font-body / --font-mono-label in
+   globals.css; the Albert Sans + JetBrains pair above still serves the pages
+   that have not been redesigned yet. */
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal"],
+});
+
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
 export const revalidate = 60;
 
 export const metadata: Metadata = {
@@ -29,7 +56,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${albertSans.variable} ${jetbrainsMono.variable} h-full`}>
+    <html
+      lang="en"
+      className={`${albertSans.variable} ${jetbrainsMono.variable} ${newsreader.variable} ${dmSans.variable} ${plexMono.variable} h-full`}
+    >
       <head>
         {/* Google Tag Manager */}
         <Script id="google-tag-manager" strategy="beforeInteractive">

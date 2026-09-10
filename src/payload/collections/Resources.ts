@@ -1,11 +1,16 @@
 import type { CollectionConfig } from "payload";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
+import {
+  PUBLISHED_AT_DESCRIPTION,
+  homeTitleField,
+  showOnHomeField,
+} from "../fields/home-visibility";
 
 export const FeaturedVideos = withAdminGroup(
   {
     slug: "featured-videos",
-    labels: { singular: "Featured video", plural: "3. Featured video" },
+    labels: { singular: "Featured video", plural: "2. Featured video" },
     admin: {
       useAsTitle: "title",
       defaultColumns: ["title", "featured", "sortOrder"],
@@ -26,6 +31,18 @@ export const FeaturedVideos = withAdminGroup(
         },
       },
       { name: "duration", type: "text", label: "Length (e.g. 4:12)" },
+      {
+        name: "kicker",
+        type: "text",
+        label: "Small label above the title",
+        admin: { description: "For example: Case study · AIIMS Delhi · Documentary" },
+      },
+      {
+        name: "source",
+        type: "text",
+        label: "Where it was recorded or published",
+        admin: { description: "Shown under the watch button. For example: Amar Ujala Exclusive" },
+      },
       { name: "articleLink", type: "text", label: "Related article link (optional)" },
       {
         name: "tags",
@@ -38,10 +55,11 @@ export const FeaturedVideos = withAdminGroup(
         type: "date",
         label: "Publish date",
         admin: {
-          description:
-            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
+          description: PUBLISHED_AT_DESCRIPTION,
         },
       },
+      showOnHomeField,
+      homeTitleField,
       {
         name: "sortOrder",
         type: "number",
@@ -86,10 +104,11 @@ export const ShortVideos = withAdminGroup(
         type: "date",
         label: "Publish date",
         admin: {
-          description:
-            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
+          description: PUBLISHED_AT_DESCRIPTION,
         },
       },
+      showOnHomeField,
+      homeTitleField,
       {
         name: "sortOrder",
         type: "number",
@@ -129,10 +148,11 @@ export const ExternalArticles = withAdminGroup(
         type: "date",
         label: "Publish date",
         admin: {
-          description:
-            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
+          description: PUBLISHED_AT_DESCRIPTION,
         },
       },
+      showOnHomeField,
+      homeTitleField,
       {
         name: "sortOrder",
         type: "number",
@@ -212,10 +232,11 @@ export const DeepDives = withAdminGroup(
         type: "date",
         label: "Publish date",
         admin: {
-          description:
-            "When this was published. The home page “Insights” section lists the four most recent resources of any type, newest first, using this date. Items with no date are listed after those that have one.",
+          description: PUBLISHED_AT_DESCRIPTION,
         },
       },
+      showOnHomeField,
+      homeTitleField,
       {
         name: "sortOrder",
         type: "number",
