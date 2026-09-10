@@ -166,18 +166,10 @@ export const HomeProof = pageSection(
         // Retired: the small label belongs to the resource, so that the
         // featured card reads the same here and on the Resources page.
         { name: "kicker", type: "text", admin: { hidden: true } },
-        {
-          name: "before",
-          type: "text",
-          label: "“Before” figure",
-          admin: { description: "Shown struck through, e.g. 3 weeks. Leave both empty to hide." },
-        },
-        {
-          name: "after",
-          type: "text",
-          label: "“After” figure",
-          admin: { description: "Shown in blue beside it, e.g. 4 days." },
-        },
+        // Retired: the before-and-after figures were dropped from the card.
+        // Kept hidden so their columns still have a field to map to.
+        { name: "before", type: "text", admin: { hidden: true } },
+        { name: "after", type: "text", admin: { hidden: true } },
         { name: "ctaLabel", type: "text", label: "Link text" },
         // Retired: these now come from the resource itself, so that the home
         // page and the Resources page cannot drift apart.

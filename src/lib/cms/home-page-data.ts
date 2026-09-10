@@ -167,8 +167,6 @@ export async function getHomePageContent(): Promise<HomePageContent> {
         // Wording from the CMS, the item itself from the Resources page.
         badge: text(featured?.badge, featuredDefaults.badge),
         kicker: text(proofFeed.featured?.kicker, featuredDefaults.kicker),
-        before: featured?.before?.trim() ?? "",
-        after: featured?.after?.trim() ?? "",
         ctaLabel: text(featured?.ctaLabel, featuredDefaults.ctaLabel),
         duration: text(proofFeed.featured?.duration, featuredDefaults.duration),
         heading: text(proofFeed.featured?.title, featuredDefaults.heading),

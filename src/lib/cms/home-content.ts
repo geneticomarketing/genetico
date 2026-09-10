@@ -212,9 +212,6 @@ export type HomeProofFeatured = {
   kicker: string;
   heading: string;
   blurb: string;
-  /** The claim as a before and an after, e.g. "3 weeks" → "4 days". */
-  before: string;
-  after: string;
   ctaLabel: string;
   href: string;
 };
@@ -260,8 +257,6 @@ export const DEFAULT_HOME_PROOF: HomeProofContent = {
     blurb:
       "Structured genomic workflows and cross-department collaboration at one of India's " +
       "largest referral hospitals. Results depend on case mix.",
-    before: "3 weeks",
-    after: "4 days",
     ctaLabel: "Watch the documentary",
     href: RESOURCES_PATH,
   },

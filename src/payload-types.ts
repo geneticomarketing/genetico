@@ -1473,13 +1473,7 @@ export interface HomeProof {
   featured?: {
     badge?: string | null;
     kicker?: string | null;
-    /**
-     * Shown struck through, e.g. 3 weeks. Leave both empty to hide.
-     */
     before?: string | null;
-    /**
-     * Shown in blue beside it, e.g. 4 days.
-     */
     after?: string | null;
     ctaLabel?: string | null;
     duration?: string | null;
