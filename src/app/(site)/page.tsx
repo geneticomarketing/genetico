@@ -7,13 +7,18 @@ import { SiteHeader } from "@/components/chrome/site-header";
 import { AudienceDoors } from "@/components/home/audience-doors";
 import { Hero } from "@/components/home/hero";
 import { PlatformGlance } from "@/components/home/platform-glance";
+import { Proof } from "@/components/home/proof";
+import { Trust } from "@/components/home/trust";
 import {
   DEFAULT_HOME_AUDIENCE,
   DEFAULT_HOME_HERO,
   DEFAULT_HOME_PLATFORM,
+  DEFAULT_HOME_PROOF,
+  DEFAULT_HOME_TRUST,
   HOME_SECTIONS,
 } from "@/lib/cms/home-content";
-import { getFooterContent, getNavigation } from "@/lib/cms/queries";
+import { getFooterContent, getNavigation, getPartners } from "@/lib/cms/queries";
+import { resolveMediaUrl } from "@/lib/cms/resolve-media-url";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
 
@@ -29,7 +34,20 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const [navigation, footer] = await Promise.all([getNavigation(), getFooterContent()]);
+  const [navigation, footer, cmsPartners] = await Promise.all([
+    getNavigation(),
+    getFooterContent(),
+    getPartners(),
+  ]);
+
+  // The marquee is the partners collection as the editor ordered it; a row
+  // with no logo yet would render as an empty gap, so it is dropped.
+  const partners = cmsPartners
+    .map((partner) => ({
+      name: partner.name,
+      logo: resolveMediaUrl(partner.logo, partner.logoUrl),
+    }))
+    .filter((partner) => partner.logo);
 
   const sections = numberSections(HOME_SECTIONS);
   const section = Object.fromEntries(sections.map((s) => [s.id, s]));
@@ -55,6 +73,13 @@ export default async function Home() {
           num={section.platform.num}
           content={DEFAULT_HOME_PLATFORM}
         />
+        <Proof
+          section={section.proof}
+          num={section.proof.num}
+          content={DEFAULT_HOME_PROOF}
+          partners={partners}
+        />
+        <Trust section={section.trust} num={section.trust.num} content={DEFAULT_HOME_TRUST} />
 
         <SiteFooter footer={footer} />
       </div>

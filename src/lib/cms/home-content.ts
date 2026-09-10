@@ -1,4 +1,10 @@
-import { HOSPITAL_PATH, PHARMA_PATH, PLATFORM_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
+import {
+  HOSPITAL_PATH,
+  PHARMA_PATH,
+  PLATFORM_PATH,
+  PUBLIC_HEALTH_PATH,
+  RESOURCES_PATH,
+} from "@/lib/routes";
 
 /**
  * The home page's editable content, and the copy it falls back to.
@@ -195,4 +201,103 @@ export const DEFAULT_HOME_PLATFORM: HomePlatformContent = {
     },
   ],
   cta: { label: "See how the platform works", href: PLATFORM_PATH },
+};
+
+export type HomeProofFeatured = {
+  /** Ribbon over the still, e.g. "Now showing". */
+  badge: string;
+  duration: string;
+  kicker: string;
+  heading: string;
+  blurb: string;
+  /** The claim as a before and an after, e.g. "3 weeks" → "4 days". */
+  before: string;
+  after: string;
+  ctaLabel: string;
+  href: string;
+};
+
+export type HomeProofClip = {
+  /** Kind and length, e.g. "Deep dive · 45:22". */
+  meta: string;
+  title: string;
+  href: string;
+};
+
+export type HomeProofContent = {
+  heading: string;
+  featured: HomeProofFeatured;
+  clips: HomeProofClip[];
+  allResourcesLabel: string;
+  allResourcesHref: string;
+};
+
+/**
+ * Placeholder grounds for the thumbnails the client has yet to supply.
+ *
+ * Kept in code and picked by position: the CMS convention is that no
+ * editor-facing field holds a colour. Once real stills arrive they replace
+ * these outright.
+ */
+export const PROOF_FEATURED_PLACEHOLDER =
+  "radial-gradient(120% 130% at 22% 18%,#1B4A72 0%,#0C2436 62%,#07121C 100%)";
+
+export const PROOF_CLIP_PLACEHOLDERS = [
+  "radial-gradient(120% 130% at 30% 24%,#2A4560 0%,#13202C 62%,#0A121A 100%)",
+  "radial-gradient(120% 130% at 30% 26%,#1E4A40 0%,#0F2A25 60%,#081815 100%)",
+  "radial-gradient(120% 130% at 30% 24%,#6B4A22 0%,#39240F 60%,#1C1108 100%)",
+];
+
+export const DEFAULT_HOME_PROOF: HomeProofContent = {
+  heading: "In use across the ecosystem",
+  featured: {
+    badge: "Now showing",
+    duration: "28:34",
+    kicker: "Case study · AIIMS Delhi · Documentary",
+    heading: "Rare disease diagnosis time reduced from 3 weeks to 4 days",
+    blurb:
+      "Structured genomic workflows and cross-department collaboration at one of India's " +
+      "largest referral hospitals. Results depend on case mix.",
+    before: "3 weeks",
+    after: "4 days",
+    ctaLabel: "Watch the documentary",
+    href: RESOURCES_PATH,
+  },
+  clips: [
+    {
+      meta: "Video · 8:05",
+      title: "Genetico platform overview for diagnostic labs",
+      href: RESOURCES_PATH,
+    },
+    {
+      meta: "Deep dive · 45:22",
+      title: "Rare disease care in India: conversation with leading geneticists",
+      href: RESOURCES_PATH,
+    },
+    {
+      meta: "Deep dive · 1:12:08",
+      title: "Building national genomics infrastructure — summit panel",
+      href: RESOURCES_PATH,
+    },
+  ],
+  allResourcesLabel: "All resources",
+  allResourcesHref: RESOURCES_PATH,
+};
+
+export type HomeTrustContent = {
+  heading: string;
+  description: string;
+  points: string[];
+};
+
+export const DEFAULT_HOME_TRUST: HomeTrustContent = {
+  heading: "Built for trust. Designed for healthcare.",
+  description: "Enterprise-grade security, privacy, and compliance in every layer of the platform.",
+  points: [
+    "Your institution retains full ownership and control of its data.",
+    "Access is restricted based on user roles and responsibilities.",
+    "Every action is securely logged for complete traceability.",
+    "Data is protected through encryption in transit and at rest.",
+    "Hosted on enterprise-grade infrastructure with continuous monitoring.",
+  ],
 };
