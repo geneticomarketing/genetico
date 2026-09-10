@@ -5,12 +5,16 @@ import { SectionRail } from "@/components/chrome/section-rail";
 import { SiteFooter } from "@/components/chrome/site-footer";
 import { SiteHeader } from "@/components/chrome/site-header";
 import { AudienceDoors } from "@/components/home/audience-doors";
+import { Faqs } from "@/components/home/faqs";
+import { GetInTouch } from "@/components/home/get-in-touch";
 import { Hero } from "@/components/home/hero";
 import { PlatformGlance } from "@/components/home/platform-glance";
 import { Proof } from "@/components/home/proof";
 import { Trust } from "@/components/home/trust";
 import {
   DEFAULT_HOME_AUDIENCE,
+  DEFAULT_HOME_CONTACT,
+  DEFAULT_HOME_FAQS,
   DEFAULT_HOME_HERO,
   DEFAULT_HOME_PLATFORM,
   DEFAULT_HOME_PROOF,
@@ -80,6 +84,12 @@ export default async function Home() {
           partners={partners}
         />
         <Trust section={section.trust} num={section.trust.num} content={DEFAULT_HOME_TRUST} />
+        <Faqs section={section.faqs} num={section.faqs.num} content={DEFAULT_HOME_FAQS} />
+        <GetInTouch
+          section={section["get-in-touch"]}
+          num={section["get-in-touch"].num}
+          content={DEFAULT_HOME_CONTACT}
+        />
 
         <SiteFooter footer={footer} />
       </div>

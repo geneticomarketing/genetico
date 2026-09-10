@@ -5,6 +5,7 @@ import {
   PUBLIC_HEALTH_PATH,
   RESOURCES_PATH,
 } from "@/lib/routes";
+import { NEWSLETTER_URL } from "@/lib/contact";
 
 /**
  * The home page's editable content, and the copy it falls back to.
@@ -300,4 +301,78 @@ export const DEFAULT_HOME_TRUST: HomeTrustContent = {
     "Data is protected through encryption in transit and at rest.",
     "Hosted on enterprise-grade infrastructure with continuous monitoring.",
   ],
+};
+
+export type HomeFaq = {
+  question: string;
+  answer: string;
+};
+
+export type HomeFaqContent = {
+  heading: string;
+  description: string;
+  items: HomeFaq[];
+};
+
+export const DEFAULT_HOME_FAQS: HomeFaqContent = {
+  heading: "Frequently asked questions",
+  description:
+    "Genetico, IndiGeneUs.AI, and how we are building the digital backbone for rare and " +
+    "genetic disease care.",
+  items: [
+    {
+      question: "What is Genetico?",
+      answer:
+        "Genetico is building the digital backbone for the rare and genetic disease ecosystem. " +
+        "By connecting clinical care, research, public health, and AI, we transform fragmented " +
+        "healthcare data into structured, interoperable, and actionable intelligence.",
+    },
+    {
+      question: "What is IndiGeneUs.AI?",
+      answer:
+        "IndiGeneUs.AI is our AI-enabled clinical genetics platform. It structures complex " +
+        "clinical workflows, captures patient data in a standardized format, and supports " +
+        "AI-assisted clinical decision-making for rare and genetic disorders.",
+    },
+    {
+      question: "Who is Genetico built for?",
+      answer:
+        "Hospitals, clinicians and Centres of Excellence; life science and biotech research " +
+        "teams; and government and public health programmes running national rare disease " +
+        "initiatives.",
+    },
+    {
+      question: "Can Genetico integrate with our existing systems?",
+      answer:
+        "Yes. IndiGeneUs.AI is designed to sit alongside existing hospital systems and to " +
+        "exchange data using standard clinical vocabularies and interfaces, so it complements " +
+        "rather than replaces your infrastructure.",
+    },
+    {
+      question: "Why does structured clinical data matter?",
+      answer:
+        "Unstructured notes cannot be searched, compared, or aggregated. Structured data makes " +
+        "decision support, cohort discovery, registry reporting, and programme analytics " +
+        "possible from the same record a clinician already writes.",
+    },
+  ],
+};
+
+export type HomeContactContent = {
+  heading: string;
+  description: string;
+  primaryCta: HomeCta;
+  secondaryCta: HomeCta;
+};
+
+export const DEFAULT_HOME_CONTACT: HomeContactContent = {
+  heading: "Building the future of rare disease intelligence together",
+  description:
+    "Tell us who you are and we will route you to the right team — clinical, programme, " +
+    "research, or partnerships.",
+  primaryCta: {
+    label: "Schedule a demo",
+    href: "https://calendly.com/priyanshu-vats-genetico/30min",
+  },
+  secondaryCta: { label: "Subscribe to updates", href: NEWSLETTER_URL },
 };
