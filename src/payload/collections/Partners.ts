@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload";
 import { mediaUploadField } from "../fields/image";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
+import { partnerGroupField } from "../fields/home-visibility";
 
 export const Partners = withAdminGroup(
   {
@@ -30,6 +31,7 @@ export const Partners = withAdminGroup(
         fallbackPathDescription:
           "Leave this empty and use the Logo upload above. It is only used for logos already built into the site, such as /new/meity.jpg, and is ignored whenever an upload is present.",
       }),
+      partnerGroupField,
       {
         name: "sortOrder",
         type: "number",

@@ -248,6 +248,10 @@ export interface Partner {
    */
   logoUrl?: string | null;
   /**
+   * Hospitals, universities and research bodies go in the top row; funders, incubators and programmes in the quieter row beneath. Both rows also feed the home page logo strip.
+   */
+  group?: ('institution' | 'supporter') | null;
+  /**
    * Lower numbers appear first. The current logos are numbered 10, 20, 30 and so on, so you can slot a new one in between by giving it a number like 25. New logos start at 1000, which puts them at the end of the strip.
    */
   sortOrder?: number | null;
@@ -353,6 +357,7 @@ export interface TeamMember {
    * Optional fallback static path if no upload is provided
    */
   photoUrl?: string | null;
+  group?: ('team' | 'advisors') | null;
   /**
    * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
    */
@@ -945,6 +950,7 @@ export interface PartnersSelect<T extends boolean = true> {
   name?: T;
   logo?: T;
   logoUrl?: T;
+  group?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -990,6 +996,7 @@ export interface TeamMembersSelect<T extends boolean = true> {
   linkedinUrl?: T;
   photo?: T;
   photoUrl?: T;
+  group?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1674,7 +1681,21 @@ export interface AboutHero {
    * The end of the second line, shown in blue. Example: Rare Disease Care
    */
   titleHighlight?: string | null;
+  /**
+   * Each takes the place of the highlighted words above in turn, about every three seconds. Leave empty to keep the highlighted words fixed.
+   */
+  rotatingWords?:
+    | {
+        word: string;
+        id?: string | null;
+      }[]
+    | null;
   subtitle?: string | null;
+  /**
+   * Sits under the row of faces below the headline, above the link down to the leadership section.
+   */
+  teamCardText?: string | null;
+  teamCardLinkLabel?: string | null;
   ctaLabel?: string | null;
   /**
    * A path on this site such as /platform, or a full https:// address.
@@ -2685,7 +2706,15 @@ export interface AboutHeroSelect<T extends boolean = true> {
   titleLine1?: T;
   titleLine2?: T;
   titleHighlight?: T;
+  rotatingWords?:
+    | T
+    | {
+        word?: T;
+        id?: T;
+      };
   subtitle?: T;
+  teamCardText?: T;
+  teamCardLinkLabel?: T;
   ctaLabel?: T;
   ctaHref?: T;
   labels?:

@@ -672,3 +672,14 @@ body {
     background: var(--color-sheet-soft);
   }
 }
+
+/* The About page's second logo row travels the other way, so the two strips
+   do not read as one long belt. */
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

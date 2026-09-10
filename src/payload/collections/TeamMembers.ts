@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload";
 import { mediaUploadField } from "../fields/image";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
+import { teamGroupField } from "../fields/home-visibility";
 
 export const TeamMembers = withAdminGroup(
   {
@@ -28,6 +29,7 @@ export const TeamMembers = withAdminGroup(
         preset: "headshot",
         fallbackPathName: "photoUrl",
       }),
+      teamGroupField,
       {
         name: "sortOrder",
         type: "number",
