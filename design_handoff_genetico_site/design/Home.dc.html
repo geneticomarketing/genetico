@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./image-slot.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'DM Sans',-apple-system,'Segoe UI',sans-serif;background:#ffffff;color:#12161A;-webkit-font-smoothing:antialiased}
+  a{color:#0B4C86;text-decoration:none}
+  a:hover{color:#073B68}
+  @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes rev{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes wA{0%{opacity:0;filter:blur(6px);transform:translateY(10px)}100%{opacity:1;filter:blur(0);transform:none}}
+  @keyframes wB{0%{opacity:0;filter:blur(6px);transform:translateY(10px)}100%{opacity:1;filter:blur(0);transform:none}}
+  @keyframes chip{from{opacity:0;transform:translateY(6px) scale(0.96)}to{opacity:1;transform:none}}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes emTL{0%{opacity:0;transform:translate(56px,50px) scale(.8)}100%{opacity:1;transform:none}}
+  @keyframes emTR{0%{opacity:0;transform:translate(-56px,46px) scale(.8)}100%{opacity:1;transform:none}}
+  @keyframes emBR{0%{opacity:0;transform:translate(-52px,-54px) scale(.8)}100%{opacity:1;transform:none}}
+  @keyframes emBL{0%{opacity:0;transform:translate(54px,-46px) scale(.8)}100%{opacity:1;transform:none}}
+  @keyframes scan{0%{opacity:0;transform:translateY(0)}20%{opacity:1}100%{opacity:0;transform:translateY(88px)}}
+  @media (prefers-reduced-motion:no-preference){
+    @supports (animation-timeline:view()){
+      [data-reveal]{animation:rev linear both;animation-timeline:view();animation-range:entry 0% entry 42%}
+    }
+  }
+</style>
+</helmet>
+
+<div style="width:100%;overflow:clip">
+
+  <header style="{{ headerStyle }}">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,32px);height:64px;display:flex;align-items:center;gap:24px">
+      <a href="#top" style="display:flex;align-items:center;flex:none">
+        <img src="assets/genetico-logo.png" alt="Genetico" style="height:34px;width:auto;display:block" />
+      </a>
+      <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+          <a href="#get-in-touch" style="padding:10px 18px;border-radius:999px;background:#073B68;color:#fff;font-size:13.5px;font-weight:700">Book a demo</a>
+          <button type="button" onClick="{{ toggleMenu }}" aria-label="Menu" style="width:38px;height:38px;border-radius:9px;border:1px solid #E4E9ED;background:#fff;color:#12161A;font-size:16px;line-height:1;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center">{{ menuIcon }}</button>
+        </div>
+      </sc-if>
+      <nav style="{{ navStyle }}">
+        <a href="About%20Us.dc.html" style="font-size:14.5px;font-weight:400;color:#3C434A">About</a>
+        <a href="Platform.dc.html" style="font-size:14.5px;font-weight:400;color:#3C434A">Platform</a>
+        <div style="position:relative;font-size:14.5px;color:#3C434A;display:flex;align-items:center;gap:5px;cursor:default" onMouseEnter="{{ openSolutions }}" onMouseLeave="{{ closeSolutions }}">
+          <span>Solutions</span>
+          <span style="font-size:9px;font-weight:400">▾</span>
+          <sc-if value="{{ solutionsOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:100%;left:-16px;padding-top:12px;width:286px">
+              <div style="background:#fff;border:1px solid #E4E9ED;border-radius:12px;box-shadow:0 18px 44px rgba(7,59,104,0.12);padding:7px;display:flex;flex-direction:column;gap:1px">
+                <a href="Hospital.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Hospital / Clinician / CoE</a>
+                <a href="Life%20Science.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Life Science / Biotech</a>
+                <a href="Public%20Health.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Public Health</a>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <a href="Resources.dc.html" style="font-size:14.5px;font-weight:400;color:#3C434A">Resources</a>
+      </nav>
+      <a href="#get-in-touch" style="{{ ctaStyle }}" style-hover="background:#0B4C86;color:#fff">Book a demo</a>
+    </div>
+
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #E4E9ED;background:#fff;padding:18px clamp(20px,4vw,32px) 26px;max-height:70vh;overflow-y:auto">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">On this page</span>
+        <div style="margin-top:10px;display:flex;flex-direction:column">
+          <sc-for list="{{ sections }}" as="s" hint-placeholder-count="6">
+            <a href="{{ s.href }}" onClick="{{ s.go }}" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A;display:flex;align-items:center;gap:12px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#0B4C86">{{ s.num }}</span>{{ s.label }}
+            </a>
+          </sc-for>
+        </div>
+        <span style="display:block;margin-top:22px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">More</span>
+        <div style="margin-top:10px;display:flex;flex-direction:column">
+          <a href="About%20Us.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">About</a>
+          <a href="Platform.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Platform</a>
+          <a href="Hospital.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Hospital / Clinician / CoE</a>
+          <a href="Life%20Science.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Life Science / Biotech</a>
+          <a href="Public%20Health.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Public Health</a>
+          <a href="Resources.dc.html" style="padding:12px 0;font-size:15.5px;color:#12161A">Resources</a>
+        </div>
+      </div>
+    </sc-if>
+  </header>
+
+  <div style="{{ railStyle }}">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,32px);height:52px;display:flex;align-items:center;gap:4px;overflow-x:auto">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D;flex:none;margin-right:14px">Genetico</span>
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="6">
+        <a href="{{ s.href }}" onClick="{{ s.go }}" style="{{ s.railStyle }}" style-hover="background:#EDF3F9;color:#073B68" style-focus="outline:2px solid #0B4C86;outline-offset:2px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;opacity:0.55">{{ s.num }}</span>
+          <span>{{ s.label }}</span>
+        </a>
+      </sc-for>
+    </div>
+    <div style="height:2px;background:#E4E9ED">
+      <div style="{{ progressStyle }}"></div>
+    </div>
+  </div>
+
+  <section id="top" style="position:sticky;top:0;z-index:0;scroll-margin-top:128px;min-height:calc(100svh - 64px);display:flex;align-items:center;padding:clamp(18px,3vh,40px) clamp(20px,4vw,32px) clamp(22px,4vh,52px);background:transparent">
+    <div style="position:absolute;left:0;right:0;top:-64px;bottom:0;z-index:0;overflow:hidden;background:linear-gradient(180deg,#F4F6F8 0%,#F9FAFB 58%,#FDFDFE 100%)">
+      <canvas ref="{{ gridRef }}" style="position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
+      <div style="position:absolute;pointer-events:none;width:680px;height:680px;left:-240px;top:-200px;border-radius:50%;background:radial-gradient(circle,rgba(18,22,26,0.055) 0%,rgba(18,22,26,0) 68%)"></div>
+      <div style="position:absolute;pointer-events:none;width:600px;height:600px;right:-220px;bottom:-300px;border-radius:50%;background:radial-gradient(circle,rgba(18,22,26,0.05) 0%,rgba(18,22,26,0) 66%)"></div>
+    </div>
+
+    <div style="{{ heroGrid }}">
+      <div style="display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,2.4vh,24px);min-width:0">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="height:1px;width:42px;background:linear-gradient(90deg,rgba(11,76,134,0),#0B4C86);display:block"></span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Genetico · IndiGeneUs.AI</span>
+        </div>
+        <h1 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(34px,min(5vw,7vh),62px);line-height:1.06;letter-spacing:-0.02em;color:#12161A;text-wrap:pretty;perspective:600px">The digital backbone for rare disease<br /><span style="{{ wordStyle }}">{{ heroWord }}</span><span style="color:#12161A">.</span></h1>
+        <p style="margin:0;max-width:540px;font-size:16px;line-height:1.75;color:#3C434A;text-wrap:pretty">{{ heroBlurb }}</p>
+        <div style="display:flex;gap:10px;max-width:100%">
+          <a href="#get-in-touch" onClick="{{ goContact }}" style="display:inline-flex;align-items:center;gap:9px;flex:1 1 auto;justify-content:center;padding:13px clamp(18px,2vw,28px);border-radius:999px;background:#073B68;color:#fff;font-size:14px;font-weight:700" style-hover="background:#0B4C86">Book a demo <span style="font-size:13px">→</span></a>
+          <a href="Platform.dc.html" style="display:inline-flex;align-items:center;gap:9px;flex:1 1 auto;justify-content:center;padding:13px clamp(18px,2vw,28px);border-radius:999px;border:1px solid #E4E9ED;background:#fff;color:#12161A;font-size:14px;font-weight:500" style-hover="border-color:#0B4C86;color:#0B4C86">Explore the platform</a>
+        </div>
+        <div style="margin-top:2px;padding-top:16px;border-top:1px solid #E7ECF0;width:100%;display:flex;flex-direction:column;gap:12px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#6E767D">Trusted by</span>
+          <div style="overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 88%,transparent)">
+            <div style="display:flex;align-items:center;width:max-content;animation:marq 34s linear infinite">
+              <sc-for list="{{ creds }}" as="c" hint-placeholder-count="8">
+                <div style="display:flex;align-items:center;gap:20px;flex:none;padding-right:20px">
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#3C434A;white-space:nowrap">{{ c.text }}</span>
+                  <span style="width:3px;height:3px;border-radius:50%;background:#C6CCD2;display:block;flex:none"></span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ref="{{ wrapRef }}" style="{{ heroPanelWrap }}">
+        <div style="{{ collageWrap }}">
+          <div style="{{ noteStyle }}">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:14px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#8FC6EF">{{ panelLabel }}</span>
+              <img src="assets/indigeneus-mark-white.png" alt="IndiGeneUs.AI" style="height:20px;width:auto;display:block;opacity:0.9" />
+            </div>
+            <div style="position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.06);border-radius:10px;padding:12px 13px 13px;display:flex;flex-direction:column;gap:7px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#B9CFE2">Free-text clinical note</span>
+              <p style="{{ noteTextStyle }}">2 y 4 m male. Global developmental delay, seizures since 8 months. Coarse facial features, hepatosplenomegaly, corneal clouding. Wt 9.8 kg, Ht 78 cm, OFC 46 cm.</p>
+              <sc-if value="{{ scanning }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,rgba(143,198,239,0),#8FC6EF,rgba(143,198,239,0));animation:scan 1s ease-out infinite"></div>
+              </sc-if>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+              <button type="button" onClick="{{ run }}" style="{{ runStyle }}" style-hover="background:#5FC0AD">{{ runLabel }}</button>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8FC6EF">{{ panelFoot }}</span>
+            </div>
+          </div>
+
+          <sc-if value="{{ showHpo }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ cardHpo }}">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">Phenotype · HPO</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6E767D">{{ hpoCount }}</span>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:5px">
+                <sc-for list="{{ hpo }}" as="h" hint-placeholder-count="5">
+                  <span style="{{ h.style }}">{{ h.code }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showAnthro }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ cardAnthro }}">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">Anthropometry · z</span>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <sc-for list="{{ anthro }}" as="a" hint-placeholder-count="3">
+                  <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                      <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#6E767D">{{ a.label }}</span>
+                      <span style="font-size:12.5px;font-weight:700;color:#12161A">{{ a.value }}</span>
+                    </div>
+                    <span style="height:3px;border-radius:2px;background:#EDF0F2;display:block;overflow:hidden"><span style="{{ a.barStyle }}"></span></span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showDx }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ cardDx }}">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">CDSS · RAPID</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6E767D">3</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <sc-for list="{{ dx }}" as="d" hint-placeholder-count="3">
+                  <div style="{{ d.rowStyle }}">
+                    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                      <span style="font-size:12.5px;font-weight:700;color:#12161A;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.name }}</span>
+                      <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#0B4C86;flex:none">{{ d.score }}</span>
+                    </div>
+                    <div style="margin-top:5px;height:3px;border-radius:2px;background:#EDF0F2;overflow:hidden">
+                      <div style="{{ d.barStyle }}"></div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showDx }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ cardReg }}">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#1F6E5C">Family pedigree</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6E767D">2 gen</span>
+              </div>
+              <svg viewBox="0 0 200 96" style="width:100%;height:auto;display:block;overflow:visible" aria-label="Two-generation pedigree with affected proband">
+                <g fill="none" stroke="#3C434A" stroke-width="1.4">
+                  <rect x="52" y="6" width="18" height="18"></rect>
+                  <circle cx="139" cy="15" r="9"></circle>
+                  <path d="M70 13 H130 M70 17 H130"></path>
+                  <path d="M100 17 V50 M46 50 H154 M46 50 V62 M100 50 V62 M154 50 V62"></path>
+                  <circle cx="46" cy="71" r="9"></circle>
+                  <rect x="91" y="62" width="18" height="18" fill="#0B4C86" stroke="#0B4C86"></rect>
+                  <circle cx="154" cy="71" r="9"></circle>
+                  <path d="M145 80 L163 62"></path>
+                  <path d="M76 92 L88 81 M88 81 L82 82 M88 81 L87 87"></path>
+                </g>
+                <g font-family="'IBM Plex Mono',monospace" font-size="8" fill="#9AA6B1">
+                  <text x="14" y="18">I</text>
+                  <text x="14" y="75">II</text>
+                </g>
+              </svg>
+              <span style="font-size:12px;line-height:1.45;color:#3C434A">Consanguineous union · affected proband (II-2)</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="position:relative;z-index:2;margin-top:-32px;border-radius:32px 32px 0 0;background:#fff;box-shadow:0 -26px 70px rgba(7,59,104,0.16);overflow:hidden">
+
+  <section id="who" data-reveal style="scroll-margin-top:128px;padding:clamp(64px,7vw,92px) clamp(20px,4vw,32px) clamp(68px,7vw,96px);background:#FAFBFC;border-bottom:1px solid #EDF0F2">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px">
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;color:#0B4C86">01</span>
+            <span style="height:1px;width:20px;background:#C3D2DC;display:block"></span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D">Start here</span>
+          </div>
+          <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);line-height:1.1;letter-spacing:-0.018em">Find your path in one click</h2>
+        </div>
+        <p style="margin:0;max-width:380px;font-size:14.5px;line-height:1.65;color:#3C434A">Three purpose-built solutions. Pick the one that describes you — the rest of this page is optional.</p>
+      </div>
+
+      <div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
+        <sc-for list="{{ doors }}" as="d" hint-placeholder-count="3">
+          <a href="{{ d.href }}" style="background:#fff;border:1px solid #E4E9ED;border-radius:12px;padding:26px 24px 24px;display:flex;flex-direction:column;gap:14px;color:#12161A;box-shadow:0 18px 44px rgba(7,59,104,0.06);transition:transform .22s ease,box-shadow .22s ease" style-hover="transform:translateY(-4px);box-shadow:0 26px 60px rgba(7,59,104,0.16)">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">{{ d.kicker }}</span>
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(24px,2.8vw,30px);line-height:1.14;letter-spacing:-0.015em">{{ d.title }}</h3>
+            <p style="margin:0;font-size:14.5px;line-height:1.65;color:#3C434A">{{ d.blurb }}</p>
+            <div style="margin-top:8px;padding-top:16px;border-top:1px solid #EDF0F2;display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ d.points }}" as="p" hint-placeholder-count="2">
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <span style="width:5px;height:5px;border-radius:50%;background:#4FB3A0;flex:none;margin-top:7px;display:block"></span>
+                  <span style="font-size:13.5px;line-height:1.55;color:#3C434A">{{ p.text }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <span style="margin-top:12px;font-size:13.5px;font-weight:700;color:#0B4C86;display:inline-flex;align-items:center;gap:7px">{{ d.cta }} <span style="font-size:12px">→</span></span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="platform" data-reveal style="scroll-margin-top:128px;padding:clamp(66px,7vw,96px) clamp(20px,4vw,32px) clamp(72px,8vw,104px)">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;justify-content:center;gap:22px">
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,rgba(11,76,134,0),#0B4C86);display:block"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">02 · The Platform</span>
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,#0B4C86,rgba(11,76,134,0));display:block"></span>
+      </div>
+      <h2 style="margin:26px auto 14px;max-width:720px;text-align:center;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(32px,4vw,50px);line-height:1.1;letter-spacing:-0.018em">IndiGeneUs.AI in one glance</h2>
+      <p style="margin:0 auto;max-width:560px;text-align:center;font-size:15.5px;line-height:1.72;color:#3C434A">One workflow, four layers — from the clinic visit to the national registry.</p>
+
+      <div style="{{ layerGrid }}">
+        <sc-for list="{{ layers }}" as="l" hint-placeholder-count="4">
+          <div style="{{ l.cellStyle }}">
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;color:#0B4C86">{{ l.num }}</span>
+              <span style="height:1px;flex:1;background:#EDF0F2;display:block"></span>
+            </div>
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:23px;line-height:1.14;letter-spacing:-0.015em">{{ l.title }}</h3>
+            <p style="margin:0;font-size:14px;line-height:1.65;color:#3C434A">{{ l.body }}</p>
+            <span style="margin-top:auto;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6E767D">{{ l.tag }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:28px;display:flex;justify-content:center">
+        <a href="Platform.dc.html" style="display:inline-flex;align-items:center;gap:9px;padding:13px clamp(18px,2vw,26px);border-radius:999px;border:1px solid #E4E9ED;background:#fff;font-size:14px;font-weight:500;color:#12161A" style-hover="border-color:#0B4C86;color:#0B4C86">See how the platform works <span style="font-size:12px">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="proof" data-reveal style="scroll-margin-top:128px;padding:clamp(62px,6.5vw,88px) clamp(20px,4vw,32px) clamp(68px,7vw,96px);background:#FAFBFC;border-top:1px solid #EDF0F2">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;justify-content:center;gap:22px">
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,rgba(11,76,134,0),#0B4C86);display:block"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">03 · Proof</span>
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,#0B4C86,rgba(11,76,134,0));display:block"></span>
+      </div>
+      <h2 style="margin:26px auto 0;max-width:680px;text-align:center;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(32px,4vw,50px);line-height:1.1;letter-spacing:-0.018em">In use across the ecosystem</h2>
+
+      <div style="margin-top:44px;overflow:hidden;border-top:1px solid #E4E9ED;border-bottom:1px solid #E4E9ED;mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)">
+        <div style="display:flex;align-items:center;width:max-content;animation:marq 42s linear infinite">
+          <sc-for list="{{ logosLoop }}" as="l" hint-placeholder-count="10">
+            <div style="{{ l.style }}" role="img" aria-label="{{ l.name }}"></div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="{{ proofGrid }}">
+        <a href="Resources.dc.html" style="background:#fff;border:1px solid #E4E9ED;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;color:#12161A;box-shadow:0 18px 44px rgba(7,59,104,0.06);transition:transform .22s ease,box-shadow .22s ease" style-hover="transform:translateY(-4px);box-shadow:0 26px 60px rgba(7,59,104,0.16)">
+          <div style="position:relative;width:100%;height:clamp(180px,19vw,250px);background:radial-gradient(120% 130% at 22% 18%,#1B4A72 0%,#0C2436 62%,#07121C 100%)">
+            <div style="position:absolute;inset:0"><image-slot id="h-proof-feat" shape="rect" placeholder="Featured film — landscape still or thumbnail"></image-slot></div>
+            <span style="position:absolute;top:16px;left:16px;z-index:2;pointer-events:none;display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(7,18,28,0.72);border:1px solid rgba(255,255,255,0.22);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#fff"><span style="width:6px;height:6px;border-radius:50%;background:#4FB3A0;display:block"></span>Now showing</span>
+            <span style="position:absolute;bottom:14px;right:14px;z-index:2;pointer-events:none;padding:5px 10px;border-radius:999px;background:rgba(7,18,28,0.72);font-family:'IBM Plex Mono',monospace;font-size:11px;color:#fff">28:34</span>
+            <span style="position:absolute;top:50%;left:50%;margin:-29px 0 0 -29px;z-index:2;pointer-events:none;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,0.94);display:flex;align-items:center;justify-content:center;font-size:17px;color:#0B4C86">▶</span>
+          </div>
+          <div style="padding:26px 30px 28px;display:flex;flex-direction:column;gap:14px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">Case study · AIIMS Delhi · Documentary</span>
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(24px,2.9vw,34px);line-height:1.14;letter-spacing:-0.015em;text-wrap:pretty">Rare disease diagnosis time reduced from 3 weeks to 4 days</h3>
+            <p style="margin:0;max-width:520px;font-size:14.5px;line-height:1.7;color:#3C434A">Structured genomic workflows and cross-department collaboration at one of India's largest referral hospitals. Results depend on case mix.</p>
+            <div style="margin-top:6px;display:flex;flex-wrap:wrap;align-items:center;gap:18px">
+              <div style="display:flex;align-items:baseline;gap:10px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:26px;color:#9AA6B1;text-decoration:line-through">3 weeks</span>
+                <span style="color:#4FB3A0;font-size:15px">→</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:30px;color:#0B4C86">4 days</span>
+              </div>
+            </div>
+            <span style="margin-top:8px;font-size:13.5px;font-weight:700;color:#0B4C86;display:inline-flex;align-items:center;gap:7px">Watch the documentary <span style="font-size:12px">→</span></span>
+          </div>
+        </a>
+
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+          <sc-for list="{{ clips }}" as="c" hint-placeholder-count="3">
+            <a href="Resources.dc.html" style="background:#fff;border:1px solid #E4E9ED;border-radius:12px;padding:12px;display:flex;align-items:center;gap:14px;color:#12161A;transition:transform .22s ease,box-shadow .22s ease" style-hover="transform:translateY(-4px);box-shadow:0 26px 60px rgba(7,59,104,0.16)">
+              <div style="{{ c.thumbStyle }}">
+                <image-slot id="{{ c.slot }}" shape="rect" placeholder="{{ c.ph }}"></image-slot>
+                <span style="position:absolute;top:50%;left:50%;margin:-15px 0 0 -15px;z-index:2;pointer-events:none;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;font-size:10px;color:#0B4C86">▶</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6E767D">{{ c.meta }}</span>
+                <span style="font-size:14.5px;font-weight:500;line-height:1.4;letter-spacing:-0.005em;text-wrap:pretty">{{ c.title }}</span>
+              </div>
+            </a>
+          </sc-for>
+          <a href="Resources.dc.html" style="padding:14px 22px;border-radius:12px;border:1px dashed #D6DEE4;font-size:13.5px;font-weight:500;color:#0B4C86;display:flex;align-items:center;justify-content:space-between;gap:10px" style-hover="border-color:#0B4C86;background:#EDF3F9">All resources <span style="font-size:12px">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="trust" data-reveal style="scroll-margin-top:128px;padding:clamp(52px,6vw,64px) clamp(20px,4vw,32px) clamp(54px,6vw,68px);background:radial-gradient(140% 120% at 0% 0%,#042743 0%,#0A4577 48%,#0F5FA3 100%);color:#fff">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;color:#8FC6EF">04</span>
+            <span style="height:1px;width:20px;background:rgba(255,255,255,0.4);display:block"></span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#DCE9F4">Security &amp; Compliance</span>
+          </div>
+          <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(26px,3vw,36px);line-height:1.14;letter-spacing:-0.015em;color:#fff">Built for trust. Designed for healthcare.</h2>
+        </div>
+        <p style="margin:0;max-width:320px;font-size:14px;line-height:1.65;color:#DCE9F4">Enterprise-grade security, privacy, and compliance in every layer of the platform.</p>
+      </div>
+      <div style="margin-top:34px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px">
+        <sc-for list="{{ trust }}" as="t" hint-placeholder-count="5">
+          <div style="padding-top:16px;border-top:1px solid rgba(255,255,255,0.28);display:flex;flex-direction:column;gap:9px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.14em;color:#63C9B6">{{ t.num }}</span>
+            <p style="margin:0;font-size:14px;line-height:1.6;color:#fff">{{ t.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ faqOn }}" hint-placeholder-val="{{ true }}">
+  <section id="faqs" data-reveal style="scroll-margin-top:128px;padding:clamp(66px,7vw,96px) clamp(20px,4vw,32px) clamp(72px,8vw,104px)">
+    <div style="max-width:860px;margin:0 auto">
+      <div style="display:flex;align-items:center;justify-content:center;gap:22px">
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,rgba(11,76,134,0),#0B4C86);display:block"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">05 · FAQs</span>
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,#0B4C86,rgba(11,76,134,0));display:block"></span>
+      </div>
+      <h2 style="margin:26px 0 14px;text-align:center;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(32px,4vw,50px);line-height:1.1;letter-spacing:-0.018em">Frequently asked questions</h2>
+      <p style="margin:0 auto;max-width:520px;text-align:center;font-size:15.5px;line-height:1.72;color:#3C434A">Genetico, IndiGeneUs.AI, and how we are building the digital backbone for rare and genetic disease care.</p>
+
+      <div style="margin-top:44px;border-top:1px solid #E4E9ED">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+          <div style="border-bottom:1px solid #E4E9ED">
+            <button type="button" onClick="{{ f.toggle }}" style="{{ f.qStyle }}">
+              <span style="{{ f.qTextStyle }}">{{ f.q }}</span>
+              <span style="{{ f.iconStyle }}">{{ f.icon }}</span>
+            </button>
+            <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0;padding:0 44px 24px 0;font-size:14.5px;line-height:1.75;color:#3C434A;max-width:720px">{{ f.a }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <section id="get-in-touch" data-reveal style="scroll-margin-top:128px;padding:clamp(66px,7vw,96px) clamp(20px,4vw,32px) clamp(72px,8vw,104px);background:radial-gradient(90% 70% at 50% 0%,#F3F7FA 0%,#FAFBFC 60%,#ffffff 100%)">
+    <div style="max-width:760px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="display:flex;align-items:center;justify-content:center;gap:22px">
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,rgba(11,76,134,0),#0B4C86);display:block"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">06 · Get in Touch</span>
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,#0B4C86,rgba(11,76,134,0));display:block"></span>
+      </div>
+      <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(32px,4.4vw,52px);line-height:1.08;letter-spacing:-0.02em">Building the future of rare disease intelligence together</h2>
+      <p style="margin:0;max-width:620px;font-size:14.5px;line-height:1.7;color:#3C434A">Tell us who you are and we will route you to the right team — clinical, programme, research, or partnerships.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
+        <a href="https://calendly.com/priyanshu-vats-genetico/30min" target="_blank" rel="noreferrer" style="padding:13px clamp(18px,2vw,28px);border-radius:999px;background:#073B68;color:#fff;font-size:14px;font-weight:700" style-hover="background:#0B4C86">Schedule a demo</a>
+        <a href="https://mailchi.mp/genetico/genetico-clinical-digest-signup-form" target="_blank" rel="noreferrer" style="padding:13px clamp(18px,2vw,28px);border-radius:999px;border:1px solid #E4E9ED;background:#fff;color:#12161A;font-size:14px;font-weight:500" style-hover="border-color:#0B4C86;color:#0B4C86">Subscribe to updates</a>
+      </div>
+    </div>
+
+    <div style="max-width:700px;margin:44px auto 0;background:#fff;border:1px solid #E4E9ED;border-radius:16px;padding:26px 30px 30px;box-shadow:0 24px 60px rgba(18,22,26,0.07)">
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:38px 8px 34px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center">
+          <span style="width:44px;height:44px;border-radius:50%;background:#EDF6F3;color:#1F6E5C;display:flex;align-items:center;justify-content:center;font-size:19px">✓</span>
+          <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:27px;line-height:1.2;letter-spacing:-0.015em">Request received</h3>
+          <p style="margin:0;max-width:400px;font-size:14.5px;line-height:1.7;color:#3C434A">Thank you. Our team will get back to you within two working days.</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+              <button type="button" onClick="{{ t.select }}" style="{{ t.style }}" style-hover="background:#EDF3F9">{{ t.label }}</button>
+            </sc-for>
+          </div>
+          <div style="height:1px;background:#E4E9ED;margin:18px 0 18px"></div>
+          <p style="margin:0 0 24px;font-size:14.5px;line-height:1.6;color:#0B4C86">{{ tabBlurb }}</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px 20px">
+            <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">First name*</span>
+              <input placeholder="First name" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Last name*</span>
+              <input placeholder="Last name" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Work email*</span>
+              <input placeholder="janedoe@email.com" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Phone number</span>
+              <input placeholder="+91 98765 43210" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+            </label>
+            <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">Organisation</span>
+              <input placeholder="Name of organisation" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none" style-focus="border-color:#0B4C86" />
+            </label>
+            <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:500;color:#12161A">How can we help?</span>
+              <textarea rows="4" placeholder="Tell us a little about what you're looking for." style="padding:12px 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;font-family:inherit;color:#12161A;outline:none;resize:vertical" style-focus="border-color:#0B4C86"></textarea>
+            </label>
+          </div>
+          <p style="margin:20px 0 0;text-align:center;font-size:12px;line-height:1.55;color:#6E767D">By submitting, you agree to be contacted by Genetico. We never share your information with third parties.</p>
+          <button type="button" onClick="{{ submit }}" style="margin-top:18px;width:100%;padding:14px;border:0;border-radius:999px;background:#073B68;color:#fff;font-size:14.5px;font-weight:700;font-family:inherit;cursor:pointer" style-hover="background:#0B4C86">Talk to our team</button>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <footer style="position:relative;overflow:hidden;background:radial-gradient(140% 120% at 0% 0%,#042743 0%,#0A4577 45%,#0F5FA3 100%);color:#fff;padding:clamp(56px,6vw,72px) clamp(20px,4vw,32px) 0">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:48px 40px">
+        <div style="display:flex;flex-direction:column;gap:36px">
+          <p style="margin:0;font-size:15.5px;line-height:2;color:#DCE9F4;max-width:420px">IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format &amp; enables AI-assisted clinical decision-making for rare and genetic disorders.</p>
+          <div style="display:flex;gap:14px">
+            <a href="https://x.com/genetico_in" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.12)">X</a>
+            <a href="https://www.linkedin.com/company/genetico-in/" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.12)">in</a>
+            <a href="https://youtube.com/@geneticord" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff" style-hover="background:rgba(255,255,255,0.12)">▶</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <h3 style="margin:0 0 4px;font-size:25px;font-weight:500;letter-spacing:-0.01em;color:#fff">Menu</h3>
+          <a href="#top" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Home</a>
+          <a href="About%20Us.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">About</a>
+          <a href="Platform.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">How it Works</a>
+          <a href="Life%20Science.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">For Business</a>
+          <a href="#faqs" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">FAQs</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <h3 style="margin:0 0 4px;font-size:25px;font-weight:500;letter-spacing:-0.01em;color:#fff">Solutions</h3>
+          <a href="Hospital.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Hospital / Clinician / CoE</a>
+          <a href="Life%20Science.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Life Science / Biotech organisation</a>
+          <a href="Public%20Health.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Public health</a>
+          <a href="https://calendly.com/priyanshu-vats-genetico/30min" target="_blank" rel="noreferrer" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Contact Us</a>
+        </div>
+      </div>
+
+      <div style="margin-top:56px;padding-top:26px;border-top:1px solid rgba(255,255,255,0.20);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center">
+        <span style="font-size:15px;color:#B9CFE2">Genetico. All rights reserved.</span>
+        <a href="#privacy" style="font-size:15px;color:#B9CFE2" style-hover="color:#fff">Privacy Policy</a>
+      </div>
+
+      <div style="margin-top:34px;height:clamp(90px,13vw,190px);max-height:190px;overflow:hidden;container-type:inline-size;display:flex;align-items:flex-start;justify-content:center">
+        <span style="font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:18cqw;line-height:0.78;letter-spacing:-0.01em;white-space:nowrap;background:linear-gradient(180deg,rgba(255,255,255,0.52) 0%,rgba(255,255,255,0.30) 55%,rgba(255,255,255,0.10) 100%);-webkit-background-clip:text;background-clip:text;color:transparent">GENETICO</span>
+      </div>
+    </div>
+  </footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showFaqs&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Page&quot;}}">
+const SB = "https://pfmdimjfbcxamkhrozxa.storage.supabase.co/storage/v1/object/public/genetico/media/";
+
+const WORDS = ["diagnosis", "research", "programs"];
+
+const CREDS = ["AIIMS New Delhi", "CDFD Hyderabad", "15 Rare Disease Centres", "PraGed Mission", "Sir Ganga Ram Hospital", "Manovikas", "Board of Genetic Counselling India", "GHRC"];
+
+const STATUS = ["Structured record created — no re-entry", "Registry fields mapped (ORPHA, ICD-10)", "Ready for cohort search and analytics"];
+
+const HPO = [
+  ["Global developmental delay", "HP:0001263"],
+  ["Seizure", "HP:0001250"],
+  ["Coarse facial features", "HP:0000280"],
+  ["Hepatosplenomegaly", "HP:0001433"],
+  ["Corneal opacity", "HP:0007957"]
+];
+
+const ANTHRO = [
+  ["Weight", "9.8 kg", "-2.1", 32],
+  ["Height", "78 cm", "-2.4", 26],
+  ["OFC", "46 cm", "-1.2", 54]
+];
+
+const DX = [
+  ["Mucopolysaccharidosis I", "IDUA", "0.92", "5 of 5 features"],
+  ["Mucopolysaccharidosis II", "IDS", "0.78", "4 of 5 features"],
+  ["GM1 gangliosidosis", "GLB1", "0.64", "3 of 5 features"]
+];
+
+const SECTIONS = [
+  ["who", "Who it's for", "01"],
+  ["platform", "Platform", "02"],
+  ["proof", "Proof", "03"],
+  ["trust", "Security", "04"],
+  ["faqs", "FAQs", "05"],
+  ["get-in-touch", "Get in Touch", "06"]
+];
+
+const DOORS = [
+  ["For clinical teams", "Hospital, Clinician & CoE", "Complex genetic cases, fragmented records, and hours of documentation before a decision can be made.",
+   ["AI-assisted intake and phenotype capture", "RAPID Score candidate ranking with evidence", "Registry-ready records from day one"],
+   "Hospital.dc.html", "Explore clinical solutions"],
+  ["For research", "Life Science & Biotech", "Natural history studies and cohort discovery held back by unstructured, site-by-site data.",
+   ["Standardized intake across sites", "Cohort discovery on structured fields", "Research-ready export and audit trail"],
+   "Life%20Science.dc.html", "Explore research solutions"],
+  ["For programmes", "Government & Public Health", "National programmes need a live view of patients, centres, and outcomes — not periodic spreadsheets.",
+   ["Hub-and-spoke registry architecture", "Screening and patient tracking", "Programme analytics in real time"],
+   "Public%20Health.dc.html", "Explore public health solutions"]
+];
+
+const LAYERS = [
+  ["01", "Capture", "Structured intake at the point of care — phenotype, history, and documents converted into computable fields instead of free text.", "Intelligent data capture"],
+  ["02", "Decide", "Clinical decision support surfaces ranked differentials with the evidence behind each one, inside the existing workflow.", "CDSS"],
+  ["03", "Connect", "One longitudinal record per patient across visits, departments, labs, and centres — no re-entry, no duplication.", "Longitudinal record"],
+  ["04", "Analyse", "Cohorts, registries, and programme dashboards built from the same structured data the clinic already produced.", "Registry & analytics"]
+];
+
+const TRUST = [
+  "Your institution retains full ownership and control of its data.",
+  "Access is restricted based on user roles and responsibilities.",
+  "Every action is securely logged for complete traceability.",
+  "Data is protected through encryption in transit and at rest.",
+  "Hosted on enterprise-grade infrastructure with continuous monitoring."
+];
+
+const CLIPS = [
+  ["h-proof-v1", "Video · 8:05", "Genetico platform overview for diagnostic labs", "radial-gradient(120% 130% at 30% 24%,#2A4560 0%,#13202C 62%,#0A121A 100%)", "Product walkthrough still \u2014 16:9"],
+  ["h-proof-v2", "Deep dive · 45:22", "Rare disease care in India: conversation with leading geneticists", "radial-gradient(120% 130% at 30% 26%,#1E4A40 0%,#0F2A25 60%,#081815 100%)", "Panel photo \u2014 16:9"],
+  ["h-proof-v3", "Deep dive · 1:12:08", "Building national genomics infrastructure \u2014 summit panel", "radial-gradient(120% 130% at 30% 24%,#6B4A22 0%,#39240F 60%,#1C1108 100%)", "Summit stage photo \u2014 16:9"]
+];
+
+const READS = [
+  ["Policy", "Building national registries: lessons from India's rare disease policy", "5 min read"],
+  ["Article", "Why structured phenotype data changes the diagnostic odyssey", "6 min read"]
+];
+
+const FAQS = [
+  ["What is Genetico?", "Genetico is building the digital backbone for the rare and genetic disease ecosystem. By connecting clinical care, research, public health, and AI, we transform fragmented healthcare data into structured, interoperable, and actionable intelligence."],
+  ["What is IndiGeneUs.AI?", "IndiGeneUs.AI is our AI-enabled clinical genetics platform. It structures complex clinical workflows, captures patient data in a standardized format, and supports AI-assisted clinical decision-making for rare and genetic disorders."],
+  ["Who is Genetico built for?", "Hospitals, clinicians and Centres of Excellence; life science and biotech research teams; and government and public health programmes running national rare disease initiatives."],
+  ["Can Genetico integrate with our existing systems?", "Yes. IndiGeneUs.AI is designed to sit alongside existing hospital systems and to exchange data using standard clinical vocabularies and interfaces, so it complements rather than replaces your infrastructure."],
+  ["Why does structured clinical data matter?", "Unstructured notes cannot be searched, compared, or aggregated. Structured data makes decision support, cohort discovery, registry reporting, and programme analytics possible from the same record a clinician already writes."]
+];
+
+const TABS = [
+  ["Clinician or Hospital", "We'll connect you to our medical team to walk through workflows, integration and a 2-week pilot at your center."],
+  ["Government or Public Health", "We'll walk you through registries, screening programmes, patient tracking and real-time programme analytics."],
+  ["Life Science or Industry", "We'll show how structured, research-ready data and cohort identification support your evidence pipeline."],
+  ["Investor", "We'll share how Genetico is building the digital backbone for the rare disease ecosystem."]
+];
+
+const LOGOS = [
+  ["AIIMS Delhi", SB + "Vector-1.png"],
+  ["CDFD", SB + "Vector.png"],
+  ["SGRH", SB + "SGRH_logo-removebg-preview.png"],
+  ["BIRAC", "https://www.genetico.in/new/BIRAC%20Logo.jpg"],
+  ["TPG", SB + "Vector-2.png"],
+  ["BGCI", SB + "Vector-3.png"],
+  ["Manovikas", SB + "Vector-5.png"],
+  ["GHRC", SB + "Vector-4.png"],
+  ["MeitY Startup Hub", "https://www.genetico.in/new/meity.jpg"],
+  ["Catalyst", "https://www.genetico.in/new/Catalyst%20logo%20Black%20final.png"]
+];
+
+class Component extends DCLogic {
+  canvasRef = React.createRef();
+  wrapRef = React.createRef();
+  state = { scrolled: false, tab: 0, progress: 0, solutionsOpen: false, active: "", railOn: false, narrow: false, mid: false, menuOpen: false, faq: 0, sent: false, word: 0, stage: 0, scale: 1 };
+
+  componentDidMount() {
+    this.reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.timers = [];
+    this.wordTimer = setInterval(() => this.setState(s => ({ word: (s.word + 1) % WORDS.length })), 2600);
+    this.initGrid();
+    this.onScroll = () => {
+      const y = window.scrollY;
+      const scrolled = y > 12;
+      if (scrolled !== this.state.scrolled) this.setState({ scrolled });
+      this.foldVisible = y < (this.canvasRef.current ? this.canvasRef.current.offsetHeight + 120 : 900);
+      if (this.measure) this.measure();
+      let active = "";
+      for (const s of SECTIONS) {
+        const el = document.getElementById(s[0]);
+        if (el && el.getBoundingClientRect().top <= 190) active = s[0];
+      }
+      const railOn = y > 420;
+      if (active !== this.state.active || railOn !== this.state.railOn) this.setState({ active, railOn });
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(100, Math.max(0, (y / max) * 100)) : 0;
+      if (Math.abs(progress - this.state.progress) > 0.4) this.setState({ progress });
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    this.onResize = () => {
+      const narrow = window.innerWidth < 880;
+      const mid = window.innerWidth < 1040;
+      const w = this.wrapRef.current ? this.wrapRef.current.clientWidth : 560;
+      const sc = Math.max(0.62, Math.min(1, w / 560, (window.innerHeight - 190) / 640));
+      const next = {};
+      if (narrow !== this.state.narrow) { next.narrow = narrow; next.menuOpen = false; }
+      if (mid !== this.state.mid) next.mid = mid;
+      if (Math.abs(sc - this.state.scale) > 0.01) next.scale = sc;
+      if (Object.keys(next).length) this.setState(next);
+    };
+    window.addEventListener("resize", this.onResize);
+    this.onScroll();
+    this.onResize();
+  }
+  initGrid() {
+    const c = this.canvasRef.current;
+    if (!c) { requestAnimationFrame(() => this.initGrid()); return; }
+    const ctx = c.getContext("2d");
+    const SP = 30, R = 175;
+    let W = 0, H = 0, cols = 0, rows = 0, dots = [], rect = null, dpr = 1;
+    const pt = { x: -9999, y: -9999, tx: -9999, ty: -9999 };
+    const build = () => {
+      rect = c.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = rect.width; H = rect.height;
+      c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.ceil(W / SP) + 1; rows = Math.ceil(H / SP) + 1;
+      dots = [];
+      for (let r = 0; r < rows; r++) for (let k = 0; k < cols; k++) dots.push({ x: k * SP + 6, y: r * SP + 6, nx: 0, ny: 0, f: 0 });
+    };
+    this.measure = () => { const r2 = c.getBoundingClientRect(); if (r2.width) rect = r2; };
+    const onMove = (e) => { if (rect) { pt.tx = e.clientX - rect.left; pt.ty = e.clientY - rect.top; } };
+    const onLeave = () => { pt.tx = -9999; pt.ty = -9999; };
+
+    const draw = (time) => {
+      if (!dots.length) { build(); if (!dots.length) return; }
+      ctx.clearRect(0, 0, W, H);
+      pt.x += (pt.tx - pt.x) * 0.13; pt.y += (pt.ty - pt.y) * 0.13;
+      const tt = this.reduced ? 0 : time;
+      for (let i = 0; i < dots.length; i++) {
+        const d = dots[i];
+        const wob = this.reduced ? 0 : Math.sin((d.x + d.y) / 110 + tt / 2600) * 0.9;
+        const dx = d.x - pt.x, dy = d.y - pt.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < R) {
+          const f = 1 - dist / R;
+          d.f = f * f;
+          const push = d.f * 7;
+          d.nx = d.x + (dx / (dist || 1)) * push + wob;
+          d.ny = d.y + (dy / (dist || 1)) * push + wob;
+        } else { d.f = 0; d.nx = d.x + wob; d.ny = d.y + wob; }
+      }
+      ctx.lineWidth = 1;
+      for (let r = 0; r < rows; r++) for (let k = 0; k < cols; k++) {
+        const i = r * cols + k, d = dots[i];
+        if (!d || d.f < 0.05) continue;
+        const right = k + 1 < cols ? dots[i + 1] : null;
+        const down = r + 1 < rows ? dots[i + cols] : null;
+        if (right && right.f > 0.03) {
+          ctx.strokeStyle = "rgba(60,67,74," + (Math.min(d.f, right.f) * 0.09).toFixed(3) + ")";
+          ctx.beginPath(); ctx.moveTo(d.nx, d.ny); ctx.lineTo(right.nx, right.ny); ctx.stroke();
+        }
+        if (down && down.f > 0.03) {
+          ctx.strokeStyle = "rgba(60,67,74," + (Math.min(d.f, down.f) * 0.09).toFixed(3) + ")";
+          ctx.beginPath(); ctx.moveTo(d.nx, d.ny); ctx.lineTo(down.nx, down.ny); ctx.stroke();
+        }
+      }
+      ctx.fillStyle = "rgba(18,22,26,0.13)";
+      ctx.beginPath();
+      for (let i = 0; i < dots.length; i++) {
+        const d = dots[i];
+        if (d.f > 0.05) continue;
+        ctx.moveTo(d.nx + 1, d.ny); ctx.arc(d.nx, d.ny, 1, 0, 6.2832);
+      }
+      ctx.fill();
+      for (let i = 0; i < dots.length; i++) {
+        const d = dots[i];
+        if (d.f <= 0.05) continue;
+        ctx.fillStyle = "rgba(34,40,46," + (0.12 + d.f * 0.07).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(d.nx, d.ny, 1 + d.f * 0.4, 0, 6.2832); ctx.fill();
+      }
+    };
+
+    build();
+    draw(0);
+    if (this.reduced) return;
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mouseout", onLeave, { passive: true });
+    this.gridResize = () => { build(); draw(0); };
+    window.addEventListener("resize", this.gridResize);
+    let ro = null;
+    if (window.ResizeObserver) {
+      ro = new ResizeObserver(() => { build(); draw(0); });
+      ro.observe(c);
+      if (c.parentElement) ro.observe(c.parentElement);
+    }
+    this.gridCleanup = () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseout", onLeave);
+      window.removeEventListener("resize", this.gridResize);
+      if (ro) ro.disconnect();
+    };
+    const loop = (time) => {
+      if (this.foldVisible !== false) draw(time);
+      this.gridRaf = requestAnimationFrame(loop);
+    };
+    this.gridRaf = requestAnimationFrame(loop);
+  }
+
+  componentWillUnmount() {
+    if (this.gridRaf) cancelAnimationFrame(this.gridRaf);
+    if (this.gridCleanup) this.gridCleanup();
+    clearInterval(this.wordTimer);
+    (this.timers || []).forEach(clearTimeout);
+    if (this.raf) cancelAnimationFrame(this.raf);
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("resize", this.onResize);
+  }
+
+  jump(id, e) {
+    if (e) e.preventDefault();
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 118;
+    window.scrollTo({ top, behavior: "smooth" });
+    this.setState({ menuOpen: false });
+  }
+
+  remeasure() { if (this.onResize) requestAnimationFrame(() => this.onResize()); }
+
+  runDemo() {
+    (this.timers || []).forEach(clearTimeout);
+    this.timers = [];
+    this.remeasure();
+    if (this.state.stage >= 4) { this.setState({ stage: 0 }); return; }
+    if (this.reduced) { this.setState({ stage: 4 }); return; }
+    this.setState({ stage: 1 });
+    this.timers.push(setTimeout(() => this.setState({ stage: 2 }), 950));
+    this.timers.push(setTimeout(() => this.setState({ stage: 3 }), 1750));
+    this.timers.push(setTimeout(() => this.setState({ stage: 4 }), 2450));
+  }
+
+  renderVals() {
+    const n = this.state.narrow, mid = this.state.mid, active = this.state.tab;
+    const st = this.state.stage;
+    const twoUp = !n;
+    const collage = !n;
+    const SC = this.state.scale;
+    const cardBase = "border-radius:12px;border:1px solid #E4E9ED;background:#fff;padding:14px 15px 13px;display:flex;flex-direction:column;gap:10px;min-width:0;box-shadow:" +
+      (collage ? "0 22px 48px rgba(7,59,104,0.16)" : "0 14px 34px rgba(7,59,104,0.08)") + ";";
+    const place = (pos, anim, z) => collage
+      ? cardBase + "position:absolute;z-index:" + z + ";" + pos + "animation:" + anim + " .62s cubic-bezier(.22,.61,.36,1) both;"
+      : cardBase + "animation:chip .5s cubic-bezier(.22,.61,.36,1) both;";
+    const showFaq = this.props.showFaqs !== false;
+    const cols = n ? 1 : (mid ? 2 : 4);
+    return {
+      narrow: n,
+      faqOn: showFaq,
+      heroWord: WORDS[this.state.word],
+      gridRef: this.canvasRef,
+      headerStyle: this.state.scrolled
+        ? "position:sticky;top:0;z-index:60;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);border-bottom:1px solid #E4E9ED;transition:background .3s ease,border-color .3s ease"
+        : "position:sticky;top:0;z-index:60;background:transparent;border-bottom:1px solid transparent;transition:background .3s ease,border-color .3s ease",
+      wordStyle: "display:inline-block;color:#0B4C86;transform-origin:50% 0;backface-visibility:hidden;animation:" + (this.state.word % 2 === 0 ? "wA" : "wB") + " .62s cubic-bezier(.22,.61,.36,1) both",
+      creds: CREDS.concat(CREDS).map(text => ({ text })),
+      heroBlurb: n
+        ? "IndiGeneUs.AI turns fragmented clinical records into structured, connected data \u2014 for faster decisions and findable cohorts."
+        : "IndiGeneUs.AI turns fragmented clinical records into structured, connected data \u2014 so clinicians decide faster, researchers find cohorts, and public health programmes see their population.",
+      collageWrap: collage
+        ? "position:absolute;top:0;left:50%;width:560px;height:640px;transform:translateX(-50%) scale(" + SC.toFixed(3) + ");transform-origin:top center"
+        : "display:flex;flex-direction:column;gap:14px",
+      noteStyle: "border-radius:12px;background:radial-gradient(130% 120% at 15% 0%,#04253F 0%,#0A4577 58%,#0C5493 100%);color:#fff;padding:18px;display:flex;flex-direction:column;gap:12px;transition:width .5s cubic-bezier(.22,.61,.36,1);" +
+        (collage
+          ? "position:absolute;z-index:20;overflow:hidden;left:112px;top:164px;width:336px;height:262px;box-shadow:0 30px 70px rgba(4,39,67,0.32);"
+          : "position:relative;z-index:1;box-shadow:0 22px 52px rgba(7,59,104,0.20);"),
+      noteTextStyle: "margin:0;font-size:12.5px;line-height:1.6;color:#DCE9F4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;",
+      panelLabel: st === 0 ? "IndiGeneUs.AI · try it" : (st < 4 ? "IndiGeneUs.AI · extracting" : "IndiGeneUs.AI · structured record"),
+      panelFoot: st > 0 ? "" : (collage ? "Sample case" : "Illustrative interface · sample case"),
+      scanning: st === 1,
+      run: () => this.runDemo(),
+      runLabel: st === 0 ? "Extract with IndiGeneUs.AI" : (st < 4 ? "Extracting…" : "Run again"),
+      runStyle: "flex:none;align-self:flex-start;padding:10px 18px;border-radius:999px;border:0;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;" +
+        (st === 0 || st >= 4 ? "background:#4FB3A0;color:#04253F" : "background:rgba(255,255,255,0.14);color:#DCE9F4"),
+      showHpo: st >= 2,
+      hpoCount: HPO.length + " terms",
+      cardHpo: place("left:0;top:0;width:300px;", "emTL", 3),
+      cardAnthro: place("left:344px;top:18px;width:216px;", "emTR", 4),
+      cardDx: place("left:296px;top:410px;width:264px;", "emBR", 5),
+      cardReg: place("left:0;top:418px;width:252px;", "emBL", 2) + (collage ? "" : "") + "background:#F6FBF9;border-color:#D9EAE4;",
+      statuses: STATUS.map(text => ({ text })),
+      hpo: HPO.map((h, i) => ({
+        term: h[0], code: h[1],
+        style: "padding:4px 8px;border-radius:999px;border:1px solid #D2E6E0;background:#EDF6F3;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.04em;line-height:1.3;color:#12161A;animation:chip .4s cubic-bezier(.22,.61,.36,1) both;animation-delay:" + (i * 70) + "ms"
+      })),
+      showAnthro: st >= 3,
+      anthro: ANTHRO.map(a2 => ({
+        label: a2[0], value: a2[1], z: a2[2],
+        zColor: parseFloat(a2[2]) <= -2 ? "#B4622A" : "#6E767D",
+        barStyle: "display:block;height:3px;border-radius:2px;background:" + (parseFloat(a2[2]) <= -2 ? "#D9822B" : "#4FB3A0") + ";width:" + a2[3] + "%;transform-origin:left;animation:grow .6s cubic-bezier(.22,.61,.36,1) both"
+      })),
+      showDx: st >= 4,
+      dx: DX.map((d, i) => ({
+        name: d[0], gene: d[1], score: d[2], match: d[3],
+        rowStyle: "border-radius:10px;padding:9px 11px 9px;border:1px solid " + (i === 0 ? "#BFE0D8" : "#EDF0F2") +
+          ";background:" + (i === 0 ? "#F4FAF8" : "#FAFBFC") +
+          ";animation:chip .45s cubic-bezier(.22,.61,.36,1) both;animation-delay:" + (i * 90) + "ms",
+        barStyle: "height:4px;border-radius:2px;background:" + (i === 0 ? "#2E9B82" : "#9FBDD6") + ";width:" + (parseFloat(d[2]) * 100) + "%;transform-origin:left;animation:grow .7s cubic-bezier(.22,.61,.36,1) both;animation-delay:" + (i * 90 + 120) + "ms"
+      })),
+      menuOpen: this.state.menuOpen,
+      menuIcon: this.state.menuOpen ? "\u00d7" : "\u2261",
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      navStyle: n ? "display:none" : "display:flex;align-items:center;gap:30px;margin:0 auto",
+      ctaStyle: n ? "display:none" : "flex:none;padding:11px 22px;border-radius:999px;background:#073B68;color:#fff;font-size:14px;font-weight:700",
+      solutionsOpen: this.state.solutionsOpen,
+      openSolutions: () => this.setState({ solutionsOpen: true }),
+      closeSolutions: () => this.setState({ solutionsOpen: false }),
+      goContact: (e) => this.jump("get-in-touch", e),
+      progressStyle: "height:2px;background:#0B4C86;width:" + this.state.progress.toFixed(1) + "%",
+      railStyle: "position:fixed;top:64px;left:0;right:0;z-index:55;background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);border-bottom:1px solid #E4E9ED;transition:transform .28s ease,opacity .28s ease;" +
+        (this.state.railOn ? "transform:translateY(0);opacity:1" : "transform:translateY(-110%);opacity:0;pointer-events:none"),
+      heroGrid: "position:relative;z-index:1;width:100%;max-width:1200px;margin:0 auto;display:grid;gap:" + (mid ? "30px" : "clamp(34px,5vw,64px)") + ";align-items:" + (n ? "start" : "center") + ";" +
+        (n ? "grid-template-columns:minmax(0,1fr)" : (mid ? "grid-template-columns:minmax(0,1fr) minmax(0,0.92fr)" : "grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr)")),
+      wrapRef: this.wrapRef,
+      heroPanelWrap: "min-width:0;" + (n ? "max-width:600px" : "position:relative;height:" + Math.round(640 * SC) + "px"),
+      proofGrid: "margin-top:40px;display:grid;gap:18px;" + (mid ? "grid-template-columns:minmax(0,1fr)" : "grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)"),
+      sections: SECTIONS.filter(s => showFaq || s[0] !== "faqs").map(s => ({
+        id: s[0], label: s[1], num: s[2],
+        href: "#" + s[0],
+        go: (e) => this.jump(s[0], e),
+        railStyle: "flex:none;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-size:13.5px;white-space:nowrap;" +
+          (this.state.active === s[0] ? "background:#EDF3F9;color:#073B68;font-weight:700" : "color:#3C434A;font-weight:400")
+      })),
+      doors: DOORS.map(d => ({
+        kicker: d[0], title: d[1], blurb: d[2],
+        points: d[3].map(text => ({ text })),
+        href: d[4], cta: d[5]
+      })),
+      layerGrid: "margin-top:52px;display:grid;gap:0;border:1px solid #E4E9ED;border-radius:12px;overflow:hidden;background:#fff;grid-template-columns:repeat(" + cols + ",minmax(0,1fr))",
+      layers: LAYERS.map((l, i) => ({
+        num: l[0], title: l[1], body: l[2], tag: l[3],
+        cellStyle: "padding:26px 24px 22px;display:flex;flex-direction:column;gap:12px;min-width:0;background:" +
+          ((Math.floor(i / cols) + i) % 2 === 1 ? "#FAFBFC;" : "#fff;") +
+          (i % cols === 0 ? "" : "border-left:1px solid #E4E9ED;") +
+          (i >= cols ? "border-top:1px solid #E4E9ED;" : ""),
+      })),
+      logosLoop: LOGOS.concat(LOGOS).map(l => ({
+        name: l[0],
+        style: "width:170px;height:104px;flex:none;background-image:url('" + l[1] + "');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:22px 20px"
+      })),
+      clips: CLIPS.map(c => ({
+        slot: c[0], meta: c[1], title: c[2], ph: c[4],
+        thumbStyle: "position:relative;flex:none;width:120px;height:74px;border-radius:8px;overflow:hidden;background:" + c[3]
+      })),
+      trust: TRUST.map((text, i) => ({ text, num: "0" + (i + 1) })),
+      faqs: showFaq ? FAQS.map((f, i) => {
+        const open = this.state.faq === i;
+        return {
+          q: f[0], a: f[1], open,
+          icon: open ? "\u2212" : "+",
+          toggle: () => this.setState(s => ({ faq: s.faq === i ? -1 : i })),
+          qStyle: "width:100%;background:none;border:0;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;text-align:left;cursor:pointer;font-family:inherit",
+          qTextStyle: "font-size:16px;line-height:1.45;font-weight:" + (open ? "700" : "400") + ";color:" + (open ? "#0B4C86" : "#12161A"),
+          iconStyle: "flex:none;width:28px;height:28px;border-radius:50%;border:1px solid " + (open ? "#0B4C86" : "#E4E9ED") + ";display:flex;align-items:center;justify-content:center;font-size:14px;color:" + (open ? "#0B4C86" : "#6E767D")
+        };
+      }) : [],
+      tabs: TABS.map((t, i) => ({
+        label: t[0],
+        select: () => this.setState({ tab: i }),
+        style: "padding:9px 16px;border-radius:999px;font-size:13.5px;font-family:inherit;cursor:pointer;border:0;" +
+          (i === active ? "background:#EDF3F9;color:#0B4C86;font-weight:700" : "background:transparent;color:#3C434A;font-weight:400")
+      })),
+      tabBlurb: TABS[active][1],
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      submit: () => this.setState({ sent: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'DM Sans',-apple-system,'Segoe UI',sans-serif;background:#ffffff;color:#12161A;-webkit-font-smoothing:antialiased}
+  a{color:#0B4C86;text-decoration:none}
+  a:hover{color:#073B68}
+  @keyframes rev{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:no-preference){
+    @supports (animation-timeline:view()){
+      [data-reveal]{animation:rev linear both;animation-timeline:view();animation-range:entry 0% entry 42%}
+    }
+  }
+  input,textarea,select,button{font-family:inherit}
+  input::placeholder,textarea::placeholder{color:#9AA6B1}
+  @keyframes dashflow{to{stroke-dashoffset:-24}}
+  @keyframes pulsering{0%{opacity:.5;transform:scale(1)}70%{opacity:0;transform:scale(1.5)}100%{opacity:0;transform:scale(1.5)}}
+</style>
+</helmet>
+
+<div style="width:100%;overflow:clip">
+
+  <header style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);border-bottom:1px solid #E4E9ED">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,32px);height:64px;display:flex;align-items:center;gap:24px">
+      <a href="#top" style="display:flex;align-items:center;flex:none">
+        <img src="assets/genetico-logo.png" alt="Genetico" style="height:34px;width:auto;display:block" />
+      </a>
+      <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+          <a href="#get-in-touch" onClick="{{ goForm }}" style="padding:10px 18px;border-radius:999px;background:#073B68;color:#fff;font-size:13.5px;font-weight:700">Book a demo</a>
+          <button type="button" onClick="{{ toggleMenu }}" aria-label="Menu" style="width:38px;height:38px;border-radius:9px;border:1px solid #E4E9ED;background:#fff;color:#12161A;font-size:16px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center">{{ menuIcon }}</button>
+        </div>
+      </sc-if>
+      <nav style="{{ navStyle }}">
+        <a href="About%20Us.dc.html" style="font-size:14.5px;font-weight:400;color:#3C434A">About</a>
+        <a href="Platform.dc.html" style="font-size:14.5px;font-weight:400;color:#3C434A">Platform</a>
+        <div style="position:relative;font-size:14.5px;font-weight:700;color:#12161A;display:flex;align-items:center;gap:5px;cursor:default" onMouseEnter="{{ openSolutions }}" onMouseLeave="{{ closeSolutions }}">
+          <span>Solutions</span>
+          <span style="font-size:9px;font-weight:400">▾</span>
+          <sc-if value="{{ solutionsOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:100%;left:-16px;padding-top:12px;width:286px">
+              <div style="background:#fff;border:1px solid #E4E9ED;border-radius:12px;box-shadow:0 18px 44px rgba(7,59,104,0.12);padding:7px;display:flex;flex-direction:column;gap:1px">
+                <a href="Hospital.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Hospital / Clinician / CoE</a>
+                <a href="Life%20Science.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Life Science / Biotech</a>
+                <a href="#top" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:700;color:#0B4C86;background:#EDF3F9">Public Health</a>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <a href="Resources.dc.html" style="font-size:14.5px;font-weight:400;color:#3C434A">Resources</a>
+      </nav>
+      <a href="#get-in-touch" onClick="{{ goForm }}" style="{{ ctaStyle }}" style-hover="background:#0B4C86;color:#fff">Book a demo</a>
+    </div>
+
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #E4E9ED;background:#fff;padding:18px clamp(20px,4vw,32px) 26px;max-height:70vh;overflow-y:auto">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">On this page</span>
+        <div style="margin-top:10px;display:flex;flex-direction:column">
+          <sc-for list="{{ sections }}" as="s" hint-placeholder-count="4">
+            <a href="{{ s.href }}" onClick="{{ s.go }}" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A;display:flex;align-items:center;gap:12px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#0B4C86">{{ s.num }}</span>{{ s.label }}
+            </a>
+          </sc-for>
+        </div>
+        <span style="display:block;margin-top:22px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">More</span>
+        <div style="margin-top:10px;display:flex;flex-direction:column">
+          <a href="About%20Us.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">About</a>
+          <a href="Platform.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Platform</a>
+          <a href="Hospital.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Hospital / Clinician / CoE</a>
+          <a href="Life%20Science.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Life Science / Biotech</a>
+          <a href="Resources.dc.html" style="padding:12px 0;font-size:15.5px;color:#12161A">Resources</a>
+        </div>
+      </div>
+    </sc-if>
+  </header>
+
+  <div style="{{ railStyle }}">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,32px);height:52px;display:flex;align-items:center;gap:4px;overflow-x:auto">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D;flex:none;margin-right:14px">Public Health</span>
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" onClick="{{ s.go }}" style="{{ s.railStyle }}" style-hover="background:#EDF3F9;color:#073B68" style-focus="outline:2px solid #0B4C86;outline-offset:2px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;opacity:0.55">{{ s.num }}</span>
+          <span>{{ s.label }}</span>
+        </a>
+      </sc-for>
+    </div>
+    <div style="height:2px;background:#E4E9ED">
+      <div style="{{ progressStyle }}"></div>
+    </div>
+  </div>
+
+  <section id="top" style="scroll-margin-top:128px;padding:clamp(50px,5.3vw,72px) clamp(20px,4vw,32px) clamp(62px,6.4vw,88px);background:linear-gradient(180deg,#FAFBFC 0%,#F4F8FA 46%,#ffffff 100%)">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:{{ heroCols }};align-items:center;gap:52px 64px">
+      <div style="min-width:0;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Public Health</span>
+          <span style="height:1px;width:44px;background:#C3D2DC;display:block"></span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D">NPRD implementation</span>
+        </div>
+        <h1 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(38px,5.2vw,62px);line-height:1.05;letter-spacing:-0.02em;color:#12161A;text-wrap:pretty">Digital backbone for India's <span style="color:#0B4C86">rare disease ecosystem</span></h1>
+        <p style="margin:0;max-width:560px;font-size:16px;line-height:1.75;color:#3C434A;text-wrap:pretty">IndiGeneUs.AI connects India's rare disease ecosystem in a Hub &amp; Spoke model — from PHC-level referral to CoE-level diagnosis — giving government health institutions the clinical and reporting tools they need for NPRD implementation.</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+          <a href="#get-in-touch" onClick="{{ goForm }}" style="padding:14px 28px;border-radius:999px;background:#073B68;color:#fff;font-size:14px;font-weight:700" style-hover="background:#0B4C86;color:#fff">Request a pilot</a>
+          <a href="#how-it-works" onClick="{{ goHow }}" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86;display:inline-flex;align-items:center;gap:8px">See the three-tier model →</a>
+        </div>
+      </div>
+
+      <div style="min-width:0;display:flex;flex-direction:column;gap:14px">
+        <svg viewBox="0 0 460 380" role="img" aria-label="Hub and spoke model: a national hub connected to Centre of Excellence spokes, which connect to district health centres" style="width:100%;max-width:500px;margin:0 auto;height:auto;display:block;overflow:visible">
+          <g fill="none" stroke="#C9D8E4" stroke-width="1">
+            <path d="M250 26 Q 424 190 250 354" stroke-dasharray="5 7" opacity="0.85" style="{{ arch.arcAnim }}"></path>
+            <path d="M150 150 L246 92 M150 190 L268 190 M150 230 L246 288" stroke="#B9CBD9"></path>
+            <path d="M286 82 L370 52 M300 190 L392 190 M286 298 L368 328" stroke-dasharray="4 6"></path>
+          </g>
+          <circle cx="150" cy="190" r="72" fill="#EDF3F9" opacity="0.75"></circle>
+          <circle cx="150" cy="190" r="54" fill="#0B4C86"></circle>
+          <text x="150" y="184" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" letter-spacing="1.4" fill="#ffffff">HUB A/B</text>
+          <text x="150" y="202" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#BDDCF5">NPRD</text>
+          <text x="150" y="218" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" fill="#8FC6EF">National registry</text>
+          <g>
+            <circle cx="266" cy="82" r="32" fill="#ffffff" stroke="#0B4C86" stroke-width="1.2"></circle>
+            <text x="266" y="80" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" fill="#0B4C86">SPOKE C</text>
+            <text x="266" y="94" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10.5" fill="#6E767D">CoE</text>
+            <circle cx="284" cy="190" r="32" fill="#ffffff" stroke="#0B4C86" stroke-width="1.2"></circle>
+            <text x="284" y="188" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" fill="#0B4C86">SPOKE C</text>
+            <text x="284" y="202" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10.5" fill="#6E767D">CoE</text>
+            <circle cx="266" cy="298" r="32" fill="#ffffff" stroke="#0B4C86" stroke-width="1.2"></circle>
+            <text x="266" y="296" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" fill="#0B4C86">SPOKE C</text>
+            <text x="266" y="310" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10.5" fill="#6E767D">CoE</text>
+          </g>
+          <g>
+            <circle cx="392" cy="44" r="24" fill="#F6F9FA" stroke="#C3D2DC" stroke-width="1"></circle>
+            <text x="392" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" letter-spacing="0.8" fill="#3C434A">SPOKE D</text>
+            <circle cx="416" cy="190" r="24" fill="#F6F9FA" stroke="#C3D2DC" stroke-width="1"></circle>
+            <text x="416" y="194" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" letter-spacing="0.8" fill="#3C434A">SPOKE D</text>
+            <circle cx="390" cy="336" r="24" fill="#F6F9FA" stroke="#C3D2DC" stroke-width="1"></circle>
+            <text x="390" y="340" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" letter-spacing="0.8" fill="#3C434A">SPOKE D</text>
+          </g>
+        </svg>
+        <div style="display:flex;flex-wrap:wrap;gap:10px 22px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;background:#0B4C86;display:block"></span>National hub</span>
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;border:1.5px solid #0B4C86;display:block"></span>Centre of Excellence</span>
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;border:1.5px solid #C3D2DC;background:#F6F9FA;display:block"></span>District health centre</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="impact" data-reveal style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px);background:#FAFBFC;border-top:1px solid #E4E9ED;border-bottom:1px solid #E4E9ED;transition:opacity .6s ease,transform .6s ease;{{ revImpact }}">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Impact</span>
+        <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+      </div>
+      <div style="margin-top:20px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 40px">
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1.08;letter-spacing:-0.02em">Impact at a glance</h2>
+        <p style="margin:0;max-width:420px;font-size:14.5px;line-height:1.7;color:#3C434A">A unified digital infrastructure enabling connected care, better governance, and seamless compliance across India's rare disease ecosystem.</p>
+      </div>
+
+      <div style="margin-top:44px;border-top:1px solid #E4E9ED">
+        <sc-for list="{{ impact }}" as="p" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:{{ p.cols }};align-items:center;gap:12px 28px;padding:26px 0;border-bottom:1px solid #E4E9ED">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#9AA6B1">{{ p.num }}</span>
+            <span style="width:46px;height:46px;border-radius:10px;background:#EDF3F9;border:1px solid #DCE6EF;display:flex;align-items:center;justify-content:center;color:#0B4C86">
+              <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="{{ p.icon }}"></path>
+              </svg>
+            </span>
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(21px,2.3vw,26px);line-height:1.24;letter-spacing:-0.01em;text-wrap:pretty;{{ p.span }}">{{ p.title }}</h3>
+            <p style="margin:0;font-size:14.5px;line-height:1.65;color:#3C434A;text-wrap:pretty;{{ p.span }}">{{ p.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" data-reveal style="scroll-margin-top:128px;padding:clamp(73px,7.6vw,104px) clamp(20px,4vw,32px);transition:opacity .6s ease,transform .6s ease;{{ revHow }}">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;justify-content:center;gap:22px">
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,rgba(11,76,134,0),#0B4C86);display:block"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Three-tier model</span>
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,#0B4C86,rgba(11,76,134,0));display:block"></span>
+      </div>
+      <h2 style="margin:24px auto 14px;max-width:760px;text-align:center;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(32px,4vw,50px);line-height:1.08;letter-spacing:-0.02em">How it works</h2>
+      <p style="margin:0 auto;max-width:520px;text-align:center;font-size:16px;line-height:1.7;color:#3C434A;text-wrap:pretty">Genetico operates across all three levels of India's healthcare system — connecting frontline workers to national policy data through a single platform.</p>
+
+      <div style="margin:44px auto 0;display:flex;justify-content:center;max-width:100%">
+        <div style="display:flex;gap:4px;padding:6px;background:#F4F6F8;border:1px solid #E4E9ED;max-width:100%;overflow-x:auto;{{ tierTabWrap }}">
+          <sc-for list="{{ tierTabs }}" as="t" hint-placeholder-count="3">
+            <button type="button" onClick="{{ t.select }}" style="{{ t.style }}" style-focus="outline:2px solid #0B4C86;outline-offset:2px">{{ t.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="margin-top:36px;border:1px solid #E4E9ED;border-radius:12px;overflow:hidden;background:#fff">
+        <div style="padding:clamp(24px,3vw,34px) clamp(24px,3vw,38px);background:radial-gradient(140% 160% at 0% 0%,#042743 0%,#0A4577 58%,#0F5FA3 100%);display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 24px">
+          <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(24px,3vw,34px);line-height:1.1;letter-spacing:-0.01em;color:#fff">{{ tier.name }}</h3>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#BDDCF5">{{ tier.level }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:{{ tierCols }}">
+          <div style="min-width:0;padding:clamp(24px,3vw,34px);border-right:1px solid #E4E9ED;border-bottom:1px solid #E4E9ED;{{ cellBorder }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">What happens at this tier</span>
+            <div style="margin-top:18px;display:flex;flex-direction:column;gap:13px">
+              <sc-for list="{{ tier.happens }}" as="h" hint-placeholder-count="4">
+                <div style="display:flex;gap:12px;align-items:flex-start">
+                  <span style="margin-top:8px;width:6px;height:6px;border-radius:50%;background:#0B4C86;display:block;flex:none"></span>
+                  <span style="font-size:14.5px;line-height:1.6;color:#12161A">{{ h }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="min-width:0;padding:clamp(24px,3vw,34px);border-right:1px solid #E4E9ED;border-bottom:1px solid #E4E9ED;{{ cellBorder }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">What data flows out</span>
+            <div style="margin-top:18px;display:flex;flex-direction:column;gap:13px">
+              <sc-for list="{{ tier.flows }}" as="f" hint-placeholder-count="4">
+                <div style="display:flex;gap:12px;align-items:flex-start">
+                  <span style="margin-top:1px;width:20px;height:20px;border-radius:50%;background:#EDF3F9;color:#0B4C86;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none">→</span>
+                  <span style="font-size:14.5px;line-height:1.6;color:#12161A">{{ f }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="min-width:0;padding:clamp(24px,3vw,34px);border-bottom:1px solid #E4E9ED;background:#FAFBFC">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">Who uses it at this tier</span>
+            <div style="margin-top:18px;display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ tier.who }}" as="w" hint-placeholder-count="3">
+                <div style="background:#fff;border:1px solid #E4E9ED;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
+                  <span style="font-size:14.5px;font-weight:700;color:#12161A">{{ w.role }}</span>
+                  <span style="font-size:13px;line-height:1.55;color:#3C434A">{{ w.tools }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="architecture" data-reveal style="scroll-margin-top:128px;padding:clamp(73px,7.6vw,104px) clamp(20px,4vw,32px);background:#FAFBFC;border-top:1px solid #E4E9ED;border-bottom:1px solid #E4E9ED;transition:opacity .6s ease,transform .6s ease;{{ revArch }}">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;justify-content:center;gap:22px">
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,rgba(11,76,134,0),#0B4C86);display:block"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Architecture</span>
+        <span style="height:1px;width:72px;background:linear-gradient(90deg,#0B4C86,rgba(11,76,134,0));display:block"></span>
+      </div>
+      <h2 style="margin:24px auto 14px;max-width:820px;text-align:center;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(32px,4vw,50px);line-height:1.08;letter-spacing:-0.02em">How the tiers are connected</h2>
+      <p style="margin:0 auto;max-width:600px;text-align:center;font-size:16px;line-height:1.7;color:#3C434A;text-wrap:pretty">Hub-and-spoke model connecting all levels of healthcare delivery through a unified platform. Structured reporting flows up; referral guidance flows down.</p>
+
+      <div style="margin-top:56px;display:grid;grid-template-columns:{{ archCols }};align-items:start;gap:48px 64px">
+        <div style="min-width:0">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">Hospital classification</span>
+          <div style="margin-top:18px;display:flex;flex-direction:column">
+            <sc-for list="{{ classes }}" as="c" hint-placeholder-count="3">
+              <div onMouseEnter="{{ c.enter }}" onMouseLeave="{{ c.leave }}" onClick="{{ c.toggle }}" tabIndex="{{ 0 }}" style="padding:24px 0;border-bottom:1px solid #E4E9ED;display:flex;flex-direction:column;gap:11px;cursor:pointer;transition:opacity .25s ease;{{ c.dim }}" style-focus="outline:2px solid #0B4C86;outline-offset:6px">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+                  <span style="width:7px;height:7px;border-radius:50%;background:#0B4C86;display:block"></span>
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">{{ c.tag }}</span>
+                  <sc-if value="{{ c.hasBadge }}" hint-placeholder-val="{{ false }}">
+                    <span style="padding:4px 9px;border-radius:6px;background:#EDF3F9;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#0B4C86">{{ c.badge }}</span>
+                  </sc-if>
+                </div>
+                <h3 style="margin:0;font-size:17px;font-weight:700;letter-spacing:-0.005em;color:#12161A">{{ c.name }}</h3>
+                <p style="margin:0;max-width:560px;font-size:14.5px;line-height:1.7;color:#3C434A;text-wrap:pretty">{{ c.body }}</p>
+                <div style="margin-top:2px;display:flex;flex-wrap:wrap;gap:8px">
+                  <sc-for list="{{ c.caps }}" as="cap" hint-placeholder-count="3">
+                    <span style="padding:6px 12px;border-radius:6px;background:#EDF3F9;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;color:#0B4C86">{{ cap }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="min-width:0;display:flex;flex-direction:column;gap:18px">
+          <svg viewBox="0 0 480 420" role="img" aria-label="Hub and spoke architecture diagram" style="width:100%;max-width:500px;margin:0 auto;height:auto;display:block;overflow:visible">
+            <path d="M258 34 Q 452 210 258 386" fill="none" stroke="#C9D8E4" stroke-width="1" stroke-dasharray="5 7" style="{{ arch.arcAnim }}"></path>
+            <circle cx="158" cy="210" r="56" fill="none" stroke="#0B4C86" stroke-width="1.5" style="transform-box:fill-box;transform-origin:center;opacity:0;{{ arch.pulse }}"></circle>
+            <g fill="none" stroke="#B9CBD9" stroke-width="1.2" style="transition:stroke .3s ease;{{ arch.hubLines }}">
+              <path d="M158 158 L252 96"></path>
+              <path d="M158 210 L272 210"></path>
+              <path d="M158 262 L252 324"></path>
+            </g>
+            <g fill="none" stroke="#C3D2DC" stroke-width="1" stroke-dasharray="4 6" style="transition:stroke .3s ease;{{ arch.spokeLines }}">
+              <path d="M290 84 L378 56"></path>
+              <path d="M306 210 L400 210"></path>
+              <path d="M290 336 L376 350"></path>
+            </g>
+
+            <circle cx="158" cy="210" r="76" fill="#EDF3F9" opacity="0.8" style="transition:opacity .3s ease;{{ arch.hubHalo }}"></circle>
+            <circle cx="158" cy="210" r="56" fill="#0B4C86" style="transition:fill .3s ease;{{ arch.hubFill }}"></circle>
+            <text x="158" y="203" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11.5" letter-spacing="1.4" fill="#ffffff">HUB A/B</text>
+            <text x="158" y="221" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#BDDCF5">NPRD</text>
+            <text x="158" y="238" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10.5" fill="#8FC6EF">National registry</text>
+
+            <g style="transition:opacity .3s ease;{{ arch.cGroup }}">
+              <circle cx="272" cy="90" r="34" fill="#ffffff" stroke="#0B4C86" stroke-width="1.3"></circle>
+              <text x="272" y="87" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" fill="#0B4C86">SPOKE C</text>
+              <text x="272" y="102" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10.5" fill="#6E767D">Class C</text>
+              <circle cx="290" cy="210" r="34" fill="#ffffff" stroke="#0B4C86" stroke-width="1.3"></circle>
+              <text x="290" y="207" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" fill="#0B4C86">SPOKE C</text>
+              <text x="290" y="222" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10.5" fill="#6E767D">Class C</text>
+              <circle cx="272" cy="330" r="34" fill="#ffffff" stroke="#0B4C86" stroke-width="1.3"></circle>
+              <text x="272" y="327" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" fill="#0B4C86">SPOKE C</text>
+              <text x="272" y="342" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10.5" fill="#6E767D">Class C</text>
+            </g>
+
+            <g style="transition:opacity .3s ease;{{ arch.dGroup }}">
+              <circle cx="404" cy="48" r="26" fill="#F6F9FA" stroke="#C3D2DC" stroke-width="1"></circle>
+              <text x="404" y="45" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" letter-spacing="0.8" fill="#3C434A">SPOKE D</text>
+              <text x="404" y="58" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" fill="#6E767D">Class D</text>
+              <circle cx="428" cy="210" r="26" fill="#F6F9FA" stroke="#C3D2DC" stroke-width="1"></circle>
+              <text x="428" y="207" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" letter-spacing="0.8" fill="#3C434A">SPOKE D</text>
+              <text x="428" y="220" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" fill="#6E767D">Class D</text>
+              <circle cx="402" cy="358" r="26" fill="#F6F9FA" stroke="#C3D2DC" stroke-width="1"></circle>
+              <text x="402" y="355" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" letter-spacing="0.8" fill="#3C434A">SPOKE D</text>
+              <text x="402" y="368" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9.5" fill="#6E767D">Class D</text>
+            </g>
+          </svg>
+
+          <div style="display:flex;flex-direction:column;gap:10px;padding-top:6px;border-top:1px solid #E4E9ED">
+            <span style="display:flex;align-items:center;gap:10px;font-size:13px;color:#3C434A"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#0B4C86">↑</span>Structured reporting flows up to the national registry</span>
+            <span style="display:flex;align-items:center;gap:10px;font-size:13px;color:#3C434A"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#0B4C86">↓</span>Referral guidance and policy updates flow down</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="get-in-touch" data-reveal style="scroll-margin-top:128px;padding:clamp(73px,7.6vw,104px) clamp(20px,4vw,32px) clamp(78px,8.2vw,112px);transition:opacity .6s ease,transform .6s ease;{{ revForm }}">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Get in touch</span>
+        <h2 style="margin:0;max-width:760px;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(32px,4.2vw,52px);line-height:1.06;letter-spacing:-0.02em;text-wrap:pretty">Are you interested in bringing IndiGeneUs.AI to your institution?</h2>
+        <p style="margin:0;max-width:480px;font-size:16px;line-height:1.7;color:#3C434A">Talk to our team about a pilot deployment.</p>
+      </div>
+
+      <div style="margin:44px auto 0;max-width:840px;background:#fff;border:1px solid #E4E9ED;border-radius:12px;overflow:hidden;box-shadow:0 18px 44px rgba(7,59,104,0.06)">
+        <div style="padding:18px 22px 0;display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid #E4E9ED">
+          <sc-for list="{{ formTabs }}" as="t" hint-placeholder-count="4">
+            <button type="button" onClick="{{ t.select }}" style="{{ t.style }}" style-focus="outline:2px solid #0B4C86;outline-offset:2px">{{ t.label }}</button>
+          </sc-for>
+        </div>
+
+        <div style="padding:clamp(24px,3vw,36px)">
+          <p style="margin:0 0 26px;font-size:14.5px;line-height:1.7;color:#0B4C86">{{ formBlurb }}</p>
+
+          <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:30px;border:1px solid #DCE6EF;border-radius:12px;background:#F6F9FA;display:flex;flex-direction:column;gap:10px;align-items:flex-start">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Request received</span>
+              <p style="margin:0;font-size:16px;line-height:1.7;color:#12161A">Thank you — our team will get back to you within two working days.</p>
+              <button type="button" onClick="{{ reset }}" style="margin-top:6px;padding:10px 20px;border-radius:999px;border:1px solid #C3D2DC;background:#fff;color:#0B4C86;font-size:13.5px;font-weight:700;cursor:pointer">Send another request</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+            <form onSubmit="{{ submit }}" style="display:grid;grid-template-columns:{{ fieldCols }};gap:20px 22px">
+              <label style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:13.5px;font-weight:500;color:#12161A">First name*</span>
+                <input type="text" required="{{ true }}" placeholder="First name" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;color:#12161A" style-focus="outline:2px solid #0B4C86;outline-offset:1px;border-color:#0B4C86" />
+              </label>
+              <label style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:13.5px;font-weight:500;color:#12161A">Last name*</span>
+                <input type="text" required="{{ true }}" placeholder="Last name" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;color:#12161A" style-focus="outline:2px solid #0B4C86;outline-offset:1px;border-color:#0B4C86" />
+              </label>
+              <label style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:13.5px;font-weight:500;color:#12161A">Work email*</span>
+                <input type="email" required="{{ true }}" placeholder="name@institution.gov.in" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;color:#12161A" style-focus="outline:2px solid #0B4C86;outline-offset:1px;border-color:#0B4C86" />
+              </label>
+              <label style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:13.5px;font-weight:500;color:#12161A">Phone number</span>
+                <input type="tel" placeholder="+91 98765 43210" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;color:#12161A" style-focus="outline:2px solid #0B4C86;outline-offset:1px;border-color:#0B4C86" />
+              </label>
+              <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:13.5px;font-weight:500;color:#12161A">Institution or department</span>
+                <input type="text" placeholder="Name of institution" style="height:46px;padding:0 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;color:#12161A" style-focus="outline:2px solid #0B4C86;outline-offset:1px;border-color:#0B4C86" />
+              </label>
+              <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:13.5px;font-weight:500;color:#12161A">How can we help?</span>
+                <textarea rows="4" placeholder="Tell us a little about what you're looking for." style="padding:12px 14px;border-radius:10px;border:1px solid #E4E9ED;background:#fff;font-size:14.5px;line-height:1.6;color:#12161A;resize:vertical" style-focus="outline:2px solid #0B4C86;outline-offset:1px;border-color:#0B4C86"></textarea>
+              </label>
+              <div style="grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+                <p style="margin:0;max-width:420px;font-size:13px;line-height:1.6;color:#6E767D">By submitting, you agree to be contacted by Genetico. We never share your information with third parties.</p>
+                <button type="submit" style="padding:14px 30px;border-radius:999px;border:0;background:#073B68;color:#fff;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#0B4C86">Talk to our team</button>
+              </div>
+            </form>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="position:relative;overflow:hidden;background:radial-gradient(140% 120% at 0% 0%,#042743 0%,#0A4577 45%,#0F5FA3 100%);color:#fff;padding:clamp(52px,5.3vw,72px) clamp(20px,4vw,32px) 0">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:48px 40px">
+        <div style="display:flex;flex-direction:column;gap:36px">
+          <p style="margin:0;font-size:15.5px;line-height:2;color:#DCE9F4;max-width:420px">IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format &amp; enables AI-assisted clinical decision-making for rare and genetic disorders.</p>
+          <div style="display:flex;gap:14px">
+            <a href="https://x.com/genetico_in" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.12);color:#fff">X</a>
+            <a href="https://www.linkedin.com/company/genetico-in/" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.12);color:#fff">in</a>
+            <a href="https://youtube.com/@geneticord" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff" style-hover="background:rgba(255,255,255,0.12);color:#fff">▶</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <h3 style="margin:0 0 4px;font-size:25px;font-weight:500;letter-spacing:-0.01em;color:#fff">Menu</h3>
+          <a href="https://www.genetico.in/" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Home</a>
+          <a href="About%20Us.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">About</a>
+          <a href="Platform.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">How it Works</a>
+          <a href="Life%20Science.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">For Business</a>
+          <a href="https://www.genetico.in/#faqs" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">FAQs</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <h3 style="margin:0 0 4px;font-size:25px;font-weight:500;letter-spacing:-0.01em;color:#fff">Solutions</h3>
+          <a href="Hospital.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Hospital / Clinician / CoE</a>
+          <a href="Life%20Science.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Life Science / Biotech organisation</a>
+          <a href="#top" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Public health</a>
+          <a href="https://calendly.com/priyanshu-vats-genetico/30min" target="_blank" rel="noreferrer" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Contact Us</a>
+        </div>
+      </div>
+
+      <div style="margin-top:56px;padding-top:26px;border-top:1px solid rgba(255,255,255,0.20);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center">
+        <span style="font-size:15px;color:#B9CFE2">Genetico. All rights reserved.</span>
+        <a href="#privacy" style="font-size:15px;color:#B9CFE2" style-hover="color:#fff">Privacy Policy</a>
+      </div>
+
+      <div style="margin-top:34px;height:clamp(90px,13vw,190px);max-height:190px;overflow:hidden;container-type:inline-size;display:flex;align-items:flex-start;justify-content:center">
+        <span style="font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:18cqw;line-height:0.78;letter-spacing:-0.01em;white-space:nowrap;background:linear-gradient(180deg,rgba(255,255,255,0.52) 0%,rgba(255,255,255,0.30) 55%,rgba(255,255,255,0.10) 100%);-webkit-background-clip:text;background-clip:text;color:transparent">GENETICO</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const IMPACT = [
+  ["Three-tier health system connected",
+   "Primary health centres, district hospitals, and Centres of Excellence work from one shared case record instead of parallel registers.",
+   "M6 5h13M6 12h13M6 19h13M9 5v14"],
+  ["Real-time national dashboards",
+   "Programme officers see case volumes, referral turnaround, and district coverage as they happen — no monthly collation cycle.",
+   "M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z"],
+  ["No duplicate entry across ICMR and crowdfunding portals",
+   "Case data captured once is reused for registry submissions, funding applications, and ministry reporting.",
+   "M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"],
+  ["Built for India's DPDP Act",
+   "Role-based access, consent capture, and a complete audit trail are part of the workflow, not a bolt-on.",
+   "M12 3l8 3v6c0 4.4-3.3 8.3-8 9-4.7-.7-8-4.6-8-9V6l8-3z"]
+];
+
+const TIERS = [
+  {
+    label: "Centres of Excellence",
+    name: "Centres of Excellence",
+    level: "Tertiary level · Class C",
+    happens: [
+      "Structured phenotyping and genotype capture",
+      "NPRD case management and reporting",
+      "Genetic counselling and pedigree analysis",
+      "Automated reporting to ministries"
+    ],
+    flows: [
+      "Structured case records → national registry",
+      "Anonymised cohort data → research use",
+      "Ministry reports → automated, scheduled",
+      "Referrals downward → secondary tier"
+    ],
+    who: [
+      { role: "Clinical geneticist", tools: "Consultation workflows, RAPID scoring, case registry entry" },
+      { role: "Genetic counsellor", tools: "Pedigree editor, patient history, follow-up scheduling" },
+      { role: "Hospital admin / reporting officer", tools: "NPRD automated reports, ministry submissions, audit logs" }
+    ]
+  },
+  {
+    label: "District Hospitals",
+    name: "District Hospitals",
+    level: "Secondary level · Class D",
+    happens: [
+      "Suspected case intake and triage",
+      "Referral coordination with Centres of Excellence",
+      "Follow-up visit tracking and treatment adherence",
+      "District-level programme reporting"
+    ],
+    flows: [
+      "Referrals upward → Centre of Excellence",
+      "Case updates → national registry",
+      "District reports → state dashboards",
+      "Screening outcomes → programme analytics"
+    ],
+    who: [
+      { role: "Paediatrician / physician", tools: "Suspected-case intake, red-flag checklists, referral notes" },
+      { role: "District programme officer", tools: "District dashboard, referral turnaround, coverage reporting" },
+      { role: "Nodal nurse / coordinator", tools: "Follow-up scheduling, patient contact log, transport requests" }
+    ]
+  },
+  {
+    label: "Primary Health Centres",
+    name: "Primary Health Centres",
+    level: "Primary level · Frontline",
+    happens: [
+      "Frontline screening and red-flag checks",
+      "Family history and consent capture",
+      "Referral dispatch to the district hospital",
+      "Patient counselling and follow-up reminders"
+    ],
+    flows: [
+      "Screening records → district hospital",
+      "Suspected-case alerts → referral queue",
+      "Field data → state dashboards",
+      "Consent records → audit log"
+    ],
+    who: [
+      { role: "ASHA / ANM worker", tools: "Mobile screening forms, family history capture, visit log" },
+      { role: "Medical officer (PHC)", tools: "Referral submission, case notes, counselling scripts" },
+      { role: "Data entry operator", tools: "Offline-capable capture, validation prompts, sync status" }
+    ]
+  }
+];
+
+const CLASSES = [
+  ["Hub A/B | National level", "", "NPRD / Ministry of Health",
+   "PCI-capable national coordination. Aggregates reporting from all Spoke C hospitals, publishes policy guidance, and maintains the national rare disease registry.",
+   ["National dashboard", "Policy analytics", "Automated NPRD reports"], "hub"],
+  ["Spoke C | Secondary level", "<30 min", "Centres of Excellence (Class C)",
+   "EGC-capable hospitals within 30 minutes of the hub. Manage confirmed rare disease cases, run specialist workflows, and refer complex cases upward.",
+   ["Case management", "Genetic counselling", "Specialist workflows"], "c"],
+  ["Spoke D | Primary level", ">30 min", "District Health Centres (Class D)",
+   "EGC and thrombolysis capable, more than 30 minutes from the hub. First point of contact — screen for suspected cases and dispatch ambulance referrals to Spoke C.",
+   ["Screening tools", "Referral submission", "Field data capture"], "d"]
+];
+
+const FORM_TABS = [
+  ["Government or Public Health", "We'll walk you through registries, screening programmes, patient tracking, and real-time programme analytics."],
+  ["Clinician or Hospital", "We'll connect you to our medical team to walk through workflows, integration, and a two-week pilot at your centre."],
+  ["Life Science or Industry", "We'll show how structured, research-ready data and cohort identification support your evidence pipeline."],
+  ["Investor", "We'll share how Genetico is building the digital backbone for the rare disease ecosystem."]
+];
+
+const SECTIONS = [
+  ["impact", "Impact", "01"],
+  ["how-it-works", "How It Works", "02"],
+  ["architecture", "Architecture", "03"],
+  ["get-in-touch", "Request a Pilot", "04"]
+];
+
+class Component extends DCLogic {
+  state = { tier: 0, formTab: 0, hoverClass: "", pinned: "", revealed: {}, active: "", railOn: false, progress: 0, solutionsOpen: false, narrow: false, menuOpen: false, sent: false };
+
+  componentDidMount() {
+    this.rm = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    this.onScroll = () => {
+      const y = window.scrollY;
+      let active = "";
+      for (const [id] of SECTIONS) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 190) active = id;
+      }
+      const railOn = y > 420;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(100, Math.max(0, (y / max) * 100)) : 0;
+      let add = null;
+      for (const [id] of SECTIONS) {
+        if (this.state.revealed[id]) continue;
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.9) {
+          add = add || {};
+          add[id] = true;
+        }
+      }
+      const next = {};
+      if (active !== this.state.active) next.active = active;
+      if (railOn !== this.state.railOn) next.railOn = railOn;
+      if (Math.abs(progress - this.state.progress) > 0.4) next.progress = progress;
+      if (add) next.revealed = Object.assign({}, this.state.revealed, add);
+      if (Object.keys(next).length) this.setState(next);
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+
+    this.onResize = () => {
+      const narrow = window.innerWidth < 880;
+      const mid = window.innerWidth < 1040;
+      if (narrow !== this.state.narrow || mid !== this.state.mid) this.setState({ narrow, mid, menuOpen: false });
+    };
+    window.addEventListener("resize", this.onResize);
+
+    const ids = SECTIONS.map(([id]) => id);
+    if (typeof IntersectionObserver === "function") {
+      this.io = new IntersectionObserver((entries) => {
+        let add = null;
+        entries.forEach(e => {
+          if (e.isIntersecting && !this.state.revealed[e.target.id]) {
+            add = add || {};
+            add[e.target.id] = true;
+          }
+        });
+        if (add) this.setState(s => ({ revealed: Object.assign({}, s.revealed, add) }));
+      }, { rootMargin: "0px 0px -12% 0px", threshold: 0.04 });
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) this.io.observe(el);
+      });
+    } else {
+      const all = {};
+      ids.forEach(id => { all[id] = true; });
+      this.setState({ revealed: all });
+    }
+
+    this.onScroll();
+    this.onResize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("resize", this.onResize);
+    if (this.io) this.io.disconnect();
+  }
+
+  reveal(id) {
+    return "";
+  }
+
+  jump(id, e) {
+    if (e) e.preventDefault();
+    this.setState({ solutionsOpen: false, menuOpen: false });
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 128;
+    window.scrollTo({ top, behavior: this.rm ? "auto" : "smooth" });
+  }
+
+  renderVals() {
+    const n = this.state.narrow;
+    const mid = !!this.state.mid;
+    const t = this.state.tier;
+    const ft = this.state.formTab;
+    const hc = this.state.hoverClass || this.state.pinned;
+    const dimmed = (key) => (hc && hc !== key ? "opacity:0.68" : "");
+    const lit = (key) => hc === key;
+    const flow = this.rm ? "" : "animation:dashflow 1.8s linear infinite;";
+
+    return {
+      narrow: n,
+      menuOpen: this.state.menuOpen,
+      menuIcon: this.state.menuOpen ? "\u00d7" : "\u2261",
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      navStyle: n ? "display:none" : "display:flex;align-items:center;gap:30px;margin:0 auto",
+      ctaStyle: n ? "display:none" : "flex:none;padding:11px 22px;border-radius:999px;background:#073B68;color:#fff;font-size:14px;font-weight:700",
+      solutionsOpen: this.state.solutionsOpen,
+      openSolutions: () => this.setState({ solutionsOpen: true }),
+      closeSolutions: () => this.setState({ solutionsOpen: false }),
+      goForm: (e) => this.jump("get-in-touch", e),
+      goHow: (e) => this.jump("how-it-works", e),
+
+      heroCols: mid ? "1fr" : "minmax(0,1.05fr) minmax(0,0.95fr)",
+      archCols: mid ? "1fr" : "minmax(0,1fr) minmax(0,0.9fr)",
+      tierCols: mid ? "1fr" : "repeat(3,minmax(0,1fr))",
+      fieldCols: n ? "1fr" : "repeat(2,minmax(0,1fr))",
+      cellBorder: mid ? "border-right:0" : "",
+      tierTabWrap: n ? "border-radius:14px" : "border-radius:999px",
+      revImpact: this.reveal("impact"),
+      revHow: this.reveal("how-it-works"),
+      revArch: this.reveal("architecture"),
+
+      progressStyle: "height:2px;background:#0B4C86;width:" + this.state.progress.toFixed(1) + "%",
+      railStyle: "position:fixed;top:64px;left:0;right:0;z-index:55;background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);border-bottom:1px solid #E4E9ED;transition:transform .28s ease,opacity .28s ease;" +
+        (this.state.railOn ? "transform:translateY(0);opacity:1" : "transform:translateY(-110%);opacity:0;pointer-events:none"),
+
+      sections: SECTIONS.map(([id, label, num]) => ({
+        id, label, num,
+        href: "#" + id,
+        go: (e) => this.jump(id, e),
+        railStyle: "flex:none;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-size:13.5px;white-space:nowrap;" +
+          (this.state.active === id ? "background:#EDF3F9;color:#073B68;font-weight:700" : "color:#3C434A;font-weight:400")
+      })),
+
+      impact: IMPACT.map(([title, body, icon], i) => ({
+        title, body, icon,
+        num: String(i + 1).padStart(2, "0"),
+        cols: n ? "40px 46px minmax(0,1fr)" : "40px 46px minmax(0,1fr) minmax(0,1.15fr)",
+        span: n ? "grid-column:1/-1;" : ""
+      })),
+
+      tierTabs: TIERS.map((tier, i) => ({
+        label: tier.label,
+        select: () => this.setState({ tier: i }),
+        style: "padding:10px 18px;border-radius:999px;border:0;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;transition:background .2s ease,color .2s ease;" +
+          (i === t ? "background:#073B68;color:#fff;font-weight:500" : "background:transparent;color:#5B646B;font-weight:400")
+      })),
+      tier: TIERS[t],
+
+      classes: CLASSES.map(([tag, badge, name, body, caps, key]) => ({
+        tag, badge, name, body, caps,
+        hasBadge: !!badge,
+        dim: dimmed(key),
+        enter: () => this.setState({ hoverClass: key }),
+        leave: () => this.setState({ hoverClass: "" }),
+        toggle: () => this.setState(s => ({ pinned: s.pinned === key ? "" : key, hoverClass: "" }))
+      })),
+
+      arch: {
+        hubFill: lit("hub") ? "fill:#073B68" : "",
+        hubHalo: lit("hub") ? "opacity:1" : (hc ? "opacity:0.3" : ""),
+        hubLines: lit("c") || lit("hub") ? "stroke:#0B4C86" : "",
+        spokeLines: (lit("d") ? "stroke:#0B4C86;" : "") + flow,
+        arcAnim: flow,
+        pulse: this.rm ? "" : "opacity:0.5;animation:pulsering 3.2s ease-out infinite",
+        cGroup: hc && hc !== "c" && hc !== "hub" ? "opacity:0.4" : "",
+        dGroup: hc && hc !== "d" ? "opacity:0.4" : ""
+      },
+
+      formTabs: FORM_TABS.map(([label], i) => ({
+        label,
+        select: () => this.setState({ formTab: i }),
+        style: "padding:11px 16px;border:0;background:transparent;cursor:pointer;font-size:13.5px;border-bottom:2px solid " + (i === ft ? "#0B4C86" : "transparent") + ";color:" + (i === ft ? "#0B4C86" : "#6E767D") + ";font-weight:" + (i === ft ? "700" : "400")
+      })),
+      formBlurb: FORM_TABS[ft][1],
+
+      revForm: this.reveal("get-in-touch"),
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      submit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      reset: () => this.setState({ sent: false })
+    };
+  }
+}
+
+</script>
+</body>
+</html>

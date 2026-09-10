@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'DM Sans',-apple-system,'Segoe UI',sans-serif;background:#ffffff;color:#12161A;-webkit-font-smoothing:antialiased}
+  a{color:#0B4C86;text-decoration:none}
+  a:hover{color:#073B68}
+  @keyframes rev{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:no-preference){
+    @supports (animation-timeline:view()){
+      [data-reveal]{animation:rev linear both;animation-timeline:view();animation-range:entry 0% entry 42%}
+    }
+  }
+</style>
+</helmet>
+
+<div style="width:100%;overflow:clip">
+
+  <header style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);border-bottom:1px solid #E4E9ED">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,32px);height:64px;display:flex;align-items:center;gap:24px">
+      <a href="#top" style="display:flex;align-items:center;flex:none">
+        <img src="assets/genetico-logo.png" alt="Genetico" style="height:34px;width:auto;display:block" />
+      </a>
+      <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+          <a href="https://calendly.com/priyanshu-vats-genetico/30min" target="_blank" rel="noreferrer" style="padding:10px 18px;border-radius:999px;background:#073B68;color:#fff;font-size:13.5px;font-weight:700">Book a demo</a>
+          <button type="button" onClick="{{ toggleMenu }}" aria-label="Menu" style="width:38px;height:38px;border-radius:9px;border:1px solid #E4E9ED;background:#fff;color:#12161A;font-size:16px;line-height:1;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center">{{ menuIcon }}</button>
+        </div>
+      </sc-if>
+      <nav style="{{ navStyle }}">
+        <a href="About%20Us.dc.html" style="font-size:14.5px;font-weight:400;color:#3C434A">About</a>
+        <a href="Platform.dc.html" style="font-size:14.5px;font-weight:400;color:#3C434A">Platform</a>
+        <div style="position:relative;font-size:14.5px;color:#3C434A;display:flex;align-items:center;gap:5px;cursor:default" onMouseEnter="{{ openSolutions }}" onMouseLeave="{{ closeSolutions }}">
+          <span>Solutions</span>
+          <span style="font-size:9px;font-weight:400">▾</span>
+          <sc-if value="{{ solutionsOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:100%;left:-16px;padding-top:12px;width:286px">
+              <div style="background:#fff;border:1px solid #E4E9ED;border-radius:12px;box-shadow:0 18px 44px rgba(7,59,104,0.12);padding:7px;display:flex;flex-direction:column;gap:1px">
+                <a href="Hospital.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Hospital / Clinician / CoE</a>
+                <a href="Life%20Science.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Life Science / Biotech</a>
+                <a href="Public%20Health.dc.html" style="padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:#12161A" style-hover="background:#F4F6F8">Public Health</a>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <a href="#top" style="font-size:14.5px;font-weight:700;color:#12161A">Resources</a>
+      </nav>
+      <a href="https://calendly.com/priyanshu-vats-genetico/30min" target="_blank" rel="noreferrer" style="{{ ctaStyle }}" style-hover="background:#0B4C86;color:#fff">Book a demo</a>
+    </div>
+
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #E4E9ED;background:#fff;padding:18px clamp(20px,4vw,32px) 26px;max-height:70vh;overflow-y:auto">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">On this page</span>
+        <div style="margin-top:10px;display:flex;flex-direction:column">
+          <sc-for list="{{ sections }}" as="s" hint-placeholder-count="5">
+            <a href="{{ s.href }}" onClick="{{ s.go }}" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A;display:flex;align-items:center;gap:12px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#0B4C86">{{ s.num }}</span>{{ s.label }}
+            </a>
+          </sc-for>
+        </div>
+        <span style="display:block;margin-top:22px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">More</span>
+        <div style="margin-top:10px;display:flex;flex-direction:column">
+          <a href="About%20Us.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">About</a>
+          <a href="Platform.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Platform</a>
+          <a href="Hospital.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Hospital / Clinician / CoE</a>
+          <a href="Life%20Science.dc.html" style="padding:12px 0;border-bottom:1px solid #EDF0F2;font-size:15.5px;color:#12161A">Life Science / Biotech</a>
+          <a href="Public%20Health.dc.html" style="padding:12px 0;font-size:15.5px;color:#12161A">Public Health</a>
+        </div>
+      </div>
+    </sc-if>
+  </header>
+
+  <section id="top" style="scroll-margin-top:128px;padding:clamp(31px,3.2vw,44px) clamp(20px,4vw,32px) 32px;background:linear-gradient(180deg,#FAFBFC 0%,#ffffff 100%)">
+    <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 40px">
+      <div style="max-width:720px;display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Resources</span>
+        <h1 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-0.015em;color:#12161A;text-wrap:pretty">Clinical insights, updates, and learning from Genetico</h1>
+        <p style="margin:0;max-width:620px;font-size:16px;line-height:1.7;color:#3C434A;text-wrap:pretty">Films, walkthroughs, and clinical updates from Genetico's work in rare and genetic disease — recorded with clinicians, researchers, and healthcare teams.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D">
+        <span>{{ totalLabel }}</span>
+        <span>Updated June 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <div style="position:sticky;top:64px;z-index:55;background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);border-top:1px solid #E4E9ED;border-bottom:1px solid #E4E9ED">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,32px);height:52px;display:flex;align-items:center;gap:4px;overflow-x:auto">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#6E767D;flex:none;margin-right:14px">Browse</span>
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
+        <button type="button" onClick="{{ t.select }}" style="{{ t.style }}" style-hover="background:#EDF3F9;color:#073B68" style-focus="outline:2px solid #0B4C86;outline-offset:2px">
+          <span>{{ t.label }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;opacity:0.55">{{ t.count }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="height:2px;background:#E4E9ED">
+      <div style="{{ progressStyle }}"></div>
+    </div>
+  </div>
+
+  <section id="featured" data-reveal style="scroll-margin-top:128px;padding:clamp(37px,3.8vw,52px) clamp(20px,4vw,32px) 0;transition:opacity .6s ease,transform .6s ease;{{ secFeatured }}">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Featured film</span>
+        <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+      </div>
+
+      <div onMouseEnter="{{ featured.enter }}" onMouseLeave="{{ featured.leave }}" style="border-radius:12px;overflow:hidden;border:1px solid #E4E9ED;background:#0B1C2A;transition:transform .3s ease,box-shadow .3s ease;{{ featured.hov }}">
+        <div style="position:relative;width:100%;aspect-ratio:16/9;background:radial-gradient(120% 130% at 22% 18%,#1B4A72 0%,#0C2436 62%,#07121C 100%)">
+          <image-slot id="r-feat" shape="rect" placeholder="Featured film — 16:9 still or thumbnail"></image-slot>
+          <span style="position:absolute;top:18px;left:18px;z-index:2;pointer-events:none;display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(7,18,28,0.72);border:1px solid rgba(255,255,255,0.24);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#fff">
+            <span style="width:6px;height:6px;border-radius:50%;background:#4FB3A0;display:block"></span>Now showing
+          </span>
+          <span style="position:absolute;top:18px;right:18px;z-index:2;pointer-events:none;padding:6px 11px;border-radius:999px;background:rgba(7,18,28,0.72);font-family:'IBM Plex Mono',monospace;font-size:11px;color:#fff">{{ featured.dur }}</span>
+          <span style="position:absolute;top:50%;left:50%;margin:-41px 0 0 -41px;z-index:2;pointer-events:none;width:82px;height:82px;border-radius:50%;background:rgba(255,255,255,0.94);display:flex;align-items:center;justify-content:center;font-size:24px;color:#073B68;transition:transform .3s ease,box-shadow .3s ease;{{ featured.playHov }}">▶</span>
+        </div>
+        <div style="padding:clamp(24px,3vw,38px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 40px;background:linear-gradient(180deg,#0B1C2A 0%,#07121C 100%)">
+          <div style="max-width:660px;display:flex;flex-direction:column;gap:14px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#8FC6EF">{{ featured.kicker }}</span>
+            <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(26px,3.2vw,38px);line-height:1.14;letter-spacing:-0.015em;color:#fff;text-wrap:pretty">{{ featured.title }}</h2>
+            <p style="margin:0;font-size:14.5px;line-height:1.7;color:#C3D6E6;text-wrap:pretty">{{ featured.blurb }}</p>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-start;gap:12px">
+            <a href="{{ featured.href }}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:999px;background:#0B4C86;color:#fff;font-size:13.5px;font-weight:700" style-hover="background:#1160A6;color:#fff">▶ Watch now</a>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#8FC6EF">{{ featured.source }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos" data-reveal style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px);transition:opacity .6s ease,transform .6s ease;{{ secVideos }}">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Videos</span>
+        <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+      </div>
+      <h2 style="margin:20px 0 12px;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1.08;letter-spacing:-0.02em">Short walkthroughs</h2>
+      <p style="margin:0;max-width:560px;font-size:16px;line-height:1.7;color:#3C434A">Under ten minutes each — how the workflow actually runs.</p>
+
+      <div style="margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px">
+        <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
+          <div onMouseEnter="{{ v.enter }}" onMouseLeave="{{ v.leave }}" style="display:flex;flex-direction:column;background:#fff;border:1px solid #E4E9ED;border-radius:12px;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease,opacity .35s ease;{{ cardAnim }}{{ v.hov }}">
+            <div style="position:relative;width:100%;aspect-ratio:16/9;background:{{ v.grad }}">
+              <image-slot id="{{ v.slot }}" shape="rect" placeholder="{{ v.ph }}"></image-slot>
+              <span style="position:absolute;bottom:12px;right:12px;z-index:2;pointer-events:none;padding:5px 10px;border-radius:999px;background:rgba(7,18,28,0.72);font-family:'IBM Plex Mono',monospace;font-size:11px;color:#fff">{{ v.dur }}</span>
+              <span style="position:absolute;top:50%;left:50%;margin:-29px 0 0 -29px;z-index:2;pointer-events:none;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,0.94);display:flex;align-items:center;justify-content:center;font-size:17px;color:#073B68;transition:transform .3s ease,box-shadow .3s ease;{{ v.playHov }}">▶</span>
+            </div>
+            <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">{{ v.cat }}</span>
+              <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:21px;line-height:1.28;letter-spacing:-0.01em;text-wrap:pretty">{{ v.title }}</h3>
+              <p style="margin:0;font-size:13px;line-height:1.6;color:#3C434A;text-wrap:pretty">{{ v.blurb }}</p>
+              <div style="margin-top:auto;padding-top:18px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <span style="font-size:13px;color:#6E767D">{{ v.source }}</span>
+                <a href="{{ v.href }}" target="_blank" rel="noreferrer" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">Watch →</a>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="deep-dives" data-reveal style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px);background:#FAFBFC;border-top:1px solid #E4E9ED;border-bottom:1px solid #E4E9ED;transition:opacity .6s ease,transform .6s ease;{{ secDeep }}">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Deep dives</span>
+        <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+      </div>
+      <h2 style="margin:20px 0 12px;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1.08;letter-spacing:-0.02em">Feature-length sessions</h2>
+      <p style="margin:0;max-width:600px;font-size:16px;line-height:1.7;color:#3C434A">Full panels and conference recordings, unedited.</p>
+
+      <div style="margin-top:44px;display:flex;flex-direction:column;gap:28px">
+        <sc-for list="{{ deep }}" as="d" hint-placeholder-count="2">
+          <div onMouseEnter="{{ d.enter }}" onMouseLeave="{{ d.leave }}" style="display:grid;grid-template-columns:{{ d.cols }};background:#fff;border:1px solid #E4E9ED;border-radius:12px;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease,opacity .35s ease;{{ cardAnim }}{{ d.hov }}">
+            <div style="position:relative;min-width:0;width:100%;height:100%;min-height:clamp(220px,26vw,300px);background:{{ d.grad }}">
+              <image-slot id="{{ d.slot }}" shape="rect" placeholder="{{ d.ph }}"></image-slot>
+              <span style="position:absolute;top:14px;right:14px;z-index:2;pointer-events:none;padding:5px 10px;border-radius:999px;background:rgba(7,18,28,0.72);font-family:'IBM Plex Mono',monospace;font-size:11px;color:#fff">{{ d.dur }}</span>
+              <span style="position:absolute;top:50%;left:50%;margin:-33px 0 0 -33px;z-index:2;pointer-events:none;width:66px;height:66px;border-radius:50%;background:rgba(255,255,255,0.94);display:flex;align-items:center;justify-content:center;font-size:19px;color:#073B68;transition:transform .3s ease,box-shadow .3s ease;{{ d.playHov }}">▶</span>
+            </div>
+            <div style="min-width:0;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:14px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">{{ d.cat }}</span>
+              <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(23px,2.6vw,30px);line-height:1.2;letter-spacing:-0.015em;text-wrap:pretty">{{ d.title }}</h3>
+              <p style="margin:0;font-size:14.5px;line-height:1.7;color:#3C434A;text-wrap:pretty">{{ d.blurb }}</p>
+              <span style="font-size:13px;color:#6E767D">{{ d.source }}</span>
+              <div style="margin-top:auto;padding-top:22px;border-top:1px solid #E4E9ED;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px">
+                <div style="display:flex;flex-wrap:wrap;gap:8px">
+                  <sc-for list="{{ d.tags }}" as="tag" hint-placeholder-count="3">
+                    <span style="padding:6px 12px;border-radius:999px;background:#EDF3F9;font-size:12.5px;color:#0B4C86">{{ tag }}</span>
+                  </sc-for>
+                </div>
+                <a href="{{ d.href }}" target="_blank" rel="noreferrer" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86;white-space:nowrap">Watch · {{ d.dur }} →</a>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="media" data-reveal style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px);transition:opacity .6s ease,transform .6s ease;{{ secMedia }}">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Coverage</span>
+        <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+      </div>
+      <h2 style="margin:20px 0 12px;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1.08;letter-spacing:-0.02em">Where Genetico has been seen</h2>
+      <p style="margin:0;max-width:620px;font-size:16px;line-height:1.7;color:#3C434A">National media, clinical societies, and global policy forums — recorded, and open to watch.</p>
+
+      <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px">
+        <sc-for list="{{ outlets }}" as="o" hint-placeholder-count="6">
+          <span style="padding:9px 15px;border-radius:999px;border:1px solid #E4E9ED;background:#F6F9FA;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#3C434A">{{ o }}</span>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px">
+        <sc-for list="{{ media }}" as="m" hint-placeholder-count="4">
+          <div onMouseEnter="{{ m.enter }}" onMouseLeave="{{ m.leave }}" style="display:flex;flex-direction:column;background:#fff;border:1px solid #E4E9ED;border-radius:12px;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease,opacity .35s ease;{{ cardAnim }}{{ m.hov }}">
+            <div style="position:relative;width:100%;aspect-ratio:16/9;background:{{ m.grad }}">
+              <image-slot id="{{ m.slot }}" shape="rect" placeholder="{{ m.ph }}"></image-slot>
+              <span style="position:absolute;bottom:12px;right:12px;z-index:2;pointer-events:none;padding:5px 10px;border-radius:999px;background:rgba(7,18,28,0.72);font-family:'IBM Plex Mono',monospace;font-size:11px;color:#fff">{{ m.dur }}</span>
+              <span style="position:absolute;top:50%;left:50%;margin:-29px 0 0 -29px;z-index:2;pointer-events:none;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,0.94);display:flex;align-items:center;justify-content:center;font-size:17px;color:#073B68;transition:transform .3s ease,box-shadow .3s ease;{{ m.playHov }}">▶</span>
+            </div>
+            <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">{{ m.outlet }}</span>
+              <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:21px;line-height:1.28;letter-spacing:-0.01em;text-wrap:pretty">{{ m.title }}</h3>
+              <div style="margin-top:auto;padding-top:18px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <span style="font-size:13px;color:#6E767D">{{ m.meta }}</span>
+                <a href="{{ m.href }}" target="_blank" rel="noreferrer" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">Watch →</a>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="articles" data-reveal style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px);background:#FAFBFC;border-top:1px solid #E4E9ED;border-bottom:1px solid #E4E9ED;transition:opacity .6s ease,transform .6s ease;{{ secArticles }}">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Articles</span>
+        <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+      </div>
+      <h2 style="margin:20px 0 12px;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1.08;letter-spacing:-0.02em">Positions and commentary</h2>
+      <p style="margin:0;max-width:600px;font-size:16px;line-height:1.7;color:#3C434A">Where Indian rare disease policy and practice actually stand.</p>
+
+      <div style="margin-top:40px;border-top:1px solid #E4E9ED">
+        <sc-for list="{{ articles }}" as="a" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:{{ a.cols }};align-items:center;gap:10px 20px;padding:20px 0;border-bottom:1px solid #E4E9ED;transition:opacity .35s ease,transform .35s ease;{{ cardAnim }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#9AA6B1">{{ a.num }}</span>
+            <div style="position:relative;width:100%;max-width:112px;height:70px;border-radius:8px;overflow:hidden;background:{{ a.grad }}">
+              <image-slot id="{{ a.slot }}" shape="rect" placeholder="{{ a.ph }}"></image-slot>
+            </div>
+            <a href="{{ a.href }}" style="font-size:16px;line-height:1.5;color:#12161A;min-width:0;text-wrap:pretty" style-hover="color:#0B4C86">{{ a.title }}</a>
+            <span style="font-size:13px;color:#6E767D;white-space:nowrap">{{ a.meta }}</span>
+            <a href="{{ a.href }}" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">Read →</a>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="blogs" data-reveal style="scroll-margin-top:128px;padding:clamp(67px,7.0vw,96px) clamp(20px,4vw,32px) clamp(73px,7.6vw,104px);transition:opacity .6s ease,transform .6s ease;{{ secBlogs }}">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6E767D;flex:none">Blogs</span>
+        <span style="height:1px;flex:1;background:#E4E9ED;display:block"></span>
+      </div>
+      <div style="margin:20px 0 12px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:14px">
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1.08;letter-spacing:-0.02em">From the team</h2>
+        <a href="#blogs" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">See all →</a>
+      </div>
+      <p style="margin:0;max-width:600px;font-size:16px;line-height:1.7;color:#3C434A">Notes from the clinicians and engineers building the platform.</p>
+
+      <div style="margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px">
+        <sc-for list="{{ blogs }}" as="b" hint-placeholder-count="3">
+          <div onMouseEnter="{{ b.enter }}" onMouseLeave="{{ b.leave }}" style="display:flex;flex-direction:column;background:#fff;border:1px solid #E4E9ED;border-radius:12px;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease,opacity .35s ease;{{ cardAnim }}{{ b.hov }}">
+            <div style="position:relative;width:100%;aspect-ratio:16/9;background:{{ b.grad }}">
+              <image-slot id="{{ b.slot }}" shape="rect" placeholder="{{ b.ph }}"></image-slot>
+              <span style="position:absolute;top:14px;left:14px;z-index:2;pointer-events:none;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.92);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#12161A">{{ b.cat }}</span>
+            </div>
+            <div style="padding:22px 22px 24px;display:flex;flex-direction:column;gap:12px;flex:1">
+              <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:22px;line-height:1.26;letter-spacing:-0.01em;text-wrap:pretty">{{ b.title }}</h3>
+              <p style="margin:0;font-size:13px;line-height:1.65;color:#3C434A;text-wrap:pretty">{{ b.blurb }}</p>
+              <div style="margin-top:auto;padding-top:20px;border-top:1px solid #E4E9ED;display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <span style="font-size:13px;color:#6E767D">{{ b.meta }}</span>
+                <a href="{{ b.href }}" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#0B4C86">Read →</a>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="subscribe" style="scroll-margin-top:128px;padding:clamp(73px,7.6vw,104px) clamp(20px,4vw,32px);background:#F6F9FA;border-top:1px solid #E4E9ED">
+    <div style="max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#0B4C86">Stay updated</span>
+      <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-0.02em">New clinical insights, monthly</h2>
+      <p style="margin:0;max-width:520px;font-size:16px;line-height:1.7;color:#3C434A">Research updates, product developments, and rare disease policy — sent once a month, no more.</p>
+      <a href="https://calendly.com/priyanshu-vats-genetico/30min" target="_blank" rel="noreferrer" style="margin-top:10px;padding:14px 30px;border-radius:999px;background:#073B68;color:#fff;font-size:14px;font-weight:700" style-hover="background:#0B4C86;color:#fff">Subscribe to updates</a>
+    </div>
+  </section>
+
+  <footer style="position:relative;overflow:hidden;background:radial-gradient(140% 120% at 0% 0%,#042743 0%,#0A4577 45%,#0F5FA3 100%);color:#fff;padding:clamp(52px,5.3vw,72px) clamp(20px,4vw,32px) 0">
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:48px 40px">
+        <div style="display:flex;flex-direction:column;gap:36px">
+          <p style="margin:0;font-size:15.5px;line-height:2;color:#DCE9F4;max-width:420px">IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format &amp; enables AI-assisted clinical decision-making for rare and genetic disorders.</p>
+          <div style="display:flex;gap:14px">
+            <a href="https://x.com/genetico_in" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.12);color:#fff">X</a>
+            <a href="https://www.linkedin.com/company/genetico-in/" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.12);color:#fff">in</a>
+            <a href="https://youtube.com/@geneticord" target="_blank" rel="noreferrer" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.32);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff" style-hover="background:rgba(255,255,255,0.12);color:#fff">▶</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <h3 style="margin:0 0 4px;font-size:25px;font-weight:500;letter-spacing:-0.01em;color:#fff">Menu</h3>
+          <a href="https://www.genetico.in/" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Home</a>
+          <a href="About%20Us.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">About</a>
+          <a href="Platform.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">How it Works</a>
+          <a href="Life%20Science.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">For Business</a>
+          <a href="https://www.genetico.in/#faqs" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">FAQs</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <h3 style="margin:0 0 4px;font-size:25px;font-weight:500;letter-spacing:-0.01em;color:#fff">Solutions</h3>
+          <a href="Hospital.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Hospital / Clinician / CoE</a>
+          <a href="Life%20Science.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Life Science / Biotech organisation</a>
+          <a href="Public%20Health.dc.html" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Public health</a>
+          <a href="https://calendly.com/priyanshu-vats-genetico/30min" target="_blank" rel="noreferrer" style="font-size:15.5px;color:#CFE0EE" style-hover="color:#fff">Contact Us</a>
+        </div>
+      </div>
+
+      <div style="margin-top:56px;padding-top:26px;border-top:1px solid rgba(255,255,255,0.20);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center">
+        <span style="font-size:15px;color:#B9CFE2">Genetico. All rights reserved.</span>
+        <a href="#privacy" style="font-size:15px;color:#B9CFE2" style-hover="color:#fff">Privacy Policy</a>
+      </div>
+
+      <div style="margin-top:34px;height:clamp(90px,13vw,190px);max-height:190px;overflow:hidden;container-type:inline-size;display:flex;align-items:flex-start;justify-content:center">
+        <span style="font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:18cqw;line-height:0.78;letter-spacing:-0.01em;white-space:nowrap;background:linear-gradient(180deg,rgba(255,255,255,0.52) 0%,rgba(255,255,255,0.30) 55%,rgba(255,255,255,0.10) 100%);-webkit-background-clip:text;background-clip:text;color:transparent">GENETICO</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const YT = "https://youtube.com/@geneticord";
+
+const G = {
+  blue: "radial-gradient(120% 130% at 28% 22%,#1B4A72 0%,#0C2436 62%,#07121C 100%)",
+  green: "radial-gradient(120% 130% at 30% 26%,#1E4A40 0%,#0F2A25 60%,#081815 100%)",
+  amber: "radial-gradient(120% 130% at 30% 24%,#6B4A22 0%,#39240F 60%,#1C1108 100%)",
+  slate: "radial-gradient(120% 130% at 30% 24%,#2A4560 0%,#13202C 62%,#0A121A 100%)"
+};
+
+const FEATURED = {
+  kicker: "Case study · AIIMS Delhi · Documentary",
+  title: "How AIIMS Delhi reduced rare disease diagnosis time from 3 weeks to 4 days",
+  blurb: "A documentary-style look at how structured genomic workflows and cross-department collaboration transformed rare disease diagnosis at one of India's largest referral hospitals.",
+  dur: "28:34",
+  source: "Amar Ujala Exclusive · The Startup Show",
+  href: YT
+};
+
+const OUTLETS = ["Amar Ujala", "The Startup Show", "ISHG", "SIAMG", "Global Rare Disease Summit", "Startup Mahakumbh"];
+
+const VIDEOS = [
+  ["Research", "AI Variant Calling: A 5-Minute Clinical Walkthrough", "How AI-assisted variant calling supports faster, more consistent interpretation in clinical genomic workflows.", "4:32", "Genetico studio", G.green, "Screen-recording still — 16:9"],
+  ["Clinical", "From Sample to Report: Streamlining Rare Disease Workflows", "Integrated sample tracking, analysis, and reporting reduce handoffs across multidisciplinary rare disease teams.", "6:18", "Rare Diseases Ecosystem Play", G.blue, "Lab or workflow still — 16:9"],
+  ["Platform", "Genetico Platform Overview for Diagnostic Labs", "The core modules labs use to manage cases, collaborate on interpretation, and deliver actionable reports.", "8:05", "SIAMG 2023 · Pune", G.slate, "Product walkthrough still — 16:9"]
+];
+
+const DEEP = [
+  ["Event", "Building National Genomics Infrastructure: Summit Panel Discussion", "Keynote and Q&A on policy frameworks, technology stack, and cross-institutional data sharing for LMICs.", "1:12:08", "Global Rare Disease Summit · Geneva", G.amber, ["Policy", "Infrastructure", "LMIC"], "Panel stage photo — landscape"],
+  ["Research", "Rare Disease Care in India: Conversation with Leading Geneticists", "Panel discussion on rare disease burden, registry development, and AI-assisted clinical tools across five Indian states.", "45:22", "ISHG Annual Conference", G.green, ["Genetics", "Registry", "AI"], "Conference photo — landscape"]
+];
+
+const MEDIA = [
+  ["Amar Ujala", "Rare disease diagnosis and the role of AI in Indian hospitals", "National television", "28:34", G.blue, "Broadcast still — 16:9"],
+  ["Global Rare Disease Summit", "Building national genomics infrastructure — panel discussion", "Geneva", "1:12:08", G.amber, "Summit photo — 16:9"],
+  ["ISHG Annual Conference", "Rare disease care in India: conversation with leading geneticists", "Panel recording", "45:22", G.green, "Panel photo — 16:9"],
+  ["SIAMG 2023, Pune", "Genomics EMR: the next frontier in healthcare", "Dr. Shubha Phadke", "8:05", G.slate, "Talk still — 16:9"]
+];
+
+const ARTICLES = [
+  ["Don't Bring a Knife to a Gun Fight", "Opinion · 4 min", G.slate, "Article image"],
+  ["India Had a Policy — The World Just Passed a Resolution. What Now, WHO?", "Policy · 6 min", G.amber, "Article image"],
+  ["Rare Disease Day India: 7 Reasons to Rejoice", "Commentary · 5 min", G.green, "Article image"],
+  ["Rare Disease in India: A New Approach to Old Problems", "Perspective · 7 min", G.blue, "Article image"]
+];
+
+const BLOGS = [
+  ["Clinical", "How structured genomic data is reshaping rare disease diagnosis in India", "Fragmented records and inconsistent capture slow rare disease diagnosis. Structured genomic workflows are helping referral centres move from suspicion to actionable answers.", "Arihant Mehra · June 12, 2026 · 6 min", G.blue, "Cover image — 16:9"],
+  ["Policy", "Building national registries: lessons from India's rare disease policy", "India's national rare disease framework created momentum. The next challenge is turning policy intent into registries clinicians and public health teams can actually use.", "Arjun Gupta · May 28, 2026 · 5 min", G.amber, "Cover image — 16:9"],
+  ["Research", "AI-assisted variant interpretation: what clinicians need to know", "AI tools can accelerate variant triage, but clinical teams still need transparency, override paths, and workflow fit. A practical framing for diagnostic labs.", "Dr. Shubha Phadke · May 14, 2026 · 4 min", G.green, "Cover image — 16:9"]
+];
+
+const TABS = [
+  ["All", ["featured", "videos", "deep-dives", "media", "articles", "blogs"], 17],
+  ["Videos", ["featured", "videos"], 4],
+  ["Deep Dives", ["deep-dives"], 2],
+  ["In the Media", ["media"], 4],
+  ["Articles", ["articles"], 4],
+  ["Blogs", ["blogs"], 3]
+];
+
+const SECTIONS = [
+  ["videos", "Videos", "02"],
+  ["deep-dives", "Deep Dives", "03"],
+  ["media", "Coverage", "04"],
+  ["articles", "Articles", "05"],
+  ["blogs", "Blogs", "06"]
+];
+
+const IDS = ["featured", "videos", "deep-dives", "media", "articles", "blogs"];
+
+class Component extends DCLogic {
+  state = { tab: 0, hover: "", anim: true, progress: 0, revealed: {}, solutionsOpen: false, resOpen: false, narrow: false, menuOpen: false };
+
+  componentDidMount() {
+    this.rm = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    this.onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+      let add = null;
+      IDS.forEach(id => {
+        if (this.state.revealed[id]) return;
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.9) {
+          add = add || {};
+          add[id] = true;
+        }
+      });
+      const next = {};
+      if (Math.abs(progress - this.state.progress) > 0.4) next.progress = progress;
+      if (add) next.revealed = Object.assign({}, this.state.revealed, add);
+      if (Object.keys(next).length) this.setState(next);
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+
+    this.onResize = () => {
+      const narrow = window.innerWidth < 880;
+      if (narrow !== this.state.narrow) this.setState({ narrow, menuOpen: false });
+    };
+    window.addEventListener("resize", this.onResize);
+
+    if (typeof IntersectionObserver === "function") {
+      this.io = new IntersectionObserver((entries) => {
+        let add = null;
+        entries.forEach(e => {
+          if (e.isIntersecting && !this.state.revealed[e.target.id]) {
+            add = add || {};
+            add[e.target.id] = true;
+          }
+        });
+        if (add) this.setState(s => ({ revealed: Object.assign({}, s.revealed, add) }));
+      }, { rootMargin: "0px 0px -12% 0px", threshold: 0.05 });
+      IDS.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) this.io.observe(el);
+      });
+    } else {
+      const all = {};
+      IDS.forEach(id => { all[id] = true; });
+      this.setState({ revealed: all });
+    }
+
+    this.onScroll();
+    this.onResize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("resize", this.onResize);
+    if (this.io) this.io.disconnect();
+    clearTimeout(this.animTimer);
+  }
+
+  pick(i) {
+    if (i === this.state.tab) return;
+    if (this.rm) { this.setState({ tab: i }); return; }
+    this.setState({ tab: i, anim: false });
+    clearTimeout(this.animTimer);
+    this.animTimer = setTimeout(() => this.setState({ anim: true }), 40);
+  }
+
+  jump(id, e) {
+    if (e) e.preventDefault();
+    this.setState({ resOpen: false, menuOpen: false, tab: 0 });
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 128;
+    window.scrollTo({ top, behavior: this.rm ? "auto" : "smooth" });
+  }
+
+  sec(id) {
+    if (TABS[this.state.tab][1].indexOf(id) < 0) return "display:none";
+    return "";
+  }
+
+  hoverProps(key) {
+    const on = this.state.hover === key;
+    return {
+      hov: this.rm || !on ? "" : "transform:translateY(-4px);box-shadow:0 16px 38px rgba(7,59,104,0.14);border-color:#C3D2DC",
+      playHov: this.rm || !on ? "" : "transform:scale(1.12);box-shadow:0 0 0 10px rgba(255,255,255,0.18)",
+      enter: () => this.setState({ hover: key }),
+      leave: () => this.setState({ hover: "" })
+    };
+  }
+
+  renderVals() {
+    const n = this.state.narrow;
+    const tab = this.state.tab;
+    const cardAnim = "opacity:1;";
+
+    return {
+      narrow: n,
+      menuOpen: this.state.menuOpen,
+      menuIcon: this.state.menuOpen ? "\u00d7" : "\u2261",
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      navStyle: n ? "display:none" : "display:flex;align-items:center;gap:30px;margin:0 auto",
+      ctaStyle: n ? "display:none" : "flex:none;padding:11px 22px;border-radius:999px;background:#073B68;color:#fff;font-size:14px;font-weight:700",
+      solutionsOpen: this.state.solutionsOpen,
+      openSolutions: () => this.setState({ solutionsOpen: true }),
+      closeSolutions: () => this.setState({ solutionsOpen: false }),
+      resOpen: this.state.resOpen,
+      openRes: () => this.setState({ resOpen: true }),
+      closeRes: () => this.setState({ resOpen: false }),
+
+      totalLabel: "17 resources · 10 on video",
+      progressStyle: "height:2px;background:#0B4C86;width:" + this.state.progress.toFixed(1) + "%",
+      cardAnim,
+
+      secFeatured: this.sec("featured"),
+      secVideos: this.sec("videos"),
+      secDeep: this.sec("deep-dives"),
+      secMedia: this.sec("media"),
+      secArticles: this.sec("articles"),
+      secBlogs: this.sec("blogs"),
+
+      sections: SECTIONS.map(([id, label, num]) => ({
+        id, label, num, href: "#" + id, go: (e) => this.jump(id, e)
+      })),
+
+      tabs: TABS.map(([label, ids, count], i) => ({
+        label,
+        count: String(count),
+        select: () => this.pick(i),
+        style: "flex:none;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-size:13.5px;white-space:nowrap;border:0;cursor:pointer;font-family:inherit;transition:background .2s ease,color .2s ease;" +
+          (i === tab ? "background:#EDF3F9;color:#073B68;font-weight:700" : "background:transparent;color:#6E767D;font-weight:400")
+      })),
+
+      featured: Object.assign({}, FEATURED, this.hoverProps("f")),
+
+      outlets: OUTLETS,
+
+      videos: VIDEOS.map(([cat, title, blurb, dur, source, grad, ph], i) =>
+        Object.assign({ cat, title, blurb, dur, source, grad, ph, href: YT, slot: "r-vid-" + i }, this.hoverProps("v" + i))),
+
+      deep: DEEP.map(([cat, title, blurb, dur, source, grad, tags, ph], i) =>
+        Object.assign({
+          cat, title, blurb, dur, source, grad, tags, ph, href: YT, slot: "r-deep-" + i,
+          cols: n ? "1fr" : "minmax(0,0.9fr) minmax(0,1.1fr)"
+        }, this.hoverProps("d" + i))),
+
+      media: MEDIA.map(([outlet, title, meta, dur, grad, ph], i) =>
+        Object.assign({ outlet, title, meta, dur, grad, ph, href: YT, slot: "r-media-" + i }, this.hoverProps("m" + i))),
+
+      articles: ARTICLES.map(([title, meta, grad, ph], i) => ({
+        title, meta, grad, ph,
+        num: String(i + 1).padStart(2, "0"),
+        href: "#articles",
+        slot: "r-art-" + i,
+        cols: n ? "auto minmax(64px,84px) minmax(0,1fr)" : "40px 112px minmax(0,1fr) auto 84px"
+      })),
+
+      blogs: BLOGS.map(([cat, title, blurb, meta, grad, ph], i) =>
+        Object.assign({ cat, title, blurb, meta, grad, ph, href: "#blogs", slot: "r-blog-" + i }, this.hoverProps("b" + i)))
+    };
+  }
+}
+
+</script>
+</body>
+</html>

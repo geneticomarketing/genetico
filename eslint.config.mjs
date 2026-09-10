@@ -16,6 +16,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Design handoff: reference prototypes authored in another tool, kept
+    // byte-identical to what the designer shipped. Not project source.
+    "design_handoff_genetico_site/**",
   ]),
 ]);
 
