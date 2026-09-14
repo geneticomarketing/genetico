@@ -76,6 +76,14 @@ export const PublicHealthThreeTier = pageSection(
       fields: [
         { name: "bannerLabel", type: "text", required: true, label: "Tier name" },
         {
+          name: "levelLabel",
+          type: "text",
+          label: "Level line",
+          admin: {
+            description: "Shown on the right of the dark banner, e.g. “Tertiary level · Class C”.",
+          },
+        },
+        {
           name: "happens",
           type: "array",
           label: "What happens here",

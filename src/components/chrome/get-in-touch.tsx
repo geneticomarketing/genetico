@@ -104,18 +104,52 @@ export function GetInTouch({
   section,
   num,
   content,
+  variant = "home",
+  organisationLabel = "Organisation",
+  organisationPlaceholder = "Name of organisation",
+  emailPlaceholder = "janedoe@email.com",
+  roleOrder,
 }: {
   section: HomeSectionMeta;
   num: string;
   content: HomeContactContent;
+  /**
+   * `panel` is the solution pages' treatment: the audience picker runs along
+   * the top edge of the card as underlined tabs, the two intro buttons are
+   * dropped, and the submit sits beside the small print rather than under it.
+   * The form itself — fields, endpoint, wording — is the same either way.
+   */
+  variant?: "home" | "panel";
+  /** These pages ask for an institution rather than an organisation. */
+  organisationLabel?: string;
+  organisationPlaceholder?: string;
+  emailPlaceholder?: string;
+  /**
+   * Audience labels to lead with, in order. Each page opens on the audience
+   * it is written for — a public health officer should not have to reach past
+   * the clinician tab. Labels that do not match a configured role are
+   * ignored, and anything unlisted keeps its stored order behind them, so
+   * renaming a role in the CMS reorders the tabs rather than dropping any.
+   */
+  roleOrder?: string[];
 }) {
+  const panel = variant === "panel";
   const settings = useSiteData()?.settings;
-  const roles = settings?.contactRoles?.length
+  const stored = settings?.contactRoles?.length
     ? settings.contactRoles.map((role) => ({
         label: role.label,
         description: role.description ?? "",
       }))
     : FALLBACK_ROLES;
+
+  const roles = roleOrder?.length
+    ? [
+        ...roleOrder
+          .map((label) => stored.find((role) => role.label === label))
+          .filter((role): role is (typeof stored)[number] => Boolean(role)),
+        ...stored.filter((role) => !roleOrder.includes(role.label)),
+      ]
+    : stored;
 
   const wording = settings?.contactForm;
   const submitLabel = wording?.submitLabel ?? "Talk to our team";
@@ -185,7 +219,7 @@ export function GetInTouch({
         <p className="text-ink-body m-0 max-w-[620px] text-[14.5px] leading-[1.7]">
           {content.description}
         </p>
-        <div className="flex flex-wrap justify-center gap-3.5">
+        <div className={`flex-wrap justify-center gap-3.5 ${panel ? "hidden" : "flex"}`}>
           <a
             href={content.primaryCta.href}
             target="_blank"
@@ -212,10 +246,20 @@ export function GetInTouch({
           the redesign is only part way through. */}
       <div
         id="lead-form"
-        className="border-rule shadow-panel mx-auto mt-11 max-w-[700px] scroll-mt-32 rounded-2xl border bg-white px-[30px] pt-[26px] pb-[30px]"
+        className={`border-rule mx-auto mt-11 scroll-mt-32 border bg-white ${
+          panel
+            ? "shadow-card max-w-[840px] overflow-hidden rounded-[12px]"
+            : "shadow-panel max-w-[700px] rounded-2xl px-[30px] pt-[26px] pb-[30px]"
+        }`}
       >
         {status === "sent" ? (
-          <div className="flex flex-col items-center gap-3.5 px-2 pt-[38px] pb-[34px] text-center">
+          <div
+            className={`flex flex-col gap-3.5 ${
+              panel
+                ? "m-[clamp(24px,3vw,36px)] rounded-[12px] border border-[#DCE6EF] bg-[#F6F9FA] p-[30px]"
+                : "items-center px-2 pt-[38px] pb-[34px] text-center"
+            }`}
+          >
             <span
               aria-hidden
               className="bg-teal-tint text-teal-deep flex h-11 w-11 items-center justify-center rounded-full text-[19px]"
@@ -235,16 +279,26 @@ export function GetInTouch({
                 with the enquiry, so they are radios: arrow-key navigation and
                 the focus ring come for free, and the value is part of the
                 form rather than state beside it. */}
-            <fieldset className="m-0 border-0 p-0">
+            <fieldset
+              className={`m-0 border-0 p-0 ${panel ? "border-rule border-b px-[22px] pt-[18px]" : ""}`}
+            >
               <legend className="sr-only">Who is getting in touch</legend>
               <div className="flex flex-wrap gap-1.5">
                 {roles.map((role, i) => (
                   <label
                     key={role.label}
-                    className={`hover:bg-primary-tint has-focus-visible:outline-primary cursor-pointer rounded-full px-4 py-[9px] text-[13.5px] transition-colors has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-disabled:cursor-not-allowed has-disabled:opacity-60 ${
-                      active === i
-                        ? "bg-primary-tint text-primary font-bold"
-                        : "text-ink-body font-normal"
+                    className={`has-focus-visible:outline-primary cursor-pointer text-[13.5px] transition-colors has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-disabled:cursor-not-allowed has-disabled:opacity-60 ${
+                      panel
+                        ? `border-b-2 px-4 py-[11px] ${
+                            active === i
+                              ? "border-primary text-primary font-bold"
+                              : "text-ink-soft border-transparent font-normal"
+                          }`
+                        : `hover:bg-primary-tint rounded-full px-4 py-[9px] ${
+                            active === i
+                              ? "bg-primary-tint text-primary font-bold"
+                              : "text-ink-body font-normal"
+                          }`
                     }`}
                   >
                     <input
@@ -262,89 +316,111 @@ export function GetInTouch({
               </div>
             </fieldset>
 
-            <div className="bg-rule my-[18px] h-px" />
-            <p className="text-primary m-0 mb-6 text-[14.5px] leading-[1.6]">
-              {roles[active]?.description}
-            </p>
+            {panel ? null : <div className="bg-rule my-[18px] h-px" />}
 
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-x-5 gap-y-4">
-              <Field
-                label="First name"
-                name="firstName"
-                placeholder="First name"
-                required
-                value={form.firstName}
-                disabled={submitting}
-                onChange={updateField}
-              />
-              <Field
-                label="Last name"
-                name="lastName"
-                placeholder="Last name"
-                required
-                value={form.lastName}
-                disabled={submitting}
-                onChange={updateField}
-              />
-              <Field
-                label="Work email"
-                name="email"
-                type="email"
-                placeholder="janedoe@email.com"
-                required
-                value={form.email}
-                disabled={submitting}
-                onChange={updateField}
-              />
-              <Field
-                label="Phone number"
-                name="phone"
-                type="tel"
-                placeholder="+91 98765 43210"
-                value={form.phone ?? ""}
-                disabled={submitting}
-                onChange={updateField}
-              />
-              <Field
-                label="Organisation"
-                name="organisation"
-                placeholder="Name of organisation"
-                value={form.organisation ?? ""}
-                span
-                disabled={submitting}
-                onChange={updateField}
-              />
-              <label className="col-span-full flex flex-col gap-2">
-                <span className="text-ink text-[13.5px] font-medium">How can we help?</span>
-                <textarea
-                  name="message"
-                  rows={4}
-                  placeholder="Tell us a little about what you're looking for."
-                  value={form.message ?? ""}
-                  disabled={submitting}
-                  onChange={(e) => updateField("message", e.target.value)}
-                  className="border-rule text-ink focus:border-primary resize-y rounded-[10px] border bg-white px-3.5 py-3 text-[14.5px] outline-none"
-                />
-              </label>
-            </div>
-
-            {status === "error" ? (
-              <p role="alert" className="mt-4 mb-0 text-center text-[13px] text-[#B01616]">
-                {error}
+            <div className={panel ? "p-[clamp(24px,3vw,36px)]" : ""}>
+              <p
+                className={`text-primary m-0 text-[14.5px] leading-[1.6] ${panel ? "mb-[26px]" : "mb-6"}`}
+              >
+                {roles[active]?.description}
               </p>
-            ) : null}
 
-            <p className="text-ink-soft mt-5 mb-0 text-center text-xs leading-[1.55]">
-              {privacyNote}
-            </p>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-x-5 gap-y-4">
+                <Field
+                  label="First name"
+                  name="firstName"
+                  placeholder="First name"
+                  required
+                  value={form.firstName}
+                  disabled={submitting}
+                  onChange={updateField}
+                />
+                <Field
+                  label="Last name"
+                  name="lastName"
+                  placeholder="Last name"
+                  required
+                  value={form.lastName}
+                  disabled={submitting}
+                  onChange={updateField}
+                />
+                <Field
+                  label="Work email"
+                  name="email"
+                  type="email"
+                  placeholder={emailPlaceholder}
+                  required
+                  value={form.email}
+                  disabled={submitting}
+                  onChange={updateField}
+                />
+                <Field
+                  label="Phone number"
+                  name="phone"
+                  type="tel"
+                  placeholder="+91 98765 43210"
+                  value={form.phone ?? ""}
+                  disabled={submitting}
+                  onChange={updateField}
+                />
+                <Field
+                  label={organisationLabel}
+                  name="organisation"
+                  placeholder={organisationPlaceholder}
+                  value={form.organisation ?? ""}
+                  span
+                  disabled={submitting}
+                  onChange={updateField}
+                />
+                <label className="col-span-full flex flex-col gap-2">
+                  <span className="text-ink text-[13.5px] font-medium">How can we help?</span>
+                  <textarea
+                    name="message"
+                    rows={4}
+                    placeholder="Tell us a little about what you're looking for."
+                    value={form.message ?? ""}
+                    disabled={submitting}
+                    onChange={(e) => updateField("message", e.target.value)}
+                    className="border-rule text-ink focus:border-primary resize-y rounded-[10px] border bg-white px-3.5 py-3 text-[14.5px] outline-none"
+                  />
+                </label>
+              </div>
 
-            <button
-              type="submit"
-              disabled={submitting}
-              className="bg-primary-deep hover:bg-primary mt-[18px] w-full cursor-pointer rounded-full py-3.5 text-[14.5px] font-bold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              {submitting ? "Sending…" : submitLabel}
-            </button>
+              {status === "error" ? (
+                <p
+                  role="alert"
+                  className={`mt-4 mb-0 text-[13px] text-[#B01616] ${panel ? "" : "text-center"}`}
+                >
+                  {error}
+                </p>
+              ) : null}
+
+              {/* On the panel the small print sits beside the button; on the
+                  home page it runs under a full-width one. */}
+              <div
+                className={
+                  panel ? "mt-5 flex flex-wrap items-center justify-between gap-4" : "flex flex-col"
+                }
+              >
+                <p
+                  className={`text-ink-soft m-0 leading-[1.55] ${
+                    panel ? "max-w-[420px] text-[13px]" : "mt-5 text-center text-xs"
+                  }`}
+                >
+                  {privacyNote}
+                </p>
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className={`bg-primary-deep hover:bg-primary cursor-pointer rounded-full font-bold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-70 ${
+                    panel ? "px-[30px] py-3.5 text-sm" : "mt-[18px] w-full py-3.5 text-[14.5px]"
+                  }`}
+                >
+                  {submitting ? "Sending…" : submitLabel}
+                </button>
+              </div>
+            </div>
           </form>
         )}
       </div>

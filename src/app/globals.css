@@ -694,3 +694,26 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* The Public Health hub-and-spoke diagram: dashes travel along the spokes and
+   a ring breathes out from the national hub. */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
