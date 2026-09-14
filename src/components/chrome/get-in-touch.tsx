@@ -90,7 +90,8 @@ function Field({
 }
 
 /**
- * Section 06 — the closing call to action and the contact form.
+ * The closing call to action and enquiry form, shared by every redesigned
+ * page — the handoff carries it identically on all seven.
  *
  * The four audience tabs and every string in the form come from the
  * site-settings global, which already held exactly these four roles with

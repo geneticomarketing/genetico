@@ -20,9 +20,16 @@ const ACTIVE_LINE_PX = 190;
 export function SectionRail({
   sections,
   pageLabel = "Genetico",
+  revealAfter,
 }: {
   sections: NumberedSection[];
   pageLabel?: string;
+  /**
+   * Element to clear before the rail appears. A page with a full-height hero
+   * passes its hero's id, so the rail arrives as the hero leaves rather than
+   * sliding in over it. Without one, a fixed scroll distance is used.
+   */
+  revealAfter?: string;
 }) {
   const [visible, setVisible] = useState(false);
   const [active, setActive] = useState("");
@@ -45,7 +52,10 @@ export function SectionRail({
 
       const max = document.documentElement.scrollHeight - window.innerHeight;
 
-      setVisible(y > RAIL_AFTER_PX);
+      const gate = revealAfter ? document.getElementById(revealAfter) : null;
+      const threshold = gate ? gate.offsetHeight - 120 : RAIL_AFTER_PX;
+
+      setVisible(y > threshold);
       setActive(current);
       setProgress(max > 0 ? Math.min(100, Math.max(0, (y / max) * 100)) : 0);
     };
@@ -62,7 +72,7 @@ export function SectionRail({
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, [sections]);
+  }, [sections, revealAfter]);
 
   return (
     <div

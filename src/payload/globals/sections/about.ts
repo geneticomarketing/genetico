@@ -31,7 +31,28 @@ export const AboutHero = pageSection(
         description: "The end of the second line, shown in blue. Example: Rare Disease Care",
       },
     },
+    {
+      name: "rotatingWords",
+      type: "array",
+      label: "Rotating words at the end of the headline",
+      labels: { singular: "Word", plural: "Words" },
+      admin: {
+        description:
+          "Each takes the place of the highlighted words above in turn, about every three seconds. Leave empty to keep the highlighted words fixed.",
+      },
+      fields: [{ name: "word", type: "text", required: true, label: "Word" }],
+    },
     { name: "subtitle", type: "textarea", label: "Paragraph below the headline" },
+    {
+      name: "teamCardText",
+      type: "textarea",
+      label: "Sentence in the team card",
+      admin: {
+        description:
+          "Sits under the row of faces below the headline, above the link down to the leadership section.",
+      },
+    },
+    { name: "teamCardLinkLabel", type: "text", label: "Link text in the team card" },
     { name: "ctaLabel", type: "text", label: "Button text" },
     {
       name: "ctaHref",
@@ -106,7 +127,7 @@ export const AboutGrants = pageSection(
 
 export const AboutCta = pageSection(
   "about-cta",
-  "7. Closing call to action",
+  "7. Get in touch",
   "The last band on the About page, above the footer. (Section 6 — the partner logos and Security & Trust panel — is shared with the home page and is edited under “Home page”.)",
   [
     { name: "heading", type: "text", label: "Heading" },

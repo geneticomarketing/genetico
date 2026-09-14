@@ -56,6 +56,15 @@ The wording _around_ the featured card — the “Now showing” label, the smal
 the before-and-after figures and the link text — is under **Home page → 4. Proof**. Leave the two
 figures empty to hide them.
 
+### The two rows on the About page
+
+**Leadership** is split into “Team” and “Advisors & mentors”. Each person carries a **“Which row on
+the About page”** dropdown in the sidebar — change it there, not by reordering the list.
+
+**Partner logos** work the same way: hospitals, universities and research bodies belong in the top
+row, funders and incubators in the quieter row beneath. A row with nothing in it is not shown at
+all, so the top row only appears once something is put in it.
+
 ### The Resources page's filter tabs
 
 The row of tabs under the heading is **not edited**. The page builds one tab per section that has

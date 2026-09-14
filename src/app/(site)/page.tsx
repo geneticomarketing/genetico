@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
+import { GetInTouch } from "@/components/chrome/get-in-touch";
 import { numberSections } from "@/components/chrome/page-sections";
 import { SectionRail } from "@/components/chrome/section-rail";
 import { SiteFooter } from "@/components/chrome/site-footer";
 import { SiteHeader } from "@/components/chrome/site-header";
 import { AudienceDoors } from "@/components/home/audience-doors";
 import { Faqs } from "@/components/home/faqs";
-import { GetInTouch } from "@/components/home/get-in-touch";
 import { Hero } from "@/components/home/hero";
 import { PlatformGlance } from "@/components/home/platform-glance";
 import { Proof } from "@/components/home/proof";
