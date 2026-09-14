@@ -22,6 +22,8 @@ const REDESIGNED_ROUTES = new Set<string>([
   "/about-us",
   "/platform",
   "/public-health",
+  "/life-science",
+  "/hospital",
 ]);
 
 export function AppChrome({

@@ -76,6 +76,14 @@ export async function getAllBlogSlugs(): Promise<string[]> {
   return posts.map((p) => p.slug);
 }
 
+/**
+ * The pre-redesign readers.
+ *
+ * `mapBurdenCards` and `mapOutcomeMetrics` feed the old solution-page layout,
+ * which is still what deploys until the rebuilt pages ship. The fields they
+ * read are no longer required in the CMS — they are on their way out — so
+ * anything missing falls back rather than failing the build.
+ */
 function mapBurdenCards(
   cards: NonNullable<SolutionPage["clinicalBurden"]>["cards"] | null | undefined,
 ): SolutionsContent["clinicalBurden"]["cards"] {
@@ -91,7 +99,7 @@ function mapBurdenCards(
         id: card.cardId || slugifyId(card.label, `card-${index + 1}`),
         number: card.number || String(index + 1).padStart(2, "0"),
         label: card.label,
-        badge: card.badge,
+        badge: card.badge ?? "",
         badgeDot: theme.badgeDot,
         badgeBg: theme.badgeBg,
         badgeText: theme.badgeText,
@@ -114,15 +122,15 @@ function mapOutcomeMetrics(
 
       return {
         id: metric.metricId || slugifyId(metric.label, `metric-${index + 1}`),
-        maxPercent: metric.maxPercent,
+        maxPercent: metric.maxPercent ?? 0,
         label: metric.label,
         ringTrack: theme.ringTrack,
         ringFill: theme.ringFill,
         accent: theme.accent,
-        fromText: metric.fromText,
-        toText: metric.toText,
+        fromText: metric.fromText ?? "",
+        toText: metric.toText ?? "",
         negative: metric.negative ?? undefined,
-        positive: metric.positive,
+        positive: metric.positive ?? "",
         positiveIconBg: theme.positiveIconBg,
         centerValue: metric.centerValue ?? undefined,
         hideCenterSubLabel: metric.hideCenterSubLabel ?? undefined,
