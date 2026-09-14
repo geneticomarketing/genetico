@@ -2071,6 +2071,10 @@ export interface PublicHealthThreeTier {
   tiers?:
     | {
         bannerLabel: string;
+        /**
+         * Shown on the right of the dark banner, e.g. “Tertiary level · Class C”.
+         */
+        levelLabel?: string | null;
         happens?:
           | {
               item: string;
@@ -3030,6 +3034,7 @@ export interface PublicHealthThreeTierSelect<T extends boolean = true> {
     | T
     | {
         bannerLabel?: T;
+        levelLabel?: T;
         happens?:
           | T
           | {

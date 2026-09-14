@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { scrollToSection, type NumberedSection } from "@/components/chrome/page-sections";
@@ -34,12 +35,22 @@ export function SiteHeader({
   const [menuOpen, setMenuOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const solutionsRef = useRef<HTMLDivElement | null>(null);
+  const pathname = usePathname();
 
   // Over a dark hero, everything inverts until the bar turns solid.
   const onDark = tone === "dark" && !scrolled;
 
   const mainNav = navigation.mainNav ?? [];
   const solutionsNav = navigation.solutionsNav ?? [];
+
+  /* The nav marks where you are. A read-only derivation of the pathname, so
+     it costs no state and cannot cascade a render. The Solutions item lights
+     up on any of the three pages behind it. */
+  const isCurrent = (item: { href?: string | null; type?: string | null }) =>
+    item.type === "dropdown"
+      ? solutionsNav.some((s) => s.href && pathname.startsWith(s.href))
+      : Boolean(item.href && item.href !== "/" && pathname.startsWith(item.href)) ||
+        (item.href === "/" && pathname === "/");
   const ctaLabel = navigation.ctaLabel || "Book a demo";
 
   useEffect(() => {
@@ -175,9 +186,13 @@ export function SiteHeader({
                     aria-haspopup="true"
                     onClick={() => setSolutionsOpen((open) => !open)}
                     className={`flex items-center gap-[5px] transition-colors ${
-                      onDark
-                        ? "text-[#B9C8D6] hover:text-white"
-                        : "text-ink-body hover:text-primary"
+                      isCurrent(item)
+                        ? onDark
+                          ? "font-bold text-white"
+                          : "text-ink font-bold"
+                        : onDark
+                          ? "text-[#B9C8D6] hover:text-white"
+                          : "text-ink-body hover:text-primary"
                     }`}
                   >
                     {item.label}
@@ -211,8 +226,15 @@ export function SiteHeader({
                 key={item.label}
                 href={item.href || "/"}
                 onClick={closeOverlays}
+                aria-current={isCurrent(item) ? "page" : undefined}
                 className={`text-[14.5px] transition-colors ${
-                  onDark ? "text-[#B9C8D6] hover:text-white" : "text-ink-body hover:text-primary"
+                  isCurrent(item)
+                    ? onDark
+                      ? "font-bold text-white"
+                      : "text-ink font-bold"
+                    : onDark
+                      ? "text-[#B9C8D6] hover:text-white"
+                      : "text-ink-body hover:text-primary"
                 }`}
               >
                 {item.label}
