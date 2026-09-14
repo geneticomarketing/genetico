@@ -3,7 +3,6 @@ import { getPayload } from "payload";
 import type { Config } from "@/payload-types";
 import config from "../../payload.config";
 import { BLOG_POSTS } from "../../lib/blogs";
-import { SOLUTIONS_CONTENT } from "../../lib/solutions-content";
 import {
   CONTACT_EMAIL,
   CONTACT_EMAIL_CC,
@@ -533,49 +532,9 @@ async function seed() {
     });
   }
 
-  console.log("Seeding solution pages...");
-  for (const variant of ["hospital", "pharma"] as const) {
-    const content = SOLUTIONS_CONTENT[variant];
-    await upsertByField(payload, "solution-pages", "slug", variant, {
-      slug: variant,
-      hero: content.hero,
-      clinicalBurden: {
-        ...content.clinicalBurden,
-        cards: content.clinicalBurden.cards.map((card) => ({
-          cardId: card.id,
-          number: card.number,
-          label: card.label,
-          badge: card.badge,
-          badgeDot: card.badgeDot,
-          badgeBg: card.badgeBg,
-          badgeText: card.badgeText,
-          title: card.title,
-          collapsedTitle: card.collapsedTitle.map((line) => ({ line })),
-          description: card.description,
-        })),
-      },
-      howItWorks: content.howItWorks,
-      measurableOutcomes: {
-        ...content.measurableOutcomes,
-        metrics: content.measurableOutcomes.metrics.map((metric) => ({
-          metricId: metric.id,
-          maxPercent: metric.maxPercent,
-          label: metric.label,
-          ringTrack: metric.ringTrack,
-          ringFill: metric.ringFill,
-          accent: metric.accent,
-          fromText: metric.fromText,
-          toText: metric.toText,
-          negative: metric.negative,
-          positive: metric.positive,
-          positiveIconBg: metric.positiveIconBg,
-          centerValue: metric.centerValue,
-          hideCenterSubLabel: metric.hideCenterSubLabel,
-        })),
-      },
-      cta: content.cta,
-    });
-  }
+  // Solution pages are not seeded here. Their content is the redesign's, and
+  // `scripts/seed-solution-redesign.mts` writes it onto the records that
+  // already exist — this script only ever knew the pre-redesign shape.
 
   console.log("Seeding featured videos...");
   const featuredVideo = resources.featuredVideo;

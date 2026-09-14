@@ -1,11 +1,5 @@
 import { resolveMediaUrl } from "./resolve-media-url";
 import { BLOG_POSTS, type BlogPost } from "@/lib/blogs";
-import {
-  SOLUTIONS_CONTENT,
-  type SolutionsContent,
-  type SolutionsVariant,
-} from "@/lib/solutions-content";
-import type { SolutionPage } from "@/payload-types";
 import type {
   BlogPost as CmsBlogPost,
   Config,
@@ -22,7 +16,6 @@ import type {
 } from "@/payload-types";
 import { getPayloadClient, isCmsConfigured } from "./get-payload";
 import { DEFAULT_UTILITY_PAGES } from "./defaults/resources";
-import { resolveBadgeTheme, resolveMetricTheme, slugifyId } from "@/payload/fields/color-themes";
 
 type CollectionSlug = keyof Config["collections"];
 type GlobalSlug = keyof Config["globals"];
@@ -74,136 +67,6 @@ export async function getBlogBySlug(slug: string): Promise<BlogPost | undefined>
 export async function getAllBlogSlugs(): Promise<string[]> {
   const posts = await getBlogPosts();
   return posts.map((p) => p.slug);
-}
-
-function mapBurdenCards(
-  cards: NonNullable<SolutionPage["clinicalBurden"]>["cards"] | null | undefined,
-): SolutionsContent["clinicalBurden"]["cards"] {
-  return (cards ?? [])
-    .map((card, index) => {
-      const collapsedTitle = (card.collapsedTitle ?? []).map((line) => line.line).filter(Boolean);
-
-      if (!card.label || !card.title || collapsedTitle.length < 2) return null;
-
-      const theme = resolveBadgeTheme(card.badgeTheme, index);
-
-      return {
-        id: card.cardId || slugifyId(card.label, `card-${index + 1}`),
-        number: card.number || String(index + 1).padStart(2, "0"),
-        label: card.label,
-        badge: card.badge,
-        badgeDot: theme.badgeDot,
-        badgeBg: theme.badgeBg,
-        badgeText: theme.badgeText,
-        title: card.title,
-        collapsedTitle: [collapsedTitle[0], collapsedTitle[1]] as [string, string],
-        description: card.description,
-      };
-    })
-    .filter((card): card is NonNullable<typeof card> => card !== null);
-}
-
-function mapOutcomeMetrics(
-  metrics: NonNullable<SolutionPage["measurableOutcomes"]>["metrics"] | null | undefined,
-): SolutionsContent["measurableOutcomes"]["metrics"] {
-  return (metrics ?? [])
-    .map((metric, index) => {
-      if (!metric.label) return null;
-
-      const theme = resolveMetricTheme(metric.metricTheme, index);
-
-      return {
-        id: metric.metricId || slugifyId(metric.label, `metric-${index + 1}`),
-        maxPercent: metric.maxPercent,
-        label: metric.label,
-        ringTrack: theme.ringTrack,
-        ringFill: theme.ringFill,
-        accent: theme.accent,
-        fromText: metric.fromText,
-        toText: metric.toText,
-        negative: metric.negative ?? undefined,
-        positive: metric.positive,
-        positiveIconBg: theme.positiveIconBg,
-        centerValue: metric.centerValue ?? undefined,
-        hideCenterSubLabel: metric.hideCenterSubLabel ?? undefined,
-      };
-    })
-    .filter((metric): metric is NonNullable<typeof metric> => metric !== null);
-}
-
-function mergeSolutionsContent(doc: SolutionPage, fallback: SolutionsContent): SolutionsContent {
-  const cmsCards = mapBurdenCards(doc.clinicalBurden?.cards ?? []);
-  const cmsRows = (doc.howItWorks?.rows ?? [])
-    .filter((row) => row?.category && row?.title)
-    .map((row, index) => ({
-      number: row.number || String(index + 1).padStart(2, "0"),
-      category: row.category,
-      title: row.title,
-      description: row.description,
-      callout: row.callout,
-      reverse: row.reverse ?? undefined,
-      tinted: row.tinted ?? undefined,
-    }));
-  const cmsMetrics = mapOutcomeMetrics(doc.measurableOutcomes?.metrics ?? []);
-  const cmsButtons = (doc.cta?.buttons ?? []).filter((button) => button?.label && button?.href);
-
-  return {
-    hero: {
-      eyebrow: doc.hero?.eyebrow ?? fallback.hero.eyebrow,
-      titleLine1: doc.hero?.titleLine1 ?? fallback.hero.titleLine1,
-      titleHighlight: doc.hero?.titleHighlight ?? fallback.hero.titleHighlight,
-      subtitle: doc.hero?.subtitle ?? fallback.hero.subtitle,
-    },
-    clinicalBurden: {
-      label: doc.clinicalBurden?.label ?? fallback.clinicalBurden.label,
-      heading: doc.clinicalBurden?.heading ?? fallback.clinicalBurden.heading,
-      description: doc.clinicalBurden?.description ?? fallback.clinicalBurden.description,
-      cards: cmsCards.length ? cmsCards : fallback.clinicalBurden.cards,
-    },
-    howItWorks: {
-      label: doc.howItWorks?.label ?? fallback.howItWorks.label,
-      heading: doc.howItWorks?.heading ?? fallback.howItWorks.heading,
-      description: doc.howItWorks?.description ?? fallback.howItWorks.description,
-      rows: cmsRows.length ? cmsRows : fallback.howItWorks.rows,
-    },
-    measurableOutcomes: {
-      label: doc.measurableOutcomes?.label ?? fallback.measurableOutcomes.label,
-      heading: doc.measurableOutcomes?.heading ?? fallback.measurableOutcomes.heading,
-      description: doc.measurableOutcomes?.description ?? fallback.measurableOutcomes.description,
-      metrics: cmsMetrics.length ? cmsMetrics : fallback.measurableOutcomes.metrics,
-    },
-    cta: {
-      heading: doc.cta?.heading ?? fallback.cta.heading,
-      description: doc.cta?.description ?? fallback.cta.description,
-      buttons: cmsButtons.length ? cmsButtons : fallback.cta.buttons,
-    },
-  };
-}
-
-export async function getSolutionsContent(
-  variant: SolutionsVariant = "hospital",
-): Promise<SolutionsContent> {
-  const fallback = SOLUTIONS_CONTENT[variant];
-  if (!isCmsConfigured()) return fallback;
-
-  const payload = await getPayloadClient();
-  if (!payload) return fallback;
-
-  try {
-    const { docs } = await payload.find({
-      collection: "solution-pages",
-      where: { slug: { equals: variant } },
-      limit: 1,
-      depth: 0,
-    });
-
-    const doc = docs[0];
-    if (!doc) return fallback;
-
-    return mergeSolutionsContent(doc, fallback);
-  } catch {
-    return fallback;
-  }
 }
 
 export async function getGlobal<T>(slug: GlobalSlug, fallback: T): Promise<T> {

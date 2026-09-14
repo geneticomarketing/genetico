@@ -408,59 +408,69 @@ export interface SolutionPage {
     titleLine1: string;
     titleHighlight: string;
     subtitle: string;
+    /**
+     * Used on the Hospital page. Leave empty on Life Science, which shows three cards there instead.
+     */
+    stats?:
+      | {
+          figure: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
   };
   /**
-   * The expanding cards that describe the current burden.
+   * The dark carousel. One card is open at a time; the rest stay as titles beside it.
    */
   clinicalBurden: {
     label: string;
     heading: string;
     description: string;
+    /**
+     * Four reads best. They are numbered in this order.
+     */
     cards?:
       | {
-          label: string;
-          badge: string;
-          /**
-           * Leave empty to cycle through Red, Blue, Teal and Grey in order.
-           */
-          badgeTheme?: ('red' | 'blue' | 'teal' | 'slate') | null;
           title: string;
           /**
-           * Shown while the card is closed. Add exactly two lines — the card is hidden if there are fewer.
+           * Shown when the card is the open one. Two lines reads best.
            */
-          collapsedTitle: {
-            line: string;
-            id?: string | null;
-          }[];
           description: string;
-          /**
-           * Optional. Leave empty to number the cards automatically (01, 02, 03…).
-           */
+          label?: string | null;
+          badge?: string | null;
+          badgeTheme?: ('red' | 'blue' | 'teal' | 'slate') | null;
+          collapsedTitle?:
+            | {
+                line: string;
+                id?: string | null;
+              }[]
+            | null;
           number?: string | null;
-          /**
-           * Optional. Filled in automatically from the card title if you leave it empty.
-           */
           cardId?: string | null;
           id?: string | null;
         }[]
       | null;
   };
   /**
-   * The numbered walkthrough rows.
+   * The numbered steps, each beside a picture of the product. The pictures are built into the page and are not editable here.
    */
   howItWorks: {
     label: string;
     heading: string;
     description: string;
+    /**
+     * Each step is paired with a fixed illustration, so adding or removing one changes which picture a step gets.
+     */
     rows?:
       | {
+          /**
+           * One or two words for the step pills above the walkthrough, e.g. “Capture”.
+           */
+          stepLabel?: string | null;
           category: string;
           title: string;
           description: string;
           callout: string;
-          /**
-           * Optional. Leave empty to number the steps automatically (01, 02, 03…).
-           */
           number?: string | null;
           reverse?: boolean | null;
           tinted?: boolean | null;
@@ -469,42 +479,44 @@ export interface SolutionPage {
       | null;
   };
   /**
-   * The circular progress rings and their before/after lines.
+   * The dark band: a figure per column, with a before and after line.
    */
   measurableOutcomes: {
     label: string;
     heading: string;
     description: string;
+    /**
+     * Three fit the row.
+     */
     metrics?:
       | {
+          /**
+           * The large line, e.g. “90%+”, “Minutes”, “Registry-ready”. Words are fine.
+           */
+          figure?: string | null;
           label: string;
-          /**
-           * How far the circle fills, as a percentage.
-           */
-          maxPercent: number;
-          /**
-           * Leave empty to cycle through Red, Green and Blue in order.
-           */
+          before?: string | null;
+          after?: string | null;
+          note?: string | null;
+          maxPercent?: number | null;
           metricTheme?: ('red' | 'green' | 'blue') | null;
-          fromText: string;
-          toText: string;
-          positive: string;
+          fromText?: string | null;
+          toText?: string | null;
+          positive?: string | null;
           negative?: string | null;
-          /**
-           * Leave empty to show the percentage above.
-           */
           centerValue?: string | null;
           hideCenterSubLabel?: boolean | null;
-          /**
-           * Optional. Filled in automatically from the metric name if you leave it empty.
-           */
           metricId?: string | null;
           id?: string | null;
         }[]
       | null;
+    /**
+     * Optional. Use it to say what the figures rest on, e.g. that they vary by centre.
+     */
+    footnote?: string | null;
   };
   /**
-   * The last band on the page, above the footer.
+   * The heading above the enquiry form at the bottom of the page.
    */
   cta: {
     heading: string;
@@ -1028,6 +1040,13 @@ export interface SolutionPagesSelect<T extends boolean = true> {
         titleLine1?: T;
         titleHighlight?: T;
         subtitle?: T;
+        stats?:
+          | T
+          | {
+              figure?: T;
+              label?: T;
+              id?: T;
+            };
       };
   clinicalBurden?:
     | T
@@ -1038,17 +1057,17 @@ export interface SolutionPagesSelect<T extends boolean = true> {
         cards?:
           | T
           | {
+              title?: T;
+              description?: T;
               label?: T;
               badge?: T;
               badgeTheme?: T;
-              title?: T;
               collapsedTitle?:
                 | T
                 | {
                     line?: T;
                     id?: T;
                   };
-              description?: T;
               number?: T;
               cardId?: T;
               id?: T;
@@ -1063,6 +1082,7 @@ export interface SolutionPagesSelect<T extends boolean = true> {
         rows?:
           | T
           | {
+              stepLabel?: T;
               category?: T;
               title?: T;
               description?: T;
@@ -1082,7 +1102,11 @@ export interface SolutionPagesSelect<T extends boolean = true> {
         metrics?:
           | T
           | {
+              figure?: T;
               label?: T;
+              before?: T;
+              after?: T;
+              note?: T;
               maxPercent?: T;
               metricTheme?: T;
               fromText?: T;
@@ -1094,6 +1118,7 @@ export interface SolutionPagesSelect<T extends boolean = true> {
               metricId?: T;
               id?: T;
             };
+        footnote?: T;
       };
   cta?:
     | T
@@ -2071,6 +2096,10 @@ export interface PublicHealthThreeTier {
   tiers?:
     | {
         bannerLabel: string;
+        /**
+         * Shown on the right of the dark banner, e.g. “Tertiary level · Class C”.
+         */
+        levelLabel?: string | null;
         happens?:
           | {
               item: string;
@@ -3030,6 +3059,7 @@ export interface PublicHealthThreeTierSelect<T extends boolean = true> {
     | T
     | {
         bannerLabel?: T;
+        levelLabel?: T;
         happens?:
           | T
           | {
