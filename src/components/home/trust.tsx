@@ -11,10 +11,17 @@ export function Trust({
   section,
   num,
   content,
+  columns = "auto",
 }: {
   section: HomeSectionMeta;
   num: string;
   content: HomeTrustContent;
+  /**
+   * `fixed` sets the track count per breakpoint — five across, then two with
+   * the last point spanning both, then one — so no width leaves a single
+   * orphaned point on its own row, as `auto` can.
+   */
+  columns?: "auto" | "fixed";
 }) {
   return (
     <section
@@ -35,9 +42,22 @@ export function Trust({
           <p className="text-sky m-0 max-w-[320px] text-sm leading-[1.65]">{content.description}</p>
         </div>
 
-        <div className="mt-[34px] grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-[18px]">
+        <div
+          className={`mt-[34px] grid gap-[18px] ${
+            columns === "fixed"
+              ? "nav:grid-cols-2 mid:grid-cols-5 grid-cols-1 gap-x-[26px]"
+              : "grid-cols-[repeat(auto-fit,minmax(200px,1fr))]"
+          }`}
+        >
           {content.points.map((point, i) => (
-            <div key={point} className="flex flex-col gap-[9px] border-t border-white/28 pt-4">
+            <div
+              key={point}
+              className={`flex min-w-0 flex-col gap-[9px] border-t border-white/28 pt-4 ${
+                columns === "fixed" && i === content.points.length - 1 && i % 2 === 0
+                  ? "nav:col-span-2 mid:col-span-1"
+                  : ""
+              }`}
+            >
               <span className="font-mono-label text-mint text-[10.5px] tracking-[0.14em]">
                 {String(i + 1).padStart(2, "0")}
               </span>

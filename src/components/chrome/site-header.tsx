@@ -22,9 +22,12 @@ export function SiteHeader({
   navigation,
   sections,
   tone = "light",
+  ctaHref = "/#get-in-touch",
 }: {
   navigation: SiteData["navigation"];
   sections: NumberedSection[];
+  /** Where "Book a demo" goes. A page with its own enquiry form points it there. */
+  ctaHref?: string;
   /**
    * `dark` is for pages whose hero is a dark band: the header sits on it in
    * white until the page scrolls, then becomes the usual solid white bar.
@@ -145,7 +148,7 @@ export function SiteHeader({
         {/* Narrow: demo pill + hamburger, pinned right. */}
         <div className="nav:hidden ml-auto flex items-center gap-2.5">
           <Link
-            href="/#get-in-touch"
+            href={ctaHref}
             className={`rounded-full px-[18px] py-2.5 text-[13.5px] font-bold transition-colors ${
               onDark ? "bg-white text-[#0A1F33]" : "bg-primary-deep hover:bg-primary text-white"
             }`}
@@ -244,7 +247,7 @@ export function SiteHeader({
         </nav>
 
         <Link
-          href="/#get-in-touch"
+          href={ctaHref}
           className={`nav:inline-flex hidden flex-none rounded-full px-[22px] py-[11px] text-sm font-bold transition-colors ${
             onDark ? "bg-white text-[#0A1F33]" : "bg-primary-deep hover:bg-primary text-white"
           }`}

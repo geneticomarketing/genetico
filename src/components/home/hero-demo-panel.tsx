@@ -61,9 +61,31 @@ const IDLE_PANEL_PLACEMENT = {
  *
  * The collage is laid out at a fixed 560×640 and scaled to fit, so the cards
  * keep their exact relationship to each other at any width. Below the `nav`
- * breakpoint the placement classes stop applying and the cards simply stack.
+ * breakpoint the placement classes stop applying and the cards simply stack,
+ * or run as a swipe row when `narrowLayout` asks for one.
  */
-export function HeroDemoPanel() {
+export function HeroDemoPanel({
+  autoRunSection,
+  fitToViewport = true,
+  narrowLayout = "stack",
+  className = "",
+}: {
+  /**
+   * Run the demo once, unprompted, when the section with this id is just past
+   * the middle of the viewport. Used where the panel sits below the fold and
+   * a reader might otherwise scroll past without pressing the button.
+   */
+  autoRunSection?: string;
+  /**
+   * Also shrink the collage to fit the viewport's height. Right for the hero,
+   * where it must share the first screen; further down the page it can take
+   * its full size.
+   */
+  fitToViewport?: boolean;
+  narrowLayout?: "stack" | "swipe";
+  /** Extra classes for the outer box, e.g. to lift its width cap. */
+  className?: string;
+} = {}) {
   const [stage, setStage] = useState<number>(DEMO_STAGES.idle);
   const [scale, setScale] = useState(1);
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -82,7 +104,7 @@ export function HeroDemoPanel() {
       const fit = Math.min(
         1,
         width / COLLAGE_W,
-        (window.innerHeight - VERTICAL_CHROME) / COLLAGE_H,
+        fitToViewport ? (window.innerHeight - VERTICAL_CHROME) / COLLAGE_H : 1,
       );
       setScale(Math.max(MIN_SCALE, fit));
     };
@@ -97,7 +119,7 @@ export function HeroDemoPanel() {
       window.removeEventListener("resize", measure);
       observer?.disconnect();
     };
-  }, []);
+  }, [fitToViewport]);
 
   const run = useCallback(() => {
     clearTimers();
@@ -117,6 +139,39 @@ export function HeroDemoPanel() {
     });
   }, [clearTimers, stage]);
 
+  // `run` changes with every stage, so the listener reads it through a ref
+  // rather than re-subscribing on each one. A reader who has already pressed
+  // the button is left alone.
+  const autoRunRef = useRef(() => {});
+  useEffect(() => {
+    autoRunRef.current = () => {
+      if (stage === DEMO_STAGES.idle) run();
+    };
+  }, [run, stage]);
+
+  useEffect(() => {
+    if (!autoRunSection) return;
+
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      const section = document.getElementById(autoRunSection);
+      if (!section || section.getBoundingClientRect().top >= window.innerHeight * 0.55) return;
+      window.removeEventListener("scroll", onScroll);
+      autoRunRef.current();
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [autoRunSection]);
+
   const running = stage > DEMO_STAGES.idle && stage < DEMO_STAGES.complete;
   const done = stage >= DEMO_STAGES.complete;
 
@@ -124,9 +179,14 @@ export function HeroDemoPanel() {
     <div
       ref={wrapRef}
       style={{ "--collage-scale": scale } as React.CSSProperties}
-      className="nav:relative nav:h-[calc(640px*var(--collage-scale,1))] min-w-0 max-w-[600px]"
+      className={`nav:relative nav:h-[calc(640px*var(--collage-scale,1))] max-w-[600px] min-w-0 ${className}`}
     >
-      <div className="nav:absolute nav:top-0 nav:left-1/2 nav:block nav:h-[640px] nav:w-[560px] nav:origin-top nav:[transform:translateX(-50%)_scale(var(--collage-scale,1))] flex flex-col gap-[14px]">
+      <div
+        className={`nav:absolute nav:top-0 nav:left-1/2 nav:block nav:h-[640px] nav:w-[560px] nav:origin-top nav:[transform:translateX(-50%)_scale(var(--collage-scale,1))] flex flex-col gap-[14px] ${
+          narrowLayout === "swipe" ? "swipe-row items-start" : ""
+        }`}
+        style={{ "--swipe-col": "82%" } as React.CSSProperties}
+      >
         {/* ── The note, and the control that structures it ─────────────── */}
         <div
           className={`bg-note-panel nav:absolute nav:z-20 nav:overflow-hidden nav:shadow-[0_30px_70px_rgba(4,39,67,0.32)] relative z-[1] flex flex-col gap-3 rounded-[12px] p-[18px] text-white shadow-[0_22px_52px_rgba(7,59,104,0.20)] motion-safe:transition-[width,left,top,height] motion-safe:duration-500 ease-[cubic-bezier(.22,.61,.36,1)] ${IDLE_PANEL_PLACEMENT[stage === DEMO_STAGES.idle ? "idle" : "running"]}`}
