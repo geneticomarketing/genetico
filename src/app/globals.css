@@ -673,6 +673,97 @@ body {
   }
 }
 
+/* ── Home v2: hero entrance, recede and the lifting fold ───────────────────
+   The hero fades its parts up on load, then eases back as the page scrolls
+   while the white fold below lifts over it like a card. The two scroll-driven
+   animations are gated on support and reduced motion the same way the section
+   reveal is, so without them the page is simply static and fully visible. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-recede {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0.3;
+    transform: translateY(-16px) scale(0.984);
+  }
+}
+
+@keyframes fold-lift {
+  from {
+    transform: translateY(52px) scale(0.986);
+    box-shadow: 0 -6px 22px rgba(7, 59, 104, 0.05);
+  }
+  to {
+    transform: none;
+    box-shadow: var(--shadow-sheet);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    [data-hero-recede] {
+      animation: hero-recede linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 84vh;
+    }
+  }
+  @supports (animation-timeline: view()) {
+    [data-fold-lift] {
+      animation: fold-lift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 72%;
+    }
+  }
+}
+
+/* ── Swipe rows ────────────────────────────────────────────────────────────
+   Below `nav`, a set of cards becomes one horizontal, snapping row instead of
+   a tall stack — the reader sees there are more and swipes for them. Above
+   it the element's own grid classes take over. `--swipe-col` sets how much of
+   the row one card fills, so the next card always peeks in. */
+@media (max-width: 879.98px) {
+  .swipe-row {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--swipe-col, 84%);
+    grid-template-columns: none;
+    gap: 14px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+  }
+  .swipe-row > * {
+    scroll-snap-align: start;
+  }
+
+  /* The four-layer table keeps its one bordered block and swipes inside it,
+     so the rules run between cells rather than above them. */
+  .layer-grid.swipe-row {
+    gap: 0;
+    padding-bottom: 0;
+  }
+  .layer-grid.swipe-row > * + * {
+    border-top: 0;
+    border-left: 1px solid var(--color-rule);
+  }
+  .layer-grid.swipe-row > :nth-child(2n) {
+    background: var(--color-sheet-soft);
+  }
+}
+
 /* The About page's second logo row travels the other way, so the two strips
    do not read as one long belt. */
 @keyframes marquee-reverse {

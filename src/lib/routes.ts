@@ -6,12 +6,16 @@ export const PUBLIC_HEALTH_PATH = "/public-health";
 export const PLATFORM_PATH = "/platform";
 export const BLOG_PATH = "/blog";
 export const RESOURCES_PATH = "/resources";
+export const ABOUT_PATH = "/about-us";
+/** The home page rework, previewed alongside the live home page until it is approved. */
+export const HOME_V2_PATH = "/home-v2";
 
 export const LEAD_FORM_HASH = "#lead-form";
 
 const PAGES_WITH_LEAD_FORM = [
   "/",
-  "/about-us",
+  HOME_V2_PATH,
+  ABOUT_PATH,
   PLATFORM_PATH,
   HOSPITAL_PATH,
   PHARMA_PATH,
