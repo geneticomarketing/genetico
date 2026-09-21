@@ -7,6 +7,7 @@ import {
   RESOURCES_PATH,
 } from "@/lib/routes";
 import { NEWSLETTER_URL } from "@/lib/contact";
+import type { PageSection } from "@/components/chrome/page-sections";
 
 /**
  * The home page's editable content, and the copy it falls back to.
@@ -38,11 +39,7 @@ export type HomeHeroContent = {
   credentials: string[];
 };
 
-export type HomeSectionMeta = {
-  /** Matches the `id` on the rendered `<section>`. */
-  id: string;
-  /** Short form, used by the rail and the mobile menu. */
-  label: string;
+export type HomeSectionMeta = PageSection & {
   /** Longer form, printed after the number in the section's own eyebrow. */
   eyebrow: string;
 };

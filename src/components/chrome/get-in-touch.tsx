@@ -109,6 +109,7 @@ export function GetInTouch({
   organisationPlaceholder = "Name of organisation",
   emailPlaceholder = "janedoe@email.com",
   roleOrder,
+  roleDescriptions,
 }: {
   section: HomeSectionMeta;
   num: string;
@@ -132,15 +133,28 @@ export function GetInTouch({
    * renaming a role in the CMS reorders the tabs rather than dropping any.
    */
   roleOrder?: string[];
+  /**
+   * Replacement descriptions for the audience tabs, keyed by role label. Lets
+   * a page reword a tab without editing the CMS, which would change every
+   * other page's form at the same time. Unmatched labels are ignored.
+   */
+  roleDescriptions?: Record<string, string>;
 }) {
   const panel = variant === "panel";
   const settings = useSiteData()?.settings;
-  const stored = settings?.contactRoles?.length
+  const configured = settings?.contactRoles?.length
     ? settings.contactRoles.map((role) => ({
         label: role.label,
         description: role.description ?? "",
       }))
     : FALLBACK_ROLES;
+
+  const stored = roleDescriptions
+    ? configured.map((role) => ({
+        ...role,
+        description: roleDescriptions[role.label] ?? role.description,
+      }))
+    : configured;
 
   const roles = roleOrder?.length
     ? [

@@ -1,8 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { Eyebrow, SectionLabel } from "@/components/chrome/eyebrow";
 import { HOME_V2_HOW, HOME_V2_PROBLEM, HOME_V2_SHIFT, HOME_V2_WHO } from "@/content/home-v2";
-import type { HomeDoor, HomeSectionMeta } from "@/lib/cms/home-content";
+import type { HomeSectionMeta } from "@/lib/cms/home-content";
 
 type SectionProps = { section: HomeSectionMeta; num: string };
 
@@ -52,6 +53,21 @@ function SplitHeading({
       </p>
     </div>
   );
+}
+
+/**
+ * Hairlines between the four figures: one column below `nav`, a 2x2 divided by
+ * rules above it — so what a cell carries depends on where it lands in both.
+ */
+function factCell(i: number) {
+  const stacked = i > 0 ? "border-t border-t-rule-light" : "";
+  const column =
+    i % 2 === 1
+      ? "nav:border-l nav:border-l-rule-light nav:pl-[clamp(18px,2.4vw,32px)]"
+      : "nav:pr-[clamp(18px,2.4vw,32px)]";
+  // Only the bottom row keeps a top rule once the cells are side by side.
+  const topRule = i > 1 ? "" : "nav:border-t-0";
+  return `py-4 nav:py-[18px] ${stacked} ${column} ${topRule}`;
 }
 
 /** Only below `nav`, where the row has become a swipe strip. */
@@ -104,16 +120,35 @@ export function Problem({ section, num }: SectionProps) {
         </div>
 
         <div className="border-rule rounded-card bg-sheet-soft mt-[22px] border px-[clamp(18px,2.4vw,28px)] py-6">
-          <dl className="mid:grid-cols-4 m-0 grid grid-cols-2 gap-x-7 gap-y-[22px]">
-            {content.facts.map((fact) => (
-              <div key={fact.label} className="flex min-w-0 flex-col gap-1.5">
-                <dt className="font-mono-label text-primary text-[clamp(24px,2.6vw,32px)] leading-none">
-                  {fact.figure}
-                </dt>
-                <dd className="text-ink-body m-0 text-[13.5px] leading-[1.55]">{fact.label}</dd>
+          <div className="nav:grid-cols-[auto_minmax(0,1fr)] nav:gap-[clamp(28px,4vw,56px)] grid items-center gap-7">
+            <div className="flex min-w-0 flex-col gap-3">
+              {/* The "~80% are genetic in origin" figure, drawn. */}
+              <div aria-hidden className="grid w-full max-w-[190px] grid-cols-10 gap-1">
+                {Array.from({ length: 100 }, (_, i) => (
+                  <span
+                    key={i}
+                    className={`block w-full rounded-full pb-[100%] ${
+                      i < content.dotGrid.filled ? "bg-primary" : "bg-[#DCE4EA]"
+                    }`}
+                  />
+                ))}
               </div>
-            ))}
-          </dl>
+              <p className="text-ink-soft m-0 max-w-[210px] text-[12.5px] leading-[1.55]">
+                {content.dotGrid.caption}
+              </p>
+            </div>
+
+            <dl className="nav:grid-cols-2 m-0 grid grid-cols-1 gap-0">
+              {content.facts.map((fact, i) => (
+                <div key={fact.label} className={`flex min-w-0 flex-col gap-[9px] ${factCell(i)}`}>
+                  <dt className="font-mono-label text-primary text-[clamp(26px,2.8vw,34px)] leading-none">
+                    {fact.figure}
+                  </dt>
+                  <dd className="text-ink-body m-0 text-[13.5px] leading-[1.55]">{fact.label}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
           <p className="border-rule-light text-ink-soft m-0 mt-5 border-t pt-4 text-xs leading-[1.6]">
             {content.factsNote}
           </p>
@@ -162,20 +197,28 @@ export function Shift({ section, num }: SectionProps) {
           {content.shifts.map((shift, i) => (
             <li
               key={shift.to}
-              className={`flex min-w-0 flex-col items-start gap-2.5 border-b border-b-white/28 px-[22px] pt-6 pb-[26px] transition-colors duration-200 hover:bg-white/6 ${shiftRule(i)}`}
+              className={`flex min-w-0 flex-col items-stretch gap-3 border-b border-b-white/28 px-6 pt-[26px] pb-7 transition-colors duration-200 hover:bg-white/6 ${shiftRule(i)}`}
             >
               <span className="font-mono-label text-mint text-[10.5px] tracking-[0.14em]">
                 {pad(i)}
               </span>
-              <span className="text-sky-bright text-sm leading-normal line-through decoration-[rgba(143,198,239,0.5)]">
-                {shift.from}
-              </span>
-              <span aria-hidden className="text-teal text-[13px]">
-                ↓
-              </span>
-              <span className="font-headline text-[21px] leading-[1.2] tracking-[-0.012em] text-pretty text-white">
-                {shift.to}
-              </span>
+              {/* Labelled rather than struck through, so the change reads as a
+                  transformation instead of a correction. */}
+              <div className="flex items-baseline gap-2.5">
+                <span className="font-mono-label text-sky-soft w-9 flex-none text-[10.5px] tracking-[0.16em] uppercase">
+                  From
+                </span>
+                <span className="text-sky-bright text-sm leading-normal">{shift.from}</span>
+              </div>
+              <span aria-hidden className="block h-px bg-white/14" />
+              <div className="flex items-baseline gap-2.5">
+                <span className="font-mono-label text-mint w-9 flex-none text-[10.5px] tracking-[0.16em] uppercase">
+                  To
+                </span>
+                <span className="font-headline text-[21px] leading-[1.24] tracking-[-0.012em] text-pretty text-white">
+                  {shift.to}
+                </span>
+              </div>
             </li>
           ))}
         </ol>
@@ -225,8 +268,12 @@ export function How({ section, num }: SectionProps) {
   );
 }
 
-/** 05 — four doors, one per audience, placed after the story rather than before it. */
-export function Who({ section, num, doors }: SectionProps & { doors: HomeDoor[] }) {
+/**
+ * 05 — four doors, one per audience, placed after the story rather than before
+ * it. Each answers "why does this matter to me" in that audience's own terms,
+ * over a photograph of the setting it describes.
+ */
+export function Who({ section, num }: SectionProps) {
   const content = HOME_V2_WHO;
 
   return (
@@ -245,38 +292,53 @@ export function Who({ section, num, doors }: SectionProps & { doors: HomeDoor[] 
           className="swipe-row nav:grid nav:grid-cols-2 mid:grid-cols-4 mt-10 gap-[18px]"
           style={{ "--swipe-col": "86%" } as React.CSSProperties}
         >
-          {doors.map((door) => (
-            <Link
-              key={door.href}
-              href={door.href}
-              className={`${LIFT_CARD} gap-[13px] px-6 pt-[26px] pb-6`}
-            >
-              <span className="font-mono-label text-primary text-[10.5px] tracking-[0.16em] uppercase">
-                {door.kicker}
-              </span>
-              <h3 className="font-headline m-0 text-[clamp(23px,2.6vw,28px)] leading-[1.14] tracking-[-0.015em] text-pretty">
-                {door.title}
-              </h3>
-              <p className="text-ink-body m-0 text-sm leading-[1.65]">{door.blurb}</p>
-
-              <div className="border-rule-light mt-1.5 flex flex-col gap-2 border-t pt-[15px]">
-                {door.points.map((point) => (
-                  <div key={point} className="flex items-start gap-2.5">
-                    <span
-                      aria-hidden
-                      className="bg-teal mt-[7px] block h-[5px] w-[5px] flex-none rounded-full"
-                    />
-                    <span className="text-ink-body text-[13.5px] leading-[1.55]">{point}</span>
-                  </div>
-                ))}
+          {content.doors.map((door) => (
+            <Link key={door.href} href={door.href} className={`${LIFT_CARD} overflow-hidden`}>
+              {/* The tint stands in if the photograph is ever missing. */}
+              <div
+                className="border-rule relative h-[150px] w-full flex-none overflow-hidden border-b"
+                style={{ backgroundColor: door.photo.ground }}
+              >
+                <Image
+                  src={door.photo.src}
+                  alt={door.photo.alt}
+                  fill
+                  sizes="(max-width: 880px) 86vw, (max-width: 1040px) 50vw, 25vw"
+                  className="object-cover"
+                  style={{ objectPosition: door.photo.position }}
+                />
               </div>
 
-              <span className="text-primary mt-2.5 inline-flex items-center gap-[7px] text-[13.5px] font-bold">
-                {door.ctaLabel}
-                <span aria-hidden className="text-xs">
-                  →
+              <div className="flex min-w-0 flex-1 flex-col gap-[13px] px-6 pt-[22px] pb-6">
+                <span className="font-mono-label text-primary text-[10.5px] tracking-[0.16em] uppercase">
+                  {door.kicker}
                 </span>
-              </span>
+                <h3 className="font-headline m-0 text-[clamp(23px,2.6vw,28px)] leading-[1.14] tracking-[-0.015em] text-pretty">
+                  {door.title}
+                </h3>
+                <p className="text-ink-body m-0 text-sm leading-[1.65]">{door.blurb}</p>
+
+                <div className="border-rule-light mt-1.5 flex flex-col gap-2 border-t pt-[15px]">
+                  {door.points.map((point) => (
+                    <div key={point} className="flex items-start gap-2.5">
+                      <span
+                        aria-hidden
+                        className="bg-teal mt-[7px] block h-[5px] w-[5px] flex-none rounded-full"
+                      />
+                      <span className="text-ink-body text-[13.5px] leading-[1.55]">{point}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Pushed to the bottom so the four CTAs line up despite the
+                    cards carrying different amounts of copy. */}
+                <span className="text-primary mt-auto inline-flex items-center gap-[7px] pt-3.5 text-[13.5px] font-bold">
+                  {door.ctaLabel}
+                  <span aria-hidden className="text-xs">
+                    →
+                  </span>
+                </span>
+              </div>
             </Link>
           ))}
         </div>

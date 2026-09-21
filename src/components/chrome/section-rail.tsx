@@ -14,6 +14,10 @@ const ACTIVE_LINE_PX = 190;
  * page name, a numbered pill per section, and a progress line tracking scroll
  * depth. On narrow screens the pills scroll sideways rather than wrapping.
  *
+ * Sections marked `rail: false` are left out of the pills but still counted
+ * for numbering and still tracked as you pass them — so leaving the narrative
+ * simply clears the highlight rather than stranding it on the last pill.
+ *
  * Hidden from assistive tech — every destination it offers is a heading the
  * page already exposes in order, so announcing it again is noise.
  */
@@ -31,6 +35,9 @@ export function SectionRail({
    */
   revealAfter?: string;
 }) {
+  // Numbering and scroll tracking stay over every section; only the pills drop.
+  const pills = sections.filter((section) => section.rail !== false);
+
   const [visible, setVisible] = useState(false);
   const [active, setActive] = useState("");
   const [progress, setProgress] = useState(0);
@@ -81,11 +88,11 @@ export function SectionRail({
         visible ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-[110%] opacity-0"
       }`}
     >
-      <div className="max-w-site px-edge mx-auto flex h-[52px] items-center gap-1 overflow-x-auto">
-        <span className="font-mono-label text-ink-soft mr-3.5 flex-none text-[10.5px] tracking-[0.16em] uppercase">
+      <div className="rail-strip max-w-site px-edge mx-auto flex h-[52px] items-center gap-1 overflow-x-auto">
+        <span className="font-mono-label text-ink-soft mr-3 flex-none text-[10.5px] tracking-[0.16em] uppercase">
           {pageLabel}
         </span>
-        {sections.map((section) => {
+        {pills.map((section) => {
           const isActive = active === section.id;
           return (
             <a
@@ -96,7 +103,7 @@ export function SectionRail({
                 e.preventDefault();
                 scrollToSection(section.id);
               }}
-              className={`hover:bg-primary-tint hover:text-primary-deep flex flex-none items-center gap-2 rounded-full px-3.5 py-2 text-[13.5px] whitespace-nowrap transition-colors ${
+              className={`hover:bg-primary-tint hover:text-primary-deep flex flex-none items-center gap-2 rounded-full px-3 py-2 text-[13.5px] whitespace-nowrap transition-colors ${
                 isActive ? "bg-primary-tint text-primary-deep font-bold" : "text-ink-body"
               }`}
             >
