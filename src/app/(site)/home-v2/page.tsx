@@ -13,10 +13,11 @@ import { Platform } from "@/components/home-v2/platform";
 import { How, Problem, Shift, Who } from "@/components/home-v2/sections";
 import {
   HOME_V2_FAQS,
+  HOME_V2_FOOTER_TAGLINE,
+  HOME_V2_INVESTOR_TAB_BLURB,
   HOME_V2_NAV_LABELS,
   HOME_V2_SECTIONS,
   HOME_V2_SOLUTIONS_LABEL,
-  HOME_V2_WHO,
 } from "@/content/home-v2";
 import { getHomePageContent } from "@/lib/cms/home-page-data";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
@@ -68,6 +69,9 @@ export default async function HomeV2() {
 
   const footer = {
     ...cmsFooter,
+    // "The digital backbone for rare disease diagnosis" is retired by the
+    // rework; the live footer keeps its wording until this is approved.
+    tagline: HOME_V2_FOOTER_TAGLINE,
     sectionLabels: { ...cmsFooter.sectionLabels, solutionsHeading: HOME_V2_SOLUTIONS_LABEL },
     menuLinks: (cmsFooter.menuLinks ?? []).map((link) =>
       // The footer's FAQ link would otherwise leave for the live home page.
@@ -97,16 +101,13 @@ export default async function HomeV2() {
           num={section.platform.num}
           platform={content.platform}
         />
-        <Who
-          section={section.who}
-          num={section.who.num}
-          doors={[...content.audience.doors, HOME_V2_WHO.investorDoor]}
-        />
+        <Who section={section.who} num={section.who.num} />
         <Proof
           section={section.proof}
           num={section.proof.num}
           content={content.proof}
           partners={content.partners}
+          playBadge="corner"
         />
         <Trust
           section={section.trust}
@@ -119,6 +120,7 @@ export default async function HomeV2() {
           section={section["get-in-touch"]}
           num={section["get-in-touch"].num}
           content={content.contact}
+          roleDescriptions={{ Investor: HOME_V2_INVESTOR_TAB_BLURB }}
         />
 
         <SiteFooter footer={footer} />

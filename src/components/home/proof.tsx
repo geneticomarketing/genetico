@@ -14,12 +14,21 @@ const CARD =
   "border-rule rounded-card shadow-card hover:shadow-card-lift text-ink border bg-white " +
   "transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-1";
 
+type BadgePlacement = "center" | "corner";
+
 /** The play glyph over a still. Decorative — the link text already says so. */
-function PlayBadge({ size }: { size: number }) {
+function PlayBadge({ size, placement }: { size: number; placement: BadgePlacement }) {
+  const corner = placement === "corner";
   return (
     <span
       aria-hidden
-      className="pointer-events-none absolute top-1/2 left-1/2 z-[2] flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/94"
+      className={`pointer-events-none absolute z-[2] flex items-center justify-center rounded-full bg-white/94 ${
+        corner
+          ? size > 40
+            ? "bottom-3.5 left-3.5"
+            : "bottom-2 left-2"
+          : "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      }`}
       style={{ width: size, height: size, fontSize: size * 0.29 }}
     >
       <span className="text-primary">▶</span>
@@ -41,11 +50,17 @@ export function Proof({
   num,
   content,
   partners,
+  playBadge = "center",
 }: {
   section: HomeSectionMeta;
   num: string;
   content: HomeProofContent;
   partners: Partner[];
+  /**
+   * `corner` moves the play glyph out of the middle of the still, where it
+   * covers the caption on a placeholder or the subject of a real one.
+   */
+  playBadge?: BadgePlacement;
 }) {
   return (
     <section
@@ -100,7 +115,7 @@ export function Proof({
               <span className="font-mono-label pointer-events-none absolute right-3.5 bottom-3.5 z-[2] rounded-full bg-[rgba(7,18,28,0.72)] px-2.5 py-[5px] text-[11px] text-white">
                 {content.featured.duration}
               </span>
-              <PlayBadge size={58} />
+              <PlayBadge size={playBadge === "corner" ? 52 : 58} placement={playBadge} />
             </div>
 
             <div className="flex flex-col gap-3.5 px-[30px] pt-[26px] pb-7">
@@ -139,7 +154,7 @@ export function Proof({
                     ),
                   }}
                 >
-                  <PlayBadge size={30} />
+                  <PlayBadge size={playBadge === "corner" ? 26 : 30} placement={playBadge} />
                 </div>
                 <div className="flex min-w-0 flex-col gap-[7px]">
                   <span className="font-mono-label text-ink-soft text-[10px] tracking-[0.14em] uppercase">

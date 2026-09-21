@@ -15,6 +15,13 @@ export type PageSection = {
   id: string;
   /** Short label shown in the rail and the mobile menu. */
   label: string;
+  /**
+   * `false` keeps the section out of the rail while leaving it in the page's
+   * numbering and in the mobile menu. For utility sections at the foot of a
+   * long page — FAQs, the contact form — which are not narrative steps and
+   * push the rail into a sideways scroll.
+   */
+  rail?: boolean;
 };
 
 export type NumberedSection = PageSection & {

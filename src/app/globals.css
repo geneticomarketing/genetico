@@ -830,3 +830,56 @@ body {
     transform: scale(2.4);
   }
 }
+
+/* ── Short-viewport hero ───────────────────────────────────────────────────
+   The rework's hero is meant to read as one calm full screen: statement,
+   ecosystem spine and the "Built with" strip, all above the fold. Its stack
+   is a fixed height, so on a laptop viewport (browser chrome eats 200px+ of
+   an already short screen) it outgrows the screen and the fold cuts through
+   the marquee.
+
+   Rather than shorten copy the advisor asked for verbatim, the hero gives up
+   spacing as the viewport gets shorter, and — below the point where spacing
+   alone is not enough — the marquee's label, whose strip is self-evident and
+   whose credentials repeat in full in section 06. */
+@media (max-height: 780px) {
+  [data-hero-fold] {
+    padding-top: clamp(16px, 2.6vh, 30px);
+    padding-bottom: clamp(18px, 3vh, 34px);
+  }
+  [data-hero-fold] [data-hero-recede] {
+    gap: clamp(9px, 1.7vh, 18px);
+  }
+  [data-hero-fold] [data-hero-spine] {
+    gap: 7px;
+  }
+  [data-hero-fold] [data-hero-marquee] {
+    gap: 8px;
+    padding-top: clamp(10px, 1.6vh, 14px);
+  }
+}
+
+/* Shorter still: the headline steps down and the marquee's label goes, its
+   strip being self-evident. The phone equivalents of these, and of the
+   spacing compaction above, live on the hero itself as `max-[480px]:`
+   variants — a phone's reported height does not track how much room there
+   actually is, so width is the reliable signal there. */
+@media (max-height: 700px) {
+  [data-hero-fold] h1 {
+    font-size: clamp(30px, min(5.2vw, 6.4vh), 62px);
+  }
+  [data-hero-fold] [data-hero-marquee-label] {
+    display: none;
+  }
+}
+
+/* The section rail is a 52px bar, not a card row: a horizontal scrollbar
+   inside it eats a third of its height and reads as a broken element. The
+   pills still scroll sideways where they have to — the cut-off pill at the
+   edge is the affordance. */
+.rail-strip {
+  scrollbar-width: none;
+}
+.rail-strip::-webkit-scrollbar {
+  display: none;
+}
