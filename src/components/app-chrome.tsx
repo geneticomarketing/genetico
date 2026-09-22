@@ -19,6 +19,7 @@ import type { SiteData } from "@/lib/cms/site-data-context";
 const REDESIGNED_ROUTES = new Set<string>([
   "/",
   "/home-v2",
+  "/home-v3",
   "/resources",
   "/about-us",
   "/platform",
