@@ -149,6 +149,14 @@ body {
   }
 }
 
+/* The home hero's hub-and-spoke connectors. The dash pattern is 5 + 6 = 11
+   units, so travelling 22 is exactly two cycles and the loop is seamless. */
+@keyframes hero-spoke-flow {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+
 .ph-tier-dash {
   animation: ph-tier-dash-march 12s linear infinite;
 }

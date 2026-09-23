@@ -11,6 +11,8 @@ export const ABOUT_PATH = "/about-us";
 export const HOME_V2_PATH = "/home-v2";
 /** The third pass at that rework, previewed alongside v2 while both are up for review. */
 export const HOME_V3_PATH = "/home-v3";
+/** The fourth pass, which leads with the company rather than the platform. */
+export const HOME_V4_PATH = "/home-v4";
 
 export const LEAD_FORM_HASH = "#lead-form";
 
@@ -18,6 +20,7 @@ const PAGES_WITH_LEAD_FORM = [
   "/",
   HOME_V2_PATH,
   HOME_V3_PATH,
+  HOME_V4_PATH,
   ABOUT_PATH,
   PLATFORM_PATH,
   HOSPITAL_PATH,
