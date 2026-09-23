@@ -113,7 +113,13 @@ export function GetInTouch({
 }: {
   section: HomeSectionMeta;
   num: string;
-  content: HomeContactContent;
+  /**
+   * The two intro buttons are optional: a page whose design leads straight
+   * from the heading into the form omits them, and the row disappears rather
+   * than rendering empty pills.
+   */
+  content: Omit<HomeContactContent, "primaryCta" | "secondaryCta"> &
+    Partial<Pick<HomeContactContent, "primaryCta" | "secondaryCta">>;
   /**
    * `panel` is the solution pages' treatment: the audience picker runs along
    * the top edge of the card as underlined tabs, the two intro buttons are
@@ -233,24 +239,26 @@ export function GetInTouch({
         <p className="text-ink-body m-0 max-w-[620px] text-[14.5px] leading-[1.7]">
           {content.description}
         </p>
-        <div className={`flex-wrap justify-center gap-3.5 ${panel ? "hidden" : "flex"}`}>
-          <a
-            href={content.primaryCta.href}
-            target="_blank"
-            rel="noreferrer"
-            className="bg-primary-deep hover:bg-primary rounded-full px-[clamp(18px,2vw,28px)] py-[13px] text-sm font-bold text-white transition-colors"
-          >
-            {content.primaryCta.label}
-          </a>
-          <a
-            href={content.secondaryCta.href}
-            target="_blank"
-            rel="noreferrer"
-            className="border-rule text-ink hover:border-primary hover:text-primary rounded-full border bg-white px-[clamp(18px,2vw,28px)] py-[13px] text-sm font-medium transition-colors"
-          >
-            {content.secondaryCta.label}
-          </a>
-        </div>
+        {!panel && content.primaryCta && content.secondaryCta ? (
+          <div className="flex flex-wrap justify-center gap-3.5">
+            <a
+              href={content.primaryCta.href}
+              target="_blank"
+              rel="noreferrer"
+              className="bg-primary-deep hover:bg-primary rounded-full px-[clamp(18px,2vw,28px)] py-[13px] text-sm font-bold text-white transition-colors"
+            >
+              {content.primaryCta.label}
+            </a>
+            <a
+              href={content.secondaryCta.href}
+              target="_blank"
+              rel="noreferrer"
+              className="border-rule text-ink hover:border-primary hover:text-primary rounded-full border bg-white px-[clamp(18px,2vw,28px)] py-[13px] text-sm font-medium transition-colors"
+            >
+              {content.secondaryCta.label}
+            </a>
+          </div>
+        ) : null}
       </div>
 
       {/* `lead-form` is the anchor the rest of the site has always used for

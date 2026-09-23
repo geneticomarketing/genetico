@@ -1,6 +1,8 @@
 import { blogHref } from "@/lib/blogs";
 import { getCollection } from "@/lib/cms/queries";
+import { resolveMediaUrl } from "@/lib/cms/resolve-media-url";
 import { RESOURCES_PATH } from "@/lib/routes";
+import { youtubeIdFromUrl } from "@/lib/youtube";
 import type {
   BlogPost as CmsBlogPost,
   DeepDive as CmsDeepDive,
@@ -39,7 +41,30 @@ export type ProofResource = {
   kicker: string;
   blurb: string;
   duration: string;
+  /** Just the kind, without the length — for a card that prints the two apart. */
+  kind: string;
+  /**
+   * The resource's own still, ready to use as `background-image`: `url(…)`,
+   * or a pair of YouTube stills, or `""` when the resource has no image.
+   *
+   * A CSS stack rather than an `<img>` because `maxresdefault` only exists for
+   * videos uploaded above 720p and 404s otherwise — here the layer beneath
+   * shows through instead of the card breaking. It carries no ground of its
+   * own: a colour is not a valid `background-image` layer and would invalidate
+   * the whole declaration, so paint the fallback with `background-color`.
+   */
+  thumbnail: string;
 };
+
+/** The two YouTube stills, best first. Empty for anything that is not a video. */
+function youtubeLayers(url: string): string {
+  const id = youtubeIdFromUrl(url);
+  if (!id) return "";
+  return [
+    `url("https://img.youtube.com/vi/${id}/maxresdefault.jpg")`,
+    `url("https://img.youtube.com/vi/${id}/mqdefault.jpg")`,
+  ].join(", ");
+}
 
 export type ProofFeed = {
   featured: ProofResource | null;
@@ -82,16 +107,19 @@ function toResource(
   href: string,
   duration = "",
   readTime?: string | null,
+  thumbnail = "",
 ): ProofResource {
   const short = doc.homeTitle?.trim();
   return {
     id: `${kind}:${doc.id}`,
     kicker: doc.kicker?.trim() ?? "",
     meta: meta(kind, duration, readTime),
+    kind: KIND_LABEL[kind],
     title: short || doc.title,
     fullTitle: doc.title,
     blurb: doc.description?.trim() || "",
     duration,
+    thumbnail,
     href,
   };
 }
@@ -115,19 +143,48 @@ export async function getProofFeed(): Promise<ProofFeed> {
   ]);
 
   const films = pick(featuredVideos).map((doc) =>
-    toResource("featured-videos", doc, doc.youtubeUrl, doc.duration ?? ""),
+    toResource(
+      "featured-videos",
+      doc,
+      doc.youtubeUrl,
+      doc.duration ?? "",
+      null,
+      youtubeLayers(doc.youtubeUrl),
+    ),
   );
   const clips = [
     ...pick(shortVideos).map((doc) =>
-      toResource("short-videos", doc, doc.youtubeUrl, doc.duration ?? ""),
+      toResource(
+        "short-videos",
+        doc,
+        doc.youtubeUrl,
+        doc.duration ?? "",
+        null,
+        youtubeLayers(doc.youtubeUrl),
+      ),
     ),
     ...pick(deepDives).map((doc) =>
-      toResource("deep-dives", doc, doc.youtubeUrl, doc.duration ?? ""),
+      toResource(
+        "deep-dives",
+        doc,
+        doc.youtubeUrl,
+        doc.duration ?? "",
+        null,
+        youtubeLayers(doc.youtubeUrl),
+      ),
     ),
     ...pick(articles).map((doc) => toResource("external-articles", doc, doc.url)),
-    ...pick(blogs).map((doc) =>
-      toResource("blog-posts", doc, blogHref(doc.slug), "", doc.readTime),
-    ),
+    ...pick(blogs).map((doc) => {
+      const image = resolveMediaUrl(doc.thumbnailImage, doc.thumbnail);
+      return toResource(
+        "blog-posts",
+        doc,
+        blogHref(doc.slug),
+        "",
+        doc.readTime,
+        image ? `url("${image}")` : "",
+      );
+    }),
   ];
 
   const featured = films[0] ?? clips[0] ?? null;
