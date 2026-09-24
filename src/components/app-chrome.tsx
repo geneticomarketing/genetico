@@ -23,6 +23,7 @@ const REDESIGNED_ROUTES = new Set<string>([
   "/home-v4",
   "/resources",
   "/about-us",
+  "/about-v2",
   "/platform",
   "/public-health",
   "/life-science",

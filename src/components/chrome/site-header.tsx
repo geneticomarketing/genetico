@@ -111,11 +111,15 @@ export function SiteHeader({
     setSolutionsOpen(false);
   }, []);
 
+  /* Close first, scroll after: while the mobile panel is open the body is
+     locked with `overflow: hidden`, and releasing that lock part-way through a
+     smooth scroll cancels it — the page stayed put. Two frames lets React
+     commit the close and run the effect cleanup that unlocks the body. */
   const jump = useCallback(
     (e: React.MouseEvent, id: string) => {
       e.preventDefault();
-      scrollToSection(id);
       closeOverlays();
+      requestAnimationFrame(() => requestAnimationFrame(() => scrollToSection(id)));
     },
     [closeOverlays],
   );

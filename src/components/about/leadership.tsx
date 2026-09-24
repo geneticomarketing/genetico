@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { FaLinkedinIn } from "react-icons/fa6";
 
 import { Eyebrow } from "@/components/chrome/eyebrow";
@@ -98,16 +99,28 @@ function RowLabel({ children }: { children: string }) {
  *
  * The card shows a clipped bio; the full one lives in the dialog, which traps
  * focus, closes on Escape or a click outside, and hands focus back to the card
- * that opened it.
+ * that opened it. It is portalled to the body, so a page that wraps this
+ * section in a transformed or clipped sheet (the /about-v2 fold) cannot trap
+ * the fixed overlay inside that sheet or under the header.
  */
 export function Leadership({
   content,
   num,
   eyebrowLabel,
+  columns = "auto",
+  children,
 }: {
   content: AboutContent["leadership"];
   num: string;
   eyebrowLabel: string;
+  /**
+   * `auto` fills the row with as many 250px cards as fit. `fixed` is the
+   * /about-v2 handoff's grid: the team four across and the advisors three,
+   * both two across below the breakpoints.
+   */
+  columns?: "auto" | "fixed";
+  /** Rendered under the grids, inside the section — /about-v2's "How we work". */
+  children?: ReactNode;
 }) {
   const [open, setOpen] = useState<AboutPerson | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
@@ -158,9 +171,9 @@ export function Leadership({
     };
   }, [open, close]);
 
-  const rows: [string, AboutPerson[]][] = [
-    ["Team", content.team],
-    ["Advisors & Mentors", content.advisors],
+  const rows: [string, AboutPerson[], string][] = [
+    ["Team", content.team, "grid-cols-2 mid:grid-cols-4"],
+    ["Advisors & Mentors", content.advisors, "grid-cols-2 nav:grid-cols-3"],
   ];
 
   return (
@@ -180,11 +193,17 @@ export function Leadership({
           {content.subtitle}
         </p>
 
-        {rows.map(([label, people], i) =>
+        {rows.map(([label, people, fixedGrid], i) =>
           people.length ? (
             <div key={label} className={i === 0 ? "mt-[52px]" : "mt-11"}>
               <RowLabel>{label}</RowLabel>
-              <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4">
+              <div
+                className={`mt-5 grid gap-4 ${
+                  columns === "fixed"
+                    ? fixedGrid
+                    : "grid-cols-[repeat(auto-fill,minmax(250px,1fr))]"
+                }`}
+              >
                 {people.map((person) => (
                   <PersonCard key={person.id} person={person} onOpen={() => openPerson(person)} />
                 ))}
@@ -192,61 +211,66 @@ export function Leadership({
             </div>
           ) : null,
         )}
+
+        {children}
       </div>
 
-      {open ? (
-        <div
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(7,18,28,0.55)] p-5"
-          onClick={close}
-        >
-          <div
-            ref={dialogRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="about-person-name"
-            tabIndex={-1}
-            onClick={(e) => e.stopPropagation()}
-            className="rounded-card max-h-[85vh] w-full max-w-[560px] overflow-y-auto bg-white p-[clamp(24px,3vw,34px)] shadow-[0_30px_80px_rgba(7,18,28,0.35)] outline-none"
-          >
-            <div className="flex items-start gap-5">
-              <Portrait person={open} className="h-[84px] w-[84px] flex-none rounded-full" />
-              <div className="flex min-w-0 flex-col gap-1.5">
-                <span className="font-mono-label text-primary text-[10.5px] tracking-[0.16em] uppercase">
-                  {open.role}
-                </span>
-                <h3
-                  id="about-person-name"
-                  className="font-headline text-ink m-0 text-[26px] leading-[1.2] tracking-[-0.015em]"
-                >
-                  {open.name}
-                </h3>
+      {open
+        ? createPortal(
+            <div
+              className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(7,18,28,0.55)] p-5"
+              onClick={close}
+            >
+              <div
+                ref={dialogRef}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="about-person-name"
+                tabIndex={-1}
+                onClick={(e) => e.stopPropagation()}
+                className="rounded-card max-h-[85vh] w-full max-w-[560px] overflow-y-auto bg-white p-[clamp(24px,3vw,34px)] shadow-[0_30px_80px_rgba(7,18,28,0.35)] outline-none"
+              >
+                <div className="flex items-start gap-5">
+                  <Portrait person={open} className="h-[84px] w-[84px] flex-none rounded-full" />
+                  <div className="flex min-w-0 flex-col gap-1.5">
+                    <span className="font-mono-label text-primary text-[10.5px] tracking-[0.16em] uppercase">
+                      {open.role}
+                    </span>
+                    <h3
+                      id="about-person-name"
+                      className="font-headline text-ink m-0 text-[26px] leading-[1.2] tracking-[-0.015em]"
+                    >
+                      {open.name}
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={close}
+                    aria-label="Close profile"
+                    className="border-rule text-ink-soft hover:border-primary hover:text-primary ml-auto flex h-8 w-8 flex-none cursor-pointer items-center justify-center rounded-full border text-lg leading-none transition-colors"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                <p className="text-ink-body mt-5 mb-0 text-[14.5px] leading-[1.7]">{open.bio}</p>
+
+                {open.linkedin ? (
+                  <a
+                    href={open.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="border-rule text-primary hover:border-primary hover:bg-primary-tint mt-6 inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-[13.5px] font-medium transition-colors"
+                  >
+                    <FaLinkedinIn size={12} aria-hidden />
+                    LinkedIn
+                  </a>
+                ) : null}
               </div>
-              <button
-                type="button"
-                onClick={close}
-                aria-label="Close profile"
-                className="border-rule text-ink-soft hover:border-primary hover:text-primary ml-auto flex h-8 w-8 flex-none cursor-pointer items-center justify-center rounded-full border text-lg leading-none transition-colors"
-              >
-                ×
-              </button>
-            </div>
-
-            <p className="text-ink-body mt-5 mb-0 text-[14.5px] leading-[1.7]">{open.bio}</p>
-
-            {open.linkedin ? (
-              <a
-                href={open.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="border-rule text-primary hover:border-primary hover:bg-primary-tint mt-6 inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-[13.5px] font-medium transition-colors"
-              >
-                <FaLinkedinIn size={12} aria-hidden />
-                LinkedIn
-              </a>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
+            </div>,
+            document.body,
+          )
+        : null}
     </section>
   );
 }

@@ -13,6 +13,8 @@ export const HOME_V2_PATH = "/home-v2";
 export const HOME_V3_PATH = "/home-v3";
 /** The fourth pass, which leads with the company rather than the platform. */
 export const HOME_V4_PATH = "/home-v4";
+/** The About page restructured as a story, previewed alongside the live one. */
+export const ABOUT_V2_PATH = "/about-v2";
 
 export const LEAD_FORM_HASH = "#lead-form";
 
@@ -22,6 +24,7 @@ const PAGES_WITH_LEAD_FORM = [
   HOME_V3_PATH,
   HOME_V4_PATH,
   ABOUT_PATH,
+  ABOUT_V2_PATH,
   PLATFORM_PATH,
   HOSPITAL_PATH,
   PHARMA_PATH,
