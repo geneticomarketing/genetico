@@ -40,13 +40,30 @@ export function numberSections<T extends PageSection>(sections: T[]): (T & { num
 /** Distance from the top of the viewport that a jumped-to section settles at. */
 export const SCROLL_OFFSET_PX = 118;
 
+/**
+ * Where an element sits in the document, ignoring transforms.
+ *
+ * `getBoundingClientRect()` includes the scroll-driven animations in flight at
+ * the moment of the click — a section's reveal (14px down) and the lifting
+ * fold sheet (52px down, scaled) — so a jump measured that way lands short by
+ * however far those were displaced, then they settle and the heading slides
+ * under the header. Offsets are layout positions, which transforms never move.
+ */
+function layoutTop(el: HTMLElement): number {
+  let top = 0;
+  for (let node: HTMLElement | null = el; node; node = node.offsetParent as HTMLElement | null) {
+    top += node.offsetTop;
+  }
+  return top;
+}
+
 /** Scroll a section under the header and rail, respecting reduced motion. */
 export function scrollToSection(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
 
   const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-  const top = el.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET_PX;
+  const top = layoutTop(el) - SCROLL_OFFSET_PX;
 
   window.scrollTo({ top, behavior: reduced ? "auto" : "smooth" });
 }
