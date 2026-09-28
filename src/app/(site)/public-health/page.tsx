@@ -68,7 +68,7 @@ export default async function PublicHealthPage() {
         roleOrder={[
           "Government or Public Health",
           "Clinician or Hospital",
-          "Life Science or Industry",
+          "Life Science or Research",
         ]}
         content={{
           heading: content.cta.heading || DEFAULT_HOME_CONTACT.heading,

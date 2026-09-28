@@ -6,19 +6,31 @@
  * one used where a section leads with a heading and a number.
  */
 
-export function Eyebrow({ children }: { children: React.ReactNode }) {
+export function Eyebrow({
+  children,
+  fluid = false,
+}: {
+  children: React.ReactNode;
+  /**
+   * Rules that shrink with the viewport (28–72px) instead of holding at 72px,
+   * so a long label keeps to one line on a phone. The later handoffs draw
+   * their longer eyebrows this way.
+   */
+  fluid?: boolean;
+}) {
+  const rule = fluid ? "w-[clamp(28px,8vw,72px)]" : "w-[72px]";
   return (
     <div className="flex items-center justify-center gap-[22px]">
       <span
         aria-hidden
-        className="block h-px w-[72px] shrink-0 bg-[image:var(--gradient-hairline)]"
+        className={`block h-px ${rule} shrink-0 bg-[image:var(--gradient-hairline)]`}
       />
       <span className="font-mono-label text-primary text-center text-[11px] tracking-[0.2em] uppercase">
         {children}
       </span>
       <span
         aria-hidden
-        className="block h-px w-[72px] shrink-0 bg-[image:var(--gradient-hairline-flip)]"
+        className={`block h-px ${rule} shrink-0 bg-[image:var(--gradient-hairline-flip)]`}
       />
     </div>
   );

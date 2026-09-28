@@ -147,7 +147,7 @@ export const Footer = withAdminGroup(
         type: "group",
         fields: [
           { name: "menuHeading", type: "text", defaultValue: "Menu" },
-          { name: "solutionsHeading", type: "text", defaultValue: "Solutions" },
+          { name: "solutionsHeading", type: "text", defaultValue: "Who We Serve" },
         ],
       },
       {

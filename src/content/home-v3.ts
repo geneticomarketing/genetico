@@ -447,7 +447,7 @@ export const HOME_V3_ROLE_DESCRIPTIONS: Record<string, string> = {
   "Government or Public Health":
     "We will take you through registry design, screening programmes, patient tracking and " +
     "programme-level analytics.",
-  "Life Science or Industry":
+  "Life Science or Research":
     "We will show how structured intake, cohort discovery and research-ready export fit your " +
     "evidence pipeline.",
   Investor:

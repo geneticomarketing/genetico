@@ -1,55 +1,5 @@
-import { Eyebrow, SectionLabel } from "@/components/chrome/eyebrow";
+import { Eyebrow } from "@/components/chrome/eyebrow";
 import type { AboutContent, AboutLogo } from "@/lib/cms/about-page-data";
-
-/**
- * Section 01 — what Genetico exists to solve.
- *
- * The first foundation is set as a full-width statement and the rest sit side
- * by side beneath it, so the problem reads before the response to it. Numbers
- * come from position, so reordering in the CMS renumbers them.
- */
-export function Vision({ content, num }: { content: AboutContent["vision"]; num: string }) {
-  const [lead, ...rest] = content.items;
-
-  return (
-    <section
-      id="vision"
-      data-reveal
-      className="px-edge scroll-mt-32 pt-[clamp(67px,7vw,96px)] pb-[clamp(73px,7.6vw,104px)]"
-    >
-      <div className="max-w-site mx-auto">
-        <Eyebrow>
-          {num} · {content.eyebrow}
-        </Eyebrow>
-        <h2 className="font-headline mx-auto mt-7 max-w-[660px] text-center text-[clamp(32px,4vw,50px)] leading-[1.14] tracking-[-0.015em]">
-          {content.heading}
-        </h2>
-
-        {lead ? (
-          <div className="border-rule rounded-card bg-sheet-cool mx-auto mt-16 flex max-w-[900px] flex-col items-center gap-[22px] border p-[clamp(32px,4vw,52px)] text-center">
-            <SectionLabel num="01">{lead.title}</SectionLabel>
-            <p className="font-headline text-ink m-0 max-w-[760px] text-[clamp(21px,2.4vw,29px)] leading-[1.42] tracking-[-0.01em] text-pretty">
-              {lead.body}
-            </p>
-          </div>
-        ) : null}
-
-        {rest.length ? (
-          <div className="mx-auto mt-14 grid max-w-[1000px] grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[clamp(32px,5vw,72px)]">
-            {rest.map((item, i) => (
-              <div key={item.title} className="flex flex-col gap-3.5">
-                <SectionLabel num={String(i + 2).padStart(2, "0")}>{item.title}</SectionLabel>
-                <h3 className="font-headline m-0 text-[clamp(20px,2.1vw,26px)] leading-[1.34] tracking-[-0.01em]">
-                  {item.body}
-                </h3>
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </div>
-    </section>
-  );
-}
 
 /**
  * Section 03 — grants and awards on a timeline.

@@ -136,22 +136,28 @@ export async function getSiteSettings() {
           "We'll connect you to our medical team to walk through workflows, integration and a 2-week pilot at your center.",
       },
       {
+        id: "industry",
+        label: "Life Science or Research",
+        description:
+          "We'll show how structured, research-ready data and cohort identification support your evidence pipeline.",
+      },
+      {
         id: "public-health",
         label: "Government or Public Health",
         description:
-          "We'll route you to our public health team to discuss screening frameworks, registries and population-scale deployment.",
+          "We'll walk you through registries, screening programmes, patient tracking and programme analytics.",
       },
       {
-        id: "industry",
-        label: "Life Science or Industry",
+        id: "partner",
+        label: "Strategic partner",
         description:
-          "We'll connect you with partnerships to explore cohort access, real-world evidence and research collaboration.",
+          "We'll discuss how your organisation and Genetico could work together across the rare disease ecosystem.",
       },
       {
         id: "investor",
         label: "Investor",
         description:
-          "We'll set up time with the founding team to walk through the platform, traction and roadmap.",
+          "We'll share what we have built, where it is deployed, and how Genetico is positioned in the rare and genetic disease ecosystem.",
       },
     ],
     contactForm: {
@@ -170,15 +176,15 @@ export async function getNavigation() {
   return getGlobal("navigation", {
     ctaLabel: "Book a demo",
     mainNav: [
-      { label: "About", href: "/about-us", type: "link" as const, isDark: true },
-      { label: "Platform", href: "/platform", type: "link" as const, isDark: false },
-      { label: "Solutions", href: "", type: "dropdown" as const, isDark: false },
-      { label: "Resources", href: "/resources", type: "link" as const, isDark: false },
+      { label: "Our Story", href: "/about-us", type: "link" as const, isDark: true },
+      { label: "What We Build", href: "/platform", type: "link" as const, isDark: false },
+      { label: "Who We Serve", href: "", type: "dropdown" as const, isDark: false },
+      { label: "Insights", href: "/resources", type: "link" as const, isDark: false },
     ],
     solutionsNav: [
       { label: "Hospital / Clinician / CoE", href: "/hospital", icon: "🏥" },
-      { label: "Life Science / Biotech organisation", href: "/life-science", icon: "💊" },
-      { label: "Public health", href: "/public-health", icon: "💊" },
+      { label: "Life Science / Biotech", href: "/life-science", icon: "💊" },
+      { label: "Public Health", href: "/public-health", icon: "💊" },
     ],
   });
 }
@@ -186,19 +192,18 @@ export async function getNavigation() {
 export async function getFooterContent() {
   return getGlobal("footer", {
     tagline:
-      "IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format & enables AI-assisted clinical decision-making for rare and genetic disorders.",
+      "Genetico is a health technology company developing digital solutions for the rare and genetic disease ecosystem. IndiGeneUs.AI is its platform.",
     copyrightText: "Genetico. All rights reserved.",
     contactLabel: "Contact Us",
     sectionLabels: {
       menuHeading: "Menu",
-      solutionsHeading: "Solutions",
+      solutionsHeading: "Who We Serve",
     },
     menuLinks: [
       { label: "Home", href: "/" },
-      { label: "About", href: "/about-us" },
-      { label: "How it Works", href: "/platform" },
-      { label: "For Business", href: "/hospital" },
-      { label: "FAQs", href: "/#faqs" },
+      { label: "Our Story", href: "/about-us" },
+      { label: "What We Build", href: "/platform" },
+      { label: "Insights", href: "/resources" },
     ],
     solutionsLinks: [
       { label: "Hospital / Clinician / CoE", href: "/hospital" },

@@ -81,7 +81,7 @@ export default async function HospitalPage() {
         organisationLabel="Hospital or centre"
         organisationPlaceholder="Name of hospital or centre"
         emailPlaceholder="name@hospital.org"
-        roleOrder={["Clinician or Hospital", "Life Science or Industry"]}
+        roleOrder={["Clinician or Hospital", "Life Science or Research"]}
         content={{
           heading: content.cta.heading || DEFAULT_HOME_CONTACT.heading,
           description: content.cta.description || DEFAULT_HOME_CONTACT.description,

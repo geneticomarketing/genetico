@@ -73,7 +73,7 @@ export default async function LifeSciencePage() {
         num={section["get-in-touch"].num}
         variant="panel"
         emailPlaceholder="name@organisation.com"
-        roleOrder={["Life Science or Industry", "Clinician or Hospital"]}
+        roleOrder={["Life Science or Research", "Clinician or Hospital"]}
         content={{
           heading: content.cta.heading || DEFAULT_HOME_CONTACT.heading,
           description: content.cta.description || DEFAULT_HOME_CONTACT.description,
