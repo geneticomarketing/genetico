@@ -362,7 +362,7 @@ export const HOME_V4_CONTACT = {
 
 export const HOME_V4_ROLE_ORDER = [
   "Clinician or Hospital",
-  "Life Science or Industry",
+  "Life Science or Research",
   "Government or Public Health",
   "Investor",
 ];
@@ -371,7 +371,7 @@ export const HOME_V4_ROLE_DESCRIPTIONS: Record<string, string> = {
   "Clinician or Hospital":
     "Our medical team will walk through clinical workflows, integration with your systems and " +
     "a two-week pilot at your centre.",
-  "Life Science or Industry":
+  "Life Science or Research":
     "We will show how structured intake, cohort discovery and research-ready export fit your " +
     "evidence pipeline.",
   "Government or Public Health":
