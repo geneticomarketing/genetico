@@ -24,22 +24,28 @@ const FALLBACK_ROLES = [
       "2-week pilot at your center.",
   },
   {
-    label: "Government or Public Health",
-    description:
-      "We'll walk you through registries, screening programmes, patient tracking and " +
-      "real-time programme analytics.",
-  },
-  {
-    label: "Life Science or Industry",
+    label: "Life Science or Research",
     description:
       "We'll show how structured, research-ready data and cohort identification support your " +
       "evidence pipeline.",
   },
   {
+    label: "Government or Public Health",
+    description:
+      "We'll walk you through registries, screening programmes, patient tracking and " +
+      "programme analytics.",
+  },
+  {
+    label: "Strategic partner",
+    description:
+      "We'll discuss how your organisation and Genetico could work together across the rare " +
+      "disease ecosystem.",
+  },
+  {
     label: "Investor",
     description:
-      "We'll share how Genetico is building the digital backbone for the rare disease " +
-      "ecosystem.",
+      "We'll share what we have built, where it is deployed, and how Genetico is positioned in " +
+      "the rare and genetic disease ecosystem.",
   },
 ];
 
@@ -110,6 +116,9 @@ export function GetInTouch({
   emailPlaceholder = "janedoe@email.com",
   roleOrder,
   roleDescriptions,
+  activeRole,
+  onActiveRoleChange,
+  children,
 }: {
   section: HomeSectionMeta;
   num: string;
@@ -145,6 +154,14 @@ export function GetInTouch({
    * other page's form at the same time. Unmatched labels are ignored.
    */
   roleDescriptions?: Record<string, string>;
+  /**
+   * The selected tab's label, for a page that picks it from outside the form
+   * (route cards above it, say). Leave unset and the form keeps its own.
+   */
+  activeRole?: string;
+  onActiveRoleChange?: (label: string) => void;
+  /** Rendered between the intro and the form card. */
+  children?: React.ReactNode;
 }) {
   const panel = variant === "panel";
   const settings = useSiteData()?.settings;
@@ -181,7 +198,13 @@ export function GetInTouch({
     wording?.successMessage ?? "Thank you. Our team will get back to you within two working days.";
   const errorFallback = wording?.errorMessage ?? "Unable to send your message right now.";
 
-  const [active, setActive] = useState(0);
+  const [ownActive, setOwnActive] = useState(0);
+  const controlledIndex = activeRole ? roles.findIndex((role) => role.label === activeRole) : -1;
+  const active = controlledIndex >= 0 ? controlledIndex : ownActive;
+  const setActive = (i: number) => {
+    setOwnActive(i);
+    if (roles[i]) onActiveRoleChange?.(roles[i].label);
+  };
   const [form, setForm] = useState(INITIAL_FORM);
   const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "error">("idle");
   const [error, setError] = useState("");
@@ -260,6 +283,8 @@ export function GetInTouch({
           </div>
         ) : null}
       </div>
+
+      {children}
 
       {/* `lead-form` is the anchor the rest of the site has always used for
           this form — the six pages still on the old chrome all link to

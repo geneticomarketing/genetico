@@ -22,6 +22,7 @@ export function SiteHeader({
   navigation,
   sections,
   tone = "light",
+  overlay = tone === "dark",
   ctaHref = "/#get-in-touch",
 }: {
   navigation: SiteData["navigation"];
@@ -33,6 +34,12 @@ export function SiteHeader({
    * white until the page scrolls, then becomes the usual solid white bar.
    */
   tone?: "light" | "dark";
+  /**
+   * Lie over the top of the page rather than above it, for a page whose own
+   * top padding already clears the header. Dark-hero pages do this by default;
+   * the blog, whose top is light, asks for it explicitly.
+   */
+  overlay?: boolean;
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -130,7 +137,7 @@ export function SiteHeader({
          above it — the hero carries the top padding to clear it. Elsewhere it
          is sticky, so it takes its own space at the top of the page. */
       className={`right-0 left-0 z-[60] border-b transition-[background-color,border-color] duration-300 ${
-        tone === "dark" ? "fixed top-0" : "sticky top-0"
+        overlay ? "fixed top-0" : "sticky top-0"
       } ${
         scrolled || menuOpen
           ? "border-rule bg-white/92 backdrop-blur-[14px]"
