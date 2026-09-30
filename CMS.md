@@ -1,233 +1,141 @@
 # Editing the Genetico website
 
-All website text and images are edited at **`/admin`** — <http://localhost:3000/admin> when running
-locally. You do not need to touch code to change anything described here.
+All website text and images are edited at **`/admin`** — `https://genetico.in/admin` on the live
+site, <http://localhost:3000/admin> when running locally. You do not need to touch code for
+anything described here. Saved changes appear on the live site within about a minute.
 
 ## How the admin panel is organised
 
 The sidebar has **one group per page of the website**, in the same order as the main menu:
 
-| Group              | Edits the page at                                 |
-| ------------------ | ------------------------------------------------- |
-| Home page          | `/`                                               |
-| About page         | `/about-us`                                       |
-| Platform page      | `/platform`                                       |
-| Solution pages     | `/hospital`, `/life-science`                      |
-| Public Health page | `/public-health`                                  |
-| Resources page     | `/resources`                                      |
-| Other pages        | `/blog`, `/privacy-policy`, `/coming-soon`        |
-| Site-wide          | The header, footer and contact form on every page |
-| Images & files     | Everything you have uploaded                      |
+| Group              | Edits                                                                   |
+| ------------------ | ----------------------------------------------------------------------- |
+| Home page          | `/`                                                                     |
+| About page         | `/about-us`, plus the partner logos and the team                        |
+| Platform page      | `/platform`                                                             |
+| Solution pages     | `/hospital`, `/life-science`                                            |
+| Public Health page | `/public-health`                                                        |
+| Resources page     | `/resources`, and the videos, articles and blog posts                   |
+| Other pages        | The `/blog` heading, the legal pages (privacy, cookies), `/coming-soon` |
+| Site-wide          | The header menu, the footer, and the enquiry form on every page         |
+| Images & files     | Everything you have uploaded                                            |
 
-Inside each group, the sections are **numbered in the order they appear on the page**. Section 1 is
-at the top of the page, section 2 is below it, and so on. Open the website beside the admin panel
-and scroll both together — they line up.
+Inside each group, the sections are **numbered in the order they appear on the page** — section 1
+is at the top. Open the website beside the admin panel and scroll both together; they line up.
+Every section has a short note at the top of its edit screen saying exactly where it sits.
 
-Each section also has a short note at the top of its edit screen saying exactly where it sits.
+The page's own section numbers (the small "01 — Why Genetico exists" labels) start after the hero,
+so they run one or two behind the numbers in the sidebar. That is expected.
 
-### Sections vs. lists
+### What every numbered section has
 
-Some sections are split into two entries:
+- **Small label above the heading** — the words after the section number.
+- **Name in the section menu** — the short name in the bar that follows the page as you scroll,
+  and in the mobile menu. Keep it to two or three words.
 
-- **“… — heading”** holds the heading and description that introduce the section.
-- The entry directly below it holds the repeating items inside it.
+The number itself is automatic.
 
-For example, on the home page, **“3. Partners — heading”** is the wording above the logos, and
-**“Partner logos”** is the logos themselves.
+### Empty fields are safe
 
-### Two things that live somewhere unexpected
+If you clear a field, the page shows its original wording rather than a gap. To change text, type
+the new text; to restore the original, clear the field.
 
-- **The partner logos and the “Security & Compliance” points appear on both the home page and the
-  About page**, and are edited once, under **Home page**.
-- **Blog posts** are written under **Resources page → Blog posts**, but they also show on the
-  `/blog` listing and can be featured on the home page.
+### Lists with a fixed number of items
 
-### Putting a resource on the home page
+A few lists are paired with drawings on the page, so they must keep the number of items the drawing
+has. Their notes say "Exactly …":
 
-The home page's **“In use across the ecosystem”** section is not edited on the home page. It shows
-whichever resources you tick **“Show on the home page”** against, under **Resources page** — one
-large item and three smaller ones beside it. The large one is a featured video if any is ticked.
+- **Home → 2. Why Genetico exists → Parties** — five, one per document in the drawing.
+- **Home → 5. IndiGeneUs.AI → Layers** — four, one per product screen.
+- **Home → 6. Who we serve → Cards** — three, one per audience page.
+- **Home → 9. Where we're going → Stages** — three, one per stage of the network drawing.
 
-Everything on those cards — title, description, length, link — comes from the resource itself, so
-the two pages cannot drift apart. If a title is too long for the smaller card, fill in **“Shorter
-title for the home page”** on the resource; the full title still shows on the Resources page.
+You can change their words freely; the panel will not let you add or remove items.
 
-The wording _around_ the featured card — the “Now showing” label, the small line above the title,
-the before-and-after figures and the link text — is under **Home page → 4. Proof**. Leave the two
-figures empty to hide them.
+### What is not edited here
 
-### The two rows on the About page
-
-**Leadership** is split into “Team” and “Advisors & mentors”. Each person carries a **“Which row on
-the About page”** dropdown in the sidebar — change it there, not by reordering the list.
-
-**Partner logos** work the same way: hospitals, universities and research bodies belong in the top
-row, funders and incubators in the quieter row beneath. A row with nothing in it is not shown at
-all, so the top row only appears once something is put in it.
-
-### The Resources page's filter tabs
-
-The row of tabs under the heading is **not edited**. The page builds one tab per section that has
-something in it — Videos, Deep dives, Articles, Blogs — counts the items itself, and leaves a tab
-out entirely when its section is empty. Add a deep dive and the Deep dives tab appears; remove the
-last one and it goes. There is nothing to keep in step by hand.
-
-### Sections that are no longer shown
-
-The home page was rebuilt in 2026. Its old sections — the hero slideshow, “Who We Are”, the
-ecosystem challenge cards and gap tabs, and the news band — are no longer on the page, so they have
-been taken out of the sidebar. **Nothing was deleted**: the words are still in the database, and a
-developer can bring any of them back. If you are looking for text you remember editing and cannot
-find it, that is probably why — ask before rewriting it somewhere else.
+The **product pictures** on the home page — the sample case "GX-2041" that types itself, the record
+panel and the four product screens — are illustrations built into the design, not content.
 
 ## Common tasks
 
 ### Change a heading or paragraph
 
-Find the page group, open the numbered section, edit the field, press **Save**. The live site
-updates within about a minute.
+Open the page group, open the numbered section, edit the field, press **Save**.
 
-### Add a person to the leadership carousel
+### Show a video, article or blog post on the home page
+
+The home page's **Insights** section is filled from the Resources page. Open the item under
+**Resources page** and tick **“Show on the home page”**. The first ticked featured video becomes the
+large card; up to four other ticked items are listed beside it, in their **Order on the page**.
+If a title is too long for the list, fill in **“Shorter title for the home page”** on the item.
+
+The large card's heading and photo are set under **Home page → 8. Insights**.
+
+### Add or move a partner logo
+
+**About page → Partner logos.** Each logo has, in the right-hand sidebar:
+
+- **Which row on the About page** — institutions (top row) or supporters (the row beneath).
+- **Show on the home page** — adds it to the scrolling strip in the home page's Impact section.
+- **Order on the page** — lower numbers first, in both places. The logos are numbered 10, 20, 30…
+  (institutions) and 110, 120, 130… (supporters), so a new one can go between two others.
+
+Upload the logo as a PNG or SVG with a transparent background.
+
+### Add a person to the team
 
 **About page → Team members → Create new.** Fill in the name, job title and bio, upload a square
-photo, then set **Order on the page** — lower numbers appear first.
+photo, and pick **Which row on the About page** (team or advisors). **Order on the page** sets the
+order.
+
+### Add an award
+
+**About page → Grants & awards → Create new.** The number of awards also updates the home page's
+"Backed by" figure automatically.
 
 ### Add a blog post
 
 **Resources page → Blog posts → Create new.**
 
-- **Web address** is the last part of the link. `rare-disease-policy` gives
-  `/blog/rare-disease-policy`. Use lowercase letters, numbers and hyphens only.
-  **Changing it later breaks any existing links to that post.**
-- **Article body** is a list — add one paragraph per row and drag to reorder.
-- **Category colour** takes a hex colour. Genetico blue is `#024385`; amber is `#d97706`.
+- **Web address** is the last part of the link: `rare-disease-policy` gives
+  `/blog/rare-disease-policy`. Lowercase letters, numbers and hyphens only. **Changing it later
+  breaks existing links to the post.**
+- **Article body** is a list — one paragraph per row, drag to reorder.
 
 ### Add a video
 
 **Resources page → Short videos** (the small scrolling cards) or **Deep dives** (the large panels).
-Paste the link from YouTube's **Share** button. Both `youtu.be/…` and `youtube.com/watch?v=…` work.
+Paste the link from YouTube's **Share** button.
 
-**3. Featured video** is the single large video near the top — only the first entry is used, so edit
-the existing one rather than adding another.
+### Replace a photo
 
-### Reorder anything in a list
-
-Every list has an **Order on the page** box in the right-hand sidebar. Lower numbers come first.
-Leave gaps (10, 20, 30) so you can slot something in later without renumbering everything.
-
-### Change an image
-
-Upload it under **Images & files**, then open the section that uses it and pick it from the list.
-Each upload field tells you the size and file name to use. Always fill in the **image description** —
-it is what screen readers read out.
+The Home page's photo band, audience cards and Insights card each have a photo field. Upload a new
+photo there; clear it to go back to the original. Always fill in the **image description** — it is
+what screen readers read out.
 
 ### Change where a button goes
 
 Buttons take either a path on this site (`/platform`, `/#get-in-touch`) or a full web address
 starting with `https://`.
 
-## Headlines split across two lines
+### Edit the privacy or cookie policy
 
-The **About** and **Public Health** heroes, and both **Solution pages**, split their headline into
-three separate boxes so part of it can be coloured:
+**Other pages → Legal pages.** Each page is a list of sections. Update **Last updated** whenever
+you change the wording. The cookie policy describes what the site actually does with cookies —
+check with whoever manages Google Tag Manager before changing it.
 
-| Field                    | Example                   |
-| ------------------------ | ------------------------- |
-| Headline — first line    | `Building Infrastructure` |
-| Headline — second line   | `For`                     |
-| Headline — words in blue | `Rare Disease Care`       |
+### Change who enquiries go to, or the form's audience tabs
 
-That renders as:
-
-> Building Infrastructure
-> For **Rare Disease Care**
-
-Leave the second line empty if you only want plain text followed by coloured text.
-
-## Colours on the Hospital and Life Science pages
-
-The cards and progress rings use a named **colour theme** — Red, Blue, Teal or Grey — chosen from a
-dropdown. You never need to type a colour code. Leave a theme empty and it cycles through the
-options automatically, which is usually what you want.
-
-Card numbers (01, 02, 03…) are also added automatically. Leave the number box empty unless you need
-to override it.
+The tabs and their wording are under **Site-wide → Contact details & form**. Where the emails are
+delivered is set by the developers (see the README), not in the admin panel.
 
 ## Things to be careful with
 
-- **Resources → Filter tabs** only work with these exact words: `All`, `Featured`, `Videos`,
-  `Articles`, `Blogs`. Renaming a tab stops it filtering.
-- **Who We Are → Words to highlight in blue** must match the paragraph letter for letter, including
-  punctuation. If nothing turns blue, the phrase does not match exactly.
-- **The Blogs card image** accepts either an uploaded picture or a CSS gradient, not both.
 - Do not create extra entries under **Solution pages**. There are exactly two — Hospital and Life
-  Science — and you should edit the existing ones.
-
----
-
-# Setup and maintenance (for developers)
-
-## Running locally
-
-Requires Node 20.11+ (the repo pins 22 in `.nvmrc`).
-
-```bash
-npm install
-cp .env.example .env      # then fill in the values
-npm run dev               # http://localhost:3000
-```
-
-Use `.env`, **not** `.env.local` — the seed and migration scripts load `dotenv/config`, which only
-reads `.env`.
-
-| Variable                                                  | Purpose                             |
-| --------------------------------------------------------- | ----------------------------------- |
-| `PAYLOAD_SECRET`                                          | Signs admin sessions. 32+ chars     |
-| `DATABASE_URI`                                            | Supabase Postgres connection string |
-| `S3_*`                                                    | Supabase Storage, for uploads       |
-| `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_TO`, `RESEND_CC` | Contact form delivery               |
-
-If `DATABASE_URI` is unset the site still builds and renders, falling back to the hardcoded content
-in `src/lib/cms/defaults/`. That is what keeps CI green without production credentials.
-
-## Scripts
-
-| Command                                                    | Description                                                             |
-| ---------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `npm run dev`                                              | Next.js + the Payload admin                                             |
-| `npm run generate:types`                                   | Regenerate `src/payload-types.ts` — **run after any CMS field change**  |
-| `npm run generate:importmap`                               | Regenerate the admin import map                                         |
-| `npx tsx scripts/print-admin-nav.mts`                      | Print the sidebar as an editor sees it                                  |
-| `node --env-file=.env scripts/migrate-cms-realignment.mjs` | One-time schema migration (already applied)                             |
-| `node --env-file=.env scripts/backfill-cms-fields.mjs`     | One-time content backfill (already applied)                             |
-| `node --env-file=.env scripts/backup-cms.mjs`              | Dump every table to `.cms-backup/` — **run before any schema change**   |
-| `npx tsx scripts/seed-home-redesign.mts`                   | Fill empty home-page fields with the design copy (`--force` overwrites) |
-| `npx tsx scripts/flag-home-resources.mts`                  | Offer the four videos to the home page's proof strip                    |
-
-> **`npm run seed` is destructive.** It drops and truncates tables, then overwrites every global
-> with the hardcoded defaults in `src/lib/cms/defaults/`. It is a first-time bootstrap for an empty
-> database, **not** a setup step. Never run it against a database that has real content.
-
-## Keeping the admin panel aligned with the pages
-
-The sidebar order is defined in `src/payload/admin/nav-order.ts`, and each list mirrors the order
-the sections appear in the corresponding page component. **If you reorder sections in a page
-component, reorder them there too**, and renumber the section labels.
-
-Run `npx tsx scripts/print-admin-nav.mts` to check — it prints the sidebar and flags any entry with
-no explicit position.
-
-Section definitions live in `src/payload/globals/sections/`. Each uses the `pageSection()` helper,
-which takes a slug, a numbered label, a description of where the section sits, its fields, and its
-group. Both the label and the description are shown to editors, so keep them written in plain
-language.
-
-## How content reaches the page
-
-1. A route under `src/app/(site)/` calls a loader in `src/lib/cms/page-data.ts`.
-2. The loader fetches every section global for that page in one `Promise.all`.
-3. `src/lib/cms/queries.ts` reads them through Payload's Local API.
-4. If a query fails or returns nothing, the hardcoded default from `src/lib/cms/defaults/` is used.
-
-Pages revalidate every 60 seconds, and saving in the admin triggers an immediate revalidation
-through the hooks in `src/payload/hooks/revalidate-site.ts`.
+  Science — edit those.
+- **Legal pages** are found by their web address (`privacy-policy`, `cookie-policy`). Do not change
+  the web address of an existing one.
+- The **scale-of-the-problem figures** on the home page carry a note saying they are to be
+  confirmed. Once sources are confirmed, update the figures and the note together
+  (**Home → 3. The scale of the problem**).

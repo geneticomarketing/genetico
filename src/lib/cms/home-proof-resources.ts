@@ -133,7 +133,12 @@ function toResource(
  * whatever is first, so ticking a single article still fills the section
  * rather than leaving a hole.
  */
-export async function getProofFeed(): Promise<ProofFeed> {
+export async function getProofFeed({
+  clipLimit = CLIP_LIMIT,
+}: {
+  /** How many items beside the featured one. The home page's Insights list takes four. */
+  clipLimit?: number;
+} = {}): Promise<ProofFeed> {
   const [featuredVideos, shortVideos, deepDives, articles, blogs] = await Promise.all([
     getCollection<CmsFeaturedVideo>("featured-videos", []),
     getCollection<CmsShortVideo>("short-videos", []),
@@ -192,7 +197,7 @@ export async function getProofFeed(): Promise<ProofFeed> {
     (clip) => clip.id !== featured?.id,
   );
 
-  return { featured, clips: rest.slice(0, CLIP_LIMIT) };
+  return { featured, clips: rest.slice(0, clipLimit) };
 }
 
 /** Where the strip's "all resources" link points. */

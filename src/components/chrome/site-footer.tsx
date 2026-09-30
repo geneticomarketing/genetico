@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FaLinkedinIn, FaXTwitter, FaYoutube } from "react-icons/fa6";
 
+import { CookieSettingsLink } from "@/components/chrome/cookie-consent";
 import type { SiteData } from "@/lib/cms/site-data-context";
 
 const SOCIAL_ICONS = {
@@ -120,6 +121,7 @@ export function SiteFooter({ footer }: { footer: SiteData["footer"] }) {
                 {link.label}
               </Link>
             ))}
+            <CookieSettingsLink className="text-sky-soft text-[15px] transition-colors hover:text-white" />
           </div>
         </div>
 

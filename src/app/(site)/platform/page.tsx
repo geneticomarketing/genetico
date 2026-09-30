@@ -14,7 +14,7 @@ import {
   Longitudinal,
   PlatformSecurity,
 } from "@/components/platform/sections";
-import { DEFAULT_HOME_CONTACT } from "@/lib/cms/home-content";
+import { DEFAULT_CONTACT_SECTION } from "@/lib/cms/sections";
 import { getPlatformContent } from "@/lib/cms/platform-page-data";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
 import { createPageMetadata } from "@/lib/seo";
@@ -77,10 +77,10 @@ export default async function PlatformPage() {
         section={section["get-in-touch"]}
         num={section["get-in-touch"].num}
         content={{
-          heading: content.cta.heading || DEFAULT_HOME_CONTACT.heading,
-          description: content.cta.description || DEFAULT_HOME_CONTACT.description,
-          primaryCta: DEFAULT_HOME_CONTACT.primaryCta,
-          secondaryCta: DEFAULT_HOME_CONTACT.secondaryCta,
+          heading: content.cta.heading || DEFAULT_CONTACT_SECTION.heading,
+          description: content.cta.description || DEFAULT_CONTACT_SECTION.description,
+          primaryCta: DEFAULT_CONTACT_SECTION.primaryCta,
+          secondaryCta: DEFAULT_CONTACT_SECTION.secondaryCta,
         }}
       />
 

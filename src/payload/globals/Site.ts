@@ -23,9 +23,14 @@ export const SiteSettings = withAdminGroup(
         type: "email",
         required: true,
         label: "Contact email",
-        admin: { description: "Shown on the site. Where enquiries are sent." },
+        admin: { description: "Where enquiries from the website’s form are sent." },
       },
-      { name: "contactEmailCc", type: "email", label: "Copy enquiries to" },
+      {
+        name: "contactEmailCc",
+        type: "email",
+        label: "Copy enquiries to",
+        admin: { description: "Optional. Also receives every enquiry." },
+      },
       { name: "newsletterUrl", type: "text", label: "Newsletter sign-up link" },
       { name: "featuredVideoUrl", type: "text", label: "Featured video link" },
       {

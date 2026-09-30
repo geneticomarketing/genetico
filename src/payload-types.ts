@@ -67,11 +67,9 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    partners: Partner;
-    'ecosystem-modules': EcosystemModule;
-    'ecosystem-gaps': EcosystemGap;
     'team-members': TeamMember;
     'grants-awards': GrantsAward;
+    partners: Partner;
     'solution-pages': SolutionPage;
     'blog-posts': BlogPost;
     'featured-videos': FeaturedVideo;
@@ -88,11 +86,9 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    partners: PartnersSelect<false> | PartnersSelect<true>;
-    'ecosystem-modules': EcosystemModulesSelect<false> | EcosystemModulesSelect<true>;
-    'ecosystem-gaps': EcosystemGapsSelect<false> | EcosystemGapsSelect<true>;
     'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
     'grants-awards': GrantsAwardsSelect<false> | GrantsAwardsSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
     'solution-pages': SolutionPagesSelect<false> | SolutionPagesSelect<true>;
     'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
     'featured-videos': FeaturedVideosSelect<false> | FeaturedVideosSelect<true>;
@@ -112,23 +108,26 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
-    'home-hero': HomeHero;
-    'home-audience': HomeAudience;
-    'home-platform-glance': HomePlatformGlance;
-    'home-proof': HomeProof;
-    'home-security': HomeSecurity;
-    'home-faqs': HomeFaq;
-    'home-cta': HomeCta;
-    'home-who-we-are': HomeWhoWeAre;
-    'home-partners': HomePartner;
-    'home-ecosystem-challenges': HomeEcosystemChallenge;
-    'home-ecosystem-gaps': HomeEcosystemGap;
-    'home-news': HomeNew;
-    'about-hero': AboutHero;
-    'about-vision': AboutVision;
-    'about-foundations': AboutFoundation;
+    'home-intro': HomeIntro;
+    'home-why': HomeWhy;
+    'home-scale': HomeScale;
+    'home-does': HomeDoe;
+    'home-platform': HomePlatform;
+    'home-serve': HomeServe;
+    'home-impact': HomeImpact;
+    'home-insights': HomeInsight;
+    'home-ahead': HomeAhead;
+    'home-contact': HomeContact;
+    'about-intro': AboutIntro;
+    'about-problem': AboutProblem;
+    'about-building': AboutBuilding;
+    'about-platform': AboutPlatform;
+    'about-now': AboutNow;
+    'about-mission': AboutMission;
     'about-leadership': AboutLeadership;
     'about-grants': AboutGrant;
+    'home-partners': HomePartner;
+    'home-security': HomeSecurity;
     'about-cta': AboutCta;
     'platform-hero': PlatformHero;
     'platform-features': PlatformFeature;
@@ -143,7 +142,6 @@ export interface Config {
     'public-health-architecture': PublicHealthArchitecture;
     'public-health-cta': PublicHealthCta;
     'resources-hero': ResourcesHero;
-    'resources-filter-tabs': ResourcesFilterTab;
     'resources-videos-section': ResourcesVideosSection;
     'resources-deep-dives-section': ResourcesDeepDivesSection;
     'resources-articles-section': ResourcesArticlesSection;
@@ -156,23 +154,26 @@ export interface Config {
     footer: Footer;
   };
   globalsSelect: {
-    'home-hero': HomeHeroSelect<false> | HomeHeroSelect<true>;
-    'home-audience': HomeAudienceSelect<false> | HomeAudienceSelect<true>;
-    'home-platform-glance': HomePlatformGlanceSelect<false> | HomePlatformGlanceSelect<true>;
-    'home-proof': HomeProofSelect<false> | HomeProofSelect<true>;
-    'home-security': HomeSecuritySelect<false> | HomeSecuritySelect<true>;
-    'home-faqs': HomeFaqsSelect<false> | HomeFaqsSelect<true>;
-    'home-cta': HomeCtaSelect<false> | HomeCtaSelect<true>;
-    'home-who-we-are': HomeWhoWeAreSelect<false> | HomeWhoWeAreSelect<true>;
-    'home-partners': HomePartnersSelect<false> | HomePartnersSelect<true>;
-    'home-ecosystem-challenges': HomeEcosystemChallengesSelect<false> | HomeEcosystemChallengesSelect<true>;
-    'home-ecosystem-gaps': HomeEcosystemGapsSelect<false> | HomeEcosystemGapsSelect<true>;
-    'home-news': HomeNewsSelect<false> | HomeNewsSelect<true>;
-    'about-hero': AboutHeroSelect<false> | AboutHeroSelect<true>;
-    'about-vision': AboutVisionSelect<false> | AboutVisionSelect<true>;
-    'about-foundations': AboutFoundationsSelect<false> | AboutFoundationsSelect<true>;
+    'home-intro': HomeIntroSelect<false> | HomeIntroSelect<true>;
+    'home-why': HomeWhySelect<false> | HomeWhySelect<true>;
+    'home-scale': HomeScaleSelect<false> | HomeScaleSelect<true>;
+    'home-does': HomeDoesSelect<false> | HomeDoesSelect<true>;
+    'home-platform': HomePlatformSelect<false> | HomePlatformSelect<true>;
+    'home-serve': HomeServeSelect<false> | HomeServeSelect<true>;
+    'home-impact': HomeImpactSelect<false> | HomeImpactSelect<true>;
+    'home-insights': HomeInsightsSelect<false> | HomeInsightsSelect<true>;
+    'home-ahead': HomeAheadSelect<false> | HomeAheadSelect<true>;
+    'home-contact': HomeContactSelect<false> | HomeContactSelect<true>;
+    'about-intro': AboutIntroSelect<false> | AboutIntroSelect<true>;
+    'about-problem': AboutProblemSelect<false> | AboutProblemSelect<true>;
+    'about-building': AboutBuildingSelect<false> | AboutBuildingSelect<true>;
+    'about-platform': AboutPlatformSelect<false> | AboutPlatformSelect<true>;
+    'about-now': AboutNowSelect<false> | AboutNowSelect<true>;
+    'about-mission': AboutMissionSelect<false> | AboutMissionSelect<true>;
     'about-leadership': AboutLeadershipSelect<false> | AboutLeadershipSelect<true>;
     'about-grants': AboutGrantsSelect<false> | AboutGrantsSelect<true>;
+    'home-partners': HomePartnersSelect<false> | HomePartnersSelect<true>;
+    'home-security': HomeSecuritySelect<false> | HomeSecuritySelect<true>;
     'about-cta': AboutCtaSelect<false> | AboutCtaSelect<true>;
     'platform-hero': PlatformHeroSelect<false> | PlatformHeroSelect<true>;
     'platform-features': PlatformFeaturesSelect<false> | PlatformFeaturesSelect<true>;
@@ -187,7 +188,6 @@ export interface Config {
     'public-health-architecture': PublicHealthArchitectureSelect<false> | PublicHealthArchitectureSelect<true>;
     'public-health-cta': PublicHealthCtaSelect<false> | PublicHealthCtaSelect<true>;
     'resources-hero': ResourcesHeroSelect<false> | ResourcesHeroSelect<true>;
-    'resources-filter-tabs': ResourcesFilterTabsSelect<false> | ResourcesFilterTabsSelect<true>;
     'resources-videos-section': ResourcesVideosSectionSelect<false> | ResourcesVideosSectionSelect<true>;
     'resources-deep-dives-section': ResourcesDeepDivesSectionSelect<false> | ResourcesDeepDivesSectionSelect<true>;
     'resources-articles-section': ResourcesArticlesSectionSelect<false> | ResourcesArticlesSectionSelect<true>;
@@ -228,113 +228,6 @@ export interface UserAuthOperations {
   };
 }
 /**
- * The logos in the scrolling partner row. Appears on the home page and the About page, under the “Partners” heading.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partners".
- */
-export interface Partner {
-  id: number;
-  /**
-   * Used as the image description for screen readers.
-   */
-  name: string;
-  /**
-   * Recommended size: 400 × 120 px or similar wide logo. PNG or SVG with a transparent background. Use a descriptive file name such as partner-birac-logo.png, partner-amity-logo.svg. Stick to lowercase letters, numbers, and hyphens.
-   */
-  logo?: (number | null) | Media;
-  /**
-   * Leave this empty and use the Logo upload above. It is only used for logos already built into the site, such as /new/meity.jpg, and is ignored whenever an upload is present.
-   */
-  logoUrl?: string | null;
-  /**
-   * Hospitals, universities and research bodies go in the top row; funders, incubators and programmes in the quieter row beneath. Both rows also feed the home page logo strip.
-   */
-  group?: ('institution' | 'supporter') | null;
-  /**
-   * Lower numbers appear first. The current logos are numbered 10, 20, 30 and so on, so you can slot a new one in between by giving it a number like 25. New logos start at 1000, which puts them at the end of the strip.
-   */
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Every image and file used on the website. Upload here first, then pick the image from the page section that needs it.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  /**
-   * Describe the image for accessibility. When uploading, use a descriptive file name (e.g. hero-bg.webp, partner-birac-logo.png).
-   */
-  alt: string;
-  prefix?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * No longer shown anywhere on the site. Kept so the cards are not lost.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ecosystem-modules".
- */
-export interface EcosystemModule {
-  id: number;
-  title: string;
-  description: string;
-  problem: string;
-  solution: string;
-  /**
-   * A path on this site such as /platform.
-   */
-  href: string;
-  /**
-   * Recommended size: 128 × 128 px or smaller. PNG or SVG with a transparent background. Use a descriptive file name such as grant-birac-icon.png, ecosystem-clinicians-icon.svg. Stick to lowercase letters, numbers, and hyphens.
-   */
-  icon?: (number | null) | Media;
-  /**
-   * Fallback static icon path
-   */
-  iconUrl?: string | null;
-  /**
-   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
-   */
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * No longer shown anywhere on the site. Kept so the tabs are not lost.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ecosystem-gaps".
- */
-export interface EcosystemGap {
-  id: number;
-  tabLabel: string;
-  problemTitle: string;
-  problemDescription: string;
-  solutionTitle: string;
-  solutionDescription: string;
-  /**
-   * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
-   */
-  sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * The people shown in the leadership carousel on the About page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -366,6 +259,31 @@ export interface TeamMember {
   createdAt: string;
 }
 /**
+ * Every image and file used on the website. Upload here first, then pick the image from the page section that needs it.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  /**
+   * Describe the image for accessibility. When uploading, use a descriptive file name (e.g. hero-bg.webp, partner-birac-logo.png).
+   */
+  alt: string;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
  * The recognition timeline on the About page. Entries alternate left and right automatically.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -386,6 +304,41 @@ export interface GrantsAward {
   iconUrl?: string | null;
   /**
    * Lower numbers appear first. Use 10, 20, 30 so you can slot items in later.
+   */
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Every partner logo on the site. On the About page they fill two rows, chosen by “Which row on the About page”; the ones ticked “Show on the home page” also scroll along the home page’s Impact section. Both follow “Order on the page”.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: number;
+  /**
+   * Used as the image description for screen readers.
+   */
+  name: string;
+  /**
+   * Recommended size: 400 × 120 px or similar wide logo. PNG or SVG with a transparent background. Use a descriptive file name such as partner-birac-logo.png, partner-amity-logo.svg. Stick to lowercase letters, numbers, and hyphens.
+   */
+  logo?: (number | null) | Media;
+  /**
+   * Leave this empty and use the Logo upload above. It is only used for logos already built into the site, such as /new/meity.jpg, and is ignored whenever an upload is present.
+   */
+  logoUrl?: string | null;
+  /**
+   * Hospitals, universities and research bodies go in the top row; funders, incubators and programmes in the quieter row beneath.
+   */
+  group?: ('institution' | 'supporter') | null;
+  /**
+   * Adds this logo to the scrolling strip in the home page’s Impact section.
+   */
+  showOnHome?: boolean | null;
+  /**
+   * Lower numbers appear first. The current logos are numbered 10, 20, 30 and so on, so you can slot a new one in between by giving it a number like 25. New logos start at 1000, which puts them at the end of the strip.
    */
   sortOrder?: number | null;
   updatedAt: string;
@@ -436,17 +389,6 @@ export interface SolutionPage {
            * Shown when the card is the open one. Two lines reads best.
            */
           description: string;
-          label?: string | null;
-          badge?: string | null;
-          badgeTheme?: ('red' | 'blue' | 'teal' | 'slate') | null;
-          collapsedTitle?:
-            | {
-                line: string;
-                id?: string | null;
-              }[]
-            | null;
-          number?: string | null;
-          cardId?: string | null;
           id?: string | null;
         }[]
       | null;
@@ -471,9 +413,6 @@ export interface SolutionPage {
           title: string;
           description: string;
           callout: string;
-          number?: string | null;
-          reverse?: boolean | null;
-          tinted?: boolean | null;
           id?: string | null;
         }[]
       | null;
@@ -498,15 +437,6 @@ export interface SolutionPage {
           before?: string | null;
           after?: string | null;
           note?: string | null;
-          maxPercent?: number | null;
-          metricTheme?: ('red' | 'green' | 'blue') | null;
-          fromText?: string | null;
-          toText?: string | null;
-          positive?: string | null;
-          negative?: string | null;
-          centerValue?: string | null;
-          hideCenterSubLabel?: boolean | null;
-          metricId?: string | null;
           id?: string | null;
         }[]
       | null;
@@ -521,20 +451,6 @@ export interface SolutionPage {
   cta: {
     heading: string;
     description: string;
-    /**
-     * Usually one or two. The first button is the more prominent one.
-     */
-    buttons?:
-      | {
-          label: string;
-          /**
-           * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
-           */
-          href: string;
-          variant?: ('primary' | 'secondary') | null;
-          id?: string | null;
-        }[]
-      | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -556,7 +472,7 @@ export interface BlogPost {
   author: string;
   publishedAt: string;
   /**
-   * The home page's “In use across the ecosystem” section shows one large item and three smaller ones beside it. Tick this to offer this item; if more are ticked than fit, the ones lowest in “Order on the page” are used.
+   * Offers this item to the home page's Insights section: one featured item (a featured video, if any is ticked) and up to four beside it. If more are ticked than fit, the ones lowest in “Order on the page” are used.
    */
   showOnHome?: boolean | null;
   /**
@@ -624,7 +540,7 @@ export interface FeaturedVideo {
    */
   publishedAt?: string | null;
   /**
-   * The home page's “In use across the ecosystem” section shows one large item and three smaller ones beside it. Tick this to offer this item; if more are ticked than fit, the ones lowest in “Order on the page” are used.
+   * Offers this item to the home page's Insights section: one featured item (a featured video, if any is ticked) and up to four beside it. If more are ticked than fit, the ones lowest in “Order on the page” are used.
    */
   showOnHome?: boolean | null;
   /**
@@ -659,7 +575,7 @@ export interface ShortVideo {
    */
   publishedAt?: string | null;
   /**
-   * The home page's “In use across the ecosystem” section shows one large item and three smaller ones beside it. Tick this to offer this item; if more are ticked than fit, the ones lowest in “Order on the page” are used.
+   * Offers this item to the home page's Insights section: one featured item (a featured video, if any is ticked) and up to four beside it. If more are ticked than fit, the ones lowest in “Order on the page” are used.
    */
   showOnHome?: boolean | null;
   /**
@@ -716,7 +632,7 @@ export interface DeepDive {
    */
   publishedAt?: string | null;
   /**
-   * The home page's “In use across the ecosystem” section shows one large item and three smaller ones beside it. Tick this to offer this item; if more are ticked than fit, the ones lowest in “Order on the page” are used.
+   * Offers this item to the home page's Insights section: one featured item (a featured video, if any is ticked) and up to four beside it. If more are ticked than fit, the ones lowest in “Order on the page” are used.
    */
   showOnHome?: boolean | null;
   /**
@@ -748,7 +664,7 @@ export interface ExternalArticle {
    */
   publishedAt?: string | null;
   /**
-   * The home page's “In use across the ecosystem” section shows one large item and three smaller ones beside it. Tick this to offer this item; if more are ticked than fit, the ones lowest in “Order on the page” are used.
+   * Offers this item to the home page's Insights section: one featured item (a featured video, if any is ticked) and up to four beside it. If more are ticked than fit, the ones lowest in “Order on the page” are used.
    */
   showOnHome?: boolean | null;
   /**
@@ -857,24 +773,16 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'partners';
-        value: number | Partner;
-      } | null)
-    | ({
-        relationTo: 'ecosystem-modules';
-        value: number | EcosystemModule;
-      } | null)
-    | ({
-        relationTo: 'ecosystem-gaps';
-        value: number | EcosystemGap;
-      } | null)
-    | ({
         relationTo: 'team-members';
         value: number | TeamMember;
       } | null)
     | ({
         relationTo: 'grants-awards';
         value: number | GrantsAward;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: number | Partner;
       } | null)
     | ({
         relationTo: 'solution-pages';
@@ -956,49 +864,6 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partners_select".
- */
-export interface PartnersSelect<T extends boolean = true> {
-  name?: T;
-  logo?: T;
-  logoUrl?: T;
-  group?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ecosystem-modules_select".
- */
-export interface EcosystemModulesSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  problem?: T;
-  solution?: T;
-  href?: T;
-  icon?: T;
-  iconUrl?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ecosystem-gaps_select".
- */
-export interface EcosystemGapsSelect<T extends boolean = true> {
-  tabLabel?: T;
-  problemTitle?: T;
-  problemDescription?: T;
-  solutionTitle?: T;
-  solutionDescription?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team-members_select".
  */
 export interface TeamMembersSelect<T extends boolean = true> {
@@ -1023,6 +888,20 @@ export interface GrantsAwardsSelect<T extends boolean = true> {
   subtitle?: T;
   icon?: T;
   iconUrl?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  logoUrl?: T;
+  group?: T;
+  showOnHome?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1059,17 +938,6 @@ export interface SolutionPagesSelect<T extends boolean = true> {
           | {
               title?: T;
               description?: T;
-              label?: T;
-              badge?: T;
-              badgeTheme?: T;
-              collapsedTitle?:
-                | T
-                | {
-                    line?: T;
-                    id?: T;
-                  };
-              number?: T;
-              cardId?: T;
               id?: T;
             };
       };
@@ -1087,9 +955,6 @@ export interface SolutionPagesSelect<T extends boolean = true> {
               title?: T;
               description?: T;
               callout?: T;
-              number?: T;
-              reverse?: T;
-              tinted?: T;
               id?: T;
             };
       };
@@ -1107,15 +972,6 @@ export interface SolutionPagesSelect<T extends boolean = true> {
               before?: T;
               after?: T;
               note?: T;
-              maxPercent?: T;
-              metricTheme?: T;
-              fromText?: T;
-              toText?: T;
-              positive?: T;
-              negative?: T;
-              centerValue?: T;
-              hideCenterSubLabel?: T;
-              metricId?: T;
               id?: T;
             };
         footnote?: T;
@@ -1125,14 +981,6 @@ export interface SolutionPagesSelect<T extends boolean = true> {
     | {
         heading?: T;
         description?: T;
-        buttons?:
-          | T
-          | {
-              label?: T;
-              href?: T;
-              variant?: T;
-              id?: T;
-            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1356,105 +1204,166 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * The top of the home page: the headline, the paragraph under it, the two buttons, and the scrolling row of institution names.
+ * The dark band at the very top of the home page: the headline, the introduction, the two buttons and the “Built with” strip below the product picture.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-hero".
+ * via the `definition` "home-intro".
  */
-export interface HomeHero {
+export interface HomeIntro {
   id: number;
-  eyebrow?: string | null;
   /**
-   * The part of the headline that never changes. The rotating words below finish the sentence, and a full stop is added automatically — so leave this without one.
+   * The white part of the headline.
    */
   headline?: string | null;
   /**
-   * Each word appears in turn, about every three seconds. One word on its own simply stays put.
+   * Follows the headline, in light blue.
    */
-  rotatingWords?:
-    | {
-        word: string;
-        id?: string | null;
-      }[]
-    | null;
+  headlineAccent?: string | null;
   blurb?: string | null;
   /**
-   * Shown instead of the paragraph above on narrow screens, where the longer one crowds the page. Leave empty to use the same text on every screen.
+   * Scrolls to “Why Genetico exists”.
    */
-  blurbShort?: string | null;
+  primaryCta?: {
+    label?: string | null;
+  };
   /**
-   * Usually one or two. The first button is the more prominent one.
+   * Scrolls to the IndiGeneUs.AI section.
    */
-  buttons?:
-    | {
-        label: string;
-        /**
-         * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
-         */
-        href: string;
-        variant?: ('primary' | 'secondary') | null;
-        id?: string | null;
-      }[]
-    | null;
-  trustedByLabel?: string | null;
+  secondaryCta?: {
+    label?: string | null;
+  };
+  shotLabel?: string | null;
+  marqueeLabel?: string | null;
   /**
-   * Text only — these scroll past under the buttons. Drag to reorder.
+   * Shown in this order. Drag to reorder.
    */
-  credentials?:
+  marquee?:
     | {
         name: string;
         id?: string | null;
       }[]
     | null;
-  heroSlides?:
-    | {
-        id: string;
-        eyebrow: string;
-        title: string;
-        cta: string;
-        href: string;
-        /**
-         * Recommended size: 1920 × 1080 px (16:9). WebP or JPG, ideally under 500 KB. Use a descriptive file name such as hero-bg.webp, hero-dna.jpg. Stick to lowercase letters, numbers, and hyphens.
-         */
-        backgroundImage?: (number | null) | Media;
-        /**
-         * Optional fallback path (e.g. /hero/hero-bg.webp) if no upload is provided
-         */
-        image?: string | null;
-      }[]
-    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
- * The three cards directly below the hero, one per kind of visitor. Each card links to that audience's own page.
+ * Section 01 on the page: the five parties that each hold part of a patient's information, then the network diagram and the closing line.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-audience".
+ * via the `definition` "home-why".
  */
-export interface HomeAudience {
+export interface HomeWhy {
   id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
   heading?: string | null;
   description?: string | null;
   /**
-   * Drag to reorder. Three cards fit the row; more will wrap.
+   * Exactly five, in order. Each one lights up its own document in the drawing beside it: clinic note, hospital system, lab report, study spreadsheet, programme form.
    */
-  doors?:
+  parties?:
     | {
-        kicker: string;
-        title: string;
-        blurb: string;
-        points?:
-          | {
-              text: string;
-              id?: string | null;
-            }[]
-          | null;
-        ctaLabel: string;
+        name?: string | null;
+        body?: string | null;
         /**
-         * A path on this site, such as /hospital.
+         * The small dashed label, e.g. “PDF reports”.
          */
-        href: string;
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Clockwise from the top. One node is drawn for each.
+   */
+  network?:
+    | {
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  closing?: string | null;
+  /**
+   * Follows the closing line, in blue.
+   */
+  closingAccent?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The photo band between section 01 and the dark “What Genetico does” section.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-scale".
+ */
+export interface HomeScale {
+  id: number;
+  label?: string | null;
+  /**
+   * Wide photo, at least 1920 px across. Leave empty to keep the current photo.
+   */
+  photo?: (number | null) | Media;
+  /**
+   * Shown in this order. Drag to reorder.
+   */
+  facts?:
+    | {
+        /**
+         * Short, e.g. “~80%”.
+         */
+        figure?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Where the figures come from.
+   */
+  note?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 02, the dark band: the five areas Genetico works across. As a visitor scrolls, each area opens in turn and its result lights up on the record beside it.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-does".
+ */
+export interface HomeDoe {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  /**
+   * Shown in this order. Drag to reorder.
+   */
+  areas?:
+    | {
+        title?: string | null;
+        /**
+         * Shown when the area is open.
+         */
+        body?: string | null;
+        /**
+         * The line that lights up on the record beside it.
+         */
+        output?: string | null;
+        /**
+         * The small pill at the end of that line.
+         */
+        status?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -1462,82 +1371,536 @@ export interface HomeAudience {
   createdAt?: string | null;
 }
 /**
- * The four-panel block explaining the platform, and the button below it.
+ * Section 03: which name is which, then the platform's four layers. Each layer opens in turn as the visitor scrolls, beside a screen drawn for it.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-platform-glance".
+ * via the `definition` "home-platform".
  */
-export interface HomePlatformGlance {
+export interface HomePlatform {
   id: number;
-  heading?: string | null;
-  description?: string | null;
   /**
-   * Drag to reorder — the numbers 01, 02, 03 are added automatically and follow this order. Four panels fit the row.
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  body?: string | null;
+  /**
+   * The button opens the Platform page.
+   */
+  ctaLabel?: string | null;
+  layersLabel?: string | null;
+  /**
+   * Exactly four, in order — capture, decide, connect, analyse. Each is paired with its own screen.
    */
   layers?:
     | {
-        title: string;
-        body: string;
-        tag: string;
+        title?: string | null;
+        body?: string | null;
+        /**
+         * Shown on the right.
+         */
+        tag?: string | null;
         id?: string | null;
       }[]
     | null;
-  ctaLabel?: string | null;
-  /**
-   * A path on this site, such as /platform.
-   */
-  ctaHref?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
- * The section showing who already uses Genetico: the heading, the large featured case study, and the three smaller items beside it. The scrolling logos come from “Partner logos” just below.
+ * Section 04: three photo cards, one per audience, each opening its page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-proof".
+ * via the `definition` "home-serve".
  */
-export interface HomeProof {
+export interface HomeServe {
   id: number;
-  heading?: string | null;
   /**
-   * Which item appears here is decided on the Resources page — tick “Show on the home page” against it. Its title, description, length, link and the small label above the title all come with it. These fields are the wording wrapped around it.
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
    */
-  featured?: {
-    badge?: string | null;
-    kicker?: string | null;
-    before?: string | null;
-    after?: string | null;
-    ctaLabel?: string | null;
-    duration?: string | null;
-    heading?: string | null;
-    blurb?: string | null;
-    href?: string | null;
-  };
-  clips?:
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  /**
+   * Exactly three, in this order: hospitals & clinicians, life sciences & research, public health. Each links to its own page.
+   */
+  doors?:
     | {
-        meta?: string | null;
+        kicker?: string | null;
         title?: string | null;
-        href?: string | null;
+        body?: string | null;
+        ctaLabel?: string | null;
+        /**
+         * Landscape photo, about 1200 × 800 px. Leave empty to keep the current photo.
+         */
+        photo?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
-  allResourcesLabel?: string | null;
-  allResourcesHref?: string | null;
+  caption?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
- * The dark band near the bottom of the home page listing the trust and compliance points. These points also appear on the About page.
+ * Section 05: the figures, then the strip of partner logos. The logos are the “Partner logos” ticked “Show on the home page”.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-impact".
+ */
+export interface HomeImpact {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  /**
+   * Shown in this order. Drag to reorder.
+   */
+  figures?:
+    | {
+        label?: string | null;
+        figure?: string | null;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * A last figure, counted from “Grants & awards” (About page).
+   */
+  awardsLabel?: string | null;
+  /**
+   * Follows “Since <first year>, ”.
+   */
+  awardsBody?: string | null;
+  logosLabel?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 06: a featured film and the latest items. What appears is chosen on the Resources page — tick “Show on the home page” on a video, article or blog post.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-insights".
+ */
+export interface HomeInsight {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  /**
+   * The button opens the Resources page.
+   */
+  ctaLabel?: string | null;
+  /**
+   * Replaces the featured film's own title on this card.
+   */
+  featuredTitle?: string | null;
+  /**
+   * Landscape photo, at least 1400 px across. Leave empty to keep the current photo.
+   */
+  featuredPhoto?: (number | null) | Media;
+  latestLabel?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 07, the dark band: three stages from separate solutions to connected infrastructure, drawn as a network that grows.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-ahead".
+ */
+export interface HomeAhead {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  /**
+   * Exactly three, in order — the diagram draws one stage for each.
+   */
+  stages?:
+    | {
+        /**
+         * e.g. “01 · In use”.
+         */
+        tag?: string | null;
+        title?: string | null;
+        body?: string | null;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  footnote?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 08: the text beside the enquiry form. The form's audience tabs and wording are under Site-wide → Contact details & form.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-contact".
+ */
+export interface HomeContact {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The top of the About page: the question, the headline, two buttons and the three short facts beside them.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-intro".
+ */
+export interface AboutIntro {
+  id: number;
+  eyebrow?: string | null;
+  /**
+   * Read as one sentence: start, highlighted words, end.
+   */
+  headline?: {
+    before?: string | null;
+    highlight?: string | null;
+    after?: string | null;
+  };
+  blurb?: string | null;
+  /**
+   * Scrolls to the first section.
+   */
+  primaryCta?: {
+    label?: string | null;
+  };
+  /**
+   * Scrolls to Leadership.
+   */
+  secondaryCta?: {
+    label?: string | null;
+  };
+  /**
+   * Shown in this order. Drag to reorder.
+   */
+  glance?:
+    | {
+        label?: string | null;
+        title?: string | null;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 01: the problem Genetico set out to solve, three cards and a closing line.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-problem".
+ */
+export interface AboutProblem {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  lead?: string | null;
+  /**
+   * Shown in this order. Drag to reorder.
+   */
+  items?:
+    | {
+        title?: string | null;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  closing?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 02: the five connected areas, drawn as a chain.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-building".
+ */
+export interface AboutBuilding {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  aside?: string | null;
+  /**
+   * Shown in this order. Drag to reorder.
+   */
+  chain?:
+    | {
+        title?: string | null;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  footnote?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 03: which of the two names is which — the company and the platform side by side — then the platform in four steps.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-platform".
+ */
+export interface AboutPlatform {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  lead?: string | null;
+  company?: {
+    label?: string | null;
+    statement?: string | null;
+    body?: string | null;
+  };
+  platform?: {
+    name?: string | null;
+    label?: string | null;
+    statement?: string | null;
+    /**
+     * The link opens the Platform page.
+     */
+    ctaLabel?: string | null;
+  };
+  /**
+   * Shown in this order. Drag to reorder.
+   */
+  steps?:
+    | {
+        title?: string | null;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 04: the changes that make connected rare disease infrastructure practical now.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-now".
+ */
+export interface AboutNow {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  aside?: string | null;
+  /**
+   * Shown in this order. Drag to reorder.
+   */
+  drivers?:
+    | {
+        /**
+         * e.g. “Policy”.
+         */
+        label?: string | null;
+        title?: string | null;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 05: the mission and vision statements, then where Genetico is going.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-mission".
+ */
+export interface AboutMission {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  mission?: string | null;
+  vision?: string | null;
+  horizonsLabel?: string | null;
+  horizonsHeading?: string | null;
+  /**
+   * Shown in this order. Drag to reorder.
+   */
+  horizons?:
+    | {
+        /**
+         * e.g. “Now”, “Next”.
+         */
+        when?: string | null;
+        title?: string | null;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  footnote?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 06: the heading above the team, and the three principles under it. The people themselves are edited in “Team members” just below.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-leadership".
+ */
+export interface AboutLeadership {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  subtitle?: string | null;
+  /**
+   * Shown in this order. Drag to reorder.
+   */
+  beliefs?:
+    | {
+        title?: string | null;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 07: the heading above the recognition timeline. The entries themselves are edited in “Grants & awards” just below; their count also feeds the home page's “Backed by” figure.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-grants".
+ */
+export interface AboutGrant {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 08: the heading above the two rows of partner logos. The logos are edited in “Partner logos” just below.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-partners".
+ */
+export interface HomePartner {
+  id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Section 09: the trust and compliance points.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-security".
  */
 export interface HomeSecurity {
   id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
   heading?: string | null;
   description?: string | null;
   /**
-   * Numbered automatically in this order. Drag to reorder.
+   * Shown in this order. Drag to reorder.
    */
   features?:
     | {
@@ -1549,259 +1912,21 @@ export interface HomeSecurity {
   createdAt?: string | null;
 }
 /**
- * The frequently asked questions on the home page. This is the only place the site answers them — the footer and other pages link here.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-faqs".
- */
-export interface HomeFaq {
-  id: number;
-  /**
-   * Untick to hide the questions entirely. The numbered list at the top of the page renumbers itself, so there is no gap.
-   */
-  showSection?: boolean | null;
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  items?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * The last section on the home page: the closing heading, the two buttons, and the enquiry form. The form's tabs and wording are edited under “Contact details & form”.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-cta".
- */
-export interface HomeCta {
-  id: number;
-  heading?: string | null;
-  description?: string | null;
-  /**
-   * Usually one or two. The first button is the more prominent one.
-   */
-  buttons?:
-    | {
-        label: string;
-        /**
-         * A path on this site such as /platform or /#get-in-touch, or a full https:// address.
-         */
-        href: string;
-        variant?: ('primary' | 'secondary') | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * No longer shown. The redesigned home page opens straight into the three audience cards. The paragraphs are kept here in case the About page wants them.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-who-we-are".
- */
-export interface HomeWhoWeAre {
-  id: number;
-  eyebrow?: string | null;
-  paragraphs?:
-    | {
-        text: string;
-        highlights?:
-          | {
-              phrase: string;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * Heading and description above the row of partner logos on the About page. The logos themselves are edited under “Partner logos” on the Home page.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-partners".
- */
-export interface HomePartner {
-  id: number;
-  heading?: string | null;
-  description?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * No longer shown. The redesigned home page has no challenges grid.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-ecosystem-challenges".
- */
-export interface HomeEcosystemChallenge {
-  id: number;
-  heading?: string | null;
-  description?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * No longer shown. The redesigned home page has no gaps panel.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-ecosystem-gaps".
- */
-export interface HomeEcosystemGap {
-  id: number;
-  heading?: string | null;
-  description?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * No longer shown. The proof section now carries the featured case study and the items beside it.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-news".
- */
-export interface HomeNew {
-  id: number;
-  heading?: string | null;
-  description?: string | null;
-  ctaLabel?: string | null;
-  resourcePicks?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * The top of the About page. The headline is split across two lines — see the help text on each field.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-hero".
- */
-export interface AboutHero {
-  id: number;
-  /**
-   * Example: Building Infrastructure
-   */
-  titleLine1: string;
-  /**
-   * The plain words at the start of the second line, before the blue words. Example: For
-   */
-  titleLine2?: string | null;
-  /**
-   * The end of the second line, shown in blue. Example: Rare Disease Care
-   */
-  titleHighlight?: string | null;
-  /**
-   * Each takes the place of the highlighted words above in turn, about every three seconds. Leave empty to keep the highlighted words fixed.
-   */
-  rotatingWords?:
-    | {
-        word: string;
-        id?: string | null;
-      }[]
-    | null;
-  subtitle?: string | null;
-  /**
-   * Sits under the row of faces below the headline, above the link down to the leadership section.
-   */
-  teamCardText?: string | null;
-  teamCardLinkLabel?: string | null;
-  ctaLabel?: string | null;
-  /**
-   * A path on this site such as /platform, or a full https:// address.
-   */
-  ctaHref?: string | null;
-  labels?:
-    | {
-        label: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * The large single-sentence statement directly below the hero.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-vision".
- */
-export interface AboutVision {
-  id: number;
-  eyebrow?: string | null;
-  heading?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * The numbered list of foundation points below the vision statement. Numbering is added automatically in the order you list them here.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-foundations".
- */
-export interface AboutFoundation {
-  id: number;
-  items?:
-    | {
-        title: string;
-        body: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * Heading and intro above the leadership carousel. The people themselves are edited in “Team members” just below.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-leadership".
- */
-export interface AboutLeadership {
-  id: number;
-  eyebrow?: string | null;
-  heading?: string | null;
-  subtitle?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * Heading and intro above the recognition timeline. The entries themselves are edited in “Grants & awards” just below.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-grants".
- */
-export interface AboutGrant {
-  id: number;
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * The last band on the About page, above the footer. (Section 6 — the partner logos and Security & Trust panel — is shared with the home page and is edited under “Home page”.)
+ * Section 10: the heading and two buttons above the enquiry form at the foot of the page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about-cta".
  */
 export interface AboutCta {
   id: number;
+  /**
+   * Shown after the section number, e.g. “01 — Why Genetico exists”.
+   */
+  eyebrow?: string | null;
+  /**
+   * Keep it short: it appears in the bar that follows the page as you scroll, and in the mobile menu.
+   */
+  menuLabel?: string | null;
   heading?: string | null;
   description?: string | null;
   /**
@@ -2208,23 +2333,6 @@ export interface ResourcesHero {
   createdAt?: string | null;
 }
 /**
- * No longer edited here. The row of filter buttons is built from the sections below that have content in them, and each tab counts its own items.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "resources-filter-tabs".
- */
-export interface ResourcesFilterTab {
-  id: number;
-  filterTabs?:
-    | {
-        label: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
  * Heading above the horizontal row of short video cards. The videos themselves are edited in “Short videos” just below.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2373,9 +2481,12 @@ export interface SiteSetting {
    */
   siteDescription?: string | null;
   /**
-   * Shown on the site. Where enquiries are sent.
+   * Where enquiries from the website’s form are sent.
    */
   contactEmail: string;
+  /**
+   * Optional. Also receives every enquiry.
+   */
   contactEmailCc?: string | null;
   newsletterUrl?: string | null;
   featuredVideoUrl?: string | null;
@@ -2496,44 +2607,99 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-hero_select".
+ * via the `definition` "home-intro_select".
  */
-export interface HomeHeroSelect<T extends boolean = true> {
-  eyebrow?: T;
+export interface HomeIntroSelect<T extends boolean = true> {
   headline?: T;
-  rotatingWords?:
-    | T
-    | {
-        word?: T;
-        id?: T;
-      };
+  headlineAccent?: T;
   blurb?: T;
-  blurbShort?: T;
-  buttons?:
+  primaryCta?:
     | T
     | {
         label?: T;
-        href?: T;
-        variant?: T;
-        id?: T;
       };
-  trustedByLabel?: T;
-  credentials?:
+  secondaryCta?:
+    | T
+    | {
+        label?: T;
+      };
+  shotLabel?: T;
+  marqueeLabel?: T;
+  marquee?:
     | T
     | {
         name?: T;
         id?: T;
       };
-  heroSlides?:
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-why_select".
+ */
+export interface HomeWhySelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  description?: T;
+  parties?:
     | T
     | {
+        name?: T;
+        body?: T;
+        tag?: T;
         id?: T;
-        eyebrow?: T;
+      };
+  network?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  closing?: T;
+  closingAccent?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-scale_select".
+ */
+export interface HomeScaleSelect<T extends boolean = true> {
+  label?: T;
+  photo?: T;
+  facts?:
+    | T
+    | {
+        figure?: T;
+        label?: T;
+        id?: T;
+      };
+  note?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-does_select".
+ */
+export interface HomeDoesSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  description?: T;
+  areas?:
+    | T
+    | {
         title?: T;
-        cta?: T;
-        href?: T;
-        backgroundImage?: T;
-        image?: T;
+        body?: T;
+        output?: T;
+        status?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -2541,38 +2707,15 @@ export interface HomeHeroSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-audience_select".
+ * via the `definition` "home-platform_select".
  */
-export interface HomeAudienceSelect<T extends boolean = true> {
+export interface HomePlatformSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
   heading?: T;
-  description?: T;
-  doors?:
-    | T
-    | {
-        kicker?: T;
-        title?: T;
-        blurb?: T;
-        points?:
-          | T
-          | {
-              text?: T;
-              id?: T;
-            };
-        ctaLabel?: T;
-        href?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-platform-glance_select".
- */
-export interface HomePlatformGlanceSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
+  body?: T;
+  ctaLabel?: T;
+  layersLabel?: T;
   layers?:
     | T
     | {
@@ -2581,41 +2724,312 @@ export interface HomePlatformGlanceSelect<T extends boolean = true> {
         tag?: T;
         id?: T;
       };
-  ctaLabel?: T;
-  ctaHref?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-proof_select".
+ * via the `definition` "home-serve_select".
  */
-export interface HomeProofSelect<T extends boolean = true> {
+export interface HomeServeSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
   heading?: T;
-  featured?:
+  description?: T;
+  doors?:
     | T
     | {
-        badge?: T;
         kicker?: T;
-        before?: T;
-        after?: T;
-        ctaLabel?: T;
-        duration?: T;
-        heading?: T;
-        blurb?: T;
-        href?: T;
-      };
-  clips?:
-    | T
-    | {
-        meta?: T;
         title?: T;
-        href?: T;
+        body?: T;
+        ctaLabel?: T;
+        photo?: T;
         id?: T;
       };
-  allResourcesLabel?: T;
-  allResourcesHref?: T;
+  caption?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-impact_select".
+ */
+export interface HomeImpactSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  description?: T;
+  figures?:
+    | T
+    | {
+        label?: T;
+        figure?: T;
+        body?: T;
+        id?: T;
+      };
+  awardsLabel?: T;
+  awardsBody?: T;
+  logosLabel?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-insights_select".
+ */
+export interface HomeInsightsSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  description?: T;
+  ctaLabel?: T;
+  featuredTitle?: T;
+  featuredPhoto?: T;
+  latestLabel?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-ahead_select".
+ */
+export interface HomeAheadSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  description?: T;
+  stages?:
+    | T
+    | {
+        tag?: T;
+        title?: T;
+        body?: T;
+        caption?: T;
+        id?: T;
+      };
+  footnote?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-contact_select".
+ */
+export interface HomeContactSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-intro_select".
+ */
+export interface AboutIntroSelect<T extends boolean = true> {
+  eyebrow?: T;
+  headline?:
+    | T
+    | {
+        before?: T;
+        highlight?: T;
+        after?: T;
+      };
+  blurb?: T;
+  primaryCta?:
+    | T
+    | {
+        label?: T;
+      };
+  secondaryCta?:
+    | T
+    | {
+        label?: T;
+      };
+  glance?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-problem_select".
+ */
+export interface AboutProblemSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  lead?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  closing?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-building_select".
+ */
+export interface AboutBuildingSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  aside?: T;
+  chain?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  footnote?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-platform_select".
+ */
+export interface AboutPlatformSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  lead?: T;
+  company?:
+    | T
+    | {
+        label?: T;
+        statement?: T;
+        body?: T;
+      };
+  platform?:
+    | T
+    | {
+        name?: T;
+        label?: T;
+        statement?: T;
+        ctaLabel?: T;
+      };
+  steps?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-now_select".
+ */
+export interface AboutNowSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  aside?: T;
+  drivers?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-mission_select".
+ */
+export interface AboutMissionSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  mission?: T;
+  vision?: T;
+  horizonsLabel?: T;
+  horizonsHeading?: T;
+  horizons?:
+    | T
+    | {
+        when?: T;
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  footnote?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-leadership_select".
+ */
+export interface AboutLeadershipSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  subtitle?: T;
+  beliefs?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-grants_select".
+ */
+export interface AboutGrantsSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-partners_select".
+ */
+export interface HomePartnersSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
+  heading?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2625,6 +3039,8 @@ export interface HomeProofSelect<T extends boolean = true> {
  * via the `definition` "home-security_select".
  */
 export interface HomeSecuritySelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
   heading?: T;
   description?: T;
   features?:
@@ -2639,196 +3055,11 @@ export interface HomeSecuritySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-faqs_select".
- */
-export interface HomeFaqsSelect<T extends boolean = true> {
-  showSection?: T;
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  items?:
-    | T
-    | {
-        question?: T;
-        answer?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-cta_select".
- */
-export interface HomeCtaSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  buttons?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-        variant?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-who-we-are_select".
- */
-export interface HomeWhoWeAreSelect<T extends boolean = true> {
-  eyebrow?: T;
-  paragraphs?:
-    | T
-    | {
-        text?: T;
-        highlights?:
-          | T
-          | {
-              phrase?: T;
-              id?: T;
-            };
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-partners_select".
- */
-export interface HomePartnersSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-ecosystem-challenges_select".
- */
-export interface HomeEcosystemChallengesSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-ecosystem-gaps_select".
- */
-export interface HomeEcosystemGapsSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "home-news_select".
- */
-export interface HomeNewsSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  ctaLabel?: T;
-  resourcePicks?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-hero_select".
- */
-export interface AboutHeroSelect<T extends boolean = true> {
-  titleLine1?: T;
-  titleLine2?: T;
-  titleHighlight?: T;
-  rotatingWords?:
-    | T
-    | {
-        word?: T;
-        id?: T;
-      };
-  subtitle?: T;
-  teamCardText?: T;
-  teamCardLinkLabel?: T;
-  ctaLabel?: T;
-  ctaHref?: T;
-  labels?:
-    | T
-    | {
-        label?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-vision_select".
- */
-export interface AboutVisionSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-foundations_select".
- */
-export interface AboutFoundationsSelect<T extends boolean = true> {
-  items?:
-    | T
-    | {
-        title?: T;
-        body?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-leadership_select".
- */
-export interface AboutLeadershipSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  subtitle?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-grants_select".
- */
-export interface AboutGrantsSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about-cta_select".
  */
 export interface AboutCtaSelect<T extends boolean = true> {
+  eyebrow?: T;
+  menuLabel?: T;
   heading?: T;
   description?: T;
   buttons?:
@@ -3142,21 +3373,6 @@ export interface ResourcesHeroSelect<T extends boolean = true> {
   description?: T;
   image?: T;
   imageUrl?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "resources-filter-tabs_select".
- */
-export interface ResourcesFilterTabsSelect<T extends boolean = true> {
-  filterTabs?:
-    | T
-    | {
-        label?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

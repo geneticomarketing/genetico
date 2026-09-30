@@ -1,28 +1,35 @@
 import type { MetadataRoute } from "next";
 
-import { getAllBlogSlugs } from "@/lib/cms/queries";
-import { INDEXABLE_STATIC_PATHS } from "@/lib/seo-pages";
-import { getSiteUrl } from "@/lib/seo";
+import { getBlogSitemapEntries } from "@/lib/cms/queries";
 import { BLOG_PATH } from "@/lib/routes";
+import { getSiteUrl } from "@/lib/seo";
+import { INDEXABLE_STATIC_PATHS } from "@/lib/seo-pages";
+
+/**
+ * /sitemap.xml — every public page plus each blog post, on the canonical
+ * domain (getSiteUrl(): https://genetico.in unless NEXT_PUBLIC_SITE_URL says
+ * otherwise). Archived previews, /coming-soon, /admin and /api are not listed.
+ */
+export const revalidate = 3600;
+
+const PRIORITY: Record<string, number> = { "/": 1, [BLOG_PATH]: 0.8, "/resources": 0.8 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getSiteUrl();
-  const blogSlugs = await getAllBlogSlugs();
-  const now = new Date();
+  const posts = await getBlogSitemapEntries();
 
-  const staticEntries: MetadataRoute.Sitemap = INDEXABLE_STATIC_PATHS.map((path) => ({
+  const pages: MetadataRoute.Sitemap = INDEXABLE_STATIC_PATHS.map((path) => ({
     url: `${baseUrl}${path === "/" ? "" : path}`,
-    lastModified: now,
-    changeFrequency: path === "/" ? "weekly" : "monthly",
-    priority: path === "/" ? 1 : path === BLOG_PATH || path === "/resources" ? 0.8 : 0.7,
+    changeFrequency: path === "/" || path === BLOG_PATH ? "weekly" : "monthly",
+    priority: PRIORITY[path] ?? (path.endsWith("-policy") ? 0.3 : 0.7),
   }));
 
-  const blogEntries: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
-    url: `${baseUrl}${BLOG_PATH}/${slug}`,
-    lastModified: now,
+  const blog: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${baseUrl}${BLOG_PATH}/${post.slug}`,
+    ...(post.updatedAt ? { lastModified: new Date(post.updatedAt) } : {}),
     changeFrequency: "monthly",
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...blogEntries];
+  return [...pages, ...blog];
 }

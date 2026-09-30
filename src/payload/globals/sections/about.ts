@@ -1,137 +1,225 @@
-import { ctaButtonsField } from "../../fields/link";
 import { ADMIN_GROUPS } from "../../admin-groups";
+import { list, sectionLabels, text, textarea } from "../../fields/copy";
+import { ctaButtonsField } from "../../fields/link";
 import { pageSection } from "./section";
 
-export const AboutHero = pageSection(
-  "about-hero",
+/**
+ * The About page (/about-us), one entry per section, top to bottom.
+ *
+ * Field names match the page's built-in copy in src/content/about.ts, which
+ * seeded these entries and fills any field left empty.
+ *
+ * Four slugs are older than the page and kept so their stored rows survive:
+ * `home-partners` and `home-security` were once shared with the home page,
+ * `about-leadership`, `about-grants` and `about-cta` predate the redesign.
+ */
+
+export const AboutIntro = pageSection(
+  "about-intro",
   "1. Hero",
-  "The top of the About page. The headline is split across two lines — see the help text on each field.",
+  "The top of the About page: the question, the headline, two buttons and the three short facts beside them.",
   [
+    text("eyebrow", "Small label above the headline"),
     {
-      name: "titleLine1",
-      type: "text",
-      required: true,
-      label: "Headline — first line",
-      admin: { description: "Example: Building Infrastructure" },
-    },
-    {
-      name: "titleLine2",
-      type: "text",
-      label: "Headline — second line",
-      admin: {
-        description:
-          "The plain words at the start of the second line, before the blue words. Example: For",
-      },
-    },
-    {
-      name: "titleHighlight",
-      type: "text",
-      label: "Headline — words in blue",
-      admin: {
-        description: "The end of the second line, shown in blue. Example: Rare Disease Care",
-      },
-    },
-    {
-      name: "rotatingWords",
-      type: "array",
-      label: "Rotating words at the end of the headline",
-      labels: { singular: "Word", plural: "Words" },
-      admin: {
-        description:
-          "Each takes the place of the highlighted words above in turn, about every three seconds. Leave empty to keep the highlighted words fixed.",
-      },
-      fields: [{ name: "word", type: "text", required: true, label: "Word" }],
-    },
-    { name: "subtitle", type: "textarea", label: "Paragraph below the headline" },
-    {
-      name: "teamCardText",
-      type: "textarea",
-      label: "Sentence in the team card",
-      admin: {
-        description:
-          "Sits under the row of faces below the headline, above the link down to the leadership section.",
-      },
-    },
-    { name: "teamCardLinkLabel", type: "text", label: "Link text in the team card" },
-    { name: "ctaLabel", type: "text", label: "Button text" },
-    {
-      name: "ctaHref",
-      type: "text",
-      label: "Button link",
-      admin: { description: "A path on this site such as /platform, or a full https:// address." },
-    },
-    {
-      name: "labels",
-      type: "array",
-      label: "Tags under the button",
-      labels: { singular: "Tag", plural: "Tags" },
-      fields: [{ name: "label", type: "text", required: true, label: "Tag text" }],
-    },
-  ],
-  ADMIN_GROUPS.about,
-);
-
-export const AboutVision = pageSection(
-  "about-vision",
-  "2. Vision statement",
-  "The large single-sentence statement directly below the hero.",
-  [
-    { name: "eyebrow", type: "text", label: "Small label above the statement" },
-    { name: "heading", type: "text", label: "Statement" },
-  ],
-  ADMIN_GROUPS.about,
-);
-
-export const AboutFoundations = pageSection(
-  "about-foundations",
-  "3. Foundations",
-  "The numbered list of foundation points below the vision statement. Numbering is added automatically in the order you list them here.",
-  [
-    {
-      name: "items",
-      type: "array",
-      label: "Foundation points",
-      labels: { singular: "Point", plural: "Points" },
+      name: "headline",
+      type: "group",
+      label: "Headline",
+      admin: { description: "Read as one sentence: start, highlighted words, end." },
       fields: [
-        { name: "title", type: "text", required: true, label: "Title" },
-        { name: "body", type: "textarea", required: true, label: "Description" },
+        {
+          type: "row",
+          fields: [
+            text("before", "Start"),
+            text("highlight", "Highlighted words"),
+            text("after", "End (optional)"),
+          ],
+        },
       ],
     },
+    textarea("blurb", "Introduction"),
+    {
+      type: "row",
+      fields: [
+        {
+          name: "primaryCta",
+          type: "group",
+          label: "First button",
+          admin: { description: "Scrolls to the first section." },
+          fields: [text("label", "Button text")],
+        },
+        {
+          name: "secondaryCta",
+          type: "group",
+          label: "Second button",
+          admin: { description: "Scrolls to Leadership." },
+          fields: [text("label", "Button text")],
+        },
+      ],
+    },
+    list("glance", "Facts at a glance", "Fact", [
+      text("label", "Small label"),
+      text("title", "Fact"),
+      textarea("body", "Detail"),
+    ]),
+  ],
+  ADMIN_GROUPS.about,
+);
+
+export const AboutProblem = pageSection(
+  "about-problem",
+  "2. The problem",
+  "Section 01: the problem Genetico set out to solve, three cards and a closing line.",
+  [
+    ...sectionLabels,
+    text("heading", "Heading"),
+    textarea("lead", "Introduction"),
+    list("items", "Cards", "Card", [text("title", "Heading"), textarea("body", "Text")]),
+    textarea("closing", "Closing line"),
+  ],
+  ADMIN_GROUPS.about,
+);
+
+export const AboutBuilding = pageSection(
+  "about-building",
+  "3. What Genetico does",
+  "Section 02: the five connected areas, drawn as a chain.",
+  [
+    ...sectionLabels,
+    text("heading", "Heading"),
+    textarea("aside", "Text beside the heading"),
+    list("chain", "Areas", "Area", [text("title", "Area"), textarea("body", "Description")]),
+    textarea("footnote", "Line under the chain"),
+  ],
+  ADMIN_GROUPS.about,
+);
+
+export const AboutPlatform = pageSection(
+  "about-platform",
+  "4. What we are building",
+  "Section 03: which of the two names is which — the company and the platform side by side — then the platform in four steps.",
+  [
+    ...sectionLabels,
+    text("heading", "Heading"),
+    textarea("lead", "Introduction"),
+    {
+      name: "company",
+      type: "group",
+      label: "Company card",
+      fields: [
+        text("label", "Small label"),
+        textarea("statement", "Statement"),
+        textarea("body", "Detail"),
+      ],
+    },
+    {
+      name: "platform",
+      type: "group",
+      label: "Platform card",
+      fields: [
+        text("name", "Platform name"),
+        text("label", "Small label"),
+        textarea("statement", "Statement"),
+        text("ctaLabel", "Link text", "The link opens the Platform page."),
+      ],
+    },
+    list("steps", "Steps", "Step", [text("title", "Step"), textarea("body", "Description")]),
+  ],
+  ADMIN_GROUPS.about,
+);
+
+export const AboutNow = pageSection(
+  "about-now",
+  "5. Why now",
+  "Section 04: the changes that make connected rare disease infrastructure practical now.",
+  [
+    ...sectionLabels,
+    text("heading", "Heading"),
+    textarea("aside", "Text beside the heading"),
+    list("drivers", "Changes", "Change", [
+      text("label", "Small label", "e.g. “Policy”."),
+      text("title", "Heading"),
+      textarea("body", "Text"),
+    ]),
+  ],
+  ADMIN_GROUPS.about,
+);
+
+export const AboutMission = pageSection(
+  "about-mission",
+  "6. Mission and vision",
+  "Section 05: the mission and vision statements, then where Genetico is going.",
+  [
+    ...sectionLabels,
+    text("heading", "Heading"),
+    textarea("mission", "Mission"),
+    textarea("vision", "Vision"),
+    text("horizonsLabel", "Small label above the horizons"),
+    text("horizonsHeading", "Horizons heading"),
+    list("horizons", "Horizons", "Horizon", [
+      text("when", "When", "e.g. “Now”, “Next”."),
+      text("title", "Heading"),
+      textarea("body", "Text"),
+    ]),
+    text("footnote", "Small print"),
   ],
   ADMIN_GROUPS.about,
 );
 
 export const AboutLeadership = pageSection(
   "about-leadership",
-  "4. Leadership — heading",
-  "Heading and intro above the leadership carousel. The people themselves are edited in “Team members” just below.",
+  "7. Leadership — heading",
+  "Section 06: the heading above the team, and the three principles under it. The people themselves are edited in “Team members” just below.",
   [
-    { name: "eyebrow", type: "text", label: "Small label above the heading" },
-    { name: "heading", type: "text", label: "Heading" },
-    { name: "subtitle", type: "textarea", label: "Intro paragraph" },
+    ...sectionLabels,
+    text("heading", "Heading"),
+    textarea("subtitle", "Intro paragraph"),
+    list("beliefs", "Principles", "Principle", [
+      text("title", "Heading"),
+      textarea("body", "Text"),
+    ]),
   ],
   ADMIN_GROUPS.about,
 );
 
 export const AboutGrants = pageSection(
   "about-grants",
-  "5. Grants & Awards — heading",
-  "Heading and intro above the recognition timeline. The entries themselves are edited in “Grants & awards” just below.",
+  "8. Recognition — heading",
+  "Section 07: the heading above the recognition timeline. The entries themselves are edited in “Grants & awards” just below; their count also feeds the home page's “Backed by” figure.",
+  [...sectionLabels, text("heading", "Heading"), textarea("description", "Intro paragraph")],
+  ADMIN_GROUPS.about,
+);
+
+export const AboutPartners = pageSection(
+  "home-partners",
+  "9. Partners — heading",
+  "Section 08: the heading above the two rows of partner logos. The logos are edited in “Partner logos” just below.",
+  [...sectionLabels, text("heading", "Heading"), textarea("description", "Description")],
+  ADMIN_GROUPS.about,
+);
+
+export const AboutSecurity = pageSection(
+  "home-security",
+  "10. Security & Compliance",
+  "Section 09: the trust and compliance points.",
   [
-    { name: "eyebrow", type: "text", label: "Small label above the heading" },
-    { name: "heading", type: "text", label: "Heading" },
-    { name: "description", type: "textarea", label: "Intro paragraph" },
+    ...sectionLabels,
+    text("heading", "Heading"),
+    textarea("description", "Text beside the heading"),
+    list("features", "Trust points", "Trust point", [
+      { name: "text", type: "text", required: true, label: "Text" },
+    ]),
   ],
   ADMIN_GROUPS.about,
 );
 
 export const AboutCta = pageSection(
   "about-cta",
-  "7. Get in touch",
-  "The last band on the About page, above the footer. (Section 6 — the partner logos and Security & Trust panel — is shared with the home page and is edited under “Home page”.)",
+  "11. Engage",
+  "Section 10: the heading and two buttons above the enquiry form at the foot of the page.",
   [
-    { name: "heading", type: "text", label: "Heading" },
-    { name: "description", type: "textarea", label: "Description" },
+    ...sectionLabels,
+    text("heading", "Heading"),
+    textarea("description", "Description"),
     ctaButtonsField,
   ],
   ADMIN_GROUPS.about,

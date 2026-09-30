@@ -1,18 +1,20 @@
 import {
   BLOG_PATH,
+  COOKIE_POLICY_PATH,
   HOSPITAL_PATH,
   PHARMA_PATH,
   PLATFORM_PATH,
   PRIVACY_POLICY_PATH,
   PUBLIC_HEALTH_PATH,
 } from "@/lib/routes";
-import { DEFAULT_DESCRIPTION } from "@/lib/seo";
 
 export const STATIC_PAGE_SEO = {
   home: {
     path: "/",
-    title: "AI-Powered Rare Disease Care Platform",
-    description: DEFAULT_DESCRIPTION,
+    // The root page gets no "| Genetico" suffix from the layout template, so the brand is written in.
+    title: "Genetico — Digital Infrastructure for Rare and Genetic Disease Care",
+    description:
+      "Genetico is a health technology company building digital solutions for the rare and genetic disease ecosystem, connecting clinicians, hospitals, laboratories and public-health programmes. IndiGeneUs.AI is its platform.",
   },
   about: {
     path: "/about-us",
@@ -62,6 +64,11 @@ export const STATIC_PAGE_SEO = {
     description:
       "How Genetico and IndiGeneUs.AI collect, use, and protect personal and clinical information.",
   },
+  cookiePolicy: {
+    path: COOKIE_POLICY_PATH,
+    title: "Cookie Policy",
+    description: "Which cookies genetico.in sets, why, and how to change your choice.",
+  },
 } as const;
 
 export const INDEXABLE_STATIC_PATHS = [
@@ -74,4 +81,5 @@ export const INDEXABLE_STATIC_PATHS = [
   STATIC_PAGE_SEO.resources.path,
   STATIC_PAGE_SEO.blog.path,
   STATIC_PAGE_SEO.privacyPolicy.path,
+  STATIC_PAGE_SEO.cookiePolicy.path,
 ] as const;

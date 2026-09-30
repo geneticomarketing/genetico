@@ -9,7 +9,7 @@ export const ADMIN_GROUPS = {
   solutions: "Solution pages  ·  /hospital, /life-science",
   publicHealth: "Public Health page  ·  /public-health",
   resources: "Resources page  ·  /resources",
-  legal: "Other pages  ·  /blog, /privacy-policy, /coming-soon",
+  legal: "Other pages  ·  /blog, legal pages, /coming-soon",
   site: "Site-wide  ·  header, footer, contact",
   media: "Images & files",
   system: "System",

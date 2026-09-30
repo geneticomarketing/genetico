@@ -14,7 +14,6 @@ import { BlogPosts } from "./payload/collections/BlogPosts";
 import { TeamMembers } from "./payload/collections/TeamMembers";
 import { Partners } from "./payload/collections/Partners";
 import { GrantsAwards } from "./payload/collections/GrantsAwards";
-import { EcosystemModules, EcosystemGaps } from "./payload/collections/Ecosystem";
 import {
   DeepDives,
   FeaturedVideos,
@@ -26,25 +25,28 @@ import { LegalPages } from "./payload/collections/LegalPages";
 import { SiteSettings, Navigation, Footer } from "./payload/globals/Site";
 import { UtilityPages } from "./payload/globals/Pages";
 import {
-  HomeHero,
-  HomeAudience,
-  HomePlatformGlance,
-  HomeProof,
-  HomeSecurity,
-  HomeFaqs,
-  HomeCta,
-  HomeWhoWeAre,
-  HomePartners,
-  HomeEcosystemChallenges,
-  HomeEcosystemGaps,
-  HomeNews,
+  HomeIntro,
+  HomeWhy,
+  HomeScale,
+  HomeDoes,
+  HomePlatform,
+  HomeServe,
+  HomeImpact,
+  HomeInsights,
+  HomeAhead,
+  HomeContact,
 } from "./payload/globals/sections/home";
 import {
-  AboutHero,
-  AboutVision,
-  AboutFoundations,
+  AboutIntro,
+  AboutProblem,
+  AboutBuilding,
+  AboutPlatform,
+  AboutNow,
+  AboutMission,
   AboutLeadership,
   AboutGrants,
+  AboutPartners,
+  AboutSecurity,
   AboutCta,
 } from "./payload/globals/sections/about";
 import {
@@ -65,7 +67,6 @@ import {
 } from "./payload/globals/sections/public-health";
 import {
   ResourcesHero,
-  ResourcesFilterTabs,
   ResourcesVideosSection,
   ResourcesArticlesSection,
   ResourcesBlogsSection,
@@ -107,49 +108,48 @@ export default buildConfig({
     },
   },
   collections: [
-    // Home
-    Partners,
-    EcosystemModules,
-    EcosystemGaps,
-    // About
+    // About page
     TeamMembers,
     GrantsAwards,
-    // Solutions
+    Partners,
+    // Solution pages
     SolutionPages,
-    // Resources
+    // Resources page
     BlogPosts,
     FeaturedVideos,
     ShortVideos,
     DeepDives,
     ExternalArticles,
-    // Legal
+    // Other pages
     LegalPages,
     // Site utilities
     Media,
     Users,
   ],
+  // Grouped and ordered in the admin sidebar by src/payload/admin/nav-order.ts.
   globals: [
-    // Home Page sections, in the order they render
-    HomeHero,
-    HomeAudience,
-    HomePlatformGlance,
-    HomeProof,
-    HomeSecurity,
-    HomeFaqs,
-    HomeCta,
-    // Retired with the redesign: hidden from the sidebar, kept so the columns
-    // still have fields to map to.
-    HomeWhoWeAre,
-    HomePartners,
-    HomeEcosystemChallenges,
-    HomeEcosystemGaps,
-    HomeNews,
-    // About Page sections
-    AboutHero,
-    AboutVision,
-    AboutFoundations,
+    // Home page, in the order the sections render
+    HomeIntro,
+    HomeWhy,
+    HomeScale,
+    HomeDoes,
+    HomePlatform,
+    HomeServe,
+    HomeImpact,
+    HomeInsights,
+    HomeAhead,
+    HomeContact,
+    // About page
+    AboutIntro,
+    AboutProblem,
+    AboutBuilding,
+    AboutPlatform,
+    AboutNow,
+    AboutMission,
     AboutLeadership,
     AboutGrants,
+    AboutPartners,
+    AboutSecurity,
     AboutCta,
     // Platform Page sections
     PlatformHero,
@@ -159,7 +159,7 @@ export default buildConfig({
     PlatformInfrastructure,
     PlatformSecurity,
     PlatformCta,
-    // Solutions Page sections (includes Public Health)
+    // Public Health page
     PublicHealthHero,
     PublicHealthImpact,
     PublicHealthThreeTier,
@@ -167,7 +167,6 @@ export default buildConfig({
     PublicHealthCta,
     // Resources Page sections
     ResourcesHero,
-    ResourcesFilterTabs,
     ResourcesVideosSection,
     ResourcesDeepDivesSection,
     ResourcesArticlesSection,

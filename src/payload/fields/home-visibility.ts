@@ -16,7 +16,7 @@ export const showOnHomeField: Field = {
   label: "Show on the home page",
   admin: {
     description:
-      "The home page's “In use across the ecosystem” section shows one large item and three smaller ones beside it. Tick this to offer this item; if more are ticked than fit, the ones lowest in “Order on the page” are used.",
+      "Offers this item to the home page's Insights section: one featured item (a featured video, if any is ticked) and up to four beside it. If more are ticked than fit, the ones lowest in “Order on the page” are used.",
     position: "sidebar",
   },
 };
@@ -83,7 +83,7 @@ export const partnerGroupField: Field = {
   label: "Which row on the About page",
   admin: {
     description:
-      "Hospitals, universities and research bodies go in the top row; funders, incubators and programmes in the quieter row beneath. Both rows also feed the home page logo strip.",
+      "Hospitals, universities and research bodies go in the top row; funders, incubators and programmes in the quieter row beneath.",
     position: "sidebar",
   },
 };

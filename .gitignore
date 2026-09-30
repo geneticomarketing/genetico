@@ -46,3 +46,6 @@ next-env.d.ts
 
 # CMS content backups (local only)
 /.cms-backup
+
+# Local tool output
+tsc-out.txt
