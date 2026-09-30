@@ -1,21 +1,7 @@
 import { resolveMediaUrl } from "./resolve-media-url";
 import { BLOG_POSTS, type BlogPost } from "@/lib/blogs";
-import type {
-  BlogPost as CmsBlogPost,
-  Config,
-  EcosystemGap as CmsEcosystemGap,
-  EcosystemModule as CmsEcosystemModule,
-  ExternalArticle as CmsExternalArticle,
-  FeaturedVideo as CmsFeaturedVideo,
-  GrantsAward as CmsGrantAward,
-  // NewsArticle as CmsNewsArticle,
-  Partner as CmsPartner,
-  ShortVideo as CmsShortVideo,
-  TeamMember as CmsTeamMember,
-  UtilityPage,
-} from "@/payload-types";
+import type { Config } from "@/payload-types";
 import { getPayloadClient, isCmsConfigured } from "./get-payload";
-import { DEFAULT_UTILITY_PAGES } from "./defaults/resources";
 
 type CollectionSlug = keyof Config["collections"];
 type GlobalSlug = keyof Config["globals"];
@@ -67,6 +53,24 @@ export async function getBlogBySlug(slug: string): Promise<BlogPost | undefined>
 export async function getAllBlogSlugs(): Promise<string[]> {
   const posts = await getBlogPosts();
   return posts.map((p) => p.slug);
+}
+
+/** Every blog post's slug with when it last changed, for the sitemap. */
+export async function getBlogSitemapEntries(): Promise<{ slug: string; updatedAt?: string }[]> {
+  const payload = isCmsConfigured() ? await getPayloadClient() : null;
+  if (!payload) return BLOG_POSTS.map((p) => ({ slug: p.slug }));
+
+  try {
+    const { docs } = await payload.find({
+      collection: "blog-posts",
+      limit: 500,
+      depth: 0,
+      select: { slug: true, updatedAt: true },
+    });
+    return docs.map((doc) => ({ slug: doc.slug, updatedAt: doc.updatedAt }));
+  } catch {
+    return [];
+  }
 }
 
 export async function getGlobal<T>(slug: GlobalSlug, fallback: T): Promise<T> {
@@ -225,44 +229,4 @@ export async function getFooterContent() {
     ],
     legalLinks: [{ label: "Privacy Policy", href: "/privacy-policy" }],
   });
-}
-
-export async function getUtilityPagesContent() {
-  return getGlobal("utility-pages", DEFAULT_UTILITY_PAGES as UtilityPage);
-}
-
-export async function getTeamMembers() {
-  return getCollection<CmsTeamMember>("team-members", [] as CmsTeamMember[]);
-}
-
-export async function getPartners() {
-  return getCollection<CmsPartner>("partners", [] as CmsPartner[]);
-}
-
-// export async function getNewsArticles() {
-//   return getCollection<CmsNewsArticle>("news-articles", [] as CmsNewsArticle[]);
-// }
-
-export async function getGrantsAwards() {
-  return getCollection<CmsGrantAward>("grants-awards", [] as CmsGrantAward[]);
-}
-
-export async function getEcosystemModules() {
-  return getCollection<CmsEcosystemModule>("ecosystem-modules", [] as CmsEcosystemModule[]);
-}
-
-export async function getEcosystemGaps() {
-  return getCollection<CmsEcosystemGap>("ecosystem-gaps", [] as CmsEcosystemGap[]);
-}
-
-export async function getFeaturedVideos() {
-  return getCollection<CmsFeaturedVideo>("featured-videos", [] as CmsFeaturedVideo[]);
-}
-
-export async function getShortVideos() {
-  return getCollection<CmsShortVideo>("short-videos", [] as CmsShortVideo[]);
-}
-
-export async function getExternalArticles() {
-  return getCollection<CmsExternalArticle>("external-articles", [] as CmsExternalArticle[]);
 }

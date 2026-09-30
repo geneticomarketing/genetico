@@ -2,28 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Eyebrow, SectionLabel } from "@/components/chrome/eyebrow";
-import {
-  ABOUT_V2_AHEAD,
-  ABOUT_V2_BUILDING,
-  ABOUT_V2_PLATFORM,
-  ABOUT_V2_TEAM,
-  ABOUT_V2_TODAY,
-  ABOUT_V2_WHY,
-} from "@/content/about-v2";
+import type {
+  AboutBuildingContent,
+  AboutMissionContent,
+  AboutPlatformContent,
+  AboutProblemContent,
+} from "@/content/about";
 
 type SectionProps = { id: string; eyebrow: string; num: string };
-
-/** Copy a section can be given in place of v2's, for pages built from these. */
-type WhyContent = typeof ABOUT_V2_WHY;
-type BuildingContent = {
-  heading: string;
-  aside: string;
-  chain: { title: string; body: string }[];
-  footnote: string;
-};
-type PlatformContent = typeof ABOUT_V2_PLATFORM & { lead?: string };
-
-const V2_BUILDING: BuildingContent = { ...ABOUT_V2_BUILDING, aside: ABOUT_V2_BUILDING.mission };
 
 const pad = (i: number) => String(i + 1).padStart(2, "0");
 
@@ -86,8 +72,8 @@ export function WhyWeExist({
   id,
   eyebrow,
   num,
-  content = ABOUT_V2_WHY,
-}: SectionProps & { content?: WhyContent }) {
+  content,
+}: SectionProps & { content: AboutProblemContent }) {
   return (
     <section id={id} data-reveal className={SECTION}>
       <div className="max-w-site mx-auto">
@@ -124,8 +110,8 @@ export function Building({
   id,
   eyebrow,
   num,
-  content = V2_BUILDING,
-}: SectionProps & { content?: BuildingContent }) {
+  content,
+}: SectionProps & { content: AboutBuildingContent }) {
   return (
     <section
       id={id}
@@ -163,8 +149,8 @@ export function PlatformFit({
   id,
   eyebrow,
   num,
-  content = ABOUT_V2_PLATFORM,
-}: SectionProps & { content?: PlatformContent }) {
+  content,
+}: SectionProps & { content: AboutPlatformContent }) {
   const { company, platform, steps, lead } = content;
 
   return (
@@ -242,108 +228,11 @@ export function PlatformFit({
   );
 }
 
-/** 04 — three figures, then the featured case study from the Resources page. */
-export function Today({
-  id,
-  eyebrow,
-  num,
-  awardCount,
-  firstAwardYear,
-  caseStudy,
-}: SectionProps & {
-  awardCount: number;
-  firstAwardYear: string;
-  caseStudy: { kicker: string; title: string; href: string; ctaLabel: string };
-}) {
-  const figures = [...ABOUT_V2_TODAY.figures];
-  if (awardCount) {
-    figures.push({
-      label: ABOUT_V2_TODAY.awards.label,
-      figure: `${awardCount} grants & awards`,
-      body: `${firstAwardYear ? `Since ${firstAwardYear}, ` : ""}${ABOUT_V2_TODAY.awards.body}`,
-    });
-  }
-
-  return (
-    <section
-      id={id}
-      data-reveal
-      className={`${SECTION} bg-sheet-cool border-rule border-t border-b`}
-    >
-      <div className="max-w-site mx-auto">
-        <SplitHeading
-          num={num}
-          eyebrow={eyebrow}
-          heading={ABOUT_V2_TODAY.heading}
-          aside={ABOUT_V2_TODAY.description}
-        />
-        <div className="mt-[clamp(40px,5vw,56px)] grid gap-[18px] nav:grid-cols-3">
-          {figures.map((item) => (
-            <div
-              key={item.label}
-              className={`${CARD} flex flex-col gap-2.5 px-[26px] pt-7 pb-[26px]`}
-            >
-              <span className="font-mono-label text-ink-soft text-[10.5px] tracking-[0.16em] uppercase">
-                {item.label}
-              </span>
-              <span className="font-headline text-primary text-[clamp(30px,3.4vw,42px)] leading-[1.05] tracking-[-0.02em]">
-                {item.figure}
-              </span>
-              <p className="text-ink-body m-0 text-[14.5px] leading-[1.65]">{item.body}</p>
-            </div>
-          ))}
-        </div>
-        <Link
-          href={caseStudy.href}
-          className={`border-rule rounded-card text-ink hover:text-ink mt-[18px] flex flex-wrap items-center justify-between gap-x-8 gap-y-[18px] border bg-white px-[clamp(20px,2.6vw,30px)] py-6 ${LIFT}`}
-        >
-          <div className="flex min-w-0 flex-[1_1_360px] flex-col gap-2">
-            <span className="font-mono-label text-teal-mid text-[10.5px] tracking-[0.16em] uppercase">
-              {caseStudy.kicker}
-            </span>
-            <span className="font-headline text-[clamp(20px,2.1vw,26px)] leading-[1.3] tracking-[-0.01em]">
-              {caseStudy.title}
-            </span>
-          </div>
-          <span className="text-primary inline-flex flex-none items-center gap-[7px] text-sm font-bold">
-            {caseStudy.ctaLabel}
-            <span aria-hidden className="text-xs">
-              →
-            </span>
-          </span>
-        </Link>
-      </div>
-    </section>
-  );
-}
-
-/**
- * 05 — the vision, then three horizons.
- *
- * Each horizon hangs from a hairline with a dot on it: filled teal for what is
- * happening now, hollow blue for what comes after.
- */
-export function Ahead({ id, eyebrow, num }: SectionProps) {
-  return (
-    <section id={id} data-reveal className={SECTION}>
-      <div className="max-w-site mx-auto">
-        <Eyebrow fluid>
-          {num} · {eyebrow}
-        </Eyebrow>
-        <p className="font-headline text-ink mx-auto mt-7 mb-0 max-w-[820px] text-center text-[clamp(28px,3.4vw,42px)] leading-[1.2] tracking-[-0.018em] text-balance">
-          {ABOUT_V2_AHEAD.vision}
-        </p>
-        <Horizons className="mt-[clamp(40px,5vw,56px)]" />
-      </div>
-    </section>
-  );
-}
-
 /**
  * "How we work" — closes the team section. Below `nav` the three cards become
  * a snapping sideways row with a hint, rather than a tall stack.
  */
-export function Beliefs() {
+export function Beliefs({ beliefs }: { beliefs: { title: string; body: string }[] }) {
   return (
     <>
       <div className="mt-14 flex items-center gap-4">
@@ -353,10 +242,10 @@ export function Beliefs() {
         <span aria-hidden className="bg-rule block h-px flex-1" />
       </div>
       <span className="font-mono-label text-ink-soft mt-[18px] block text-[10.5px] tracking-[0.16em] uppercase nav:hidden">
-        Swipe for all three →
+        Swipe for all {beliefs.length} →
       </span>
       <div className="swipe-row mt-10 nav:grid nav:grid-cols-3 nav:gap-[18px]">
-        {ABOUT_V2_TEAM.beliefs.map((belief, i) => (
+        {beliefs.map((belief, i) => (
           <div
             key={belief.title}
             className={`${CARD} flex min-w-0 flex-col gap-3 px-[26px] pt-7 pb-[26px] ${LIFT}`}
@@ -381,16 +270,20 @@ export function Beliefs() {
  * for what is happening now, hollow blue for what comes after.
  */
 export function Horizons({
+  horizons,
+  footnote,
   className = "",
   footnoteClassName = "mt-8",
 }: {
+  horizons: AboutMissionContent["horizons"];
+  footnote: string;
   className?: string;
   footnoteClassName?: string;
 }) {
   return (
     <>
       <div className={`grid gap-[clamp(24px,3vw,40px)] mid:grid-cols-3 ${className}`}>
-        {ABOUT_V2_AHEAD.horizons.map((horizon, i) => {
+        {horizons.map((horizon, i) => {
           const now = i === 0;
           return (
             <div
@@ -419,7 +312,7 @@ export function Horizons({
         })}
       </div>
       <p className={`text-ink-soft mb-0 text-[13px] leading-[1.6] ${footnoteClassName}`}>
-        {ABOUT_V2_AHEAD.footnote}
+        {footnote}
       </p>
     </>
   );

@@ -1,26 +1,6 @@
-import type { ArrayField, CollectionConfig } from "payload";
-import { ctaButtonsField } from "../fields/link";
-import { badgeThemeOptions, metricThemeOptions } from "../fields/color-themes";
+import type { CollectionConfig } from "payload";
 import { ADMIN_GROUPS } from "../admin-groups";
 import { withAdminGroup } from "../with-admin-group";
-
-/**
- * Fields the redesign left behind.
- *
- * They are hidden rather than deleted: the live pages still read them until
- * the rebuilt code deploys, and removing a field from the schema drops its
- * column on the next dev boot. `scripts/drop-solution-page-legacy.mjs` takes
- * them out for good once the new pages are live — run it, then delete this
- * block and the `deprecated()` calls below, and mark the new outcome fields
- * required in the same pass.
- */
-function deprecated<T extends { name: string; required?: boolean; admin?: object }>(field: T) {
-  return {
-    ...field,
-    required: false,
-    admin: { ...(field.admin ?? {}), hidden: true },
-  };
-}
 
 const burdenCardFields = [
   { name: "title", type: "text" as const, required: true, label: "Challenge" },
@@ -33,31 +13,6 @@ const burdenCardFields = [
       description: "Shown when the card is the open one. Two lines reads best.",
     },
   },
-
-  deprecated({ name: "label", type: "text" as const, required: true, label: "Card title" }),
-  deprecated({ name: "badge", type: "text" as const, required: true, label: "Badge text" }),
-  deprecated({
-    name: "badgeTheme",
-    type: "select" as const,
-    options: badgeThemeOptions,
-    enumName: "solution_burden_badge_theme",
-    label: "Badge colour",
-  }),
-  deprecated({
-    name: "collapsedTitle",
-    type: "array" as const,
-    required: true,
-    label: "Collapsed title (exactly two lines)",
-    labels: { singular: "Line", plural: "Lines" },
-    fields: [{ name: "line", type: "text" as const, required: true, label: "Line" }],
-  }),
-  deprecated({ name: "number", type: "text" as const, label: "Number shown on the card" }),
-  deprecated({
-    name: "cardId",
-    type: "text" as const,
-    label: "Internal reference",
-    admin: { position: "sidebar" as const },
-  }),
 ];
 
 const howItWorksRowFields = [
@@ -73,29 +28,12 @@ const howItWorksRowFields = [
   { name: "title", type: "text" as const, required: true, label: "Title" },
   { name: "description", type: "textarea" as const, required: true, label: "Description" },
   { name: "callout", type: "text" as const, required: true, label: "Highlighted callout line" },
-
-  deprecated({ name: "number", type: "text" as const, label: "Step number" }),
-  deprecated({
-    name: "reverse",
-    type: "checkbox" as const,
-    label: "Flip this row (image on the other side)",
-  }),
-  deprecated({
-    name: "tinted",
-    type: "checkbox" as const,
-    label: "Give this row a tinted background",
-  }),
 ];
 
 /**
- * The four new outcome fields are not marked required, even though every one
- * of them has to be filled in for the band to read properly.
- *
- * Adding a NOT NULL column to a table that already holds rows stops the dev
- * boot on a data-loss prompt, and this table holds the live pages' outcomes.
- * They become required in the same follow-up that drops the old columns, by
- * which point the seed has filled every row. Until then the page hides an
- * outcome with no figure rather than printing a gap.
+ * Every outcome needs a figure to read properly, but the field is optional:
+ * the page hides an outcome with no figure rather than printing a gap, and
+ * making it required would add a NOT NULL column to a table that holds rows.
  */
 const outcomeMetricFields = [
   {
@@ -110,38 +48,7 @@ const outcomeMetricFields = [
   { name: "before", type: "text" as const, label: "Before (struck through)" },
   { name: "after", type: "text" as const, label: "After" },
   { name: "note", type: "textarea" as const, label: "Line below the rule" },
-
-  deprecated({ name: "maxPercent", type: "number" as const, required: true, label: "Ring fill" }),
-  deprecated({
-    name: "metricTheme",
-    type: "select" as const,
-    options: metricThemeOptions,
-    enumName: "solution_metric_theme",
-    label: "Colour",
-  }),
-  deprecated({ name: "fromText", type: "text" as const, required: true, label: "“From” text" }),
-  deprecated({ name: "toText", type: "text" as const, required: true, label: "“To” text" }),
-  deprecated({ name: "positive", type: "text" as const, required: true, label: "Positive line" }),
-  deprecated({ name: "negative", type: "text" as const, label: "Negative line" }),
-  deprecated({ name: "centerValue", type: "text" as const, label: "Text inside the ring" }),
-  deprecated({
-    name: "hideCenterSubLabel",
-    type: "checkbox" as const,
-    label: "Hide the small label under the ring value",
-  }),
-  deprecated({
-    name: "metricId",
-    type: "text" as const,
-    label: "Internal reference",
-    admin: { position: "sidebar" as const },
-  }),
 ];
-
-/** The closing band's buttons, retired with the rest and hidden meanwhile. */
-const retiredCtaButtons: ArrayField = {
-  ...(ctaButtonsField as ArrayField),
-  admin: { ...(ctaButtonsField as ArrayField).admin, hidden: true },
-};
 
 export const SolutionPages = withAdminGroup(
   {
@@ -286,7 +193,6 @@ export const SolutionPages = withAdminGroup(
         fields: [
           { name: "heading", type: "text", required: true, label: "Heading" },
           { name: "description", type: "textarea", required: true, label: "Description" },
-          retiredCtaButtons,
         ],
       },
     ],

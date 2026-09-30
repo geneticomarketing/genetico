@@ -13,7 +13,7 @@ import {
 } from "@/components/hospital/sections";
 import { ExtractPanel } from "@/components/solutions/extract-panel";
 import { Challenge, Outcomes, Walkthrough } from "@/components/solutions/sections";
-import { DEFAULT_HOME_CONTACT } from "@/lib/cms/home-content";
+import { DEFAULT_CONTACT_SECTION } from "@/lib/cms/sections";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
 import { getSolutionContent } from "@/lib/cms/solution-page-data";
 import { createPageMetadata } from "@/lib/seo";
@@ -83,10 +83,10 @@ export default async function HospitalPage() {
         emailPlaceholder="name@hospital.org"
         roleOrder={["Clinician or Hospital", "Life Science or Research"]}
         content={{
-          heading: content.cta.heading || DEFAULT_HOME_CONTACT.heading,
-          description: content.cta.description || DEFAULT_HOME_CONTACT.description,
-          primaryCta: DEFAULT_HOME_CONTACT.primaryCta,
-          secondaryCta: DEFAULT_HOME_CONTACT.secondaryCta,
+          heading: content.cta.heading || DEFAULT_CONTACT_SECTION.heading,
+          description: content.cta.description || DEFAULT_CONTACT_SECTION.description,
+          primaryCta: DEFAULT_CONTACT_SECTION.primaryCta,
+          secondaryCta: DEFAULT_CONTACT_SECTION.secondaryCta,
         }}
       />
 

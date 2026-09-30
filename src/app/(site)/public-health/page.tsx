@@ -11,7 +11,7 @@ import {
   PublicHealthHero,
   ThreeTier,
 } from "@/components/public-health/sections";
-import { DEFAULT_HOME_CONTACT } from "@/lib/cms/home-content";
+import { DEFAULT_CONTACT_SECTION } from "@/lib/cms/sections";
 import { getPublicHealthContent } from "@/lib/cms/public-health-page-data";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
 import { createPageMetadata } from "@/lib/seo";
@@ -71,10 +71,10 @@ export default async function PublicHealthPage() {
           "Life Science or Research",
         ]}
         content={{
-          heading: content.cta.heading || DEFAULT_HOME_CONTACT.heading,
-          description: content.cta.description || DEFAULT_HOME_CONTACT.description,
-          primaryCta: DEFAULT_HOME_CONTACT.primaryCta,
-          secondaryCta: DEFAULT_HOME_CONTACT.secondaryCta,
+          heading: content.cta.heading || DEFAULT_CONTACT_SECTION.heading,
+          description: content.cta.description || DEFAULT_CONTACT_SECTION.description,
+          primaryCta: DEFAULT_CONTACT_SECTION.primaryCta,
+          secondaryCta: DEFAULT_CONTACT_SECTION.secondaryCta,
         }}
       />
 

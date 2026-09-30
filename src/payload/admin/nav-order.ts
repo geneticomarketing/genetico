@@ -24,30 +24,33 @@ export const ADMIN_NAV_GROUP_ORDER = [
  */
 export const ADMIN_NAV_ENTITY_ORDER: Record<string, string[]> = {
   // src/app/(site)/page.tsx
-  // The sections retired by the 2026 redesign — who-we-are, partners heading,
-  // ecosystem challenges and gaps, news — are hidden from the sidebar, so they
-  // are deliberately absent here.
   [ADMIN_GROUPS.home]: [
-    "globals:home-hero",
-    "globals:home-audience",
-    "globals:home-platform-glance",
-    "globals:home-proof",
-    "collections:partners",
-    "globals:home-security",
-    "globals:home-faqs",
-    "globals:home-cta",
+    "globals:home-intro",
+    "globals:home-why",
+    "globals:home-scale",
+    "globals:home-does",
+    "globals:home-platform",
+    "globals:home-serve",
+    "globals:home-impact",
+    "globals:home-insights",
+    "globals:home-ahead",
+    "globals:home-contact",
   ],
   // src/app/(site)/about-us/page.tsx
-  // Section 6 (partners + security) is shared with the home page and lives there.
   [ADMIN_GROUPS.about]: [
-    "globals:about-hero",
-    "globals:about-vision",
-    "globals:about-foundations",
+    "globals:about-intro",
+    "globals:about-problem",
+    "globals:about-building",
+    "globals:about-platform",
+    "globals:about-now",
+    "globals:about-mission",
     "globals:about-leadership",
     "collections:team-members",
     "globals:about-grants",
     "collections:grants-awards",
     "globals:home-partners",
+    "collections:partners",
+    "globals:home-security",
     "globals:about-cta",
   ],
   // src/app/(site)/platform/page.tsx

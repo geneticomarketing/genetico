@@ -1,7 +1,7 @@
 "use client";
 
 import { scrollToSection } from "@/components/chrome/page-sections";
-import { ABOUT_V2_HERO } from "@/content/about-v2";
+import type { AboutIntroContent } from "@/content/about";
 
 /** Each part of the hero fades up on load, a beat after the one above it. */
 const FADE_UP = "motion-safe:animate-[fade-up_.8s_cubic-bezier(.22,.61,.36,1)_both]";
@@ -13,7 +13,7 @@ const FADE_UP = "motion-safe:animate-[fade-up_.8s_cubic-bezier(.22,.61,.36,1)_bo
  * The panel's columns divide with a left rule side by side and a top rule once
  * they stack, so the dividers always fall between cells.
  */
-export function AboutV2Hero({ content = ABOUT_V2_HERO }: { content?: typeof ABOUT_V2_HERO } = {}) {
+export function AboutHero({ content }: { content: AboutIntroContent }) {
   const { headline, primaryCta, secondaryCta } = content;
 
   const jump = (target: string) => (e: React.MouseEvent) => {

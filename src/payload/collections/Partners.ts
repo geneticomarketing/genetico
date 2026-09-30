@@ -12,7 +12,7 @@ export const Partners = withAdminGroup(
       useAsTitle: "name",
       defaultColumns: ["name", "sortOrder"],
       description:
-        "The logos in the scrolling partner row. Appears on the home page and the About page, under the “Partners” heading.",
+        "Every partner logo on the site. On the About page they fill two rows, chosen by “Which row on the About page”; the ones ticked “Show on the home page” also scroll along the home page’s Impact section. Both follow “Order on the page”.",
     },
     fields: [
       {
@@ -33,6 +33,16 @@ export const Partners = withAdminGroup(
       }),
       partnerGroupField,
       {
+        name: "showOnHome",
+        type: "checkbox",
+        defaultValue: false,
+        label: "Show on the home page",
+        admin: {
+          description: "Adds this logo to the scrolling strip in the home page’s Impact section.",
+          position: "sidebar",
+        },
+      },
+      {
         name: "sortOrder",
         type: "number",
         defaultValue: 1000,
@@ -45,5 +55,5 @@ export const Partners = withAdminGroup(
       },
     ],
   } satisfies CollectionConfig,
-  ADMIN_GROUPS.home,
+  ADMIN_GROUPS.about,
 );

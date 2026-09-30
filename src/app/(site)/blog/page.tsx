@@ -9,14 +9,14 @@ import { BlogCard } from "@/components/blog/blog-card";
 import { Reveal } from "@/components/motion/reveal";
 
 import { getBlogPosts } from "@/lib/cms/queries";
-import { getResourcesPageData } from "@/lib/cms/page-data";
+import { getBlogListing } from "@/lib/cms/page-data";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await getResourcesPageData();
+  const data = { blogListing: await getBlogListing() };
   const seo = STATIC_PAGE_SEO.blog;
 
   return createPageMetadata({
@@ -27,7 +27,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlogPage() {
-  const [data, posts] = await Promise.all([getResourcesPageData(), getBlogPosts()]);
+  const [blogListing, posts] = await Promise.all([getBlogListing(), getBlogPosts()]);
+  const data = { blogListing };
 
   return (
     <main className="flex flex-1 flex-col bg-white">

@@ -1,5 +1,20 @@
+import type { PageSection } from "@/components/chrome/page-sections";
+import {
+  ABOUT_BUILDING,
+  ABOUT_ENGAGE,
+  ABOUT_INTRO,
+  ABOUT_LEADERSHIP,
+  ABOUT_MISSION,
+  ABOUT_NOW,
+  ABOUT_PARTNERS,
+  ABOUT_PLATFORM,
+  ABOUT_PROBLEM,
+  ABOUT_RECOGNITION,
+  ABOUT_SECURITY,
+} from "@/content/about";
 import { getCollection, getSectionGlobal } from "@/lib/cms/queries";
 import { resolveMediaUrl } from "@/lib/cms/resolve-media-url";
+import { withDefaults } from "@/lib/cms/with-defaults";
 import type {
   GrantsAward as CmsGrantAward,
   Partner as CmsPartner,
@@ -7,7 +22,8 @@ import type {
 } from "@/payload-types";
 
 /**
- * The About page, shaped the way its sections consume it.
+ * Everything the About page renders, read from the CMS (About page · /about-us)
+ * and filled from src/content/about.ts wherever a field is empty.
  *
  * Two things are split by a stored choice rather than by position: which row
  * of the leadership grid a person appears in, and which of the two logo rows
@@ -36,31 +52,9 @@ export type AboutAward = {
 
 export type AboutLogo = { name: string; logo: string };
 
+/** The collection-backed sections, in the shape their components take. */
 export type AboutContent = {
-  hero: {
-    credentials: string[];
-    headline: string;
-    /** The highlighted words that finish the headline, cycled. */
-    rotatingWords: string[];
-    blurb: string;
-    ctaLabel: string;
-    ctaHref: string;
-    teamCardText: string;
-    teamCardLinkLabel: string;
-  };
-  vision: {
-    eyebrow: string;
-    heading: string;
-    /** The first is set as a full-width statement; the rest sit side by side. */
-    items: { title: string; body: string }[];
-  };
-  leadership: {
-    eyebrow: string;
-    heading: string;
-    subtitle: string;
-    team: AboutPerson[];
-    advisors: AboutPerson[];
-  };
+  leadership: { heading: string; subtitle: string; team: AboutPerson[]; advisors: AboutPerson[] };
   recognition: { eyebrow: string; heading: string; description: string; awards: AboutAward[] };
   partners: {
     heading: string;
@@ -69,13 +63,7 @@ export type AboutContent = {
     supporters: AboutLogo[];
   };
   trust: { eyebrow: string; heading: string; points: string[] };
-  cta: { heading: string; description: string };
 };
-
-function text(value: string | null | undefined, fallback: string): string {
-  const trimmed = value?.trim();
-  return trimmed ? trimmed : fallback;
-}
 
 /** Initials from a name, ignoring honorifics so "Dr. Annie Hasan" gives AH. */
 function initialsOf(name: string): string {
@@ -101,103 +89,126 @@ function toPerson(doc: CmsTeamMember): AboutPerson {
   };
 }
 
-export async function getAboutContent(): Promise<AboutContent> {
-  const [hero, vision, foundations, leadership, grants, partnersSection, security, cta] =
-    await Promise.all([
-      getSectionGlobal("about-hero"),
-      getSectionGlobal("about-vision"),
-      getSectionGlobal("about-foundations"),
-      getSectionGlobal("about-leadership"),
-      getSectionGlobal("about-grants"),
-      getSectionGlobal("home-partners"),
-      getSectionGlobal("home-security"),
-      getSectionGlobal("about-cta"),
-    ]);
-
-  const [people, awards, partners] = await Promise.all([
-    getCollection<CmsTeamMember>("team-members", []),
-    getCollection<CmsGrantAward>("grants-awards", []),
-    getCollection<CmsPartner>("partners", []),
-  ]);
-
-  const words = (hero?.rotatingWords ?? [])
-    .map((entry) => entry.word?.trim())
-    .filter((word): word is string => Boolean(word));
-
-  // The stored headline is split across three fields; the third is the part
-  // the rotating words replace.
-  const headline = [hero?.titleLine1, hero?.titleLine2]
-    .map((line) => line?.trim())
-    .filter(Boolean)
-    .join(" ");
-
-  const logos = partners
+/** Partner logos in CMS order, with the two flags that place them. */
+export async function getPartnerLogos() {
+  const partners = await getCollection<CmsPartner>("partners", []);
+  return partners
     .map((partner) => ({
       name: partner.name,
       logo: resolveMediaUrl(partner.logo, partner.logoUrl),
       group: partner.group ?? "supporter",
+      showOnHome: Boolean(partner.showOnHome),
     }))
     .filter((partner) => partner.logo);
+}
 
-  return {
-    hero: {
-      credentials: (hero?.labels ?? [])
-        .map((entry) => entry.label?.trim())
-        .filter((label): label is string => Boolean(label)),
-      headline: text(headline, "Building Infrastructure For"),
-      rotatingWords: words.length ? words : [text(hero?.titleHighlight, "Rare Disease Care")],
-      blurb: text(hero?.subtitle, ""),
-      ctaLabel: text(hero?.ctaLabel, "Get in touch"),
-      ctaHref: text(hero?.ctaHref, "#get-in-touch"),
-      teamCardText: text(
-        hero?.teamCardText,
-        "A team of clinicians, engineers, data scientists, and advisors — united by deep experience across genetics, health systems, and technology.",
-      ),
-      teamCardLinkLabel: text(hero?.teamCardLinkLabel, "Meet the team"),
-    },
-    vision: {
-      eyebrow: text(vision?.eyebrow, "Our Vision"),
-      heading: text(vision?.heading, ""),
-      items: (foundations?.items ?? []).map((item) => ({
-        title: item.title,
-        body: item.body,
-      })),
-    },
+/** Grants & awards, oldest year first as stored. Also feeds the home page's "Backed by" figure. */
+export async function getAwards(): Promise<AboutAward[]> {
+  const awards = await getCollection<CmsGrantAward>("grants-awards", []);
+  return awards.map((doc) => ({
+    id: String(doc.id),
+    year: doc.year,
+    title: doc.title,
+    organisation: doc.subtitle?.trim() || "",
+    logo: resolveMediaUrl(doc.icon, doc.iconUrl) || "",
+  }));
+}
+
+/** The earliest award year, as text — "" when there are none. */
+export function firstAwardYear(awards: AboutAward[]): string {
+  const years = awards.map((award) => Number.parseInt(award.year, 10)).filter(Number.isFinite);
+  return years.length ? String(Math.min(...years)) : "";
+}
+
+export async function getAboutPage() {
+  const [
+    intro,
+    problem,
+    building,
+    platform,
+    now,
+    mission,
+    leadership,
+    grants,
+    partnersHeading,
+    security,
+    engage,
+  ] = await Promise.all([
+    getSectionGlobal("about-intro"),
+    getSectionGlobal("about-problem"),
+    getSectionGlobal("about-building"),
+    getSectionGlobal("about-platform"),
+    getSectionGlobal("about-now"),
+    getSectionGlobal("about-mission"),
+    getSectionGlobal("about-leadership"),
+    getSectionGlobal("about-grants"),
+    getSectionGlobal("home-partners"),
+    getSectionGlobal("home-security"),
+    getSectionGlobal("about-cta"),
+  ]);
+
+  const [people, awards, logos] = await Promise.all([
+    getCollection<CmsTeamMember>("team-members", []),
+    getAwards(),
+    getPartnerLogos(),
+  ]);
+
+  const copy = {
+    intro: withDefaults(ABOUT_INTRO, intro),
+    problem: withDefaults(ABOUT_PROBLEM, problem),
+    building: withDefaults(ABOUT_BUILDING, building),
+    platform: withDefaults(ABOUT_PLATFORM, platform),
+    now: withDefaults(ABOUT_NOW, now),
+    mission: withDefaults(ABOUT_MISSION, mission),
+    leadership: withDefaults(ABOUT_LEADERSHIP, leadership),
+    recognition: withDefaults(ABOUT_RECOGNITION, grants),
+    partners: withDefaults(ABOUT_PARTNERS, partnersHeading),
+    security: withDefaults(ABOUT_SECURITY, security),
+    engage: withDefaults(ABOUT_ENGAGE, engage),
+  };
+
+  /* In render order: the rail, the mobile menu and the section numbers follow it. */
+  const sections: (PageSection & { eyebrow: string })[] = [
+    ["why", copy.problem],
+    ["building", copy.building],
+    ["platform", copy.platform],
+    ["now", copy.now],
+    ["mission", copy.mission],
+    ["team", copy.leadership],
+    ["recognition", copy.recognition],
+    ["partners", copy.partners],
+    ["trust", copy.security],
+    ["get-in-touch", copy.engage],
+  ].map(([id, section]) => {
+    const s = section as { eyebrow: string; menuLabel: string };
+    return { id: id as string, label: s.menuLabel, eyebrow: s.eyebrow };
+  });
+
+  const content: AboutContent = {
     leadership: {
-      eyebrow: text(leadership?.eyebrow, "Our Team"),
-      heading: text(leadership?.heading, "Leadership"),
-      subtitle: text(leadership?.subtitle, ""),
+      heading: copy.leadership.heading,
+      subtitle: copy.leadership.subtitle,
       team: people.filter((doc) => (doc.group ?? "team") === "team").map(toPerson),
       advisors: people.filter((doc) => doc.group === "advisors").map(toPerson),
     },
     recognition: {
-      eyebrow: text(grants?.eyebrow, "Recognition"),
-      heading: text(grants?.heading, "Rewards & Recognition"),
-      description: text(grants?.description, ""),
-      awards: awards.map((doc) => ({
-        id: String(doc.id),
-        year: doc.year,
-        title: doc.title,
-        organisation: text(doc.subtitle, ""),
-        logo: resolveMediaUrl(doc.icon, doc.iconUrl) || "",
-      })),
+      eyebrow: copy.recognition.eyebrow,
+      heading: copy.recognition.heading,
+      description: copy.recognition.description,
+      awards,
     },
     partners: {
-      heading: text(partnersSection?.heading, "Trusted Across the Rare Disease Ecosystem"),
-      description: text(partnersSection?.description, ""),
+      heading: copy.partners.heading,
+      description: copy.partners.description,
       institutions: logos.filter((logo) => logo.group === "institution"),
       supporters: logos.filter((logo) => logo.group !== "institution"),
     },
     trust: {
-      eyebrow: "Security & Compliance",
-      heading: text(security?.heading, "Built for trust. Designed for healthcare."),
-      points: (security?.features ?? [])
-        .map((feature) => feature.text?.trim())
-        .filter((point): point is string => Boolean(point)),
-    },
-    cta: {
-      heading: text(cta?.heading, ""),
-      description: text(cta?.description, ""),
+      eyebrow: copy.security.eyebrow,
+      heading: copy.security.heading,
+      points: copy.security.features.map((feature) => feature.text?.trim()).filter(Boolean),
     },
   };
+
+  return { ...copy, sections, content };
 }

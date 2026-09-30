@@ -1,6 +1,6 @@
 import { Eyebrow, SectionLabel } from "@/components/chrome/eyebrow";
-import { Horizons } from "@/components/about-v2/sections";
-import { ABOUT_AR_MISSION, ABOUT_AR_NOW } from "@/content/about-ar";
+import { Horizons } from "@/components/about/story";
+import type { AboutMissionContent, AboutNowContent } from "@/content/about";
 
 type SectionProps = { id: string; eyebrow: string; num: string };
 
@@ -9,9 +9,7 @@ const pad = (i: number) => String(i + 1).padStart(2, "0");
 const SECTION = "px-edge pt-sect-top pb-sect-bot scroll-mt-32";
 
 /** 04 — why now: four changes that arrived together, as lifting cards. */
-export function WhyNow({ id, eyebrow, num }: SectionProps) {
-  const content = ABOUT_AR_NOW;
-
+export function WhyNow({ id, eyebrow, num, content }: SectionProps & { content: AboutNowContent }) {
   return (
     <section id={id} data-reveal className={`${SECTION} bg-sheet-cool border-rule border-y`}>
       <div className="max-w-site mx-auto">
@@ -53,8 +51,12 @@ export function WhyNow({ id, eyebrow, num }: SectionProps) {
  * going. The pair divides with a left rule side by side and a top rule once
  * stacked, so the divider always falls between them.
  */
-export function Mission({ id, eyebrow, num }: SectionProps) {
-  const content = ABOUT_AR_MISSION;
+export function Mission({
+  id,
+  eyebrow,
+  num,
+  content,
+}: SectionProps & { content: AboutMissionContent }) {
   const pair = [
     { label: "Mission", text: content.mission },
     { label: "Vision", text: content.vision },
@@ -96,7 +98,7 @@ export function Mission({ id, eyebrow, num }: SectionProps) {
             {content.horizonsLabel}
           </span>
         </div>
-        <Horizons className="mt-8" />
+        <Horizons horizons={content.horizons} footnote={content.footnote} className="mt-8" />
       </div>
     </section>
   );
