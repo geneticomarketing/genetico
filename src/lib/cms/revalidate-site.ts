@@ -11,6 +11,7 @@ const PUBLIC_PAGE_PATHS = [
   "/blog",
   "/coming-soon",
   "/privacy-policy",
+  "/cookie-policy",
 ] as const;
 
 /** Bust Next.js static caches so CMS edits appear on the live site. */

@@ -22,15 +22,16 @@ export const DEFAULT_KEYWORDS = [
 
 export const DEFAULT_OG_IMAGE = "/phero.png";
 
-export function getSiteUrl(): string {
-  // Never use VERCEL_URL — it is the per-deployment host (e.g. *.vercel.app),
-  // which breaks sitemap, canonical, and Open Graph URLs in production.
-  const configured =
-    process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
-    process.env.SITE_URL?.trim() ||
-    process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+/** The canonical origin, used by the sitemap, robots.txt, canonical tags and Open Graph URLs. */
+export const CANONICAL_ORIGIN = "https://genetico.in";
 
-  if (!configured) return "https://genetico.in";
+export function getSiteUrl(): string {
+  // Deliberately not VERCEL_URL or VERCEL_PROJECT_PRODUCTION_URL: those name a
+  // *.vercel.app host, and every canonical URL must point at genetico.in no
+  // matter which host served the page. NEXT_PUBLIC_SITE_URL overrides it.
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim() || process.env.SITE_URL?.trim();
+
+  if (!configured) return CANONICAL_ORIGIN;
 
   return configured.startsWith("http") ? configured.replace(/\/$/, "") : `https://${configured}`;
 }
