@@ -59,7 +59,9 @@ export default async function Home() {
         ctaShape="rounded"
         ctaHref="#get-in-touch"
       />
-      <SectionRail sections={sections} pageLabel="Genetico" />
+      {/* The rail waits for the hero to leave, so it never sits under the
+          frosted-dark header the hero gets while it is in view. */}
+      <SectionRail sections={sections} pageLabel="Genetico" revealAfter="top" />
 
       <Hero content={page.hero} />
 
