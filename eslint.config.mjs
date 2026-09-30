@@ -19,6 +19,9 @@ const eslintConfig = defineConfig([
     // Design handoff: reference prototypes authored in another tool, kept
     // byte-identical to what the designer shipped. Not project source.
     "design_handoff_genetico_site/**",
+    // Archived design previews: a frozen snapshot, not built or routed.
+    // See src/archive/README.md.
+    "src/archive/**",
   ]),
 ]);
 
