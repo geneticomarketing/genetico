@@ -1,19 +1,22 @@
 import type { Metadata } from "next";
 
+import { GetInTouch } from "@/components/chrome/get-in-touch";
 import { numberSections } from "@/components/chrome/page-sections";
 import { SectionRail } from "@/components/chrome/section-rail";
 import { SiteFooter } from "@/components/chrome/site-footer";
 import { SiteHeader } from "@/components/chrome/site-header";
-import { HomeArHero } from "@/components/home-ar/hero";
-import { NextStep } from "@/components/home-ar/next-step";
-import { Ahead, Does, Impact, Platform, Serve, Why } from "@/components/home-ar/sections";
-import { pickLogos } from "@/content/ar-partners";
-import { HOME_AR_IMPACT, HOME_AR_SECTIONS } from "@/content/home-ar";
-import { getAboutContent } from "@/lib/cms/about-page-data";
-import { getHomePageContent } from "@/lib/cms/home-page-data";
-import { getProofFeed } from "@/lib/cms/home-proof-resources";
+import { Ahead } from "@/components/home/ahead";
+import { Does } from "@/components/home/does";
+import { Hero } from "@/components/home/hero";
+import { Impact } from "@/components/home/impact";
+import { Insights } from "@/components/home/insights";
+import { H2, LEAD, Label } from "@/components/home/label";
+import { Platform } from "@/components/home/platform";
+import { Scale } from "@/components/home/scale";
+import { Serve } from "@/components/home/serve";
+import { Why } from "@/components/home/why";
+import { getHomePage } from "@/lib/cms/home-page";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
-import { RESOURCES_PATH } from "@/lib/routes";
 import { createPageMetadata } from "@/lib/seo";
 import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
 
@@ -29,67 +32,79 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * The home page, as revised after the senior advisor's review: it leads with
- * Genetico the company and introduces IndiGeneUs.AI, the platform, as one
- * section. Source: design_handoff_genetico_site/design_handoff_ar_pages/.
+ * The home page: mission, the problem, what Genetico does, the platform, the
+ * three audiences, proof, insights, the road ahead, and the enquiry form.
+ *
+ * All copy is edited in the CMS (Home page · /) — see getHomePage(). Design
+ * source: design_handoff_genetico_site/design_handoff_home_final/.
  */
 export default async function Home() {
-  const [home, about, proofFeed, navigation, footer] = await Promise.all([
-    getHomePageContent(),
-    getAboutContent(),
-    getProofFeed(),
+  const [page, navigation, footer] = await Promise.all([
+    getHomePage(),
     getNavigation(),
     getFooterContent(),
   ]);
 
-  const sections = numberSections(HOME_AR_SECTIONS);
+  const sections = numberSections(page.sections);
   const section = Object.fromEntries(sections.map((s) => [s.id, s]));
-
-  const awardYears = about.recognition.awards
-    .map((award) => Number.parseInt(award.year, 10))
-    .filter(Number.isFinite);
-  const firstAwardYear = awardYears.length ? String(Math.min(...awardYears)) : "";
-
-  const logos = pickLogos(HOME_AR_IMPACT.logos, [
-    ...about.partners.institutions,
-    ...about.partners.supporters,
-  ]);
+  const next = section["get-in-touch"];
 
   return (
-    <div className="bg-sheet text-ink font-body flex min-h-full flex-col overflow-clip">
-      <SiteHeader navigation={navigation} sections={sections} ctaHref="#get-in-touch" />
+    <div className="text-ink font-body flex min-h-full flex-col overflow-clip bg-white">
+      <SiteHeader
+        navigation={navigation}
+        sections={sections}
+        tone="dark"
+        solidAt="[data-hero-shot]"
+        ctaShape="rounded"
+        ctaHref="#get-in-touch"
+      />
       <SectionRail sections={sections} pageLabel="Genetico" />
 
-      <HomeArHero />
+      <Hero content={page.hero} />
 
-      {/* The fold rides up over the sticky hero as a card, and lifts into
-          place as it enters. The footer sits inside it so the rounded top and
-          its shadow cover everything below the hero. */}
-      <div
-        data-fold-lift
-        className="bg-sheet relative z-[2] mt-[clamp(-56px,-4vw,-30px)] overflow-hidden rounded-t-[28px] shadow-[var(--shadow-sheet)]"
-      >
-        <Why section={section.why} num={section.why.num} />
-        <Does section={section.does} num={section.does.num} />
-        <Platform
-          section={section.platform}
-          num={section.platform.num}
-          layers={home.platform.layers}
-        />
-        <Serve section={section.serve} num={section.serve.num} />
-        <Impact
-          section={section.impact}
-          num={section.impact.num}
-          awardCount={about.recognition.awards.length}
-          firstAwardYear={firstAwardYear}
-          caseStudyHref={proofFeed.featured?.href || RESOURCES_PATH}
-          logos={logos}
-        />
-        <Ahead section={section.ahead} num={section.ahead.num} />
-        <NextStep section={section["get-in-touch"]} num={section["get-in-touch"].num} />
+      <Why section={section.why} num={section.why.num} content={page.why} />
+      <Scale content={page.scale} photo={page.scalePhoto} />
+      <Does section={section.does} num={section.does.num} content={page.does} />
+      <Platform section={section.platform} num={section.platform.num} content={page.platform} />
+      <Serve
+        section={section.serve}
+        num={section.serve.num}
+        content={page.serve}
+        doors={page.doors}
+      />
+      <Impact
+        section={section.impact}
+        num={section.impact.num}
+        content={page.impact}
+        awardCount={page.awardCount}
+        firstAwardYear={page.firstAwardYear}
+        logos={page.logos}
+      />
+      <Insights
+        section={section.insights}
+        num={section.insights.num}
+        content={page.insights}
+        photo={page.insightsPhoto}
+        featured={page.feed.featured}
+        items={page.feed.clips}
+      />
+      <Ahead section={section.ahead} num={section.ahead.num} content={page.ahead} />
+      <GetInTouch
+        section={next}
+        num={next.num}
+        variant="split"
+        content={page.contact}
+        intro={
+          <div className="flex min-w-0 flex-col items-start gap-6">
+            <Label num={next.num}>{next.eyebrow}</Label>
+            <h2 className={`${H2} text-ink`}>{page.contact.heading}</h2>
+            <p className={`${LEAD} text-ink-body max-w-[460px]`}>{page.contact.description}</p>
+          </div>
+        }
+      />
 
-        <SiteFooter footer={footer} />
-      </div>
+      <SiteFooter footer={footer} />
     </div>
   );
 }

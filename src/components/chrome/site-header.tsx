@@ -9,6 +9,8 @@ import { scrollToSection, type NumberedSection } from "@/components/chrome/page-
 import type { SiteData } from "@/lib/cms/site-data-context";
 
 const SOLID_AFTER_PX = 12;
+/** With `solidAt`, the bar turns solid once the marker's top is this close to the viewport top. */
+const SOLID_AT_MARKER_PX = 72;
 
 /**
  * The 64px sticky header shared by every redesigned page.
@@ -24,6 +26,8 @@ export function SiteHeader({
   tone = "light",
   overlay = tone === "dark",
   ctaHref = "/#get-in-touch",
+  solidAt,
+  ctaShape = "pill",
 }: {
   navigation: SiteData["navigation"];
   sections: NumberedSection[];
@@ -40,6 +44,15 @@ export function SiteHeader({
    * the blog, whose top is light, asks for it explicitly.
    */
   overlay?: boolean;
+  /**
+   * A selector for an element that turns the bar solid when its top reaches
+   * the header, instead of after the first few pixels of scroll. The home
+   * page passes its hero mock-up, so the header stays clear over the whole
+   * dark headline.
+   */
+  solidAt?: string;
+  /** `rounded` draws the buttons as 10px-radius rectangles, as the final home design does. */
+  ctaShape?: "pill" | "rounded";
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -48,7 +61,8 @@ export function SiteHeader({
   const pathname = usePathname();
 
   // Over a dark hero, everything inverts until the bar turns solid.
-  const onDark = tone === "dark" && !scrolled;
+  const onDark = tone === "dark" && !scrolled && !menuOpen;
+  const rounded = ctaShape === "rounded";
 
   const mainNav = navigation.mainNav ?? [];
   const solutionsNav = navigation.solutionsNav ?? [];
@@ -69,17 +83,24 @@ export function SiteHeader({
       if (frame) return;
       frame = requestAnimationFrame(() => {
         frame = 0;
-        setScrolled(window.scrollY > SOLID_AFTER_PX);
+        const marker = solidAt ? document.querySelector(solidAt) : null;
+        setScrolled(
+          marker
+            ? marker.getBoundingClientRect().top <= SOLID_AT_MARKER_PX
+            : window.scrollY > SOLID_AFTER_PX,
+        );
       });
     };
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [solidAt]);
 
   // The dropdown closes on Escape and on a click anywhere outside it.
   useEffect(() => {
@@ -160,7 +181,11 @@ export function SiteHeader({
         <div className="nav:hidden ml-auto flex items-center gap-2.5">
           <Link
             href={ctaHref}
-            className={`rounded-full px-[18px] py-2.5 text-[13.5px] font-bold transition-colors ${
+            className={`text-[13.5px] font-bold transition-colors ${
+              rounded
+                ? "inline-flex min-h-11 items-center rounded-[10px] px-4"
+                : "rounded-full px-[18px] py-2.5"
+            } ${
               onDark ? "bg-white text-[#0A1F33]" : "bg-primary-deep hover:bg-primary text-white"
             }`}
           >
@@ -171,7 +196,7 @@ export function SiteHeader({
             onClick={() => setMenuOpen((open) => !open)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className={`flex h-[38px] w-[38px] items-center justify-center rounded-[9px] border bg-transparent text-base leading-none ${
+            className={`flex ${rounded ? "h-11 w-11" : "h-[38px] w-[38px]"} items-center justify-center rounded-[9px] border bg-transparent text-base leading-none ${
               onDark ? "border-white/28 text-white" : "border-rule text-ink bg-white"
             }`}
           >
@@ -259,7 +284,7 @@ export function SiteHeader({
 
         <Link
           href={ctaHref}
-          className={`nav:inline-flex hidden flex-none rounded-full px-[22px] py-[11px] text-sm font-bold transition-colors ${
+          className={`nav:inline-flex hidden flex-none ${rounded ? "rounded-[10px]" : "rounded-full"} px-[22px] py-[11px] text-sm font-bold transition-colors ${
             onDark ? "bg-white text-[#0A1F33]" : "bg-primary-deep hover:bg-primary text-white"
           }`}
         >
