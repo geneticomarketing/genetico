@@ -10,11 +10,11 @@ Thanks for contributing! This guide covers the workflow and conventions for the 
 ## Getting started
 
 ```bash
-git clone https://github.com/singhalmanas23/Genetico.git
-cd Genetico
+git clone https://github.com/geneticomarketing/genetico.git
+cd genetico
 nvm use            # optional, matches .nvmrc
 npm install        # also sets up Husky git hooks
-cp .env.example .env.local
+cp .env.example .env      # scripts read .env, not .env.local
 npm run dev        # http://localhost:3000
 ```
 
