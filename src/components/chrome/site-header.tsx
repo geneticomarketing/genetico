@@ -45,16 +45,19 @@ export function SiteHeader({
    */
   overlay?: boolean;
   /**
-   * A selector for an element that turns the bar solid when its top reaches
-   * the header, instead of after the first few pixels of scroll. The home
-   * page passes its hero mock-up, so the header stays clear over the whole
-   * dark headline.
+   * A selector for an element that turns the bar solid white when its top
+   * reaches the header, instead of after the first few pixels of scroll. The
+   * home page passes its hero mock-up. Until then, once the page has moved,
+   * the bar is a dark frosted strip — so the hero's text never scrolls
+   * visibly through the nav, and the dark hero keeps a dark header.
    */
   solidAt?: string;
   /** `rounded` draws the buttons as 10px-radius rectangles, as the final home design does. */
   ctaShape?: "pill" | "rounded";
 }) {
   const [scrolled, setScrolled] = useState(false);
+  /** With `solidAt`: moved off the top, but the marker has not reached the header yet. */
+  const [frosted, setFrosted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const solutionsRef = useRef<HTMLDivElement | null>(null);
@@ -83,12 +86,11 @@ export function SiteHeader({
       if (frame) return;
       frame = requestAnimationFrame(() => {
         frame = 0;
+        const moved = window.scrollY > SOLID_AFTER_PX;
         const marker = solidAt ? document.querySelector(solidAt) : null;
-        setScrolled(
-          marker
-            ? marker.getBoundingClientRect().top <= SOLID_AT_MARKER_PX
-            : window.scrollY > SOLID_AFTER_PX,
-        );
+        const solid = marker ? marker.getBoundingClientRect().top <= SOLID_AT_MARKER_PX : moved;
+        setScrolled(solid);
+        setFrosted(Boolean(marker) && moved && !solid);
       });
     };
 
@@ -162,7 +164,9 @@ export function SiteHeader({
       } ${
         scrolled || menuOpen
           ? "border-rule bg-white/92 backdrop-blur-[14px]"
-          : "border-transparent bg-transparent"
+          : frosted
+            ? "border-white/8 bg-[rgba(4,14,26,0.72)] backdrop-blur-[14px]"
+            : "border-transparent bg-transparent"
       }`}
     >
       <div className="max-w-site px-edge mx-auto flex h-16 items-center gap-6">
