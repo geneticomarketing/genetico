@@ -17,8 +17,9 @@ import {
 import { DEFAULT_CONTACT_SECTION } from "@/lib/cms/sections";
 import { getPlatformContent } from "@/lib/cms/platform-page-data";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
-import { createPageMetadata } from "@/lib/seo";
-import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+import { staticPageMetadata } from "@/lib/seo-pages";
+import { JsonLd } from "@/components/seo/json-ld";
+import { graph, staticPageNodes } from "@/lib/structured-data";
 
 export const revalidate = 60;
 
@@ -32,15 +33,8 @@ const PLATFORM_SECTIONS = [
   { id: "get-in-touch", label: "Get in Touch", eyebrow: "Get in Touch" },
 ];
 
-export async function generateMetadata(): Promise<Metadata> {
-  const content = await getPlatformContent();
-  const seo = STATIC_PAGE_SEO.platform;
-
-  return createPageMetadata({
-    title: seo.title,
-    description: content.hero.blurb || seo.description,
-    path: seo.path,
-  });
+export function generateMetadata(): Metadata {
+  return staticPageMetadata("platform");
 }
 
 export default async function PlatformPage() {
@@ -64,25 +58,29 @@ export default async function PlatformPage() {
       <SiteHeader navigation={navigation} sections={sections} tone="dark" />
       <SectionRail sections={sections} pageLabel="IndiGeneUs.AI" revealAfter="top" />
 
-      <PlatformHero content={content.hero} sections={inPlatform} />
-      <DeployedWith logos={content.trustLogos} />
+      <main id="main-content" className="flex flex-1 flex-col">
+        <JsonLd data={graph(...staticPageNodes("platform", { about: "platform" }))} />
 
-      <PlatformFeatures content={content.features} num={section.platform.num} />
-      <ClinicalIntelligence content={content.cdss} num={section.cdss.num} />
-      <Longitudinal content={content.longitudinal} num={section.longitudinal.num} />
-      <Infrastructure content={content.infrastructure} num={section.infrastructure.num} />
-      <PlatformSecurity content={content.security} num={section.security.num} />
+        <PlatformHero content={content.hero} sections={inPlatform} />
+        <DeployedWith logos={content.trustLogos} />
 
-      <GetInTouch
-        section={section["get-in-touch"]}
-        num={section["get-in-touch"].num}
-        content={{
-          heading: content.cta.heading || DEFAULT_CONTACT_SECTION.heading,
-          description: content.cta.description || DEFAULT_CONTACT_SECTION.description,
-          primaryCta: DEFAULT_CONTACT_SECTION.primaryCta,
-          secondaryCta: DEFAULT_CONTACT_SECTION.secondaryCta,
-        }}
-      />
+        <PlatformFeatures content={content.features} num={section.platform.num} />
+        <ClinicalIntelligence content={content.cdss} num={section.cdss.num} />
+        <Longitudinal content={content.longitudinal} num={section.longitudinal.num} />
+        <Infrastructure content={content.infrastructure} num={section.infrastructure.num} />
+        <PlatformSecurity content={content.security} num={section.security.num} />
+
+        <GetInTouch
+          section={section["get-in-touch"]}
+          num={section["get-in-touch"].num}
+          content={{
+            heading: content.cta.heading || DEFAULT_CONTACT_SECTION.heading,
+            description: content.cta.description || DEFAULT_CONTACT_SECTION.description,
+            primaryCta: DEFAULT_CONTACT_SECTION.primaryCta,
+            secondaryCta: DEFAULT_CONTACT_SECTION.secondaryCta,
+          }}
+        />
+      </main>
 
       <SiteFooter footer={footer} />
     </div>

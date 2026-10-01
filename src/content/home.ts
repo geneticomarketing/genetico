@@ -393,7 +393,7 @@ export const HOME_INSIGHTS = {
   description: "Case studies, films, coverage and writing from the Genetico Insights library.",
   ctaLabel: "View all insights",
   latestLabel: "Latest",
-  featuredTitle: "Structured genomic workflows at a Centre of Excellence",
+  featuredTitle: "How AI is helping identify rare diseases",
 } satisfies Numbered & Record<string, unknown>;
 
 export const HOME_INSIGHTS_PHOTO = {

@@ -1,5 +1,4 @@
 import { LegalPage, legalPageMetadata, type LegalFallback } from "@/components/legal/legal-page";
-import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
 
 export const revalidate = 60;
 
@@ -26,7 +25,7 @@ const FALLBACK: LegalFallback = {
 };
 
 export function generateMetadata() {
-  return legalPageMetadata("privacy-policy", STATIC_PAGE_SEO.privacyPolicy);
+  return legalPageMetadata("privacy-policy", "privacyPolicy");
 }
 
 export default function PrivacyPolicyPage() {

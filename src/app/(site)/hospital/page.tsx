@@ -16,8 +16,9 @@ import { Challenge, Outcomes, Walkthrough } from "@/components/solutions/section
 import { DEFAULT_CONTACT_SECTION } from "@/lib/cms/sections";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
 import { getSolutionContent } from "@/lib/cms/solution-page-data";
-import { createPageMetadata } from "@/lib/seo";
-import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+import { staticPageMetadata } from "@/lib/seo-pages";
+import { JsonLd } from "@/components/seo/json-ld";
+import { graph, staticPageNodes } from "@/lib/structured-data";
 
 export const revalidate = 60;
 
@@ -29,16 +30,8 @@ const SECTIONS = [
   { id: "get-in-touch", label: "Book a Demo", eyebrow: "Get in Touch" },
 ];
 
-export async function generateMetadata(): Promise<Metadata> {
-  const content = await getSolutionContent("hospital");
-  const seo = STATIC_PAGE_SEO.hospital;
-  const title = `${content.hero.headline} ${content.hero.headlineHighlight}`.trim();
-
-  return createPageMetadata({
-    title: title || seo.title,
-    description: content.hero.blurb || seo.description,
-    path: seo.path,
-  });
+export function generateMetadata(): Metadata {
+  return staticPageMetadata("hospital");
 }
 
 export default async function HospitalPage() {
@@ -56,39 +49,43 @@ export default async function HospitalPage() {
       <SiteHeader navigation={navigation} sections={sections} />
       <SectionRail sections={sections} pageLabel="Hospitals & CoEs" />
 
-      <HospitalHero content={content.hero} />
-      <Challenge content={content.challenge} num={section.challenge.num} />
-      <Walkthrough
-        content={content.solution}
-        num={section.solution.num}
-        panels={[
-          <PathwayPanel key="pathway" />,
-          <ExtractPanel
-            key="extract"
-            filename="discharge_summary_2024.pdf"
-            caption="No re-typing: reports arrive as coded, reviewable fields."
-          />,
-          <RapidPanel key="rapid" />,
-          <TimelinePanel key="timeline" />,
-        ]}
-      />
-      <Outcomes content={content.outcomes} num={section.outcomes.num} />
+      <main id="main-content" className="flex flex-1 flex-col">
+        <JsonLd data={graph(...staticPageNodes("hospital", { about: "platform" }))} />
 
-      <GetInTouch
-        section={section["get-in-touch"]}
-        num={section["get-in-touch"].num}
-        variant="panel"
-        organisationLabel="Hospital or centre"
-        organisationPlaceholder="Name of hospital or centre"
-        emailPlaceholder="name@hospital.org"
-        roleOrder={["Clinician or Hospital", "Life Science or Research"]}
-        content={{
-          heading: content.cta.heading || DEFAULT_CONTACT_SECTION.heading,
-          description: content.cta.description || DEFAULT_CONTACT_SECTION.description,
-          primaryCta: DEFAULT_CONTACT_SECTION.primaryCta,
-          secondaryCta: DEFAULT_CONTACT_SECTION.secondaryCta,
-        }}
-      />
+        <HospitalHero content={content.hero} />
+        <Challenge content={content.challenge} num={section.challenge.num} />
+        <Walkthrough
+          content={content.solution}
+          num={section.solution.num}
+          panels={[
+            <PathwayPanel key="pathway" />,
+            <ExtractPanel
+              key="extract"
+              filename="discharge_summary_2024.pdf"
+              caption="No re-typing: reports arrive as coded, reviewable fields."
+            />,
+            <RapidPanel key="rapid" />,
+            <TimelinePanel key="timeline" />,
+          ]}
+        />
+        <Outcomes content={content.outcomes} num={section.outcomes.num} />
+
+        <GetInTouch
+          section={section["get-in-touch"]}
+          num={section["get-in-touch"].num}
+          variant="panel"
+          organisationLabel="Hospital or centre"
+          organisationPlaceholder="Name of hospital or centre"
+          emailPlaceholder="name@hospital.org"
+          roleOrder={["Clinician or Hospital", "Life Science or Research"]}
+          content={{
+            heading: content.cta.heading || DEFAULT_CONTACT_SECTION.heading,
+            description: content.cta.description || DEFAULT_CONTACT_SECTION.description,
+            primaryCta: DEFAULT_CONTACT_SECTION.primaryCta,
+            secondaryCta: DEFAULT_CONTACT_SECTION.secondaryCta,
+          }}
+        />
+      </main>
 
       <SiteFooter footer={footer} />
     </div>

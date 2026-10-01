@@ -29,7 +29,7 @@ function Portrait({ person, className }: { person: AboutPerson; className: strin
       {person.photo ? (
         <Image
           src={person.photo}
-          alt=""
+          alt={`${person.name}, ${person.role}`}
           fill
           sizes="(max-width: 880px) 50vw, 250px"
           className="absolute inset-0 object-cover"

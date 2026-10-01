@@ -17,18 +17,14 @@ import { Serve } from "@/components/home/serve";
 import { Why } from "@/components/home/why";
 import { getHomePage } from "@/lib/cms/home-page";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
-import { createPageMetadata } from "@/lib/seo";
-import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+import { staticPageMetadata } from "@/lib/seo-pages";
+import { JsonLd } from "@/components/seo/json-ld";
+import { graph, staticPageNodes } from "@/lib/structured-data";
 
 export const revalidate = 60;
 
-export async function generateMetadata(): Promise<Metadata> {
-  const seo = STATIC_PAGE_SEO.home;
-  return createPageMetadata({
-    title: seo.title,
-    description: seo.description,
-    path: seo.path,
-  });
+export function generateMetadata(): Metadata {
+  return staticPageMetadata("home");
 }
 
 /**
@@ -63,48 +59,52 @@ export default async function Home() {
           frosted-dark header the hero gets while it is in view. */}
       <SectionRail sections={sections} pageLabel="Genetico" revealAfter="top" />
 
-      <Hero content={page.hero} />
+      <main id="main-content" className="flex flex-1 flex-col">
+        <JsonLd data={graph(...staticPageNodes("home"))} />
 
-      <Why section={section.why} num={section.why.num} content={page.why} />
-      <Scale content={page.scale} photo={page.scalePhoto} />
-      <Does section={section.does} num={section.does.num} content={page.does} />
-      <Platform section={section.platform} num={section.platform.num} content={page.platform} />
-      <Serve
-        section={section.serve}
-        num={section.serve.num}
-        content={page.serve}
-        doors={page.doors}
-      />
-      <Impact
-        section={section.impact}
-        num={section.impact.num}
-        content={page.impact}
-        awardCount={page.awardCount}
-        firstAwardYear={page.firstAwardYear}
-        logos={page.logos}
-      />
-      <Insights
-        section={section.insights}
-        num={section.insights.num}
-        content={page.insights}
-        photo={page.insightsPhoto}
-        featured={page.feed.featured}
-        items={page.feed.clips}
-      />
-      <Ahead section={section.ahead} num={section.ahead.num} content={page.ahead} />
-      <GetInTouch
-        section={next}
-        num={next.num}
-        variant="split"
-        content={page.contact}
-        intro={
-          <div className="flex min-w-0 flex-col items-start gap-6">
-            <Label num={next.num}>{next.eyebrow}</Label>
-            <h2 className={`${H2} text-ink`}>{page.contact.heading}</h2>
-            <p className={`${LEAD} text-ink-body max-w-[460px]`}>{page.contact.description}</p>
-          </div>
-        }
-      />
+        <Hero content={page.hero} />
+
+        <Why section={section.why} num={section.why.num} content={page.why} />
+        <Scale content={page.scale} photo={page.scalePhoto} />
+        <Does section={section.does} num={section.does.num} content={page.does} />
+        <Platform section={section.platform} num={section.platform.num} content={page.platform} />
+        <Serve
+          section={section.serve}
+          num={section.serve.num}
+          content={page.serve}
+          doors={page.doors}
+        />
+        <Impact
+          section={section.impact}
+          num={section.impact.num}
+          content={page.impact}
+          awardCount={page.awardCount}
+          firstAwardYear={page.firstAwardYear}
+          logos={page.logos}
+        />
+        <Insights
+          section={section.insights}
+          num={section.insights.num}
+          content={page.insights}
+          photo={page.insightsPhoto}
+          featured={page.feed.featured}
+          items={page.feed.clips}
+        />
+        <Ahead section={section.ahead} num={section.ahead.num} content={page.ahead} />
+        <GetInTouch
+          section={next}
+          num={next.num}
+          variant="split"
+          content={page.contact}
+          intro={
+            <div className="flex min-w-0 flex-col items-start gap-6">
+              <Label num={next.num}>{next.eyebrow}</Label>
+              <h2 className={`${H2} text-ink`}>{page.contact.heading}</h2>
+              <p className={`${LEAD} text-ink-body max-w-[460px]`}>{page.contact.description}</p>
+            </div>
+          }
+        />
+      </main>
 
       <SiteFooter footer={footer} />
     </div>

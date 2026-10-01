@@ -75,7 +75,10 @@ export function SiteFooter({ footer }: { footer: SiteData["footer"] }) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-[22px]">
+          <nav
+            aria-label={footer.sectionLabels?.menuHeading || "Menu"}
+            className="flex flex-col gap-[22px]"
+          >
             <h2 className="m-0 mb-1 text-[25px] font-medium tracking-[-0.01em] text-white">
               {footer.sectionLabels?.menuHeading || "Menu"}
             </h2>
@@ -88,9 +91,12 @@ export function SiteFooter({ footer }: { footer: SiteData["footer"] }) {
                 {link.label}
               </Link>
             ))}
-          </div>
+          </nav>
 
-          <div className="flex flex-col gap-[22px]">
+          <nav
+            aria-label={footer.sectionLabels?.solutionsHeading || "Solutions"}
+            className="flex flex-col gap-[22px]"
+          >
             <h2 className="m-0 mb-1 text-[25px] font-medium tracking-[-0.01em] text-white">
               {footer.sectionLabels?.solutionsHeading || "Solutions"}
             </h2>
@@ -106,12 +112,12 @@ export function SiteFooter({ footer }: { footer: SiteData["footer"] }) {
             {footer.contactLabel ? (
               <ContactLink label={footer.contactLabel} href={footer.contactHref} />
             ) : null}
-          </div>
+          </nav>
         </div>
 
         <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-white/20 pt-[26px]">
           <span className="text-sky-soft text-[15px]">{footer.copyrightText}</span>
-          <div className="flex flex-wrap gap-5">
+          <nav aria-label="Legal" className="flex flex-wrap gap-5">
             {legalLinks.map((link) => (
               <Link
                 key={`${link.href}-${link.label}`}
@@ -122,7 +128,7 @@ export function SiteFooter({ footer }: { footer: SiteData["footer"] }) {
               </Link>
             ))}
             <CookieSettingsLink className="text-sky-soft text-[15px] transition-colors hover:text-white" />
-          </div>
+          </nav>
         </div>
 
         <div

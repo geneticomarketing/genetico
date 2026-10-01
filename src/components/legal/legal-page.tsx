@@ -4,7 +4,9 @@ import Link from "next/link";
 
 import { getLegalPageBySlug } from "@/lib/cms/page-data";
 import { CONTACT_EMAIL, CONTACT_MAILTO } from "@/lib/contact";
-import { createPageMetadata } from "@/lib/seo";
+import { staticPageMetadata } from "@/lib/seo-pages";
+import { JsonLd } from "@/components/seo/json-ld";
+import { graph, staticPageNodes } from "@/lib/structured-data";
 
 /**
  * The legal pages (/privacy-policy, /cookie-policy): a title, a "last
@@ -45,14 +47,10 @@ function richTextToParagraphs(body: unknown): string[] {
 
 export async function legalPageMetadata(
   slug: string,
-  seo: { title: string; description: string; path: string },
+  key: "privacyPolicy" | "cookiePolicy",
 ): Promise<Metadata> {
   const page = await getLegalPageBySlug(slug);
-  return createPageMetadata({
-    title: page?.title ?? seo.title,
-    description: page?.metaDescription ?? seo.description,
-    path: seo.path,
-  });
+  return staticPageMetadata(key, { title: page?.title, description: page?.metaDescription });
 }
 
 export async function LegalPage({ slug, fallback }: { slug: string; fallback: LegalFallback }) {
@@ -73,7 +71,14 @@ export async function LegalPage({ slug, fallback }: { slug: string; fallback: Le
   );
 
   return (
-    <main className="px-gutter pt-page pb-section relative flex flex-1 flex-col">
+    <main id="main-content" className="px-gutter pt-page pb-section relative flex flex-1 flex-col">
+      <JsonLd
+        data={graph(
+          ...staticPageNodes(slug === "cookie-policy" ? "cookiePolicy" : "privacyPolicy", {
+            extra: page?.lastUpdated ? { dateModified: page.lastUpdated } : {},
+          }),
+        )}
+      />
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-1/2 h-[min(100vw,640px)] w-[min(100vw,640px)] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(95,215,203,0.08)_0%,transparent_70%)]" />
       </div>

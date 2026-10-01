@@ -14,8 +14,9 @@ import {
 import { DEFAULT_CONTACT_SECTION } from "@/lib/cms/sections";
 import { getPublicHealthContent } from "@/lib/cms/public-health-page-data";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
-import { createPageMetadata } from "@/lib/seo";
-import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+import { staticPageMetadata } from "@/lib/seo-pages";
+import { JsonLd } from "@/components/seo/json-ld";
+import { graph, staticPageNodes } from "@/lib/structured-data";
 
 export const revalidate = 60;
 
@@ -27,15 +28,8 @@ const SECTIONS = [
   { id: "get-in-touch", label: "Request a Pilot", eyebrow: "Get in Touch" },
 ];
 
-export async function generateMetadata(): Promise<Metadata> {
-  const content = await getPublicHealthContent();
-  const seo = STATIC_PAGE_SEO.publicHealth;
-
-  return createPageMetadata({
-    title: seo.title,
-    description: content.hero.blurb || seo.description,
-    path: seo.path,
-  });
+export function generateMetadata(): Metadata {
+  return staticPageMetadata("publicHealth");
 }
 
 export default async function PublicHealthPage() {
@@ -53,30 +47,34 @@ export default async function PublicHealthPage() {
       <SiteHeader navigation={navigation} sections={sections} />
       <SectionRail sections={sections} pageLabel="Public Health" />
 
-      <PublicHealthHero content={content.hero} />
-      <Impact content={content.impact} num={section.impact.num} />
-      <ThreeTier content={content.tiers} num={section["how-it-works"].num} />
-      <Architecture content={content.architecture} num={section.architecture.num} />
+      <main id="main-content" className="flex flex-1 flex-col">
+        <JsonLd data={graph(...staticPageNodes("publicHealth", { about: "platform" }))} />
 
-      <GetInTouch
-        section={section["get-in-touch"]}
-        num={section["get-in-touch"].num}
-        variant="panel"
-        organisationLabel="Institution or department"
-        organisationPlaceholder="Name of institution"
-        emailPlaceholder="name@institution.gov.in"
-        roleOrder={[
-          "Government or Public Health",
-          "Clinician or Hospital",
-          "Life Science or Research",
-        ]}
-        content={{
-          heading: content.cta.heading || DEFAULT_CONTACT_SECTION.heading,
-          description: content.cta.description || DEFAULT_CONTACT_SECTION.description,
-          primaryCta: DEFAULT_CONTACT_SECTION.primaryCta,
-          secondaryCta: DEFAULT_CONTACT_SECTION.secondaryCta,
-        }}
-      />
+        <PublicHealthHero content={content.hero} />
+        <Impact content={content.impact} num={section.impact.num} />
+        <ThreeTier content={content.tiers} num={section["how-it-works"].num} />
+        <Architecture content={content.architecture} num={section.architecture.num} />
+
+        <GetInTouch
+          section={section["get-in-touch"]}
+          num={section["get-in-touch"].num}
+          variant="panel"
+          organisationLabel="Institution or department"
+          organisationPlaceholder="Name of institution"
+          emailPlaceholder="name@institution.gov.in"
+          roleOrder={[
+            "Government or Public Health",
+            "Clinician or Hospital",
+            "Life Science or Research",
+          ]}
+          content={{
+            heading: content.cta.heading || DEFAULT_CONTACT_SECTION.heading,
+            description: content.cta.description || DEFAULT_CONTACT_SECTION.description,
+            primaryCta: DEFAULT_CONTACT_SECTION.primaryCta,
+            secondaryCta: DEFAULT_CONTACT_SECTION.secondaryCta,
+          }}
+        />
+      </main>
 
       <SiteFooter footer={footer} />
     </div>

@@ -5,13 +5,20 @@ import { ArrowLeft } from "lucide-react";
 
 import { JsonLd } from "@/components/seo/json-ld";
 import { Reveal } from "@/components/motion/reveal";
-import { BLOG_PATH } from "@/lib/blogs";
+import { BLOG_PATH, blogDate } from "@/lib/blogs";
 import { getAllBlogSlugs, getBlogBySlug } from "@/lib/cms/queries";
 import { thumbnailStyle } from "@/lib/cms/thumbnail-style";
-import { articleJsonLd, createPageMetadata } from "@/lib/seo";
+import { createPageMetadata, getSiteUrl } from "@/lib/seo";
+import { STATIC_PAGE_SEO, ogImagePath } from "@/lib/seo-pages";
+import { blogPostingNode, breadcrumbNode, graph } from "@/lib/structured-data";
 
 export const revalidate = 60;
-//
+
+/** A post's thumbnail is either an image URL or a CSS gradient; only the first is a share image. */
+function imageUrl(thumbnail: string): string | null {
+  return /^(https?:)?\/\/|^\//.test(thumbnail) ? thumbnail : null;
+}
+
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -38,6 +45,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     path: `${BLOG_PATH}/${slug}`,
     type: "article",
     authors: [post.author],
+    publishedTime: blogDate(post.date).iso ?? undefined,
+    ogImage: imageUrl(post.thumbnail) ?? ogImagePath("blog"),
   });
 }
 
@@ -49,15 +58,37 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  const path = `${BLOG_PATH}/${slug}`;
+  const url = `${getSiteUrl()}${path}`;
+  const date = blogDate(post.date);
+  const published = date.iso;
+
   return (
-    <main className="flex flex-1 flex-col bg-white">
+    <main id="main-content" className="flex flex-1 flex-col bg-white">
       <JsonLd
-        data={articleJsonLd({
-          title: post.title,
-          description: post.excerpt,
-          path: `${BLOG_PATH}/${slug}`,
-          author: post.author,
-        })}
+        data={graph(
+          {
+            "@type": "WebPage",
+            "@id": `${url}#webpage`,
+            url,
+            name: post.title,
+            description: post.excerpt,
+            isPartOf: { "@id": `${getSiteUrl()}/#website` },
+            breadcrumb: { "@id": `${url}#breadcrumb` },
+          },
+          blogPostingNode({
+            title: post.title,
+            description: post.excerpt,
+            path,
+            author: post.author,
+            datePublished: published,
+            image: imageUrl(post.thumbnail),
+          }),
+          breadcrumbNode(url, [
+            { name: STATIC_PAGE_SEO.blog.label, path: BLOG_PATH },
+            { name: post.title, path },
+          ]),
+        )}
       />
       <article className="px-gutter pt-page pb-section">
         <div className="mx-auto w-full max-w-3xl">
@@ -95,7 +126,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <span aria-hidden className="text-[#d1d5db]">
                 •
               </span>
-              <span>{post.date}</span>
+              {published ? (
+                <time dateTime={published}>{date.label}</time>
+              ) : (
+                <span>{post.date}</span>
+              )}
               <span aria-hidden className="text-[#d1d5db]">
                 •
               </span>

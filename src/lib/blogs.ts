@@ -109,3 +109,23 @@ export function getBlogBySlug(slug: string): BlogPost | undefined {
 export function getAllBlogSlugs(): string[] {
   return BLOG_POSTS.map((post) => post.slug);
 }
+
+/**
+ * A post's date as a machine-readable ISO string and a label for people,
+ * e.g. "30 April 2026". The CMS stores midnight India time, which is the
+ * previous evening in UTC, so the label is read in India time. Built-in copy
+ * may carry a date that is already a label; that is passed through as is.
+ */
+export function blogDate(value: string): { iso: string | null; label: string } {
+  const time = Date.parse(value);
+  if (!value || Number.isNaN(time)) return { iso: null, label: value };
+  return {
+    iso: new Date(time).toISOString(),
+    label: new Date(time).toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "Asia/Kolkata",
+    }),
+  };
+}

@@ -9,7 +9,8 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { consentDefaultsScript, GTM_ID, gtmScript } from "@/lib/analytics";
 import { getFooterContent, getNavigation, getSiteSettings } from "@/lib/cms/queries";
 import { SiteDataProvider } from "@/lib/cms/site-data-context";
-import { createRootMetadata, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { createRootMetadata } from "@/lib/seo";
+import { graph, organizationNode, platformNode, websiteNode } from "@/lib/structured-data";
 
 /*
  * The public website's root layout. The admin panel (app/(payload)) has its
@@ -81,7 +82,17 @@ export default async function SiteLayout({ children }: Readonly<{ children: Reac
             />
           </noscript>
         ) : null}
-        <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
+        {/* First thing a keyboard or screen-reader user reaches: jumps past the
+            header to the page's <main id="main-content">. Hidden until focused. */}
+        <a
+          href="#main-content"
+          className="bg-ink sr-only rounded-md px-4 py-2.5 text-sm font-medium text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[1000]"
+        >
+          Skip to content
+        </a>
+        {/* Who Genetico is and what it makes, on every page. Each page adds its
+            own WebPage node, which points back here by @id. */}
+        <JsonLd data={graph(organizationNode(footer.tagline), websiteNode(), platformNode())} />
         <SiteDataProvider value={{ navigation, footer, settings }}>
           <AppChrome navigation={navigation} footer={footer}>
             {children}
