@@ -35,7 +35,7 @@ npm run dev              # http://localhost:3000, admin at /admin
 | `DATABASE_URI`           | Supabase Postgres connection string.                                                           |
 | `S3_*`                   | Supabase Storage, for images uploaded in the CMS.                                              |
 | `RESEND_API_KEY`         | A Resend key allowed to send.                                                                  |
-| `RESEND_FROM`            | Sender, on a domain verified in Resend — e.g. `Genetico Website <website@genetico.in>`.        |
+| `RESEND_FROM`            | Sender, on a domain verified in Resend — e.g. `Genetico Website <website@indigeneus.ai>`.      |
 | `RESEND_TO`, `RESEND_CC` | Fallback recipients. The CMS (Site-wide → Contact details & form) decides where enquiries go.  |
 | `NEXT_PUBLIC_SITE_URL`   | Optional. The canonical origin; defaults to `https://genetico.in`.                             |
 | `NEXT_PUBLIC_GTM_ID`     | Optional. The Tag Manager container; defaults to `GTM-MHNFM4ZM`. Set to empty to turn GTM off. |

@@ -21,7 +21,7 @@ import {
  * Environment (see .env.example):
  *   RESEND_API_KEY  a key allowed to send
  *   RESEND_FROM     a sender on a domain verified in Resend, e.g.
- *                   "Genetico Website <website@genetico.in>"
+ *                   "Genetico Website <website@indigeneus.ai>"
  *   RESEND_TO / RESEND_CC  where enquiries go if Site-wide → Contact details
  *                          & form in the CMS leaves its addresses empty
  */
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const from = process.env.RESEND_FROM?.trim() || "Genetico Website <website@genetico.in>";
+  const from = process.env.RESEND_FROM?.trim() || "Genetico Website <website@indigeneus.ai>";
   // The CMS says where enquiries go; the environment is the fallback.
   const settings = await getSiteSettings();
   const to = settings.contactEmail?.trim() || process.env.RESEND_TO?.trim() || CONTACT_EMAIL;
