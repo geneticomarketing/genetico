@@ -10,19 +10,22 @@ import { Reveal } from "@/components/motion/reveal";
 
 import { getBlogPosts } from "@/lib/cms/queries";
 import { getBlogListing } from "@/lib/cms/page-data";
-import { createPageMetadata } from "@/lib/seo";
-import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+import { staticPageMetadata } from "@/lib/seo-pages";
+import { JsonLd } from "@/components/seo/json-ld";
+import { BLOG_PATH, blogDate, blogHref } from "@/lib/blogs";
+import { SITE_NAME, getSiteUrl } from "@/lib/seo";
+import { blogPostingNode, graph, staticPageNodes } from "@/lib/structured-data";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = { blogListing: await getBlogListing() };
-  const seo = STATIC_PAGE_SEO.blog;
+  const { title, metaDescription } = await getBlogListing();
 
-  return createPageMetadata({
-    title: data.blogListing.title.replace(` | Genetico`, "") || seo.title,
-    description: data.blogListing.metaDescription || seo.description,
-    path: seo.path,
+  // Resources page → Blogs heading holds this page's tab title and search
+  // description; either falls back to the one in seo-pages.ts when empty.
+  return staticPageMetadata("blog", {
+    title: title.replace(/\s*\|\s*Genetico$/, ""),
+    description: metaDescription,
   });
 }
 
@@ -31,7 +34,34 @@ export default async function BlogPage() {
   const data = { blogListing };
 
   return (
-    <main className="flex flex-1 flex-col bg-white">
+    <main id="main-content" className="flex flex-1 flex-col bg-white">
+      <JsonLd
+        data={graph(
+          ...staticPageNodes("blog", {
+            type: "CollectionPage",
+            extra: {
+              mainEntity: {
+                "@type": "Blog",
+                name: `${SITE_NAME} blog`,
+                url: `${getSiteUrl()}${BLOG_PATH}`,
+                publisher: { "@id": `${getSiteUrl()}/#organization` },
+                blogPost: posts.map((post) => ({
+                  "@id": `${getSiteUrl()}${blogHref(post.slug)}#article`,
+                })),
+              },
+            },
+          }),
+          ...posts.map((post) =>
+            blogPostingNode({
+              title: post.title,
+              description: post.excerpt,
+              path: blogHref(post.slug),
+              author: post.author,
+              datePublished: blogDate(post.date).iso,
+            }),
+          ),
+        )}
+      />
       <section className="border-line border-b bg-mist px-gutter pt-page pb-section">
         <div className="mx-auto w-full max-w-7xl">
           <Link

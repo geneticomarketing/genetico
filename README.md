@@ -127,8 +127,24 @@ media queries appended to `globals.css`.
 
 - **Canonical domain** is `https://genetico.in` (`src/lib/seo.ts`). Every canonical tag, Open Graph
   URL, the sitemap and robots.txt use it, whichever host served the page.
+- **Titles and descriptions** for every page are written for search in `src/lib/seo-pages.ts`
+  (titles under ~50 characters before the " | Genetico" suffix, descriptions 120–160), not taken
+  from hero copy. Pages call `staticPageMetadata(key)`. Where the CMS has an explicit search field
+  (blog listing, legal pages), a filled-in CMS value wins.
+- **Share images**: `/og/<page>` (`src/app/og/[page]/route.tsx`, drawn by `src/lib/og-card.tsx`)
+  renders a 1200×630 card with the logo and the page's title, generated at build time.
+- **Structured data** (JSON-LD) lives in `src/lib/structured-data.ts`: the root layout describes the
+  Organization, the WebSite and IndiGeneUs.AI (SoftwareApplication) once; each page adds its own
+  WebPage and breadcrumb, the Resources page its VideoObjects and articles, the blog its
+  BlogPostings — all linked by `@id`. Check a page at https://validator.schema.org.
+- **`/llms.txt`** is a Markdown summary of the company, platform, pages, videos and posts for AI
+  assistants (llmstxt.org), built from `seo-pages.ts` and the CMS.
+- **Markup**: every page has one `<main id="main-content">` (the layout's "Skip to content" link
+  targets it), one `<h1>`, and labelled `<nav>`s in the header and footer. Keep that when adding
+  pages.
 - **`/sitemap.xml`** lists every public page and blog post. **`/robots.txt`** allows everything
-  public, points at the sitemap, and on any non-production deploy disallows everything.
+  public (AI crawlers included), points at the sitemap, and on any non-production deploy
+  disallows everything.
 - **Design previews** (`/home-v2`, `/home-v3`, `/home-v4`, `/about-v2`) are archived in
   `src/archive/` and redirect (308) to the live page they drafted.
 - **Tag Manager** loads in `<head>` of the public site only — never in `/admin`. Google Consent

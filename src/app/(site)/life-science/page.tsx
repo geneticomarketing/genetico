@@ -11,8 +11,9 @@ import { Challenge, Outcomes, Walkthrough } from "@/components/solutions/section
 import { DEFAULT_CONTACT_SECTION } from "@/lib/cms/sections";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
 import { getSolutionContent } from "@/lib/cms/solution-page-data";
-import { createPageMetadata } from "@/lib/seo";
-import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+import { staticPageMetadata } from "@/lib/seo-pages";
+import { JsonLd } from "@/components/seo/json-ld";
+import { graph, staticPageNodes } from "@/lib/structured-data";
 
 export const revalidate = 60;
 
@@ -24,16 +25,8 @@ const SECTIONS = [
   { id: "get-in-touch", label: "Book a Demo", eyebrow: "Get in Touch" },
 ];
 
-export async function generateMetadata(): Promise<Metadata> {
-  const content = await getSolutionContent("pharma");
-  const seo = STATIC_PAGE_SEO.lifeScience;
-  const title = `${content.hero.headline} ${content.hero.headlineHighlight}`.trim();
-
-  return createPageMetadata({
-    title: title || seo.title,
-    description: content.hero.blurb || seo.description,
-    path: seo.path,
-  });
+export function generateMetadata(): Metadata {
+  return staticPageMetadata("lifeScience");
 }
 
 export default async function LifeSciencePage() {
@@ -51,36 +44,40 @@ export default async function LifeSciencePage() {
       <SiteHeader navigation={navigation} sections={sections} />
       <SectionRail sections={sections} pageLabel="Life Sciences" />
 
-      <LifeScienceHero content={content.hero} />
-      <Challenge content={content.challenge} num={section.challenge.num} />
-      <Walkthrough
-        content={content.solution}
-        num={section.solution.num}
-        panels={[
-          <IntakePanel key="intake" />,
-          <ExtractPanel
-            key="extract"
-            filename="lab_report_aiims_2024.pdf"
-            caption="Free-text notes become HPO-coded, registry-ready fields."
-          />,
-          <CohortPanel key="cohort" />,
-        ]}
-      />
-      <Outcomes content={content.outcomes} num={section.outcomes.num} />
+      <main id="main-content" className="flex flex-1 flex-col">
+        <JsonLd data={graph(...staticPageNodes("lifeScience", { about: "platform" }))} />
 
-      <GetInTouch
-        section={section["get-in-touch"]}
-        num={section["get-in-touch"].num}
-        variant="panel"
-        emailPlaceholder="name@organisation.com"
-        roleOrder={["Life Science or Research", "Clinician or Hospital"]}
-        content={{
-          heading: content.cta.heading || DEFAULT_CONTACT_SECTION.heading,
-          description: content.cta.description || DEFAULT_CONTACT_SECTION.description,
-          primaryCta: DEFAULT_CONTACT_SECTION.primaryCta,
-          secondaryCta: DEFAULT_CONTACT_SECTION.secondaryCta,
-        }}
-      />
+        <LifeScienceHero content={content.hero} />
+        <Challenge content={content.challenge} num={section.challenge.num} />
+        <Walkthrough
+          content={content.solution}
+          num={section.solution.num}
+          panels={[
+            <IntakePanel key="intake" />,
+            <ExtractPanel
+              key="extract"
+              filename="lab_report_aiims_2024.pdf"
+              caption="Free-text notes become HPO-coded, registry-ready fields."
+            />,
+            <CohortPanel key="cohort" />,
+          ]}
+        />
+        <Outcomes content={content.outcomes} num={section.outcomes.num} />
+
+        <GetInTouch
+          section={section["get-in-touch"]}
+          num={section["get-in-touch"].num}
+          variant="panel"
+          emailPlaceholder="name@organisation.com"
+          roleOrder={["Life Science or Research", "Clinician or Hospital"]}
+          content={{
+            heading: content.cta.heading || DEFAULT_CONTACT_SECTION.heading,
+            description: content.cta.description || DEFAULT_CONTACT_SECTION.description,
+            primaryCta: DEFAULT_CONTACT_SECTION.primaryCta,
+            secondaryCta: DEFAULT_CONTACT_SECTION.secondaryCta,
+          }}
+        />
+      </main>
 
       <SiteFooter footer={footer} />
     </div>

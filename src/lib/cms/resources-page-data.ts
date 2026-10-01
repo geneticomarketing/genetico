@@ -34,6 +34,8 @@ export type FeaturedFilm = {
   duration: string;
   source: string;
   href: string;
+  /** ISO publish date, for structured data. */
+  published: string | null;
 };
 
 export type VideoCard = {
@@ -44,6 +46,8 @@ export type VideoCard = {
   duration: string;
   source: string;
   href: string;
+  /** ISO publish date, for structured data. */
+  published: string | null;
 };
 
 export type DeepDiveCard = VideoCard & { tags: string[] };
@@ -53,6 +57,8 @@ export type ArticleRow = {
   title: string;
   meta: string;
   href: string;
+  /** ISO publish date, for structured data. */
+  published: string | null;
 };
 
 export type BlogCard = {
@@ -151,6 +157,7 @@ export async function getResourcesPageContent(): Promise<ResourcesPageContent> {
         duration: text(film.duration, ""),
         source: text(film.source, ""),
         href: film.youtubeUrl,
+        published: film.publishedAt ?? null,
       }
     : null;
 
@@ -162,6 +169,7 @@ export async function getResourcesPageContent(): Promise<ResourcesPageContent> {
     duration: text(doc.duration, ""),
     source: "",
     href: doc.youtubeUrl,
+    published: doc.publishedAt ?? null,
   }));
 
   const dives: DeepDiveCard[] = deepDives.map((doc) => ({
@@ -172,6 +180,7 @@ export async function getResourcesPageContent(): Promise<ResourcesPageContent> {
     duration: text(doc.duration, ""),
     source: text(doc.sourceLabel, ""),
     href: doc.youtubeUrl,
+    published: doc.publishedAt ?? null,
     tags: (doc.tags ?? [])
       .map((entry) => entry.tag?.trim())
       .filter((tag): tag is string => Boolean(tag)),
@@ -182,6 +191,7 @@ export async function getResourcesPageContent(): Promise<ResourcesPageContent> {
     title: doc.title,
     meta: formatDate(doc.publishedAt),
     href: doc.url,
+    published: doc.publishedAt ?? null,
   }));
 
   const blogs: BlogCard[] = blogPosts.map((doc) => ({

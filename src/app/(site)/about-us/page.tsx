@@ -12,18 +12,14 @@ import { SiteFooter } from "@/components/chrome/site-footer";
 import { SiteHeader } from "@/components/chrome/site-header";
 import { getAboutPage } from "@/lib/cms/about-page-data";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
-import { createPageMetadata } from "@/lib/seo";
-import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+import { staticPageMetadata } from "@/lib/seo-pages";
+import { JsonLd } from "@/components/seo/json-ld";
+import { graph, staticPageNodes } from "@/lib/structured-data";
 
 export const revalidate = 60;
 
-export async function generateMetadata(): Promise<Metadata> {
-  const seo = STATIC_PAGE_SEO.about;
-  return createPageMetadata({
-    title: seo.title,
-    description: seo.description,
-    path: seo.path,
-  });
+export function generateMetadata(): Metadata {
+  return staticPageMetadata("about");
 }
 
 /**
@@ -47,43 +43,47 @@ export default async function AboutUsPage() {
       <SiteHeader navigation={navigation} sections={sections} ctaHref="#get-in-touch" />
       <SectionRail sections={sections} pageLabel="About Genetico" />
 
-      <AboutHero content={page.intro} />
+      <main id="main-content" className="flex flex-1 flex-col">
+        <JsonLd data={graph(...staticPageNodes("about", { type: "AboutPage" }))} />
 
-      {/* Everything after the hero rides up over it on a white sheet, its top
-          corners rounded and its shadow cast upward onto the hero. */}
-      <div
-        data-fold-lift
-        className="bg-sheet relative z-[2] mt-[clamp(-56px,-4vw,-30px)] overflow-hidden rounded-t-[28px] shadow-[var(--shadow-sheet)]"
-      >
-        <WhyWeExist {...section.why} content={page.problem} />
-        <Building {...section.building} content={page.building} />
-        <PlatformFit {...section.platform} content={page.platform} />
-        <WhyNow {...section.now} content={page.now} />
-        <Mission {...section.mission} content={page.mission} />
-        <Leadership
-          content={page.content.leadership}
-          num={section.team.num}
-          eyebrowLabel={section.team.eyebrow}
-          columns="fixed"
+        <AboutHero content={page.intro} />
+
+        {/* Everything after the hero rides up over it on a white sheet, its top
+            corners rounded and its shadow cast upward onto the hero. */}
+        <div
+          data-fold-lift
+          className="bg-sheet relative z-[2] mt-[clamp(-56px,-4vw,-30px)] overflow-hidden rounded-t-[28px] shadow-[var(--shadow-sheet)]"
         >
-          <Beliefs beliefs={page.leadership.beliefs} />
-        </Leadership>
-        <Recognition content={page.content.recognition} num={section.recognition.num} />
-        <Partners content={page.content.partners} num={section.partners.num} />
-        <Trust content={page.content.trust} num={section.trust.num} />
-        <GetInTouch
-          section={section["get-in-touch"]}
-          num={section["get-in-touch"].num}
-          content={{
-            heading: page.engage.heading,
-            description: page.engage.description,
-            ...(primary ? { primaryCta: { label: primary.label, href: primary.href } } : {}),
-            ...(secondary
-              ? { secondaryCta: { label: secondary.label, href: secondary.href } }
-              : {}),
-          }}
-        />
-      </div>
+          <WhyWeExist {...section.why} content={page.problem} />
+          <Building {...section.building} content={page.building} />
+          <PlatformFit {...section.platform} content={page.platform} />
+          <WhyNow {...section.now} content={page.now} />
+          <Mission {...section.mission} content={page.mission} />
+          <Leadership
+            content={page.content.leadership}
+            num={section.team.num}
+            eyebrowLabel={section.team.eyebrow}
+            columns="fixed"
+          >
+            <Beliefs beliefs={page.leadership.beliefs} />
+          </Leadership>
+          <Recognition content={page.content.recognition} num={section.recognition.num} />
+          <Partners content={page.content.partners} num={section.partners.num} />
+          <Trust content={page.content.trust} num={section.trust.num} />
+          <GetInTouch
+            section={section["get-in-touch"]}
+            num={section["get-in-touch"].num}
+            content={{
+              heading: page.engage.heading,
+              description: page.engage.description,
+              ...(primary ? { primaryCta: { label: primary.label, href: primary.href } } : {}),
+              ...(secondary
+                ? { secondaryCta: { label: secondary.label, href: secondary.href } }
+                : {}),
+            }}
+          />
+        </div>
+      </main>
 
       <SiteFooter footer={footer} />
     </div>

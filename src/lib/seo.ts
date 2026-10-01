@@ -20,7 +20,8 @@ export const DEFAULT_KEYWORDS = [
   "life sciences",
 ];
 
-export const DEFAULT_OG_IMAGE = "/phero.png";
+/** The home page's share card (app/og/[page]/route.tsx); pages pass their own. */
+export const DEFAULT_OG_IMAGE = "/og/home";
 
 /** The canonical origin, used by the sitemap, robots.txt, canonical tags and Open Graph URLs. */
 export const CANONICAL_ORIGIN = "https://genetico.in";
@@ -173,78 +174,5 @@ export function createRootMetadata(siteDescription?: string | null): Metadata {
       icon: [{ url: "/favicon.ico", sizes: "any" }],
       shortcut: "/favicon.ico",
     },
-  };
-}
-
-export function organizationJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: SITE_NAME,
-    url: getSiteUrl(),
-    logo: `${getSiteUrl()}/favicon.ico`,
-    description: DEFAULT_DESCRIPTION,
-    email: "hello@genetico.in",
-    sameAs: [
-      "https://x.com/genetico_in",
-      "https://www.linkedin.com/company/genetico-in/",
-      "https://youtube.com/@geneticord",
-    ],
-  };
-}
-
-export function websiteJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: SITE_NAME,
-    url: getSiteUrl(),
-    description: DEFAULT_DESCRIPTION,
-    publisher: {
-      "@type": "Organization",
-      name: SITE_NAME,
-    },
-  };
-}
-
-type ArticleJsonLdOptions = {
-  title: string;
-  description: string;
-  path: string;
-  author: string;
-  datePublished?: string;
-  image?: string | null;
-};
-
-export function articleJsonLd({
-  title,
-  description,
-  path,
-  author,
-  datePublished,
-  image,
-}: ArticleJsonLdOptions) {
-  const url = `${getSiteUrl()}${path.startsWith("/") ? path : `/${path}`}`;
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: title,
-    description,
-    url,
-    author: {
-      "@type": "Person",
-      name: author,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      logo: {
-        "@type": "ImageObject",
-        url: `${getSiteUrl()}/favicon.ico`,
-      },
-    },
-    ...(datePublished ? { datePublished } : {}),
-    ...(image ? { image } : {}),
   };
 }

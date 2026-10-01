@@ -5,20 +5,14 @@ import { SiteHeader } from "@/components/chrome/site-header";
 import { ResourceLibrary } from "@/components/resources/library";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
 import { getResourcesPageContent } from "@/lib/cms/resources-page-data";
-import { createPageMetadata } from "@/lib/seo";
-import { STATIC_PAGE_SEO } from "@/lib/seo-pages";
+import { staticPageMetadata } from "@/lib/seo-pages";
+import { JsonLd } from "@/components/seo/json-ld";
+import { graph, resourcesNodes } from "@/lib/structured-data";
 
 export const revalidate = 60;
 
-export async function generateMetadata(): Promise<Metadata> {
-  const content = await getResourcesPageContent();
-  const seo = STATIC_PAGE_SEO.resources;
-
-  return createPageMetadata({
-    title: seo.title,
-    description: content.hero.description || seo.description,
-    path: seo.path,
-  });
+export function generateMetadata(): Metadata {
+  return staticPageMetadata("resources");
 }
 
 export default async function ResourcesPage() {
@@ -33,7 +27,13 @@ export default async function ResourcesPage() {
       {/* No section rail here: the sticky filter row inside the library sits
           in the same place and does the same job for this page. */}
       <SiteHeader navigation={navigation} sections={[]} />
-      <ResourceLibrary content={content} />
+
+      <main id="main-content" className="flex flex-1 flex-col">
+        <JsonLd data={graph(...resourcesNodes(content))} />
+
+        <ResourceLibrary content={content} />
+      </main>
+
       <SiteFooter footer={footer} />
     </div>
   );
