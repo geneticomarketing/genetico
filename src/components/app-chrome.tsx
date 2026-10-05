@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/chrome/site-footer";
 import { SiteHeader } from "@/components/chrome/site-header";
 import { MotionSafariFix } from "@/components/MotionSafariFix";
 import type { SiteData } from "@/lib/cms/site-data-context";
+import { RARE_INSIGHTS_PATH } from "@/lib/routes";
 
 /**
  * Routes that have moved to the redesign.
@@ -17,6 +18,7 @@ import type { SiteData } from "@/lib/cms/site-data-context";
 const REDESIGNED_ROUTES = new Set<string>([
   "/",
   "/resources",
+  RARE_INSIGHTS_PATH,
   "/about-us",
   "/platform",
   "/public-health",
@@ -44,7 +46,7 @@ export function AppChrome({
 }) {
   const pathname = usePathname();
 
-  if (REDESIGNED_ROUTES.has(pathname)) {
+  if (REDESIGNED_ROUTES.has(pathname) || pathname.startsWith(`${RARE_INSIGHTS_PATH}/`)) {
     return <>{children}</>;
   }
 

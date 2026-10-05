@@ -9,6 +9,7 @@ import {
   PLATFORM_PATH,
   PRIVACY_POLICY_PATH,
   PUBLIC_HEALTH_PATH,
+  RARE_INSIGHTS_PATH,
   RESOURCES_PATH,
 } from "@/lib/routes";
 import { createPageMetadata } from "@/lib/seo";
@@ -75,6 +76,13 @@ export const STATIC_PAGE_SEO = {
     description:
       "Talks, interviews and articles from Genetico on rare disease diagnosis, genomic EMRs, AI in clinical genetics and India's rare disease policy.",
   },
+  rareInsights: {
+    path: RARE_INSIGHTS_PATH,
+    label: "Rare Insights newsletter",
+    title: "Rare Insights: Weekly Rare Disease Research Digest",
+    description:
+      "Genetico's weekly newsletter: new approvals, papers and guidance in rare and genetic disease, with a short note on why each matters. Every edition archived.",
+  },
   blog: {
     path: BLOG_PATH,
     label: "Blog",
@@ -127,6 +135,7 @@ export const INDEXABLE_STATIC_PATHS = [
   STATIC_PAGE_SEO.lifeScience.path,
   STATIC_PAGE_SEO.publicHealth.path,
   STATIC_PAGE_SEO.resources.path,
+  STATIC_PAGE_SEO.rareInsights.path,
   STATIC_PAGE_SEO.blog.path,
   STATIC_PAGE_SEO.privacyPolicy.path,
   STATIC_PAGE_SEO.cookiePolicy.path,

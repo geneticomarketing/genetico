@@ -1,5 +1,7 @@
 import { getBlogPosts } from "@/lib/cms/queries";
 import { getResourcesPageContent } from "@/lib/cms/resources-page-data";
+import { getRareInsightsEditions } from "@/lib/cms/rare-insights-data";
+import { editionHref, editionTitle } from "@/lib/rare-insights";
 import { blogHref } from "@/lib/blogs";
 import { CONTACT_EMAIL } from "@/lib/contact";
 import { LEAD_FORM_HASH } from "@/lib/routes";
@@ -22,12 +24,16 @@ const SECTIONS: { heading: string; pages: StaticPageKey[] }[] = [
   { heading: "Company", pages: ["home", "about"] },
   { heading: "Platform", pages: ["platform"] },
   { heading: "Who it is for", pages: ["hospital", "lifeScience", "publicHealth"] },
-  { heading: "Resources", pages: ["resources", "blog"] },
+  { heading: "Resources", pages: ["resources", "rareInsights", "blog"] },
 ];
 
 export async function GET() {
   const site = getSiteUrl();
-  const [resources, posts] = await Promise.all([getResourcesPageContent(), getBlogPosts()]);
+  const [resources, posts, editions] = await Promise.all([
+    getResourcesPageContent(),
+    getBlogPosts(),
+    getRareInsightsEditions(),
+  ]);
   const link = (title: string, href: string, note?: string) =>
     `- [${title}](${href.startsWith("http") ? href : `${site}${href}`})${note ? `: ${note}` : ""}`;
 
@@ -77,6 +83,16 @@ export async function GET() {
     "## Blog posts",
     "",
     ...posts.map((post) => link(post.title, blogHref(post.slug), post.excerpt)),
+    "",
+    "## Rare Insights newsletter editions",
+    "",
+    ...editions.map((edition) =>
+      link(
+        `Rare Insights ${editionTitle(edition)}`,
+        editionHref(edition.slug),
+        `${edition.items.length} items, led by: ${edition.items[0].title}`,
+      ),
+    ),
     "",
     "## Optional",
     "",

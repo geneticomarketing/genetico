@@ -11,6 +11,7 @@ export const HOSPITAL_PATH = "/hospital";
 export const PHARMA_PATH = "/life-science";
 export const PUBLIC_HEALTH_PATH = "/public-health";
 export const RESOURCES_PATH = "/resources";
+export const RARE_INSIGHTS_PATH = "/rare-insights";
 export const BLOG_PATH = "/blog";
 export const PRIVACY_POLICY_PATH = "/privacy-policy";
 export const COOKIE_POLICY_PATH = "/cookie-policy";

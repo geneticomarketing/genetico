@@ -301,6 +301,56 @@ export function blogPostingNode(post: {
 }
 
 /**
+ * One Rare Insights edition, as a NewsArticle published by Genetico. Its
+ * WebPage node and breadcrumb (Rare Insights › Edition NN) come with it.
+ */
+export function newsletterEditionNodes(edition: {
+  path: string;
+  headline: string;
+  description: string;
+  datePublished: string;
+  /** The edition's own share card. */
+  image: string;
+  /** The papers and announcements the edition discusses. */
+  citations: string[];
+}): Node[] {
+  const id = ids();
+  const url = absolute(edition.path);
+  const parent = STATIC_PAGE_SEO.rareInsights;
+  return [
+    {
+      "@type": "WebPage",
+      "@id": `${url}#webpage`,
+      url,
+      name: edition.headline,
+      description: edition.description,
+      inLanguage: "en",
+      isPartOf: { "@id": id.website },
+      breadcrumb: { "@id": `${url}#breadcrumb` },
+    },
+    {
+      "@type": "NewsArticle",
+      "@id": `${url}#article`,
+      headline: edition.headline,
+      description: edition.description,
+      url,
+      mainEntityOfPage: { "@id": `${url}#webpage` },
+      inLanguage: "en",
+      datePublished: edition.datePublished,
+      author: { "@id": id.organization },
+      publisher: { "@id": id.organization },
+      isPartOf: { "@type": "Periodical", name: "Rare Insights", url: absolute(parent.path) },
+      image: absolute(edition.image),
+      citation: edition.citations,
+    },
+    breadcrumbNode(url, [
+      { name: parent.label, path: parent.path },
+      { name: edition.headline, path: edition.path },
+    ]),
+  ];
+}
+
+/**
  * The Resources page: a CollectionPage whose parts are its videos (with full
  * VideoObject nodes, which is what puts them in Google's video results) and
  * the articles it links to.
