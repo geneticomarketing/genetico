@@ -7,6 +7,8 @@ type NavItem = {
   href?: string | null;
   type?: "link" | "dropdown" | null;
   isDark?: boolean | null;
+  /** When present, the item opens a dropdown of these instead of linking. */
+  dropdownItems?: { label: string; href: string; description?: string | null }[] | null;
 };
 
 type SolutionNavItem = {

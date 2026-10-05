@@ -9,6 +9,9 @@ import { scrollToSection, type NumberedSection } from "@/components/chrome/page-
 import type { SiteData } from "@/lib/cms/site-data-context";
 
 const SOLID_AFTER_PX = 12;
+
+/** One entry in a header dropdown. */
+type DropdownEntry = { label: string; href: string; description?: string };
 /** With `solidAt`, the bar turns solid once the marker's top is this close to the viewport top. */
 const SOLID_AT_MARKER_PX = 72;
 
@@ -59,8 +62,9 @@ export function SiteHeader({
   /** With `solidAt`: moved off the top, but the marker has not reached the header yet. */
   const [frosted, setFrosted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
-  const solutionsRef = useRef<HTMLDivElement | null>(null);
+  /** Label of the open dropdown — Who We Serve, Insights — or null. */
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const menuRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const pathname = usePathname();
 
   // Over a dark hero, everything inverts until the bar turns solid.
@@ -70,14 +74,31 @@ export function SiteHeader({
   const mainNav = navigation.mainNav ?? [];
   const solutionsNav = navigation.solutionsNav ?? [];
 
-  /* The nav marks where you are. A read-only derivation of the pathname, so
-     it costs no state and cannot cascade a render. The Solutions item lights
-     up on any of the three pages behind it. */
-  const isCurrent = (item: { href?: string | null; type?: string | null }) =>
+  /* A menu item opens a dropdown either because it is the Solutions dropdown
+     (whose entries are their own list in the CMS) or because it carries
+     dropdown items of its own, as Insights does. */
+  const dropdownFor = (item: (typeof mainNav)[number]): DropdownEntry[] =>
     item.type === "dropdown"
-      ? solutionsNav.some((s) => s.href && pathname.startsWith(s.href))
-      : Boolean(item.href && item.href !== "/" && pathname.startsWith(item.href)) ||
-        (item.href === "/" && pathname === "/");
+      ? solutionsNav.map(({ label, href }) => ({ label, href }))
+      : (item.dropdownItems ?? []).map(({ label, href, description }) => ({
+          label,
+          href,
+          description: description ?? undefined,
+        }));
+
+  const isCurrentHref = (href?: string | null) =>
+    Boolean(href && href !== "/" && pathname.startsWith(href)) ||
+    (href === "/" && pathname === "/");
+
+  /* The nav marks where you are. A read-only derivation of the pathname, so
+     it costs no state and cannot cascade a render. A dropdown lights up on
+     any of the pages behind it. */
+  const isCurrent = (item: (typeof mainNav)[number]) => {
+    const entries = dropdownFor(item);
+    return entries.length
+      ? entries.some((entry) => isCurrentHref(entry.href))
+      : isCurrentHref(item.href);
+  };
   const ctaLabel = navigation.ctaLabel || "Book a demo";
 
   useEffect(() => {
@@ -106,13 +127,13 @@ export function SiteHeader({
 
   // The dropdown closes on Escape and on a click anywhere outside it.
   useEffect(() => {
-    if (!solutionsOpen) return;
+    if (!openMenu) return;
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSolutionsOpen(false);
+      if (e.key === "Escape") setOpenMenu(null);
     };
     const onPointerDown = (e: PointerEvent) => {
-      if (!solutionsRef.current?.contains(e.target as Node)) setSolutionsOpen(false);
+      if (!menuRefs.current[openMenu]?.contains(e.target as Node)) setOpenMenu(null);
     };
 
     document.addEventListener("keydown", onKeyDown);
@@ -121,7 +142,7 @@ export function SiteHeader({
       document.removeEventListener("keydown", onKeyDown);
       document.removeEventListener("pointerdown", onPointerDown);
     };
-  }, [solutionsOpen]);
+  }, [openMenu]);
 
   // The mobile panel scrolls itself; the page behind it must not.
   useEffect(() => {
@@ -138,7 +159,7 @@ export function SiteHeader({
      covers a link back to the route you are already on. */
   const closeOverlays = useCallback(() => {
     setMenuOpen(false);
-    setSolutionsOpen(false);
+    setOpenMenu(null);
   }, []);
 
   /* Close first, scroll after: while the mobile panel is open the body is
@@ -210,24 +231,29 @@ export function SiteHeader({
 
         <nav aria-label="Main" className="nav:flex mx-auto hidden items-center gap-[30px]">
           {mainNav.map((item) => {
-            if (item.type === "dropdown") {
+            const entries = dropdownFor(item);
+            if (entries.length) {
+              const open = openMenu === item.label;
+              const withNotes = entries.some((entry) => entry.description);
               return (
                 <div
                   key={item.label}
-                  ref={solutionsRef}
+                  ref={(el) => {
+                    menuRefs.current[item.label] = el;
+                  }}
                   className="relative flex items-center gap-[5px] text-[14.5px]"
-                  onMouseEnter={() => setSolutionsOpen(true)}
-                  onMouseLeave={() => setSolutionsOpen(false)}
-                  onFocus={() => setSolutionsOpen(true)}
+                  onMouseEnter={() => setOpenMenu(item.label)}
+                  onMouseLeave={() => setOpenMenu(null)}
+                  onFocus={() => setOpenMenu(item.label)}
                   onBlur={(e) => {
-                    if (!e.currentTarget.contains(e.relatedTarget as Node)) setSolutionsOpen(false);
+                    if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpenMenu(null);
                   }}
                 >
                   <button
                     type="button"
-                    aria-expanded={solutionsOpen}
+                    aria-expanded={open}
                     aria-haspopup="true"
-                    onClick={() => setSolutionsOpen((open) => !open)}
+                    onClick={() => setOpenMenu(open ? null : item.label)}
                     className={`flex items-center gap-[5px] transition-colors ${
                       isCurrent(item)
                         ? onDark
@@ -239,24 +265,37 @@ export function SiteHeader({
                     }`}
                   >
                     {item.label}
-                    <span aria-hidden className="text-[9px]">
+                    <span aria-hidden className="text-[9px] font-normal">
                       ▾
                     </span>
                   </button>
 
-                  {solutionsOpen ? (
-                    <div className="absolute top-full -left-4 w-[286px] pt-3">
+                  {open ? (
+                    <div
+                      className={`absolute top-full -left-4 pt-3 ${withNotes ? "w-[300px]" : "w-[286px]"}`}
+                    >
                       <div className="border-rule flex flex-col gap-px rounded-[12px] border bg-white p-[7px] shadow-[0_18px_44px_rgba(7,59,104,0.12)]">
-                        {solutionsNav.map((solution) => (
-                          <Link
-                            key={solution.href}
-                            href={solution.href}
-                            onClick={closeOverlays}
-                            className="text-ink hover:bg-sheet-mute rounded-lg px-3 py-2.5 text-sm font-medium transition-colors"
-                          >
-                            {solution.label}
-                          </Link>
-                        ))}
+                        {entries.map((entry) => {
+                          const here = isCurrentHref(entry.href);
+                          return (
+                            <Link
+                              key={entry.href}
+                              href={entry.href}
+                              onClick={closeOverlays}
+                              aria-current={here ? "page" : undefined}
+                              className={`text-ink flex flex-col gap-0.5 rounded-lg px-3 py-2.5 transition-colors ${
+                                here ? "bg-primary-tint" : "hover:bg-sheet-mute"
+                              }`}
+                            >
+                              <span className="text-sm font-medium">{entry.label}</span>
+                              {entry.description ? (
+                                <span className="text-ink-soft text-[12.5px]">
+                                  {entry.description}
+                                </span>
+                              ) : null}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   ) : null}
@@ -332,22 +371,31 @@ export function SiteHeader({
           </span>
           <div className="mt-2.5 flex flex-col">
             {[
+              // A link with dropdown items is listed as those items instead.
               ...mainNav
                 .filter((item) => item.type !== "dropdown")
-                .map((item) => ({ label: item.label, href: item.href || "/" })),
+                .flatMap((item) =>
+                  item.dropdownItems?.length
+                    ? item.dropdownItems.map(({ label, href }) => ({ label, href }))
+                    : [{ label: item.label, href: item.href || "/" }],
+                ),
               ...solutionsNav.map((item) => ({ label: item.label, href: item.href })),
-            ].map((item, i, all) => (
-              <Link
-                key={`${item.href}-${item.label}`}
-                href={item.href}
-                onClick={closeOverlays}
-                className={`text-ink py-3 text-[15.5px] ${
-                  i === all.length - 1 ? "" : "border-rule-light border-b"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            ].map((item, i, all) => {
+              const here = isCurrentHref(item.href);
+              return (
+                <Link
+                  key={`${item.href}-${item.label}`}
+                  href={item.href}
+                  onClick={closeOverlays}
+                  aria-current={here ? "page" : undefined}
+                  className={`py-3 text-[15.5px] ${here ? "text-primary font-bold" : "text-ink"} ${
+                    i === all.length - 1 ? "" : "border-rule-light border-b"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
       ) : null}
