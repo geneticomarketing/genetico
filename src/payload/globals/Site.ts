@@ -113,6 +113,27 @@ export const Navigation = withAdminGroup(
             label: "Dark text",
             admin: { description: "Tick only if this item sits on a light background." },
           },
+          {
+            name: "dropdownItems",
+            type: "array",
+            label: "Dropdown items",
+            labels: { singular: "Dropdown item", plural: "Dropdown items" },
+            admin: {
+              description:
+                "Optional. Add items here to make this a dropdown menu instead of a single link — Insights opens Resources and Rare Insights this way. On phones the items are listed one by one.",
+              condition: (_, sibling) => sibling?.type !== "dropdown",
+            },
+            fields: [
+              { name: "label", type: "text", required: true, label: "Menu text" },
+              {
+                name: "description",
+                type: "text",
+                label: "Small line under the text",
+                admin: { description: "e.g. “The weekly newsletter archive”" },
+              },
+              { name: "href", type: "text", required: true, label: "Link" },
+            ],
+          },
         ],
       },
       {

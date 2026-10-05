@@ -9,6 +9,7 @@ export const ADMIN_GROUPS = {
   solutions: "Solution pages  ·  /hospital, /life-science",
   publicHealth: "Public Health page  ·  /public-health",
   resources: "Resources page  ·  /resources",
+  rareInsights: "Rare Insights newsletter  ·  /rare-insights",
   legal: "Other pages  ·  /blog, legal pages, /coming-soon",
   site: "Site-wide  ·  header, footer, contact",
   media: "Images & files",

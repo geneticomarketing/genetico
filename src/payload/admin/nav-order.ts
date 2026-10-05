@@ -8,6 +8,7 @@ export const ADMIN_NAV_GROUP_ORDER = [
   ADMIN_GROUPS.solutions,
   ADMIN_GROUPS.publicHealth,
   ADMIN_GROUPS.resources,
+  ADMIN_GROUPS.rareInsights,
   ADMIN_GROUPS.legal,
   ADMIN_GROUPS.site,
   ADMIN_GROUPS.media,
@@ -88,6 +89,14 @@ export const ADMIN_NAV_ENTITY_ORDER: Record<string, string[]> = {
     "globals:resources-blogs-section",
     "collections:blog-posts",
     "globals:resources-newsletter",
+  ],
+  // src/app/(site)/rare-insights/page.tsx, then the edition pages
+  [ADMIN_GROUPS.rareInsights]: [
+    "globals:rare-insights-hero",
+    "globals:rare-insights-archive",
+    "collections:newsletter-editions",
+    "globals:rare-insights-subscribe",
+    "globals:rare-insights-edition",
   ],
   [ADMIN_GROUPS.legal]: [
     "globals:resources-blog-listing",

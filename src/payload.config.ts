@@ -22,6 +22,7 @@ import {
 } from "./payload/collections/Resources";
 import { SolutionPages } from "./payload/collections/SolutionPages";
 import { LegalPages } from "./payload/collections/LegalPages";
+import { NewsletterEditions } from "./payload/collections/NewsletterEditions";
 import { SiteSettings, Navigation, Footer } from "./payload/globals/Site";
 import { UtilityPages } from "./payload/globals/Pages";
 import {
@@ -74,6 +75,12 @@ import {
   ResourcesDeepDivesSection,
   ResourcesNewsletter,
 } from "./payload/globals/sections/resources";
+import {
+  RareInsightsArchive,
+  RareInsightsEdition,
+  RareInsightsHero,
+  RareInsightsSubscribe,
+} from "./payload/globals/sections/rare-insights";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -120,6 +127,8 @@ export default buildConfig({
     ShortVideos,
     DeepDives,
     ExternalArticles,
+    // Rare Insights newsletter
+    NewsletterEditions,
     // Other pages
     LegalPages,
     // Site utilities
@@ -173,6 +182,11 @@ export default buildConfig({
     ResourcesBlogsSection,
     ResourcesBlogListing,
     ResourcesNewsletter,
+    // Rare Insights newsletter
+    RareInsightsHero,
+    RareInsightsArchive,
+    RareInsightsSubscribe,
+    RareInsightsEdition,
     // Legal & utility
     UtilityPages,
     // Site-wide
