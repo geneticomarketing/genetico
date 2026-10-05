@@ -81,7 +81,7 @@ export const STATIC_PAGE_SEO = {
     label: "Rare Insights newsletter",
     title: "Rare Insights: Weekly Rare Disease Research Digest",
     description:
-      "Genetico's weekly newsletter: new approvals, papers and guidance in rare and genetic disease, with a short note on why each matters. Every edition archived.",
+      "Genetico's weekly newsletter: new approvals, papers and guidance in rare and genetic diseases, with a short note on why each matters. Every edition archived.",
   },
   blog: {
     path: BLOG_PATH,

@@ -128,7 +128,7 @@ export function editionDescription(edition: RareInsightsEdition): string {
   const sentence = /[.?!]$/.test(lead.title) ? lead.title : `${lead.title}.`;
   const more = rest.length === 1 ? "1 more item" : `${rest.length} more papers and approvals`;
   const tails = rest.length
-    ? [` Plus ${more} in rare disease, each with a note on why it matters.`, ` Plus ${more}.`]
+    ? [` Plus ${more} in rare diseases, each with a note on why it matters.`, ` Plus ${more}.`]
     : [];
   return tails.map((tail) => sentence + tail).find((text) => text.length <= 160) ?? sentence;
 }
