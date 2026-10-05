@@ -9,7 +9,7 @@ export const RARE_INSIGHTS_COPY = {
     eyebrow: "Genetico · Weekly newsletter",
     heading: "Rare Insights",
     description:
-      "Each week we read the new approvals, papers and guidance in rare and genetic disease, and write a short note on why each one matters. Every edition is archived here.",
+      "Each week we read the new approvals, papers and guidance in rare and genetic diseases, and write a short note on why each one matters. Every edition is archived here.",
     primaryLabel: "Read the latest edition",
     subscribeLabel: "Subscribe",
   },
@@ -23,12 +23,12 @@ export const RARE_INSIGHTS_COPY = {
     eyebrow: "Subscribe",
     heading: "One reading list, every week",
     description:
-      "Approvals, papers and guidance in rare and genetic disease, each with a short note on why it matters. Sent weekly, read in a few minutes.",
+      "Approvals, papers and guidance in rare and genetic diseases, each with a short note on why it matters. Sent weekly, read in a few minutes.",
     buttonLabel: "Subscribe to Rare Insights",
     note: "Signup is handled by Mailchimp. Unsubscribe from any edition.",
   },
   edition: {
-    standfirst: "Evidence, insights and developments shaping the rare disease ecosystem",
+    standfirst: "Evidence, insights and developments shaping the world of rare diseases",
     smallPrint:
       "Links go to the original publisher. Notes are Genetico's reading, not clinical advice.",
   },
@@ -39,7 +39,7 @@ export const RESOURCES_NEWSLETTER_COPY = {
   eyebrow: "Rare Insights · Weekly newsletter",
   heading: "One reading list, every week",
   description:
-    "Approvals, papers and guidance in rare and genetic disease, each with a short note on why it matters. Every past edition is archived and searchable.",
+    "Approvals, papers and guidance in rare and genetic diseases, each with a short note on why it matters. Every past edition is archived and searchable.",
   archiveButtonLabel: "Browse all editions",
   buttonLabel: "Subscribe",
 } as const;

@@ -70,7 +70,7 @@ export const RareInsightsEdition = pageSection(
       label: "Line under the date",
       admin: {
         description:
-          "Shown under the date at the top of every edition, e.g. “Evidence, insights and developments shaping the rare disease ecosystem”.",
+          "Shown under the date at the top of every edition, e.g. “Evidence, insights and developments shaping the world of rare diseases”.",
       },
     },
     {
