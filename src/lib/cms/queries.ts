@@ -40,6 +40,8 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       readTime: doc.readTime,
       thumbnail: resolveMediaUrl(doc.thumbnailImage, doc.thumbnail) || "",
       content: (doc.content ?? []).map((c: { paragraph: string }) => c.paragraph),
+      seoTitle: doc.seoTitle?.trim() || undefined,
+      seoDescription: doc.seoDescription?.trim() || undefined,
     }));
   } catch {
     return BLOG_POSTS;
