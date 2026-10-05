@@ -76,6 +76,7 @@ export interface Config {
     'short-videos': ShortVideo;
     'deep-dives': DeepDive;
     'external-articles': ExternalArticle;
+    'newsletter-editions': NewsletterEdition;
     'legal-pages': LegalPage;
     media: Media;
     users: User;
@@ -95,6 +96,7 @@ export interface Config {
     'short-videos': ShortVideosSelect<false> | ShortVideosSelect<true>;
     'deep-dives': DeepDivesSelect<false> | DeepDivesSelect<true>;
     'external-articles': ExternalArticlesSelect<false> | ExternalArticlesSelect<true>;
+    'newsletter-editions': NewsletterEditionsSelect<false> | NewsletterEditionsSelect<true>;
     'legal-pages': LegalPagesSelect<false> | LegalPagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -148,6 +150,10 @@ export interface Config {
     'resources-blogs-section': ResourcesBlogsSection;
     'resources-blog-listing': ResourcesBlogListing;
     'resources-newsletter': ResourcesNewsletter;
+    'rare-insights-hero': RareInsightsHero;
+    'rare-insights-archive': RareInsightsArchive;
+    'rare-insights-subscribe': RareInsightsSubscribe;
+    'rare-insights-edition': RareInsightsEdition;
     'utility-pages': UtilityPage;
     'site-settings': SiteSetting;
     navigation: Navigation;
@@ -194,6 +200,10 @@ export interface Config {
     'resources-blogs-section': ResourcesBlogsSectionSelect<false> | ResourcesBlogsSectionSelect<true>;
     'resources-blog-listing': ResourcesBlogListingSelect<false> | ResourcesBlogListingSelect<true>;
     'resources-newsletter': ResourcesNewsletterSelect<false> | ResourcesNewsletterSelect<true>;
+    'rare-insights-hero': RareInsightsHeroSelect<false> | RareInsightsHeroSelect<true>;
+    'rare-insights-archive': RareInsightsArchiveSelect<false> | RareInsightsArchiveSelect<true>;
+    'rare-insights-subscribe': RareInsightsSubscribeSelect<false> | RareInsightsSubscribeSelect<true>;
+    'rare-insights-edition': RareInsightsEditionSelect<false> | RareInsightsEditionSelect<true>;
     'utility-pages': UtilityPagesSelect<false> | UtilityPagesSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
@@ -469,6 +479,14 @@ export interface BlogPost {
    */
   slug: string;
   excerpt: string;
+  /**
+   * Optional. Google shows about 60 characters of a title. If the title above is longer, write a shorter version here, e.g. “Structured Genomic Data in Rare Disease Diagnosis”.
+   */
+  seoTitle?: string | null;
+  /**
+   * Optional. The grey line under the title in Google, up to 160 characters. Leave empty to use the summary (cut to fit).
+   */
+  seoDescription?: string | null;
   author: string;
   publishedAt: string;
   /**
@@ -679,6 +697,84 @@ export interface ExternalArticle {
   createdAt: string;
 }
 /**
+ * One entry per weekly send of Rare Insights. Each becomes its own page, and every item is added to the searchable archive on /rare-insights.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-editions".
+ */
+export interface NewsletterEdition {
+  id: number;
+  /**
+   * As printed in the email, e.g. 9 for “Edition 09”.
+   */
+  edition: number;
+  /**
+   * The day the email went out.
+   */
+  date: string;
+  /**
+   * Optional. Shown after the edition number, e.g. “Independence Day edition”. Leave empty for a normal week.
+   */
+  issueLabel?: string | null;
+  /**
+   * Optional. A short line under the date at the top of the edition page, e.g. “This first edition lands on India’s 80th Independence Day.”
+   */
+  note?: string | null;
+  /**
+   * In the order they appear in the email. The first item is the lead story: it is shown larger, in a tinted panel. Items are numbered automatically (01, 02…) from this order.
+   */
+  items: {
+    /**
+     * The headline as it appears in the email.
+     */
+    title: string;
+    /**
+     * Small label above the headline, e.g. Approvals, Gene therapy. Reuse an existing topic’s exact spelling so the archive filter groups them.
+     */
+    tag?: string | null;
+    /**
+     * e.g. Genetics in Medicine, FDA
+     */
+    source: string;
+    /**
+     * The paper or announcement itself — a https://doi.org/… link for papers. Never paste a Mailchimp tracking link (us.list-manage.com): it carries a subscriber’s id.
+     */
+    href: string;
+    /**
+     * When the paper or announcement was published.
+     */
+    date: string;
+    /**
+     * Why it matters, one paragraph per row, copied exactly from the email. Leave empty for a one-line item (such as the ecosystem round-up).
+     */
+    body?:
+      | {
+          paragraph: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Optional. Leave empty for “Read the full paper”.
+     */
+    cta?: string | null;
+    /**
+     * Optional. Fill in only on the first item of a section, e.g. “This week in the literature” or “This week in the ecosystem”. A divider with this heading is shown above it.
+     */
+    section?: string | null;
+    id?: string | null;
+  }[];
+  /**
+   * Filled in automatically from the edition number and send date.
+   */
+  title?: string | null;
+  /**
+   * Filled in automatically: Edition 9 is /rare-insights/edition-09.
+   */
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Long-form legal pages such as the privacy policy. The web address comes from the “slug” field — privacy-policy becomes /privacy-policy.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -807,6 +903,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'external-articles';
         value: number | ExternalArticle;
+      } | null)
+    | ({
+        relationTo: 'newsletter-editions';
+        value: number | NewsletterEdition;
       } | null)
     | ({
         relationTo: 'legal-pages';
@@ -993,6 +1093,8 @@ export interface BlogPostsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   excerpt?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   author?: T;
   publishedAt?: T;
   showOnHome?: T;
@@ -1093,6 +1195,38 @@ export interface ExternalArticlesSelect<T extends boolean = true> {
   showOnHome?: T;
   homeTitle?: T;
   sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-editions_select".
+ */
+export interface NewsletterEditionsSelect<T extends boolean = true> {
+  edition?: T;
+  date?: T;
+  issueLabel?: T;
+  note?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        tag?: T;
+        source?: T;
+        href?: T;
+        date?: T;
+        body?:
+          | T
+          | {
+              paragraph?: T;
+              id?: T;
+            };
+        cta?: T;
+        section?: T;
+        id?: T;
+      };
+  title?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -2430,17 +2564,97 @@ export interface ResourcesBlogListing {
   createdAt?: string | null;
 }
 /**
- * The last band on the Resources page, above the footer.
+ * The last band on the Resources page, above the footer. It introduces the Rare Insights newsletter: one button opens its archive, the other the sign-up page.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "resources-newsletter".
  */
 export interface ResourcesNewsletter {
   id: number;
+  eyebrow?: string | null;
   heading?: string | null;
   description?: string | null;
+  /**
+   * The filled button, e.g. “Browse all editions”.
+   */
+  archiveButtonLabel?: string | null;
+  /**
+   * Usually /rare-insights
+   */
+  archiveButtonHref?: string | null;
   buttonLabel?: string | null;
   buttonHref?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The top of /rare-insights: the page title on the left and a card showing the latest edition on the right. The card fills itself from the newest edition.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rare-insights-hero".
+ */
+export interface RareInsightsHero {
+  id: number;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  primaryLabel?: string | null;
+  /**
+   * Opens the Mailchimp sign-up page in a new tab.
+   */
+  subscribeLabel?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The heading above the list of every edition and every paper, with its search box and filters. The list itself comes from “Newsletter editions”, directly below.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rare-insights-archive".
+ */
+export interface RareInsightsArchive {
+  id: number;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The dark band near the bottom of /rare-insights and of every edition page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rare-insights-subscribe".
+ */
+export interface RareInsightsSubscribe {
+  id: number;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  /**
+   * Opens the Mailchimp sign-up page in a new tab.
+   */
+  buttonLabel?: string | null;
+  note?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Wording shared by every edition page. Each edition’s own content is in “Newsletter editions”.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rare-insights-edition".
+ */
+export interface RareInsightsEdition {
+  id: number;
+  /**
+   * Shown under the date at the top of every edition, e.g. “Evidence, insights and developments shaping the rare disease ecosystem”.
+   */
+  standfirst?: string | null;
+  /**
+   * Shown under the Subscribe button beside every edition.
+   */
+  smallPrint?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2536,6 +2750,20 @@ export interface Navigation {
          * Tick only if this item sits on a light background.
          */
         isDark?: boolean | null;
+        /**
+         * Optional. Add items here to make this a dropdown menu instead of a single link — Insights opens Resources and Rare Insights this way. On phones the items are listed one by one.
+         */
+        dropdownItems?:
+          | {
+              label: string;
+              /**
+               * e.g. “The weekly newsletter archive”
+               */
+              description?: string | null;
+              href: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -3451,10 +3679,64 @@ export interface ResourcesBlogListingSelect<T extends boolean = true> {
  * via the `definition` "resources-newsletter_select".
  */
 export interface ResourcesNewsletterSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  archiveButtonLabel?: T;
+  archiveButtonHref?: T;
+  buttonLabel?: T;
+  buttonHref?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rare-insights-hero_select".
+ */
+export interface RareInsightsHeroSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  primaryLabel?: T;
+  subscribeLabel?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rare-insights-archive_select".
+ */
+export interface RareInsightsArchiveSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rare-insights-subscribe_select".
+ */
+export interface RareInsightsSubscribeSelect<T extends boolean = true> {
+  eyebrow?: T;
   heading?: T;
   description?: T;
   buttonLabel?: T;
-  buttonHref?: T;
+  note?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rare-insights-edition_select".
+ */
+export interface RareInsightsEditionSelect<T extends boolean = true> {
+  standfirst?: T;
+  smallPrint?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -3522,6 +3804,14 @@ export interface NavigationSelect<T extends boolean = true> {
         href?: T;
         type?: T;
         isDark?: T;
+        dropdownItems?:
+          | T
+          | {
+              label?: T;
+              description?: T;
+              href?: T;
+              id?: T;
+            };
         id?: T;
       };
   solutionsNav?:

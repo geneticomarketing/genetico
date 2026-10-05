@@ -43,13 +43,17 @@ export function Reveal({
 }) {
   const { ref, visible, reduce } = useInViewAnimation();
 
+  /* The starting state is the same on server and client — the server cannot
+     know the visitor's motion setting, so branching `initial` on it made every
+     reduced-motion visit a hydration mismatch. With motion reduced the reveal
+     simply takes no time. */
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={reduce ? false : { opacity: 0, y }}
+      initial={{ opacity: 0, y }}
       animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y }}
-      transition={{ duration: 0.8, ease: EASE, delay }}
+      transition={reduce ? { duration: 0 } : { duration: 0.8, ease: EASE, delay }}
     >
       {children}
     </motion.div>

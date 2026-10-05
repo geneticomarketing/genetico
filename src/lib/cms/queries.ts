@@ -1,6 +1,7 @@
 import { resolveMediaUrl } from "./resolve-media-url";
 import { BLOG_POSTS, type BlogPost } from "@/lib/blogs";
 import type { Config } from "@/payload-types";
+import { INSIGHTS_DROPDOWN } from "@/content/rare-insights";
 import { getPayloadClient, isCmsConfigured } from "./get-payload";
 
 type CollectionSlug = keyof Config["collections"];
@@ -39,6 +40,8 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       readTime: doc.readTime,
       thumbnail: resolveMediaUrl(doc.thumbnailImage, doc.thumbnail) || "",
       content: (doc.content ?? []).map((c: { paragraph: string }) => c.paragraph),
+      seoTitle: doc.seoTitle?.trim() || undefined,
+      seoDescription: doc.seoDescription?.trim() || undefined,
     }));
   } catch {
     return BLOG_POSTS;
@@ -183,7 +186,13 @@ export async function getNavigation() {
       { label: "Our Story", href: "/about-us", type: "link" as const, isDark: true },
       { label: "What We Build", href: "/platform", type: "link" as const, isDark: false },
       { label: "Who We Serve", href: "", type: "dropdown" as const, isDark: false },
-      { label: "Insights", href: "/resources", type: "link" as const, isDark: false },
+      {
+        label: "Insights",
+        href: "/resources",
+        type: "link" as const,
+        isDark: false,
+        dropdownItems: INSIGHTS_DROPDOWN.map((entry) => ({ ...entry })),
+      },
     ],
     solutionsNav: [
       { label: "Hospital / Clinician / CoE", href: "/hospital", icon: "🏥" },

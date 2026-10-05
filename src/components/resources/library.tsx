@@ -398,14 +398,22 @@ export function ResourceLibrary({ content }: { content: ResourcesPageContent }) 
           <p className="text-ink-body m-0 max-w-[520px] text-base leading-[1.7]">
             {content.subscribe.description}
           </p>
-          <a
-            href={content.subscribe.href}
-            target="_blank"
-            rel="noreferrer"
-            className="bg-primary-deep hover:bg-primary mt-2.5 rounded-full px-[30px] py-3.5 text-sm font-bold text-white transition-colors"
-          >
-            {content.subscribe.label}
-          </a>
+          <div className="mt-2.5 flex flex-wrap justify-center gap-3">
+            <Link
+              href={content.subscribe.archive.href}
+              className="bg-primary-deep hover:bg-primary rounded-[10px] px-7 py-3.5 text-sm font-bold text-white transition-colors"
+            >
+              {content.subscribe.archive.label} →
+            </Link>
+            <a
+              href={content.subscribe.href}
+              target="_blank"
+              rel="noreferrer"
+              className="border-rule-strong text-primary-deep hover:border-primary rounded-[10px] border bg-white px-7 py-3.5 text-sm font-bold transition-colors"
+            >
+              {content.subscribe.label} ↗
+            </a>
+          </div>
         </div>
       </section>
     </>

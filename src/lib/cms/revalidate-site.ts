@@ -8,6 +8,7 @@ const PUBLIC_PAGE_PATHS = [
   "/life-science",
   "/public-health",
   "/resources",
+  "/rare-insights",
   "/blog",
   "/coming-soon",
   "/privacy-policy",

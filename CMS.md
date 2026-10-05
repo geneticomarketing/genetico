@@ -16,6 +16,7 @@ The sidebar has **one group per page of the website**, in the same order as the 
 | Solution pages     | `/hospital`, `/life-science`                                            |
 | Public Health page | `/public-health`                                                        |
 | Resources page     | `/resources`, and the videos, articles and blog posts                   |
+| Rare Insights      | `/rare-insights` and every newsletter edition page                      |
 | Other pages        | The `/blog` heading, the legal pages (privacy, cookies), `/coming-soon` |
 | Site-wide          | The header menu, the footer, and the enquiry form on every page         |
 | Images & files     | Everything you have uploaded                                            |
@@ -102,6 +103,32 @@ order.
   `/blog/rare-disease-policy`. Lowercase letters, numbers and hyphens only. **Changing it later
   breaks existing links to the post.**
 - **Article body** is a list — one paragraph per row, drag to reorder.
+- **Title in Google results** and **Description in Google results** (right-hand column) are
+  optional. Google shows about 60 characters of a title and 160 of a description; if the post's
+  title or summary is longer, write a shorter version there.
+
+### Add a Rare Insights newsletter edition
+
+**Rare Insights newsletter → Newsletter editions → Create new.** One entry per weekly email.
+
+- **Edition number** and **Send date** are all you type at the top. The web address
+  (`/rare-insights/edition-09`) and the name in the list are filled in for you.
+- **Items in this edition** go in the order of the email. The **first item is the lead**: it is
+  shown large, in a tinted panel. Items are numbered 01, 02… from their order, so dragging a row
+  renumbers the edition.
+- **Link to the original** is the paper (a `https://doi.org/…` link) or the announcement itself.
+  **Never paste a link copied from the Mailchimp email** (`us.list-manage.com/…`): it contains a
+  subscriber's id. The panel refuses those — open the link in a browser and copy where it lands.
+- **Topic**: reuse an existing topic's exact spelling (look at the topic filter on
+  `/rare-insights`), so the archive groups them. New topics are fine.
+- **Our note** is one paragraph per row, copied exactly from the email. Leave it empty for a
+  one-line item such as the ecosystem round-up.
+- **Starts a new section**: only on the first item of a section — "This week in the literature",
+  "This week in the ecosystem".
+
+The new edition appears on `/rare-insights` within a minute of saving. The page wording around the
+editions (title, archive heading, subscribe band) is in the same group; the Mailchimp sign-up link
+is **Site-wide → Contact details & form → Newsletter sign-up link**.
 
 ### Add a video
 

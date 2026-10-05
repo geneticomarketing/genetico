@@ -387,6 +387,7 @@ body {
   /* ── Rules ───────────────────────────────────────────────────────────── */
   --color-rule: #e4e9ed; /* standard border */
   --color-rule-light: #edf0f2; /* light divider */
+  --color-rule-strong: #c9d5df; /* outline buttons, hovered card borders */
 
   /* ── Surfaces ────────────────────────────────────────────────────────── */
   --color-sheet: #ffffff;

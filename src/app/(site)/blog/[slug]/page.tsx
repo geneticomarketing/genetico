@@ -40,8 +40,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 
   return createPageMetadata({
-    title: post.title,
-    description: post.excerpt,
+    title: post.seoTitle || post.title,
+    description: post.seoDescription || post.excerpt,
     path: `${BLOG_PATH}/${slug}`,
     type: "article",
     authors: [post.author],

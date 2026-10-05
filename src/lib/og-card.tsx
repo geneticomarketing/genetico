@@ -65,7 +65,8 @@ export async function renderOgCard({
         <div
           style={{
             display: "flex",
-            fontSize: headline.length > 48 ? 58 : 68,
+            // Page titles stay under ~60 characters; a newsletter lead can run to 130.
+            fontSize: headline.length > 100 ? 46 : headline.length > 48 ? 58 : 68,
             lineHeight: 1.12,
             fontWeight: 700,
             maxWidth: 1000,

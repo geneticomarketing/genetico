@@ -28,6 +28,26 @@ export const BlogPosts = withAdminGroup(
         },
       },
       { name: "excerpt", type: "textarea", required: true, label: "Summary" },
+      {
+        name: "seoTitle",
+        type: "text",
+        label: "Title in Google results",
+        admin: {
+          position: "sidebar",
+          description:
+            "Optional. Google shows about 60 characters of a title. If the title above is longer, write a shorter version here, e.g. “Structured Genomic Data in Rare Disease Diagnosis”.",
+        },
+      },
+      {
+        name: "seoDescription",
+        type: "textarea",
+        label: "Description in Google results",
+        admin: {
+          position: "sidebar",
+          description:
+            "Optional. The grey line under the title in Google, up to 160 characters. Leave empty to use the summary (cut to fit).",
+        },
+      },
       { name: "author", type: "text", required: true, label: "Author" },
       { name: "publishedAt", type: "date", required: true, label: "Publish date" },
       showOnHomeField,

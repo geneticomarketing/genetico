@@ -17,6 +17,10 @@ function pathsForCollection(slug: string, doc: Record<string, unknown> | undefin
     extra.push(`/${doc.slug}`);
   }
 
+  if (slug === "newsletter-editions" && typeof doc?.slug === "string") {
+    extra.push(`/rare-insights/${doc.slug}`);
+  }
+
   if (slug === "solution-pages" && typeof doc?.slug === "string") {
     if (doc.slug === "hospital") extra.push("/hospital");
     if (doc.slug === "pharma") extra.push("/life-science");
@@ -46,6 +50,9 @@ export const revalidateAfterGlobalChange: GlobalAfterChangeHook = ({ global }) =
     extra.push("/blog");
   }
   if (slug === "utility-pages") extra.push("/coming-soon");
+  // The subscribe band and shared wording appear on every edition page too;
+  // the layout-wide revalidation in revalidatePublicSite() covers those.
+  if (slug.startsWith("rare-insights-")) extra.push("/rare-insights");
 
   revalidatePublicSite(extra);
 };

@@ -37,6 +37,21 @@ export function getSiteUrl(): string {
   return configured.startsWith("http") ? configured.replace(/\/$/, "") : `https://${configured}`;
 }
 
+/** Google shows about this much of a description before cutting it off. */
+const DESCRIPTION_MAX = 160;
+/** …and about this much of a title, the " | Genetico" suffix included. */
+const TITLE_MAX = 60;
+const TITLE_SUFFIX = ` | ${SITE_NAME}`;
+
+/** Shorten to `max` characters at a word boundary, adding an ellipsis when anything was cut. */
+export function clipText(text: string, max: number): string {
+  const clean = text.replace(/s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const cut = clean.slice(0, max - 1);
+  const atWord = cut.lastIndexOf(" ") > max * 0.6 ? cut.slice(0, cut.lastIndexOf(" ")) : cut;
+  return `${atWord.replace(/[s,;:.–—-]+$/, "")}…`;
+}
+
 type CreatePageMetadataOptions = {
   title: string;
   description?: string;
@@ -62,6 +77,13 @@ export function createPageMetadata({
   modifiedTime,
   authors,
 }: CreatePageMetadataOptions): Metadata {
+  /* Descriptions written in the CMS (a blog post's summary) can run long, so
+     every description is held to what a results page shows. A title that
+     would pass the limit with the brand suffix drops the suffix instead. */
+  description = clipText(description, DESCRIPTION_MAX);
+  const documentTitle =
+    title.length + TITLE_SUFFIX.length > TITLE_MAX ? { absolute: title } : title;
+
   const canonicalPath = path.startsWith("/") ? path : path ? `/${path}` : "";
   const canonicalUrl = `${getSiteUrl()}${canonicalPath}`;
 
@@ -70,7 +92,7 @@ export function createPageMetadata({
     : undefined;
 
   return {
-    title,
+    title: documentTitle,
     description,
     keywords,
     alternates: {

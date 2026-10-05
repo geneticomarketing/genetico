@@ -1,7 +1,8 @@
 import { blogHref } from "@/lib/blogs";
 import { getCollection, getSectionGlobal } from "@/lib/cms/queries";
 import { NEWSLETTER_URL } from "@/lib/contact";
-import { BLOG_PATH } from "@/lib/routes";
+import { BLOG_PATH, RARE_INSIGHTS_PATH } from "@/lib/routes";
+import { RESOURCES_NEWSLETTER_COPY } from "@/content/rare-insights";
 import type {
   BlogPost as CmsBlogPost,
   DeepDive as CmsDeepDive,
@@ -92,7 +93,15 @@ export type ResourcesPageContent = {
     seeAllLabel: string;
     seeAllHref: string;
   };
-  subscribe: { eyebrow: string; title: string; description: string; label: string; href: string };
+  /** The Rare Insights band: `label`/`href` sign up (Mailchimp), `archive` opens the archive. */
+  subscribe: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    label: string;
+    href: string;
+    archive: { label: string; href: string };
+  };
 };
 
 function text(value: string | null | undefined, fallback: string): string {
@@ -267,14 +276,15 @@ export async function getResourcesPageContent(): Promise<ResourcesPageContent> {
       seeAllHref: text(blogsSection?.seeAllHref, BLOG_PATH),
     },
     subscribe: {
-      eyebrow: "Stay updated",
-      title: text(newsletter?.heading, "New clinical insights, monthly"),
-      description: text(
-        newsletter?.description,
-        "Research updates, product developments, and rare disease policy — sent once a month, no more.",
-      ),
-      label: text(newsletter?.buttonLabel, "Subscribe to updates"),
+      eyebrow: text(newsletter?.eyebrow, RESOURCES_NEWSLETTER_COPY.eyebrow),
+      title: text(newsletter?.heading, RESOURCES_NEWSLETTER_COPY.heading),
+      description: text(newsletter?.description, RESOURCES_NEWSLETTER_COPY.description),
+      label: text(newsletter?.buttonLabel, RESOURCES_NEWSLETTER_COPY.buttonLabel),
       href: text(newsletter?.buttonHref, NEWSLETTER_URL),
+      archive: {
+        label: text(newsletter?.archiveButtonLabel, RESOURCES_NEWSLETTER_COPY.archiveButtonLabel),
+        href: text(newsletter?.archiveButtonHref, RARE_INSIGHTS_PATH),
+      },
     },
   };
 }

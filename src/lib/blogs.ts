@@ -13,6 +13,9 @@ export type BlogPost = {
   readTime: string;
   thumbnail: string;
   content: string[];
+  /** Optional overrides for search results; the title and summary are used when empty. */
+  seoTitle?: string;
+  seoDescription?: string;
 };
 
 export const BLOG_POSTS: BlogPost[] = [

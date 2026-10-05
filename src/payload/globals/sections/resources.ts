@@ -93,12 +93,25 @@ export const ResourcesBlogsSection = pageSection(
 export const ResourcesNewsletter = pageSection(
   "resources-newsletter",
   "7. Newsletter call to action",
-  "The last band on the Resources page, above the footer.",
+  "The last band on the Resources page, above the footer. It introduces the Rare Insights newsletter: one button opens its archive, the other the sign-up page.",
   [
+    { name: "eyebrow", type: "text", label: "Small label above the heading" },
     { name: "heading", type: "text", label: "Heading" },
     { name: "description", type: "textarea", label: "Description" },
-    { name: "buttonLabel", type: "text", label: "Button text" },
-    { name: "buttonHref", type: "text", label: "Button link (opens in a new tab)" },
+    {
+      name: "archiveButtonLabel",
+      type: "text",
+      label: "Archive button text",
+      admin: { description: "The filled button, e.g. “Browse all editions”." },
+    },
+    {
+      name: "archiveButtonHref",
+      type: "text",
+      label: "Archive button link",
+      admin: { description: "Usually /rare-insights" },
+    },
+    { name: "buttonLabel", type: "text", label: "Sign-up button text" },
+    { name: "buttonHref", type: "text", label: "Sign-up button link (opens in a new tab)" },
   ],
   ADMIN_GROUPS.resources,
 );
