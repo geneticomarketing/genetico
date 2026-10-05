@@ -1,0 +1,1044 @@
+{
+  "standfirst": "Evidence, insights and developments shaping the rare disease ecosystem",
+  "editions": [
+    {
+      "edition": 8,
+      "date": "2026-10-03",
+      "items": [
+        {
+          "tag": "Approvals",
+          "title": "FDA approves the first treatment for MCT8 deficiency",
+          "href": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-treatment-mct8-deficiency",
+          "source": "FDA",
+          "date": "2026-09-28",
+          "body": [
+            "MCT8 deficiency, also called Allan-Herndon-Dudley syndrome, breaks the transporter that carries thyroid hormone into cells, and neurons depend on it almost exclusively. The result is a paradox that has made the condition hard to treat in both directions at once: the brain is starved of thyroid hormone while the rest of the body is exposed to too much of it, so affected boys have profound hypotonia and developmental delay alongside poor weight gain and a raised metabolic rate. Correcting the periphery does nothing for the brain, and the usual thyroid preparations cannot get in. This is the first approved treatment.",
+            "It is also the second consecutive week in which a first-ever approval has arrived for a disorder whose damage precedes its diagnosis. Thyroid hormone drives brain development in the womb and through infancy, so a treatment starting after a child presents with delay is already working against established injury. The inheritance is X-linked, which means families with an affected boy can have at-risk newborns identified before symptoms appear, if anyone is set up to look. Every one of these approvals converts a therapeutic question into a detection one."
+          ],
+          "cta": "Read the announcement"
+        },
+        {
+          "tag": "Gene therapy",
+          "title": "Clinical and biochemical correction of a patient with neurodegenerative mucopolysaccharidosis IIIA using haematopoietic stem cell gene therapy",
+          "href": "https://doi.org/10.1016/j.ymthe.2026.09.032",
+          "source": "Molecular Therapy",
+          "date": "2026-09-26",
+          "body": [
+            "Last week's edition led with the FDA approving the first gene therapy in Sanfilippo A. This is the clinical and biochemical detail behind the approach: autologous stem cells modified to overexpress the missing enzyme, engrafting as a lifelong internal source that reaches the brain in a way infused enzyme cannot. One patient, so read it as confirmation that the mechanism does what it is supposed to, not as an efficacy estimate."
+          ]
+        },
+        {
+          "tag": "Repurposing",
+          "title": "Miglustat in neuronopathic lysosomal storage disorders: biological rationale, clinical evidence and limits of repurposing",
+          "href": "https://doi.org/10.3390/ijms27188336",
+          "source": "International Journal of Molecular Sciences",
+          "date": "2026-09-26",
+          "body": [
+            "An honest accounting of a drug used widely across indications it was never trialled in. The rationale is sound and the evidence is thinner than the prescribing, which is the situation in most rare diseases where something plausible exists and nothing else does. The limits section is the reason to read it."
+          ]
+        },
+        {
+          "tag": "Neurofibromatosis",
+          "title": "Management of plexiform neurofibromas in neurofibromatosis type 1: an Italian Delphi consensus",
+          "href": "https://doi.org/10.1007/s10072-026-09290-z",
+          "source": "Neurological Sciences",
+          "date": "2026-09-23",
+          "body": [
+            "Now that MEK inhibition exists, the difficult questions are who to treat, when to start, how long to continue and what counts as enough response to justify the toxicity. Delphi consensus is what fills the gap while trial evidence catches up with practice."
+          ]
+        },
+        {
+          "tag": "Lysosomal storage",
+          "title": "Clinical course and biomarkers in patients with type 1 Gaucher disease and Parkinson's disease: a retrospective cohort study",
+          "href": "https://doi.org/10.1016/j.ymgmr.2026.101358",
+          "source": "Molecular Genetics and Metabolism Reports",
+          "date": "2026-09-23",
+          "body": [
+            "GBA1 is the most common genetic risk factor for Parkinson's disease, which makes this a question every Gaucher clinic is eventually asked. A cohort that follows patients who developed both gives something more concrete than a risk figure to offer in that conversation."
+          ]
+        },
+        {
+          "tag": "Neuromuscular",
+          "title": "Cognitive decline over time in myotonic dystrophy type 1: a systematic review of longitudinal studies",
+          "href": "https://doi.org/10.3389/fneur.2026.1901436",
+          "source": "Frontiers in Neurology",
+          "date": "2026-09-25",
+          "body": [
+            "The cognitive and behavioural side of DM1 is consistently underweighted next to the muscle phenotype, despite often mattering more to families. Longitudinal evidence on the trajectory bears directly on care planning and on which endpoints a trial can reasonably use."
+          ]
+        },
+        {
+          "tag": "Genome editing",
+          "title": "Prime editing for precision genetic medicine: a systematic review of technologies, delivery and therapeutic applications",
+          "href": "https://doi.org/10.3390/genes17091138",
+          "source": "Genes",
+          "date": "2026-09-26",
+          "body": [
+            "Prime editing writes a specified change without a double-strand break, which is the editing problem largely solved on paper. Delivery is the part that is not, and it is the section worth your time: editing efficiency measured in a cell line tells you very little about what reaches the target tissue in a patient."
+          ]
+        },
+        {
+          "tag": "Platform strategy",
+          "title": "Beyond precision: a multidimensional framework for selecting genetic medicine platforms",
+          "href": "https://doi.org/10.3390/cells15181647",
+          "source": "Cells",
+          "date": "2026-09-24",
+          "body": [
+            "Whether a programme uses AAV, ex vivo stem cells, an oligonucleotide or an editor is too often settled by what the sponsor already knows how to manufacture. Making the criteria explicit, target tissue, durability, whether a dose can ever be repeated, cost of goods, is useful to anyone assessing a pipeline from the outside."
+          ]
+        },
+        {
+          "tag": "Reanalysis",
+          "title": "Reanalysis of genomic data doubles the diagnostic yield for Welsh patients recruited to the UK 100,000 Genomes Project",
+          "href": "https://doi.org/10.1038/s41431-026-02234-3",
+          "source": "European Journal of Human Genetics",
+          "date": "2026-09-29",
+          "body": [
+            "Twice the diagnoses without sequencing anything new. The barrier to this is not technology but having somebody whose job it is to go back through old data as gene-disease knowledge changes, and almost no service funds that role. This is the figure to put in front of whoever decides."
+          ]
+        },
+        {
+          "tag": "Undiagnosed disease",
+          "title": "Not the end of the road: achieving diagnoses following non-diagnostic exome sequencing, experiences at a clinical site of the Undiagnosed Diseases Network",
+          "href": "https://doi.org/10.1016/j.gim.2026.102736",
+          "source": "Genetics in Medicine",
+          "date": "2026-09-28",
+          "body": [
+            "A single-site companion to the network-wide UDN paper in Edition 06, and the more practical of the two: what was actually done for the patients whose exome came back negative, and which of those moves paid off. Pairs directly with item 09 above."
+          ]
+        },
+        {
+          "tag": "Clinical guidelines",
+          "title": "International guideline on the diagnosis, treatment and monitoring of long-chain fatty acid oxidation disorders",
+          "href": "https://doi.org/10.1002/jimd.70251",
+          "source": "Journal of Inherited Metabolic Disease",
+          "date": "2026-09-24",
+          "body": [
+            "Newborn screening has been finding these children for years while management varied by centre, particularly around fasting limits, triheptanoin and what to monitor between crises. An international reference standard is overdue and will be the document services are measured against."
+          ]
+        },
+        {
+          "tag": "Workforce economics",
+          "title": "The economic costs of genetic counseling: a combined expert perspective and systematic review",
+          "href": "https://doi.org/10.1016/j.gim.2026.102739",
+          "source": "Genetics in Medicine",
+          "date": "2026-09-28",
+          "body": [
+            "Counselling capacity limits how much genomic medicine a system can deliver, and it is the component nobody has costed properly. Putting a number on it is the precondition for funding it, and for the comparisons that follow about which parts of the conversation genuinely require a counsellor."
+          ]
+        },
+        {
+          "tag": "Access",
+          "title": "Preparing primary care professionals for genomics-informed healthcare",
+          "href": "https://doi.org/10.1016/j.tig.2026.09.004",
+          "source": "Trends in Genetics",
+          "date": "2026-09-28",
+          "body": [
+            "The specialist workforce cannot absorb the demand that mainstreaming creates, so results land with clinicians who were never trained to handle them. What preparation actually requires, beyond another module nobody has time to complete, is the question. Reads naturally after item 12."
+          ]
+        },
+        {
+          "tag": "Reproductive genetics",
+          "title": "The use of gametes from donors who have undergone expanded carrier screening: a guidance for UK practice",
+          "href": "https://doi.org/10.1080/14647273.2026.2733076",
+          "source": "Human Fertility",
+          "date": "2026-09-29",
+          "body": [
+            "Screening a donor generates questions the clinic then owns: whether a carrier donor can be used, how recipients are matched against their own carrier status, and what a donor-conceived person is told years later. Practical guidance on a setting where the testing arrived well before the policy."
+          ]
+        },
+        {
+          "tag": "Skeletal dysplasia",
+          "title": "Genotype and phenotype of 198 Korean patients with nonlethal osteogenesis imperfecta: a retrospective cohort study",
+          "href": "https://doi.org/10.1155/humu/5521427",
+          "source": "Human Mutation",
+          "date": "2026-09-29",
+          "body": [
+            "A large non-European cohort, which is where the value is. Variant interpretation depends on allele frequencies and on phenotype correlations drawn from populations that have actually been sequenced, and the reference data remain heavily skewed towards European ancestry."
+          ]
+        },
+        {
+          "tag": "Hereditary cancer",
+          "title": "Breast-ovarian hereditary cancer syndrome: beyond BRCA1 and BRCA2",
+          "href": "https://doi.org/10.3390/curroncol33090556",
+          "source": "Current Oncology",
+          "date": "2026-09-24",
+          "body": [
+            "Panels routinely return moderate-penetrance findings whose management is far less settled than for BRCA1 and BRCA2. The gap between what a test can detect and what anyone can confidently recommend afterwards is widest exactly here."
+          ]
+        },
+        {
+          "tag": "Genome biology",
+          "title": "How mutagenic are transposable elements?",
+          "href": "https://doi.org/10.1016/j.tig.2026.08.006",
+          "source": "Trends in Genetics",
+          "date": "2026-09-29",
+          "body": [
+            "Part of the answer is a statement about biology and part is a statement about our pipelines, which call these insertions poorly and therefore under-report them. For anyone holding a cohort of undiagnosed patients, that second part is the interesting one."
+          ]
+        }
+      ]
+    },
+    {
+      "edition": 7,
+      "date": "2026-09-26",
+      "items": [
+        {
+          "tag": "Gene therapy",
+          "title": "FDA approves the first gene therapy for paediatric patients with Sanfilippo syndrome type A",
+          "href": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapy-pediatric-patients-sanfilippo-syndrome-type",
+          "source": "FDA",
+          "date": "2026-09-17",
+          "body": [
+            "Sanfilippo A is mucopolysaccharidosis type IIIA: deficiency of the enzyme that degrades heparan sulphate, which then accumulates in the central nervous system. Children develop close to normally and then lose what they gained, speech and sleep first, then cognition and motor function. Until this approval, everything on offer was supportive. A first approved therapy in a neurodegenerative lysosomal disorder is the kind of event that redefines what the rest of the pathway is for.",
+            "It also relocates the problem rather than closing it. Damage in Sanfilippo A is neurological and cumulative, so the value of any disease-modifying treatment depends almost entirely on arriving before the regression it is meant to prevent, and these children are usually diagnosed after it has started. An approval therefore raises the stakes on everything upstream of it: screening, phenotype capture, time from first concern to molecular answer. Read it against item 07 below, which is the largest account yet of what genomic newborn screening can and cannot deliver."
+          ],
+          "cta": "Read the announcement"
+        },
+        {
+          "tag": "Neuromuscular",
+          "title": "Safety and efficacy of AAV-based mini- and micro-dystrophin gene therapies in Duchenne muscular dystrophy: a systematic review and meta-analysis of clinical trials",
+          "href": "https://doi.org/10.1136/jmg-2026-111649",
+          "source": "Journal of Medical Genetics",
+          "date": "2026-09-16",
+          "body": [
+            "Pooled across trials rather than read one press release at a time. Functional gains in this field have been smaller than the expectations set around them and the safety record is not empty, so a meta-analysis is exactly what clinicians and families need before the next conversation about whether to enrol."
+          ]
+        },
+        {
+          "tag": "Epigenetic therapy",
+          "title": "Targeted epigenetic reactivation strategies as new treatments for Prader-Willi syndrome: achievements and challenges",
+          "href": "https://doi.org/10.1016/j.ymthe.2026.09.023",
+          "source": "Molecular Therapy",
+          "date": "2026-09-22",
+          "body": [
+            "The genes are present and intact on the maternal chromosome; they are switched off. Unsilencing them sidesteps delivery of a gene altogether, the same logic as the X reactivation work in Rett covered in the last edition. The challenges half of the title is where the substance is, specificity above all."
+          ]
+        },
+        {
+          "tag": "Haemoglobinopathies",
+          "title": "Development of CRISPR_SCD001, an autologous haematopoietic stem cell gene therapy for sickle cell disease after CRISPR-Cas9 mediated correction",
+          "href": "https://doi.org/10.1016/j.ymthe.2026.09.020",
+          "source": "Molecular Therapy",
+          "date": "2026-09-19",
+          "body": [
+            "Correction of the sickle mutation itself, rather than reactivating fetal haemoglobin to compensate for it. The development account is the useful part: editing efficiency, manufacturing and the release criteria a product like this has to meet, all of which bear on whether it could ever run outside a handful of centres."
+          ]
+        },
+        {
+          "tag": "India policy",
+          "title": "Genetic discrimination in India: constitutional challenges and ethical implications",
+          "href": "https://doi.org/10.20529/ijme.2026.021",
+          "source": "Indian Journal of Medical Ethics",
+          "date": "2026-09-21",
+          "body": [
+            "India has no dedicated statutory protection against the use of genetic information in insurance or employment. This works through what the constitutional guarantees of equality and privacy could be made to do in that gap, and what remains unprotected even if they are. The clinical stake is direct: where families expect a result to be used against them, they decline testing, and the undiagnosed stay undiagnosed."
+          ]
+        },
+        {
+          "tag": "Data sharing",
+          "title": "Genetic data sharing by clinical laboratories in Canada: a position statement by the Canadian College of Medical Geneticists",
+          "href": "https://doi.org/10.1016/j.ajhg.2026.09.001",
+          "source": "American Journal of Human Genetics",
+          "date": "2026-09-22",
+          "body": [
+            "Every laboratory classifying variants depends on data other laboratories have deposited, and a large share deposit nothing in return. This sets out the professional expectation to share, and the consent and privacy conditions under which it can be done. Worth reading directly after item 05, because sharing obligations and discrimination protections are the same argument approached from opposite ends."
+          ]
+        },
+        {
+          "tag": "Newborn screening",
+          "title": "International experiences of genomic newborn screening: lessons from over 10,800 newborns",
+          "href": "https://doi.org/10.1016/j.ajhg.2026.09.002",
+          "source": "American Journal of Human Genetics",
+          "date": "2026-09-21",
+          "body": [
+            "Pooled experience across programmes in several countries, and the largest account so far of sequencing newborns outside a research question. The hard parts are gene list design, what counts as actionable in an infant with no symptoms, how often a finding turns out not to matter, and whether families were served or alarmed by knowing. This is where the feature above eventually has to lead."
+          ]
+        },
+        {
+          "tag": "Diagnostic pathways",
+          "title": "Copy number variant detection by exome/genome sequencing versus chromosomal microarray: a comparative study of over 9,000 clinical cases",
+          "href": "https://doi.org/10.1016/j.gim.2026.102727",
+          "source": "Genetics in Medicine",
+          "date": "2026-09-21",
+          "body": [
+            "The comparison that decides whether microarray stays in the pathway. If sequencing-based copy number calling holds up against array across a cohort this size, running both tests becomes difficult to defend on cost or on turnaround, and the first-tier decision changes accordingly."
+          ]
+        },
+        {
+          "tag": "Reproductive genetics",
+          "title": "Optical genome mapping identifies cryptic balanced chromosomal rearrangements in karyotypically normal couples with recurrent pregnancy loss or adverse pregnancy history",
+          "href": "https://doi.org/10.1093/hmg/ddag091",
+          "source": "Human Molecular Genetics",
+          "date": "2026-09-19",
+          "body": [
+            "A normal karyotype in recurrent pregnancy loss closes the investigation without explaining anything. Optical genome mapping resolves balanced rearrangements that karyotype cannot see, which turns unexplained loss into a quantified recurrence risk with reproductive options attached to it."
+          ]
+        },
+        {
+          "tag": "Rapid sequencing",
+          "title": "The transformative impact of ultra-rapid nanopore sequencing in precision medicine",
+          "href": "https://doi.org/10.3389/fimmu.2026.1861975",
+          "source": "Frontiers in Immunology",
+          "date": "2026-09-18",
+          "body": [
+            "Turnaround measured in hours changes what a genetic result is for: it stops being an explanation offered afterwards and becomes an input to the decision being made now, in intensive care. Read it for the line between what has been demonstrated in practice and what is still being projected from it."
+          ]
+        },
+        {
+          "tag": "Hereditary cancer",
+          "title": "The clinical and phenotypic spectrum of PTEN hamartoma tumour syndrome: a retrospective cohort study",
+          "href": "https://doi.org/10.1007/s10689-026-00604-w",
+          "source": "Familial Cancer",
+          "date": "2026-09-17",
+          "body": [
+            "Surveillance schedules in PTEN hamartoma tumour syndrome rest on penetrance and age-of-onset estimates drawn from cohorts, and those estimates shift as testing reaches people ascertained for milder features. Cohort descriptions are how the recommendations eventually get corrected."
+          ]
+        },
+        {
+          "tag": "Biomarkers",
+          "title": "FGF21 elevation is a biomarker of citrin deficiency and its metabolic dysregulation in paediatric patients",
+          "href": "https://doi.org/10.1016/j.ymgme.2026.110262",
+          "source": "Molecular Genetics and Metabolism",
+          "date": "2026-09-22",
+          "body": [
+            "Citrin deficiency is hard to follow between episodes, and dietary management proceeds largely on symptoms. A circulating marker that tracks the underlying metabolic disturbance would give something to measure, which matters as much for trial endpoints as for clinic."
+          ]
+        },
+        {
+          "tag": "Screening follow-up",
+          "title": "Current management of biotinidase deficiency following newborn screening in Italy: evidence from a clinical nationwide survey",
+          "href": "https://doi.org/10.1016/j.ymgme.2026.110264",
+          "source": "Molecular Genetics and Metabolism",
+          "date": "2026-09-18",
+          "body": [
+            "What happens after the positive screen, surveyed nationally: who gets treated, at what enzyme threshold, and for how long they are followed. Partial deficiency is where practice diverges most, and a screening programme is judged on what follows detection rather than on detection itself."
+          ]
+        },
+        {
+          "tag": "Neurometabolic",
+          "title": "Paediatric stroke in inborn errors of metabolism: clinical characteristics, neuroimaging features and short-term outcomes",
+          "href": "https://doi.org/10.3389/fneur.2026.1889684",
+          "source": "Frontiers in Neurology",
+          "date": "2026-09-18",
+          "body": [
+            "A stroke in a child with no vascular explanation should raise a metabolic question, and stroke-like episodes in metabolic disease do not always behave like stroke on imaging. The value here is the pattern recognition, since the treatable causes are the ones most easily missed in an acute presentation."
+          ]
+        }
+      ]
+    },
+    {
+      "edition": 6,
+      "date": "2026-09-19",
+      "items": [
+        {
+          "tag": "Neurodevelopmental",
+          "title": "Rett syndrome: MECP2 biology, multisystem pathophysiology and the evolving therapeutic landscape",
+          "href": "https://doi.org/10.1007/s00431-026-07377-5",
+          "source": "European Journal of Pediatrics",
+          "date": "2026-09-10",
+          "body": [
+            "Rett spent more than two decades as a disorder with a known gene and nothing to do about it. This review runs the full distance: MECP2 as a regulator of transcription, the multisystem picture clinicians actually manage day to day, and a pipeline that has gone from empty to crowded in a handful of years. The therapeutic section is the reason to read it, covering gene transfer, approaches that aim to reactivate the silent X allele, and the disease-modifying candidates now in or approaching trials.",
+            "What makes Rett unusual as a gene therapy target is that dose cuts both ways. Too little MECP2 causes Rett; too much causes MECP2 duplication syndrome. A straightforward add-back strategy therefore has a therapeutic window in a way that most loss-of-function disorders do not, which is precisely why reactivating the patient's own silenced copy is being pursued so hard. For clinical services the consequence is immediate and unglamorous: families will start asking about trials, and eligibility runs through a confirmed variant, a documented phenotype and being findable in the first place."
+          ],
+          "cta": "Read the full paper"
+        },
+        {
+          "tag": "Inborn errors of metabolism",
+          "title": "Sarcopenia in paediatric intoxication-type inborn errors of metabolism: a frequent and underrecognised condition",
+          "href": "https://doi.org/10.1002/jimd.70250",
+          "source": "Journal of Inherited Metabolic Disease",
+          "date": "2026-09-10",
+          "body": [
+            "Protein restriction is the treatment, and muscle is the thing it quietly costs. Loss of muscle mass in children managed for intoxication-type disorders is common enough here to argue for routine assessment rather than incidental notice, which puts it in the same category as bone health: a long-term consequence of successful management."
+          ]
+        },
+        {
+          "tag": "Gene and cell therapy",
+          "title": "Current status of cellular and gene-based therapies for congenital metabolic disorders: a review",
+          "href": "https://doi.org/10.12659/msm.954145",
+          "source": "Medical Science Monitor",
+          "date": "2026-09-15",
+          "body": [
+            "A stocktake across inherited metabolic disease of what has reached approval, what is in trials and what remains preclinical. Worth it for the distinction between disorders where a single corrected tissue is enough and those where the target organ, usually brain, keeps the delivery problem unsolved."
+          ]
+        },
+        {
+          "tag": "Multi-omic diagnostics",
+          "title": "Proteomics identify disease-associated variants in patients with rare diseases undiagnosed after genome sequencing",
+          "href": "https://doi.org/10.1126/scitranslmed.aeb1331",
+          "source": "Science Translational Medicine",
+          "date": "2026-09-09",
+          "body": [
+            "The cohort here is the one every diagnostic service accumulates and none has a protocol for: patients who have had genome sequencing and still have no answer. Proteomic profiling is layered onto the existing genomic data, looking for protein-level evidence, an absent or reduced product, that lifts a candidate variant out of uncertainty. Functional support is what converts uncertain significance into a classification. Whether it can be delivered broadly rather than one bespoke assay per gene is the open question, and item 06 puts a price on the answer."
+          ]
+        },
+        {
+          "tag": "Undiagnosed disease",
+          "title": "Arriving at a diagnosis: effective strategies used by the Undiagnosed Diseases Network",
+          "href": "https://doi.org/10.1016/j.gim.2026.102718",
+          "source": "Genetics in Medicine",
+          "date": "2026-09-10",
+          "body": [
+            "What the UDN did that ordinary diagnostic pathways do not, set out as the strategies that actually produced diagnoses: reanalysis, deeper phenotyping, multi-omic testing, functional modelling and patient matchmaking. The useful reading is as a checklist for the cases sitting unresolved after first-tier testing, most of which will never see a network like this one."
+          ]
+        },
+        {
+          "tag": "Health economics",
+          "title": "An economic evaluation of functional genomic testing for individuals with undiagnosed rare disorders",
+          "href": "https://doi.org/10.1016/j.gim.2026.102717",
+          "source": "Genetics in Medicine",
+          "date": "2026-09-10",
+          "body": [
+            "Functional testing is what resolves variants of uncertain significance, and almost nowhere is it funded as a routine step. This puts a cost and an outcome against adding it to the undiagnosed pathway. Whether RNA and other functional assays earn a place is a reimbursement question before it is a laboratory one, and this is the form of evidence payers ask for."
+          ]
+        },
+        {
+          "tag": "Prenatal genomics",
+          "title": "Global recommendations for the use of diagnostic genomic sequencing in the prenatal setting, on behalf of the ESHG and ISPD",
+          "href": "https://doi.org/10.1002/pd.70248",
+          "source": "European Journal of Human Genetics",
+          "date": "2026-09-16",
+          "body": [
+            "Joint guidance on when prenatal sequencing is indicated, what should be reported and how uncertainty is handled when the decision window is measured in days. Prenatal is where turnaround time, uncertain findings and counselling capacity collide hardest, and recommendations written to be used globally have to survive settings with very different service structures."
+          ]
+        },
+        {
+          "tag": "Secondary findings",
+          "title": "Recommendations for return of secondary genomic findings in observational cohort studies",
+          "href": "https://doi.org/10.1038/s41588-026-02724-6",
+          "source": "Nature Genetics",
+          "date": "2026-09-13",
+          "body": [
+            "Observational cohorts generate actionable findings in participants who were never patients, under consent written for research rather than care. This sets out what a cohort owes those participants and what infrastructure returning a result actually requires: confirmation in an accredited laboratory, a route into clinical services, and someone to do the counselling."
+          ]
+        },
+        {
+          "tag": "Genetic counselling",
+          "title": "Are we prepared? Genetic counseling for stillbirth in the sequencing era",
+          "href": "https://doi.org/10.1002/jgc4.70267",
+          "source": "Journal of Genetic Counseling",
+          "date": "2026-09-10",
+          "body": [
+            "Sequencing after stillbirth creates an expectation of an explanation that the service around it is rarely built to carry. Consent has to be taken at the worst possible moment, tissue quality constrains what can be tested, and the result, positive or negative, lands in a conversation about recurrence risk. The workforce question is the honest one."
+          ]
+        },
+        {
+          "tag": "Metabolic trials",
+          "title": "A phase 1/2 dose-escalation study of sepiapterin in patients with 6-pyruvoyl-tetrahydropterin synthase deficiency with hyperphenylalaninemia",
+          "href": "https://doi.org/10.1016/j.ymthe.2026.09.005",
+          "source": "Molecular Therapy",
+          "date": "2026-09-11",
+          "body": [
+            "A first-in-indication dose escalation in a BH4 synthesis defect, a population small enough that a phase 1/2 read-out carries real weight. Sepiapterin enters the pathway upstream of tetrahydrobiopterin itself, which is the reason to look at the pharmacodynamic data rather than just the safety table."
+          ]
+        },
+        {
+          "tag": "Lysosomal storage",
+          "title": "Application of mesenchymal stromal cells and their exosomes in neurodegenerative diseases and lysosomal storage diseases",
+          "href": "https://doi.org/10.3390/cells15171540",
+          "source": "Cells",
+          "date": "2026-09-15",
+          "body": [
+            "Enzyme replacement stops at the blood-brain barrier, which is why cell-derived vesicles keep being proposed as carriers for the neuronopathic forms. The evidence here is largely preclinical, and reading it that way is the point: a plausible delivery route is not yet a therapy."
+          ]
+        }
+      ]
+    },
+    {
+      "edition": 5,
+      "date": "2026-09-12",
+      "items": [
+        {
+          "tag": "Clinical exome sequencing",
+          "title": "Artificial intelligence-assisted clinical exome sequencing: insights and outcomes from 822 paediatric diagnoses",
+          "href": "https://doi.org/10.1016/j.gimo.2026.104488",
+          "source": "Genetics in Medicine Open",
+          "date": "2026-09-06",
+          "body": [
+            "Eight hundred and twenty-two consecutive paediatric patients had clinical exome sequencing at a single laboratory. A definitive molecular diagnosis was established in 181 of them, 22 per cent, while 40 per cent were left holding a variant of uncertain significance. A commercial AI platform sat inside the analysis pipeline, scoring variants against each proband's Human Phenotype Ontology terms during the initial case review. Of the 152 pathogenic or likely pathogenic variants in the fully resolved cases, it flagged 98.7 per cent, and ranked 75 per cent inside its top ten.",
+            "What those numbers describe is prioritisation, not diagnosis. Flagging a variant is not classifying it, and the 40 per cent uncertain rate is untouched by how well the ranking performed. The prioritisation also ran on phenotype terms, so its usefulness is bounded by how completely the phenotype was captured before sequencing began. The distance between narrowing the search and making the call runs through the rest of this edition."
+          ],
+          "cta": "Read the full paper"
+        },
+        {
+          "tag": "Inborn errors of immunity",
+          "title": "Exome sequencing uncovers phenotypic and genotypic heterogeneity in 196 Indian families evaluated for autoinflammatory disorders",
+          "href": "https://doi.org/10.1002/ajmg.a.70275",
+          "source": "American Journal of Medical Genetics Part A",
+          "date": "2026-09-03",
+          "body": [
+            "Exome as a first-tier investigation across 202 individuals from 196 Indian families, with consanguinity in 19 per cent. A molecular diagnosis in 25 per cent of families, and only 60 per cent of those were in autoinflammatory genes. The rest were other inborn errors of immunity or monogenic mimics."
+          ],
+          "section": "This week in the literature"
+        },
+        {
+          "tag": "Neurogenetics",
+          "title": "A phenotypic paradigm for cerebral palsy genetics",
+          "href": "https://doi.org/10.1016/j.ajhg.2026.08.007",
+          "source": "American Journal of Human Genetics",
+          "date": "2026-09-03",
+          "body": [
+            "Variants in 515 genes have been published as causal in cerebral palsy. Treating cerebral palsy as a phenotypic feature that certain disorders raise the risk of, rather than a diagnosis to be displaced, the null hypothesis of no association could be rejected for only 89 of them."
+          ]
+        },
+        {
+          "tag": "Neuromuscular",
+          "title": "Improving survival in Duchenne muscular dystrophy across eras: a systematic review and cumulative meta-analysis",
+          "href": "https://doi.org/10.1007/s00415-026-14121-4",
+          "source": "J Neurol",
+          "date": "2026-09-06",
+          "body": [
+            "Fifty-three studies and more than 13,000 patients. Median survival was 29 years with home mechanical ventilation against 19 years without, improving progressively over time in both groups."
+          ]
+        },
+        {
+          "tag": "Lysosomal storage",
+          "title": "Aspiration and silent aspiration in Niemann-Pick disease type C1: longitudinal findings from the NIH natural history study",
+          "href": "https://doi.org/10.1186/s13023-026-04543-8",
+          "source": "Orphanet Journal of Rare Diseases",
+          "date": "2026-09-04",
+          "body": [
+            "Longitudinal swallowing assessments in 130 participants enrolled between 2006 and 2024. Silent aspiration arrives with no cough, no throat clearing and no wet voice to warn anyone, and aspiration pneumonia is a leading cause of death in NPC1."
+          ]
+        },
+        {
+          "tag": "Hereditary cancer",
+          "title": "ACG clinical guideline: diagnosis and management of adenomatous colorectal polyposis syndromes",
+          "href": "https://doi.org/10.14309/ajg.0000000000004105",
+          "source": "Am J Gastroenterol",
+          "date": "2026-09-02",
+          "body": [
+            "GRADE-based guidance on who should be assessed for a hereditary polyposis syndrome, when germline testing is appropriate, and how endoscopic and surgical management follows from the result. Presymptomatic diagnosis in families with a known variant is where cancer incidence actually moves."
+          ]
+        },
+        {
+          "tag": "Cardiogenetics",
+          "title": "Detection rate of pathogenic variants by postmortem genetic testing for sudden cardiac death among children and young adults",
+          "href": "https://doi.org/10.1016/j.gim.2026.102714",
+          "source": "Genetics in Medicine",
+          "date": "2026-09-08",
+          "body": [
+            "Sixty-six studies, 4,452 cases from 23 countries, pooled detection rate 19 per cent. Of the pathogenic variants found, 76 per cent sat in genes on the ACMG secondary findings list, so most of what postmortem testing recovers is already actionable for surviving relatives."
+          ]
+        },
+        {
+          "tag": "Variant interpretation",
+          "title": "TRACE: a framework for integrating transcript relevance into ACMG/AMP variant interpretation",
+          "href": "https://doi.org/10.1155/humu/1095011",
+          "source": "Human Mutation",
+          "date": "2026-09-08",
+          "body": [
+            "A four-tier gated framework for transcript choice. Annotate as standard, escalate only where transcript context could materially change the molecular consequence, and reserve RNA or functional evidence for what stays unresolved."
+          ]
+        },
+        {
+          "tag": "Variant interpretation",
+          "title": "Mutation rate heterogeneity biases variant effect prediction and reveals genuine mutational robustness",
+          "href": "https://doi.org/10.1016/j.ajhg.2026.08.011",
+          "source": "American Journal of Human Genetics",
+          "date": "2026-09-03",
+          "body": [
+            "Most predictors read conservation as functional constraint, and so absorb mutation rate variation without meaning to. Variants at low-mutation-rate sites come out looking more damaging than they are, and variants at highly mutable sites more tolerated."
+          ]
+        },
+        {
+          "tag": "AI in diagnosis",
+          "title": "Machine learning, large language models and multimodal AI for diagnosing paediatric rare diseases: a scoping review",
+          "href": "https://doi.org/10.2196/96169",
+          "source": "J Med Internet Res",
+          "date": "2026-09-03",
+          "body": [
+            "Maps what has been built for paediatric rare disease diagnosis, on which data modalities, and how far validation has gone. Evidence maturity is the question worth reading it for."
+          ]
+        },
+        {
+          "tag": "Approvals",
+          "title": "FDA approves Zanvastro (zilganersen), the first treatment for Alexander disease",
+          "href": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-drug-treat-alexander-disease",
+          "source": "FDA",
+          "date": "2026-09-03",
+          "body": [],
+          "cta": "Read the announcement",
+          "section": "This week in the ecosystem"
+        },
+        {
+          "tag": "Approvals",
+          "title": "FDA grants accelerated approval to a new treatment for advanced breast cancer",
+          "href": "https://www.fda.gov/news-events/press-announcements/fda-grants-accelerated-approval-new-breast-cancer-treatment",
+          "source": "FDA",
+          "date": "2026-09-04",
+          "body": [],
+          "cta": "Read the announcement"
+        }
+      ]
+    },
+    {
+      "edition": 4,
+      "date": "2026-09-05",
+      "items": [
+        {
+          "tag": "Genomic diagnosis",
+          "title": "Diagnostic sequencing in sick newborns is not newborn screening",
+          "href": "https://doi.org/10.3390/genes17080952",
+          "source": "Genes",
+          "date": "2026-08-27",
+          "body": [
+            "Twenty-five symptomatic neonates and infants under six months, all referred with a suspected genetic disorder and no molecular diagnosis. Seventeen had exome sequencing, eight had genome sequencing. A definitive or likely molecular diagnosis came back in 7 of 25, or 28 per cent, rising to 32 per cent once a RANBP2 susceptibility finding is counted. Three of the seven diagnoses carried established management implications.",
+            "The Rare-ID authors are careful about what this does not show. Allocation between exome and genome was chronological rather than randomised, so the two cannot be compared. And they state plainly that a yield drawn from phenotype-selected, symptomatic infants says nothing about what population newborn screening would find in an unselected one. That distinction runs through the rest of this edition."
+          ],
+          "cta": "Read the full paper"
+        },
+        {
+          "tag": "Newborn screening",
+          "title": "Long-term follow-up for newborn screening: a roadmap and guide with programmatic considerations",
+          "href": "https://doi.org/10.1542/peds.2026-077357j",
+          "source": "Pediatrics",
+          "date": "2026-08-31",
+          "body": [
+            "A roadmap for what happens after a positive newborn screen, written around programme design and the practical business of running long-term follow-up rather than as a position statement."
+          ],
+          "section": "This week in the literature"
+        },
+        {
+          "tag": "Neurofibromatosis",
+          "title": "Neurofibromatosis type 1: consensus on current terminology for neurofibromas, as a basis for recommendations on the use of MEK inhibitors",
+          "href": "https://doi.org/10.21873/anticanres.18332",
+          "source": "Anticancer Research",
+          "date": "2026-08-31",
+          "body": [
+            "Consensus on how neurofibroma subtypes should be named and described, set out explicitly as the groundwork for recommendations on when MEK inhibitors should be used."
+          ]
+        },
+        {
+          "tag": "Metabolic",
+          "title": "Bone mineral density in participants with phenylalanine hydroxylase deficiency: a report from the PHEFREE rare disorders consortium",
+          "href": "https://doi.org/10.2139/ssrn.6506773",
+          "source": "Molecular Genetics and Metabolism",
+          "date": "2026-08-26",
+          "body": [
+            "Bone mineral density in PAH deficiency, reported from the PHEFREE consortium cohort."
+          ]
+        },
+        {
+          "tag": "Variant interpretation",
+          "title": "Prediction of human missense variant effects from functional evidence",
+          "href": "https://doi.org/10.21203/rs.3.rs-7536763/v1",
+          "source": "Nature Genetics",
+          "date": "2026-08-27",
+          "body": [
+            "Using functional assay data to predict the effect of missense variants, which is the evidence line that decides whether a variant of uncertain significance can be reclassified."
+          ]
+        },
+        {
+          "tag": "Variant interpretation",
+          "title": "P-KNN: joint calibration of multiple pathogenicity prediction tools streamlines variant classification",
+          "href": "https://doi.org/10.1016/j.gim.2026.102692",
+          "source": "Genetics in Medicine",
+          "date": "2026-08-26",
+          "body": [
+            "Joint calibration of several pathogenicity predictors so their outputs sit on a common scale and can be combined during classification."
+          ]
+        },
+        {
+          "tag": "Newborn screening",
+          "title": "Evidence regarding metachromatic leukodystrophy newborn screening",
+          "href": "https://doi.org/10.1542/peds.2025-073188",
+          "source": "Pediatrics",
+          "date": "2026-08-31",
+          "body": [
+            "Evidence review on screening for metachromatic leukodystrophy, where the case for screening rests on reaching the diagnosis before symptoms appear."
+          ]
+        },
+        {
+          "tag": "Policy",
+          "title": "End of an era, or just another inflection point in the history of newborn screening in the United States?",
+          "href": "https://doi.org/10.1542/peds.2026-077357k",
+          "source": "Pediatrics",
+          "date": "2026-08-31",
+          "body": [],
+          "cta": "Read more",
+          "section": "This week in the ecosystem"
+        },
+        {
+          "tag": "Policy",
+          "title": "Paediatric drug optimization for sickle cell disease: priorities for research and development in children",
+          "href": "https://doi.org/10.1016/s2352-4642(26)00159-8",
+          "source": "The Lancet Child & Adolescent Health",
+          "date": "2026-09-01",
+          "body": [],
+          "cta": "Read more"
+        },
+        {
+          "tag": "Policy",
+          "title": "PRIP scheme opens new opportunities for startups, MSMEs and industry in pharma and medtech",
+          "href": "https://biospectrumindia.com/news/22/28395/prip-scheme-opens-up-new-opportunities-for-startups-msmes-and-industry-in-pharma-and-medtech-sectors.html",
+          "source": "BioSpectrum India",
+          "date": "2026-08-28",
+          "body": [],
+          "cta": "Read more"
+        },
+        {
+          "tag": "Approvals",
+          "title": "FDA approves the first oral drug indicated to treat dermatomyositis in adults",
+          "href": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-oral-drug-indicated-treat-dermatomyositis-adults",
+          "source": "FDA",
+          "date": "2026-08-27",
+          "body": [],
+          "cta": "Read the announcement"
+        },
+        {
+          "tag": "Approvals",
+          "title": "FDA approves a first-of-its-kind drug for polycythemia vera",
+          "href": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-drug-its-kind-polycythemia-vera-rare-blood-disorder",
+          "source": "FDA",
+          "date": "2026-08-28",
+          "body": [],
+          "cta": "Read the announcement"
+        },
+        {
+          "tag": "Approvals",
+          "title": "Trofinetide (Daybu) authorised in the European Union for Rett syndrome",
+          "href": "https://www.ema.europa.eu/en/medicines/human/EPAR/daybu",
+          "source": "EMA",
+          "date": "2026-08-20",
+          "body": [],
+          "cta": "Read the announcement"
+        },
+        {
+          "tag": "Trials and consensus",
+          "title": "Diagnosis and management of very rare primary arrhythmia syndromes in children and adults: a clinical consensus statement",
+          "href": "https://doi.org/10.1093/europace/euag184",
+          "source": "Europace",
+          "date": "2026-08-30",
+          "body": [],
+          "cta": "Read more"
+        },
+        {
+          "tag": "Trials and consensus",
+          "title": "Phase 3 randomised trial results of DTX401 AAV gene therapy for GSDIa",
+          "href": "https://doi.org/10.1002/jimd.70241",
+          "source": "Journal of Inherited Metabolic Disease",
+          "date": "2026-08-31",
+          "body": [],
+          "cta": "Read more"
+        },
+        {
+          "tag": "Diagnostics",
+          "title": "Evidence regarding Duchenne muscular dystrophy newborn screening",
+          "href": "https://doi.org/10.1542/peds.2025-073192",
+          "source": "Pediatrics",
+          "date": "2026-08-31",
+          "body": [],
+          "cta": "Read more"
+        },
+        {
+          "tag": "Access",
+          "title": "The evolution of hereditary cancer genetic counselling: mainstreaming, service redesign and patient experience in Lynch syndrome",
+          "href": "https://doi.org/10.1007/s10689-026-00597-6",
+          "source": "Familial Cancer",
+          "date": "2026-08-29",
+          "body": [],
+          "cta": "Read more"
+        }
+      ]
+    },
+    {
+      "edition": 3,
+      "date": "2026-08-29",
+      "items": [
+        {
+          "tag": "Mechanism",
+          "title": "How far does DMPK have to fall to correct the splicing?",
+          "href": "https://doi.org/10.1093/hmg/ddag079",
+          "source": "Human Molecular Genetics",
+          "date": "2026-08-21",
+          "body": [
+            "Myotonic dystrophy type 1 is driven by expanded (CUG)n DMPK transcripts that sequester MBNL1 and derail splicing. Every antisense programme in the clinic works by lowering DMPK. The field has lacked a clear answer to how far it has to fall.",
+            "Using CRISPR activation and interference, the group tuned DMPK in isogenic patient myoblasts carrying around 2,900 triplets. They raised it more than threefold, then cut it by about 80 per cent. Free nucleoplasmic MBNL1 moved with it in both directions. CLASP1 splicing reversed completely. MBNL1 and NFIX corrected only partly. Different exons appear to have different thresholds, rather than there being a single target level."
+          ],
+          "cta": "Read the full paper"
+        },
+        {
+          "tag": "Genomic services",
+          "title": "Hospital-wide implementation of inpatient first-tier rapid genome sequencing",
+          "href": "https://doi.org/10.1016/j.gim.2026.102685",
+          "source": "Genetics in Medicine",
+          "date": "2026-08-19",
+          "body": [
+            "Rapid genome sequencing offered as a first-tier test across every inpatient unit at a tertiary children's hospital, in more than 1,000 patients. Diagnostic rate and time to diagnosis both improved. Yield reached 63 per cent in children with faltering growth, and the racial disparity in access to testing disappeared."
+          ],
+          "section": "This week in the literature"
+        },
+        {
+          "tag": "Sequencing",
+          "title": "Toward the clinical application of long-read sequencing in repeat-expansion disorders",
+          "href": "https://doi.org/10.1038/s41588-026-02694-9",
+          "source": "Nature Genetics",
+          "date": "2026-08-21",
+          "body": [
+            "A Perspective from the LRS-RED consortium on resolving repeat length, interruptions, somatic instability and allele-specific methylation in a single assay, and on what still stands between that capability and routine diagnostic use."
+          ]
+        },
+        {
+          "tag": "Diagnostics",
+          "title": "Current status of genetic testing and mosaic variant assessment in somatic overgrowth and vascular anomalies",
+          "href": "https://doi.org/10.1016/j.gim.2026.102686",
+          "source": "Genetics in Medicine",
+          "date": "2026-08-19",
+          "body": [
+            "Insights from the Cancer Genomics Consortium Working Group on how mosaic variants in overgrowth and vascular anomaly syndromes are currently detected, assessed and reported."
+          ]
+        },
+        {
+          "tag": "Classification",
+          "title": "A contemporary pathomechanistic nosology of inherited lysosomal disorders",
+          "href": "https://doi.org/10.1002/jimd.70245",
+          "source": "Journal of Inherited Metabolic Disease",
+          "date": "2026-08-25",
+          "body": [
+            "A proposed classification of the inherited lysosomal disorders organised around disease mechanism."
+          ]
+        },
+        {
+          "tag": "Sequencing",
+          "title": "Long-read transcriptome analysis using IsoRanker for identifying pathogenic variants in Mendelian conditions",
+          "href": "https://doi.org/10.1101/2025.11.07.25339764",
+          "source": "American Journal of Human Genetics",
+          "date": "2026-08-25",
+          "body": [
+            "A ranking method applied to long-read transcriptome data to surface pathogenic variants in Mendelian conditions."
+          ]
+        },
+        {
+          "tag": "Prenatal",
+          "title": "High diagnosis rate for nonimmune hydrops fetalis with prenatal clinical genome: expanded results from the HYDROPS study",
+          "href": "https://doi.org/10.1002/ajmg.a.70265",
+          "source": "American Journal of Medical Genetics Part A",
+          "date": "2026-08-21",
+          "body": [
+            "Expanded results from the HYDROPS cohort on the diagnostic yield of prenatal clinical genome sequencing in non-immune hydrops fetalis."
+          ]
+        },
+        {
+          "tag": "Metabolic",
+          "title": "An optimized diagnostic approach for adults with suspected inherited metabolic disorders",
+          "href": "https://doi.org/10.1002/jimd.70238",
+          "source": "Journal of Inherited Metabolic Disease",
+          "date": "2026-08-21",
+          "body": [
+            "A proposed diagnostic pathway for adults presenting with suspected inherited metabolic disease."
+          ]
+        },
+        {
+          "tag": "Newborn",
+          "title": "A tiered genetic diagnostic approach in newborns with major congenital anomalies: experience from a tertiary NICU",
+          "href": "https://doi.org/10.1002/bdr2.70108",
+          "source": "Birth Defects Research",
+          "date": "2026-08-21",
+          "body": [
+            "Single-centre experience with a tiered testing strategy in newborns admitted with major congenital anomalies."
+          ]
+        },
+        {
+          "tag": "Cancer genetics",
+          "title": "Risk of breast cancer after ovarian cancer in germline BRCA1/2 heterozygotes",
+          "href": "https://doi.org/10.1136/jmg-2026-111752",
+          "source": "Journal of Medical Genetics",
+          "date": "2026-08-25",
+          "body": [
+            "Subsequent breast cancer risk in BRCA1 and BRCA2 carriers who have already had ovarian cancer, the figure that surveillance and risk-reducing surgery decisions in this group turn on."
+          ]
+        },
+        {
+          "tag": "Patient access",
+          "title": "Why is family disclosure of genetic risk so difficult? A collaborative analysis of 685 rare-disease patient experiences",
+          "href": "https://doi.org/10.1038/s41431-026-02205-8",
+          "source": "European Journal of Human Genetics",
+          "date": "2026-08-22",
+          "body": [
+            "595 patients and relatives across 107 rare diseases described 685 disclosure events. Around half were unsatisfactory. What drove that was poor understanding of what had to be conveyed and the state of family relationships beforehand, rather than anything about the disease itself. Two in five wished the notification had been made by a clinician instead."
+          ]
+        }
+      ]
+    },
+    {
+      "edition": 2,
+      "date": "2026-08-22",
+      "items": [
+        {
+          "tag": "Regulatory",
+          "title": "FDA approves the first gene therapy for glycogen storage disease type Ia",
+          "href": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-therapy-patients-aged-8-years-and-older-glycogen-storage-disease-type-ia",
+          "source": "US Food and Drug Administration",
+          "date": "2026-08-19",
+          "body": [
+            "Genglycos (pariglasgene brecaparvovec-opnr) is a one-time, liver-directed AAV8 gene therapy delivering a functional G6PC gene, approved for patients aged 8 and above. Until now the condition has been managed by strict around-the-clock cornstarch supplementation and nothing else.",
+            "This is an accelerated approval on a surrogate endpoint. Over 48 weeks, treated patients reduced daily cornstarch intake by a mean of 31 per cent against placebo, roughly one dose a day. Confirmatory trials are required. Warnings cover anaphylaxis, liver toxicity, adrenal insufficiency and tumorigenicity."
+          ],
+          "cta": "Read the FDA announcement"
+        },
+        {
+          "tag": "",
+          "title": "Evolving roles within the genomic medicine workforce: a revised framework for UK practice",
+          "href": "https://doi.org/10.1136/jmg-2025-111340",
+          "source": "Journal of Medical Genetics",
+          "date": "2026-08-12",
+          "body": [
+            "A position from the Association of Genetic Nurses and Counsellors and the Clinical Genetics Society, formally introducing the genomic practitioner role and setting out scope of practice across clinical care, education, research and mainstreaming."
+          ],
+          "section": "This week in the literature"
+        },
+        {
+          "tag": "",
+          "title": "Transplantation as disease modifying therapy in the era of gene therapy medicinal products: health policy considerations",
+          "href": "https://doi.org/10.1186/s13023-026-04377-4",
+          "source": "Orphanet Journal of Rare Diseases",
+          "date": "2026-08-13",
+          "body": [
+            "Liver transplant set against gene therapy across urea cycle defects, GSD1a, methylmalonic and propionic aciduria, including the problem of approving gene therapies before long-term data exist."
+          ]
+        },
+        {
+          "tag": "",
+          "title": "Actionable genotypes beyond the coding sequence and their association with lifespan in the UK Biobank",
+          "href": "https://doi.org/10.1136/jmg-2026-111659",
+          "source": "Journal of Medical Genetics",
+          "date": "2026-08-12",
+          "body": [
+            "Coding actionable genotypes in the ACMG secondary findings genes were present in 3.40 per cent of 490,086 participants and carried increased all-cause mortality. Promoter variants were mapped by saturation mutagenesis and assessed alongside them."
+          ]
+        },
+        {
+          "tag": "",
+          "title": "Avoidable under-5 mortality from congenital and genetic disorders: a frontier analysis of GBD 2023 identifying intervention targets",
+          "href": "https://doi.org/10.3389/fpubh.2026.1886383",
+          "source": "Frontiers in Public Health",
+          "date": "2026-08-12",
+          "body": [
+            "Thirteen congenital and genetic causes aggregated across 204 countries from 1990 to 2023, with frontier analysis estimating how much of the remaining under-5 mortality is avoidable at each level of development."
+          ]
+        },
+        {
+          "tag": "",
+          "title": "Empagliflozin in GSD-Ib: long-term safety and sustained recovery of neutrophil function including NET formation",
+          "href": "https://doi.org/10.1016/j.ymgmr.2026.101345",
+          "source": "Molecular Genetics and Metabolism Reports",
+          "date": "2026-08-14",
+          "body": [
+            "Four years of longitudinal follow-up in a genetically confirmed infant, with complete restoration of neutrophil function including reactive oxygen species production, bactericidal activity and NET formation."
+          ]
+        }
+      ]
+    },
+    {
+      "edition": 1,
+      "date": "2026-08-15",
+      "issueLabel": "Independence Day edition",
+      "note": "This first edition lands on India's 80th Independence Day.",
+      "items": [
+        {
+          "tag": "Secondary findings",
+          "title": "The British Society for Genetic Medicine guidance on managing incidental findings identified during rare disease genomic testing",
+          "href": "https://doi.org/10.1136/jmg-2026-111522",
+          "source": "Journal of Medical Genetics",
+          "date": "2026-08-07",
+          "body": [
+            "Professional guidance on handling incidental findings from rare disease genomic testing, an area laboratories currently approach inconsistently."
+          ],
+          "cta": "Read the full paper"
+        },
+        {
+          "tag": "",
+          "title": "Defining the therapeutic corridor of stability in enzyme replacement therapy for Pompe disease: a position statement",
+          "href": "https://doi.org/10.1186/s13023-026-04518-9",
+          "source": "Orphanet Journal of Rare Diseases",
+          "date": "2026-08-01",
+          "body": [
+            "A position statement on what stability on enzyme replacement therapy should look like, and when a change in management is warranted."
+          ]
+        },
+        {
+          "tag": "",
+          "title": "Variants leading to ELAVL2 haploinsufficiency cause a neurodevelopmental disorder with prominent cognitive, behavioral, and neurological features",
+          "href": "https://doi.org/10.1016/j.ajhg.2026.07.007",
+          "source": "American Journal of Human Genetics",
+          "date": "2026-08-06",
+          "body": [
+            "A newly defined disease gene, worth checking against unsolved neurodevelopmental cases on your list."
+          ]
+        },
+        {
+          "tag": "",
+          "title": "AI-based multimodal integration of genomics and electronic health records",
+          "href": "https://doi.org/10.1038/s41576-026-00992-w",
+          "source": "Nature Reviews Genetics",
+          "date": "2026-08-11",
+          "body": [
+            "A review of how genomic data and clinical records are being combined computationally, and where the current limits sit."
+          ]
+        },
+        {
+          "tag": "",
+          "title": "Rapid genomic sequencing in the NICU: who to test and why",
+          "href": "https://doi.org/10.1038/s41431-026-02207-6",
+          "source": "European Journal of Human Genetics",
+          "date": "2026-08-07",
+          "body": [
+            "Selection criteria for rapid sequencing in critically ill newborns, where the decision to test is time bound."
+          ]
+        },
+        {
+          "tag": "",
+          "title": "Clinical genome sequencing in neurodegenerative diseases: outcome in the first 500 patients",
+          "href": "https://doi.org/10.1093/hmg/ddag072",
+          "source": "Human Molecular Genetics",
+          "date": "2026-08-06",
+          "body": [
+            "A cohort large enough to serve as a reference point for expected diagnostic yield in neurodegenerative presentations."
+          ]
+        },
+        {
+          "tag": "",
+          "title": "Detecting pathogenic structural variation in families with undiagnosed rare disease in a national genome project",
+          "href": "https://doi.org/10.1101/2025.08.19.25333674",
+          "source": "European Journal of Human Genetics",
+          "date": "2026-08-06",
+          "body": [
+            "Structural variants remain a recurring reason families stay undiagnosed after standard testing comes back negative."
+          ]
+        },
+        {
+          "tag": "",
+          "title": "Long-term real-world safety and effectiveness of arimoclomol in individuals with NPC: outcomes from the US early access program over a 4-year period",
+          "href": "https://doi.org/10.1016/j.ymgme.2026.110223",
+          "source": "Molecular Genetics and Metabolism",
+          "date": "2026-08-09",
+          "body": [
+            "Four years of real-world data in Niemann Pick type C, outside the constraints of a trial population."
+          ]
+        },
+        {
+          "tag": "",
+          "title": "Sapropterin (BH4) challenge in phenylketonuria: responder or non-responder?",
+          "href": "https://doi.org/10.1016/j.ymgme.2026.110226",
+          "source": "Molecular Genetics and Metabolism",
+          "date": "2026-08-07",
+          "body": [
+            "How responder status is determined in phenylketonuria, a classification that directly shapes long-term management."
+          ]
+        },
+        {
+          "tag": "",
+          "title": "Whole-exome sequencing in undiagnosed muscular dystrophies: a high diagnostic yield and novel insights from Iranian families",
+          "href": "https://doi.org/10.1155/humu/6592066",
+          "source": "Human Mutation",
+          "date": "2026-08-05",
+          "body": [
+            "Exome sequencing in previously undiagnosed muscular dystrophy families, with novel variants reported."
+          ]
+        }
+      ]
+    }
+  ]
+}
