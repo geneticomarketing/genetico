@@ -1,9 +1,9 @@
 /**
  * Content update: home page section 05 (Impact), the "In clinical use" figure.
  *
- * The description named only AIIMS New Delhi and CDFD Hyderabad. It now also names Sir Ganga Ram
- * Hospital, and "other centres" for the smaller sites. The big figure ("AIIMS · CDFD") stays as it
- * is: it already fills its column at full size, and a third name would wrap.
+ * The figure and its description named only AIIMS New Delhi and CDFD Hyderabad. The figure now
+ * adds SGRH, and the description names Sir Ganga Ram Hospital in full, plus "other centres" for
+ * the smaller sites.
  *
  *   node --env-file=.env scripts/migrations/update-home-impact-clinical-use.mjs
  *
@@ -14,6 +14,7 @@
 import pg from "pg";
 
 const LABEL = "In clinical use";
+const FIGURE = "AIIMS · CDFD · SGRH";
 const BODY =
   "Genetics departments at AIIMS New Delhi, CDFD Hyderabad, Sir Ganga Ram Hospital and other " +
   "centres use IndiGeneUs.AI in consultations.";
@@ -31,10 +32,10 @@ async function main() {
   await client.connect();
   await client.query("BEGIN");
 
-  const result = await client.query(`UPDATE "home_impact_figures" SET body = $1 WHERE label = $2`, [
-    BODY,
-    LABEL,
-  ]);
+  const result = await client.query(
+    `UPDATE "home_impact_figures" SET figure = $1, body = $2 WHERE label = $3`,
+    [FIGURE, BODY, LABEL],
+  );
 
   if (result.rowCount !== 1) {
     throw new Error(
@@ -44,6 +45,7 @@ async function main() {
   }
 
   console.log(`  7. Impact — ${LABEL}`);
+  console.log(`    ${FIGURE}`);
   console.log(`    ${BODY}\n`);
 
   await client.query("COMMIT");
