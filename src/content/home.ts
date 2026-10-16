@@ -361,10 +361,10 @@ export const HOME_IMPACT = {
   figures: [
     {
       label: "In clinical use",
-      figure: "AIIMS · CDFD",
+      figure: "AIIMS · CDFD · SGRH",
       body:
-        "Genetics departments at AIIMS New Delhi and CDFD Hyderabad use IndiGeneUs.AI in " +
-        "consultations.",
+        "Genetics departments at AIIMS New Delhi, CDFD Hyderabad, Sir Ganga Ram Hospital and " +
+        "other centres use IndiGeneUs.AI in consultations.",
     },
     {
       label: "Network",
