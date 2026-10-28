@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { getUtilityPagesData } from "@/lib/cms/page-data";
 import { createPageMetadata } from "@/lib/seo";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   const utility = await getUtilityPagesData();

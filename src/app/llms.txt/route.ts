@@ -18,7 +18,7 @@ import { STATIC_PAGE_SEO, type StaticPageKey } from "@/lib/seo-pages";
  * the CMS, so the file stays in step with the site without being edited.
  */
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const SECTIONS: { heading: string; pages: StaticPageKey[] }[] = [
   { heading: "Company", pages: ["home", "about"] },

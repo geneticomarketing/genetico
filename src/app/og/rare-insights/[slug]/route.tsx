@@ -11,7 +11,7 @@ import { shortDate } from "@/lib/rare-insights";
  * queries down.
  */
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 /** None at build time; each card is generated on its first request, then cached. */
 export function generateStaticParams() {

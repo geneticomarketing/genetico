@@ -9,7 +9,7 @@ import { staticPageMetadata } from "@/lib/seo-pages";
 import { JsonLd } from "@/components/seo/json-ld";
 import { graph, resourcesNodes } from "@/lib/structured-data";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export function generateMetadata(): Metadata {
   return staticPageMetadata("resources");

@@ -14,7 +14,7 @@ import { getSiteUrl } from "@/lib/seo";
  * Rare Insights pages. Each entry carries the edition's items as a list.
  */
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const xml = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");

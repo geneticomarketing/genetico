@@ -81,7 +81,7 @@ function toEdition(doc: NewsletterEdition): RareInsightsEdition {
  * Unlike the site's other loaders, a failed query throws instead of returning
  * an empty list. An empty list here would make every edition page a 404, and
  * a regenerated page is cached: one database blip could serve "not found" to
- * everyone for the next minute. Throwing makes Next keep the last good page
+ * everyone for the next day. Throwing makes Next keep the last good page
  * (and makes a build fail loudly rather than ship an empty archive).
  *
  * A busy connection pool (Supabase allows 15 sessions) fails a query

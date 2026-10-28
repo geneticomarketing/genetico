@@ -16,7 +16,7 @@ import { BLOG_PATH, blogDate, blogHref } from "@/lib/blogs";
 import { SITE_NAME, getSiteUrl } from "@/lib/seo";
 import { blogPostingNode, graph, staticPageNodes } from "@/lib/structured-data";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { title, metaDescription } = await getBlogListing();

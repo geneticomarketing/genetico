@@ -1,6 +1,6 @@
 import { LegalPage, legalPageMetadata, type LegalFallback } from "@/components/legal/legal-page";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 /** Used only if the "privacy-policy" record is missing from the CMS. */
 const FALLBACK: LegalFallback = {
