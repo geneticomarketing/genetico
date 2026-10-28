@@ -21,7 +21,7 @@ import { staticPageMetadata } from "@/lib/seo-pages";
 import { JsonLd } from "@/components/seo/json-ld";
 import { graph, staticPageNodes } from "@/lib/structured-data";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 /** In render order; the rail, the numbers and the hero's jump links follow it. */
 const PLATFORM_SECTIONS = [

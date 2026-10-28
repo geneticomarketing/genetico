@@ -42,7 +42,7 @@ const albertSans = Albert_Sans({ variable: "--font-albert-sans", subsets: ["lati
 /* Distinct from the theme token so `--font-jetbrains-mono` can compose it with fallbacks. */
 const jetbrainsMono = JetBrains_Mono({ variable: "--font-jetbrains", subsets: ["latin"] });
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();

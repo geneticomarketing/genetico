@@ -12,7 +12,7 @@ import { INDEXABLE_STATIC_PATHS } from "@/lib/seo-pages";
  * domain (getSiteUrl(): https://genetico.in unless NEXT_PUBLIC_SITE_URL says
  * otherwise), and each Rare Insights edition. Archived previews, /coming-soon, /admin and /api are not listed.
  */
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const PRIORITY: Record<string, number> = {
   "/": 1,

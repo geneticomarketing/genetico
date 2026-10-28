@@ -12,7 +12,7 @@ import { createPageMetadata, getSiteUrl } from "@/lib/seo";
 import { STATIC_PAGE_SEO, ogImagePath } from "@/lib/seo-pages";
 import { blogPostingNode, breadcrumbNode, graph } from "@/lib/structured-data";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 /** A post's thumbnail is either an image URL or a CSS gradient; only the first is a share image. */
 function imageUrl(thumbnail: string): string | null {

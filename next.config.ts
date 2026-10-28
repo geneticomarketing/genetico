@@ -15,17 +15,24 @@ const nextConfig: NextConfig = {
   experimental: {
     globalNotFound: true,
   },
-  images: supabaseHostname
-    ? {
-        remotePatterns: [
+  images: {
+    // Vercel bills each optimised variant (source × width × quality) and
+    // re-creates it when the cache expires. Keep variants for 31 days and offer
+    // fewer widths so the site stays inside the plan's image quota. CMS uploads
+    // get a new filename when replaced, so a long cache never serves a stale photo.
+    minimumCacheTTL: 2678400,
+    deviceSizes: [640, 828, 1200, 1920],
+    imageSizes: [64, 128, 256, 384],
+    remotePatterns: supabaseHostname
+      ? [
           {
             protocol: "https",
             hostname: supabaseHostname,
             pathname: "/storage/v1/object/public/**",
           },
-        ],
-      }
-    : undefined,
+        ]
+      : [],
+  },
   async headers() {
     return [
       {

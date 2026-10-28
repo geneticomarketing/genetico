@@ -95,7 +95,7 @@ design_handoff_genetico_site/   the designer's HTML prototypes for each page (re
    even if the database is unreachable.
 4. The page passes each section its copy as props.
 
-Pages are statically rendered and revalidate every 60 seconds; saving in `/admin` revalidates them
+Pages are statically rendered and revalidate once a day (to stay inside Vercel's ISR write quota); saving in `/admin` revalidates them
 immediately (`src/payload/hooks/revalidate-site.ts`).
 
 ### Changing the CMS schema
