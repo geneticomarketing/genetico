@@ -1,3 +1,4 @@
+import { CASE, CASE_NOTE } from "@/content/sample-case";
 import { HOSPITAL_PATH, PHARMA_PATH, PLATFORM_PATH, PUBLIC_HEALTH_PATH } from "@/lib/routes";
 
 /**
@@ -8,9 +9,10 @@ import { HOSPITAL_PATH, PHARMA_PATH, PLATFORM_PATH, PUBLIC_HEALTH_PATH } from "@
  * field left empty. The field names match the CMS fields one for one — see
  * src/payload/globals/sections/home.ts — so keep the two in step.
  *
- * The *_DEMO constants are not copy: they are the illustrative sample case
- * (GX-2041) drawn in the product mock-ups, part of the design rather than
- * content an editor maintains.
+ * The *_DEMO constants are not copy: they lay out the product mock-ups, part
+ * of the design rather than content an editor maintains. The clinical values
+ * inside those mock-ups — the sample case GX-2041 — come from
+ * src/content/sample-case.ts, shared with every other page.
  *
  * Source: design_handoff_genetico_site/design_handoff_home_final/.
  */
@@ -41,36 +43,24 @@ export const HOME_HERO = {
   ],
 };
 
-/** The hero mock-up's sample case: a note that types itself, then structures. */
+/**
+ * The hero mock-up: the sample case's note types itself, then structures.
+ * The other cases in the sidebar show statuses the platform really uses —
+ * case status, and where each one's test order is in the laboratory's LIMS.
+ */
 export const HERO_DEMO = {
-  url: "app.indigeneus.ai / cases / GX-2041",
-  caseId: "GX-2041",
-  patient: "Male · 2 y 4 m · Genetics OPD",
-  note:
-    "2 y 4 m male. Global developmental delay, seizures since 8 months. Coarse facial features, " +
-    "hepatosplenomegaly, corneal clouding. Wt 9.8 kg, Ht 78 cm, OFC 46 cm.",
+  url: CASE.urlBase,
+  caseId: CASE.id,
+  patient: CASE.patient,
+  note: CASE_NOTE,
   cases: [
-    { id: "GX-2041", label: "Structuring", dot: "#2E9B82" },
-    { id: "GX-2038", label: "Awaiting report", dot: "#D39B2A" },
-    { id: "GX-2033", label: "In review", dot: "#0B4C86" },
-    { id: "GX-2029", label: "Follow-up due", dot: "#9AA6B1" },
-    { id: "GX-2017", label: "Registry submitted", dot: "#9AA6B1" },
+    { id: CASE.id, label: "In consultation", dot: "#2E9B82" },
+    { id: "GX-2038", label: "Sample received", dot: "#D39B2A" },
+    { id: "GX-2033", label: "Awaiting validation", dot: "#0B4C86" },
+    { id: "GX-2029", label: "Report released", dot: "#9AA6B1" },
+    { id: "GX-2017", label: "Solved", dot: "#9AA6B1" },
   ],
 };
-
-export const SAMPLE_HPO = [
-  { name: "Global developmental delay", code: "HP:0001263" },
-  { name: "Seizure", code: "HP:0001250" },
-  { name: "Coarse facial features", code: "HP:0000280" },
-  { name: "Hepatosplenomegaly", code: "HP:0001433" },
-  { name: "Corneal opacity", code: "HP:0007957" },
-];
-
-export const SAMPLE_DIFFERENTIALS = [
-  { name: "Mucopolysaccharidosis I", gene: "IDUA", score: 0.92, match: "5 of 5 features" },
-  { name: "Mucopolysaccharidosis II", gene: "IDS", score: 0.78, match: "4 of 5 features" },
-  { name: "GM1 gangliosidosis", gene: "GLB1", score: 0.64, match: "3 of 5 features" },
-];
 
 /** 01 — the five parties that each hold part of one patient's information. */
 export const HOME_WHY = {
@@ -157,7 +147,7 @@ export const HOME_DOES = {
       body:
         "One record per patient across visits, laboratories and centres, so follow-up builds on " +
         "history.",
-      output: "5 events linked · 4 sources",
+      output: "3 visits · lab results imported",
       status: "Updated",
     },
     {
@@ -181,16 +171,21 @@ export const HOME_DOES = {
   ],
 } satisfies Numbered & Record<string, unknown>;
 
-/** The record panel beside section 02. */
+/**
+ * The record panel beside section 02. Areas from `comingSoonFrom` on —
+ * research, registries, public health — are built but not yet live, so their
+ * rows carry the "Coming soon" tag instead of a status.
+ */
 export const HOME_DOES_DEMO = {
-  panelUrl: "app.indigeneus.ai / records / GX-2041 / uses",
+  panelUrl: `${CASE.urlBase} / uses`,
   recordLabel: "One structured record",
   recordChips: [
     { label: "HP:0001263" },
     { label: "HP:0001250" },
     { label: "HP:0001433" },
-    { label: "IDUA", teal: true },
+    { label: "OMIM:256150", teal: true },
   ],
+  comingSoonFrom: 2,
 };
 
 /** 03 — the company/platform line, then one workflow in four layers. */
@@ -209,8 +204,8 @@ export const HOME_PLATFORM = {
     {
       title: "Capture",
       body:
-        "Structured intake at the point of care — phenotype, history and documents converted " +
-        "into computable fields instead of free text.",
+        "Structured intake at the point of care — phenotype, dictated history and lab reports " +
+        "converted into computable fields instead of free text.",
       tag: "Intelligent data capture",
     },
     {
@@ -240,33 +235,19 @@ export const HOME_PLATFORM = {
 /** Where section 03's button goes. */
 export const HOME_PLATFORM_HREF = PLATFORM_PATH;
 
-/** The four screens beside section 03, one per layer. */
+/**
+ * The four screens beside section 03, one per layer. The Analyse layer —
+ * cohorts and registries — is built but not yet live, so its screen and its
+ * row carry the "Coming soon" tag (`comingSoon` is its position).
+ */
 export const HOME_PLATFORM_DEMO = {
   urls: [
-    "app.indigeneus.ai / cases / GX-2041 / intake",
-    "app.indigeneus.ai / cases / GX-2041 / differentials",
-    "app.indigeneus.ai / cases / GX-2041 / timeline",
-    "app.indigeneus.ai / programme / cohorts",
+    `${CASE.urlBase} / examination`,
+    `${CASE.urlBase} / differentials`,
+    `${CASE.urlBase} / investigations`,
+    "app.indigeneus.ai / registry / cohorts",
   ],
-  fields: [
-    { k: "Age at visit", v: "2 y 4 m" },
-    { k: "Sex", v: "Male" },
-    { k: "Age at onset", v: "8 months" },
-    { k: "Consanguinity", v: "Yes" },
-    { k: "Referred by", v: "Paediatric neurology" },
-  ],
-  growth: [
-    { label: "Weight", value: "9.8 kg", z: "−2.1", width: 32 },
-    { label: "Height", value: "78 cm", z: "−2.4", width: 26 },
-    { label: "OFC", value: "46 cm", z: "−1.2", width: 54 },
-  ],
-  timeline: [
-    { m: "M0", title: "First consultation", src: "Genetics OPD" },
-    { m: "M1", title: "Enzyme assay imported", src: "Laboratory" },
-    { m: "M3", title: "Exome result linked", src: "Sequencing" },
-    { m: "M6", title: "Growth and seizures reviewed", src: "Follow-up" },
-    { m: "M9", title: "Registry entry submitted", src: "Registry" },
-  ],
+  comingSoon: 3,
   cohort: [
     { label: "0–2", value: 38 },
     { label: "2–5", value: 76 },

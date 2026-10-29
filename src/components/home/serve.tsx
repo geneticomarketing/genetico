@@ -1,50 +1,70 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { ComingSoonTag } from "@/components/coming-soon";
 import { HOME_SERVE_DOORS, type HomeServeContent } from "@/content/home";
+import { RAPID_RANKED, RAPID_TOTAL } from "@/content/sample-case";
 import type { SectionMeta } from "@/lib/cms/sections";
 
 import { H2, LEAD, Label, SECTION } from "./label";
 
 const SNIPPET_LABEL = "font-mono-label text-ink-soft text-[10px] tracking-[0.14em] uppercase";
 
-/** The slice of interface floated over each audience's photograph. */
+/**
+ * The slice of interface floated over each audience's photograph. The
+ * clinical one is the sample case's real top result; cohort and registry
+ * views are built but not yet live, so theirs say "Coming soon".
+ */
 function Snippet({ kind }: { kind: (typeof HOME_SERVE_DOORS)[number]["snippet"] }) {
+  if (kind === "score") {
+    const top = RAPID_RANKED[0];
+    return (
+      <>
+        <span className={SNIPPET_LABEL}>RAPID Score · 1 of {RAPID_TOTAL}</span>
+        <div className="flex justify-between gap-2 text-[13px]">
+          <span className="font-medium">{top.name}</span>
+          <span className="font-mono-label text-primary">{top.score.toFixed(3)}</span>
+        </div>
+        <span className="font-mono-label text-ink-soft text-[10.5px]">{top.id}</span>
+      </>
+    );
+  }
+
   if (kind === "cohort") {
     return (
       <>
-        <span className={SNIPPET_LABEL}>Cohort query · 3 sites</span>
+        <div className="flex items-center justify-between gap-2">
+          <span className={SNIPPET_LABEL}>Cohort query · 3 sites</span>
+          <ComingSoonTag />
+        </div>
         <div className="flex flex-wrap gap-[5px]">
           <span className="bg-primary-tint text-primary-deep rounded-md px-2 py-1 text-xs">
-            MPS spectrum
+            Lysosomal storage
           </span>
           <span className="bg-primary-tint text-primary-deep rounded-md px-2 py-1 text-xs">
             Age 2–10
           </span>
           <span className="bg-teal-tint text-teal-deep rounded-md px-2 py-1 text-xs">
-            Genotyped
+            Diagnosis confirmed
           </span>
         </div>
       </>
     );
   }
 
-  const [label, name, value, bar] =
-    kind === "score"
-      ? ["RAPID score · ranked", "Mucopolysaccharidosis I", "0.92", "bg-primary"]
-      : ["Registry completeness", "Centre A", "86%", "bg-teal-mid"];
-  const width = kind === "score" ? "92%" : "86%";
-
   return (
     <>
-      <span className={SNIPPET_LABEL}>{label}</span>
+      <div className="flex items-center justify-between gap-2">
+        <span className={SNIPPET_LABEL}>Registry completeness</span>
+        <ComingSoonTag />
+      </div>
       <div className="flex flex-col gap-[5px]">
         <div className="flex justify-between gap-2 text-[13px]">
-          <span className="font-medium">{name}</span>
-          <span className="font-mono-label text-primary">{value}</span>
+          <span className="font-medium">Centre A</span>
+          <span className="font-mono-label text-primary">86%</span>
         </div>
         <span className="block h-1 overflow-hidden rounded-sm bg-[#EDF0F2]">
-          <span className={`block h-full rounded-sm ${bar}`} style={{ width }} />
+          <span className="bg-teal-mid block h-full w-[86%] rounded-sm" />
         </span>
       </div>
     </>
