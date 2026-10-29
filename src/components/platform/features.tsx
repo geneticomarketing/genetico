@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { FeatureArt, featureArtKind } from "@/components/platform/feature-art";
 import { SectionLead } from "@/components/platform/section-lead";
 import type { PlatformContent } from "@/lib/cms/platform-page-data";
 
@@ -11,6 +12,10 @@ import type { PlatformContent } from "@/lib/cms/platform-page-data";
  * Tabs rather than four stacked blocks: they are alternatives an institution
  * chooses between, not a sequence, and the illustration only makes sense next
  * to the one it belongs to.
+ *
+ * The illustration is drawn in code from the shared sample case when the
+ * tab's title names a feature feature-art.tsx knows; otherwise it is the
+ * image uploaded in the CMS.
  */
 export function PlatformFeatures({
   content,
@@ -23,6 +28,8 @@ export function PlatformFeatures({
   const current = content.items[active];
 
   if (!current) return null;
+
+  const art = featureArtKind(current.title);
 
   return (
     <section
@@ -106,8 +113,18 @@ export function PlatformFeatures({
             </div>
           </div>
 
-          <div className="border-rule rounded-card flex aspect-[4/3] items-center justify-center border bg-[#F5F7F9] p-7">
-            {current.image ? (
+          <div
+            role={art ? "img" : undefined}
+            aria-label={art ? `Illustrative ${current.title} screen` : undefined}
+            /* Drawn illustrations keep the 4:3 box only where there is room for
+               it; on a phone the box grows to fit them instead of clipping. */
+            className={`border-rule rounded-card flex items-center justify-center border bg-[#F5F7F9] p-[clamp(14px,2.4vw,28px)] ${
+              art ? "nav:aspect-[4/3]" : "aspect-[4/3]"
+            }`}
+          >
+            {art ? (
+              <FeatureArt kind={art} />
+            ) : current.image ? (
               /* A plain img rather than next/image: these are SVG diagrams,
                  which the image optimiser refuses to touch without
                  dangerouslyAllowSVG — and there is nothing to optimise. */
