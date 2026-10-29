@@ -2,7 +2,9 @@
 
 import { useRef, useState } from "react";
 
+import { ComingSoonTag } from "@/components/coming-soon";
 import { HOME_DOES_DEMO, type HomeDoesContent } from "@/content/home";
+import { CASE } from "@/content/sample-case";
 import type { SectionMeta } from "@/lib/cms/sections";
 
 import { useMedia, useScrub, WIDE_QUERY } from "./hooks";
@@ -12,7 +14,8 @@ const pad = (i: number) => String(i + 1).padStart(2, "0");
 
 /**
  * 02 — what Genetico does: five areas, and what one structured record
- * produces for each.
+ * produces for each. The areas past clinical and longitudinal care are built
+ * but not yet live, so their rows say "Coming soon" in place of a status.
  *
  * At 1040px and up the section is scroll-scrubbed: the grid sticks while the
  * page scrolls through a tall spacer, and each fifth of that distance opens
@@ -129,7 +132,9 @@ export function Does({
                       <span className="font-mono-label text-ink-soft text-[10.5px] tracking-[0.16em] uppercase">
                         {demo.recordLabel}
                       </span>
-                      <span className="font-headline text-[22px] tracking-[-0.01em]">GX-2041</span>
+                      <span className="font-headline text-[22px] tracking-[-0.01em]">
+                        {CASE.id}
+                      </span>
                     </div>
                     <div className="ml-auto flex flex-wrap gap-1.5">
                       {demo.recordChips.map((chip) => (
@@ -154,6 +159,7 @@ export function Does({
                     />
                     {content.areas.map((area, i) => {
                       const on = i === active;
+                      const soon = i >= demo.comingSoonFrom;
                       return (
                         <div
                           key={area.title}
@@ -179,13 +185,17 @@ export function Does({
                               {area.output}
                             </span>
                           </div>
-                          <span
-                            className={`font-mono-label nav:inline ml-auto hidden flex-none rounded-full px-2.5 py-[5px] text-[10px] tracking-[0.12em] uppercase transition-colors duration-[350ms] ${
-                              on ? "bg-teal text-[#04253F]" : "bg-white/6 text-[#8FA3B5]"
-                            }`}
-                          >
-                            {area.status}
-                          </span>
+                          {soon ? (
+                            <ComingSoonTag tone="dark" className="ml-auto flex-none" />
+                          ) : (
+                            <span
+                              className={`font-mono-label nav:inline ml-auto hidden flex-none rounded-full px-2.5 py-[5px] text-[10px] tracking-[0.12em] uppercase transition-colors duration-[350ms] ${
+                                on ? "bg-teal text-[#04253F]" : "bg-white/6 text-[#8FA3B5]"
+                              }`}
+                            >
+                              {area.status}
+                            </span>
+                          )}
                         </div>
                       );
                     })}

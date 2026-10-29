@@ -207,8 +207,8 @@ export const DICTATION = {
   ],
   proposed: [
     { section: "Chief complaints", value: "Seizures since 8 months" },
-    { section: "Developmental history", value: "Gross motor delay: not walking independently" },
-    { section: "Examination", value: "Corneal clouding (reported by ophthalmology)" },
+    { section: "Developmental history", value: "Not walking independently" },
+    { section: "Examination", value: "Corneal clouding, per ophthalmology" },
   ],
 };
 
@@ -237,7 +237,7 @@ export const LIMS_ORDER = {
 
 /** Follow-up visits on the same record, newest first. */
 export const FOLLOW_UPS = [
-  { date: "12/01/2027", note: "Report reviewed; growth and seizures reassessed" },
+  { date: "24/10/2026", note: "Follow-up visit; liver function reviewed" },
   { date: "20/10/2026", note: "Liver function test imported" },
   { date: "14/10/2026", note: "First consultation; differentials and test order" },
 ];

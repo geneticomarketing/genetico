@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useRef } from "react";
 
 import { scrollToSection } from "@/components/chrome/page-sections";
-import { HERO_DEMO, SAMPLE_DIFFERENTIALS, SAMPLE_HPO, type HomeHeroContent } from "@/content/home";
+import { HERO_DEMO, type HomeHeroContent } from "@/content/home";
+import { CASE_HPO, PHENOTYPE_ANALYTICS, RAPID_RANKED, RAPID_TOTAL } from "@/content/sample-case";
 
 import { useClock, useOnScreen, useReducedMotion } from "./hooks";
 
@@ -24,14 +25,19 @@ const LOOP_MS = TYPED_AT + 9000;
 
 const STATUS = {
   capturing: { label: "Capturing note", className: "bg-[#FFF6E5] text-[#8A5A00]" },
-  structuring: { label: "Structuring", className: "bg-primary-tint text-primary" },
-  done: { label: "Structured · 3 candidates", className: "bg-teal-tint text-teal-deep" },
+  structuring: { label: "Extracting HPO terms", className: "bg-primary-tint text-primary" },
+  done: { label: `Ranked · ${RAPID_TOTAL} candidates`, className: "bg-teal-tint text-teal-deep" },
 };
+
+/** The top three, with bars scaled to the leader — RAPID has no fixed ceiling to scale to. */
+const TOP = RAPID_RANKED.slice(0, 3);
+const TOP_SCORE = TOP[0].score;
 
 /**
  * The hero: what Genetico is, over a dark band, then a sample case in
  * IndiGeneUs.AI that fills itself in — the note types, its findings become
- * HPO terms, and ranked differentials follow. The window lies tilted back and
+ * HPO terms, and the RAPID-ranked differentials follow. Every value is what
+ * the platform returned for this case (src/content/sample-case.ts). The window lies tilted back and
  * flattens as the page scrolls; the header turns solid when it arrives.
  */
 export function Hero({ content: hero }: { content: HomeHeroContent }) {
@@ -44,7 +50,10 @@ export function Hero({ content: hero }: { content: HomeHeroContent }) {
   const typed = reduced
     ? HERO_DEMO.note.length
     : Math.min(HERO_DEMO.note.length, Math.floor(t / TYPE_MS));
-  const chips = reduced ? 5 : Math.max(0, Math.min(5, Math.floor((t - CHIPS_AT) / CHIP_GAP) + 1));
+  const terms = CASE_HPO.length;
+  const chips = reduced
+    ? terms
+    : Math.max(0, Math.min(terms, Math.floor((t - CHIPS_AT) / CHIP_GAP) + 1));
   const dxOn = reduced || t > DX_AT;
   const status =
     typed < HERO_DEMO.note.length ? STATUS.capturing : dxOn ? STATUS.done : STATUS.structuring;
@@ -124,12 +133,14 @@ export function Hero({ content: hero }: { content: HomeHeroContent }) {
               Extracted from note
             </span>
             <div className="flex flex-wrap gap-[5px]">
-              {["HP:0001263", "HP:0001250", "HP:0001433"].map((code) => (
+              {CASE_HPO.slice(0, 3).map(({ code }) => (
                 <span key={code} className={`${MONO_CHIP} bg-primary-tint text-primary-deep`}>
                   {code}
                 </span>
               ))}
-              <span className={`${MONO_CHIP} bg-teal-tint text-teal-deep`}>+2</span>
+              <span className={`${MONO_CHIP} bg-teal-tint text-teal-deep`}>
+                +{CASE_HPO.length - 3}
+              </span>
             </div>
           </div>
           <div
@@ -137,21 +148,22 @@ export function Hero({ content: hero }: { content: HomeHeroContent }) {
             className="mid:flex text-ink absolute top-[56%] -right-[1%] z-[4] hidden w-[224px] flex-col gap-2 rounded-xl bg-white px-4 py-3.5 text-left shadow-[0_34px_80px_rgba(2,10,20,0.5),0_0_0_1px_rgba(255,255,255,0.4)] [animation-delay:-3s] motion-safe:animate-[float-y_8s_ease-in-out_infinite]"
           >
             <span className="font-mono-label text-ink-soft text-[10px] tracking-[0.14em] uppercase">
-              Top candidate · RAPID
+              Phenotype analytics · check next
             </span>
-            <div className="flex justify-between gap-2">
-              <span className="text-sm font-bold">MPS I · IDUA</span>
-              <span className="font-mono-label text-primary text-[13px]">0.92</span>
-            </div>
-            <span className="block h-1 overflow-hidden rounded-sm bg-[#EDF0F2]">
-              <span className="bg-primary block h-full w-[92%] rounded-sm" />
-            </span>
+            {PHENOTYPE_ANALYTICS.unobserved.slice(0, 2).map((p) => (
+              <div key={p.term} className="flex justify-between gap-2">
+                <span className="text-[13px] font-bold">{p.term}</span>
+                <span className="font-mono-label text-primary text-[12px]">
+                  {p.score.toFixed(2)}
+                </span>
+              </div>
+            ))}
           </div>
 
           <div
             data-flat
             role="img"
-            aria-label="Illustrative IndiGeneUs.AI case screen: a free-text consultation note turned into structured HPO terms and ranked differential diagnoses."
+            aria-label="Illustrative IndiGeneUs.AI case screen: a free-text examination note turned into HPO terms, then a RAPID-ranked list of differential diagnoses from OMIM and Orphanet."
             className="text-ink origin-bottom overflow-hidden rounded-t-2xl bg-white text-left shadow-[0_-40px_120px_rgba(79,179,160,0.24),inset_0_1px_0_rgba(255,255,255,0.6),0_0_0_1px_rgba(255,255,255,0.14)] [transform:rotateX(9deg)_scale(.965)]"
           >
             <WindowBar url={HERO_DEMO.url} />
@@ -201,7 +213,7 @@ export function Hero({ content: hero }: { content: HomeHeroContent }) {
                 <div className="nav:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] grid grid-cols-[minmax(0,1fr)] gap-4">
                   <div className="border-rule flex min-h-[170px] min-w-0 flex-col gap-2.5 rounded-xl border px-[18px] py-4">
                     <span className="font-mono-label text-ink-soft text-[10.5px] tracking-[0.16em] uppercase">
-                      Consultation note · free text
+                      Examination · free text
                     </span>
                     <p className="text-ink m-0 text-[15px] leading-[1.75]">
                       {HERO_DEMO.note.slice(0, typed)}
@@ -214,12 +226,14 @@ export function Hero({ content: hero }: { content: HomeHeroContent }) {
                   <div className="border-rule flex min-w-0 flex-col gap-2.5 rounded-xl border bg-[#FAFBFC] px-[18px] py-4">
                     <div className="flex justify-between gap-2.5">
                       <span className="font-mono-label text-primary text-[10.5px] tracking-[0.16em] uppercase">
-                        Phenotype · HPO
+                        Extracted HPO terms
                       </span>
-                      <span className="font-mono-label text-ink-soft text-[11px]">{chips} / 5</span>
+                      <span className="font-mono-label text-ink-soft text-[11px]">
+                        {chips} / {CASE_HPO.length}
+                      </span>
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      {SAMPLE_HPO.map((h, i) => (
+                      {CASE_HPO.map((h, i) => (
                         <div
                           key={h.code}
                           className={`flex items-center justify-between gap-2.5 rounded-lg border border-[#D3E2EF] bg-white px-[11px] py-2 transition-[opacity,transform] duration-[350ms] ${
@@ -241,13 +255,13 @@ export function Hero({ content: hero }: { content: HomeHeroContent }) {
                 <div className="border-rule flex flex-col gap-3 rounded-xl border px-[18px] py-4">
                   <div className="flex justify-between gap-2.5">
                     <span className="font-mono-label text-primary text-[10.5px] tracking-[0.16em] uppercase">
-                      Decision support · RAPID score
+                      Suggest differentials · RAPID Score
                     </span>
                     <span className="font-mono-label text-ink-soft text-[11px]">
-                      Ranked differentials
+                      Top 3 of {RAPID_TOTAL}
                     </span>
                   </div>
-                  {SAMPLE_DIFFERENTIALS.map((d, i) => (
+                  {TOP.map((d, i) => (
                     <div
                       key={d.name}
                       className="transition-opacity duration-[400ms]"
@@ -257,11 +271,11 @@ export function Hero({ content: hero }: { content: HomeHeroContent }) {
                         <span className="text-ink text-[14.5px] font-bold">
                           {d.name}
                           <span className="font-mono-label text-ink-soft ml-1.5 text-[11px] font-normal">
-                            {d.gene} · {d.match}
+                            {d.id}
                           </span>
                         </span>
                         <span className="font-mono-label text-primary text-[13px]">
-                          {d.score.toFixed(2)}
+                          {d.score.toFixed(3)}
                         </span>
                       </div>
                       <div className="mt-2 h-1 overflow-hidden rounded-sm bg-[#EDF0F2]">
@@ -270,7 +284,7 @@ export function Hero({ content: hero }: { content: HomeHeroContent }) {
                             i === 0 ? "bg-primary" : "bg-[#8FB3D3]"
                           }`}
                           style={{
-                            width: `${dxOn ? d.score * 100 : 0}%`,
+                            width: `${dxOn ? (d.score / TOP_SCORE) * 100 : 0}%`,
                             transitionDelay: `${i * 150}ms`,
                           }}
                         />
