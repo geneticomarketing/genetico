@@ -12,6 +12,7 @@ import {
   DeployedWith,
   Infrastructure,
   Longitudinal,
+  OrderToReport,
   PlatformSecurity,
 } from "@/components/platform/sections";
 import { DEFAULT_CONTACT_SECTION } from "@/lib/cms/sections";
@@ -27,6 +28,7 @@ export const revalidate = 86400;
 const PLATFORM_SECTIONS = [
   { id: "platform", label: "The Platform", eyebrow: "The Platform" },
   { id: "cdss", label: "Clinical Intelligence", eyebrow: "Clinical Intelligence" },
+  { id: "orders", label: "Order to Report", eyebrow: "Order to Report" },
   { id: "longitudinal", label: "Longitudinal Care", eyebrow: "Longitudinal Care" },
   { id: "infrastructure", label: "Infrastructure", eyebrow: "Infrastructure" },
   { id: "security", label: "Security", eyebrow: "Security & Compliance" },
@@ -66,6 +68,7 @@ export default async function PlatformPage() {
 
         <PlatformFeatures content={content.features} num={section.platform.num} />
         <ClinicalIntelligence content={content.cdss} num={section.cdss.num} />
+        <OrderToReport num={section.orders.num} />
         <Longitudinal content={content.longitudinal} num={section.longitudinal.num} />
         <Infrastructure content={content.infrastructure} num={section.infrastructure.num} />
         <PlatformSecurity content={content.security} num={section.security.num} />
