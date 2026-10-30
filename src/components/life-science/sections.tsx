@@ -3,24 +3,16 @@
 import { useState } from "react";
 
 import { scrollToSection } from "@/components/chrome/page-sections";
-import {
-  LivePill,
-  Meter,
-  Panel,
-  PanelLabel,
-  PanelRow,
-  PanelTable,
-  useTicker,
-} from "@/components/solutions/parts";
+import { ComingSoonTag } from "@/components/coming-soon";
+import { Panel, PanelLabel, PanelRow, PanelTable } from "@/components/solutions/parts";
+import { CASE, CASE_GROWTH, CASE_HPO } from "@/content/sample-case";
 import {
   COHORT_COVERAGE,
   COHORT_DEFAULT_FILTER,
   COHORT_FILTERS,
   COHORT_SUMMARY,
   INTAKE_ACTIVE_TAB,
-  INTAKE_COMPLETION,
-  INTAKE_FAMILY_HISTORY,
-  INTAKE_HPO_TERMS,
+  INTAKE_CONSANGUINITY,
   INTAKE_TABS,
   NATURAL_HISTORY_ROWS,
   RESEARCH_SITES,
@@ -30,6 +22,10 @@ import type { SolutionContent } from "@/lib/cms/solution-page-data";
 /**
  * The Life Science page's own pieces: a centred hero over three summary
  * cards, and the three walkthrough mock-ups.
+ *
+ * Registry and cohort views are built but not yet live (confirmed
+ * 2026-10-29), so every card and panel that shows one carries the "Coming
+ * soon" tag and holds still. The case form and HPO extraction are live.
  */
 
 /** One of the hero's three cards. */
@@ -42,13 +38,6 @@ function HeroCard({ children }: { children: React.ReactNode }) {
 }
 
 export function LifeScienceHero({ content }: { content: SolutionContent["hero"] }) {
-  const patients = useTicker(
-    COHORT_SUMMARY.patientsFrom,
-    COHORT_SUMMARY.patientsTo,
-    // Slow: the figure is meant to read as a cohort growing, not a stopwatch.
-    7000,
-  );
-
   return (
     <section
       id="top"
@@ -110,11 +99,11 @@ export function LifeScienceHero({ content }: { content: SolutionContent["hero"] 
           <HeroCard>
             <div className="flex items-center justify-between gap-3">
               <PanelLabel>Research cohort</PanelLabel>
-              <LivePill />
+              <ComingSoonTag />
             </div>
             <div className="grid grid-cols-3 gap-3.5">
               {[
-                { figure: String(patients), label: "Patients" },
+                { figure: COHORT_SUMMARY.patients, label: "Patients" },
                 { figure: COHORT_SUMMARY.centres, label: "Centres" },
                 { figure: COHORT_SUMMARY.hpoCoded, label: "HPO coded" },
               ].map((stat) => (
@@ -129,9 +118,9 @@ export function LifeScienceHero({ content }: { content: SolutionContent["hero"] 
           </HeroCard>
 
           <HeroCard>
-            <div className="flex items-baseline justify-between gap-3">
+            <div className="flex items-center justify-between gap-3">
               <PanelLabel>Natural history study</PanelLabel>
-              <span className="text-ink-soft text-[13px]">Longitudinal</span>
+              <ComingSoonTag />
             </div>
             <div className="flex flex-col">
               {NATURAL_HISTORY_ROWS.map((row, i) => (
@@ -153,13 +142,13 @@ export function LifeScienceHero({ content }: { content: SolutionContent["hero"] 
           </HeroCard>
 
           <HeroCard>
-            <PanelLabel>Sites synchronized</PanelLabel>
-            <div className="flex items-baseline gap-2.5">
-              <span className="font-headline text-primary text-[34px] leading-none">
-                {COHORT_SUMMARY.centres}
-              </span>
-              <span className="text-ink-body text-[14.5px]">research sites on one schema</span>
+            <div className="flex items-center justify-between gap-3">
+              <PanelLabel>Sites on one schema</PanelLabel>
+              <ComingSoonTag />
             </div>
+            <span className="text-ink-body text-[14.5px] leading-[1.6]">
+              Every centre records cases in the same structured form, so their data can be pooled.
+            </span>
             <div className="flex flex-wrap gap-2">
               {RESEARCH_SITES.map((site) => (
                 <span
@@ -177,12 +166,16 @@ export function LifeScienceHero({ content }: { content: SolutionContent["hero"] 
   );
 }
 
-/** Step 01 — the structured intake form every centre fills in. */
+/**
+ * Step 01 — the case form as the platform lays it out, with Examination open:
+ * the HPO terms extracted from the note, the growth measurements against WHO
+ * standards, and a family-history field.
+ */
 export function IntakePanel() {
   return (
     <Panel
-      title="Patient intake — step 3 of 5"
-      caption="Every centre fills the same schema — no post-hoc mapping."
+      title={`Case ${CASE.id} — case form`}
+      caption="Every centre fills the same form, so no data needs mapping afterwards."
     >
       <div className="flex gap-1 overflow-x-auto border-b border-[#EDF0F2] px-4 pt-1.5">
         {INTAKE_TABS.map((tab) => (
@@ -201,14 +194,14 @@ export function IntakePanel() {
 
       <div className="flex flex-col gap-5 px-5 py-5.5">
         <div className="flex flex-col gap-2.5">
-          <PanelLabel>HPO terms</PanelLabel>
+          <PanelLabel>HPO terms · from the examination note</PanelLabel>
           <div className="border-rule flex flex-wrap gap-2 rounded-[10px] border p-3">
-            {INTAKE_HPO_TERMS.map((term) => (
+            {CASE_HPO.map((term) => (
               <span
-                key={term}
+                key={term.code}
                 className="bg-primary-tint text-primary-deep flex items-center gap-2 rounded-md px-[11px] py-[7px] text-[13px]"
               >
-                {term}
+                {term.name}
                 <span className="text-[#8FA9BF]">×</span>
               </span>
             ))}
@@ -219,16 +212,25 @@ export function IntakePanel() {
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <PanelLabel>Symptom onset</PanelLabel>
-          <div className="border-rule text-ink rounded-[10px] border px-3.5 py-3 text-sm">
-            Infancy (0–2 years)
+          <PanelLabel>Measurements · WHO standard</PanelLabel>
+          <div className="grid grid-cols-3 gap-2.5">
+            {CASE_GROWTH.map((m) => (
+              <div
+                key={m.label}
+                className="border-rule flex min-w-0 flex-col gap-1 rounded-[10px] border px-3 py-2.5"
+              >
+                <span className="text-ink-soft text-[12px]">{m.label}</span>
+                <span className="text-ink text-sm font-medium">{m.value}</span>
+                <span className="font-mono-label text-primary text-[11px]">Z {m.z}</span>
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <PanelLabel>Family history</PanelLabel>
+          <PanelLabel>Consanguineous marriage</PanelLabel>
           <div className="flex flex-wrap gap-x-[18px] gap-y-2.5">
-            {INTAKE_FAMILY_HISTORY.map((option) => (
+            {INTAKE_CONSANGUINITY.map((option) => (
               <span
                 key={option.label}
                 className={`flex items-center gap-[9px] text-sm ${
@@ -246,14 +248,6 @@ export function IntakePanel() {
               </span>
             ))}
           </div>
-        </div>
-
-        <div className="flex flex-col gap-[9px] border-t border-[#EDF0F2] pt-4">
-          <div className="flex items-center justify-between">
-            <span className="text-ink-soft text-[13px]">Form completion</span>
-            <span className="text-primary text-[13px] font-bold">{INTAKE_COMPLETION}%</span>
-          </div>
-          <Meter percent={INTAKE_COMPLETION} />
         </div>
       </div>
     </Panel>
@@ -275,10 +269,14 @@ export function CohortPanel() {
   return (
     <Panel
       title="Cohort discovery"
-      caption="Filter a cohort in seconds — the counts update live."
+      caption="Cohort views run on the same structured records, and are launching soon."
       interactive
     >
       <div className="flex flex-col gap-[18px] p-5">
+        <div className="flex items-center justify-between gap-3">
+          <PanelLabel>Filter the cohort</PanelLabel>
+          <ComingSoonTag />
+        </div>
         <div className="flex flex-wrap gap-2">
           {COHORT_FILTERS.map((option, i) => (
             <button

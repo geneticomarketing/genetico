@@ -45,11 +45,11 @@ const TITLE_SUFFIX = ` | ${SITE_NAME}`;
 
 /** Shorten to `max` characters at a word boundary, adding an ellipsis when anything was cut. */
 export function clipText(text: string, max: number): string {
-  const clean = text.replace(/s+/g, " ").trim();
+  const clean = text.replace(/\s+/g, " ").trim();
   if (clean.length <= max) return clean;
   const cut = clean.slice(0, max - 1);
   const atWord = cut.lastIndexOf(" ") > max * 0.6 ? cut.slice(0, cut.lastIndexOf(" ")) : cut;
-  return `${atWord.replace(/[s,;:.–—-]+$/, "")}…`;
+  return `${atWord.replace(/[\s,;:.–—-]+$/, "")}…`;
 }
 
 type CreatePageMetadataOptions = {

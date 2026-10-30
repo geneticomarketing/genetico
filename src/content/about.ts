@@ -152,7 +152,9 @@ export const ABOUT_PLATFORM = {
     },
     {
       title: "Analyse",
-      body: "Cohorts, registries and dashboards from the data the clinic already produced.",
+      body:
+        "Cohorts, registries and dashboards from the data the clinic already produced — launching " +
+        "soon.",
     },
   ],
 };

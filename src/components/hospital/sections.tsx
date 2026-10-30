@@ -4,7 +4,6 @@ import { useState } from "react";
 
 import { scrollToSection } from "@/components/chrome/page-sections";
 import {
-  LivePill,
   Meter,
   Panel,
   PanelLabel,
@@ -13,25 +12,45 @@ import {
   useCycle,
 } from "@/components/solutions/parts";
 import {
+  CASE,
+  CASE_HPO,
+  CASE_NOTE,
+  FOLLOW_UPS,
+  LAB_EXTRACT,
+  LIMS_ORDER,
+  PHENOTYPE_ANALYTICS,
+  RAPID_RANKED,
+  RAPID_TOTAL,
+} from "@/content/sample-case";
+import {
+  ANALYTICS_VIEWS,
   CARE_PATHWAY,
-  HERO_HPO_TERMS,
-  HERO_RANKED,
-  PATIENT,
-  PATIENT_TIMELINE,
-  RANKED_CANDIDATES,
+  HERO_RANKED_COUNT,
+  ORDER_STATUS_INDEX,
+  RANKED_COUNT,
   type PathwayState,
 } from "@/content/solution-demos";
 import type { SolutionContent } from "@/lib/cms/solution-page-data";
 
 /**
- * The Hospital page's own pieces: a two-column hero with a live consultation
- * beside it, and the four walkthrough mock-ups.
+ * The Hospital page's own pieces: a two-column hero with the sample case
+ * beside it, and the four walkthrough mock-ups — the case pathway, Smart
+ * Investigation Extract, RAPID Score with Phenotype Analytics, and follow-up
+ * visits. Every value comes from the shared sample case.
  */
+
+const HERO_RANKED = RAPID_RANKED.slice(0, HERO_RANKED_COUNT);
+const RANKED = RAPID_RANKED.slice(0, RANKED_COUNT);
+
+/** Bars are scaled to the leader, as the platform draws them — the score itself stays a decimal. */
+function barPercent(score: number) {
+  return Math.round((score / RAPID_RANKED[0].score) * 100);
+}
 
 export function HospitalHero({ content }: { content: SolutionContent["hero"] }) {
   // Terms land one at a time, then the ranking fills in behind them.
-  const revealed = useCycle(HERO_HPO_TERMS.length, 1100);
-  const ranked = revealed >= HERO_HPO_TERMS.length;
+  const [revealed, cardRef] = useCycle(CASE_HPO.length, 1100);
+  const ranked = revealed >= CASE_HPO.length;
 
   return (
     <section
@@ -104,42 +123,56 @@ export function HospitalHero({ content }: { content: SolutionContent["hero"] }) 
             aria-hidden
             className="border-rule rounded-card overflow-hidden border bg-white shadow-[0_22px_54px_rgba(7,59,104,0.10)]"
           >
-            <div className="bg-sheet-soft flex items-center justify-between gap-3 border-b border-[#EDF0F2] px-[18px] py-3.5">
-              <PanelLabel>Consultation · GEN-2024-041</PanelLabel>
-              <LivePill />
+            <div className="bg-sheet-soft flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b border-[#EDF0F2] px-[18px] py-3.5">
+              <PanelLabel>Case {CASE.id}</PanelLabel>
+              <span className="text-ink-soft text-[12.5px]">{CASE.patient}</span>
             </div>
 
-            <div className="flex flex-col gap-[18px] p-5">
+            <div ref={cardRef} className="flex flex-col gap-[18px] p-5">
+              <div className="flex flex-col gap-2">
+                <PanelLabel>Examination note</PanelLabel>
+                <p className="text-ink-body m-0 line-clamp-2 text-[13px] leading-[1.6]">
+                  {CASE_NOTE}
+                </p>
+              </div>
+
               <div className="flex flex-col gap-2.5">
-                <PanelLabel>HPO extracted from notes</PanelLabel>
+                <PanelLabel>HPO terms extracted</PanelLabel>
                 <div className="flex flex-wrap gap-2">
-                  {HERO_HPO_TERMS.map((term, i) => (
+                  {CASE_HPO.map((term, i) => (
                     <span
-                      key={term}
-                      className={`bg-primary-tint text-primary-deep font-mono-label rounded-md px-[11px] py-[7px] text-[11.5px] transition-opacity duration-[400ms] ${
+                      key={term.code}
+                      className={`bg-primary-tint text-primary-deep rounded-md px-[11px] py-[7px] text-[12.5px] transition-opacity duration-[400ms] ${
                         i < revealed ? "opacity-100" : "opacity-[0.22]"
                       }`}
                     >
-                      {term}
+                      {term.name}
                     </span>
                   ))}
                 </div>
               </div>
 
               <div className="flex flex-col gap-3 border-t border-[#EDF0F2] pt-4">
-                <div className="flex items-center justify-between gap-3">
-                  <PanelLabel>RAPID Score™ · ranked</PanelLabel>
-                  <span className="text-ink-soft text-[12.5px]">Evidence-backed</span>
+                <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+                  <PanelLabel>Suggest differentials · RAPID Score</PanelLabel>
+                  <span className="text-ink-soft text-[12.5px]">
+                    Top {HERO_RANKED_COUNT} of {RAPID_TOTAL}
+                  </span>
                 </div>
                 {HERO_RANKED.map((row) => (
-                  <div key={row.name} className="flex flex-col gap-[7px]">
+                  <div key={row.id} className="flex flex-col gap-[7px]">
                     <div className="flex items-baseline justify-between gap-3">
-                      <span className="text-ink text-sm font-medium">{row.name}</span>
-                      <span className="font-mono-label text-primary text-[13px] font-medium">
-                        {row.value}%
+                      <span className="text-ink min-w-0 truncate text-sm font-medium">
+                        {row.name}
+                        <span className="font-mono-label text-ink-dim ml-1.5 text-[11px]">
+                          {row.id}
+                        </span>
+                      </span>
+                      <span className="font-mono-label text-primary flex-none text-[13px] font-medium">
+                        {row.score.toFixed(3)}
                       </span>
                     </div>
-                    <Meter percent={ranked ? row.value : 0} height={5} />
+                    <Meter percent={ranked ? barPercent(row.score) : 0} height={5} />
                   </div>
                 ))}
               </div>
@@ -159,32 +192,28 @@ const PATHWAY_TAG: Record<PathwayState, string> = {
   Done: "text-teal-deep",
   Active: "text-primary",
   Next: "text-ink-dim",
-  Queued: "text-ink-dim",
 };
 
 const PATHWAY_DOT: Record<PathwayState, string> = {
   Done: "bg-teal-tint text-teal-deep",
   Active: "bg-primary text-white",
   Next: "text-ink-dim bg-[#F4F6F8]",
-  Queued: "text-ink-dim bg-[#F4F6F8]",
 };
 
-/** Step 01 — the care pathway, part walked and part still ahead. */
+/** Step 01 — the case from registration to report, part walked and part still ahead. */
 export function PathwayPanel() {
   const done = CARE_PATHWAY.filter((row) => row.state === "Done").length;
-  // Half a step past the last completed one: the active step is underway.
-  const percent = Math.round(((done + 0.5) / CARE_PATHWAY.length) * 100);
 
   return (
     <Panel
-      title="Care pathway — genetic clinic"
-      caption="Configurable per clinic — the record stays comparable across all of them."
+      title={`Case ${CASE.id} — genetics clinic`}
+      caption="Every case runs the same steps, so every record reads the same way."
     >
-      <div className="flex flex-col gap-3.5 p-5">
+      <div className="flex flex-col gap-2.5 p-5">
         {CARE_PATHWAY.map((row, i) => (
           <div
             key={row.label}
-            className={`flex items-center gap-3.5 rounded-[10px] border px-3.5 py-3.5 transition-colors duration-[400ms] ${
+            className={`flex items-center gap-3.5 rounded-[10px] border px-3.5 py-[11px] transition-colors duration-[400ms] ${
               row.state === "Active" ? "border-[#C3D2DC] bg-[#F6FAFD]" : "border-rule"
             }`}
           >
@@ -195,26 +224,29 @@ export function PathwayPanel() {
             >
               {row.state === "Done" ? "✓" : row.state === "Active" ? "→" : String(i + 1)}
             </span>
-            <span className="flex min-w-0 flex-1 flex-col gap-[3px]">
+            <span className="flex min-w-0 flex-1 flex-col gap-0.5">
               <span className="text-ink text-sm font-medium">{row.label}</span>
-              <span className="text-ink-soft text-[12.5px]">{row.meta}</span>
+              <span className="text-ink-soft text-[12.5px]">
+                {row.state === "Active"
+                  ? `${row.meta} · ${LIMS_ORDER.statuses[ORDER_STATUS_INDEX]}`
+                  : row.meta}
+              </span>
             </span>
             <span
               className={`font-mono-label flex-none text-[10.5px] tracking-[0.12em] uppercase ${
                 PATHWAY_TAG[row.state]
               }`}
             >
-              {row.state}
+              {row.state === "Active" ? "In lab" : row.state}
             </span>
           </div>
         ))}
 
-        <div className="flex flex-col gap-[9px] border-t border-[#EDF0F2] pt-3.5">
-          <div className="flex items-center justify-between">
-            <span className="text-ink-soft text-[13px]">Pathway completion</span>
-            <span className="font-mono-label text-primary text-[13px] font-medium">{percent}%</span>
-          </div>
-          <Meter percent={percent} />
+        <div className="flex items-center justify-between border-t border-[#EDF0F2] pt-3">
+          <span className="text-ink-soft text-[13px]">Steps complete</span>
+          <span className="font-mono-label text-primary text-[13px] font-medium">
+            {done} of {CARE_PATHWAY.length}
+          </span>
         </div>
       </div>
     </Panel>
@@ -222,123 +254,155 @@ export function PathwayPanel() {
 }
 
 /**
- * Step 03 — RAPID Score™.
+ * Step 03 — RAPID Score with Phenotype Analytics.
  *
- * Picking a candidate swaps the evidence below it, which is the step's whole
- * argument: every rank is traceable. Those are real buttons, so the panel is
- * left visible to assistive tech.
+ * The ranked list is the platform's top four of a hundred; beneath it, the
+ * leader's analytics switch between what each observed symptom contributed
+ * and the unobserved phenotypes worth checking for next. Those switches are
+ * real buttons, so the panel is left visible to assistive tech.
  */
 export function RapidPanel() {
-  const [picked, setPicked] = useState(0);
-  const candidate = RANKED_CANDIDATES[picked] ?? RANKED_CANDIDATES[0];
+  const [view, setView] = useState<(typeof ANALYTICS_VIEWS)[number]["key"]>("observed");
+  const rows = PHENOTYPE_ANALYTICS[view];
+  const best = Math.max(...rows.map((r) => r.score));
 
   return (
     <Panel
-      title="RAPID Score™ — differential diagnosis"
-      caption="Tap a candidate to see the phenotype and variant evidence behind its rank."
+      title="Suggest differentials — RAPID Score"
+      caption="Every rank traces back to the symptoms the clinician selected."
       interactive
     >
-      <div className="flex flex-col gap-[18px] p-5">
-        <PanelLabel>Ranked candidates</PanelLabel>
+      <div className="flex flex-col gap-4 p-5">
+        <div className="flex items-center justify-between gap-3">
+          <PanelLabel>Ranked list</PanelLabel>
+          <span className="text-ink-soft text-[12.5px]">
+            {RANKED_COUNT} of {RAPID_TOTAL} · OMIM, Orphanet
+          </span>
+        </div>
 
-        <div className="flex flex-col gap-4">
-          {RANKED_CANDIDATES.map((row, i) => (
-            <button
-              key={row.name}
-              type="button"
-              aria-pressed={i === picked}
-              onClick={() => setPicked(i)}
-              className={`flex cursor-pointer flex-col gap-[7px] border-0 bg-transparent p-0 text-left transition-opacity duration-300 ${
-                i === picked ? "opacity-100" : "opacity-62"
-              }`}
-            >
+        <div className="flex flex-col gap-3">
+          {RANKED.map((row, i) => (
+            <div key={row.id} className="flex flex-col gap-1.5">
               <span className="flex items-baseline justify-between gap-3">
-                <span className="flex flex-col gap-0.5">
-                  <span className="text-ink text-[14.5px] font-medium">{row.name}</span>
-                  <span className="font-mono-label text-ink-dim text-[11px]">{row.code}</span>
+                <span className="text-ink min-w-0 truncate text-[14px] font-medium">
+                  <span className="text-ink-dim mr-1.5">{row.rank}</span>
+                  {row.name}
+                  <span className="font-mono-label text-ink-dim ml-1.5 text-[11px]">{row.id}</span>
                 </span>
-                <span className="font-mono-label text-primary text-[13.5px] font-medium">
-                  {row.value}%
+                <span className="font-mono-label text-primary flex-none text-[13px] font-medium">
+                  {row.score.toFixed(3)}
                 </span>
               </span>
-              <span className="block w-full">
-                <Meter percent={row.value} />
-              </span>
-            </button>
+              <Meter percent={barPercent(row.score)} height={i === 0 ? 6 : 4} />
+            </div>
           ))}
         </div>
 
-        <PanelTable label="Evidence summary">
-          {candidate.evidence.map((row, i) => (
-            <PanelRow
-              key={row.label}
-              label={row.label}
-              value={row.value}
-              last={i === candidate.evidence.length - 1}
-            />
-          ))}
-        </PanelTable>
+        <div className="border-rule overflow-hidden rounded-[10px] border">
+          <div className="border-rule flex flex-wrap items-center justify-between gap-2 border-b bg-[#F4F6F8] px-3.5 py-2">
+            <PanelLabel>Phenotype analytics · {PHENOTYPE_ANALYTICS.disease}</PanelLabel>
+            <div className="flex gap-1.5">
+              {ANALYTICS_VIEWS.map((option) => (
+                <button
+                  key={option.key}
+                  type="button"
+                  aria-pressed={option.key === view}
+                  onClick={() => setView(option.key)}
+                  className={`cursor-pointer rounded-full border-0 px-2.5 py-1 text-[12px] transition-colors duration-[250ms] ${
+                    option.key === view
+                      ? "bg-primary-deep font-medium text-white"
+                      : "text-ink-body bg-white"
+                  }`}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 px-3.5 py-3">
+            {rows.map((row) => (
+              <div
+                key={row.term}
+                className="grid grid-cols-[minmax(0,1fr)_48px_34px] items-center gap-2.5 sm:grid-cols-[minmax(0,1fr)_110px_34px]"
+              >
+                <span className="text-ink-body truncate text-[13px]">{row.term}</span>
+                <Meter percent={(row.score / best) * 100} height={4} />
+                <span className="font-mono-label text-primary text-right text-[11.5px]">
+                  {row.score.toFixed(2)}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </Panel>
   );
 }
 
-/** Step 04 — the patient timeline, with the next review already surfaced. */
-export function TimelinePanel() {
+/**
+ * Step 04 — follow-up visits on the same record: the visits so far, the lab
+ * results read in between them, and the ordered test as the LIMS tracks it.
+ */
+export function FollowUpPanel() {
   return (
     <Panel
-      title="Patient timeline"
-      caption="Nothing gets lost between visits — recalls surface on their own."
+      title={`Case ${CASE.id} — follow-up`}
+      caption="Each visit, report and test result lands on the one record."
     >
-      <div className="flex flex-col gap-5 p-5">
-        <div className="flex items-center gap-3.5">
-          <span className="bg-teal-mid flex h-[42px] w-[42px] flex-none items-center justify-center rounded-full text-sm font-bold text-white">
-            {PATIENT.initials}
-          </span>
-          <span className="flex min-w-0 flex-1 flex-col gap-[3px]">
-            <span className="text-ink text-[15px] font-bold">{PATIENT.name}</span>
-            <span className="text-ink-soft text-[12.5px]">{PATIENT.meta}</span>
-          </span>
-          <span className="bg-primary-tint text-primary flex-none rounded-full px-[11px] py-1.5 text-[12.5px] font-medium">
-            {PATIENT.status}
-          </span>
-        </div>
-
-        <div className="flex flex-col gap-3">
-          <div className="relative h-[3px] rounded-sm bg-[#EDF0F2]">
-            <div
-              className="bg-meter absolute top-0 left-0 h-[3px] rounded-sm"
-              style={{ width: `${PATIENT.progress}%` }}
+      <div className="flex flex-col gap-4 p-5">
+        <div className="flex flex-col gap-2.5">
+          <PanelLabel>Visits</PanelLabel>
+          <ol className="relative m-0 list-none p-0 pl-[24px]">
+            <span
+              aria-hidden
+              className="absolute top-2 bottom-2 left-[5px] block w-px bg-[#C3D2DC]"
             />
-          </div>
-          <div className="flex gap-2.5">
-            {PATIENT_TIMELINE.map((entry) => (
-              <span key={entry.date} className="flex min-w-0 flex-1 flex-col gap-[5px]">
+            {FOLLOW_UPS.map((visit, i) => (
+              <li key={visit.date} className="relative pb-3 last:pb-0">
                 <span
-                  className={`block h-[11px] w-[11px] rounded-full ${
-                    entry.done ? "bg-primary" : "border-2 border-[#C3D2DC] bg-white"
+                  className={`absolute top-[4px] -left-[24px] block h-[11px] w-[11px] rounded-full ${
+                    i === 0 ? "bg-primary" : "border-2 border-[#C3D2DC] bg-white"
                   }`}
                 />
-                <span className="font-mono-label text-ink-dim text-[10.5px]">{entry.date}</span>
-                <span className="text-ink text-[12.5px] font-medium text-pretty">
-                  {entry.label}
+                <span className="font-mono-label text-ink-dim block text-[10.5px]">
+                  {visit.date}
                 </span>
-              </span>
+                <span className="text-ink block text-[13.5px] font-medium">{visit.note}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <PanelTable label={`${LAB_EXTRACT.test} · ${LAB_EXTRACT.date}`}>
+          {LAB_EXTRACT.rows.slice(1, 4).map((row, i) => (
+            <PanelRow
+              key={row.field}
+              label={row.field}
+              value={`${row.value} ${row.unit}${row.high ? " ↑" : ""}`}
+              last={i === 2}
+            />
+          ))}
+        </PanelTable>
+
+        <div className="flex flex-col gap-2 rounded-[10px] bg-[#F4F6F8] p-3.5">
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <span className="text-ink text-[13.5px] font-medium">
+              {LIMS_ORDER.test} · {LIMS_ORDER.sample}
+            </span>
+            <span className="font-mono-label text-ink-dim text-[10.5px]">{LIMS_ORDER.orderId}</span>
+          </div>
+          <div className="flex gap-1">
+            {LIMS_ORDER.statuses.map((status, i) => (
+              <span
+                key={status}
+                className={`block h-1 flex-1 rounded-sm ${
+                  i <= ORDER_STATUS_INDEX ? "bg-meter" : "bg-[#DCE3E8]"
+                }`}
+              />
             ))}
           </div>
-        </div>
-
-        <div className="flex flex-col gap-[7px] rounded-[10px] bg-[#F4F6F8] p-3.5">
-          <PanelLabel>{PATIENT.lastNoteLabel}</PanelLabel>
-          <span className="text-ink-body text-[13.5px] leading-[1.65]">{PATIENT.lastNote}</span>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="rounded-lg bg-[#FDF4E7] px-3 py-[7px] text-[12.5px] font-medium text-[#8A5A12]">
-            ⚠ {PATIENT.dueNotice}
-          </span>
-          <span className="bg-primary-deep rounded-full px-5 py-[11px] text-[13.5px] font-bold text-white">
-            Schedule
+          <span className="text-ink-soft text-[12.5px]">
+            Laboratory LIMS: {LIMS_ORDER.statuses[ORDER_STATUS_INDEX]}
           </span>
         </div>
       </div>

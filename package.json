@@ -20,7 +20,8 @@
     "generate:importmap": "payload generate:importmap",
     "generate:types": "payload generate:types",
     "cms:backup": "node --env-file=.env scripts/backup-cms.mjs",
-    "check:claims": "node scripts/check-claims.mjs"
+    "check:claims": "node scripts/check-claims.mjs",
+    "check:cms-claims": "node --env-file=.env scripts/check-cms-claims.mjs"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": [

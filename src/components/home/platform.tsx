@@ -70,6 +70,7 @@ export function Platform({
             <Label num={num}>{section.eyebrow}</Label>
             <Image
               src="/brand/indigeneus-mark-black.png"
+              sizes="52px"
               alt="IndiGeneUs.AI"
               width={1065}
               height={1061}

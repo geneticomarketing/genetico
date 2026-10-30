@@ -345,6 +345,7 @@ export function WindowBar({ url, tag }: { url: string; tag?: string }) {
       ) : (
         <Image
           src="/brand/indigeneus-mark-black.png"
+          sizes="18px"
           alt=""
           width={1065}
           height={1061}

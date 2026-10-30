@@ -339,6 +339,7 @@ function Hub({ labels }: { labels: string[] }) {
       <div className="absolute top-1/2 left-1/2 flex aspect-square w-[24%] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-[0_20px_60px_rgba(7,59,104,0.18)]">
         <Image
           src="/brand/indigeneus-mark-black.png"
+          sizes="160px"
           alt="IndiGeneUs.AI"
           width={1065}
           height={1061}

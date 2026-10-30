@@ -866,23 +866,6 @@ body {
   background-image: linear-gradient(90deg, #0b4c86, #4fb3a0);
 }
 
-/* The "Live" pill's dot, on the solution page heroes: a solid dot with a
-   second copy of itself expanding out of it and fading. */
-@keyframes live-dot {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  70% {
-    opacity: 0;
-    transform: scale(2.4);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(2.4);
-  }
-}
-
 /* ── Short-viewport hero ───────────────────────────────────────────────────
    The rework's hero is meant to read as one calm full screen: statement,
    ecosystem spine and the "Built with" strip, all above the fold. Its stack

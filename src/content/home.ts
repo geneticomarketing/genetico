@@ -226,7 +226,7 @@ export const HOME_PLATFORM = {
       title: "Analyse",
       body:
         "Cohorts, registries and programme dashboards built from the same structured data the " +
-        "clinic already produced.",
+        "clinic already produced — launching soon.",
       tag: "Registry & analytics",
     },
   ],

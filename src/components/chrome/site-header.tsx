@@ -194,6 +194,7 @@ export function SiteHeader({
         <Link href="/" className="flex flex-none items-center" aria-label="Genetico — home">
           <Image
             src="/brand/genetico-logo.png"
+            sizes="120px"
             alt="Genetico"
             width={1388}
             height={402}
