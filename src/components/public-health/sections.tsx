@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { Eyebrow } from "@/components/chrome/eyebrow";
 import { scrollToSection } from "@/components/chrome/page-sections";
+import { ComingSoonTag } from "@/components/coming-soon";
 import { HubDiagram } from "@/components/public-health/hub-diagram";
 import { DIAGRAM_LEGEND, FLOW_NOTES, IMPACT_ICONS } from "@/content/public-health-diagram";
 import type { ArchKey } from "@/content/public-health-diagram";
@@ -80,6 +81,8 @@ export function PublicHealthHero({ content }: { content: PublicHealthContent["he
         </div>
 
         <div className="flex min-w-0 flex-col gap-3.5">
+          {/* The national registry and programme views are built but not yet live. */}
+          <ComingSoonTag className="self-start" />
           <HubDiagram />
           <div className="font-mono-label text-ink-soft flex flex-wrap gap-x-[22px] gap-y-2.5 text-[10.5px] tracking-[0.16em] uppercase">
             {DIAGRAM_LEGEND.map((entry) => (
@@ -406,6 +409,12 @@ export function Architecture({
           </div>
 
           <div className="flex min-w-0 flex-col gap-[18px]">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <ComingSoonTag />
+              <span className="text-ink-soft text-[13px]">
+                Registry and programme views are built and launching soon.
+              </span>
+            </div>
             <HubDiagram lit={lit} interactive />
             <div className="border-rule flex flex-col gap-2.5 border-t pt-1.5">
               {FLOW_NOTES.map((note) => (
