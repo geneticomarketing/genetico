@@ -226,14 +226,18 @@ export function PathwayPanel() {
             </span>
             <span className="flex min-w-0 flex-1 flex-col gap-0.5">
               <span className="text-ink text-sm font-medium">{row.label}</span>
-              <span className="text-ink-soft text-[12.5px]">{row.meta}</span>
+              <span className="text-ink-soft text-[12.5px]">
+                {row.state === "Active"
+                  ? `${row.meta} · ${LIMS_ORDER.statuses[ORDER_STATUS_INDEX]}`
+                  : row.meta}
+              </span>
             </span>
             <span
               className={`font-mono-label flex-none text-[10.5px] tracking-[0.12em] uppercase ${
                 PATHWAY_TAG[row.state]
               }`}
             >
-              {row.state === "Active" ? LIMS_ORDER.statuses[ORDER_STATUS_INDEX] : row.state}
+              {row.state === "Active" ? "In lab" : row.state}
             </span>
           </div>
         ))}
@@ -319,7 +323,7 @@ export function RapidPanel() {
             {rows.map((row) => (
               <div
                 key={row.term}
-                className="grid grid-cols-[minmax(0,1fr)_minmax(60px,110px)_34px] items-center gap-2.5"
+                className="grid grid-cols-[minmax(0,1fr)_48px_34px] items-center gap-2.5 sm:grid-cols-[minmax(0,1fr)_110px_34px]"
               >
                 <span className="text-ink-body truncate text-[13px]">{row.term}</span>
                 <Meter percent={(row.score / best) * 100} height={4} />

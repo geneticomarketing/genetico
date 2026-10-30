@@ -31,12 +31,12 @@ export function ExtractPanel({ caption }: { caption: string }) {
           </span>
           <span className="flex min-w-0 flex-1 flex-col gap-[3px]">
             <span className="text-ink truncate text-sm font-medium">{LAB_EXTRACT.file}</span>
-            <span className="text-ink-soft text-[12.5px]">
+            <span className="text-ink-soft truncate text-[12.5px]">
               {LAB_EXTRACT.test} · {LAB_EXTRACT.date}
             </span>
           </span>
           <span className="bg-teal-tint text-teal-deep flex-none rounded-full px-[11px] py-1.5 text-[12.5px] font-medium">
-            {done ? "Ready to review" : "Reading…"}
+            {done ? "Read" : "Reading…"}
           </span>
         </div>
 
