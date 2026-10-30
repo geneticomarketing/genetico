@@ -6,7 +6,7 @@ import { SectionRail } from "@/components/chrome/section-rail";
 import { SiteFooter } from "@/components/chrome/site-footer";
 import { SiteHeader } from "@/components/chrome/site-header";
 import { CohortPanel, IntakePanel, LifeScienceHero } from "@/components/life-science/sections";
-import { ExtractPanel } from "@/components/solutions/extract-panel";
+import { NoteExtractPanel } from "@/components/solutions/extract-panel";
 import { Challenge, Outcomes, Walkthrough } from "@/components/solutions/sections";
 import { DEFAULT_CONTACT_SECTION } from "@/lib/cms/sections";
 import { getFooterContent, getNavigation } from "@/lib/cms/queries";
@@ -54,10 +54,9 @@ export default async function LifeSciencePage() {
           num={section.solution.num}
           panels={[
             <IntakePanel key="intake" />,
-            <ExtractPanel
+            <NoteExtractPanel
               key="extract"
-              filename="lab_report_aiims_2024.pdf"
-              caption="Free-text notes become HPO-coded, registry-ready fields."
+              caption="Free-text notes become HPO-coded terms the clinician confirms."
             />,
             <CohortPanel key="cohort" />,
           ]}
