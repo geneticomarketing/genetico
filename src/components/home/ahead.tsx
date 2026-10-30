@@ -214,6 +214,7 @@ export function Ahead({
             >
               <Image
                 src="/brand/indigeneus-mark-white.png"
+                sizes="200px"
                 alt="IndiGeneUs.AI"
                 width={1065}
                 height={1061}

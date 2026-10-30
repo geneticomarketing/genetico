@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+import { useOnScreen } from "@/components/home/hooks";
 
 /**
  * The small pieces the Hospital and Life Science pages build their product
@@ -150,23 +152,28 @@ export function PanelRow({
 /**
  * A step that advances on a timer and stops at `steps`, then starts over.
  *
- * Drives the document-extraction mock-up: the bar fills, rows arrive one at a
- * time, then it holds a moment before repeating. Returns the last step
- * straight away when motion is reduced, so the panel shows its finished state
- * rather than a half-filled one.
+ * Drives the extraction mock-ups: rows arrive one at a time, then it holds a
+ * moment before repeating. Returns the last step straight away when motion is
+ * reduced, so the panel shows its finished state rather than a half-filled
+ * one. Attach the returned ref to the panel's content: the timer only runs
+ * while that is on screen and the tab is showing.
  */
 export function useCycle(steps: number, everyMs: number, hold = 2) {
+  const ref = useRef<HTMLDivElement>(null);
+  const onScreen = useOnScreen(ref);
   const [step, setStep] = useState(steps);
 
   useEffect(() => {
+    if (!onScreen) return;
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
 
     const id = setInterval(() => {
+      if (document.visibilityState !== "visible") return;
       setStep((current) => (current >= steps + hold ? 0 : current + 1));
     }, everyMs);
 
     return () => clearInterval(id);
-  }, [steps, everyMs, hold]);
+  }, [onScreen, steps, everyMs, hold]);
 
-  return Math.min(step, steps);
+  return [Math.min(step, steps), ref] as const;
 }

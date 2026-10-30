@@ -49,7 +49,7 @@ function barPercent(score: number) {
 
 export function HospitalHero({ content }: { content: SolutionContent["hero"] }) {
   // Terms land one at a time, then the ranking fills in behind them.
-  const revealed = useCycle(CASE_HPO.length, 1100);
+  const [revealed, cardRef] = useCycle(CASE_HPO.length, 1100);
   const ranked = revealed >= CASE_HPO.length;
 
   return (
@@ -128,7 +128,7 @@ export function HospitalHero({ content }: { content: SolutionContent["hero"] }) 
               <span className="text-ink-soft text-[12.5px]">{CASE.patient}</span>
             </div>
 
-            <div className="flex flex-col gap-[18px] p-5">
+            <div ref={cardRef} className="flex flex-col gap-[18px] p-5">
               <div className="flex flex-col gap-2">
                 <PanelLabel>Examination note</PanelLabel>
                 <p className="text-ink-body m-0 line-clamp-2 text-[13px] leading-[1.6]">

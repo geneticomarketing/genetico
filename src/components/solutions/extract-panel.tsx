@@ -19,12 +19,12 @@ import { CASE_HPO, CASE_NOTE, LAB_EXTRACT } from "@/content/sample-case";
  * waiting for the clinician to review it before it is saved.
  */
 export function ExtractPanel({ caption }: { caption: string }) {
-  const step = useCycle(LAB_EXTRACT.rows.length, 900);
+  const [step, ref] = useCycle(LAB_EXTRACT.rows.length, 900);
   const done = step >= LAB_EXTRACT.rows.length;
 
   return (
     <Panel title="Smart Investigation Extract" caption={caption}>
-      <div className="flex flex-col gap-4 p-5">
+      <div ref={ref} className="flex flex-col gap-4 p-5">
         <div className="border-rule flex items-center gap-3.5 rounded-[10px] border p-3.5">
           <span className="border-rule text-ink-soft flex h-[38px] w-[38px] flex-none items-center justify-center rounded-lg border bg-[#F4F6F8] text-[15px]">
             ⎙
@@ -90,12 +90,12 @@ export function ExtractPanel({ caption }: { caption: string }) {
  * HPO-coded terms, which the clinician then selects.
  */
 export function NoteExtractPanel({ caption }: { caption: string }) {
-  const step = useCycle(CASE_HPO.length, 900);
+  const [step, ref] = useCycle(CASE_HPO.length, 900);
   const percent = Math.round((step / CASE_HPO.length) * 100);
 
   return (
     <Panel title="Extract HPO terms" caption={caption}>
-      <div className="flex flex-col gap-4 p-5">
+      <div ref={ref} className="flex flex-col gap-4 p-5">
         <div className="flex flex-col gap-2">
           <PanelLabel>Examination note</PanelLabel>
           <p className="border-rule text-ink-body m-0 rounded-[10px] border p-3.5 text-[13px] leading-[1.65]">

@@ -64,6 +64,7 @@ export function PlatformHero({
       >
         <Image
           src="/brand/indigeneus-mark-white.png"
+          sizes="(max-width: 1000px) 72vw, 720px"
           alt=""
           width={1065}
           height={1061}

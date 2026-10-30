@@ -167,6 +167,7 @@ export function PlatformFit({
           <div className="border-rule rounded-card bg-sheet-cool flex flex-col gap-3.5 border p-[clamp(28px,3.4vw,40px)]">
             <Image
               src="/brand/genetico-logo.png"
+              sizes="104px"
               alt="Genetico"
               width={1388}
               height={402}
@@ -185,6 +186,7 @@ export function PlatformFit({
             <div className="flex items-center gap-3">
               <Image
                 src="/brand/indigeneus-mark-white.png"
+                sizes="30px"
                 alt=""
                 width={1065}
                 height={1061}
