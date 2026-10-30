@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 /**
  * The small pieces the Hospital and Life Science pages build their product
- * mock-ups out of: the browser frame, the progress meter, the "Live" pill.
+ * mock-ups out of: the browser frame, the progress meter, the panel tables.
  *
  * They are here rather than in each page because the two designs draw them
  * identically — the pages differ in what goes inside the frame, not in the
@@ -24,19 +24,6 @@ export function Meter({ percent, height = 6 }: { percent: number; height?: numbe
         style={{ height, width: `${percent}%` }}
       />
     </div>
-  );
-}
-
-/** The green "Live" chip, with a ring pulsing out of its dot. */
-export function LivePill() {
-  return (
-    <span className="font-mono-label flex items-center gap-[7px] rounded-full bg-teal-tint px-2.5 py-[5px] text-[10px] tracking-[0.16em] text-teal-deep uppercase">
-      <span aria-hidden className="relative block h-1.5 w-1.5">
-        <span className="absolute inset-0 block rounded-full bg-teal-mid" />
-        <span className="absolute inset-0 block rounded-full bg-teal-mid opacity-0 motion-safe:animate-[live-dot_2.4s_ease-out_infinite]" />
-      </span>
-      Live
-    </span>
   );
 }
 
@@ -158,29 +145,6 @@ export function PanelRow({
       </span>
     </div>
   );
-}
-
-/**
- * A counter that ticks up and starts over.
- *
- * The hero's cohort card claims to be live, so it has to move. It holds still
- * when motion is reduced: the number is decoration, and a figure changing
- * under a reader who asked for stillness is worse than a static one.
- */
-export function useTicker(from: number, to: number, everyMs: number) {
-  const [value, setValue] = useState(from);
-
-  useEffect(() => {
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
-
-    const id = setInterval(() => {
-      setValue((current) => (current >= to ? from : current + 1));
-    }, everyMs);
-
-    return () => clearInterval(id);
-  }, [from, to, everyMs]);
-
-  return value;
 }
 
 /**

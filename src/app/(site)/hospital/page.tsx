@@ -6,10 +6,10 @@ import { SectionRail } from "@/components/chrome/section-rail";
 import { SiteFooter } from "@/components/chrome/site-footer";
 import { SiteHeader } from "@/components/chrome/site-header";
 import {
+  FollowUpPanel,
   HospitalHero,
   PathwayPanel,
   RapidPanel,
-  TimelinePanel,
 } from "@/components/hospital/sections";
 import { ExtractPanel } from "@/components/solutions/extract-panel";
 import { Challenge, Outcomes, Walkthrough } from "@/components/solutions/sections";
@@ -61,11 +61,10 @@ export default async function HospitalPage() {
             <PathwayPanel key="pathway" />,
             <ExtractPanel
               key="extract"
-              filename="discharge_summary_2024.pdf"
-              caption="No re-typing: reports arrive as coded, reviewable fields."
+              caption="No re-typing: lab reports arrive as values you review, then save."
             />,
             <RapidPanel key="rapid" />,
-            <TimelinePanel key="timeline" />,
+            <FollowUpPanel key="follow-up" />,
           ]}
         />
         <Outcomes content={content.outcomes} num={section.outcomes.num} />
