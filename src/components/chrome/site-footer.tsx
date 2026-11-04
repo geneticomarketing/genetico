@@ -40,9 +40,9 @@ function ContactLink({ label, href }: { label: string; href?: string | null }) {
 /**
  * The dark band that closes every redesigned page.
  *
- * The wordmark is sized in `cqw` against its own container rather than `vw`,
- * so it fills the footer's width at any viewport without a media query and
- * without ever overflowing the page.
+ * It used to end in an oversized GENETICO wordmark; the product review
+ * (2026-11-03) found it looked out of place, so the band now ends at the
+ * legal row.
  */
 export function SiteFooter({ footer }: { footer: SiteData["footer"] }) {
   const menuLinks = footer.menuLinks ?? [];
@@ -51,7 +51,7 @@ export function SiteFooter({ footer }: { footer: SiteData["footer"] }) {
   const legalLinks = footer.legalLinks ?? [];
 
   return (
-    <footer className="bg-dark-band px-edge relative overflow-hidden pt-[clamp(56px,6vw,72px)] text-white">
+    <footer className="bg-dark-band px-edge relative overflow-hidden pt-[clamp(56px,6vw,72px)] pb-[clamp(32px,4vw,44px)] text-white">
       <div className="max-w-site mx-auto">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-x-10 gap-y-12">
           <div className="flex flex-col gap-9">
@@ -129,15 +129,6 @@ export function SiteFooter({ footer }: { footer: SiteData["footer"] }) {
             ))}
             <CookieSettingsLink className="text-sky-soft text-[15px] transition-colors hover:text-white" />
           </nav>
-        </div>
-
-        <div
-          aria-hidden
-          className="mt-[34px] flex h-[clamp(90px,13vw,190px)] max-h-[190px] items-start justify-center overflow-hidden [container-type:inline-size]"
-        >
-          <span className="font-headline bg-[linear-gradient(180deg,rgba(255,255,255,0.52)_0%,rgba(255,255,255,0.30)_55%,rgba(255,255,255,0.10)_100%)] bg-clip-text text-[18cqw] leading-[0.78] tracking-[-0.01em] whitespace-nowrap text-transparent">
-            GENETICO
-          </span>
         </div>
       </div>
     </footer>
