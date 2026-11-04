@@ -49,6 +49,14 @@ const CLAIMS = [
     why: "unconfirmed integrations — only the LIMS is confirmed",
     re: /HL7|FHIR|DICOM|Custom Webhooks/,
   },
+  // Product lead's review of the Platform page, 2026-11-03.
+  { why: "genomic findings, which nothing integrates", re: /genomic findings/i },
+  {
+    why: "analytics terms the product lead rejected",
+    re: /disease trend visuali[sz]ation|population-level evidence/i,
+  },
+  { why: '"disrupting" framing; say it positively', re: /without disrupting/i },
+  { why: '"lab LIMS": the LIMS is not always the laboratory one', re: /lab(oratory)?('s)? LIMS/i },
 ];
 
 function* files(dir) {
