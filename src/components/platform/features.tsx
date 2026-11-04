@@ -7,9 +7,11 @@ import { SectionLead } from "@/components/platform/section-lead";
 import type { PlatformContent } from "@/lib/cms/platform-page-data";
 
 /**
- * Section 01 — the four data-capture features, one at a time.
+ * Section 01 — the data-capture features, one at a time, in the order a case
+ * is built up: pedigree and workflows first, phenotyping last so it hands on
+ * to Clinical Intelligence (order set in the CMS).
  *
- * Tabs rather than four stacked blocks: they are alternatives an institution
+ * Tabs rather than stacked blocks: they are alternatives an institution
  * chooses between, not a sequence, and the illustration only makes sense next
  * to the one it belongs to.
  *

@@ -19,35 +19,80 @@ export const RAPID_VIEWS = ["Ranked list", "Phenotype analytics", "Ranking analy
 export const VIEW_ROTATE_MS = 6500;
 
 /**
- * The Order to report section: a test ordered from the case goes to the
- * laboratory's LIMS, is tracked there, and its result comes back to the
- * record. Code-held until the CMS has a section for it (visuals plan, phase 5).
+ * The Order to report section: a test ordered from the case, tracked in the
+ * LIMS, and its report saved back to the record. Code-held until the CMS has
+ * a section for it.
+ *
+ * Kept generic on purpose (product review, 2026-11-03): no test categories or
+ * named assays, since institutions order different things, and "LIMS" rather
+ * than naming it the laboratory's, since the LIMS is not always theirs.
  */
 export const ORDER_TO_REPORT = {
   eyebrow: "Order to Report",
-  heading: "From differential to lab report, without re-entry",
-  description:
-    "Tests are ordered from the case, sent straight to the laboratory's LIMS, and tracked " +
-    "there until the report is released — so the clinic and the lab work from one order.",
+  heading: "From differential to report, without re-entry",
+  description: "Order tests from the case and follow them through to the report, in one record.",
   steps: [
     {
       title: "Order from the case",
       body:
-        "Choose a biochemical, cytogenetic or molecular test, the sample and its priority. The " +
-        "test request form fills itself from the patient record.",
+        "Order the tests a case needs from the record itself. The request form fills itself " +
+        "from the patient's details.",
     },
     {
-      title: "Tracked in the lab's LIMS",
-      body:
-        "The order arrives in the laboratory's LIMS. Every stage — collected, received, tested, " +
-        "validated — shows against the case, and a rejected sample comes back with its reason.",
+      title: "Track it in the LIMS",
+      body: "Each order's status shows against the case until the report is released.",
     },
     {
-      title: "Results back on the record",
+      title: "Every report in one place",
       body:
-        "Released reports return to the patient record. Reports from outside laboratories are " +
-        "read in by Smart Investigation Extract and reviewed before they are saved.",
+        "Whether a test is run in your lab or an outside one, its report is saved to the same " +
+        "case record.",
     },
+  ],
+  /** The order card's status chain: the platform's own stages, shortened. */
+  statuses: ["Sample due", "Sample received", "Testing complete", "Report released"],
+  /** The stage the sample order is at, the one being worked on now. */
+  at: 2,
+};
+
+/**
+ * The record over three visits, newest first, for the Longitudinal panel.
+ * Each visit lists what was added to the record that day, so the timeline
+ * shows the record growing rather than a single test.
+ */
+export const LONGITUDINAL_VISITS = [
+  {
+    date: "24/10/2026",
+    title: "Follow-up visit",
+    items: ["Reports reviewed", "Growth re-plotted", "Differentials re-ranked"],
+  },
+  {
+    date: "20/10/2026",
+    title: "Reports added",
+    items: ["Lab report released via LIMS", "Outside report read in by Smart Extract"],
+  },
+  {
+    date: "14/10/2026",
+    title: "First consultation",
+    items: ["Pedigree drawn", "HPO terms extracted", "Differentials suggested", "Tests ordered"],
+  },
+];
+
+/**
+ * Short "how to read this" notes beside the Clinical Intelligence panels, so
+ * a reader new to the platform knows what the numbers mean. Each is something
+ * the platform was seen doing (2026-10-29).
+ */
+export const CDSS_READING = {
+  rapid: [
+    "Scores run from 0 to 1: the closer to 1, the better the disease matches the selected phenotypes",
+    "Top candidates can be added to the case's differential or downloaded as a list",
+    "Every run carries a reminder that the ranking supports, and does not replace, clinical judgement",
+  ],
+  analytics: [
+    "Observed: how much each recorded symptom adds to the disease's score",
+    "Not yet observed: the disease's other phenotypes, ranked by how much they would add",
+    "Ranking Analytics shows the same breakdown as a stacked bar for every disease in the list",
   ],
 };
 
@@ -66,8 +111,16 @@ export const COHORT_MONTHS = [
 ];
 
 /**
- * Systems the platform exchanges data with — only the confirmed ones: the
- * laboratory LIMS for orders, and the knowledge bases differentials are
- * drawn from. The CMS list overrides this once an editor fills it in.
+ * Systems the platform exchanges data with: the LIMS and genetic testing
+ * platforms for orders, and the knowledge bases it looks up. The CMS list
+ * overrides this once an editor fills it in.
  */
-export const INTEGRATION_TAGS = ["Laboratory LIMS", "OMIM", "Orphanet", "DECIPHER", "HPO"];
+export const INTEGRATION_TAGS = [
+  "LIMS",
+  "Genetic testing platforms",
+  "OMIM",
+  "Orphanet",
+  "HPO",
+  "GeneReviews",
+  "DECIPHER",
+];

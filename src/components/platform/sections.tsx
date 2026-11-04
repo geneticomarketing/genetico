@@ -1,11 +1,14 @@
 import { ComingSoonTag } from "@/components/coming-soon";
 import { SectionLead } from "@/components/platform/section-lead";
-import { COHORT_MONTHS, ORDER_TO_REPORT } from "@/content/platform-demo";
+import {
+  CDSS_READING,
+  COHORT_MONTHS,
+  LONGITUDINAL_VISITS,
+  ORDER_TO_REPORT,
+} from "@/content/platform-demo";
 import {
   CASE,
   DISEASE_COMPARE,
-  FOLLOW_UPS,
-  LAB_EXTRACT,
   LIMS_ORDER,
   PHENOTYPE_ANALYTICS,
   RAPID_RANKED,
@@ -28,6 +31,7 @@ function NumberedRow({
   bullets = [],
   tone = "light",
   first = false,
+  stacked = false,
   children,
 }: {
   num: string;
@@ -37,15 +41,17 @@ function NumberedRow({
   tone?: "light" | "dark";
   /** The first row in a section sits closer to the heading above it. */
   first?: boolean;
+  /** Text above a full-width panel, for panels too wide to share the row. */
+  stacked?: boolean;
   children: React.ReactNode;
 }) {
   const dark = tone === "dark";
 
   return (
     <div
-      className={`nav:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] grid grid-cols-[minmax(0,1fr)] items-start gap-x-14 gap-y-10 border-t pt-9 ${
-        first ? "mt-16" : "mt-14"
-      } ${dark ? "border-white/18" : "border-rule"}`}
+      className={`grid grid-cols-[minmax(0,1fr)] items-start gap-x-14 border-t pt-9 ${
+        stacked ? "gap-y-8" : "nav:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] gap-y-10"
+      } ${first ? "mt-16" : "mt-14"} ${dark ? "border-white/18" : "border-rule"}`}
     >
       <div className="flex gap-5">
         <span
@@ -53,7 +59,7 @@ function NumberedRow({
         >
           {num}
         </span>
-        <div className="flex flex-col gap-3.5">
+        <div className={`flex flex-col gap-3.5 ${stacked ? "max-w-[46em]" : ""}`}>
           <h3
             className={`font-headline m-0 text-[clamp(24px,2.8vw,32px)] leading-[1.16] tracking-[-0.018em] ${
               dark ? "text-white" : ""
@@ -152,10 +158,22 @@ export function ClinicalIntelligence({
         />
 
         {rapid ? (
-          <NumberedRow num="01" title={rapid.title} body={rapid.description} tone="dark" first>
+          <NumberedRow
+            num="01"
+            title={rapid.title}
+            body={rapid.description}
+            bullets={CDSS_READING.rapid}
+            tone="dark"
+            first
+          >
             <DarkPanel label={rapid.badge || "Suggest differentials · RAPID Score"}>
+              <div className="font-mono-label grid grid-cols-[22px_minmax(0,1fr)_auto] gap-3 border-b border-white/20 pb-2 text-[10px] tracking-[0.14em] text-[#7FCBEB] uppercase">
+                <span>#</span>
+                <span>Disease · OMIM</span>
+                <span className="text-right">RAPID Score</span>
+              </div>
               <div className="flex flex-col">
-                {RAPID_RANKED.slice(0, 6).map((row) => (
+                {RAPID_RANKED.map((row) => (
                   <div
                     key={row.id}
                     className="grid grid-cols-[22px_minmax(0,1fr)_auto] items-baseline gap-3 border-b border-white/12 py-2.5 last:border-b-0"
@@ -171,15 +189,22 @@ export function ClinicalIntelligence({
                   </div>
                 ))}
               </div>
-              <span className="mt-3 block text-[12px] text-[#8FB2CE]">
-                Top 6 of {RAPID_TOTAL} ranked · OMIM and Orphanet
+              <span className="mt-3 block text-[12px] leading-[1.55] text-[#8FB2CE]">
+                Top {RAPID_RANKED.length} of {RAPID_TOTAL} ranked. RAPID Score runs from 0 to 1;
+                higher is a closer match to the selected phenotypes.
               </span>
             </DarkPanel>
           </NumberedRow>
         ) : null}
 
         {evidence ? (
-          <NumberedRow num="02" title={evidence.title} body={evidence.description} tone="dark">
+          <NumberedRow
+            num="02"
+            title={evidence.title}
+            body={evidence.description}
+            bullets={CDSS_READING.analytics}
+            tone="dark"
+          >
             <DarkPanel label={evidence.badge || "Phenotype analytics"}>
               <span className="text-sm font-bold">{PHENOTYPE_ANALYTICS.disease}</span>
               <div className="mt-3 flex flex-col gap-2.5">
@@ -224,9 +249,19 @@ export function ClinicalIntelligence({
         ) : null}
 
         {comparison ? (
-          <NumberedRow num="03" title={comparison.title} body={comparison.description} tone="dark">
+          <NumberedRow
+            num="03"
+            title={comparison.title}
+            body={comparison.description}
+            tone="dark"
+            stacked
+          >
             <DarkPanel label={comparison.badge || "Disease compare"}>
               <DiseaseCompareGrid />
+              <p className="m-0 mt-4 text-[12px] leading-[1.55] text-[#8FB2CE]">
+                ✓ marks a phenotype recorded in this patient; each number is that phenotype&apos;s
+                weight for the disease.
+              </p>
             </DarkPanel>
           </NumberedRow>
         ) : null}
@@ -269,15 +304,15 @@ export function Longitudinal({
           >
             <div className="border-rule rounded-card border bg-[#EDF2F5] p-6">
               <span className="font-mono-label text-ink-body text-[10.5px] tracking-[0.16em] uppercase">
-                {CASE.id} · Follow-up visits
+                {CASE.id} · Patient timeline
               </span>
               <ol className="relative mt-[18px] list-none p-0 pl-[26px]">
                 <span
                   aria-hidden
                   className="absolute top-2 bottom-2 left-[6px] block w-px bg-[#BFD4DE]"
                 />
-                {FOLLOW_UPS.map((visit, i) => (
-                  <li key={visit.date} className="relative pb-[18px] last:pb-0">
+                {LONGITUDINAL_VISITS.map((visit, i) => (
+                  <li key={visit.date} className="relative pb-5 last:pb-0">
                     <span
                       aria-hidden
                       className={`absolute top-[3px] -left-[26px] block h-[13px] w-[13px] rounded-full border-2 ${
@@ -285,29 +320,20 @@ export function Longitudinal({
                       }`}
                     />
                     <span className="text-ink-body block text-[13px]">{visit.date}</span>
-                    <span className="mt-0.5 block text-[14.5px] font-medium">{visit.note}</span>
+                    <span className="mt-0.5 block text-[14.5px] font-medium">{visit.title}</span>
+                    <span className="mt-2 flex flex-wrap gap-1.5">
+                      {visit.items.map((item) => (
+                        <span
+                          key={item}
+                          className="border-rule rounded-md border bg-white px-2.5 py-1 text-[12.5px]"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </span>
                   </li>
                 ))}
               </ol>
-              <div className="border-rule mt-5 rounded-[9px] border bg-white p-4">
-                <div className="flex flex-wrap justify-between gap-2">
-                  <span className="text-[13.5px] font-bold">{LAB_EXTRACT.test}</span>
-                  <span className="font-mono-label text-ink-soft text-[11px]">
-                    {LAB_EXTRACT.date}
-                  </span>
-                </div>
-                {LAB_EXTRACT.rows.slice(1, 4).map((r) => (
-                  <div
-                    key={r.field}
-                    className="mt-2 flex justify-between gap-3 border-t border-[#EDF0F2] pt-2 text-[13px]"
-                  >
-                    <span className="text-ink-soft">{r.field}</span>
-                    <span className={r.high ? "font-medium text-[#B4432F]" : "font-medium"}>
-                      {r.value} {r.unit}
-                    </span>
-                  </div>
-                ))}
-              </div>
             </div>
           </NumberedRow>
         ) : null}
@@ -411,13 +437,11 @@ function DiseaseCompareGrid() {
   );
 }
 
-/** Where the sample order is in its LIMS status chain: the step being worked on now. */
-const ORDER_AT = 4;
-
 /**
- * Order to report — a test ordered from the case, sent to the laboratory's
- * LIMS and tracked there until the report is released. The copy is
- * code-held (ORDER_TO_REPORT) until the CMS has a section for it.
+ * Order to report: a test ordered from the case, tracked in the LIMS until
+ * the report is released, and every report kept on the one record. Generic
+ * and short on purpose; the copy is code-held (ORDER_TO_REPORT) until the CMS
+ * has a section for it.
  */
 export function OrderToReport({ num }: { num: string }) {
   const copy = ORDER_TO_REPORT;
@@ -452,51 +476,38 @@ export function OrderToReport({ num }: { num: string }) {
             ))}
           </ol>
 
-          <LightPanel label="Test order · laboratory LIMS">
+          <LightPanel label="Test order · LIMS">
             <div className="border-rule rounded-[9px] border bg-white p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <span className="font-headline text-[22px]">{LIMS_ORDER.orderId}</span>
                 <span className="font-mono-label text-ink-soft text-[11px]">{CASE.id}</span>
               </div>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {[
-                  LIMS_ORDER.department,
-                  LIMS_ORDER.test,
-                  LIMS_ORDER.sample,
-                  LIMS_ORDER.category,
-                  LIMS_ORDER.priority,
-                ].map((v) => (
-                  <span
-                    key={v}
-                    className="bg-primary-tint text-primary-deep rounded-md px-2.5 py-1 text-[12.5px]"
-                  >
-                    {v}
-                  </span>
-                ))}
-              </div>
+              <p className="text-ink-soft m-0 mt-2 text-[13px] leading-[1.55]">
+                Request form filled from the patient record
+              </p>
             </div>
             <ol className="relative m-0 mt-5 list-none p-0 pl-[26px]">
               <span
                 aria-hidden
                 className="absolute top-2 bottom-2 left-[6px] block w-px bg-[#BFD4DE]"
               />
-              {LIMS_ORDER.statuses.map((label, i) => (
+              {copy.statuses.map((label, i) => (
                 <li key={label} className="relative pb-3.5 last:pb-0">
                   <span
                     aria-hidden
                     className={`absolute top-[3px] -left-[26px] block h-[13px] w-[13px] rounded-full border-2 ${
-                      i < ORDER_AT
+                      i < copy.at
                         ? "border-[#A9E4D7] bg-[#2FA98F]"
-                        : i === ORDER_AT
+                        : i === copy.at
                           ? "border-primary bg-white"
                           : "border-[#C9D5DF] bg-white"
                     }`}
                   />
                   <span
                     className={`text-[14px] ${
-                      i === ORDER_AT
+                      i === copy.at
                         ? "text-primary font-bold"
-                        : i > ORDER_AT
+                        : i > copy.at
                           ? "text-ink-dim"
                           : "text-ink"
                     }`}
@@ -506,10 +517,6 @@ export function OrderToReport({ num }: { num: string }) {
                 </li>
               ))}
             </ol>
-            <p className="text-ink-soft m-0 mt-5 text-[13px] leading-[1.6]">
-              A sample the lab cannot use is marked <strong>{LIMS_ORDER.rejected}</strong>, with the
-              reason, against the same order.
-            </p>
           </LightPanel>
         </div>
       </div>

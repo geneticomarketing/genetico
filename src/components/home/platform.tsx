@@ -315,7 +315,7 @@ function DecideScreen() {
 /** Where the sample order is in its LIMS status chain: the step being worked on now. */
 const ORDER_AT = 4;
 
-/** Connect: a test ordered from the case, tracked in the lab's LIMS, and the visits around it. */
+/** Connect: a test ordered from the case, tracked in the LIMS, and the visits around it. */
 function ConnectScreen() {
   return (
     <div className="flex flex-col gap-5">
@@ -324,7 +324,7 @@ function ConnectScreen() {
           {CASE.id} · {LIMS_ORDER.orderId}
         </span>
         <span className="font-mono-label text-ink-soft text-[11px] tracking-[0.14em] uppercase">
-          Sent to the laboratory LIMS
+          Sent to the LIMS
         </span>
       </div>
       <div className="flex flex-wrap gap-1.5">
