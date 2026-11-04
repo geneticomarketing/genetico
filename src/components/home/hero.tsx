@@ -163,7 +163,7 @@ export function Hero({ content: hero }: { content: HomeHeroContent }) {
           <div
             data-flat
             role="img"
-            aria-label="Illustrative IndiGeneUs.AI case screen: a free-text examination note turned into HPO terms, then a RAPID-ranked list of differential diagnoses from OMIM and Orphanet."
+            aria-label="Illustrative IndiGeneUs.AI case screen: a free-text examination note turned into HPO terms, then a RAPID-ranked list of differential diagnoses from OMIM."
             className="text-ink origin-bottom overflow-hidden rounded-t-2xl bg-white text-left shadow-[0_-40px_120px_rgba(79,179,160,0.24),inset_0_1px_0_rgba(255,255,255,0.6),0_0_0_1px_rgba(255,255,255,0.14)] [transform:rotateX(9deg)_scale(.965)]"
           >
             <WindowBar url={HERO_DEMO.url} />
