@@ -18,8 +18,10 @@ const ACTIVE_LINE_PX = 190;
  * for numbering and still tracked as you pass them — so leaving the narrative
  * simply clears the highlight rather than stranding it on the last pill.
  *
- * Hidden from assistive tech — every destination it offers is a heading the
- * page already exposes in order, so announcing it again is noise.
+ * It is the page's "On this page" navigation: a labelled <nav> whose links
+ * mark the section being read with aria-current. While it is off screen it is
+ * inert, so keyboard and screen-reader users never land on links they cannot
+ * see.
  */
 export function SectionRail({
   sections,
@@ -82,14 +84,18 @@ export function SectionRail({
   }, [sections, revealAfter]);
 
   return (
-    <div
-      aria-hidden
+    <nav
+      aria-label="On this page"
+      inert={!visible}
       className={`border-rule fixed top-16 right-0 left-0 z-[55] border-b bg-white/94 backdrop-blur-[14px] transition-[transform,opacity] duration-300 ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-[110%] opacity-0"
       }`}
     >
       <div className="rail-strip max-w-site px-edge mx-auto flex h-[52px] items-center gap-1 overflow-x-auto">
-        <span className="font-mono-label text-ink-soft mr-3 flex-none text-[10.5px] tracking-[0.16em] uppercase">
+        <span
+          aria-hidden
+          className="font-mono-label text-ink-soft mr-3 flex-none text-[10.5px] tracking-[0.16em] uppercase"
+        >
           {pageLabel}
         </span>
         {pills.map((section) => {
@@ -98,7 +104,7 @@ export function SectionRail({
             <a
               key={section.id}
               href={`#${section.id}`}
-              tabIndex={-1}
+              aria-current={isActive ? "location" : undefined}
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection(section.id);
@@ -107,7 +113,10 @@ export function SectionRail({
                 isActive ? "bg-primary-tint text-primary-deep font-bold" : "text-ink-body"
               }`}
             >
-              <span className="font-mono-label text-[10.5px] tracking-[0.1em] opacity-55">
+              <span
+                aria-hidden
+                className="font-mono-label text-[10.5px] tracking-[0.1em] opacity-55"
+              >
                 {section.num}
               </span>
               <span>{section.label}</span>
@@ -115,9 +124,9 @@ export function SectionRail({
           );
         })}
       </div>
-      <div className="bg-rule h-0.5">
+      <div aria-hidden className="bg-rule h-0.5">
         <div className="bg-primary h-0.5" style={{ width: `${progress.toFixed(1)}%` }} />
       </div>
-    </div>
+    </nav>
   );
 }
