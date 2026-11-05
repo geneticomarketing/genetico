@@ -186,7 +186,7 @@ export function Partners({ content, num }: { content: AboutContent["partners"]; 
   );
 }
 
-/** Section 05 — the security strip, sharing its points with the home page. */
+/** Section 05 — the security strip; its points are the Platform page's security cards. */
 export function Trust({ content, num }: { content: AboutContent["trust"]; num: string }) {
   return (
     <section
@@ -205,12 +205,17 @@ export function Trust({ content, num }: { content: AboutContent["trust"]; num: s
         </div>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-x-10 gap-y-3.5">
           {content.points.map((point) => (
-            <div key={point} className="flex items-start gap-[11px]">
+            <div key={point.title + point.text} className="flex items-start gap-[11px]">
               <span
                 aria-hidden
                 className="bg-primary mt-[7px] block h-[5px] w-[5px] flex-none rounded-full"
               />
-              <p className="text-ink-body m-0 text-[14.5px] leading-[1.55]">{point}</p>
+              <p className="text-ink-body m-0 text-[14.5px] leading-[1.55]">
+                {point.title ? (
+                  <strong className="text-ink block font-medium">{point.title}</strong>
+                ) : null}
+                {point.text}
+              </p>
             </div>
           ))}
         </div>

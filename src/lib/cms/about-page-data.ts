@@ -62,7 +62,8 @@ export type AboutContent = {
     institutions: AboutLogo[];
     supporters: AboutLogo[];
   };
-  trust: { eyebrow: string; heading: string; points: string[] };
+  /** Each point is a short title and a sentence, e.g. the Platform page's security cards. */
+  trust: { eyebrow: string; heading: string; points: { title: string; text: string }[] };
 };
 
 /** Initials from a name, ignoring honorifics so "Dr. Annie Hasan" gives AH. */
@@ -133,6 +134,7 @@ export async function getAboutPage() {
     partnersHeading,
     security,
     engage,
+    platformSecurity,
   ] = await Promise.all([
     getSectionGlobal("about-intro"),
     getSectionGlobal("about-problem"),
@@ -145,6 +147,7 @@ export async function getAboutPage() {
     getSectionGlobal("home-partners"),
     getSectionGlobal("home-security"),
     getSectionGlobal("about-cta"),
+    getSectionGlobal("platform-security"),
   ]);
 
   const [people, awards, logos] = await Promise.all([
@@ -206,9 +209,29 @@ export async function getAboutPage() {
     trust: {
       eyebrow: copy.security.eyebrow,
       heading: copy.security.heading,
-      points: copy.security.features.map((feature) => feature.text?.trim()).filter(Boolean),
+      points: trustPoints(copy.security.features, platformSecurity?.cards),
     },
   };
 
   return { ...copy, sections, content };
+}
+
+/**
+ * The About security points. An editor can still write their own in the
+ * Home → Security global; while that list is empty the strip shows the
+ * Platform page's security cards, so the two pages make the same promise
+ * instead of About showing a heading with nothing under it.
+ */
+function trustPoints(
+  own: { text?: string | null }[],
+  platformCards: { title?: string | null; description?: string | null }[] | null | undefined,
+): { title: string; text: string }[] {
+  const written = own
+    .map((feature) => feature.text?.trim() ?? "")
+    .filter(Boolean)
+    .map((text) => ({ title: "", text }));
+  if (written.length) return written;
+  return (platformCards ?? [])
+    .map((card) => ({ title: card.title?.trim() ?? "", text: card.description?.trim() ?? "" }))
+    .filter((card) => card.title || card.text);
 }
