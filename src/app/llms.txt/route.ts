@@ -48,16 +48,19 @@ export async function GET() {
     "",
     "> Genetico is a health technology company developing digital solutions for the rare and " +
       "genetic disease ecosystem in India. Its platform, IndiGeneUs.AI, is an AI-enabled clinical " +
-      "genetics platform that connects patient records, clinical workflows, phenotype data, " +
-      "registries, decision support, analytics and research.",
+      "genetics platform that connects clinical workflows, phenotype data, decision support, " +
+      "test ordering and longitudinal patient records, with registries and analytics launching soon.",
     "",
     "Key facts:",
     "",
-    "- Genetics departments at AIIMS New Delhi and CDFD Hyderabad use IndiGeneUs.AI in consultations.",
+    "- Genetics departments at AIIMS New Delhi, CDFD Hyderabad, Sir Ganga Ram Hospital and other " +
+      "centres use IndiGeneUs.AI in consultations.",
     "- 15 rare disease centres are engaged under the PraGed Mission.",
-    "- IndiGeneUs.AI covers structured clinical and phenotype data capture, pedigree charting, " +
-      "AI-assisted differential diagnosis (clinical decision support), longitudinal patient " +
-      "records, analytics, and registry and referral workflows for public-health programmes.",
+    "- IndiGeneUs.AI covers pedigree charting, structured clinical workflows, ambient dictation, " +
+      "lab report digitisation, growth charts and AI phenotyping (HPO); RAPID Score differential " +
+      "diagnosis against OMIM and Orphanet, with Phenotype Analytics and Disease Compare; test " +
+      "ordering and tracking through the LIMS; and longitudinal patient records. Registry, cohort " +
+      "and programme analytics views are launching soon.",
     "- It serves clinicians, hospitals and Centres of Excellence, diagnostic laboratories, " +
       "life-science and research teams, and government public-health programmes (including " +
       "India's National Policy for Rare Diseases).",

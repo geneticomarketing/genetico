@@ -35,7 +35,7 @@ const TOPICS = [
   "Genetic disorders",
   "Clinical genetics",
   "Clinical genomics",
-  "Genomic electronic medical records",
+  "Clinical genetics software",
   "Clinical decision support",
   "Differential diagnosis",
   "Pedigree charting",
@@ -46,14 +46,22 @@ const TOPICS = [
   "Artificial intelligence in healthcare",
 ];
 
+/**
+ * What the platform does today, in the order the Platform page presents it.
+ * Registry, cohort and analytics views are launching soon, so they are left
+ * out rather than listed as features.
+ */
 const PLATFORM_FEATURES = [
-  "Genomic electronic medical record for clinical genetics",
-  "Structured clinical and phenotype data capture",
   "Pedigree charting",
-  "AI-assisted differential diagnosis and clinical decision support",
+  "Structured clinical workflows and configurable case forms",
+  "Ambient dictation of the consultation, filled into the case after clinician approval",
+  "Lab report digitisation with Smart Investigation Extract",
+  "Growth charts against WHO and IAP standards",
+  "AI-powered phenotyping: HPO terms extracted from clinical notes",
+  "RAPID Score differential diagnosis against OMIM and Orphanet, with Phenotype Analytics and Disease Compare",
+  "Test ordering and sample tracking through the LIMS",
   "Longitudinal patient records",
-  "Clinical analytics and dashboards",
-  "Rare disease registries and referral tracking",
+  "Cloud, on-premise and hybrid deployment",
   "Role-based access control and audit trails",
 ];
 
