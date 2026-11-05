@@ -1,6 +1,6 @@
 import type { Field } from "payload";
 
-export const IMAGE_UPLOAD_PRESETS = {
+const IMAGE_UPLOAD_PRESETS = {
   heroSlide: {
     size: "1920 × 1080 px (16:9). WebP or JPG, ideally under 500 KB.",
     fileName: "hero-bg.webp, hero-dna.jpg",
@@ -35,9 +35,9 @@ export const IMAGE_UPLOAD_PRESETS = {
   },
 } as const;
 
-export type ImageUploadPreset = keyof typeof IMAGE_UPLOAD_PRESETS;
+type ImageUploadPreset = keyof typeof IMAGE_UPLOAD_PRESETS;
 
-export function imageUploadDescription(preset: ImageUploadPreset, extra?: string): string {
+function imageUploadDescription(preset: ImageUploadPreset, extra?: string): string {
   const { size, fileName } = IMAGE_UPLOAD_PRESETS[preset];
   const base = `Recommended size: ${size} Use a descriptive file name such as ${fileName}. Stick to lowercase letters, numbers, and hyphens.`;
   return extra ? `${base} ${extra}` : base;
@@ -54,6 +54,12 @@ type ImageFieldOptions = {
   preset?: ImageUploadPreset;
   /** Override the upload helper text shown in the admin panel */
   uploadDescription?: string;
+  /**
+   * Keep the columns but hide both fields from editors, for an image the
+   * page's current design does not show. Hiding needs no schema change;
+   * removing the fields would (see CMS.md on dropping columns first).
+   */
+  hidden?: boolean;
 };
 
 type MediaUploadFieldOptions = {
@@ -74,6 +80,7 @@ export function imageUploadFields({
   uploadLabel,
   preset,
   uploadDescription,
+  hidden = false,
 }: ImageFieldOptions = {}): Field[] {
   const description = uploadDescription ?? (preset ? imageUploadDescription(preset) : undefined);
 
@@ -83,12 +90,12 @@ export function imageUploadFields({
       type: "upload",
       relationTo: "media",
       label: uploadLabel,
-      admin: description ? { description } : undefined,
+      admin: hidden ? { hidden: true } : description ? { description } : undefined,
     },
     {
       name: pathName,
       type: "text",
-      admin: { description: pathDescription },
+      admin: hidden ? { hidden: true } : { description: pathDescription },
     },
   ];
 }

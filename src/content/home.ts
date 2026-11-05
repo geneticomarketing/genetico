@@ -437,4 +437,3 @@ export type HomeServeContent = typeof HOME_SERVE;
 export type HomeImpactContent = typeof HOME_IMPACT;
 export type HomeInsightsContent = typeof HOME_INSIGHTS;
 export type HomeAheadContent = typeof HOME_AHEAD;
-export type ContactSectionContent = typeof HOME_CONTACT;

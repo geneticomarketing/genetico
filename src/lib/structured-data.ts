@@ -223,7 +223,7 @@ export function staticPageNodes(
 /* ------------------------------------------------------------------------ */
 
 /** "31:02" or "1:12:08" → "PT31M2S" / "PT1H12M8S". Empty when it cannot be read. */
-export function isoDuration(clock: string): string {
+function isoDuration(clock: string): string {
   const parts = clock.split(":").map((part) => Number(part));
   if (!parts.length || parts.length > 3 || parts.some((n) => !Number.isFinite(n))) return "";
   const [h, m, s] =
@@ -235,7 +235,7 @@ export function isoDuration(clock: string): string {
  * A YouTube video. Google needs a name, a thumbnail and an upload date to list
  * a video in results, so a video without a publish date is left out (null).
  */
-export function videoNode(video: {
+function videoNode(video: {
   title: string;
   description: string;
   href: string;
@@ -264,7 +264,7 @@ export function videoNode(video: {
 }
 
 /** An article published elsewhere (LinkedIn, press). */
-export function externalArticleNode(article: {
+function externalArticleNode(article: {
   title: string;
   href: string;
   publishedAt?: string | null;

@@ -6,7 +6,7 @@ let applied = false;
  * Motion v12.30+ uses ScrollTimeline / ViewTimeline when available. WebKit exposes
  * these APIs but scroll-linked values (especially opacity) stay stuck on iOS.
  */
-export function applySafariScrollFix(): void {
+function applySafariScrollFix(): void {
   if (applied || typeof window === "undefined" || !needsScrollTimelineFallback()) return;
   applied = true;
 

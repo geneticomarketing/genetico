@@ -1,7 +1,6 @@
 import { blogHref } from "@/lib/blogs";
 import { getCollection } from "@/lib/cms/queries";
 import { resolveMediaUrl } from "@/lib/cms/resolve-media-url";
-import { RESOURCES_PATH } from "@/lib/routes";
 import { youtubeIdFromUrl } from "@/lib/youtube";
 import type {
   BlogPost as CmsBlogPost,
@@ -66,7 +65,7 @@ function youtubeLayers(url: string): string {
   ].join(", ");
 }
 
-export type ProofFeed = {
+type ProofFeed = {
   featured: ProofResource | null;
   clips: ProofResource[];
 };
@@ -199,6 +198,3 @@ export async function getProofFeed({
 
   return { featured, clips: rest.slice(0, clipLimit) };
 }
-
-/** Where the strip's "all resources" link points. */
-export const ALL_RESOURCES_HREF = RESOURCES_PATH;

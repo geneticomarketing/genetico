@@ -340,7 +340,7 @@ function PaperRow({ item, edition }: { item: RareInsightsItem; edition: RareInsi
         href={deep}
         className="font-mono-label text-ink-soft hover:text-primary flex w-[110px] flex-none flex-col gap-1 text-[11px] tracking-[0.08em]"
       >
-        <span className="text-teal-mid text-[13px]">{item.num}</span>
+        <span className="text-teal-deep text-[13px]">{item.num}</span>
         <span>
           Ed. {edition.label.replace("Edition ", "")} · {shortDate(edition.date)}
         </span>

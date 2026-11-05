@@ -26,7 +26,7 @@ const MATCHERS = [
   { test: /workflow|case editor|configur/i, kind: "workflow" },
 ] as const;
 
-export type FeatureArtKind = (typeof MATCHERS)[number]["kind"];
+type FeatureArtKind = (typeof MATCHERS)[number]["kind"];
 
 /** Which drawing a tab title gets, or null to use its uploaded image. */
 export function featureArtKind(title: string): FeatureArtKind | null {

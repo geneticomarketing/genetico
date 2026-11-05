@@ -29,7 +29,9 @@ export const PlatformHero = pageSection(
         description: "A path on this site such as /#get-in-touch, or a full https:// address.",
       },
     },
-    ...imageUploadFields({ uploadLabel: "Background image", preset: "pageHero" }),
+    // The hero is drawn without a background photo, so this field is hidden
+    // rather than offered to editors as one that does nothing.
+    ...imageUploadFields({ uploadLabel: "Background image", preset: "pageHero", hidden: true }),
   ],
   ADMIN_GROUPS.platform,
 );

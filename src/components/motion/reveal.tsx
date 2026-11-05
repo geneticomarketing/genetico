@@ -1,20 +1,20 @@
 "use client";
 
-import { motion, useInView, useReducedMotion, type Variants } from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { useRef, type ReactNode } from "react";
 import type { UseInViewOptions } from "motion/react";
 
 // Shared "expo out" curve — a confident, pronounced settle.
-export const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 /** Viewport settings tuned for mobile Safari (URL bar + IntersectionObserver quirks). */
-export const VIEWPORT: UseInViewOptions = {
+const VIEWPORT: UseInViewOptions = {
   once: true,
   amount: 0.15,
   margin: "0px 0px -8% 0px",
 };
 
-export function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
+function useInViewAnimation<T extends HTMLElement = HTMLDivElement>(
   viewport: UseInViewOptions = VIEWPORT,
 ) {
   const reduce = useReducedMotion();
@@ -55,56 +55,6 @@ export function Reveal({
       animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y }}
       transition={reduce ? { duration: 0 } : { duration: 0.8, ease: EASE, delay }}
     >
-      {children}
-    </motion.div>
-  );
-}
-
-/**
- * Container that staggers its <StaggerItem> children into view. Pair the two:
- * <StaggerGroup className="grid ..."><StaggerItem>…</StaggerItem>…</StaggerGroup>
- */
-export function StaggerGroup({
-  children,
-  className,
-  stagger = 0.15,
-  delayChildren = 0.1,
-  /** When true, children are visible in SSR HTML (use for above-fold heroes). */
-  ssrVisible = false,
-}: {
-  children: ReactNode;
-  className?: string;
-  stagger?: number;
-  delayChildren?: number;
-  ssrVisible?: boolean;
-}) {
-  const { ref, visible, reduce } = useInViewAnimation();
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial={reduce || ssrVisible ? false : "hidden"}
-      animate={visible || ssrVisible ? "show" : "hidden"}
-      variants={{
-        hidden: {},
-        show: { transition: { staggerChildren: stagger, delayChildren } },
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 56, scale: 1 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.9, ease: EASE } },
-};
-
-export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
-  const reduce = useReducedMotion();
-  return (
-    <motion.div className={className} variants={reduce ? undefined : itemVariants}>
       {children}
     </motion.div>
   );

@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import type { BlogPost } from "@/lib/blogs";
 import { blogDate, blogHref } from "@/lib/blogs";
 import { thumbnailStyle } from "@/lib/cms/thumbnail-style";
+import { readableTextColor } from "@/lib/readable-color";
 
 /** One post in the blog listing. Its title is an h2: the listing's only heading above it is the h1. */
 export function BlogCard({ post }: { post: BlogPost }) {
@@ -24,7 +25,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
         <div className="flex flex-1 flex-col p-5 sm:p-6">
           <p
             className="t-badge secondaryFont text-[11px] font-semibold tracking-[0.14em] uppercase"
-            style={{ color: post.categoryColor }}
+            style={{ color: readableTextColor(post.categoryColor) }}
           >
             {post.category}
           </p>
@@ -40,7 +41,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
             {post.excerpt}
           </p>
 
-          <div className="secondaryFont mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-[#8b8f97]">
+          <div className="secondaryFont mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-soft text-[13px]">
             <span>{post.author}</span>
             <span aria-hidden className="text-[#d1d5db]">
               •

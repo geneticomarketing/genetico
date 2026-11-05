@@ -388,7 +388,9 @@ function DiseaseCompareGrid() {
       <table className="w-full min-w-[520px] border-collapse text-left text-[12.5px]">
         <thead>
           <tr>
-            <th className="w-[72px] pb-3" />
+            <th className="w-[72px] pb-3">
+              <span className="sr-only">Body system</span>
+            </th>
             {DISEASE_COMPARE.diseases.map((d) => (
               <th key={d.id} className="pb-3 align-bottom font-normal">
                 <span className="block text-[12px] leading-[1.35] font-bold">{d.name}</span>

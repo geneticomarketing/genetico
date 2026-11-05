@@ -123,7 +123,7 @@ function LatestCard({ edition }: { edition: RareInsightsEdition }) {
             key={item.num}
             className="border-rule-light grid grid-cols-[30px_minmax(0,1fr)] gap-3 border-b py-[13px]"
           >
-            <span className="font-mono-label text-teal-mid pt-0.5 text-[11px]">{item.num}</span>
+            <span className="font-mono-label text-teal-deep pt-0.5 text-[11px]">{item.num}</span>
             <span className="text-ink-body line-clamp-2 text-[14.5px] leading-[1.5]">
               {item.title}
             </span>

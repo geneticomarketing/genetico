@@ -300,7 +300,7 @@ export function Horizons({
               />
               <span
                 className={`font-mono-label text-[10.5px] tracking-[0.16em] uppercase ${
-                  now ? "text-teal-mid" : "text-primary"
+                  now ? "text-teal-deep" : "text-primary"
                 }`}
               >
                 {horizon.when}

@@ -12,7 +12,7 @@ import { ImageResponse } from "next/og";
  * built-in sans, which keeps the route free of font files and network fetches.
  */
 
-export const OG_SIZE = { width: 1200, height: 630 } as const;
+const OG_SIZE = { width: 1200, height: 630 } as const;
 
 let logo: Promise<string> | null = null;
 

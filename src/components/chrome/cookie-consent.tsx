@@ -7,7 +7,7 @@ import { CONSENT_STORAGE_KEY, CONSENT_TYPES, type ConsentChoice } from "@/lib/an
 import { COOKIE_POLICY_PATH } from "@/lib/routes";
 
 /** Dispatched by the footer's "Cookie settings" link to bring the banner back. */
-export const OPEN_COOKIE_SETTINGS_EVENT = "genetico:open-cookie-settings";
+const OPEN_COOKIE_SETTINGS_EVENT = "genetico:open-cookie-settings";
 
 type Gtag = (...args: unknown[]) => void;
 

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
 export const SITE_NAME = "Genetico";
-export const SITE_TAGLINE = "IndiGeneUs.AI";
+const SITE_TAGLINE = "IndiGeneUs.AI";
 
 export const DEFAULT_DESCRIPTION =
   "IndiGeneUs.AI structures complex clinical workflows, captures patient data in a standardized format, and enables AI-assisted clinical decision-making for rare and genetic disorders.";
 
-export const DEFAULT_KEYWORDS = [
+const DEFAULT_KEYWORDS = [
   "Genetico",
   "IndiGeneUs.AI",
   "rare disease",
@@ -21,10 +21,10 @@ export const DEFAULT_KEYWORDS = [
 ];
 
 /** The home page's share card (app/og/[page]/route.tsx); pages pass their own. */
-export const DEFAULT_OG_IMAGE = "/og/home";
+const DEFAULT_OG_IMAGE = "/og/home";
 
 /** The canonical origin, used by the sitemap, robots.txt, canonical tags and Open Graph URLs. */
-export const CANONICAL_ORIGIN = "https://genetico.in";
+const CANONICAL_ORIGIN = "https://genetico.in";
 
 export function getSiteUrl(): string {
   // Deliberately not VERCEL_URL or VERCEL_PROJECT_PRODUCTION_URL: those name a
@@ -44,7 +44,7 @@ const TITLE_MAX = 60;
 const TITLE_SUFFIX = ` | ${SITE_NAME}`;
 
 /** Shorten to `max` characters at a word boundary, adding an ellipsis when anything was cut. */
-export function clipText(text: string, max: number): string {
+function clipText(text: string, max: number): string {
   const clean = text.replace(/\s+/g, " ").trim();
   if (clean.length <= max) return clean;
   const cut = clean.slice(0, max - 1);

@@ -33,7 +33,9 @@ export const PublicHealthHero = pageSection(
       },
     },
     { name: "subtitle", type: "textarea", label: "Paragraph below the headline" },
-    ...imageUploadFields({ uploadLabel: "Background image", preset: "pageHero" }),
+    // The hero is drawn without a background photo, so this field is hidden
+    // rather than offered to editors as one that does nothing.
+    ...imageUploadFields({ uploadLabel: "Background image", preset: "pageHero", hidden: true }),
   ],
   ADMIN_GROUPS.publicHealth,
 );
