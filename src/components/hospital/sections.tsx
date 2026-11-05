@@ -3,20 +3,12 @@
 import { useState } from "react";
 
 import { scrollToSection } from "@/components/chrome/page-sections";
-import {
-  Meter,
-  Panel,
-  PanelLabel,
-  PanelRow,
-  PanelTable,
-  useCycle,
-} from "@/components/solutions/parts";
+import { Meter, Panel, PanelLabel, useCycle } from "@/components/solutions/parts";
 import {
   CASE,
   CASE_HPO,
   CASE_NOTE,
-  FOLLOW_UPS,
-  LAB_EXTRACT,
+  CASE_VISITS,
   LIMS_ORDER,
   PHENOTYPE_ANALYTICS,
   RAPID_RANKED,
@@ -26,7 +18,6 @@ import {
   ANALYTICS_VIEWS,
   CARE_PATHWAY,
   HERO_RANKED_COUNT,
-  ORDER_STATUS_INDEX,
   RANKED_COUNT,
   type PathwayState,
 } from "@/content/solution-demos";
@@ -228,7 +219,7 @@ export function PathwayPanel() {
               <span className="text-ink text-sm font-medium">{row.label}</span>
               <span className="text-ink-soft text-[12.5px]">
                 {row.state === "Active"
-                  ? `${row.meta} · ${LIMS_ORDER.statuses[ORDER_STATUS_INDEX]}`
+                  ? `${row.meta} · ${LIMS_ORDER.statuses[LIMS_ORDER.at]}`
                   : row.meta}
               </span>
             </span>
@@ -340,8 +331,9 @@ export function RapidPanel() {
 }
 
 /**
- * Step 04 — follow-up visits on the same record: the visits so far, the lab
- * results read in between them, and the ordered test as the LIMS tracks it.
+ * Step 04 — follow-up visits on the same record: what each visit added, and
+ * the ordered test as the LIMS tracks it. Same visits and order as the
+ * Platform page (src/content/sample-case.ts).
  */
 export function FollowUpPanel() {
   return (
@@ -357,8 +349,8 @@ export function FollowUpPanel() {
               aria-hidden
               className="absolute top-2 bottom-2 left-[5px] block w-px bg-[#C3D2DC]"
             />
-            {FOLLOW_UPS.map((visit, i) => (
-              <li key={visit.date} className="relative pb-3 last:pb-0">
+            {CASE_VISITS.map((visit, i) => (
+              <li key={visit.date} className="relative pb-3.5 last:pb-0">
                 <span
                   className={`absolute top-[4px] -left-[24px] block h-[11px] w-[11px] rounded-full ${
                     i === 0 ? "bg-primary" : "border-2 border-[#C3D2DC] bg-white"
@@ -367,28 +359,25 @@ export function FollowUpPanel() {
                 <span className="font-mono-label text-ink-dim block text-[10.5px]">
                   {visit.date}
                 </span>
-                <span className="text-ink block text-[13.5px] font-medium">{visit.note}</span>
+                <span className="text-ink block text-[13.5px] font-medium">{visit.title}</span>
+                <span className="mt-1.5 flex flex-wrap gap-1">
+                  {visit.items.map((item) => (
+                    <span
+                      key={item}
+                      className="text-ink-body rounded-md bg-[#F4F6F8] px-2 py-0.5 text-[12px]"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </span>
               </li>
             ))}
           </ol>
         </div>
 
-        <PanelTable label={`${LAB_EXTRACT.test} · ${LAB_EXTRACT.date}`}>
-          {LAB_EXTRACT.rows.slice(1, 4).map((row, i) => (
-            <PanelRow
-              key={row.field}
-              label={row.field}
-              value={`${row.value} ${row.unit}${row.high ? " ↑" : ""}`}
-              last={i === 2}
-            />
-          ))}
-        </PanelTable>
-
         <div className="flex flex-col gap-2 rounded-[10px] bg-[#F4F6F8] p-3.5">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <span className="text-ink text-[13.5px] font-medium">
-              {LIMS_ORDER.test} · {LIMS_ORDER.sample}
-            </span>
+            <span className="text-ink text-[13.5px] font-medium">Test order</span>
             <span className="font-mono-label text-ink-dim text-[10.5px]">{LIMS_ORDER.orderId}</span>
           </div>
           <div className="flex gap-1">
@@ -396,13 +385,13 @@ export function FollowUpPanel() {
               <span
                 key={status}
                 className={`block h-1 flex-1 rounded-sm ${
-                  i <= ORDER_STATUS_INDEX ? "bg-meter" : "bg-[#DCE3E8]"
+                  i <= LIMS_ORDER.at ? "bg-meter" : "bg-[#DCE3E8]"
                 }`}
               />
             ))}
           </div>
           <span className="text-ink-soft text-[12.5px]">
-            LIMS: {LIMS_ORDER.statuses[ORDER_STATUS_INDEX]}
+            LIMS: {LIMS_ORDER.statuses[LIMS_ORDER.at]}
           </span>
         </div>
       </div>

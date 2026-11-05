@@ -49,34 +49,7 @@ export const ORDER_TO_REPORT = {
         "case record.",
     },
   ],
-  /** The order card's status chain: the platform's own stages, shortened. */
-  statuses: ["Sample due", "Sample received", "Testing complete", "Report released"],
-  /** The stage the sample order is at, the one being worked on now. */
-  at: 2,
 };
-
-/**
- * The record over three visits, newest first, for the Longitudinal panel.
- * Each visit lists what was added to the record that day, so the timeline
- * shows the record growing rather than a single test.
- */
-export const LONGITUDINAL_VISITS = [
-  {
-    date: "24/10/2026",
-    title: "Follow-up visit",
-    items: ["Reports reviewed", "Growth re-plotted", "Differentials re-ranked"],
-  },
-  {
-    date: "20/10/2026",
-    title: "Reports added",
-    items: ["Lab report released via LIMS", "Outside report read in by Smart Extract"],
-  },
-  {
-    date: "14/10/2026",
-    title: "First consultation",
-    items: ["Pedigree drawn", "HPO terms extracted", "Differentials suggested", "Tests ordered"],
-  },
-];
 
 /**
  * Short "how to read this" notes beside the Clinical Intelligence panels, so

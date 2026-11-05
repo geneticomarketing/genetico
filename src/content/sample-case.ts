@@ -214,31 +214,36 @@ export const DICTATION = {
 };
 
 /**
- * A test ordered from the case, sent to the LIMS, and tracked
- * there. The statuses are the platform's own, in order; a sample can also be
- * rejected, with a reason, at the collection or receipt stage.
+ * A test ordered from the case and tracked in the LIMS. Kept generic on
+ * purpose (product review, 2026-11-03): no test category or named assay,
+ * since institutions order different things. The stages are the platform's
+ * own, shortened; `at` is the one being worked on now.
  */
 export const LIMS_ORDER = {
   orderId: "TRF-BC-000214",
-  department: "Biochemical",
-  test: "Chitotriosidase",
-  sample: "Plasma",
-  category: "Postnatal",
-  priority: "Routine",
-  statuses: [
-    "Sample due",
-    "Sample collected",
-    "Sample received",
-    "Testing complete",
-    "Awaiting validation",
-    "Released",
-  ],
-  rejected: "Sample rejected",
+  statuses: ["Sample due", "Sample received", "Testing complete", "Report released"],
+  at: 2,
 };
 
-/** Follow-up visits on the same record, newest first. */
-export const FOLLOW_UPS = [
-  { date: "24/10/2026", note: "Follow-up visit; liver function reviewed" },
-  { date: "20/10/2026", note: "Liver function test imported" },
-  { date: "14/10/2026", note: "First consultation; differentials and test order" },
+/**
+ * The record over three visits, newest first. Each visit lists what was added
+ * to the record that day, so a timeline shows the record growing rather than
+ * a single test (product review, 2026-11-03).
+ */
+export const CASE_VISITS = [
+  {
+    date: "24/10/2026",
+    title: "Follow-up visit",
+    items: ["Reports reviewed", "Growth re-plotted", "Differentials re-ranked"],
+  },
+  {
+    date: "20/10/2026",
+    title: "Reports added",
+    items: ["Lab report released via LIMS", "Outside report read in by Smart Extract"],
+  },
+  {
+    date: "14/10/2026",
+    title: "First consultation",
+    items: ["Pedigree drawn", "HPO terms extracted", "Differentials suggested", "Tests ordered"],
+  },
 ];

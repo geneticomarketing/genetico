@@ -86,7 +86,11 @@ export const HERO_RANKED_COUNT = 3;
  */
 export const CARE_PATHWAY = [
   { label: "Register patient", meta: "Demographics, centre and clinic number", state: "Done" },
-  { label: "Capture phenotype", meta: "Notes or dictation, HPO terms, growth", state: "Done" },
+  {
+    label: "Capture phenotype",
+    meta: "Notes or dictation, pedigree, HPO terms, growth",
+    state: "Done",
+  },
   { label: "Suggest differentials", meta: "RAPID Score across OMIM diseases", state: "Done" },
   { label: "Order test", meta: "Test request form filled from the case", state: "Done" },
   { label: "Track sample", meta: "In the LIMS", state: "Active" },
@@ -103,9 +107,6 @@ export const ANALYTICS_VIEWS = [
   { key: "observed", label: "Observed symptoms" },
   { key: "unobserved", label: "Check for next" },
 ] as const;
-
-/** Where the sample in the LIMS order has got to, as an index into its statuses. */
-export const ORDER_STATUS_INDEX = 3;
 
 /* ------------------------------------------------------------- presentation */
 
