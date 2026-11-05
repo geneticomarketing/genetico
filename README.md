@@ -45,14 +45,15 @@ CI green without production credentials.
 
 ### Commands
 
-| Command                                       | What it does                                                    |
-| --------------------------------------------- | --------------------------------------------------------------- |
-| `npm run dev`                                 | The site and the admin panel, with hot reload.                  |
-| `npm run build` / `npm start`                 | Production build / serve it.                                    |
-| `npm run lint` / `typecheck` / `format:check` | The checks CI runs on every PR.                                 |
-| `npm run generate:types`                      | Regenerate `src/payload-types.ts` after changing any CMS field. |
-| `npm run cms:backup`                          | Dump every CMS table to `.cms-backup/` (gitignored). Read-only. |
-| `npx tsx scripts/print-admin-nav.mts`         | Print the admin sidebar as an editor sees it.                   |
+| Command                                       | What it does                                                                    |
+| --------------------------------------------- | ------------------------------------------------------------------------------- |
+| `npm run dev`                                 | The site and the admin panel, with hot reload.                                  |
+| `npm run build` / `npm start`                 | Production build / serve it.                                                    |
+| `npm run lint` / `typecheck` / `format:check` | The checks CI runs on every PR.                                                 |
+| `npm run generate:types`                      | Regenerate `src/payload-types.ts` after changing any CMS field.                 |
+| `npm run cms:backup`                          | Dump every CMS table to `.cms-backup/` (gitignored). Read-only.                 |
+| `npm run check:claims` / `check:cms-claims`   | List product claims the platform cannot back up, in the code / in the CMS copy. |
+| `npx tsx scripts/print-admin-nav.mts`         | Print the admin sidebar as an editor sees it.                                   |
 
 Database scripts are described in **[scripts/README.md](scripts/README.md)**.
 
