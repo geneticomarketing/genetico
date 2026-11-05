@@ -1,13 +1,9 @@
 import { ComingSoonTag } from "@/components/coming-soon";
 import { SectionLead } from "@/components/platform/section-lead";
-import {
-  CDSS_READING,
-  COHORT_MONTHS,
-  LONGITUDINAL_VISITS,
-  ORDER_TO_REPORT,
-} from "@/content/platform-demo";
+import { CDSS_READING, COHORT_MONTHS, ORDER_TO_REPORT } from "@/content/platform-demo";
 import {
   CASE,
+  CASE_VISITS,
   DISEASE_COMPARE,
   LIMS_ORDER,
   PHENOTYPE_ANALYTICS,
@@ -311,7 +307,7 @@ export function Longitudinal({
                   aria-hidden
                   className="absolute top-2 bottom-2 left-[6px] block w-px bg-[#BFD4DE]"
                 />
-                {LONGITUDINAL_VISITS.map((visit, i) => (
+                {CASE_VISITS.map((visit, i) => (
                   <li key={visit.date} className="relative pb-5 last:pb-0">
                     <span
                       aria-hidden
@@ -491,23 +487,23 @@ export function OrderToReport({ num }: { num: string }) {
                 aria-hidden
                 className="absolute top-2 bottom-2 left-[6px] block w-px bg-[#BFD4DE]"
               />
-              {copy.statuses.map((label, i) => (
+              {LIMS_ORDER.statuses.map((label, i) => (
                 <li key={label} className="relative pb-3.5 last:pb-0">
                   <span
                     aria-hidden
                     className={`absolute top-[3px] -left-[26px] block h-[13px] w-[13px] rounded-full border-2 ${
-                      i < copy.at
+                      i < LIMS_ORDER.at
                         ? "border-[#A9E4D7] bg-[#2FA98F]"
-                        : i === copy.at
+                        : i === LIMS_ORDER.at
                           ? "border-primary bg-white"
                           : "border-[#C9D5DF] bg-white"
                     }`}
                   />
                   <span
                     className={`text-[14px] ${
-                      i === copy.at
+                      i === LIMS_ORDER.at
                         ? "text-primary font-bold"
-                        : i > copy.at
+                        : i > LIMS_ORDER.at
                           ? "text-ink-dim"
                           : "text-ink"
                     }`}

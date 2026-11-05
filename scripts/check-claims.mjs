@@ -56,6 +56,20 @@ const CLAIMS = [
     re: /disease trend visuali[sz]ation|population-level evidence/i,
   },
   { why: '"disrupting" framing; say it positively', re: /without disrupting/i },
+  // Product consistency pass, 2026-11-05: what the Platform page does not claim.
+  {
+    why: '"genomic EMR" as a product description',
+    re: /\ba genomic EMR\b|genomic electronic medical record/i,
+  },
+  { why: "dashboards described as live", re: /live dashboards?/i },
+  {
+    why: "unverified outcome figures",
+    re: /2–3 hrs|\b90%\+|HPO-coded records|to a working pilot/i,
+  },
+  {
+    why: "public-health mechanics the platform does not have yet",
+    re: /offline-capable|red-flag|suspected-case alerts|follow-up reminders|DPDP|consent capture/i,
+  },
   { why: '"lab LIMS": the LIMS is not always the laboratory one', re: /lab(oratory)?('s)? LIMS/i },
 ];
 

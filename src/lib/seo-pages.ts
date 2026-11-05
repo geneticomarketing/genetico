@@ -46,7 +46,7 @@ export const STATIC_PAGE_SEO = {
     label: "IndiGeneUs.AI platform",
     title: "IndiGeneUs.AI Clinical Genetics Platform",
     description:
-      "IndiGeneUs.AI brings a genomic EMR, pedigree charting, AI-assisted differential diagnosis, longitudinal patient records and analytics into one secure platform.",
+      "IndiGeneUs.AI brings pedigree, AI phenotyping, RAPID Score differentials, LIMS test ordering and longitudinal patient records into one secure platform.",
   },
   hospital: {
     path: HOSPITAL_PATH,
@@ -67,7 +67,7 @@ export const STATIC_PAGE_SEO = {
     label: "Public health & government",
     title: "Rare Disease Programmes for Public Health",
     description:
-      "IndiGeneUs.AI connects primary health centres, district hospitals and Centres of Excellence for NPRD programmes, with registries, referrals and live dashboards.",
+      "IndiGeneUs.AI for NPRD programmes: one case record from primary health centres to Centres of Excellence, with registry and programme views launching soon.",
   },
   resources: {
     path: RESOURCES_PATH,

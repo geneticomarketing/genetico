@@ -41,7 +41,7 @@ const outcomeMetricFields = [
     type: "text" as const,
     label: "Figure",
     admin: {
-      description: "The large line, e.g. “90%+”, “Minutes”, “Registry-ready”. Words are fine.",
+      description: "The large line, e.g. “100”, “Minutes”, “Registry-ready”. Words are fine.",
     },
   },
   { name: "label", type: "text" as const, required: true, label: "What it measures" },

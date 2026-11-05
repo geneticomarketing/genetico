@@ -11,7 +11,7 @@ import {
   CASE_HPO,
   DICTATION,
   DISEASE_COMPARE,
-  FOLLOW_UPS,
+  CASE_VISITS,
   LAB_EXTRACT,
   LIMS_ORDER,
   PHENOTYPE_ANALYTICS,
@@ -312,11 +312,12 @@ function DecideScreen() {
   );
 }
 
-/** Where the sample order is in its LIMS status chain: the step being worked on now. */
-const ORDER_AT = 4;
-
-/** Connect: a test ordered from the case, tracked in the LIMS, and the visits around it. */
+/**
+ * Connect: a test ordered from the case and tracked in the LIMS, and the
+ * visits on the same record. Same order and visits as the Platform page.
+ */
 function ConnectScreen() {
+  const at = LIMS_ORDER.at;
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-wrap items-baseline justify-between gap-2.5">
@@ -324,22 +325,13 @@ function ConnectScreen() {
           {CASE.id} · {LIMS_ORDER.orderId}
         </span>
         <span className="font-mono-label text-ink-soft text-[11px] tracking-[0.14em] uppercase">
-          Sent to the LIMS
+          Test order · LIMS
         </span>
       </div>
-      <div className="flex flex-wrap gap-1.5">
-        {[LIMS_ORDER.department, LIMS_ORDER.test, LIMS_ORDER.sample, LIMS_ORDER.priority].map(
-          (v) => (
-            <span
-              key={v}
-              className="bg-primary-tint text-primary-deep rounded-md px-2.5 py-1 text-[12.5px]"
-            >
-              {v}
-            </span>
-          ),
-        )}
-      </div>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,92px),1fr))] gap-3">
+      <span className="text-ink-soft -mt-2 text-[13px]">
+        Request form filled from the patient record
+      </span>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,110px),1fr))] gap-3">
         {LIMS_ORDER.statuses.map((label, j) => (
           <div
             key={label}
@@ -348,16 +340,16 @@ function ConnectScreen() {
             <span
               aria-hidden
               className={`absolute -top-[7px] left-0 block h-3 w-3 rounded-full border-[3px] ${
-                j < ORDER_AT
+                j < at
                   ? "border-teal-mid bg-teal-mid"
-                  : j === ORDER_AT
+                  : j === at
                     ? "border-primary bg-white"
                     : "border-[#D3E2EF] bg-white"
               }`}
             />
             <span
               className={`text-[13px] leading-[1.35] ${
-                j === ORDER_AT ? "text-primary font-bold" : j > ORDER_AT ? "text-ink-dim" : ""
+                j === at ? "text-primary font-bold" : j > at ? "text-ink-dim" : ""
               }`}
             >
               {label}
@@ -366,13 +358,28 @@ function ConnectScreen() {
         ))}
       </div>
       <div className={`${CARD} gap-0.5`}>
-        <span className={`${MONO} text-ink-soft pb-2`}>Follow-up visits</span>
-        {FOLLOW_UPS.map((f) => (
-          <div key={f.date} className="flex gap-4 border-t border-[#F1F3F5] py-2.5 text-sm">
-            <span className="font-mono-label text-primary w-[86px] flex-none text-[12px]">
-              {f.date}
+        <span className={`${MONO} text-ink-soft pb-2`}>Patient timeline</span>
+        {CASE_VISITS.map((v) => (
+          <div
+            key={v.date}
+            className="flex flex-wrap gap-x-4 gap-y-1.5 border-t border-[#F1F3F5] py-2.5 text-sm"
+          >
+            <span className="font-mono-label text-primary w-[86px] flex-none pt-0.5 text-[12px]">
+              {v.date}
             </span>
-            <span>{f.note}</span>
+            <span className="flex min-w-0 flex-1 flex-col gap-1.5">
+              <span className="font-medium">{v.title}</span>
+              <span className="flex flex-wrap gap-1">
+                {v.items.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-md border border-[#D3E2EF] bg-white px-2 py-0.5 text-[12px]"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </span>
+            </span>
           </div>
         ))}
       </div>

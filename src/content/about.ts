@@ -140,15 +140,21 @@ export const ABOUT_PLATFORM = {
   steps: [
     {
       title: "Capture",
-      body: "Phenotype, history and documents recorded as structured fields at the point of care.",
+      body:
+        "Pedigree, phenotype, dictated history and lab reports recorded as structured fields at " +
+        "the point of care.",
     },
     {
       title: "Decide",
-      body: "Ranked differentials with the evidence behind each one, reviewed by the treating team.",
+      body:
+        "RAPID Score ranks rare diseases against the patient's phenotypes, with the analytics " +
+        "behind each rank, reviewed by the treating team.",
     },
     {
       title: "Connect",
-      body: "One longitudinal record per patient across visits, departments and centres.",
+      body:
+        "Tests ordered and tracked through the LIMS, on one longitudinal record per patient " +
+        "across visits, departments and centres.",
     },
     {
       title: "Analyse",
