@@ -85,6 +85,9 @@ import {
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+/** True while `next build` prerenders pages (set before its workers start). */
+const IS_BUILD = process.env.NEXT_PHASE === "phase-production-build";
+
 const useS3 =
   Boolean(process.env.S3_BUCKET) &&
   Boolean(process.env.S3_ACCESS_KEY_ID) &&
@@ -200,9 +203,22 @@ export default buildConfig({
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
   db: postgresAdapter({
+    /* Supabase's session pooler allows 15 clients in total, shared by the
+       live site and every build worker. `next build` prerenders with several
+       workers, each with its own pool (pg defaults to 10 connections), so a
+       build could ask for far more than 15 and fail on EMAXCONNSESSION — the
+       Rare Insights loader refuses to publish an empty archive, so that
+       failure stops the deploy.
+       During the build only: two connections per worker, and no transactions.
+       The build only reads, and a transaction holds a connection while its
+       nested queries wait for another, which deadlocks a pool this small (a
+       one-connection pool hung the build). Runtime keeps pg's defaults and
+       Payload's transactions, so saves in the admin stay atomic. */
     pool: {
       connectionString: process.env.DATABASE_URI || process.env.DATABASE_URL || "",
+      ...(IS_BUILD ? { max: 2 } : {}),
     },
+    ...(IS_BUILD ? { transactionOptions: false as const } : {}),
     push: process.env.NODE_ENV !== "production",
   }),
   sharp,
