@@ -71,7 +71,7 @@ export function PlatformFeatures({
                 setActive(next);
                 document.getElementById(`platform-tab-${next}`)?.focus();
               }}
-              className={`hover:bg-sheet-soft border-rule-light cursor-pointer border-t-2 px-5 pt-[18px] pb-5 text-left transition-colors not-last:border-r ${
+              className={`hover:bg-sheet-soft border-rule-light flex cursor-pointer flex-col justify-start border-t-2 px-5 pt-[18px] pb-5 text-left transition-colors not-last:border-r ${
                 i === active ? "text-ink border-t-[#2FA98F]" : "text-ink-soft border-t-rule"
               }`}
             >
