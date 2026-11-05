@@ -46,7 +46,7 @@ export const HOME_HERO = {
 /**
  * The hero mock-up: the sample case's note types itself, then structures.
  * The other cases in the sidebar show statuses the platform really uses —
- * case status, and where each one's test order is in the laboratory's LIMS.
+ * case status, and where each one's test order is in the LIMS.
  */
 export const HERO_DEMO = {
   url: CASE.urlBase,

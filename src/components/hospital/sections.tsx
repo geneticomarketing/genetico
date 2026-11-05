@@ -276,7 +276,7 @@ export function RapidPanel() {
         <div className="flex items-center justify-between gap-3">
           <PanelLabel>Ranked list</PanelLabel>
           <span className="text-ink-soft text-[12.5px]">
-            {RANKED_COUNT} of {RAPID_TOTAL} · OMIM, Orphanet
+            {RANKED_COUNT} of {RAPID_TOTAL} · OMIM
           </span>
         </div>
 
@@ -402,7 +402,7 @@ export function FollowUpPanel() {
             ))}
           </div>
           <span className="text-ink-soft text-[12.5px]">
-            Laboratory LIMS: {LIMS_ORDER.statuses[ORDER_STATUS_INDEX]}
+            LIMS: {LIMS_ORDER.statuses[ORDER_STATUS_INDEX]}
           </span>
         </div>
       </div>

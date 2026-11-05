@@ -87,9 +87,9 @@ export const HERO_RANKED_COUNT = 3;
 export const CARE_PATHWAY = [
   { label: "Register patient", meta: "Demographics, centre and clinic number", state: "Done" },
   { label: "Capture phenotype", meta: "Notes or dictation, HPO terms, growth", state: "Done" },
-  { label: "Suggest differentials", meta: "RAPID Score across OMIM and Orphanet", state: "Done" },
+  { label: "Suggest differentials", meta: "RAPID Score across OMIM diseases", state: "Done" },
   { label: "Order test", meta: "Test request form filled from the case", state: "Done" },
-  { label: "Track sample", meta: "In the laboratory's LIMS", state: "Active" },
+  { label: "Track sample", meta: "In the LIMS", state: "Active" },
   { label: "Case report", meta: "Configurable report from the record", state: "Next" },
 ] as const;
 

@@ -41,6 +41,14 @@ const CLAIMS = [
     re: /thrombolysis|ambulance|\bEGC\b|\bPCI\b/i,
   },
   { why: "trademark sign on RAPID Score, unconfirmed", re: /RAPID Score™/ },
+  // Product lead's review of the Platform page, 2026-11-03.
+  { why: "genomic findings, which nothing integrates", re: /genomic findings/i },
+  {
+    why: "analytics terms the product lead rejected",
+    re: /disease trend visuali[sz]ation|population-level evidence/i,
+  },
+  { why: '"disrupting" framing; say it positively', re: /without disrupting/i },
+  { why: '"lab LIMS": the LIMS is not always the laboratory one', re: /lab(oratory)?('s)? LIMS/i },
 ];
 
 const connectionString = process.env.DATABASE_URI || process.env.DATABASE_URL;

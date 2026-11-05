@@ -53,6 +53,10 @@ export const CASE_GROWTH = [
  * The top of the ranked list Suggest Differentials returned for CASE_HPO.
  * The platform ranks 100 candidates; `RAPID_TOTAL` says so wherever a mock-up
  * shows only the first few.
+ *
+ * OMIM entries only, renumbered: the product lead asked (2026-11-03) that the
+ * mock-ups leave out Orphanet rows, which can repeat an OMIM disease and its
+ * phenotypes (Sialidosis type 1, ORPHA:812, sat between these at 0.351).
  */
 export const RAPID_RANKED = [
   { rank: 1, score: 0.382, id: "OMIM:256150", name: "Sialidosis type 2" },
@@ -68,11 +72,8 @@ export const RAPID_RANKED = [
     id: "OMIM:301066",
     name: "Intellectual developmental disorder, X-linked",
   },
-  { rank: 4, score: 0.351, id: "ORPHA:812", name: "Sialidosis type 1" },
-  { rank: 5, score: 0.351, id: "ORPHA:354", name: "GM1 gangliosidosis" },
-  { rank: 6, score: 0.348, id: "ORPHA:93399", name: "Juvenile sialidosis type 2" },
-  { rank: 7, score: 0.341, id: "OMIM:280000", name: "CHIME syndrome" },
-  { rank: 8, score: 0.337, id: "OMIM:253200", name: "Mucopolysaccharidosis, type VI" },
+  { rank: 4, score: 0.341, id: "OMIM:280000", name: "CHIME syndrome" },
+  { rank: 5, score: 0.337, id: "OMIM:253200", name: "Mucopolysaccharidosis, type VI" },
 ];
 
 export const RAPID_TOTAL = 100;
@@ -213,7 +214,7 @@ export const DICTATION = {
 };
 
 /**
- * A test ordered from the case, sent to the laboratory's LIMS, and tracked
+ * A test ordered from the case, sent to the LIMS, and tracked
  * there. The statuses are the platform's own, in order; a sample can also be
  * rejected, with a reason, at the collection or receipt stage.
  */

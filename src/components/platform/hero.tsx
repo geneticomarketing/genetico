@@ -80,11 +80,28 @@ export function PlatformHero({
       <div className="max-w-site relative mx-auto flex w-full flex-1 flex-col">
         <div className="nav:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] nav:gap-[clamp(40px,5vw,72px)] grid flex-1 grid-cols-[minmax(0,1fr)] items-center gap-11 py-[clamp(32px,5vh,64px)] [align-content:center]">
           <div className="flex flex-col items-start gap-[26px]">
-            <div className="flex items-center gap-4">
-              <span className="font-mono-label text-[11px] tracking-[0.2em] whitespace-nowrap text-[#7FA9CC] uppercase">
-                {content.eyebrow}
+            {/* The product's name leads the page: the lockup is what a reader
+                should leave with, the company line beneath it says who makes it. */}
+            <div className="flex flex-col items-start gap-3">
+              <span className="flex items-center gap-3">
+                <Image
+                  src="/brand/indigeneus-mark-white.png"
+                  alt=""
+                  width={1065}
+                  height={1061}
+                  sizes="44px"
+                  className="h-[clamp(36px,3.4vw,44px)] w-[clamp(36px,3.4vw,44px)]"
+                />
+                <span className="font-headline text-[clamp(28px,2.9vw,38px)] leading-none tracking-[-0.015em] text-white">
+                  IndiGeneUs<span className="text-[#6FD8C2]">.AI</span>
+                </span>
               </span>
-              <span aria-hidden className="block h-px w-[72px] bg-white/28" />
+              <span className="flex items-center gap-4">
+                <span className="font-mono-label text-[11px] tracking-[0.2em] whitespace-nowrap text-[#7FA9CC] uppercase">
+                  {content.eyebrow}
+                </span>
+                <span aria-hidden className="block h-px w-[72px] bg-white/28" />
+              </span>
             </div>
 
             <h1 className="font-headline m-0 max-w-[15em] text-[clamp(36px,4.4vw,58px)] leading-[1.06] tracking-[-0.022em] text-white text-pretty">
@@ -168,7 +185,7 @@ export function PlatformHero({
               {[
                 { value: String(CASE_HPO.length), label: "HPO terms selected" },
                 { value: String(RAPID_TOTAL), label: "Diseases ranked" },
-                { value: "OMIM · ORPHA", label: "Knowledge bases" },
+                { value: "OMIM", label: "Knowledge base" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <span className="font-mono-label block text-[15px] text-white">{stat.value}</span>
@@ -220,6 +237,7 @@ const TOP = RAPID_RANKED.slice(0, 4);
 function RankedView({ barsIn }: { barsIn: boolean }) {
   return (
     <div className="flex flex-col gap-3">
+      <ScoreKey />
       {TOP.map((row, i) => (
         <div key={row.id}>
           <div className="flex items-baseline justify-between gap-3">
@@ -250,6 +268,19 @@ function RankedView({ barsIn }: { barsIn: boolean }) {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+/**
+ * Names the column of numbers on the right: a 0–1 score reads as nothing in
+ * particular to someone who has not used the platform.
+ */
+function ScoreKey() {
+  return (
+    <div className="font-mono-label flex items-baseline justify-between gap-3 text-[10px] tracking-[0.14em] text-[#7FCBEB] uppercase">
+      <span>Disease · OMIM</span>
+      <span className="text-right">RAPID Score · 0–1</span>
     </div>
   );
 }

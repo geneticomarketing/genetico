@@ -7,9 +7,11 @@ import { SectionLead } from "@/components/platform/section-lead";
 import type { PlatformContent } from "@/lib/cms/platform-page-data";
 
 /**
- * Section 01 — the four data-capture features, one at a time.
+ * Section 01 — the data-capture features, one at a time, in the order a case
+ * is built up: pedigree and workflows first, phenotyping last so it hands on
+ * to Clinical Intelligence (order set in the CMS).
  *
- * Tabs rather than four stacked blocks: they are alternatives an institution
+ * Tabs rather than stacked blocks: they are alternatives an institution
  * chooses between, not a sequence, and the illustration only makes sense next
  * to the one it belongs to.
  *
@@ -69,7 +71,7 @@ export function PlatformFeatures({
                 setActive(next);
                 document.getElementById(`platform-tab-${next}`)?.focus();
               }}
-              className={`hover:bg-sheet-soft border-rule-light cursor-pointer border-t-2 px-5 pt-[18px] pb-5 text-left transition-colors not-last:border-r ${
+              className={`hover:bg-sheet-soft border-rule-light flex cursor-pointer flex-col justify-start border-t-2 px-5 pt-[18px] pb-5 text-left transition-colors not-last:border-r ${
                 i === active ? "text-ink border-t-[#2FA98F]" : "text-ink-soft border-t-rule"
               }`}
             >
