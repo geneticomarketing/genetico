@@ -11,9 +11,9 @@
  *   npm run check:claims
  *
  * Exits 1 while anything matches. It scans the code only — CMS copy is checked
- * by hand in phase 5. Archived pages (src/archive/) are not built, so they are
- * skipped. A line can opt out with `claims-ok` in a comment when the match is
- * not a claim (a pattern colliding with ordinary prose).
+ * by `npm run check:cms-claims`. A line can opt out with `claims-ok` in a
+ * comment when the match is not a claim (a pattern colliding with ordinary
+ * prose).
  */
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
@@ -21,7 +21,7 @@ import { join, relative } from "node:path";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
 const SCAN = ["src"];
-const SKIP = ["src/archive", "src/payload-types.ts", "src/app/(payload)"];
+const SKIP = ["src/payload-types.ts", "src/app/(payload)"];
 const EXTENSIONS = /\.(ts|tsx|mts|js|mjs)$/;
 
 /** What the platform does not do, and the wording that claims it. */

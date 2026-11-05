@@ -2,8 +2,8 @@
  * The site's public paths. Import these rather than writing a path out, so a
  * page can move without hunting for every link to it.
  *
- * The earlier design previews (/home-v2, /home-v3, /home-v4, /about-v2) are
- * archived and no longer routed; their paths live in src/archive/paths.ts.
+ * The retired design previews (/home-v2, /home-v3, /home-v4, /about-v2) only
+ * redirect now; see next.config.ts.
  */
 export const ABOUT_PATH = "/about-us";
 export const PLATFORM_PATH = "/platform";

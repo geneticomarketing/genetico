@@ -81,9 +81,7 @@ src/
   payload/             the CMS schema: collections/, globals/sections/ (one file per page), admin/
   payload.config.ts
   proxy.ts             redirects CMS media requests straight to Supabase Storage
-  archive/             earlier design previews — kept for reference, not built or routed
 scripts/               database tools; scripts/migrations/ holds ones already applied
-design_handoff_genetico_site/   the designer's HTML prototypes for each page (reference only)
 ```
 
 ### How a page gets its content
@@ -145,8 +143,9 @@ media queries appended to `globals.css`.
 - **`/sitemap.xml`** lists every public page and blog post. **`/robots.txt`** allows everything
   public (AI crawlers included), points at the sitemap, and on any non-production deploy
   disallows everything.
-- **Design previews** (`/home-v2`, `/home-v3`, `/home-v4`, `/about-v2`) are archived in
-  `src/archive/` and redirect (308) to the live page they drafted.
+- **Retired design previews** (`/home-v2`, `/home-v3`, `/home-v4`, `/about-v2`) redirect (308)
+  to the live page they drafted. Their code, and the designer's handoff prototypes, are kept at
+  the git tag `pre-cleanup-2026-11-05`; the handoff folder itself is local only (gitignored).
 - **Tag Manager** loads in `<head>` of the public site only — never in `/admin`. Google Consent
   Mode v2 defaults analytics and ad storage to _denied_ until the visitor accepts in the cookie
   banner (`src/components/chrome/cookie-consent.tsx`); the choice is remembered and can be changed

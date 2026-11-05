@@ -49,8 +49,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     const redirects: { source: string; destination: string; permanent: boolean }[] = [
       { source: "/solutions", destination: "/hospital", permanent: true },
-      // Design previews, now archived in src/archive/ and no longer routed. Any
-      // link still pointing at one lands on the live page it was a draft of.
+      // Retired design previews (their code is at tag pre-cleanup-2026-11-05).
+      // Any link still pointing at one lands on the live page it was a draft of.
       { source: "/home-v2", destination: "/", permanent: true },
       { source: "/home-v3", destination: "/", permanent: true },
       { source: "/home-v4", destination: "/", permanent: true },

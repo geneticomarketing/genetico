@@ -49,3 +49,7 @@ next-env.d.ts
 
 # Local tool output
 tsc-out.txt
+
+# design handoff (designer prototypes and screenshots): kept locally, not in the repo.
+# The last tracked copy is at tag pre-cleanup-2026-11-05.
+/design_handoff_genetico_site/
