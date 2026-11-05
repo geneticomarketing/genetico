@@ -54,6 +54,12 @@ type ImageFieldOptions = {
   preset?: ImageUploadPreset;
   /** Override the upload helper text shown in the admin panel */
   uploadDescription?: string;
+  /**
+   * Keep the columns but hide both fields from editors, for an image the
+   * page's current design does not show. Hiding needs no schema change;
+   * removing the fields would (see CMS.md on dropping columns first).
+   */
+  hidden?: boolean;
 };
 
 type MediaUploadFieldOptions = {
@@ -74,6 +80,7 @@ export function imageUploadFields({
   uploadLabel,
   preset,
   uploadDescription,
+  hidden = false,
 }: ImageFieldOptions = {}): Field[] {
   const description = uploadDescription ?? (preset ? imageUploadDescription(preset) : undefined);
 
@@ -83,12 +90,12 @@ export function imageUploadFields({
       type: "upload",
       relationTo: "media",
       label: uploadLabel,
-      admin: description ? { description } : undefined,
+      admin: hidden ? { hidden: true } : description ? { description } : undefined,
     },
     {
       name: pathName,
       type: "text",
-      admin: { description: pathDescription },
+      admin: hidden ? { hidden: true } : { description: pathDescription },
     },
   ];
 }

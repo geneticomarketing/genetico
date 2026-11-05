@@ -10,7 +10,9 @@ export const ResourcesHero = pageSection(
     { name: "title", type: "text", required: true, label: "Headline" },
     { name: "subtitle", type: "textarea", label: "Paragraph below the headline" },
     { name: "description", type: "textarea", label: "Supporting text (optional)" },
-    ...imageUploadFields({ uploadLabel: "Background image", preset: "pageHero" }),
+    // The hero is drawn without a background photo, so this field is hidden
+    // rather than offered to editors as one that does nothing.
+    ...imageUploadFields({ uploadLabel: "Background image", preset: "pageHero", hidden: true }),
   ],
   ADMIN_GROUPS.resources,
 );
