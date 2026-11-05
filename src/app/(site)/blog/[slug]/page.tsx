@@ -11,6 +11,7 @@ import { thumbnailStyle } from "@/lib/cms/thumbnail-style";
 import { createPageMetadata, getSiteUrl } from "@/lib/seo";
 import { STATIC_PAGE_SEO, ogImagePath } from "@/lib/seo-pages";
 import { blogPostingNode, breadcrumbNode, graph } from "@/lib/structured-data";
+import { readableTextColor } from "@/lib/readable-color";
 
 export const revalidate = 86400;
 
@@ -109,7 +110,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             <p
               className="t-badge secondaryFont mt-8 text-[11px] font-semibold tracking-[0.14em] uppercase"
-              style={{ color: post.categoryColor }}
+              style={{ color: readableTextColor(post.categoryColor) }}
             >
               {post.category}
             </p>
@@ -121,7 +122,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {post.title}
             </h1>
 
-            <div className="secondaryFont mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[#8b8f97]">
+            <div className="secondaryFont mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-soft text-sm">
               <span>{post.author}</span>
               <span aria-hidden className="text-[#d1d5db]">
                 •

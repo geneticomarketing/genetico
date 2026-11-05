@@ -73,7 +73,7 @@ export default async function BlogPage() {
           </Link>
 
           <Reveal>
-            <p className="t-eyebrow text-[11px] tracking-[0.16em] text-[#45B191]">
+            <p className="t-eyebrow text-[11px] tracking-[0.16em] text-[#277A62]">
               {data.blogListing.eyebrow}
             </p>
             <div className="t-intro mt-3 text-left">

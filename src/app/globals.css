@@ -37,7 +37,7 @@ html {
   --color-surface: #f5f7fa;
   --color-line: #e2e5e9;
   --color-ink-muted: #6e6e73;
-  --color-ink-faint: #8b8f97;
+  --color-ink-faint: #5e666d; /* = ink-soft; the old #8b8f97 failed contrast */
 
   /* Season VF is the site-wide face (per Figma). Albert Sans is the graceful
      fallback that renders until the Season file is dropped at public/fonts/. */
@@ -381,8 +381,10 @@ body {
   /* ── Ink ─────────────────────────────────────────────────────────────── */
   --color-ink: #12161a; /* primary text */
   --color-ink-body: #3c434a; /* body copy */
-  --color-ink-soft: #6e767d; /* secondary, eyebrow grey */
-  --color-ink-dim: #9aa6b1; /* tertiary */
+  /* Both meet WCAG AA (4.5:1) at small sizes on every light surface below;
+     ink-dim stays visibly lighter for greyed-out and future steps. */
+  --color-ink-soft: #5e666d; /* secondary, eyebrow grey */
+  --color-ink-dim: #65707a; /* tertiary, a bluer grey than ink-soft */
 
   /* ── Rules ───────────────────────────────────────────────────────────── */
   --color-rule: #e4e9ed; /* standard border */

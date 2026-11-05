@@ -259,7 +259,7 @@ function Item({ item }: { item: RareInsightsItem }) {
       className={`border-rule data-[flash]:bg-teal-tint mx-[calc(-1*clamp(0px,1.4vw,18px))] rounded-[10px] border-b px-[clamp(0px,1.4vw,18px)] py-[clamp(28px,3vw,40px)] transition-colors duration-[600ms] ${ANCHOR}`}
     >
       <div className="flex items-baseline justify-between gap-3">
-        <span className="font-mono-label text-teal-mid text-sm tracking-[0.06em]">{item.num}</span>
+        <span className="font-mono-label text-teal-deep text-sm tracking-[0.06em]">{item.num}</span>
         {item.tag ? <span className={`text-ink-soft ${MONO_LABEL}`}>{item.tag}</span> : null}
       </div>
       <h3 className="font-headline m-0 mt-3 text-[clamp(23px,2.4vw,28px)] leading-[1.2] font-normal tracking-[-0.012em] text-pretty">
