@@ -30,6 +30,9 @@ export default async function ComingSoonPage() {
     >
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute top-1/2 left-1/2 h-[min(90vw,720px)] w-[min(90vw,720px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(95,215,203,0.14)_0%,transparent_68%)]" />
+        {/* A plain img: next/image will not optimise an SVG, so it would add
+            nothing but a request through the image optimiser. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/dna.svg"
           alt=""
