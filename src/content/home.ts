@@ -204,23 +204,23 @@ export const HOME_PLATFORM = {
     {
       title: "Capture",
       body:
-        "Structured intake at the point of care — phenotype, dictated history and lab reports " +
-        "converted into computable fields instead of free text.",
+        "Structured intake at the point of care — pedigree, phenotype, dictated history and lab " +
+        "reports converted into computable fields instead of free text.",
       tag: "Intelligent data capture",
     },
     {
       title: "Decide",
       body:
-        "Clinical decision support surfaces ranked differentials with the evidence behind each " +
-        "one, inside the existing workflow.",
-      tag: "CDSS",
+        "RAPID Score ranks rare diseases against the patient's phenotypes, and Phenotype " +
+        "Analytics shows what drives each rank, inside the existing workflow.",
+      tag: "Clinical intelligence",
     },
     {
       title: "Connect",
       body:
-        "One longitudinal record per patient across visits, departments, labs and centres — no " +
-        "re-entry, no duplication.",
-      tag: "Longitudinal record",
+        "Tests ordered from the case and tracked in the LIMS, on one longitudinal record per " +
+        "patient across visits, labs and centres — no re-entry, no duplication.",
+      tag: "Orders & longitudinal care",
     },
     {
       title: "Analyse",

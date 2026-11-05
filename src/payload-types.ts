@@ -440,7 +440,7 @@ export interface SolutionPage {
     metrics?:
       | {
           /**
-           * The large line, e.g. “90%+”, “Minutes”, “Registry-ready”. Words are fine.
+           * The large line, e.g. “100”, “Minutes”, “Registry-ready”. Words are fine.
            */
           figure?: string | null;
           label: string;
