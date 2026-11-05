@@ -1,5 +1,5 @@
 /** Any iPhone / iPad / iPod — all browsers use WebKit (Safari, Chrome, Firefox, etc.). */
-export function isIOS(): boolean {
+function isIOS(): boolean {
   if (typeof navigator === "undefined") return false;
 
   const ua = navigator.userAgent;
@@ -10,7 +10,7 @@ export function isIOS(): boolean {
 }
 
 /** Desktop Safari (excludes Chromium on macOS). */
-export function isDesktopSafari(): boolean {
+function isDesktopSafari(): boolean {
   if (typeof navigator === "undefined") return false;
   if (isIOS()) return false;
 

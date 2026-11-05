@@ -10,7 +10,7 @@ import { getPayloadClient, isCmsConfigured } from "@/lib/cms/get-payload";
  * `scripts/drop-solution-page-legacy.mjs` clears them once this ships.
  */
 
-export type SolutionSlug = "hospital" | "pharma";
+type SolutionSlug = "hospital" | "pharma";
 
 export type SolutionStat = { figure: string; label: string };
 export type SolutionChallenge = { title: string; body: string };

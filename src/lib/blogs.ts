@@ -105,14 +105,6 @@ export function blogHref(slug: string): string {
   return `${BLOG_PATH}/${slug}`;
 }
 
-export function getBlogBySlug(slug: string): BlogPost | undefined {
-  return BLOG_POSTS.find((post) => post.slug === slug);
-}
-
-export function getAllBlogSlugs(): string[] {
-  return BLOG_POSTS.map((post) => post.slug);
-}
-
 /**
  * A post's date as a machine-readable ISO string and a label for people,
  * e.g. "30 April 2026". The CMS stores midnight India time, which is the

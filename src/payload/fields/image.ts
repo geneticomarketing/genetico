@@ -1,6 +1,6 @@
 import type { Field } from "payload";
 
-export const IMAGE_UPLOAD_PRESETS = {
+const IMAGE_UPLOAD_PRESETS = {
   heroSlide: {
     size: "1920 × 1080 px (16:9). WebP or JPG, ideally under 500 KB.",
     fileName: "hero-bg.webp, hero-dna.jpg",
@@ -35,9 +35,9 @@ export const IMAGE_UPLOAD_PRESETS = {
   },
 } as const;
 
-export type ImageUploadPreset = keyof typeof IMAGE_UPLOAD_PRESETS;
+type ImageUploadPreset = keyof typeof IMAGE_UPLOAD_PRESETS;
 
-export function imageUploadDescription(preset: ImageUploadPreset, extra?: string): string {
+function imageUploadDescription(preset: ImageUploadPreset, extra?: string): string {
   const { size, fileName } = IMAGE_UPLOAD_PRESETS[preset];
   const base = `Recommended size: ${size} Use a descriptive file name such as ${fileName}. Stick to lowercase letters, numbers, and hyphens.`;
   return extra ? `${base} ${extra}` : base;

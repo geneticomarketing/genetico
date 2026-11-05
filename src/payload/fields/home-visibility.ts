@@ -31,9 +31,6 @@ export const homeTitleField: Field = {
   },
 };
 
-/** Both fields, for collections that carry the full pair. */
-export const homeVisibilityFields: Field[] = [showOnHomeField, homeTitleField];
-
 /**
  * What `publishedAt` is for, now that the home page no longer sorts by it.
  *

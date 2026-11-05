@@ -15,7 +15,6 @@ export const RARE_INSIGHTS_PATH = "/rare-insights";
 export const BLOG_PATH = "/blog";
 export const PRIVACY_POLICY_PATH = "/privacy-policy";
 export const COOKIE_POLICY_PATH = "/cookie-policy";
-export const COMING_SOON_PATH = "/coming-soon";
 
 /**
  * The enquiry form's anchor. Every page that carries the form gives it this

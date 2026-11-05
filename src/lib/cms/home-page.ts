@@ -105,5 +105,3 @@ export async function getHomePage() {
     feed,
   };
 }
-
-export type HomePageData = Awaited<ReturnType<typeof getHomePage>>;

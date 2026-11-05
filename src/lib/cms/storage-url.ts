@@ -1,16 +1,5 @@
 const MEDIA_COLLECTION_PREFIX = "media";
 
-console.log(process.env.S3_BUCKET);
-
-export function isS3StorageConfigured(): boolean {
-  return Boolean(
-    process.env.S3_BUCKET &&
-    process.env.S3_ACCESS_KEY_ID &&
-    process.env.S3_SECRET_ACCESS_KEY &&
-    process.env.S3_ENDPOINT,
-  );
-}
-
 /** Public Supabase Storage base, e.g. https://xxx.supabase.co/storage/v1/object/public/bucket */
 export function getSupabasePublicStorageBase(): string | null {
   const explicit = process.env.S3_PUBLIC_URL?.trim();

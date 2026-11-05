@@ -78,11 +78,6 @@ export const RAPID_RANKED = [
 
 export const RAPID_TOTAL = 100;
 
-/** How the platform explains the score, in its own words, shortened. */
-export const RAPID_EXPLAINER =
-  "Each symptom scores higher the fewer diseases it appears in; a disease's RAPID Score is the " +
-  "sum over the symptoms the clinician selected.";
-
 /**
  * Phenotype Analytics for the top candidate: how much each observed term
  * contributes, and the unobserved phenotypes most worth checking for next.

@@ -38,7 +38,7 @@ export function numberSections<T extends PageSection>(sections: T[]): (T & { num
 }
 
 /** Distance from the top of the viewport that a jumped-to section settles at. */
-export const SCROLL_OFFSET_PX = 118;
+const SCROLL_OFFSET_PX = 118;
 
 /**
  * Where an element sits in the document, ignoring transforms.
